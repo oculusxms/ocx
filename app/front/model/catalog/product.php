@@ -245,7 +245,7 @@ class Product extends Model {
 						endforeach;
 		
 						if ($implode):
-							$sql .= " " . implode(" AND ", $implode) . "";
+							$sql .= " {implode(" && ", $implode)}";
 						endif;
 		
 						if (!empty($data['filter_description'])):
@@ -1045,7 +1045,7 @@ class Product extends Model {
 						}
 		
 						if ($implode):
-							$sql .= " " . implode(" AND ", $implode) . "";
+							$sql .= " {implode(" && ", $implode}";
 						endif;
 		
 						if (!empty($data['filter_description'])):

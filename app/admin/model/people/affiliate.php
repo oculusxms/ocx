@@ -128,7 +128,7 @@ class Affiliate extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" AND ", $implode)}";
+			$sql .= " WHERE {implode(" && ", $implode)}";
 		}
 
 		$sort_data = array(
@@ -234,7 +234,7 @@ class Affiliate extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" AND ", $implode)}";
+			$sql .= " WHERE {implode(" && ", $implode)}";
 		}
 
 		$query = $this->db->query($sql);

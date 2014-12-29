@@ -18,7 +18,7 @@ class Affiliate extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" AND ", $implode)}";
+			$sql .= " WHERE {implode(" && ", $implode)}";
 		}
 				
 		$sql .= " GROUP BY at.affiliate_id ORDER BY commission DESC";
@@ -54,7 +54,7 @@ class Affiliate extends Model {
 		}
 		
 		if ($implode) {
-			$sql .= " WHERE {implode(" AND ", $implode)}";
+			$sql .= " WHERE {implode(" && ", $implode)}";
 		}
 				
 		if (isset($data['start']) || isset($data['limit'])) {
@@ -88,7 +88,7 @@ class Affiliate extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" AND ", $implode)}";
+			$sql .= " WHERE {implode(" && ", $implode)}";
 		}
 				
 		$sql .= " GROUP BY at.affiliate_id ORDER BY commission DESC";
@@ -124,7 +124,7 @@ class Affiliate extends Model {
 		}
 		
 		if ($implode) {
-			$sql .= " WHERE {implode(" AND ", $implode)}";
+			$sql .= " WHERE {implode(" && ", $implode)}";
 		}
 				
 		if (isset($data['start']) || isset($data['limit'])) {

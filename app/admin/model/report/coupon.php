@@ -18,7 +18,7 @@ class Coupon extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" AND ", $implode)}";
+			$sql .= " WHERE {implode(" && ", $implode)}";
 		}
 				
 		$sql .= " GROUP BY ch.coupon_id ORDER BY total DESC";
@@ -54,7 +54,7 @@ class Coupon extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" AND ", $implode)}";
+			$sql .= " WHERE {implode(" && ", $implode)}";
 		}
 
 		$query = $this->db->query($sql);
