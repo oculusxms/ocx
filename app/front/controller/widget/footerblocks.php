@@ -58,17 +58,17 @@ class Footerblocks extends Controller {
 		
 		if ($all_widgets):
 			foreach ($all_widgets as $widget):
-				if ($widget['position'] === $position and $widget['layout_id'] === $layout_id and $widget['status']):
+				if ($widget['position'] === $position && $widget['layout_id'] === $layout_id && $widget['status']):
 					$widgets[] = $widget;
 				endif;
 			endforeach;
 		endif;
 
-		if (empty($widgets) and $all_widgets):
+		if (empty($widgets) && $all_widgets):
 			$layout_id = $this->model_setting_menu->getDefault();
 
 			foreach ($all_widgets as $widget):
-				if ($widget['position'] === $position and $widget['layout_id'] === $layout_id and $widget['status']):
+				if ($widget['position'] === $position && $widget['layout_id'] === $layout_id && $widget['status']):
 					$widgets[] = $widget;
 				endif;
 			endforeach;
@@ -76,7 +76,7 @@ class Footerblocks extends Controller {
 
 		if ($widgets):
 			foreach ($widgets as $widget):
-				if ($widget['layout_id'] == $layout_id and $widget['position'] == $position and $widget['status']):
+				if ($widget['layout_id'] == $layout_id && $widget['position'] == $position && $widget['status']):
 					$menus[] = $this->model_setting_menu->getMenu($widget['menu_id']);
 				endif;
 			endforeach;
@@ -254,7 +254,7 @@ class Footerblocks extends Controller {
 				$item['name'] = ($this->customer->isLogged()) ? $this->language->get('text_dashboard') : $this->language->get('text_login');
 			endif;
 
-			if (strpos($item['href'], 'http') === false and strpos($item['href'], 'https') === false):
+			if (strpos($item['href'], 'http') === false && strpos($item['href'], 'https') === false):
 				$link['href'] = $this->url->link($item['href']);
 				$link['name'] = $item['name'];
 			else:

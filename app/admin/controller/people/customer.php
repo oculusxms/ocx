@@ -819,7 +819,7 @@ class Customer extends Controller {
 
 		$address_required = false;
 
-		if (isset($this->request->post['address']) and $address_required) {
+		if (isset($this->request->post['address']) && $address_required) {
 			foreach ($this->request->post['address'] as $key => $value) {
 				if ((utf8_strlen($value['firstname']) < 1) || (utf8_strlen($value['firstname']) > 32)) {
 					$this->error['address_firstname'][$key] = $this->language->get('error_firstname');

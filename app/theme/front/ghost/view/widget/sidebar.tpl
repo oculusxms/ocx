@@ -8,14 +8,14 @@
 		<?php if (isset($item['external'])): ?>
 		<?= $item['external']; ?>
 		<?php else: ?>
-		<a class="list-group-item<?= (isset($menu['menu_item_id']) and (isset($item['id'])) and ($item['id'] === $menu['menu_item_id'])) ? ' active' : ''; ?>" href="<?= $item['href']; ?>">
+		<a class="list-group-item<?= (isset($menu['menu_item_id']) && (isset($item['id'])) && ($item['id'] === $menu['menu_item_id'])) ? ' active' : ''; ?>" href="<?= $item['href']; ?>">
 			<?= $item['name']; ?>
 			<span class="pull-right"><i class="fa fa-bars"></i></span></a>
 		<?php endif; ?>
 		<?php if (isset($item['children'])): ?>
-		<?php if (isset($menu['menu_item_id']) and ($item['id'] === $menu['menu_item_id'])): ?>
+		<?php if (isset($menu['menu_item_id']) && ($item['id'] === $menu['menu_item_id'])): ?>
 		<?php foreach($item['children'] as $item): ?>
-			<?php if (isset($menu['menu_child_id']) and ($child['id'] === $menu['menu_child_id'])): ?>
+			<?php if (isset($menu['menu_child_id']) && ($child['id'] === $menu['menu_child_id'])): ?>
 				<a class="list-group-item list-group-subitem active" href="<?= $child['href']; ?>"><?= $child['name']; ?></a>
 			<?php else: ?>
 				<a class="list-group-item list-group-subitem" href="<?= $child['href']; ?>"><?= $child['name']; ?></a>

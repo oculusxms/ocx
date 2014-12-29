@@ -144,7 +144,7 @@ class Url extends LibraryService {
 				endif;
 			endforeach;
 			switch ($route['route']):
-				case 'catalog/product' and $key === 'path':
+				case 'catalog/product' && $key === 'path':
 					$array = $slugs['catalog/category'];
 					$categories = explode('_', $value);
 					foreach ($categories as $category):
@@ -163,7 +163,7 @@ class Url extends LibraryService {
 					endforeach;
 					unset($array);
 					break;
-				case 'catalog/category' and $key === 'path':	
+				case 'catalog/category' && $key === 'path':	
 					$array = $slugs['catalog/category'];
 					$categories = explode('_', $value);
 					foreach ($categories as $category):
@@ -182,7 +182,7 @@ class Url extends LibraryService {
 					endforeach;
 					unset($array);
 					break;
-				case 'catalog/product' and $key === 'product_id':
+				case 'catalog/product' && $key === 'product_id':
 					$array = $slugs['catalog/product'];
 					$slug = 'product_id:' . $value;
 					foreach ($array as $k => $v):
@@ -198,7 +198,7 @@ class Url extends LibraryService {
 					unset($slug);
 					unset($array);
 					break;
-				case ('catalog/manufacturer/info' or 'catalog/product') and $key === 'manufacturer_id':
+				case ('catalog/manufacturer/info' || 'catalog/product') && $key === 'manufacturer_id':
 					$array = $slugs['catalog/manufacturer/info'];
 					$slug = 'manufacturer_id:' . $value;
 					foreach ($array as $k => $v):
@@ -214,7 +214,7 @@ class Url extends LibraryService {
 					unset($slug);
 					unset($array);
 					break;
-				case ('content/page' and $route['route'] !== 'content/page/info') and $key === 'page_id':
+				case ('content/page' && $route['route'] !== 'content/page/info') && $key === 'page_id':
 					$array = $slugs['content/page'];
 					$slug = 'page_id:' . $value;
 					foreach ($array as $k => $v):
@@ -230,7 +230,7 @@ class Url extends LibraryService {
 					unset($slug);
 					unset($array);
 					break;
-				case 'content/page/info' and $key === 'page_id':
+				case 'content/page/info' && $key === 'page_id':
 					$array = $slugs['content/page'];	
 					$slug = 'page_id:' . $value;
 					foreach ($array as $k => $v):
@@ -246,7 +246,7 @@ class Url extends LibraryService {
 					unset($slug);
 					unset($array);
 					break;
-				case 'content/category' and $key == 'bpath':
+				case 'content/category' && $key == 'bpath':
 					$array = $slugs['content/category'];
 					$categories = explode('_', $value);
 					foreach ($categories as $category):

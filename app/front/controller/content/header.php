@@ -113,7 +113,7 @@ class Header extends Controller {
 		$homeroute 				= false;
 		$data['schema_type'] 	= 'Article';
 
-		if (!isset($this->request->get['route']) or $this->request->get['route'] == 'content/home'):
+		if (!isset($this->request->get['route']) || $this->request->get['route'] == 'content/home'):
 			$homeroute = true;
 		endif;
 

@@ -29,7 +29,7 @@ class Plugin extends Controller {
 		 * our ADMIN_FASCADE may not be named "admin".
 		 * Plugin admin areas should always be named "admin".
 		 */
-		if (($app['active.fascade'] === ADMIN_FASCADE) and (ADMIN_FASCADE !== 'admin')):
+		if (($app['active.fascade'] === ADMIN_FASCADE) && (ADMIN_FASCADE !== 'admin')):
 			$this->locale = str_replace($app['active.fascade'], 'admin', $this->locale);
 		endif;
 

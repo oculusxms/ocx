@@ -41,7 +41,7 @@ class Sidebarmenu extends Controller {
 		endif;
 
 		
-		if (isset($layout_id) and $layout_id !== $menu['layout_id']):
+		if (isset($layout_id) && $layout_id !== $menu['layout_id']):
 			continue;
 		endif;
 		$block 						= array();
@@ -53,10 +53,10 @@ class Sidebarmenu extends Controller {
 		 * Only really matters if you have a product category
 		 * AND content category menu at the same time.
 		 */
-		if ($menu['type'] === 'product_category' and $bpath === true):
+		if ($menu['type'] === 'product_category' && $bpath === true):
 			$block['menu_item_id']	= 0;
 			$block['menu_child_id']	= 0;
-		elseif ($menu['type'] === 'content_category' and $path === true):
+		elseif ($menu['type'] === 'content_category' && $path === true):
 			$block['menu_item_id']	= 0;
 			$block['menu_child_id']	= 0;
 		else:
@@ -203,7 +203,7 @@ class Sidebarmenu extends Controller {
 				$item['name'] = ($this->customer->isLogged()) ? $this->language->get('text_dashboard') : $this->language->get('text_login');
 			endif;
 
-			if (strpos($item['href'], 'http') === false and strpos($item['href'], 'https') === false):
+			if (strpos($item['href'], 'http') === false && strpos($item['href'], 'https') === false):
 				$link['href'] = $this->url->link($item['href']);
 				$link['name'] = $item['name'];
 			else:

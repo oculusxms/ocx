@@ -79,7 +79,7 @@ class Css extends LibraryService {
 
 		$cachefile = $cache->get($this->cache_key);
 		
-		if (is_bool($cachefile) or !parent::$app['config_cache_status']):
+		if (is_bool($cachefile) || !parent::$app['config_cache_status']):
 			$cached = '';
 
 			foreach($this->complete as $file):

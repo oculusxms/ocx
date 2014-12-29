@@ -74,7 +74,7 @@ class Customer extends Model {
 			WHERE customer_id = '" . (int)$customer_id . "'
 		");
 
-		if (isset($data['username']) and $data['username'] !== $query->row['username']):
+		if (isset($data['username']) && $data['username'] !== $query->row['username']):
 			$base = $this->app['path.image'] . 'data/' . $this->config->get('config_member_image_dir');
 
 			$old = $base . '/' . $query->row['username'];

@@ -82,7 +82,7 @@ class File extends LibraryService {
 		
 		if ($files):
 			foreach ($files as $file):
-				if (file_exists($file) and !is_dir($file)):
+				if (file_exists($file) && !is_dir($file)):
 					unlink($file);
 				endif;
 			endforeach;

@@ -45,12 +45,12 @@ class ActionService implements ActionServiceInterface {
 		if ($parts[0] === $app['prefix.plugin']):
 			$plugin = str_replace('_', '', strtolower($parts[1]));
 			array_shift($parts);
-			if ($parts[0] === $plugin and count($parts) > 1):
+			if ($parts[0] === $plugin && count($parts) > 1):
 				array_shift($parts);
 			endif;
 		endif;
 		
-		$this->fascade = (($app['active.fascade'] === ADMIN_FASCADE) and (ADMIN_FASCADE !== 'admin')) ? 'admin' : $app['active.fascade'];
+		$this->fascade = (($app['active.fascade'] === ADMIN_FASCADE) && (ADMIN_FASCADE !== 'admin')) ? 'admin' : $app['active.fascade'];
 
 		foreach ($parts as $key => $part):
 			if ($key < 2):

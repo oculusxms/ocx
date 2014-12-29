@@ -95,7 +95,7 @@ class Hook extends LibraryService {
 		 * always be using the name "admin" but our ADMIN_FASCADE could 
 		 * be different. Lets correct this.
 		 */
-		$fascade = ((parent::$app['active.fascade'] === ADMIN_FASCADE) and (ADMIN_FASCADE !== 'admin')) ? 'admin' : parent::$app['active.fascade'];
+		$fascade = ((parent::$app['active.fascade'] === ADMIN_FASCADE) && (ADMIN_FASCADE !== 'admin')) ? 'admin' : parent::$app['active.fascade'];
 		$key 	 = $fascade . '_controller';
 		
 		if (array_key_exists($key, $this->hooks)):

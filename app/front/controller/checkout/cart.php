@@ -476,7 +476,7 @@ class Cart extends Controller {
 		$this->theme->model('catalog/product');
 		
 		// this is a custom piece for private products
-		if (isset($this->request->post['cp']) and $this->request->post['cp'] == 1):
+		if (isset($this->request->post['cp']) && $this->request->post['cp'] == 1):
 			$this->theme->model('account/product');
 			$product_info = $this->model_account_product->getProduct($product_id, $this->customer->getId());
 		else:
