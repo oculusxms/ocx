@@ -60,7 +60,7 @@ class Upgrade extends Controller {
 
 	private function validate() {
 		if (DB_DRIVER == 'mysql'):
-			if (!$connection = @mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD)):
+			if (!$connection = mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD)):
 				$this->error['warning'] = 'Error: Could not connect to the database please make sure the database server, username and password is correct in the config_php file!';
 			else:
 				if (!mysql_select_db(DB_DATABASE, $connection)):

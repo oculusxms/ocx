@@ -23,7 +23,7 @@ class Paypalexpress extends Controller {
 
 			$this->response->redirect($this->url->link('module/payment', 'token=' . $this->session->data['token'], 'SSL'));
 		} else {
-			$data['error'] = @$this->error;
+			$data['error'] = $this->error;
 		}
 
 		$data['text_ipn_url'] = $this->app['https.public'] . 'payment/paypalexpress/ipn';
