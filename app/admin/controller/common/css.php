@@ -12,6 +12,6 @@ class Css extends Controller {
 		
 		header('Content-type: text/css');
 		
-		print_r($file);		
+		echo $file;		
 	}
 }

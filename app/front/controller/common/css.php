@@ -11,6 +11,6 @@ class Css extends Controller {
 		$this->theme->listen(__CLASS__, __FUNCTION__);
 		
 		header('Content-type: text/css');
-		print_r($file);		
+		echo $file;		
 	}
 }

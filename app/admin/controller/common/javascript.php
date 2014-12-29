@@ -45,6 +45,6 @@ class Javascript extends Controller {
 		$file = $this->filecache->get($key);
 		
 		header('Content-Type: application/javascript');
-		print_r($file);
+		echo $file;
 	}
 }
