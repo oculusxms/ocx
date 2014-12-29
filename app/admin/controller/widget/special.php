@@ -1,0 +1,78 @@
+<?php
+
+namespace Admin\Controller\Widget;
+use Oculus\Engine\Controller;
+
+class Special extends Controller {
+	private $error = array(); 
+
+	public function index() {   
+		$data = $this->theme->language('widget/special');
+		$this->theme->setTitle($this->language->get('heading_title'));
+		$this->theme->model('setting/setting');
+
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			$this->model_setting_setting->editSetting('special', $this->request->post);
+			$this->cache->delete('products.special');
+			$this->session->data['success'] = $this->language->get('text_success');
+
+			$this->response->redirect($this->url->link('module/widget', 'token=' . $this->session->data['token'], 'SSL'));
+		}
+		
+		if (isset($this->error['warning'])) {
+			$data['error_warning'] = $this->error['warning'];
+		} else {
+			$data['error_warning'] = '';
+		}
+
+		if (isset($this->error['image'])) {
+			$data['error_image'] = $this->error['image'];
+		} else {
+			$data['error_image'] = array();
+		}
+
+		$this->breadcrumb->add('text_widget', 'module/widget');
+		$this->breadcrumb->add('heading_title', 'widget/special');
+		
+		$data['action'] = $this->url->link('widget/special', 'token=' . $this->session->data['token'], 'SSL');
+		$data['cancel'] = $this->url->link('module/widget', 'token=' . $this->session->data['token'], 'SSL');
+
+		$data['widgets'] = array();
+
+		if (isset($this->request->post['special_widget'])) {
+			$data['widgets'] = $this->request->post['special_widget'];
+		} elseif ($this->config->get('special_widget')) { 
+			$data['widgets'] = $this->config->get('special_widget');
+		}
+
+		$this->theme->model('design/layout');
+
+		$data['layouts'] = $this->model_design_layout->getLayouts();
+		
+		$this->theme->loadjs('javascript/widget/special', $data);
+		
+		$data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
+
+		$data = $this->theme->render_controllers($data);
+
+		$this->response->setOutput($this->theme->view('widget/special', $data));
+	}
+
+	protected function validate() {
+		if (!$this->user->hasPermission('modify', 'widget/special')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		if (isset($this->request->post['special_widget'])) {
+			foreach ($this->request->post['special_widget'] as $key => $value) {
+				if (!$value['image_width'] || !$value['image_height']) {
+					$this->error['image'][$key] = $this->language->get('error_image');
+				}
+			}
+		}
+		
+		$this->theme->listen(__CLASS__, __FUNCTION__);	
+
+		return !$this->error;	
+	}
+}
