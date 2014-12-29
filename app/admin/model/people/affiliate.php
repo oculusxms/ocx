@@ -128,7 +128,7 @@ class Affiliate extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE " . implode(" AND ", $implode);
+			$sql .= " WHERE {implode(" AND ", $implode)}";
 		}
 
 		$sort_data = array(
