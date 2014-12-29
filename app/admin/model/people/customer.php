@@ -398,7 +398,7 @@ class Customer extends Model {
 		);	
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY {$data['sort']}";	
 		} else {
 			$sql .= " ORDER BY name";	
 		}

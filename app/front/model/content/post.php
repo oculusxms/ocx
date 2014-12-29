@@ -171,7 +171,7 @@ class Post extends Model {
 				if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model') {
 					$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";
 				} else {
-					$sql .= " ORDER BY " . $data['sort'];
+					$sql .= " ORDER BY {$data['sort']}";
 				}
 			} else {
 				$sql .= " ORDER BY p.date_added";	
