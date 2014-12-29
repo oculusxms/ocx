@@ -5,44 +5,75 @@ use Oculus\Engine\Model;
  
 class Attributegroup extends Model {
 	public function addAttributeGroup($data) {
-		$this->db->query("INSERT INTO {$this->db->prefix}attribute_group SET sort_order = '" . (int)$data['sort_order'] . "'");
+		$this->db->query("
+			INSERT INTO {$this->db->prefix}attribute_group 
+			SET sort_order = '" . (int)$data['sort_order'] . "'");
 
 		$attribute_group_id = $this->db->getLastId();
 
 		foreach ($data['attribute_group_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO {$this->db->prefix}attribute_group_description SET attribute_group_id = '" . (int)$attribute_group_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+			$this->db->query("
+				INSERT INTO {$this->db->prefix}attribute_group_description 
+				SET 
+					attribute_group_id = '" . (int)$attribute_group_id . "', 
+					language_id = '" . (int)$language_id . "', 
+					name = '" . $this->db->escape($value['name']) . "'");
 		}
 
 		$this->theme->trigger('admin_add_attribute_group', array('attribute_group_id' => $attribute_group_id));
 	}
 
 	public function editAttributeGroup($attribute_group_id, $data) {
-		$this->db->query("UPDATE {$this->db->prefix}attribute_group SET sort_order = '" . (int)$data['sort_order'] . "' WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
+		$this->db->query("
+			UPDATE {$this->db->prefix}attribute_group 
+			SET 
+				sort_order = '" . (int)$data['sort_order'] . "' 
+			WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
 
-		$this->db->query("DELETE FROM {$this->db->prefix}attribute_group_description WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
+		$this->db->query("
+			DELETE FROM {$this->db->prefix}attribute_group_description 
+			WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
 
 		foreach ($data['attribute_group_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO {$this->db->prefix}attribute_group_description SET attribute_group_id = '" . (int)$attribute_group_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+			$this->db->query("
+				INSERT INTO {$this->db->prefix}attribute_group_description 
+				SET 
+					attribute_group_id = '" . (int)$attribute_group_id . "', 
+					language_id = '" . (int)$language_id . "', 
+					name = '" . $this->db->escape($value['name']) . "'");
 		}
 
 		$this->theme->trigger('admin_edit_attribute_group', array('attribute_group_id' => $attribute_group_id));
 	}
 
 	public function deleteAttributeGroup($attribute_group_id) {
-		$this->db->query("DELETE FROM {$this->db->prefix}attribute_group WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
-		$this->db->query("DELETE FROM {$this->db->prefix}attribute_group_description WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
+		$this->db->query("
+			DELETE FROM {$this->db->prefix}attribute_group 
+			WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
+		
+		$this->db->query("
+			DELETE FROM {$this->db->prefix}attribute_group_description 
+			WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
 
 		$this->theme->trigger('admin_delete_attribute_group', array('attribute_group_id' => $attribute_group_id));
 	}
 
 	public function getAttributeGroup($attribute_group_id) {
-		$query = $this->db->query("SELECT * FROM {$this->db->prefix}attribute_group WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
+		$query = $this->db->query("
+			SELECT * FROM {$this->db->prefix}attribute_group 
+			WHERE attribute_group_id = '" . (int)$attribute_group_id . "'");
 
 		return $query->row;
 	}
 
 	public function getAttributeGroups($data = array()) {
-		$sql = "SELECT * FROM {$this->db->prefix}attribute_group ag LEFT JOIN {$this->db->prefix}attribute_group_description agd ON (ag.attribute_group_id = agd.attribute_group_id) WHERE agd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$params = array();
+		$sql = "
+			SELECT * 
+			FROM {$this->db->prefix}attribute_group ag 
+			LEFT JOIN {$this->db->prefix}attribute_group_description agd 
+			ON (ag.attribute_group_id = agd.attribute_group_id) 
+			WHERE agd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = array(
 			'agd.name',
@@ -50,7 +81,7 @@ class Attributegroup extends Model {
 		);	
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY {$data['sort']}";
 		} else {
 			$sql .= " ORDER BY agd.name";	
 		}	
@@ -71,10 +102,10 @@ class Attributegroup extends Model {
 			}	
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}	
+		}
 
-		$query = $this->db->query($sql);
-
+		$query = $this->db->query($sql, $params);
+		
 		return $query->rows;
 	}
 

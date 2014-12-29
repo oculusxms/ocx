@@ -32,8 +32,8 @@ class Db extends LibraryService {
 		return $this->db->execute();
 	}
 
-	public function query($sql) {
-		return $this->db->query($sql);
+	public function query($sql, $params = array()) {
+		return $this->db->query($sql, $params);
 	}
 
 	public function escape($value) {

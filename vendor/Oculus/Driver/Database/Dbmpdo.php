@@ -54,14 +54,22 @@ final class Dbmpdo {
 		} catch(PDOException $e) {
 			trigger_error('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br />' . $sql);
 		}
+
+		if ($result):
+			return $result;
+		else:
+			$result = new stdClass();
+			$result->row = array();
+			$result->rows = array();
+			$result->num_rows = 0;
+			return $result;
+		endif;
 	}
 
 	public function query($sql, $params = array()) {
 		$this->statement = $this->pdo->prepare($sql);
 		$result = false;
-
-		//$query_count = $this->container['query_count'];
-
+		
 		try {
 			if ($this->statement && $this->statement->execute($params)):
 				$data = array();
@@ -70,14 +78,11 @@ final class Dbmpdo {
 					$data[] = $row;
 				endwhile;
 
-				//$query_count++;
-
 				$result = new stdClass();
 				$result->row = (isset($data[0]) ? $data[0] : array());
 				$result->rows = $data;
 				$result->num_rows = $this->statement->rowCount();
 
-				//$this->container['query_count'] = $query_count;
 			endif;
 		} catch (PDOException $e) {
 			trigger_error('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br />' . $sql);
