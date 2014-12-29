@@ -595,7 +595,7 @@ class Customer extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE " . implode(" AND ", $implode);
+			$sql .= " WHERE {implode(" AND ", $implode)}";
 		}
 
 		$query = $this->db->query($sql);

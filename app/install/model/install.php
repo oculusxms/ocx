@@ -39,7 +39,7 @@ class Install extends Model {
 			$db->query("SET CHARACTER SET utf8");
 			$db->query("SET @@session.sql_mode = 'MYSQL40'");
 			$db->query("
-				DELETE FROM `" . $data['db_prefix'] . "user` 
+				DELETE FROM {$data['db_prefix']}user 
 				WHERE user_id = '1'
 			");
 		
@@ -57,12 +57,12 @@ class Install extends Model {
 			");
 
 			$db->query("
-				DELETE FROM `" . $data['db_prefix'] . "setting` 
+				DELETE FROM {$data['db_prefix']}setting 
 				WHERE `key` = 'config_email'
 			");
 			
 			$db->query("
-				INSERT INTO `" . $data['db_prefix'] . "setting` 
+				INSERT INTO {$data['db_prefix']}setting 
 				SET 
 					`group` = 'config', 
 					`key` = 'config_email', 
@@ -83,12 +83,12 @@ class Install extends Model {
 			// ");
 			
 			$db->query("
-				DELETE FROM `" . $data['db_prefix'] . "setting` 
+				DELETE FROM {$data['db_prefix']}setting 
 				WHERE `key` = 'config_encryption'
 			");
 			
 			$db->query("
-				INSERT INTO `" . $data['db_prefix'] . "setting` 
+				INSERT INTO {$data['db_prefix']}setting 
 				SET 
 					`group` = 'config', 
 					`key` = 'config_encryption', 
@@ -96,7 +96,7 @@ class Install extends Model {
 			");
 			
 			$db->query("
-				UPDATE `" . $data['db_prefix'] . "product` 
+				UPDATE {$data['db_prefix']}product 
 				SET `viewed` = '0'
 			");
 			

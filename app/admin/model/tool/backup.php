@@ -49,7 +49,7 @@ class Backup extends Model {
 			if ($status) {
 				$output .= 'TRUNCATE TABLE `' . $table . '`;' . "\n\n";
 
-				$query = $this->db->query("SELECT * FROM `" . $table . "`");
+				$query = $this->db->query("SELECT * FROM `{$table}`");
 
 				foreach ($query->rows as $result) {
 					$fields = '';

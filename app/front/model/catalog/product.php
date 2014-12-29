@@ -310,7 +310,7 @@ class Product extends Model {
 
 				if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
 					if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model'):
-						$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";
+						$sql .= " ORDER BY LCASE({$data['sort']})";
 					elseif ($data['sort'] == 'p.price'):
 						$sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
 					else:
@@ -454,7 +454,7 @@ class Product extends Model {
 		
 				if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
 					if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model'):
-						$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";
+						$sql .= " ORDER BY LCASE({$data['sort']})";
 					else:
 						$sql .= " ORDER BY {$data['sort']}";
 					endif;
