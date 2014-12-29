@@ -33,7 +33,6 @@ class View {
 			return $output;
 		else:
 			trigger_error('Error: Could not load template ' . $this->file . '!');
-			exit();
 		endif;	
 	}
 }

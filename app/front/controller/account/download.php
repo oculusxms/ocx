@@ -143,12 +143,11 @@ class Download extends Controller {
 
 					$this->model_account_download->updateRemaining($this->request->get['order_download_id']);
 
-					exit;
 				} else {
-					exit('Error: Could not find file ' . $file . '!');
+					trigger_error('Error: Could not find file ' . $file . '!');
 				}
 			} else {
-				exit('Error: Headers already sent out!');
+				trigger_error('Error: Headers already sent out!');
 			}
 		} else {
 			$this->response->redirect($this->url->link('account/download', '', 'SSL'));

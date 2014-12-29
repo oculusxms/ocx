@@ -77,27 +77,22 @@ class Mail extends LibraryService {
 	public function send() {
 		if (!$this->to) {
 			trigger_error('Error: E-Mail to required!');
-			exit();			
 		}
 
 		if (!$this->from) {
-			trigger_error('Error: E-Mail from required!');
-			exit();					
+			trigger_error('Error: E-Mail from required!');		
 		}
 
 		if (!$this->sender) {
-			trigger_error('Error: E-Mail sender required!');
-			exit();					
+			trigger_error('Error: E-Mail sender required!');		
 		}
 
 		if (!$this->subject) {
-			trigger_error('Error: E-Mail subject required!');
-			exit();					
+			trigger_error('Error: E-Mail subject required!');			
 		}
 
 		if ((!$this->text) && (!$this->html)) {
-			trigger_error('Error: E-Mail message required!');
-			exit();					
+			trigger_error('Error: E-Mail message required!');			
 		}
 		
 		$mail  = new PHPMailer($this->debugMode);
@@ -184,27 +179,22 @@ class Mail extends LibraryService {
 	public function old_send() {
 		if (!$this->to):
 			trigger_error('Error: E-Mail to required!');
-			exit();
 		endif;
 
 		if (!$this->from):
 			trigger_error('Error: E-Mail from required!');
-			exit();
 		endif;
 
 		if (!$this->sender):
 			trigger_error('Error: E-Mail sender required!');
-			exit();
 		endif;
 
 		if (!$this->subject):
 			trigger_error('Error: E-Mail subject required!');
-			exit();
 		endif;
 
 		if ((!$this->text) && (!$this->html)):
 			trigger_error('Error: E-Mail message required!');
-			exit();
 		endif;
 
 		if (is_array($this->to)):
@@ -289,7 +279,6 @@ class Mail extends LibraryService {
 
 			if (!$handle):
 				trigger_error('Error: ' . $errstr . ' (' . $errno . ')');
-				exit();
 			else:
 				if (substr(PHP_OS, 0, 3) != 'WIN'):
 					socket_set_timeout($handle, $this->smtp_timeout, 0);
@@ -315,7 +304,6 @@ class Mail extends LibraryService {
 
 				if (substr($reply, 0, 3) != 250):
 					trigger_error('Error: EHLO not accepted from server!');
-					exit();
 				endif;
 
 				if ($is_tls):
@@ -333,7 +321,6 @@ class Mail extends LibraryService {
 
 					if (substr($reply, 0, 3) != 220):
 						trigger_error('Error: STARTTLS not accepted from server!');
-						exit();
 					endif;
 
 					stream_socket_enable_crypto($handle, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
@@ -354,7 +341,6 @@ class Mail extends LibraryService {
 
 					if (substr($reply, 0, 3) != 250):
 						trigger_error('Error: EHLO not accepted from server!');
-						exit();
 					endif;
 
 					fputs($handle, 'AUTH LOGIN' . "\r\n");
@@ -371,7 +357,6 @@ class Mail extends LibraryService {
 
 					if (substr($reply, 0, 3) != 334):
 						trigger_error('Error: AUTH LOGIN not accepted from server!');
-						exit();
 					endif;
 
 					fputs($handle, base64_encode($this->smtp_username) . "\r\n");
@@ -388,7 +373,6 @@ class Mail extends LibraryService {
 
 					if (substr($reply, 0, 3) != 334):
 						trigger_error('Error: Username not accepted from server!');
-						exit();
 					endif;
 
 					fputs($handle, base64_encode($this->smtp_password) . "\r\n");
@@ -405,7 +389,6 @@ class Mail extends LibraryService {
 
 					if (substr($reply, 0, 3) != 235):
 						trigger_error('Error: Password not accepted from server!');
-						exit();
 					endif;
 				else:
 					fputs($handle, 'HELO ' . getenv('SERVER_NAME') . "\r\n");
@@ -422,7 +405,6 @@ class Mail extends LibraryService {
 
 					if (substr($reply, 0, 3) != 250):
 						trigger_error('Error: HELO not accepted from server!');
-						exit();
 					endif;
 				endif;
 
@@ -444,7 +426,6 @@ class Mail extends LibraryService {
 
 				if (substr($reply, 0, 3) != 250):
 					trigger_error('Error: MAIL FROM not accepted from server!');
-					exit();
 				endif;
 
 				if (!is_array($this->to)):
@@ -462,7 +443,6 @@ class Mail extends LibraryService {
 
 					if ((substr($reply, 0, 3) != 250) && (substr($reply, 0, 3) != 251)):
 						trigger_error('Error: RCPT TO not accepted from server!');
-						exit();
 					endif;
 				else:
 					foreach ($this->to as $recipient):
@@ -480,7 +460,6 @@ class Mail extends LibraryService {
 
 						if ((substr($reply, 0, 3) != 250) && (substr($reply, 0, 3) != 251)):
 							trigger_error('Error: RCPT TO not accepted from server!');
-							exit();
 						endif;
 					endforeach;
 				endif;
@@ -499,7 +478,6 @@ class Mail extends LibraryService {
 
 				if (substr($reply, 0, 3) != 354):
 					trigger_error('Error: DATA not accepted from server!');
-					exit();
 				endif;
 
 				// According to rfc 821 we should not send more than 1000 including the CRLF
@@ -534,7 +512,6 @@ class Mail extends LibraryService {
 
 				if (substr($reply, 0, 3) != 250):
 					trigger_error('Error: DATA not accepted from server!');
-					exit();
 				endif;
 
 				fputs($handle, 'QUIT' . "\r\n");
@@ -551,7 +528,6 @@ class Mail extends LibraryService {
 
 				if (substr($reply, 0, 3) != 221):
 					trigger_error('Error: QUIT not accepted from server!');
-					exit();
 				endif;
 
 				fclose($handle);

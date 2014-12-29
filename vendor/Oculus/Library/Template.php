@@ -32,8 +32,7 @@ class Template extends LibraryService {
 			else
 				return $content;
 		else:
-			trigger_error('Error: Could not load template ' . $file . '!');
-			exit();				
+			trigger_error('Error: Could not load template ' . $file . '!');		
 		endif;
 	}
 
@@ -50,8 +49,7 @@ class Template extends LibraryService {
 			$content = ob_get_clean();
 			return $content;
 		else:
-			trigger_error('Error: Could not load main mail template ' . $file . '!');
-			exit();				
+			trigger_error('Error: Could not load main mail template ' . $file . '!');		
 		endif;
 	}
 }

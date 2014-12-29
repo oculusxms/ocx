@@ -381,7 +381,7 @@ final class Theme {
 		echo "</pre>";
 		
 		if ($quit):
-			exit;
+			return false;
 		endif;
 	}
 }

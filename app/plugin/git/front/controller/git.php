@@ -34,7 +34,7 @@ class Git extends Plugin {
 		$paths = $this->seek();
 		$this->directory = $paths['parent'];
 		$this->alias	 = $paths['directory'];
-		//$this->fetch();exit;
+		
 		$HTTP_RAW_POST_DATA = file_get_contents('php://input');
 		
 		try {
@@ -62,8 +62,7 @@ class Git extends Plugin {
 						// No need to throw an exception for branches.
 						// Any push will trigger the hook and that's not an error.
 						// just exit.
-						// throw new Exception(sprintf($this->language->get('error_branch'), $this->branch, $branch));
-						exit;
+						return;
 					endif;
 				else:
 					throw new Exception($this->language->get('error_json_decode'));

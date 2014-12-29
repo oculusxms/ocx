@@ -1977,12 +1977,11 @@ class Order extends Controller {
 					header('Content-Length: ' . filesize($file));
 
 					readfile($file, 'rb');
-					exit;
 				} else {
-					exit('Error: Could not find file ' . $file . '!');
+					trigger_error('Error: Could not find file ' . $file . '!');
 				}
 			} else {
-				exit('Error: Headers already sent out!');
+				trigger_error('Error: Headers already sent out!');
 			}
 		} else {
 			$data = $this->theme->language('error/not_found');

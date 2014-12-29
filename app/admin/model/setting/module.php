@@ -53,7 +53,7 @@ class Module extends Model {
 					$result = mysql_query($query, $connection); 
 
 					if (!$result):
-						die(mysql_error());
+						trigger_error(mysql_error());
 					endif;
 
 					$query = '';

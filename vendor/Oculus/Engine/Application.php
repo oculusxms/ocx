@@ -67,7 +67,7 @@ class Application {
 		$request = new Request($this->data);
 		$route 	 = null;
 		$face 	 = FRONT_FASCADE;
-		//var_dump($request);exit;
+		
 		if (isset($request->get['_route_'])):
 			$paths = explode('/', $request->get['_route_']);
 			

@@ -22,7 +22,7 @@ class Image {
 
 			$this->image = $this->create($file);
 		else:
-			exit('Error: Could not load image ' . $file . '!');
+			trigger_error('Error: Could not load image ' . $file . '!');
 		endif;
 	}
 

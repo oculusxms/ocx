@@ -36,7 +36,7 @@ class Installer {
 		$request = new Request($this->data);
 		$route 	 = null;
 		$face 	 = INSTALL_FASCADE;
-		//var_dump($request);exit;
+		
 		if (isset($request->get['_route_'])):
 			$paths = explode('/', $request->get['_route_']);
 			
@@ -82,7 +82,7 @@ class Installer {
 			$request->server['QUERY_STRING'] = '_route_=' . $route;
 			$request->server['REQUEST_URI'] = '/' . $route;
 		endif;
-		//var_dump($request);exit;
+		
 		/**
 		 * Let's find and remove our pre-render controllers for this fascade.
 		 * Instead of settings those via the loop below, we'll remove them

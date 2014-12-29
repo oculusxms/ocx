@@ -17,7 +17,7 @@ class Upgrade extends Model {
 		$file = $this->app['path.application'] . 'ocx.sql';
 
 		if (!file_exists($file)):
-			exit('Could not load sql file: ' . $file);
+			trigger_error('Could not load sql file: ' . $file);
 		endif;
 
 		$string = '';

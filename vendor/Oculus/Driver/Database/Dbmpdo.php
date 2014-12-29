@@ -86,7 +86,6 @@ final class Dbmpdo {
 			endif;
 		} catch (PDOException $e) {
 			trigger_error('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br />' . $sql);
-			exit();
 		}
 
 		if ($result):

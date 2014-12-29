@@ -20,7 +20,6 @@ class Response extends LibraryService {
 	public function redirect($url, $status = 302) {
 		header('Status: ' . $status);
 		header('Location: ' . str_replace(array('&amp;', "\n", "\r"), array('&', '', ''), $url));
-		exit();
 	}
 
 	public function setCompression($level) {

@@ -110,9 +110,8 @@ class Twocheckout extends Controller {
 			echo '  <p>Please follow <a href="' . $this->url->link('checkout/success') . '">link</a>!</p>' . "\n";
 			echo '</body>' . "\n";
 			echo '</html>' . "\n";
-			exit();
 		} else {
-			echo 'The response from 2checkout.com can\'t be parsed. Contact site administrator, please!'; 
+			trigger_error ('The response from 2checkout.com can\'t be parsed. Contact site administrator, please!'); 
 		}		
 	}
 }
