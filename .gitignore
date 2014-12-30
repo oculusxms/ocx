@@ -6,6 +6,7 @@
 /app/storage/logs/*
 /app/storage/session/*
 /app/storage/views/*
+/app/front/controller/tool/test.php
 # change this to /public/image/* once cloned
 /public/image/cache/*
 .DS_Store

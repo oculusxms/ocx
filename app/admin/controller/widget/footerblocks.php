@@ -43,7 +43,7 @@ class Footerblocks extends Controller {
 		$data['menus'] = array();
 
 		$menus = $this->model_module_menu->getMenus();
-		//$this->theme->test($menus);
+		
 		foreach($menus as $menu):
 			$data['menus'][] = array(
 				'menu_id' 	=> $menu['menu_id'],

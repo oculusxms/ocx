@@ -94,7 +94,7 @@ class Masonry extends Controller {
 			
 			foreach ($results as $result) {
 				if ($result['image'] && file_exists($this->app['path.image'] . $result['image'])) {
-					if ($setting['height'] != false) {
+					if ($setting['height'] !== false) {
 						$height = $setting['height'];
 					} else {
 						$size = getimagesize($this->app['path.image'] . $result['image']);

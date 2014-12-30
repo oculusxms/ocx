@@ -375,7 +375,7 @@ class PHPMailer {
    * @param boolean $exceptions Should we throw external exceptions?
    */
   public function __construct($exceptions = false) {
-    $this->exceptions = ($exceptions == true);
+    $this->exceptions = ($exceptions === true);
   }
 
   /**
@@ -853,7 +853,7 @@ class PHPMailer {
     if(!$this->smtp->Data($header . $body)) {
       throw new phpmailerException($this->Lang('data_not_accepted'), self::STOP_CRITICAL);
     }
-    if($this->SMTPKeepAlive == true) {
+    if($this->SMTPKeepAlive === true) {
       $this->smtp->Reset();
     }
     return true;
@@ -973,7 +973,7 @@ class PHPMailer {
       $l = @include $lang_path.'phpmailer.lang-'.$langcode.'.php';
     }
     $this->language = $PHPMAILER_LANG;
-    return ($l == true); //Returns false if language not found
+    return ($l === true); //Returns false if language not found
   }
 
   /**

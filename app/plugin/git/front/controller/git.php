@@ -53,7 +53,6 @@ class Git extends Plugin {
 							endforeach;
 							$message .= "\n\n";
 							
-							//file_put_contents($this->directory . '/' . $this->alias . '/result.txt', $message, FILE_APPEND);
 							mail('vkronlein@icloud.com', 'Deployment', 'Fetch seems to have executed successfully.' . "\n\n" . $message);
 						else:
 							throw new Exception($this->language->get('error_pull_failed'));

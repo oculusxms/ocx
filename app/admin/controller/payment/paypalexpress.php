@@ -17,7 +17,6 @@ class Paypalexpress extends Controller {
 		$this->error = array();
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			//$this->theme->test($this->request->post);
 			$this->model_setting_setting->editSetting('paypalexpress', $this->request->post);
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -374,7 +373,7 @@ class Paypalexpress extends Controller {
 				'debug_data' => json_encode($result)
 			);
 
-			if ($result == false) {
+			if ($result === false) {
 				$transaction['amount'] = number_format($this->request->post['amount'], 2);
 				$paypal_order_transaction_id = $this->model_payment_paypalexpress->addTransaction($transaction, $call_data);
 
@@ -600,7 +599,7 @@ class Paypalexpress extends Controller {
 						'debug_data' => json_encode($result)
 					);
 
-					if ($result == false) {
+					if ($result === false) {
 						$transaction['payment_status'] = 'Failed';
 						$this->model_payment_paypalexpress->addTransaction($transaction, $call_data);
 						$this->response->redirect($this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $paypal_order['order_id'], 'SSL'));

@@ -780,11 +780,11 @@ class Customer extends Controller {
 		}
 		
 		if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
-			//$this->error['firstname'] = $this->language->get('error_firstname');
+			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
 
 		if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
-			//$this->error['lastname'] = $this->language->get('error_lastname');
+			$this->error['lastname'] = $this->language->get('error_lastname');
 		}
 
 		if ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
@@ -804,7 +804,7 @@ class Customer extends Controller {
 		}
 
 		if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
-			//$this->error['telephone'] = $this->language->get('error_telephone');
+			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
 
 		if ($this->request->post['password'] || (!isset($this->request->get['customer_id']))) {

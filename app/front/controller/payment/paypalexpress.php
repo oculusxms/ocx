@@ -140,7 +140,7 @@ class Paypalexpress extends Controller {
 			$this->session->data['comment'] = $result['PAYMENTREQUEST_0_NOTETEXT'];
 		}
 
-		if ($this->session->data['paypal']['guest'] == true) {
+		if ($this->session->data['paypal']['guest'] === true) {
 
 			$this->session->data['guest']['customer_group_id'] = $this->config->get('config_default_visibility');
 			$this->session->data['guest']['firstname'] = trim($result['FIRSTNAME']);
@@ -319,7 +319,7 @@ class Paypalexpress extends Controller {
 				/**
 				 * If there is no address match add the address and set the info.
 				 */
-				if ($match == false) {
+				if ($match === false) {
 
 					$shipping_name = explode(' ', trim($result['PAYMENTREQUEST_0_SHIPTONAME']));
 					$shipping_first_name = $shipping_name[0];
@@ -714,9 +714,6 @@ class Paypalexpress extends Controller {
 		
 		$data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
 
-		//$this->theme->set_controller('coupon', 'module/coupon');
-		//$this->theme->set_controller('voucher', 'module/voucher');
-		//$this->theme->set_controller('reward', 'module/reward');
 		$this->theme->set_controller('header', 'shop/header');
 		$this->theme->set_controller('footer', 'shop/footer');
 		
@@ -1199,7 +1196,7 @@ class Paypalexpress extends Controller {
 
 				$this->response->redirect($this->url->link('checkout/success'));
 
-				if (isset($result['REDIRECTREQUIRED']) && $result['REDIRECTREQUIRED'] == true) {
+				if (isset($result['REDIRECTREQUIRED']) && $result['REDIRECTREQUIRED'] === true) {
 					//- handle german redirect here
 					$this->response->redirect('https://www.paypal.com/cgi-bin/webscr?cmd=_complete-express-checkout&token=' . $this->session->data['paypal']['token']);
 				}
@@ -1461,7 +1458,7 @@ class Paypalexpress extends Controller {
 				}
 			}
 
-			if (isset($result['REDIRECTREQUIRED']) && $result['REDIRECTREQUIRED'] == true) {
+			if (isset($result['REDIRECTREQUIRED']) && $result['REDIRECTREQUIRED'] === true) {
 				//- handle german redirect here
 				$this->response->redirect('https://www.paypal.com/cgi-bin/webscr?cmd=_complete-express-checkout&token=' . $this->session->data['paypal']['token']);
 			} else {
@@ -1520,16 +1517,6 @@ class Paypalexpress extends Controller {
 		$this->theme->model('account/recurring');
 
 		$request = 'cmd=_notify-validate';
-		//$message_1 = 'Paypal IPN Original Posted Data' . "\n\n";
-		
-		foreach ($this->request->post as $key => $value) {
-			$request .= '&' . $key . '=' . urlencode(html_entity_decode($value, ENT_QUOTES, 'UTF-8'));
-			//$message_1 .= "[$key] => $value " . "\n";
-		}
-
-		//$message_1 .= "\n" . '---END' . "\n\n";
-
-		//mail('vkronlein@icloud.com', 'Paypal Message 1', $message_1);
 
 		if ($this->config->get('paypalexpress_test') == 1) {
 			$curl = curl_init('https://www.sandbox.paypal.com/cgi-bin/webscr');
@@ -1545,7 +1532,6 @@ class Paypalexpress extends Controller {
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 		$response = trim(curl_exec($curl));
-		//$response = 'VERIFIED';
 
 		if (!$response) {
 			$this->model_payment_paypalexpress->log(array('error' => curl_error($curl),'error_no' => curl_errno($curl)), 'Curl failed');
@@ -1671,7 +1657,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 					
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->processPayment($recur['order_recurring_id'], $this->request->post['amount'], $recur['status']);
 					}
 				}
@@ -1680,7 +1666,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_suspended') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->processSuspend($recur['order_recurring_id']);
 					}
 				}
@@ -1689,7 +1675,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_suspended_due_to_max_failed_payment') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->suspendMaxFailed($recur['order_recurring_id']);
 					}
 				}
@@ -1698,7 +1684,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_failed') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->paymentFailed($recur['order_recurring_id']);
 					}
 				}
@@ -1707,7 +1693,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_outstanding_payment_failed') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->outstandingPaymentFailed($recur['order_recurring_id']);
 					}
 				}
@@ -1716,7 +1702,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_outstanding_payment') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->outstandingPayment($recur['order_recurring_id'], $this->request->post['amount'], $recur['status']);
 					}
 				}
@@ -1725,7 +1711,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_recurring_date_added') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->dateAdded($recur['order_recurring_id'], $recur['status']);
 					}
 				}
@@ -1734,7 +1720,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_recurring_cancel') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false && $recur['status'] != 3) {
+					if ($recur !== false && $recur['status'] != 3) {
 						$this->model_payment_expressipn->processCanceled($recur['order_recurring_id']);
 					}
 				}
@@ -1743,7 +1729,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_skipped') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->processSkipped($recur['order_recurring_id']);
 					}
 				}
@@ -1752,7 +1738,7 @@ class Paypalexpress extends Controller {
 				if ($this->request->post['txn_type'] == 'recurring_payment_expired') {
 					$recur = $this->model_account_recurring->getProfileByRef($this->request->post['recurring_payment_id']);
 
-					if ($recur != false) {
+					if ($recur !== false) {
 						$this->model_payment_expressipn->processExpired($recur['order_recurring_id']);
 					}
 				}

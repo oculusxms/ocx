@@ -12,8 +12,6 @@ class Calendar extends Controller {
 		$this->breadcrumb->add('heading_title', 'content/calendar', NULL, true, 'SSL');
 
 		$this->theme->model('catalog/product');
-		//$events = $this->model_catalog_product->getEvents();
-		//$this->theme->test($events);
 
 		$data['template_path'] = 'asset/' . $this->app['theme.name'] . '/template/';
 		$data['today'] = date('Y-m-d', time());

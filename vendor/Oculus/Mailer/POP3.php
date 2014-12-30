@@ -152,14 +152,14 @@ class POP3 {
     $this->host = $host;
 
     //  If no port value is passed, retrieve it
-    if ($port == false) {
+    if ($port === false) {
       $this->port = $this->POP3_PORT;
     } else {
       $this->port = $port;
     }
 
     //  If no port value is passed, retrieve it
-    if ($tval == false) {
+    if ($tval === false) {
       $this->tval = $this->POP3_TIMEOUT;
     } else {
       $this->tval = $tval;
@@ -229,7 +229,7 @@ class POP3 {
     }
 
     //  Did we connect?
-    if ($this->pop_conn == false) {
+    if ($this->pop_conn === false) {
       //  It would appear not...
       $this->error = array(
         'error' => "Failed to connect to server $host on port $port",
@@ -276,7 +276,7 @@ class POP3 {
    * @return boolean
    */
   public function Login ($username = '', $password = '') {
-    if ($this->connected == false) {
+    if ($this->connected === false) {
       $this->error = 'Not connected to POP3 server';
 
       if ($this->do_debug >= 1) {

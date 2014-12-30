@@ -84,8 +84,6 @@ class Product extends Controller {
 
 		$data['continue'] = $this->url->link('account/dashboard', '', 'SSL');
 
-		//$this->theme->test($data['products']);
-
 		$data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
 		
 		$data = $this->theme->render_controllers($data);

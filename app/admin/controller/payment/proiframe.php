@@ -309,7 +309,7 @@ class Proiframe extends Controller {
 						'debug_data' => json_encode($result),
 					);
 
-					if ($result == false) {
+					if ($result === false) {
 						$transaction['payment_status'] = 'Failed';
 						$this->model_payment_proiframe->addTransaction($transaction, $call_data);
 						
@@ -492,7 +492,7 @@ class Proiframe extends Controller {
 				'debug_data' => json_encode($result),
 			);
 
-			if ($result == false) {
+			if ($result === false) {
 				$transaction['amount'] = number_format($this->request->post['amount'], 2);
 				$paypal_iframe_order_transaction_id = $this->model_payment_proiframe->addTransaction($transaction, $call_data);
 

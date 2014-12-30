@@ -150,9 +150,6 @@ class Paymentaddress extends Controller {
 						unset($this->session->data['payment_country_id']);	
 						unset($this->session->data['payment_zone_id']);	
 					}
-
-					//unset($this->session->data['payment_method']);	
-					//unset($this->session->data['payment_methods']);
 				}
 			} else {
 				if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {

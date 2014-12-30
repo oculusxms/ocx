@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 
 // Check Version
-if (version_compare(phpversion(), '5.4.0', '<') == true):
+if (version_compare(phpversion(), '5.4.0', '<') === true):
 	trigger_error('PHP5.4+ Required');
 endif;
 

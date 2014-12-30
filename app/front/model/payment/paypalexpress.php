@@ -339,7 +339,6 @@ class Paypalexpress extends Model {
 				ON(ord.order_id = po.order_id) 
 			WHERE ord.reference = '" . $this->db->escape($reference_id) . "'");
 
-		//$this->theme->test($query);
 		return $query->row;
 	}
 

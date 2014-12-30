@@ -27,19 +27,23 @@ class Headermenu extends Controller {
 		$routes   = explode('/', $route);
 		$layout   = $routes[0] . '/';
 
-		$layouts  = $this->model_setting_menu->getLayouts($layout);
-
 		switch($routes[0]):
 			case 'account':
 			case 'affiliate':
 			case 'content':
 			case 'error':
+			case 'feed':
+			case 'tool':
 				$position = 'content_header';
 				break;
 			case 'catalog':
 			case 'checkout':
 			case 'shop':
+			case 'payment':
 				$position = 'shop_header';
+				break;
+			default:
+				$position = 'content_header';
 				break;
 		endswitch;
 
@@ -119,7 +123,7 @@ class Headermenu extends Controller {
 				);
 			endif;
 		endforeach;
-		//$this->theme->test($menu_items);
+		
 		return $menu_items;
 	}
 

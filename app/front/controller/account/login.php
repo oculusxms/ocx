@@ -156,9 +156,6 @@ class Login extends Controller {
 		
 		$data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
 		
-		//$this->theme->set_controller('header', 'shop/header');
-		//$this->theme->set_controller('footer', 'shop/footer');
-		
 		$data = $this->theme->render_controllers($data);
 
 		$this->response->setOutput($this->theme->view('account/login', $data));

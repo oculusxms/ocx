@@ -27,8 +27,6 @@ class Footerblocks extends Controller {
 		$routes   = explode('/', $route);
 		$layout   = $routes[0] . '/';
 
-		$layouts  = $this->model_setting_menu->getLayouts($layout);
-
 		switch($routes[0]):
 			case 'account':
 			case 'affiliate':
@@ -46,6 +44,7 @@ class Footerblocks extends Controller {
 				break;
 			default:
 				$position = 'content_footer';
+				break;
 		endswitch;
 
 		

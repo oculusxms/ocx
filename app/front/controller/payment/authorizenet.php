@@ -43,8 +43,6 @@ class Authorizenet extends Controller {
 			$url = 'https://test.authorize.net/gateway/transact.dll';		
 		}	
 
-		//$url = 'https://secure.networkmerchants.com/gateway/transact.dll';	
-
 		$this->theme->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
