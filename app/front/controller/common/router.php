@@ -28,7 +28,7 @@ class Router extends Controller {
             
             // Custom Routes
             if (!isset($this->request->get['route'])):
-                foreach ($this->custom_routes() as $key => $value):
+                foreach ($this->customRoutes() as $key => $value):
                     if ($this->request->get['_route_'] == $key):
                         $this->request->get['route'] = $value;
                     endif;
@@ -126,7 +126,7 @@ class Router extends Controller {
         endif;
     }
     
-    public function custom_routes() {
+    public function customRoutes() {
         $routes = $this->get('custom_routes');
         $routes = $this->theme->listen(__CLASS__, __FUNCTION__, $routes);
         

@@ -169,4 +169,6 @@ class Home extends Controller {
             endif;
         }
     }
+}
+
     
