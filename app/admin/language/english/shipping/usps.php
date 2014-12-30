@@ -1,4 +1,19 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
 $_['heading_title']         = 'United States Postal Service';
 
@@ -65,13 +80,13 @@ $_['entry_tax']             = 'Tax Class:';
 $_['entry_geo_zone']        = 'Geo Zone:';
 $_['entry_status']          = 'Status:';
 $_['entry_sort_order']      = 'Sort Order:';
-$_['entry_debug']      		= 'Debug Mode:<br /><span class="help">Saves send/recv data to the system log</span>';
+$_['entry_debug']           = 'Debug Mode:<br /><span class="help">Saves send/recv data to the system log</span>';
 
 // Error
 $_['error_permission']      = 'Warning: You do not have permission to modify United States Postal Service.';
 $_['error_user_id']         = 'User ID Required.';
 $_['error_postcode']        = 'Zip Code Required.';
-$_['error_width']        	= 'Width Required.';
-$_['error_length']        	= 'Length Required.';
-$_['error_height']        	= 'Height Required.';
-$_['error_girth']        	= 'Girth Required.';
+$_['error_width']           = 'Width Required.';
+$_['error_length']          = 'Length Required.';
+$_['error_height']          = 'Height Required.';
+$_['error_girth']           = 'Girth Required.';

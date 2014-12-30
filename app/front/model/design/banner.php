@@ -1,15 +1,29 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 namespace Front\Model\Design;
 use Oculus\Engine\Model;
 
-class Banner extends Model {	
-	public function getBanner($banner_id) {
-		$key = 'banner.' . $banner_id;
-		$cachefile = $this->cache->get($key);
-
-		if (is_bool($cachefile)): 
-			$query = $this->db->query("
+class Banner extends Model {
+    public function getBanner($banner_id) {
+        $key = 'banner.' . $banner_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT * 
 				FROM {$this->db->prefix}banner_image bi 
 				LEFT JOIN {$this->db->prefix}banner_image_description bid 
@@ -17,16 +31,16 @@ class Banner extends Model {
 				WHERE bi.banner_id = '" . (int)$banner_id . "' 
 				AND bid.language_id = '" . (int)$this->config->get('config_language_id') . "'
 			");
-
-			if ($query->num_rows):
-				$cachefile = $query->rows;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, array());
-				return array();
-			endif;
-		endif;
-		
-		return $cachefile;
-	}
+            
+            if ($query->num_rows):
+                $cachefile = $query->rows;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, array());
+                return array();
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
 }

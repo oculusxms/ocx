@@ -1,10 +1,25 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
 $_['heading_title']           = 'Country';
 
 // Text
 $_['text_success']            = 'Success: You have modified countries.';
-$_['text_confirm']			  = 'Deleting this country will also delete all zones and geo-zones associated with this country, are you sure you want to do this, this cannot be undone?';
+$_['text_confirm']            = 'Deleting this country will also delete all zones and geo-zones associated with this country, are you sure you want to do this, this cannot be undone?';
 
 // Column
 $_['column_name']             = 'Country Name';
@@ -17,16 +32,16 @@ $_['entry_name']              = 'Country Name:';
 $_['entry_iso_code_2']        = 'ISO Code (2):';
 $_['entry_iso_code_3']        = 'ISO Code (3):';
 $_['entry_address_format']    = 'Address Format:<br /><span class="help">
-First Name = {firstname}<br />
-Last Name = {lastname}<br />
-Company = {company}<br />
-Address 1 = {address_1}<br />
-Address 2 = {address_2}<br />
-City = {city}<br />
-Postcode = {postcode}<br />
-Zone = {zone}<br />
-Zone Code = {zone_code}<br />
-Country = {country}</span>';
+First Name                    = {firstname}<br />
+Last Name                     = {lastname}<br />
+Company                       = {company}<br />
+Address 1                     = {address_1}<br />
+Address 2                     = {address_2}<br />
+City                          = {city}<br />
+Postcode                      = {postcode}<br />
+Zone                          = {zone}<br />
+Zone Code                     = {zone_code}<br />
+Country                       = {country}</span>';
 $_['entry_postcode_required'] = 'Postcode Required:';
 $_['entry_status']            = 'Status:';
 

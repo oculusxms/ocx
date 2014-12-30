@@ -1,8 +1,23 @@
 <?php
-// Heading
-$_['heading_title']          = 'Products'; 
 
-// Text  
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
+// Heading
+$_['heading_title']          = 'Products';
+
+// Text
 $_['text_success']           = 'Success: You have modified products.';
 $_['text_plus']              = '+';
 $_['text_minus']             = '-';
@@ -14,7 +29,7 @@ $_['text_option']            = 'Option';
 $_['text_option_value']      = 'Option Value';
 $_['text_percent']           = 'Percentage';
 $_['text_amount']            = 'Fixed Amount';
-$_['text_build']			 = 'Build Slug';
+$_['text_build']             = 'Build Slug';
 
 // Column
 $_['column_name']            = 'Product Name';
@@ -27,11 +42,11 @@ $_['column_action']          = 'Action';
 
 // Entry
 $_['entry_name']             = 'Product Name:';
-$_['entry_meta_keyword'] 	 = 'Meta Tag Keywords:';
+$_['entry_meta_keyword']     = 'Meta Tag Keywords:';
 $_['entry_meta_description'] = 'Meta Tag Description:';
 $_['entry_description']      = 'Description:';
 $_['entry_store']            = 'Stores:';
-$_['entry_slug']          	 = 'URL Slug:<br /><span class="help">Do not use spaces, instead replace spaces with - and make sure the slug is globally unique.</span>';
+$_['entry_slug']             = 'URL Slug:<br /><span class="help">Do not use spaces, instead replace spaces with - and make sure the slug is globally unique.</span>';
 $_['entry_model']            = 'Model:';
 $_['entry_sku']              = 'SKU:<br/><span class="help">Stock Keeping Unit</span>';
 $_['entry_upc']              = 'UPC:<br/><span class="help">Universal Product Code</span>';
@@ -40,7 +55,7 @@ $_['entry_jan']              = 'JAN:<br/><span class="help">Japanese Article Num
 $_['entry_isbn']             = 'ISBN:<br/><span class="help">International Standard Book Number</span>';
 $_['entry_mpn']              = 'MPN:<br/><span class="help">Manufacturer Part Number</span>';
 $_['entry_location']         = 'Location:';
-$_['entry_shipping']         = 'Requires Shipping:'; 
+$_['entry_shipping']         = 'Requires Shipping:';
 $_['entry_manufacturer']     = 'Manufacturer:<br /><span class="help">(Autocomplete)</span>';
 $_['entry_date_available']   = 'Date Available:';
 $_['entry_quantity']         = 'Quantity:';
@@ -72,13 +87,13 @@ $_['entry_category']         = 'Categories:<br /><span class="help">(autocomplet
 $_['entry_filter']           = 'Filters:<br /><span class="help">(autocomplete)</span>';
 $_['entry_download']         = 'Downloads:<br /><span class="help">(autocomplete)</span>';
 $_['entry_related']          = 'Related Products:<br /><span class="help">(autocomplete)</span>';
-$_['entry_tag']          	 = 'Product Tags:<br /><span class="help">comma separated</span>';
+$_['entry_tag']              = 'Product Tags:<br /><span class="help">comma separated</span>';
 $_['entry_recurring']        = 'Recurring Profile';
 $_['entry_reward']           = 'Reward Points:';
 $_['entry_layout']           = 'Layout Override:';
 $_['entry_profile']          = 'Profile:';
-$_['entry_visibility']		 = 'Visibility:<br><span class="help">Select the lowest customer group that\'s able to view this product. Any group with a lower ID will not be able to see the product.</span>';
-$_['entry_one_customer']	 = 'Single Customer:<br><span class="help">(autocomplete)<br>Set this product for a single customer. No other customers will be able to see this product and the customer must be logged in.</span>';
+$_['entry_visibility']       = 'Visibility:<br><span class="help">Select the lowest customer group that\'s able to view this product. Any group with a lower ID will not be able to see the product.</span>';
+$_['entry_one_customer']     = 'Single Customer:<br><span class="help">(autocomplete)<br>Set this product for a single customer. No other customers will be able to see this product and the customer must be logged in.</span>';
 
 $_['text_recurring_help']    = 'Recurring amounts are calculated by frequency and cycles. <br />For example if you use a frequency of "week" and a cycle of "2", then the user will be billed every 2 weeks. <br />The length is the number of times the user will make a payment, set this to 0 for recurring payments until they\'re are cancelled.';
 $_['text_recurring_title']   = 'Recurring payments';
@@ -105,6 +120,6 @@ $_['error_warning']          = 'Warning: Please check the form carefully for err
 $_['error_permission']       = 'Warning: You do not have permission to modify products.';
 $_['error_name']             = 'Product Name must be greater than 3 and less than 255 characters.';
 $_['error_model']            = 'Product Model must be greater than 3 and less than 64 characters.';
-$_['error_slug'] 			 = 'Warning: Slug is required for products.';
-$_['error_slug_found'] 		 = 'ERROR: The slug %s is already in use, please set a different one in the input field.';
-$_['error_name_first']		 = 'ERROR: Please enter a name for your product before attempting to build a slug.';
+$_['error_slug']             = 'Warning: Slug is required for products.';
+$_['error_slug_found']       = 'ERROR: The slug %s is already in use, please set a different one in the input field.';
+$_['error_name_first']       = 'ERROR: Please enter a name for your product before attempting to build a slug.';

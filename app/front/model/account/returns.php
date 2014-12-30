@@ -1,11 +1,25 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 namespace Front\Model\Account;
 use Oculus\Engine\Model;
 
 class Returns extends Model {
-	public function addReturn($data) {			      	
-		$this->db->query("
+    public function addReturn($data) {
+        $this->db->query("
 			INSERT INTO `{$this->db->prefix}return` 
 			SET 
 				order_id = '" . (int)$data['order_id'] . "', 
@@ -25,14 +39,14 @@ class Returns extends Model {
 				date_added = NOW(), 
 				date_modified = NOW()
 		");
-
-		$return_id = $this->db->getLastId();
-
-		$this->theme->trigger('return_add', array('return_id' => $return_id));
-	}
-	
-	public function getReturn($return_id) {
-		$query = $this->db->query("
+        
+        $return_id = $this->db->getLastId();
+        
+        $this->theme->trigger('return_add', array('return_id' => $return_id));
+    }
+    
+    public function getReturn($return_id) {
+        $query = $this->db->query("
 			SELECT 
 				r.return_id, 
 				r.order_id, 
@@ -70,20 +84,20 @@ class Returns extends Model {
 			WHERE return_id = '" . (int)$return_id . "' 
 			AND customer_id = '" . $this->customer->getId() . "'
 		");
-		
-		return $query->row;
-	}
-	
-	public function getReturns($start = 0, $limit = 20) {
-		if ($start < 0) {
-			$start = 0;
-		}
-		
-		if ($limit < 1) {
-			$limit = 20;
-		}	
-				
-		$query = $this->db->query("
+        
+        return $query->row;
+    }
+    
+    public function getReturns($start = 0, $limit = 20) {
+        if ($start < 0) {
+            $start = 0;
+        }
+        
+        if ($limit < 1) {
+            $limit = 20;
+        }
+        
+        $query = $this->db->query("
 			SELECT 
 				r.return_id, 
 				r.order_id, 
@@ -98,22 +112,22 @@ class Returns extends Model {
 			AND rs.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 			ORDER BY r.return_id 
 			DESC LIMIT " . (int)$start . "," . (int)$limit);
-		
-		return $query->rows;
-	}
-			
-	public function getTotalReturns() {
-		$query = $this->db->query("
+        
+        return $query->rows;
+    }
+    
+    public function getTotalReturns() {
+        $query = $this->db->query("
 			SELECT COUNT(*) AS total 
 			FROM `{$this->db->prefix}return` 
 			WHERE customer_id = '" . $this->customer->getId() . "'
 		");
-		
-		return $query->row['total'];
-	}
-	
-	public function getReturnHistories($return_id) {
-		$query = $this->db->query("
+        
+        return $query->row['total'];
+    }
+    
+    public function getReturnHistories($return_id) {
+        $query = $this->db->query("
 			SELECT 
 				rh.date_added, 
 				rs.name AS status, 
@@ -126,7 +140,7 @@ class Returns extends Model {
 			AND rs.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 			ORDER BY rh.date_added ASC
 		");
-
-		return $query->rows;
-	}			
+        
+        return $query->rows;
+    }
 }

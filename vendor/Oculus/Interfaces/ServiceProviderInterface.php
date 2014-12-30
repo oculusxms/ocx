@@ -2,12 +2,24 @@
 
 /*
 |--------------------------------------------------------------------------
-|	Oculus Container
+|   Oculus XMS
 |--------------------------------------------------------------------------
 |
-|	This file is a version of Pimple\ServiceProviderInterface, renamed to 
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+|
+|--------------------------------------------------------------------------
+|	Oculus Service Provider Interface
+|--------------------------------------------------------------------------
+|
+|	This file is a version of Pimple\ServiceProviderInterface, renamed 
 |	to be included as part of the Oculus Framework Engine.
-|	See Copyright below.
+|	See original Copyright below.
 |	
 */
 

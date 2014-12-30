@@ -1,11 +1,25 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 namespace Front\Model\Checkout;
 use Oculus\Engine\Model;
 
 class Recurring extends Model {
-	public function create($item, $order_id, $description) {
-		$this->db->query("
+    public function create($item, $order_id, $description) {
+        $this->db->query("
 			INSERT INTO `{$this->db->prefix}order_recurring` 
 			SET 
 				`order_id` = '" . (int)$order_id . "', 
@@ -27,20 +41,20 @@ class Recurring extends Model {
 				`trial_duration` = '" . (int)$item['recurring']['trial_duration'] . "', 
 				`trial_price` = '" . (float)$item['recurring']['trial_price'] . "', 
 				`reference` = ''");
-
-		return $this->db->getLastId();
-	}
-	
-	public function addReference($recurring_id, $ref) {
-		$this->db->query("
+        
+        return $this->db->getLastId();
+    }
+    
+    public function addReference($recurring_id, $ref) {
+        $this->db->query("
 			UPDATE {$this->db->prefix}order_recurring 
 			SET reference = '" . $this->db->escape($ref) . "' 
 			WHERE order_recurring_id = '" . (int)$recurring_id . "'");
-
-		if ($this->db->countAffected() > 0):
-			return true;
-		else:
-			return false;
-		endif;
-	}
+        
+        if ($this->db->countAffected() > 0):
+            return true;
+        else:
+            return false;
+        endif;
+    }
 }

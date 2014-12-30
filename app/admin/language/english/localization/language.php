@@ -1,9 +1,24 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
-$_['heading_title']     = 'Language';  
+$_['heading_title']     = 'Language';
 
 // Text
-$_['text_success']      = 'Success: You have modified languages.'; 
+$_['text_success']      = 'Success: You have modified languages.';
 
 // Column
 $_['column_name']       = 'Language Name';

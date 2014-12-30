@@ -2,6 +2,18 @@
 
 /*
 |--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+|
+|--------------------------------------------------------------------------
 |	Override Function for Framework Overrides
 |--------------------------------------------------------------------------
 |
@@ -11,15 +23,15 @@
 */
 
 function override($filename) {
-	if (substr($filename, 0, strlen(FRAMEWORK)) == FRAMEWORK):
-		$file = dirname(APP_PATH) . '/override' . substr($filename, strlen(dirname(FRAMEWORK)));
-	endif;
-	
-	if (is_readable($file)):
-		return $file;
-	else:
-		return $filename;
-	endif;
+    if (substr($filename, 0, strlen(FRAMEWORK)) == FRAMEWORK):
+        $file = dirname(APP_PATH) . '/override' . substr($filename, strlen(dirname(FRAMEWORK)));
+    endif;
+    
+    if (is_readable($file)):
+        return $file;
+    else:
+        return $filename;
+    endif;
 }
 
 /*
@@ -32,15 +44,15 @@ function override($filename) {
 |	
 */
 
-spl_autoload_register(function($class) {
-	$file = dirname(FRAMEWORK) . '/' . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
-
-	if (!is_readable($file)):
-		return;
-	else:
-		require override($file);
-		return true;
-	endif;
+spl_autoload_register(function ($class) {
+    $file = dirname(FRAMEWORK) . '/' . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
+    
+    if (!is_readable($file)):
+        return;
+    else:
+        require override($file);
+        return true;
+    endif;
 });
 
 /*
@@ -52,10 +64,9 @@ spl_autoload_register(function($class) {
 |
 */
 
-require	override(FRAMEWORK . 'Helper/json.php');
+require override(FRAMEWORK . 'Helper/json.php');
 require override(FRAMEWORK . 'Helper/utf8.php');
 require override(FRAMEWORK . 'Helper/vat.php');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -67,13 +78,13 @@ require override(FRAMEWORK . 'Helper/vat.php');
 |	
 */
 
-spl_autoload_register(function($class) {
-	$file = APP_PATH . str_replace('\\', DIRECTORY_SEPARATOR, strtolower($class)) . '.php';
-
-	if (!is_readable($file)):
-		return;
-	else:
-		require $file;
-		return true;
-	endif;
+spl_autoload_register(function ($class) {
+    $file = APP_PATH . str_replace('\\', DIRECTORY_SEPARATOR, strtolower($class)) . '.php';
+    
+    if (!is_readable($file)):
+        return;
+    else:
+        require $file;
+        return true;
+    endif;
 });

@@ -1,5 +1,20 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
+
 define('OCX_START', microtime(true));
 define('VERSION', '1.0.11');
 
@@ -26,9 +41,8 @@ require __DIR__ . '/paths.php';
 */
 
 if ($loader = dirname(FRAMEWORK) . '/autoload.php'):
-	require $loader;
+    require $loader;
 endif;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -42,20 +56,20 @@ endif;
 */
 
 if (preg_match('/^\/(' . INSTALL_FASCADE . ')/', $_SERVER['REQUEST_URI'])):
-	$app = new Oculus\Engine\Installer;
-	return $app->buildConfigRequest($config);
+    $app = new Oculus\Engine\Installer;
+    return $app->buildConfigRequest($config);
 else:
-	/**
-	 * 	We also need to redirect calls to the app when no db config 
-	 * 	file exists.
-	 */
-	if (!is_readable($config['base']['path.database'] . 'config/db.php')):
-		header('Location: ' . INSTALL_FASCADE);
-	else:
-		require $config['base']['path.database'] . 'config/db.php';
-	endif;
+    
+    /**
+     * 	We also need to redirect calls to the app when no db config
+     * 	file exists.
+     */
+    if (!is_readable($config['base']['path.database'] . 'config/db.php')):
+        header('Location: ' . INSTALL_FASCADE);
+    else:
+        require $config['base']['path.database'] . 'config/db.php';
+    endif;
 endif;
-
 
 /*
 |--------------------------------------------------------------------------

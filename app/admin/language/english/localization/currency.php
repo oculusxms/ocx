@@ -1,13 +1,28 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
-$_['heading_title']        = 'Currency';  
+$_['heading_title']        = 'Currency';
 
 // Text
 $_['text_success']         = 'Success: You have modified currencies.';
 
 // Column
 $_['column_title']         = 'Currency Title';
-$_['column_code']          = 'Code'; 
+$_['column_code']          = 'Code';
 $_['column_value']         = 'Value';
 $_['column_date_modified'] = 'Last Updated';
 $_['column_action']        = 'Action';

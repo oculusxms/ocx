@@ -1,4 +1,19 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
 $_['heading_title']                 = 'Dashboard';
 
@@ -21,7 +36,7 @@ $_['text_year']                     = 'This Year';
 $_['text_order']                    = 'Total Orders';
 $_['text_customer']                 = 'Total Customers';
 
-// Column 
+// Column
 $_['column_order']                  = 'Order ID';
 $_['column_customer']               = 'Customer';
 $_['column_status']                 = 'Status';

@@ -1,4 +1,19 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Locale
 $_['code']                          = 'en';
 $_['direction']                     = 'ltr';
@@ -26,13 +41,13 @@ $_['text_separator']                = ' &gt; ';
 $_['text_edit']                     = 'Edit';
 $_['text_view']                     = 'View';
 $_['text_dashboard']                = 'Dashboard';
-$_['text_confirm']					= 'Delete/Uninstall cannot be undone. Are you sure you want to do this?';
-$_['text_content_top']    			= 'Content Top';
-$_['text_post_header'] 				= 'Post Header';
-$_['text_content_bottom'] 			= 'Content Bottom';
-$_['text_pre_footer'] 				= 'Pre Footer';
-$_['text_column_left']    			= 'Column Left';
-$_['text_column_right']   			= 'Column Right';
+$_['text_confirm']                  = 'Delete/Uninstall cannot be undone. Are you sure you want to do this?';
+$_['text_content_top']              = 'Content Top';
+$_['text_post_header']              = 'Post Header';
+$_['text_content_bottom']           = 'Content Bottom';
+$_['text_pre_footer']               = 'Pre Footer';
+$_['text_column_left']              = 'Column Left';
+$_['text_column_right']             = 'Column Right';
 
 // Button
 $_['button_insert']                 = 'Insert';
@@ -43,7 +58,7 @@ $_['button_cancel_recurring']       = 'Cancel Recurring Payments';
 $_['button_clear']                  = 'Clear Log';
 $_['button_close']                  = 'Close';
 $_['button_filter']                 = 'Filter';
-$_['button_flush']			    	= 'Flush Cache';
+$_['button_flush']                  = 'Flush Cache';
 $_['button_send']                   = 'Send';
 $_['button_edit']                   = 'Edit';
 $_['button_copy']                   = 'Copy';
@@ -74,7 +89,7 @@ $_['button_add_total']              = 'Add Total';
 $_['button_add_recurring']          = 'Add Recurring';
 $_['button_add_reward']             = 'Add Reward Points';
 $_['button_add_route']              = 'Add Route';
-$_['button_add_rule' ]              = 'Add Rule';
+$_['button_add_rule']               = 'Add Rule';
 $_['button_add_widget']             = 'Add Widget';
 $_['button_add_link']               = 'Add Link';
 $_['button_update_total']           = 'Update Totals';
@@ -119,8 +134,8 @@ $_['tab_transaction']               = 'Transactions';
 $_['tab_voucher']                   = 'Vouchers';
 $_['tab_voucher_history']           = 'Voucher History';
 $_['tab_price']                     = 'Price';
-$_['tab_cache'] 					= 'Caches';
-$_['tab_blog']						= 'Blog';
+$_['tab_cache']                     = 'Caches';
+$_['tab_blog']                      = 'Blog';
 
 // Error
 $_['error_upload_1']                = 'Warning: The uploaded file exceeds the upload_max_filesize directive in php.ini.';

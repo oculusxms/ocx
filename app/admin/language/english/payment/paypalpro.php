@@ -1,8 +1,23 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
 $_['heading_title']      = 'PayPal Website Payment Pro';
 
-// Text 
+// Text
 $_['text_payment']       = 'Payment';
 $_['text_success']       = 'Success: You have modified PayPal Website Payment Pro Checkout account details.';
 $_['text_authorization'] = 'Authorization';
@@ -22,6 +37,6 @@ $_['entry_sort_order']   = 'Sort Order:';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify payment PayPal Website Payment Pro Checkout.';
-$_['error_username']     = 'API Username Required.'; 
-$_['error_password']     = 'API Password Required.'; 
+$_['error_username']     = 'API Username Required.';
+$_['error_password']     = 'API Password Required.';
 $_['error_signature']    = 'API Signature Required.';

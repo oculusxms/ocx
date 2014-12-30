@@ -1,5 +1,20 @@
 <?php
-// Heading 
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
+// Heading
 $_['heading_title']        = 'Register Account';
 
 // Text
@@ -11,7 +26,7 @@ $_['text_your_password']   = 'Your Password';
 $_['text_agree']           = 'I have read and agree to the <a class="modalbox" href="%s" alt="%s"><b>%s</b></a>';
 
 // Entry
-$_['entry_username'] 	    = 'Username';
+$_['entry_username']       = 'Username';
 $_['entry_email']          = 'E-Mail';
 $_['entry_customer_group'] = 'Membership Type';
 $_['entry_password']       = 'Password';

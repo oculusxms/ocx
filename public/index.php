@@ -1,13 +1,18 @@
 <?php
 
-/**
- * OCX - The Oculus XMS Framework
- *
- * @package Oculus
- * @author Vince Kronlein <vince@ocx.io>
- */
-
 /*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+|
 |--------------------------------------------------------------------------
 |	Turn Up the Heat!
 |--------------------------------------------------------------------------
@@ -19,7 +24,6 @@
 
 require dirname(__DIR__) . '/bootstrap/start.php';
 
-
 /*
 |--------------------------------------------------------------------------
 |	Flush the Cache for Development
@@ -30,9 +34,8 @@ require dirname(__DIR__) . '/bootstrap/start.php';
 */
 
 if ($app->data['active.fascade'] !== INSTALL_FASCADE && !$app->data['config_cache_status']):
-	$app->data['cache']->flush_cache();
+    $app->data['cache']->flush_cache();
 endif;
-
 
 /*
 |--------------------------------------------------------------------------

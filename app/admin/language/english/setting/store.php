@@ -1,4 +1,19 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
 $_['heading_title']                = 'Settings';
 
@@ -17,7 +32,7 @@ $_['text_payment']                 = 'Payment Address';
 
 // Column
 $_['column_name']                  = 'Store Name';
-$_['column_url']	               = 'Store URL';
+$_['column_url']                   = 'Store URL';
 $_['column_action']                = 'Action';
 
 // Entry
@@ -36,7 +51,7 @@ $_['entry_country']                = 'Country:';
 $_['entry_zone']                   = 'Region / State:';
 $_['entry_language']               = 'Language:';
 $_['entry_currency']               = 'Currency:';
-$_['entry_catalog_limit'] 	       = 'Default Items Per Page (Catalog):<br /><span class="help">Determines how many catalog items are shown per page (products, categories, etc)</span>';
+$_['entry_catalog_limit']          = 'Default Items Per Page (Catalog):<br /><span class="help">Determines how many catalog items are shown per page (products, categories, etc)</span>';
 $_['entry_tax']                    = 'Display Prices With Tax:';
 $_['entry_tax_default']            = 'Use Store Tax Address:<br /><span class="help">Use the store address to calculate taxes if no one is logged in. You can choose to use the store address for the customers shipping or payment address.</span>';
 $_['entry_tax_customer']           = 'Use Customer Tax Address:<br /><span class="help">Use the customers default address when they login to calculate taxes. You can choose to use the default address for the customers shipping or payment address.</span>';
@@ -73,7 +88,7 @@ $_['error_email']                  = 'E-Mail Address does not appear to be valid
 $_['error_telephone']              = 'Telephone must be between 3 and 32 characters.';
 $_['error_url']                    = 'Store URL required.';
 $_['error_title']                  = 'Title must be between 3 and 32 characters.';
-$_['error_limit']       	       = 'Limit required.';
+$_['error_limit']                  = 'Limit required.';
 $_['error_customer_group_display'] = 'You must include the default customer group if you are going to use this feature.';
 $_['error_image_thumb']            = 'Product image thumb size dimensions required.';
 $_['error_image_popup']            = 'Product image popup size dimensions required.';

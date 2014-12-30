@@ -1,4 +1,19 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
 $_['heading_title']       = 'Footer Blocks';
 
@@ -6,10 +21,10 @@ $_['heading_title']       = 'Footer Blocks';
 $_['text_widget']         = 'Widgets';
 $_['text_success']        = 'Success: You have modified widget footer blocks.';
 $_['text_content_footer'] = 'Content Footer';
-$_['text_shop_footer'] 	  = 'Shop Footer';
+$_['text_shop_footer']    = 'Shop Footer';
 
 // Entry
-$_['entry_menu']		  = 'Menu';
+$_['entry_menu']          = 'Menu';
 $_['entry_layout']        = 'Layout:';
 $_['entry_position']      = 'Position:';
 $_['entry_status']        = 'Status:';

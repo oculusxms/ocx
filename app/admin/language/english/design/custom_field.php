@@ -1,4 +1,19 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
 $_['heading_title']         = 'Custom Fields';
 
@@ -28,18 +43,18 @@ $_['column_sort_order']     = 'Sort Order';
 $_['column_action']         = 'Action';
 
 // Entry
-$_['entry_name']           = 'Custom Field Name:';
-$_['entry_type']           = 'Type:';
-$_['entry_value']          = 'Value:';
-$_['entry_custom_value']   = 'Custom Field Value Name:';
-$_['entry_required']       = 'Required:';
-$_['entry_location']       = 'Location:';
-$_['entry_position']       = 'Position:';
-$_['entry_sort_order']     = 'Sort Order:';
+$_['entry_name']            = 'Custom Field Name:';
+$_['entry_type']            = 'Type:';
+$_['entry_value']           = 'Value:';
+$_['entry_custom_value']    = 'Custom Field Value Name:';
+$_['entry_required']        = 'Required:';
+$_['entry_location']        = 'Location:';
+$_['entry_position']        = 'Position:';
+$_['entry_sort_order']      = 'Sort Order:';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to modify custom fields.';
-$_['error_name']           = 'Option Name must be between 1 and 128 characters.';
-$_['error_type']           = 'Warning: Option Values required.';
-$_['error_custom_value']   = 'Custom Value Name must be between 1 and 128 characters.';
-$_['error_product']        = 'Warning: This custom cannot be deleted as it is currently assigned to %s products.';
+$_['error_permission']      = 'Warning: You do not have permission to modify custom fields.';
+$_['error_name']            = 'Option Name must be between 1 and 128 characters.';
+$_['error_type']            = 'Warning: Option Values required.';
+$_['error_custom_value']    = 'Custom Value Name must be between 1 and 128 characters.';
+$_['error_product']         = 'Warning: This custom cannot be deleted as it is currently assigned to %s products.';

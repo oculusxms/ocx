@@ -1,29 +1,44 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
-$_['heading_title']       = 'Options';
+$_['heading_title']      = 'Options';
 
 // Text
-$_['text_success']        = 'Success: You have modified options.';
-$_['text_choose']         = 'Choose';
-$_['text_select']         = 'Select';
-$_['text_radio']          = 'Radio';
-$_['text_checkbox']       = 'Checkbox';
-$_['text_image']          = 'Image';
-$_['text_input']          = 'Input';
-$_['text_text']           = 'Text';
-$_['text_textarea']       = 'Textarea';
-$_['text_file']           = 'File';
-$_['text_date']           = 'Date';
-$_['text_datetime']       = 'Date &amp; Time';
-$_['text_time']           = 'Time';
-$_['text_image_manager']  = 'Image Manager';
-$_['text_browse']         = 'Browse';
-$_['text_clear']          = 'Clear';
+$_['text_success']       = 'Success: You have modified options.';
+$_['text_choose']        = 'Choose';
+$_['text_select']        = 'Select';
+$_['text_radio']         = 'Radio';
+$_['text_checkbox']      = 'Checkbox';
+$_['text_image']         = 'Image';
+$_['text_input']         = 'Input';
+$_['text_text']          = 'Text';
+$_['text_textarea']      = 'Textarea';
+$_['text_file']          = 'File';
+$_['text_date']          = 'Date';
+$_['text_datetime']      = 'Date &amp; Time';
+$_['text_time']          = 'Time';
+$_['text_image_manager'] = 'Image Manager';
+$_['text_browse']        = 'Browse';
+$_['text_clear']         = 'Clear';
 
 // Column
-$_['column_name']         = 'Option Name';
-$_['column_sort_order']   = 'Sort Order';
-$_['column_action']       = 'Action';
+$_['column_name']        = 'Option Name';
+$_['column_sort_order']  = 'Sort Order';
+$_['column_action']      = 'Action';
 
 // Entry
 $_['entry_name']         = 'Option Name:';

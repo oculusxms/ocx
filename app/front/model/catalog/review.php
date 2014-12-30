@@ -1,11 +1,25 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 namespace Front\Model\Catalog;
 use Oculus\Engine\Model;
 
-class Review extends Model {		
-	public function addReview($product_id, $data) {
-		$this->db->query("
+class Review extends Model {
+    public function addReview($product_id, $data) {
+        $this->db->query("
 			INSERT INTO {$this->db->prefix}review 
 			SET 
 				author = '" . $this->db->escape($data['name']) . "', 
@@ -15,24 +29,24 @@ class Review extends Model {
 				rating = '" . (int)$data['rating'] . "', 
 				date_added = NOW()
 		");
-
-		$this->theme->trigger('review_add', array('review_id' => $this->db->getLastId()));
-	}
-		
-	public function getReviewsByProductId($product_id, $start = 0, $limit = 20) {
-		if ($start < 0):
-			$start = 0;
-		endif;
-		
-		if ($limit < 1):
-			$limit = 20;
-		endif;
-
-		$key = 'reviews.product.' . $product_id . '.' . $start . '.' . $limit;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+        
+        $this->theme->trigger('review_add', array('review_id' => $this->db->getLastId()));
+    }
+    
+    public function getReviewsByProductId($product_id, $start = 0, $limit = 20) {
+        if ($start < 0):
+            $start = 0;
+        endif;
+        
+        if ($limit < 1):
+            $limit = 20;
+        endif;
+        
+        $key = 'reviews.product.' . $product_id . '.' . $start . '.' . $limit;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT 
 					r.review_id, 
 					r.author, 
@@ -54,25 +68,25 @@ class Review extends Model {
 				AND r.status = '1' 
 				AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 				ORDER BY r.date_added DESC LIMIT " . (int)$start . "," . (int)$limit);
-
-			if ($query->num_rows):
-				$cachefile = $query->rows;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, array());
-				return array();
-			endif;
-		endif;
-			
-		return $cachefile;
-	}
-
-	public function getTotalReviewsByProductId($product_id) {
-		$key = 'reviews.product.total.' . $product_id;
-		$cachefile = $this->cache->get($key);
-
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+            
+            if ($query->num_rows):
+                $cachefile = $query->rows;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, array());
+                return array();
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getTotalReviewsByProductId($product_id) {
+        $key = 'reviews.product.total.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT COUNT(*) AS total 
 				FROM {$this->db->prefix}review r 
 				LEFT JOIN {$this->db->prefix}product p 
@@ -85,11 +99,11 @@ class Review extends Model {
 				AND r.status = '1' 
 				AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "'
 			");
-
-			$cachefile = $query->row['total'];
-			$this->cache->set($key, $cachefile);
-		endif;
-		
-		return $cachefile;
-	}
+            
+            $cachefile = $query->row['total'];
+            $this->cache->set($key, $cachefile);
+        endif;
+        
+        return $cachefile;
+    }
 }

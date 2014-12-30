@@ -1,4 +1,19 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Locale
 $_['code']                  = 'en';
 $_['direction']             = 'ltr';
@@ -7,7 +22,7 @@ $_['date_format_long']      = 'l F dS, Y';
 $_['time_format']           = 'g:i A';
 $_['decimal_point']         = '.';
 $_['thousand_point']        = ',';
-$_['post_date']				= '\o\n F dS, Y \a\t g:i A';
+$_['post_date']             = '\o\n F dS, Y \a\t g:i A';
 
 // Text
 $_['text_home']             = '<i class="fa fa-home fa-lg"></i>';
@@ -18,12 +33,12 @@ $_['text_select']           = ' --- Please Select --- ';
 $_['text_all_zones']        = 'All Zones';
 $_['text_pagination']       = 'Showing {start} to {end} of {total} ({pages} Pages)';
 $_['text_separator']        = ' &raquo; ';
-$_['text_read_more'] 		= 'Read More';
-$_['text_by'] 				= 'by';
+$_['text_read_more']        = 'Read More';
+$_['text_by']               = 'by';
 
-$_['email_store_name']		= '<i>Thanks.<br><br>Your Site Management<br>FoundHER<br>yoursite.com</i><br><br>';
-$_['email_store_url']		= 'http://yoursite.com';
-$_['email_server'] 			= '<i>Thanks.<br><br>OCX Server<br></i>';
+$_['email_store_name']      = '<i>Thanks.<br><br>Your Site Management<br>FoundHER<br>yoursite.com</i><br><br>';
+$_['email_store_url']       = 'http://yoursite.com';
+$_['email_server']          = '<i>Thanks.<br><br>OCX Server<br></i>';
 
 // Buttons
 $_['button_add_address']    = 'Add Address';
@@ -53,13 +68,12 @@ $_['button_search']         = 'Search';
 $_['button_shipping']       = 'Apply Shipping';
 $_['button_guest']          = 'Guest Checkout';
 $_['button_view']           = 'View';
-$_['button_view_event']		= 'View Event';
+$_['button_view_event']     = 'View Event';
 $_['button_voucher']        = 'Apply Voucher';
 $_['button_upload']         = 'Upload File';
 $_['button_reward']         = 'Apply Points';
 $_['button_quote']          = 'Get Quotes';
 $_['button_submit']         = 'Submit';
-
 
 // Error
 $_['error_upload_1']        = 'Warning: The uploaded file exceeds the upload_max_filesize directive in php.ini.';

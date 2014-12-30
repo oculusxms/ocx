@@ -1,11 +1,25 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 namespace Admin\Model\Content;
 use Oculus\Engine\Model;
 
 class Page extends Model {
-	public function addPage($data) {
-		$this->db->query("
+    public function addPage($data) {
+        $this->db->query("
 			INSERT INTO {$this->db->prefix}page 
 			SET 
 				sort_order = '" . (int)$data['sort_order'] . "', 
@@ -13,11 +27,11 @@ class Page extends Model {
 				visibility = '" . (int)$data['visibility'] . "', 
 				status = '" . (int)$data['status'] . "'
 		");
-
-		$page_id = $this->db->getLastId(); 
-
-		foreach ($data['page_description'] as $language_id => $value) {
-			$this->db->query("
+        
+        $page_id = $this->db->getLastId();
+        
+        foreach ($data['page_description'] as $language_id => $value) {
+            $this->db->query("
 				INSERT INTO {$this->db->prefix}page_description 
 				SET 
 					page_id = '" . (int)$page_id . "', 
@@ -27,50 +41,50 @@ class Page extends Model {
 					meta_description = '" . $this->db->escape($value['meta_description']) . "', 
 					meta_keywords = '" . $this->db->escape($value['meta_keywords']) . "'
 			");
-		}
-
-		if (isset($data['page_store'])) {
-			foreach ($data['page_store'] as $store_id) {
-				$this->db->query("
+        }
+        
+        if (isset($data['page_store'])) {
+            foreach ($data['page_store'] as $store_id) {
+                $this->db->query("
 					INSERT INTO {$this->db->prefix}page_to_store 
 					SET 
 						page_id = '" . (int)$page_id . "', 
 						store_id = '" . (int)$store_id . "'
 				");
-			}
-		}
-
-		if (isset($data['page_layout'])) {
-			foreach ($data['page_layout'] as $store_id => $layout) {
-				if ($layout) {
-					$this->db->query("
+            }
+        }
+        
+        if (isset($data['page_layout'])) {
+            foreach ($data['page_layout'] as $store_id => $layout) {
+                if ($layout) {
+                    $this->db->query("
 						INSERT INTO {$this->db->prefix}page_to_layout 
 						SET 
 							page_id = '" . (int)$page_id . "', 
 							store_id = '" . (int)$store_id . "', 
 							layout_id = '" . (int)$layout['layout_id'] . "'
 					");
-				}
-			}
-		}
-
-		if ($data['slug']) {
-			$this->db->query("
+                }
+            }
+        }
+        
+        if ($data['slug']) {
+            $this->db->query("
 				INSERT INTO {$this->db->prefix}route 
 				SET 
 					route='content/page', 
 					query = 'page_id:" . (int)$page_id . "', 
 					slug = '" . $this->db->escape($data['slug']) . "'
 			");
-		}
-
-		$this->cache->delete('page');
-
-		$this->theme->trigger('admin_add_page', array('page_id' => $page_id));
-	}
-
-	public function editPage($page_id, $data) {
-		$this->db->query("
+        }
+        
+        $this->cache->delete('page');
+        
+        $this->theme->trigger('admin_add_page', array('page_id' => $page_id));
+    }
+    
+    public function editPage($page_id, $data) {
+        $this->db->query("
 			UPDATE {$this->db->prefix}page 
 			SET 
 				sort_order = '" . (int)$data['sort_order'] . "', 
@@ -79,11 +93,11 @@ class Page extends Model {
 				status = '" . (int)$data['status'] . "' 
 				WHERE page_id = '" . (int)$page_id . "'
 			");
-
-		$this->db->query("DELETE FROM {$this->db->prefix}page_description WHERE page_id = '" . (int)$page_id . "'");
-
-		foreach ($data['page_description'] as $language_id => $value) {
-			$this->db->query("
+        
+        $this->db->query("DELETE FROM {$this->db->prefix}page_description WHERE page_id = '" . (int)$page_id . "'");
+        
+        foreach ($data['page_description'] as $language_id => $value) {
+            $this->db->query("
 				INSERT INTO {$this->db->prefix}page_description 
 				SET 
 					page_id = '" . (int)$page_id . "', 
@@ -93,68 +107,68 @@ class Page extends Model {
 					meta_description = '" . $this->db->escape($value['meta_description']) . "', 
 					meta_keywords = '" . $this->db->escape($value['meta_keywords']) . "'
 			");
-		}
-
-		$this->db->query("DELETE FROM {$this->db->prefix}page_to_store WHERE page_id = '" . (int)$page_id . "'");
-
-		if (isset($data['page_store'])) {
-			foreach ($data['page_store'] as $store_id) {
-				$this->db->query("
+        }
+        
+        $this->db->query("DELETE FROM {$this->db->prefix}page_to_store WHERE page_id = '" . (int)$page_id . "'");
+        
+        if (isset($data['page_store'])) {
+            foreach ($data['page_store'] as $store_id) {
+                $this->db->query("
 					INSERT INTO {$this->db->prefix}page_to_store 
 					SET 
 						page_id = '" . (int)$page_id . "', 
 						store_id = '" . (int)$store_id . "'
 				");
-			}
-		}
-
-		$this->db->query("DELETE FROM {$this->db->prefix}page_to_layout WHERE page_id = '" . (int)$page_id . "'");
-
-		if (isset($data['page_layout'])) {
-			foreach ($data['page_layout'] as $store_id => $layout) {
-				if ($layout['layout_id']) {
-					$this->db->query("
+            }
+        }
+        
+        $this->db->query("DELETE FROM {$this->db->prefix}page_to_layout WHERE page_id = '" . (int)$page_id . "'");
+        
+        if (isset($data['page_layout'])) {
+            foreach ($data['page_layout'] as $store_id => $layout) {
+                if ($layout['layout_id']) {
+                    $this->db->query("
 						INSERT INTO {$this->db->prefix}page_to_layout 
 						SET 
 							page_id = '" . (int)$page_id . "', 
 							store_id = '" . (int)$store_id . "', 
 							layout_id = '" . (int)$layout['layout_id'] . "'
 					");
-				}
-			}
-		}
-
-		$this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'page_id:" . (int)$page_id. "'");
-
-		if ($data['slug']) {
-			$this->db->query("
+                }
+            }
+        }
+        
+        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'page_id:" . (int)$page_id . "'");
+        
+        if ($data['slug']) {
+            $this->db->query("
 				INSERT INTO {$this->db->prefix}route 
 				SET 
 					route = 'content/page', 
 					query = 'page_id:" . (int)$page_id . "', 
 					slug = '" . $this->db->escape($data['slug']) . "'
 				");
-		}
-
-		$this->cache->delete('page');
-
-		$this->theme->trigger('admin_edit_page', array('page_id' => $page_id));
-	}
-
-	public function deletePage($page_id) {
-		$this->db->query("DELETE FROM {$this->db->prefix}page WHERE page_id = '" . (int)$page_id . "'");
-		$this->db->query("DELETE FROM {$this->db->prefix}page_description WHERE page_id = '" . (int)$page_id . "'");
-		$this->db->query("DELETE FROM {$this->db->prefix}page_to_store WHERE page_id = '" . (int)$page_id . "'");
-		$this->db->query("DELETE FROM {$this->db->prefix}page_to_layout WHERE page_id = '" . (int)$page_id . "'");
-		$this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'page_id:" . (int)$page_id . "'");
-
-		$this->cache->delete('page');
-
-		$this->theme->trigger('admin_delete_page', array('page_id' => $page_id));
-	}	
-
-	public function getPage($page_id) {
-		$query = $this->db->query("
+        }
+        
+        $this->cache->delete('page');
+        
+        $this->theme->trigger('admin_edit_page', array('page_id' => $page_id));
+    }
+    
+    public function deletePage($page_id) {
+        $this->db->query("DELETE FROM {$this->db->prefix}page WHERE page_id = '" . (int)$page_id . "'");
+        $this->db->query("DELETE FROM {$this->db->prefix}page_description WHERE page_id = '" . (int)$page_id . "'");
+        $this->db->query("DELETE FROM {$this->db->prefix}page_to_store WHERE page_id = '" . (int)$page_id . "'");
+        $this->db->query("DELETE FROM {$this->db->prefix}page_to_layout WHERE page_id = '" . (int)$page_id . "'");
+        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'page_id:" . (int)$page_id . "'");
+        
+        $this->cache->delete('page');
+        
+        $this->theme->trigger('admin_delete_page', array('page_id' => $page_id));
+    }
+    
+    public function getPage($page_id) {
+        $query = $this->db->query("
 			SELECT DISTINCT *, 
 			(SELECT slug 
 				FROM {$this->db->prefix}route 
@@ -162,56 +176,53 @@ class Page extends Model {
 			FROM {$this->db->prefix}page 
 			WHERE page_id = '" . (int)$page_id . "'
 		");
-
-		return $query->row;
-	}
-
-	public function getPages($data = array()) {
-		if ($data) {
-			$sql = "
+        
+        return $query->row;
+    }
+    
+    public function getPages($data = array()) {
+        if ($data) {
+            $sql = "
 				SELECT * 
 				FROM {$this->db->prefix}page i 
 				LEFT JOIN {$this->db->prefix}page_description id 
 				ON (i.page_id = id.page_id) 
 				WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "'";
-
-			$sort_data = array(
-				'id.title',
-				'i.sort_order'
-			);		
-
-			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY {$data['sort']}";	
-			} else {
-				$sql .= " ORDER BY id.title";	
-			}
-
-			if (isset($data['order']) && ($data['order'] == 'DESC')) {
-				$sql .= " DESC";
-			} else {
-				$sql .= " ASC";
-			}
-
-			if (isset($data['start']) || isset($data['limit'])) {
-				if ($data['start'] < 0) {
-					$data['start'] = 0;
-				}		
-
-				if ($data['limit'] < 1) {
-					$data['limit'] = 20;
-				}	
-
-				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}	
-
-			$query = $this->db->query($sql);
-
-			return $query->rows;
-		} else {
-			$page_data = $this->cache->get('page.' . (int)$this->config->get('config_language_id'));
-
-			if (!$page_data) {
-				$query = $this->db->query("
+            
+            $sort_data = array('id.title', 'i.sort_order');
+            
+            if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+                $sql.= " ORDER BY {$data['sort']}";
+            } else {
+                $sql.= " ORDER BY id.title";
+            }
+            
+            if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                $sql.= " DESC";
+            } else {
+                $sql.= " ASC";
+            }
+            
+            if (isset($data['start']) || isset($data['limit'])) {
+                if ($data['start'] < 0) {
+                    $data['start'] = 0;
+                }
+                
+                if ($data['limit'] < 1) {
+                    $data['limit'] = 20;
+                }
+                
+                $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+            }
+            
+            $query = $this->db->query($sql);
+            
+            return $query->rows;
+        } else {
+            $page_data = $this->cache->get('page.' . (int)$this->config->get('config_language_id'));
+            
+            if (!$page_data) {
+                $query = $this->db->query("
 					SELECT * 
 					FROM {$this->db->prefix}page i 
 					LEFT JOIN {$this->db->prefix}page_description id 
@@ -219,84 +230,79 @@ class Page extends Model {
 					WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 					ORDER BY id.title
 				");
-
-				$page_data = $query->rows;
-
-				$this->cache->set('page.' . (int)$this->config->get('config_language_id'), $page_data);
-			}	
-
-			return $page_data;			
-		}
-	}
-
-	public function getPageDescriptions($page_id) {
-		$page_description_data = array();
-
-		$query = $this->db->query("
+                
+                $page_data = $query->rows;
+                
+                $this->cache->set('page.' . (int)$this->config->get('config_language_id'), $page_data);
+            }
+            
+            return $page_data;
+        }
+    }
+    
+    public function getPageDescriptions($page_id) {
+        $page_description_data = array();
+        
+        $query = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}page_description 
 			WHERE page_id = '" . (int)$page_id . "'
 		");
-
-		foreach ($query->rows as $result) {
-			$page_description_data[$result['language_id']] = array(
-				'title'       		=> $result['title'],
-				'description' 		=> $result['description'],
-				'meta_description' 	=> $result['meta_description'],
-				'meta_keywords' 	=> $result['meta_keywords']
-			);
-		}
-
-		return $page_description_data;
-	}
-
-	public function getPageStores($page_id) {
-		$page_store_data = array();
-
-		$query = $this->db->query("
+        
+        foreach ($query->rows as $result) {
+            $page_description_data[$result['language_id']] = array('title' => $result['title'], 'description' => $result['description'], 'meta_description' => $result['meta_description'], 'meta_keywords' => $result['meta_keywords']);
+        }
+        
+        return $page_description_data;
+    }
+    
+    public function getPageStores($page_id) {
+        $page_store_data = array();
+        
+        $query = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}page_to_store 
 			WHERE page_id = '" . (int)$page_id . "'
 		");
-
-		foreach ($query->rows as $result) {
-			$page_store_data[] = $result['store_id'];
-		}
-
-		return $page_store_data;
-	}
-
-	public function getPageLayouts($page_id) {
-		$page_layout_data = array();
-
-		$query = $this->db->query("
+        
+        foreach ($query->rows as $result) {
+            $page_store_data[] = $result['store_id'];
+        }
+        
+        return $page_store_data;
+    }
+    
+    public function getPageLayouts($page_id) {
+        $page_layout_data = array();
+        
+        $query = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}page_to_layout 
 			WHERE page_id = '" . (int)$page_id . "'
 		");
-
-		foreach ($query->rows as $result) {
-			$page_layout_data[$result['store_id']] = $result['layout_id'];
-		}
-
-		return $page_layout_data;
-	}
-
-	public function getTotalPages() {
-		$query = $this->db->query("
+        
+        foreach ($query->rows as $result) {
+            $page_layout_data[$result['store_id']] = $result['layout_id'];
+        }
+        
+        return $page_layout_data;
+    }
+    
+    public function getTotalPages() {
+        $query = $this->db->query("
 			SELECT COUNT(*) AS total 
 			FROM {$this->db->prefix}page");
-
-		return $query->row['total'];
-	}	
-
-	public function getTotalPagesByLayoutId($layout_id) {
-		$query = $this->db->query("
+        
+        return $query->row['total'];
+    }
+    
+    public function getTotalPagesByLayoutId($layout_id) {
+        $query = $this->db->query("
 			SELECT COUNT(*) AS total 
 			FROM {$this->db->prefix}page_to_layout 
 			WHERE layout_id = '" . (int)$layout_id . "'
 		");
-
-		return $query->row['total'];
-	}
+        
+        return $query->row['total'];
+    }
 }

@@ -1,4 +1,19 @@
 <?php
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 // Heading
 $_['heading_title']      = 'Manufacturer';
 
@@ -10,7 +25,7 @@ $_['text_browse']        = 'Browse';
 $_['text_clear']         = 'Clear';
 $_['text_percent']       = 'Percentage';
 $_['text_amount']        = 'Fixed Amount';
-$_['text_build']		 = 'Build Slug';
+$_['text_build']         = 'Build Slug';
 
 // Column
 $_['column_name']        = 'Manufacturer Name';
@@ -29,6 +44,6 @@ $_['entry_type']         = 'Type:';
 $_['error_permission']   = 'Warning: You do not have permission to modify manufacturers.';
 $_['error_name']         = 'Manufacturer Name must be between 3 and 64 characters.';
 $_['error_product']      = 'Warning: This manufacturer cannot be deleted as it is currently assigned to %s products.';
-$_['error_slug'] 		 = 'Warning: Slug is required for product manufacturers.';
-$_['error_slug_found'] 	 = 'ERROR: The slug %s is already in use, please use a different one in the input field.';
-$_['error_name_first']	 = 'ERROR: Please enter a name for your manufacturer before attempting to build a slug.';
+$_['error_slug']         = 'Warning: Slug is required for product manufacturers.';
+$_['error_slug_found']   = 'ERROR: The slug %s is already in use, please use a different one in the input field.';
+$_['error_name_first']   = 'ERROR: Please enter a name for your manufacturer before attempting to build a slug.';

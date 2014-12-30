@@ -1,5 +1,20 @@
 <?php
-// Heading 
+
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
+// Heading
 $_['heading_title']      = 'Dashboard';
 
 // Text
@@ -13,26 +28,26 @@ $_['text_address']       = 'Modify your address book entries';
 $_['text_wishlist']      = 'Modify your wish list';
 $_['text_order']         = 'View your order history';
 $_['text_download']      = 'Downloads';
-$_['text_reward']        = 'Your Reward Points'; 
-$_['text_return']        = 'View your return requests'; 
-$_['text_transaction']   = 'Your Transactions'; 
+$_['text_reward']        = 'Your Reward Points';
+$_['text_return']        = 'View your return requests';
+$_['text_transaction']   = 'Your Transactions';
 $_['text_newsletter']    = 'Subscribe / Unsubscribe to newsletter';
 $_['text_recurring']     = 'Recurring Payments';
 $_['text_transactions']  = 'Transactions';
-$_['text_updates'] 		 = 'Important Updates';
-$_['text_waitlist']		 = 'Wait Lists';
+$_['text_updates']       = 'Important Updates';
+$_['text_waitlist']      = 'Wait Lists';
 
-$_['icon_edit'] 		 = 'Edit';
-$_['icon_password'] 	 = 'Password';
-$_['icon_address'] 		 = 'Address';
-$_['icon_wishlist'] 	 = 'Wish List';
-$_['icon_subscribe'] 	 = 'Subscribe';
-$_['icon_history'] 		 = 'Orders';
-$_['icon_reward'] 		 = 'Points';
-$_['icon_download'] 	 = 'Downloads';
-$_['icon_return'] 		 = 'Returns';
-$_['icon_transaction'] 	 = 'Transactions';
-$_['icon_waitlist'] 	 = 'Wait Lists';
+$_['icon_edit']          = 'Edit';
+$_['icon_password']      = 'Password';
+$_['icon_address']       = 'Address';
+$_['icon_wishlist']      = 'Wish List';
+$_['icon_subscribe']     = 'Subscribe';
+$_['icon_history']       = 'Orders';
+$_['icon_reward']        = 'Points';
+$_['icon_download']      = 'Downloads';
+$_['icon_return']        = 'Returns';
+$_['icon_transaction']   = 'Transactions';
+$_['icon_waitlist']      = 'Wait Lists';
 
-$_['complete_profile'] 	 = 'Please complete your <a href="%s">account settings.</a>';
-$_['complete_address'] 	 = 'Please complete your <a href="%s">default address.</a>';
+$_['complete_profile']   = 'Please complete your <a href="%s">account settings.</a>';
+$_['complete_address']   = 'Please complete your <a href="%s">default address.</a>';

@@ -2,15 +2,26 @@
 
 /*
 |--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|
+|
+|--------------------------------------------------------------------------
 |   Oculus Container
 |--------------------------------------------------------------------------
 |
-|   This file is a version of Pimple\Container, renamed to 
+|   This file is a version of Pimple\Container, renamed
 |   to be included as part of the Oculus Framework Engine.
-|   See Copyright below.
+|   See original Copyright below.
 |   
 */
-
 
 /*
  * This file is part of Pimple.
@@ -34,7 +45,8 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
+*/
+
 
 namespace Oculus\Engine;
 
@@ -44,14 +56,14 @@ namespace Oculus\Engine;
  * @author  Fabien Potencier
  */
 class Container implements \ArrayAccess {
-
+    
     private $values = array();
     private $factories;
     private $protected;
     private $frozen = array();
     private $raw = array();
     private $keys = array();
-
+    
     /**
      * Instantiate the container.
      *
@@ -60,15 +72,15 @@ class Container implements \ArrayAccess {
      * @param array $values The parameters or objects.
      */
     public function __construct(array $values = array()) {
-
+        
         $this->factories = new \SplObjectStorage();
         $this->protected = new \SplObjectStorage();
-
+        
         foreach ($values as $key => $value):
             $this->offsetSet($key, $value);
         endforeach;
     }
-
+    
     /**
      * Sets a parameter or an object.
      *
@@ -83,15 +95,15 @@ class Container implements \ArrayAccess {
      * @throws \RuntimeException Prevent override of a frozen service
      */
     public function offsetSet($id, $value) {
-
+        
         if (isset($this->frozen[$id])):
             throw new \RuntimeException(sprintf('Cannot override frozen service "%s".', $id));
         endif;
-
+        
         $this->values[$id] = $value;
         $this->keys[$id] = true;
     }
-
+    
     /**
      * Gets a parameter or an object.
      *
@@ -102,33 +114,29 @@ class Container implements \ArrayAccess {
      * @throws \InvalidArgumentException if the identifier is not defined
      */
     public function offsetGet($id) {
-
+        
         if (!isset($this->keys[$id])):
             throw new \InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
         endif;
-
-        if (
-            isset($this->raw[$id])
-            || !is_object($this->values[$id])
-            || isset($this->protected[$this->values[$id]])
-            || !method_exists($this->values[$id], '__invoke')):
-
+        
+        if (isset($this->raw[$id]) || !is_object($this->values[$id]) || isset($this->protected[$this->values[$id]]) || !method_exists($this->values[$id], '__invoke')):
+            
             return $this->values[$id];
         endif;
-
+        
         if (isset($this->factories[$this->values[$id]])):
             return $this->values[$id]($this);
         endif;
-
+        
         $raw = $this->values[$id];
         $val = $this->values[$id] = $raw($this);
         $this->raw[$id] = $raw;
-
+        
         $this->frozen[$id] = true;
-
+        
         return $val;
     }
-
+    
     /**
      * Checks if a parameter or an object is set.
      *
@@ -137,26 +145,26 @@ class Container implements \ArrayAccess {
      * @return bool
      */
     public function offsetExists($id) {
-
+        
         return isset($this->keys[$id]);
     }
-
+    
     /**
      * Unsets a parameter or an object.
      *
      * @param string $id The unique identifier for the parameter or object
      */
     public function offsetUnset($id) {
-
+        
         if (isset($this->keys[$id])):
             if (is_object($this->values[$id])):
                 unset($this->factories[$this->values[$id]], $this->protected[$this->values[$id]]);
             endif;
-
+            
             unset($this->values[$id], $this->frozen[$id], $this->raw[$id], $this->keys[$id]);
         endif;
     }
-
+    
     /**
      * Marks a callable as being a factory service.
      *
@@ -167,16 +175,16 @@ class Container implements \ArrayAccess {
      * @throws \InvalidArgumentException Service definition has to be a closure of an invokable object
      */
     public function factory($callable) {
-
+        
         if (!is_object($callable) || !method_exists($callable, '__invoke')):
             throw new \InvalidArgumentException('Service definition is not a Closure or invokable object.');
         endif;
-
+        
         $this->factories->attach($callable);
-
+        
         return $callable;
     }
-
+    
     /**
      * Protects a callable from being interpreted as a service.
      *
@@ -189,16 +197,16 @@ class Container implements \ArrayAccess {
      * @throws \InvalidArgumentException Service definition has to be a closure of an invokable object
      */
     public function protect($callable) {
-
+        
         if (!is_object($callable) || !method_exists($callable, '__invoke')):
             throw new \InvalidArgumentException('Callable is not a Closure or invokable object.');
         endif;
-
+        
         $this->protected->attach($callable);
-
+        
         return $callable;
     }
-
+    
     /**
      * Gets a parameter or the closure defining an object.
      *
@@ -209,18 +217,18 @@ class Container implements \ArrayAccess {
      * @throws \InvalidArgumentException if the identifier is not defined
      */
     public function raw($id) {
-
+        
         if (!isset($this->keys[$id])):
             throw new \InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
         endif;
-
+        
         if (isset($this->raw[$id])):
             return $this->raw[$id];
         endif;
-
+        
         return $this->values[$id];
     }
-
+    
     /**
      * Extends an object definition.
      *
@@ -235,43 +243,43 @@ class Container implements \ArrayAccess {
      * @throws \InvalidArgumentException if the identifier is not defined or not a service definition
      */
     public function extend($id, $callable) {
-
+        
         if (!isset($this->keys[$id])):
             throw new \InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
         endif;
-
+        
         if (!is_object($this->values[$id]) || !method_exists($this->values[$id], '__invoke')):
             throw new \InvalidArgumentException(sprintf('Identifier "%s" does not contain an object definition.', $id));
         endif;
-
+        
         if (!is_object($callable) || !method_exists($callable, '__invoke')):
             throw new \InvalidArgumentException('Extension service definition is not a Closure or invokable object.');
         endif;
-
+        
         $factory = $this->values[$id];
-
+        
         $extended = function ($c) use ($callable, $factory) {
             return $callable($factory($c), $c);
         };
-
+        
         if (isset($this->factories[$factory])):
             $this->factories->detach($factory);
             $this->factories->attach($extended);
         endif;
-
+        
         return $this[$id] = $extended;
     }
-
+    
     /**
      * Returns all defined value names.
      *
      * @return array An array of value names
      */
     public function keys() {
-
+        
         return array_keys($this->values);
     }
-
+    
     /**
      * Registers a service provider.
      *
@@ -281,13 +289,13 @@ class Container implements \ArrayAccess {
      * @return static
      */
     public function register(ServiceProviderInterface $provider, array $values = array()) {
-
+        
         $provider->register($this);
-
+        
         foreach ($values as $key => $value):
             $this[$key] = $value;
         endforeach;
-
+        
         return $this;
     }
 }

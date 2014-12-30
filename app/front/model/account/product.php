@@ -1,21 +1,35 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 namespace Front\Model\Account;
 use Oculus\Engine\Model;
 
 class Product extends Model {
-	public function getProduct($product_id, $customer_id) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-		
-		$key = 'product.' . $product_id . '.' . $customer_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+    public function getProduct($product_id, $customer_id) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'product.' . $product_id . '.' . $customer_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT DISTINCT *, 
 					pd.name AS name, 
 					p.image, 
@@ -77,62 +91,18 @@ class Product extends Model {
 				AND p.customer_id = '" . (int)$customer_id . "' 
 				AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'
 			");
-			
-			if ($query->num_rows):
-				$product = array(
-					'product_id'       => $query->row['product_id'],
-					'name'             => $query->row['name'],
-					'description'      => $query->row['description'],
-					'meta_description' => $query->row['meta_description'],
-					'meta_keyword'     => $query->row['meta_keyword'],
-					'tag'              => $query->row['tag'],
-					'model'            => $query->row['model'],
-					'sku'              => $query->row['sku'],
-					'upc'              => $query->row['upc'],
-					'ean'              => $query->row['ean'],
-					'jan'              => $query->row['jan'],
-					'isbn'             => $query->row['isbn'],
-					'mpn'              => $query->row['mpn'],
-					'location'         => $query->row['location'],
-					'visibility'	   => $query->row['visibility'],
-					'quantity'         => $query->row['quantity'],
-					'stock_status'     => $query->row['stock_status'],
-					'image'            => $query->row['image'],
-					'manufacturer_id'  => $query->row['manufacturer_id'],
-					'manufacturer'     => $query->row['manufacturer'],
-					'price'            => ($query->row['discount'] ? $query->row['discount'] : $query->row['price']),
-					'special'          => $query->row['special'],
-					'reward'           => $query->row['reward'],
-					'points'           => $query->row['points'],
-					'tax_class_id'     => $query->row['tax_class_id'],
-					'date_available'   => $query->row['date_available'],
-					'weight'           => $query->row['weight'],
-					'weight_class_id'  => $query->row['weight_class_id'],
-					'length'           => $query->row['length'],
-					'width'            => $query->row['width'],
-					'height'           => $query->row['height'],
-					'length_class_id'  => $query->row['length_class_id'],
-					'subtract'         => $query->row['subtract'],
-					'rating'           => round($query->row['rating']),
-					'reviews'          => $query->row['reviews'] ? $query->row['reviews'] : 0,
-					'minimum'          => $query->row['minimum'],
-					'sort_order'       => $query->row['sort_order'],
-					'status'           => $query->row['status'],
-					'date_added'       => $query->row['date_added'],
-					'event_id'		   => (isset($query->row['event_id']) ? $query->row['event_id'] : 0),
-					'date_modified'    => $query->row['date_modified'],
-					'viewed'           => $query->row['viewed'],
-					'customer_id'	   => $query->row['customer_id']
-				);
-				
-				$cachefile = $product;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, 0);
-				return false;
-			endif;
-		endif;
-		
-		return $cachefile;
-	}
+            
+            if ($query->num_rows):
+                $product = array('product_id' => $query->row['product_id'], 'name' => $query->row['name'], 'description' => $query->row['description'], 'meta_description' => $query->row['meta_description'], 'meta_keyword' => $query->row['meta_keyword'], 'tag' => $query->row['tag'], 'model' => $query->row['model'], 'sku' => $query->row['sku'], 'upc' => $query->row['upc'], 'ean' => $query->row['ean'], 'jan' => $query->row['jan'], 'isbn' => $query->row['isbn'], 'mpn' => $query->row['mpn'], 'location' => $query->row['location'], 'visibility' => $query->row['visibility'], 'quantity' => $query->row['quantity'], 'stock_status' => $query->row['stock_status'], 'image' => $query->row['image'], 'manufacturer_id' => $query->row['manufacturer_id'], 'manufacturer' => $query->row['manufacturer'], 'price' => ($query->row['discount'] ? $query->row['discount'] : $query->row['price']), 'special' => $query->row['special'], 'reward' => $query->row['reward'], 'points' => $query->row['points'], 'tax_class_id' => $query->row['tax_class_id'], 'date_available' => $query->row['date_available'], 'weight' => $query->row['weight'], 'weight_class_id' => $query->row['weight_class_id'], 'length' => $query->row['length'], 'width' => $query->row['width'], 'height' => $query->row['height'], 'length_class_id' => $query->row['length_class_id'], 'subtract' => $query->row['subtract'], 'rating' => round($query->row['rating']), 'reviews' => $query->row['reviews'] ? $query->row['reviews'] : 0, 'minimum' => $query->row['minimum'], 'sort_order' => $query->row['sort_order'], 'status' => $query->row['status'], 'date_added' => $query->row['date_added'], 'event_id' => (isset($query->row['event_id']) ? $query->row['event_id'] : 0), 'date_modified' => $query->row['date_modified'], 'viewed' => $query->row['viewed'], 'customer_id' => $query->row['customer_id']);
+                
+                $cachefile = $product;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, 0);
+                return false;
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
 }

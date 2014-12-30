@@ -2,6 +2,18 @@
 
 /*
 |--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|
+|
+|--------------------------------------------------------------------------
 |	Pre-Render Controllers
 |--------------------------------------------------------------------------
 |
@@ -21,35 +33,17 @@
 |
 */
 
-$front_controllers = array(
-	'header' 				=> 'content/header',
-	'post_header' 			=> 'common/postheader',
-	'column_left' 			=> 'common/columnleft',
-	'breadcrumb'			=> 'common/breadcrumb',
-	'content_top' 			=> 'common/contenttop',
-	'content_bottom' 		=> 'common/contentbottom',
-	'column_right' 			=> 'common/columnright',
-	'pre_footer' 			=> 'common/prefooter',
-	'footer' 				=> 'content/footer',
-);
+$front_controllers = array('header' => 'content/header', 'post_header' => 'common/postheader', 'column_left' => 'common/columnleft', 'breadcrumb' => 'common/breadcrumb', 'content_top' => 'common/contenttop', 'content_bottom' => 'common/contentbottom', 'column_right' => 'common/columnright', 'pre_footer' => 'common/prefooter', 'footer' => 'content/footer',);
 
 $config[FRONT_FASCADE]['pre_render'] = $front_controllers;
 
-$admin_controllers = array(
-	'header' 		=> 'common/header',
-	'breadcrumb'	=> 'common/breadcrumb',
-	'footer' 		=> 'common/footer',
-);
+$admin_controllers = array('header' => 'common/header', 'breadcrumb' => 'common/breadcrumb', 'footer' => 'common/footer',);
 
 $config[ADMIN_FASCADE]['pre_render'] = $admin_controllers;
 
-$install_controllers = array(
-	'header' 		=> 'header',
-	'footer' 		=> 'footer',
-);
+$install_controllers = array('header' => 'header', 'footer' => 'footer',);
 
 $config[INSTALL_FASCADE]['pre_render'] = $install_controllers;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -61,25 +55,15 @@ $config[INSTALL_FASCADE]['pre_render'] = $install_controllers;
 |
 */
 
-$front_actions = array(
-	'common/maintenance',
-	'common/javascript/runner',
-	'common/router'
-);
+$front_actions = array('common/maintenance', 'common/javascript/runner', 'common/router');
 
 $config[FRONT_FASCADE]['pre_actions'] = $front_actions;
 
-$admin_actions = array(
-	'common/javascript/runner',
-	'common/dashboard/login',
-	'common/dashboard/permission'
-);
+$admin_actions = array('common/javascript/runner', 'common/dashboard/login', 'common/dashboard/permission');
 
 $config[ADMIN_FASCADE]['pre_actions'] = $admin_actions;
 
-$install_actions = array(
-	'router'
-);
+$install_actions = array('router');
 
 $config[INSTALL_FASCADE]['pre_actions'] = $install_actions;
 

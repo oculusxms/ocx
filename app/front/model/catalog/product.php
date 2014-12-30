@@ -1,30 +1,44 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+|   Oculus XMS
+|--------------------------------------------------------------------------
+|
+|   This file is part of the Oculus XMS Framework package.
+|	
+|	(c) Vince Kronlein <vince@ocx.io>
+|	
+|	For the full copyright and license information, please view the LICENSE
+|	file that was distributed with this source code.
+|	
+*/
+
 namespace Front\Model\Catalog;
 use Oculus\Engine\Model;
 use Oculus\Library\Mail;
 
 class Product extends Model {
-	public function updateViewed($product_id) {
-		$this->db->query("
+    public function updateViewed($product_id) {
+        $this->db->query("
 			UPDATE {$this->db->prefix}product 
 			SET viewed = (viewed + 1) 
 			WHERE product_id = '" . (int)$product_id . "'
 		");
-	}
-
-	public function getProduct($product_id) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-		
-		$key = 'product.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+    }
+    
+    public function getProduct($product_id) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'product.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT DISTINCT *, 
 					pd.name AS name, 
 					p.image, 
@@ -86,78 +100,34 @@ class Product extends Model {
 				AND p.customer_id = '0' 
 				AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'
 			");
-			
-			if ($query->num_rows):
-				$product = array(
-					'product_id'       => $query->row['product_id'],
-					'name'             => $query->row['name'],
-					'description'      => $query->row['description'],
-					'meta_description' => $query->row['meta_description'],
-					'meta_keyword'     => $query->row['meta_keyword'],
-					'tag'              => $query->row['tag'],
-					'model'            => $query->row['model'],
-					'sku'              => $query->row['sku'],
-					'upc'              => $query->row['upc'],
-					'ean'              => $query->row['ean'],
-					'jan'              => $query->row['jan'],
-					'isbn'             => $query->row['isbn'],
-					'mpn'              => $query->row['mpn'],
-					'location'         => $query->row['location'],
-					'visibility'	   => $query->row['visibility'],
-					'quantity'         => $query->row['quantity'],
-					'stock_status'     => $query->row['stock_status'],
-					'image'            => $query->row['image'],
-					'manufacturer_id'  => $query->row['manufacturer_id'],
-					'manufacturer'     => $query->row['manufacturer'],
-					'price'            => ($query->row['discount'] ? $query->row['discount'] : $query->row['price']),
-					'special'          => $query->row['special'],
-					'reward'           => $query->row['reward'],
-					'points'           => $query->row['points'],
-					'tax_class_id'     => $query->row['tax_class_id'],
-					'date_available'   => $query->row['date_available'],
-					'weight'           => $query->row['weight'],
-					'weight_class_id'  => $query->row['weight_class_id'],
-					'length'           => $query->row['length'],
-					'width'            => $query->row['width'],
-					'height'           => $query->row['height'],
-					'length_class_id'  => $query->row['length_class_id'],
-					'subtract'         => $query->row['subtract'],
-					'rating'           => round($query->row['rating']),
-					'reviews'          => $query->row['reviews'] ? $query->row['reviews'] : 0,
-					'minimum'          => $query->row['minimum'],
-					'sort_order'       => $query->row['sort_order'],
-					'status'           => $query->row['status'],
-					'date_added'       => $query->row['date_added'],
-					'event_id'		   => (isset($query->row['event_id']) ? $query->row['event_id'] : 0),
-					'date_modified'    => $query->row['date_modified'],
-					'viewed'           => $query->row['viewed'],
-					'customer_id'	   => $query->row['customer_id']
-				);
-				
-				$cachefile = $product;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, 0);
-				return false;
-			endif;
-		endif;
-		
-		return $cachefile;
-	}
-
-	public function getProducts($data = array()) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;	
-		
-		if (!empty($data)):
-			$key = 'products.all.' . md5(serialize($data));
-			$cachefile = $this->cache->get($key);
-
-			if (is_bool($cachefile)):
-				$sql = "
+            
+            if ($query->num_rows):
+                $product = array('product_id' => $query->row['product_id'], 'name' => $query->row['name'], 'description' => $query->row['description'], 'meta_description' => $query->row['meta_description'], 'meta_keyword' => $query->row['meta_keyword'], 'tag' => $query->row['tag'], 'model' => $query->row['model'], 'sku' => $query->row['sku'], 'upc' => $query->row['upc'], 'ean' => $query->row['ean'], 'jan' => $query->row['jan'], 'isbn' => $query->row['isbn'], 'mpn' => $query->row['mpn'], 'location' => $query->row['location'], 'visibility' => $query->row['visibility'], 'quantity' => $query->row['quantity'], 'stock_status' => $query->row['stock_status'], 'image' => $query->row['image'], 'manufacturer_id' => $query->row['manufacturer_id'], 'manufacturer' => $query->row['manufacturer'], 'price' => ($query->row['discount'] ? $query->row['discount'] : $query->row['price']), 'special' => $query->row['special'], 'reward' => $query->row['reward'], 'points' => $query->row['points'], 'tax_class_id' => $query->row['tax_class_id'], 'date_available' => $query->row['date_available'], 'weight' => $query->row['weight'], 'weight_class_id' => $query->row['weight_class_id'], 'length' => $query->row['length'], 'width' => $query->row['width'], 'height' => $query->row['height'], 'length_class_id' => $query->row['length_class_id'], 'subtract' => $query->row['subtract'], 'rating' => round($query->row['rating']), 'reviews' => $query->row['reviews'] ? $query->row['reviews'] : 0, 'minimum' => $query->row['minimum'], 'sort_order' => $query->row['sort_order'], 'status' => $query->row['status'], 'date_added' => $query->row['date_added'], 'event_id' => (isset($query->row['event_id']) ? $query->row['event_id'] : 0), 'date_modified' => $query->row['date_modified'], 'viewed' => $query->row['viewed'], 'customer_id' => $query->row['customer_id']);
+                
+                $cachefile = $product;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, 0);
+                return false;
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProducts($data = array()) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        if (!empty($data)):
+            $key = 'products.all.' . md5(serialize($data));
+            $cachefile = $this->cache->get($key);
+            
+            if (is_bool($cachefile)):
+                $sql = "
 					SELECT p.product_id, 
 						(SELECT AVG(rating) AS total 
 							FROM {$this->db->prefix}review r1 
@@ -178,31 +148,31 @@ class Product extends Model {
 							AND ps.customer_group_id = '" . (int)$customer_group_id . "' 
 							AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) 
 							AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) 
-							ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special"; 
-
-				if (!empty($data['filter_category_id'])):
-					if (!empty($data['filter_sub_category'])):
-						$sql .= " FROM {$this->db->prefix}category_path cp 
+							ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special";
+                
+                if (!empty($data['filter_category_id'])):
+                    if (!empty($data['filter_sub_category'])):
+                        $sql.= " FROM {$this->db->prefix}category_path cp 
 								  LEFT JOIN {$this->db->prefix}product_to_category p2c 
-									ON (cp.category_id = p2c.category_id)";			
-					else:
-						$sql .= " FROM {$this->db->prefix}product_to_category p2c";
-					endif;
-		
-					if (!empty($data['filter_filter'])):
-						$sql .= " LEFT JOIN {$this->db->prefix}product_filter pf 
+									ON (cp.category_id = p2c.category_id)";
+                    else:
+                        $sql.= " FROM {$this->db->prefix}product_to_category p2c";
+                    endif;
+                    
+                    if (!empty($data['filter_filter'])):
+                        $sql.= " LEFT JOIN {$this->db->prefix}product_filter pf 
 									ON (p2c.product_id = pf.product_id) 
 								  LEFT JOIN {$this->db->prefix}product p 
 									ON (pf.product_id = p.product_id)";
-					else:
-						$sql .= " LEFT JOIN {$this->db->prefix}product p 
+                    else:
+                        $sql.= " LEFT JOIN {$this->db->prefix}product p 
 									ON (p2c.product_id = p.product_id)";
-					endif;
-				else:
-					$sql .= " FROM {$this->db->prefix}product p";
-				endif;
-
-				$sql .= " LEFT JOIN {$this->db->prefix}product_description pd 
+                    endif;
+                else:
+                    $sql.= " FROM {$this->db->prefix}product p";
+                endif;
+                
+                $sql.= " LEFT JOIN {$this->db->prefix}product_description pd 
 							ON (p.product_id = pd.product_id) 
 						  LEFT JOIN {$this->db->prefix}product_to_store p2s 
 							ON (p.product_id = p2s.product_id) 
@@ -213,150 +183,142 @@ class Product extends Model {
 						  AND p.customer_id = '0' 
 						  AND p.date_available <= NOW() 
 						  AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
-
-				if (!empty($data['filter_category_id'])):
-					if (!empty($data['filter_sub_category'])):
-						$sql .= " AND cp.path_id = '" . (int)$data['filter_category_id'] . "'";	
-					else:
-						$sql .= " AND p2c.category_id = '" . (int)$data['filter_category_id'] . "'";			
-					endif;	
-		
-					if (!empty($data['filter_filter'])):
-						$implode = array();
-						$filters = explode(',', $data['filter_filter']);
-		
-						foreach ($filters as $filter_id):
-							$implode[] = (int)$filter_id;
-						endforeach;
-		
-						$sql .= " AND pf.filter_id IN (" . implode(',', $implode) . ")";				
-					endif;
-				endif;
-
-				if (!empty($data['filter_name']) || !empty($data['filter_tag'])):
-					$sql .= " AND (";
-		
-					if (!empty($data['filter_name'])):
-						$implode = array();
-						$words 	 = explode(' ', trim(preg_replace('/\s\s+/', ' ', $data['filter_name'])));
-		
-						foreach ($words as $word):
-							$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
-						endforeach;
-		
-						if ($implode):
-							$imp  = implode(" && ", $implode);
-							$sql .= " {$imp}";
-						endif;
-		
-						if (!empty($data['filter_description'])):
-							$sql .= " OR pd.description LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
-						endif;
-					endif;
-
-					if (!empty($data['filter_name']) && !empty($data['filter_tag'])):
-						$sql .= " OR ";
-					endif;
-		
-					if (!empty($data['filter_tag'])):
-						$sql .= "pd.tag LIKE '%" . $this->db->escape($data['filter_tag']) . "%'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					$sql .= ")";
-				endif;
-
-				if (!empty($data['filter_manufacturer_id'])):
-					$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
-				endif;
-		
-				$sql .= " GROUP BY p.product_id";
-		
-				$sort_data = array(
-					'pd.name',
-					'p.model',
-					'p.quantity',
-					'p.price',
-					'rating',
-					'p.sort_order',
-					'p.date_added'
-				);	
-
-				if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
-					if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model'):
-						$sql .= " ORDER BY LCASE({$data['sort']})";
-					elseif ($data['sort'] == 'p.price'):
-						$sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
-					else:
-						$sql .= " ORDER BY {$data['sort']}";
-					endif;
-				else:
-					$sql .= " ORDER BY p.sort_order";	
-				endif;
-		
-				if (isset($data['order']) && ($data['order'] == 'DESC')):
-					$sql .= " DESC, LCASE(pd.name) DESC";
-				else:
-					$sql .= " ASC, LCASE(pd.name) ASC";
-				endif;
-
-				if (isset($data['start']) || isset($data['limit'])):
-					if ($data['start'] < 0):
-						$data['start'] = 0;
-					endif;
-		
-					if ($data['limit'] < 1):
-						$data['limit'] = 20;
-					endif;
-		
-					$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-				endif;
-		
-				$product_data = array();
-				
-				$query = $this->db->query($sql);
-				
-				foreach ($query->rows as $result):
-					$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
-				endforeach;
-				
-				$cachefile = $product_data;
-				$this->cache->set($key, $cachefile);
-			endif;
-			unset($key);
-		else:
-			$key = 'products.all.' . (int)$this->config->get('config_store_id');
-			$cachefile = $this->cache->get($key);
-			
-			if (is_bool($cachefile)):
-				$query = $this->db->query("
+                
+                if (!empty($data['filter_category_id'])):
+                    if (!empty($data['filter_sub_category'])):
+                        $sql.= " AND cp.path_id = '" . (int)$data['filter_category_id'] . "'";
+                    else:
+                        $sql.= " AND p2c.category_id = '" . (int)$data['filter_category_id'] . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_filter'])):
+                        $implode = array();
+                        $filters = explode(',', $data['filter_filter']);
+                        
+                        foreach ($filters as $filter_id):
+                            $implode[] = (int)$filter_id;
+                        endforeach;
+                        
+                        $sql.= " AND pf.filter_id IN (" . implode(',', $implode) . ")";
+                    endif;
+                endif;
+                
+                if (!empty($data['filter_name']) || !empty($data['filter_tag'])):
+                    $sql.= " AND (";
+                    
+                    if (!empty($data['filter_name'])):
+                        $implode = array();
+                        $words = explode(' ', trim(preg_replace('/\s\s+/', ' ', $data['filter_name'])));
+                        
+                        foreach ($words as $word):
+                            $implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+                        endforeach;
+                        
+                        if ($implode):
+                            $imp = implode(" && ", $implode);
+                            $sql.= " {$imp}";
+                        endif;
+                        
+                        if (!empty($data['filter_description'])):
+                            $sql.= " OR pd.description LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+                        endif;
+                    endif;
+                    
+                    if (!empty($data['filter_name']) && !empty($data['filter_tag'])):
+                        $sql.= " OR ";
+                    endif;
+                    
+                    if (!empty($data['filter_tag'])):
+                        $sql.= "pd.tag LIKE '%" . $this->db->escape($data['filter_tag']) . "%'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    $sql.= ")";
+                endif;
+                
+                if (!empty($data['filter_manufacturer_id'])):
+                    $sql.= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
+                endif;
+                
+                $sql.= " GROUP BY p.product_id";
+                
+                $sort_data = array('pd.name', 'p.model', 'p.quantity', 'p.price', 'rating', 'p.sort_order', 'p.date_added');
+                
+                if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
+                    if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model'):
+                        $sql.= " ORDER BY LCASE({$data['sort']})";
+                    elseif ($data['sort'] == 'p.price'):
+                        $sql.= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
+                    else:
+                        $sql.= " ORDER BY {$data['sort']}";
+                    endif;
+                else:
+                    $sql.= " ORDER BY p.sort_order";
+                endif;
+                
+                if (isset($data['order']) && ($data['order'] == 'DESC')):
+                    $sql.= " DESC, LCASE(pd.name) DESC";
+                else:
+                    $sql.= " ASC, LCASE(pd.name) ASC";
+                endif;
+                
+                if (isset($data['start']) || isset($data['limit'])):
+                    if ($data['start'] < 0):
+                        $data['start'] = 0;
+                    endif;
+                    
+                    if ($data['limit'] < 1):
+                        $data['limit'] = 20;
+                    endif;
+                    
+                    $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+                endif;
+                
+                $product_data = array();
+                
+                $query = $this->db->query($sql);
+                
+                foreach ($query->rows as $result):
+                    $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+                endforeach;
+                
+                $cachefile = $product_data;
+                $this->cache->set($key, $cachefile);
+            endif;
+            unset($key);
+        else:
+            $key = 'products.all.' . (int)$this->config->get('config_store_id');
+            $cachefile = $this->cache->get($key);
+            
+            if (is_bool($cachefile)):
+                $query = $this->db->query("
 					SELECT p.product_id, 
 						(SELECT AVG(rating) AS total 
 							FROM {$this->db->prefix}review r1 
@@ -393,34 +355,34 @@ class Product extends Model {
 					GROUP BY p.product_id 
 					ORDER BY p.sort_order ASC, LCASE(pd.name) ASC
 				");
-				
-				$product_data = array();
-		
-				foreach ($query->rows as $result):
-					$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
-				endforeach;
-				
-				$cachefile = $product_data;
-				$this->cache->set($key, $cachefile);
-			endif;
-		endif;
-
-		return $cachefile;
-	}
-
-	public function getProductSpecials($data = array()) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-		
-		if (!empty($data)):
-			$key = 'products.special' . md5(serialize($data));
-			$cachefile = $this->cache->get($key);
-
-			if (is_bool($cachefile)):
-				$sql = "
+                
+                $product_data = array();
+                
+                foreach ($query->rows as $result):
+                    $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+                endforeach;
+                
+                $cachefile = $product_data;
+                $this->cache->set($key, $cachefile);
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductSpecials($data = array()) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        if (!empty($data)):
+            $key = 'products.special' . md5(serialize($data));
+            $cachefile = $this->cache->get($key);
+            
+            if (is_bool($cachefile)):
+                $sql = "
 					SELECT DISTINCT 
 						ps.product_id, 
 						(SELECT AVG(rating) 
@@ -444,61 +406,55 @@ class Product extends Model {
 					AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) 
 					AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) 
 					GROUP BY ps.product_id";
-		
-				$sort_data = array(
-					'pd.name',
-					'p.model',
-					'ps.price',
-					'rating',
-					'p.sort_order'
-				);
-		
-				if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
-					if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model'):
-						$sql .= " ORDER BY LCASE({$data['sort']})";
-					else:
-						$sql .= " ORDER BY {$data['sort']}";
-					endif;
-				else:
-					$sql .= " ORDER BY p.sort_order";	
-				endif;
-		
-				if (isset($data['order']) && ($data['order'] == 'DESC')):
-					$sql .= " DESC, LCASE(pd.name) DESC";
-				else:
-					$sql .= " ASC, LCASE(pd.name) ASC";
-				endif;
-		
-				if (isset($data['start']) || isset($data['limit'])):
-					if ($data['start'] < 0):
-						$data['start'] = 0;
-					endif;
-		
-					if ($data['limit'] < 1):
-						$data['limit'] = 20;
-					endif;
-		
-					$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-				endif;
-		
-				$product_data = array();
-		
-				$query = $this->db->query($sql);
-		
-				foreach ($query->rows as $result):		
-					$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
-				endforeach;
-				
-				$cachefile = $product_data;
-				$this->cache->set($key, $cachefile);
-			endif;
-			unset($key);
-		else:
-			$key = 'products.special.' . (int)$this->config->get('config_store_id');
-			$cachefile = $this->cache->get($key);
-			
-			if (is_bool($cachefile)):
-				$query = $this->db->query("
+                
+                $sort_data = array('pd.name', 'p.model', 'ps.price', 'rating', 'p.sort_order');
+                
+                if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
+                    if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model'):
+                        $sql.= " ORDER BY LCASE({$data['sort']})";
+                    else:
+                        $sql.= " ORDER BY {$data['sort']}";
+                    endif;
+                else:
+                    $sql.= " ORDER BY p.sort_order";
+                endif;
+                
+                if (isset($data['order']) && ($data['order'] == 'DESC')):
+                    $sql.= " DESC, LCASE(pd.name) DESC";
+                else:
+                    $sql.= " ASC, LCASE(pd.name) ASC";
+                endif;
+                
+                if (isset($data['start']) || isset($data['limit'])):
+                    if ($data['start'] < 0):
+                        $data['start'] = 0;
+                    endif;
+                    
+                    if ($data['limit'] < 1):
+                        $data['limit'] = 20;
+                    endif;
+                    
+                    $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+                endif;
+                
+                $product_data = array();
+                
+                $query = $this->db->query($sql);
+                
+                foreach ($query->rows as $result):
+                    $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+                endforeach;
+                
+                $cachefile = $product_data;
+                $this->cache->set($key, $cachefile);
+            endif;
+            unset($key);
+        else:
+            $key = 'products.special.' . (int)$this->config->get('config_store_id');
+            $cachefile = $this->cache->get($key);
+            
+            if (is_bool($cachefile)):
+                $query = $this->db->query("
 					SELECT DISTINCT 
 						ps.product_id, 
 						(SELECT AVG(rating) 
@@ -524,35 +480,35 @@ class Product extends Model {
 					GROUP BY ps.product_id 
 					ORDER BY p.sort_order ASC, LCASE(pd.name) ASC
 				");
-					
-				$product_data = array();
-		
-				foreach ($query->rows as $result):		
-					$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
-				endforeach;
-				
-				$cachefile = $product_data;
-				$this->cache->set($key, $cachefile);
-			endif;
-		endif;
-		
-		return $cachefile;
-	}
-
-	public function getLatestProducts($limit) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-
-		$key = 'products.latest.' . (int)$this->config->get('config_store_id');	
-		$cachefile = $this->cache->get($key);
-
-		if (is_bool($cachefile)):
-			$product_data = array();
-			
-			$query = $this->db->query("
+                
+                $product_data = array();
+                
+                foreach ($query->rows as $result):
+                    $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+                endforeach;
+                
+                $cachefile = $product_data;
+                $this->cache->set($key, $cachefile);
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getLatestProducts($limit) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'products.latest.' . (int)$this->config->get('config_store_id');
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $product_data = array();
+            
+            $query = $this->db->query("
 				SELECT p.product_id 
 				FROM {$this->db->prefix}product p 
 				LEFT JOIN {$this->db->prefix}product_to_store p2s 
@@ -563,32 +519,32 @@ class Product extends Model {
 				AND p.date_available <= NOW() 
 				AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' 
 				ORDER BY p.date_added DESC LIMIT " . (int)$limit);
-
-			foreach ($query->rows as $result):
-				$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
-			endforeach;
-			
-			$cachefile = $product_data;
-			$this->cache->set($key, $cachefile);
-		endif;
-
-		return $cachefile;
-	}
-
-	public function getPopularProducts($limit) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-
-		$key = 'products.popular.' . (int)$this->config->get('config_store_id');
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$product_data = array();
-	
-			$query = $this->db->query("
+            
+            foreach ($query->rows as $result):
+                $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+            endforeach;
+            
+            $cachefile = $product_data;
+            $this->cache->set($key, $cachefile);
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getPopularProducts($limit) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'products.popular.' . (int)$this->config->get('config_store_id');
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $product_data = array();
+            
+            $query = $this->db->query("
 				SELECT p.product_id 
 				FROM {$this->db->prefix}product p 
 				LEFT JOIN {$this->db->prefix}product_to_store p2s 
@@ -599,32 +555,32 @@ class Product extends Model {
 				AND p.date_available <= NOW() 
 				AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' 
 				ORDER BY p.viewed, p.date_added DESC LIMIT " . (int)$limit);
-	
-			foreach ($query->rows as $result):		
-				$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
-			endforeach;
-			
-			$cachefile = $product_data;
-			$this->cache->set($key, $cachefile);
-		endif;
-
-		return $product_data;
-	}
-
-	public function getBestSellerProducts($limit) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-
-		$key = 'products.bestseller.' . (int)$this->config->get('config_store_id');
-		$cachefile = $this->cache->get($key);
-
-		if (is_bool($cachefile)):
-			$product_data = array();
-
-			$query = $this->db->query("
+            
+            foreach ($query->rows as $result):
+                $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+            endforeach;
+            
+            $cachefile = $product_data;
+            $this->cache->set($key, $cachefile);
+        endif;
+        
+        return $product_data;
+    }
+    
+    public function getBestSellerProducts($limit) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'products.bestseller.' . (int)$this->config->get('config_store_id');
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $product_data = array();
+            
+            $query = $this->db->query("
 				SELECT op.product_id, 
 					COUNT(*) AS total 
 				FROM {$this->db->prefix}order_product op 
@@ -643,26 +599,26 @@ class Product extends Model {
 				AND (p.end_date = '0000-00-00' OR p.end_date > NOW()) 
 				GROUP BY op.product_id 
 				ORDER BY total DESC LIMIT " . (int)$limit);
-
-			foreach ($query->rows as $result): 		
-				$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
-			endforeach;
-			
-			$cachefile = $product_data;
-			$this->cache->set($key, $cachefile);
-		endif;
-
-		return $cachefile;
-	}
-
-	public function getProductAttributes($product_id) {
-		$key = 'product.attributes.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$product_attribute_group_data = array();
-	
-			$product_attribute_group_query = $this->db->query("
+            
+            foreach ($query->rows as $result):
+                $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+            endforeach;
+            
+            $cachefile = $product_data;
+            $this->cache->set($key, $cachefile);
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductAttributes($product_id) {
+        $key = 'product.attributes.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $product_attribute_group_data = array();
+            
+            $product_attribute_group_query = $this->db->query("
 				SELECT 
 					ag.attribute_group_id, 
 					agd.name 
@@ -678,11 +634,11 @@ class Product extends Model {
 				GROUP BY ag.attribute_group_id 
 				ORDER BY ag.sort_order, agd.name
 			");
-
-			foreach ($product_attribute_group_query->rows as $product_attribute_group):
-				$product_attribute_data = array();
-	
-				$product_attribute_query = $this->db->query("
+            
+            foreach ($product_attribute_group_query->rows as $product_attribute_group):
+                $product_attribute_data = array();
+                
+                $product_attribute_query = $this->db->query("
 					SELECT 
 						a.attribute_id, 
 						ad.name, 
@@ -698,37 +654,29 @@ class Product extends Model {
 					AND pa.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 					ORDER BY a.sort_order, ad.name
 				");
-	
-				foreach ($product_attribute_query->rows as $product_attribute):
-					$product_attribute_data[] = array(
-						'attribute_id' => $product_attribute['attribute_id'],
-						'name'         => $product_attribute['name'],
-						'text'         => $product_attribute['text']		 	
-					);
-				endforeach;
-	
-				$product_attribute_group_data[] = array(
-					'attribute_group_id' => $product_attribute_group['attribute_group_id'],
-					'name'               => $product_attribute_group['name'],
-					'attribute'          => $product_attribute_data
-				);
-			endforeach;
-			
-			$cachefile = $product_attribute_group_data;
-			$this->cache->set($key, $cachefile);
-		endif;
-
-		return $cachefile;
-	}
-
-	public function getProductOptions($product_id) {
-		$key = 'product.options.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$product_option_data = array();
-	
-			$product_option_query = $this->db->query("
+                
+                foreach ($product_attribute_query->rows as $product_attribute):
+                    $product_attribute_data[] = array('attribute_id' => $product_attribute['attribute_id'], 'name' => $product_attribute['name'], 'text' => $product_attribute['text']);
+                endforeach;
+                
+                $product_attribute_group_data[] = array('attribute_group_id' => $product_attribute_group['attribute_group_id'], 'name' => $product_attribute_group['name'], 'attribute' => $product_attribute_data);
+            endforeach;
+            
+            $cachefile = $product_attribute_group_data;
+            $this->cache->set($key, $cachefile);
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductOptions($product_id) {
+        $key = 'product.options.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $product_option_data = array();
+            
+            $product_option_query = $this->db->query("
 				SELECT * 
 				FROM {$this->db->prefix}product_option po 
 				LEFT JOIN `{$this->db->prefix}option` o 
@@ -739,12 +687,12 @@ class Product extends Model {
 				AND od.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 				ORDER BY o.sort_order
 			");
-	
-			foreach ($product_option_query->rows as $product_option):
-				if ($product_option['type'] == 'select' || $product_option['type'] == 'radio' || $product_option['type'] == 'checkbox' || $product_option['type'] == 'image'):
-					$product_option_value_data = array();
-	
-					$product_option_value_query = $this->db->query("
+            
+            foreach ($product_option_query->rows as $product_option):
+                if ($product_option['type'] == 'select' || $product_option['type'] == 'radio' || $product_option['type'] == 'checkbox' || $product_option['type'] == 'image'):
+                    $product_option_value_data = array();
+                    
+                    $product_option_value_query = $this->db->query("
 						SELECT * 
 						FROM {$this->db->prefix}product_option_value pov 
 						LEFT JOIN {$this->db->prefix}option_value ov 
@@ -756,61 +704,36 @@ class Product extends Model {
 						AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 						ORDER BY ov.sort_order
 					");
-	
-					foreach ($product_option_value_query->rows as $product_option_value):
-						$product_option_value_data[] = array(
-							'product_option_value_id' => $product_option_value['product_option_value_id'],
-							'option_value_id'         => $product_option_value['option_value_id'],
-							'name'                    => $product_option_value['name'],
-							'image'                   => $product_option_value['image'],
-							'quantity'                => $product_option_value['quantity'],
-							'subtract'                => $product_option_value['subtract'],
-							'price'                   => $product_option_value['price'],
-							'price_prefix'            => $product_option_value['price_prefix'],
-							'weight'                  => $product_option_value['weight'],
-							'weight_prefix'           => $product_option_value['weight_prefix']
-						);
-					endforeach;
-	
-					$product_option_data[] = array(
-						'product_option_id' => $product_option['product_option_id'],
-						'option_id'         => $product_option['option_id'],
-						'name'              => $product_option['name'],
-						'type'              => $product_option['type'],
-						'option_value'      => $product_option_value_data,
-						'required'          => $product_option['required']
-					);
-				else:
-					$product_option_data[] = array(
-						'product_option_id' => $product_option['product_option_id'],
-						'option_id'         => $product_option['option_id'],
-						'name'              => $product_option['name'],
-						'type'              => $product_option['type'],
-						'option_value'      => $product_option['option_value'],
-						'required'          => $product_option['required']
-					);				
-				endif;
-			endforeach;
-			
-			$cachefile = $product_option_data;
-			$this->cache->set($key, $cachefile);
-		endif;
-
-		return $cachefile;
-	}
-
-	public function getProductDiscounts($product_id) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-		
-		$key = 'product.discounts.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+                    
+                    foreach ($product_option_value_query->rows as $product_option_value):
+                        $product_option_value_data[] = array('product_option_value_id' => $product_option_value['product_option_value_id'], 'option_value_id' => $product_option_value['option_value_id'], 'name' => $product_option_value['name'], 'image' => $product_option_value['image'], 'quantity' => $product_option_value['quantity'], 'subtract' => $product_option_value['subtract'], 'price' => $product_option_value['price'], 'price_prefix' => $product_option_value['price_prefix'], 'weight' => $product_option_value['weight'], 'weight_prefix' => $product_option_value['weight_prefix']);
+                    endforeach;
+                    
+                    $product_option_data[] = array('product_option_id' => $product_option['product_option_id'], 'option_id' => $product_option['option_id'], 'name' => $product_option['name'], 'type' => $product_option['type'], 'option_value' => $product_option_value_data, 'required' => $product_option['required']);
+                else:
+                    $product_option_data[] = array('product_option_id' => $product_option['product_option_id'], 'option_id' => $product_option['option_id'], 'name' => $product_option['name'], 'type' => $product_option['type'], 'option_value' => $product_option['option_value'], 'required' => $product_option['required']);
+                endif;
+            endforeach;
+            
+            $cachefile = $product_option_data;
+            $this->cache->set($key, $cachefile);
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductDiscounts($product_id) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'product.discounts.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT * 
 				FROM {$this->db->prefix}product_discount 
 				WHERE product_id = '" . (int)$product_id . "' 
@@ -820,57 +743,57 @@ class Product extends Model {
 				AND (date_end = '0000-00-00' OR date_end > NOW())) 
 				ORDER BY quantity ASC, priority ASC, price ASC
 			");
-			
-			if ($query->num_rows):
-				$cachefile = $query->rows;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, array());
-				return array();
-			endif;
-		endif;
-
-		return 	$cachefile;
-	}
-
-	public function getProductImages($product_id) {
-		$key = 'product.images.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+            
+            if ($query->num_rows):
+                $cachefile = $query->rows;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, array());
+                return array();
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductImages($product_id) {
+        $key = 'product.images.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT * 
 				FROM {$this->db->prefix}product_image 
 				WHERE product_id = '" . (int)$product_id . "' 
 				ORDER BY sort_order ASC
 			");
-			
-			if ($query->num_rows):
-				$cachefile = $query->rows;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, array());
-				return array();
-			endif;
-		endif;
-
-		return $cachefile;
-	}
-
-	public function getProductRelated($product_id) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-
-		$key = 'product.related.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$product_data = array();
-	
-			$query = $this->db->query("
+            
+            if ($query->num_rows):
+                $cachefile = $query->rows;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, array());
+                return array();
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductRelated($product_id) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'product.related.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $product_data = array();
+            
+            $query = $this->db->query("
 				SELECT * 
 				FROM {$this->db->prefix}product_related pr 
 				LEFT JOIN {$this->db->prefix}product p 
@@ -884,125 +807,124 @@ class Product extends Model {
 				AND p.date_available <= NOW() 
 				AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'
 			");
-	
-			foreach ($query->rows as $result): 
-				$product_data[$result['related_id']] = $this->getProduct($result['related_id']);
-			endforeach;
-			
-			$cachefile = $product_data;
-			$this->cache->set($key, $cachefile);
-		endif;
-
-		return $cachefile;
-	}
-
-	public function getProductLayoutId($product_id) {
-		$key = 'product.layoutid.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+            
+            foreach ($query->rows as $result):
+                $product_data[$result['related_id']] = $this->getProduct($result['related_id']);
+            endforeach;
+            
+            $cachefile = $product_data;
+            $this->cache->set($key, $cachefile);
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductLayoutId($product_id) {
+        $key = 'product.layoutid.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT * 
 				FROM {$this->db->prefix}product_to_layout 
 				WHERE product_id = '" . (int)$product_id . "' 
 				AND store_id = '" . (int)$this->config->get('config_store_id') . "'
 			");
-	
-			if ($query->num_rows):
-				$cachefile = $query->row['layout_id'];
-				$this->cache->set($key, $cachefile);
-			else:
-				$cachefile = 0;
-				$this->cache->set($key, $cachefile);
-			endif;
-		endif;
-		
-		return $cachefile;
-	}
-
-	public function getCategories($product_id) {
-		$key = 'product.categories.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+            
+            if ($query->num_rows):
+                $cachefile = $query->row['layout_id'];
+                $this->cache->set($key, $cachefile);
+            else:
+                $cachefile = 0;
+                $this->cache->set($key, $cachefile);
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getCategories($product_id) {
+        $key = 'product.categories.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT * 
 				FROM {$this->db->prefix}product_to_category 
 				WHERE product_id = '" . (int)$product_id . "'
 			");
-			
-			if ($query->num_rows):
-				$cachefile = $query->rows;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, array());
-				return array();
-			endif;
-		endif;
-
-		return $cachefile;
-	}
-	
-	public function getProductParentCategory ($product_id, $category_id = 0, $run = true) {
-		if ($run):
-			$result = $this->db->query("
+            
+            if ($query->num_rows):
+                $cachefile = $query->rows;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, array());
+                return array();
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductParentCategory($product_id, $category_id = 0, $run = true) {
+        if ($run):
+            $result = $this->db->query("
 				SELECT category_id 
 				FROM {$this->db->prefix}product_to_category 
 				WHERE product_id = '" . (int)$product_id . "' 
-				ORDER BY product_id ASC LIMIT 1"
-			);
-			$category_id = $result->row['category_id'];
-		endif;
-		
-		$query  = $this->db->query("
+				ORDER BY product_id ASC LIMIT 1");
+            $category_id = $result->row['category_id'];
+        endif;
+        
+        $query = $this->db->query("
 			SELECT parent_id 
 			FROM {$this->db->prefix}category 
 			WHERE category_id = '" . (int)$category_id . "'");
-		
-		if ($query->row['parent_id'] == 0):
-			return $category_id;
-		else:
-			return $this->getProductParentCategory ($product_id, $query->row['parent_id'], false);
-		endif;	
-	}
-
-	public function getTotalProducts($data = array()) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-		
-		if (!empty($data)):
-			$key = 'products.total.' . md5(serialize($data));
-			$cachefile = $this->cache->get($key);
-
-			if (is_bool($cachefile)):
-				$sql = "SELECT COUNT(DISTINCT p.product_id) AS total"; 
-		
-				if (!empty($data['filter_category_id'])):
-					if (!empty($data['filter_sub_category'])):
-						$sql .= " FROM {$this->db->prefix}category_path cp 
+        
+        if ($query->row['parent_id'] == 0):
+            return $category_id;
+        else:
+            return $this->getProductParentCategory($product_id, $query->row['parent_id'], false);
+        endif;
+    }
+    
+    public function getTotalProducts($data = array()) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        if (!empty($data)):
+            $key = 'products.total.' . md5(serialize($data));
+            $cachefile = $this->cache->get($key);
+            
+            if (is_bool($cachefile)):
+                $sql = "SELECT COUNT(DISTINCT p.product_id) AS total";
+                
+                if (!empty($data['filter_category_id'])):
+                    if (!empty($data['filter_sub_category'])):
+                        $sql.= " FROM {$this->db->prefix}category_path cp 
 								  LEFT JOIN {$this->db->prefix}product_to_category p2c 
-									ON (cp.category_id = p2c.category_id)";			
-					else:
-						$sql .= " FROM {$this->db->prefix}product_to_category p2c";
-					endif;
-		
-					if (!empty($data['filter_filter'])):
-						$sql .= " LEFT JOIN {$this->db->prefix}product_filter pf 
+									ON (cp.category_id = p2c.category_id)";
+                    else:
+                        $sql.= " FROM {$this->db->prefix}product_to_category p2c";
+                    endif;
+                    
+                    if (!empty($data['filter_filter'])):
+                        $sql.= " LEFT JOIN {$this->db->prefix}product_filter pf 
 									ON (p2c.product_id = pf.product_id) 
 								  LEFT JOIN {$this->db->prefix}product p 
 									ON (pf.product_id = p.product_id)";
-					else:
-						$sql .= " LEFT JOIN {$this->db->prefix}product p 
+                    else:
+                        $sql.= " LEFT JOIN {$this->db->prefix}product p 
 									ON (p2c.product_id = p.product_id)";
-					endif;
-				else:
-					$sql .= " FROM {$this->db->prefix}product p";
-				endif;
-
-				$sql .= " LEFT JOIN {$this->db->prefix}product_description pd 
+                    endif;
+                else:
+                    $sql.= " FROM {$this->db->prefix}product p";
+                endif;
+                
+                $sql.= " LEFT JOIN {$this->db->prefix}product_description pd 
 							ON (p.product_id = pd.product_id) 
 						  LEFT JOIN {$this->db->prefix}product_to_store p2s 
 							ON (p.product_id = p2s.product_id) 
@@ -1012,103 +934,103 @@ class Product extends Model {
 						  AND p.customer_id = '0' 
 						  AND p.date_available <= NOW() 
 						  AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
-
-				if (!empty($data['filter_category_id'])):
-					if (!empty($data['filter_sub_category'])):
-						$sql .= " AND cp.path_id = '" . (int)$data['filter_category_id'] . "'";	
-					else:
-						$sql .= " AND p2c.category_id = '" . (int)$data['filter_category_id'] . "'";			
-					endif;	
-		
-					if (!empty($data['filter_filter'])):
-						$implode = array();
-		
-						$filters = explode(',', $data['filter_filter']);
-		
-						foreach ($filters as $filter_id):
-							$implode[] = (int)$filter_id;
-						endforeach;
-		
-						$sql .= " AND pf.filter_id IN (" . implode(',', $implode) . ")";				
-					endif;
-				endif;
-
-				if (!empty($data['filter_name']) || !empty($data['filter_tag'])):
-					$sql .= " AND (";
-		
-					if (!empty($data['filter_name'])):
-						$implode = array();
-		
-						$words = explode(' ', trim(preg_replace('/\s\s+/', ' ', $data['filter_name'])));
-		
-						foreach ($words as $word) {
-							$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
-						}
-		
-						if ($implode):
-							$sql .= " {implode(" && ", $implode}";
-						endif;
-		
-						if (!empty($data['filter_description'])):
-							$sql .= " OR pd.description LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
-						endif;
-					endif;
-		
-					if (!empty($data['filter_name']) && !empty($data['filter_tag'])):
-						$sql .= " OR ";
-					endif;
-		
-					if (!empty($data['filter_tag'])):
-						$sql .= "pd.tag LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_tag'])) . "%'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					if (!empty($data['filter_name'])):
-						$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-					endif;
-		
-					$sql .= ")";				
-				endif;
-
-				if (!empty($data['filter_manufacturer_id'])):
-					$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
-				endif;
-				
-				$query = $this->db->query($sql);
-				
-				$cachefile = $query->row['total'];
-				$this->cache->set($key, (int)$cachefile);
-			endif;
-			unset($key);
-		else:
-			$key = 'products.total.' . (int)$this->config->get('config_store_id');
-			$cachefile = $this->cache->get($key);
-			
-			if (is_bool($cachefile)):
-				$query = $this->db->query("
+                
+                if (!empty($data['filter_category_id'])):
+                    if (!empty($data['filter_sub_category'])):
+                        $sql.= " AND cp.path_id = '" . (int)$data['filter_category_id'] . "'";
+                    else:
+                        $sql.= " AND p2c.category_id = '" . (int)$data['filter_category_id'] . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_filter'])):
+                        $implode = array();
+                        
+                        $filters = explode(',', $data['filter_filter']);
+                        
+                        foreach ($filters as $filter_id):
+                            $implode[] = (int)$filter_id;
+                        endforeach;
+                        
+                        $sql.= " AND pf.filter_id IN (" . implode(',', $implode) . ")";
+                    endif;
+                endif;
+                
+                if (!empty($data['filter_name']) || !empty($data['filter_tag'])):
+                    $sql.= " AND (";
+                    
+                    if (!empty($data['filter_name'])):
+                        $implode = array();
+                        
+                        $words = explode(' ', trim(preg_replace('/\s\s+/', ' ', $data['filter_name'])));
+                        
+                        foreach ($words as $word) {
+                            $implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+                        }
+                        
+                        if ($implode):
+                            $sql.= " {implode(" && ", $implode}";
+                        endif;
+                        
+                        if (!empty($data['filter_description'])):
+                            $sql.= " OR pd.description LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+                        endif;
+                    endif;
+                    
+                    if (!empty($data['filter_name']) && !empty($data['filter_tag'])):
+                        $sql.= " OR ";
+                    endif;
+                    
+                    if (!empty($data['filter_tag'])):
+                        $sql.= "pd.tag LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_tag'])) . "%'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    if (!empty($data['filter_name'])):
+                        $sql.= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                    endif;
+                    
+                    $sql.= ")";
+                endif;
+                
+                if (!empty($data['filter_manufacturer_id'])):
+                    $sql.= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
+                endif;
+                
+                $query = $this->db->query($sql);
+                
+                $cachefile = $query->row['total'];
+                $this->cache->set($key, (int)$cachefile);
+            endif;
+            unset($key);
+        else:
+            $key = 'products.total.' . (int)$this->config->get('config_store_id');
+            $cachefile = $this->cache->get($key);
+            
+            if (is_bool($cachefile)):
+                $query = $this->db->query("
 					SELECT COUNT(DISTINCT p.product_id) AS total 
 					FROM {$this->db->prefix}product p 
 					LEFT JOIN {$this->db->prefix}product_description pd 
@@ -1122,27 +1044,27 @@ class Product extends Model {
 					AND p.date_available <= NOW() 
 					AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'
 				");
-
-				$cachefile = $query->row['total'];
-				$this->cache->set($key, (int)$cachefile);
-			endif;
-		endif;
-
-		return $cachefile;
-	}
-
-	public function getProfiles($product_id) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-		
-		$key = 'product.profiles.all.' . $product_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+                
+                $cachefile = $query->row['total'];
+                $this->cache->set($key, (int)$cachefile);
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProfiles($product_id) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'product.profiles.all.' . $product_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT `pd`.* 
 				FROM `{$this->db->prefix}product_recurring` `pp` 
 				JOIN `{$this->db->prefix}recurring_description` `pd` 
@@ -1154,32 +1076,31 @@ class Product extends Model {
 				AND `status` = 1 
 				AND `customer_group_id` = " . (int)$customer_group_id . " 
 				ORDER BY `sort_order` ASC");
-			
-			if ($query->num_rows):
-				$cachefile = $query->rows;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, array());
-				return array();
-			endif;
-		endif;
-		
-		return $cachefile;
-
-	}
-
-	public function getProfile($product_id, $recurring_id) {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-		
-		$key = 'product.profile.' . $product_id . ':' . $recurring_id;
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+            
+            if ($query->num_rows):
+                $cachefile = $query->rows;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, array());
+                return array();
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProfile($product_id, $recurring_id) {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'product.profile.' . $product_id . ':' . $recurring_id;
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT * 
 				FROM `{$this->db->prefix}recurring` `p` 
 				JOIN `{$this->db->prefix}product_recurring` `pp` 
@@ -1188,31 +1109,31 @@ class Product extends Model {
 				WHERE `pp`.`recurring_id` = " . (int)$recurring_id . " 
 				AND `status` = 1 
 				AND `pp`.`customer_group_id` = " . (int)$customer_group_id);
-			
-			if ($query->num_rows):
-				$cachefile = $query->row;
-				$this->cache->set($key, $cachefile);
-			else:
-				$this->cache->set($key, array());
-				return array();
-			endif;
-		endif;
-		
-		return $cachefile;
-	}
-
-	public function getTotalProductSpecials() {
-		if ($this->customer->isLogged()):
-			$customer_group_id = $this->customer->getGroupId();
-		else:
-			$customer_group_id = $this->config->get('config_default_visibility');
-		endif;
-		
-		$key = 'product.specials.total.' . (int)$this->config->get('config_store_id');
-		$cachefile = $this->cache->get($key);
-		
-		if (is_bool($cachefile)):
-			$query = $this->db->query("
+            
+            if ($query->num_rows):
+                $cachefile = $query->row;
+                $this->cache->set($key, $cachefile);
+            else:
+                $this->cache->set($key, array());
+                return array();
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getTotalProductSpecials() {
+        if ($this->customer->isLogged()):
+            $customer_group_id = $this->customer->getGroupId();
+        else:
+            $customer_group_id = $this->config->get('config_default_visibility');
+        endif;
+        
+        $key = 'product.specials.total.' . (int)$this->config->get('config_store_id');
+        $cachefile = $this->cache->get($key);
+        
+        if (is_bool($cachefile)):
+            $query = $this->db->query("
 				SELECT COUNT(DISTINCT ps.product_id) AS total 
 				FROM {$this->db->prefix}product_special ps 
 				LEFT JOIN {$this->db->prefix}product p 
@@ -1228,180 +1149,179 @@ class Product extends Model {
 				AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) 
 				AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW()))
 			");
-	
-			if (isset($query->row['total'])):
-				 $cachefile = $query->row['total'];
-				 $this->cache->set($key, $cachefile);
-			else:
-				$cachefile = 0;
-			endif;
-		endif;
-		
-		return $cachefile;
-	}
-
-	public function getProductByModel($model) {
-		$query = $this->db->query("
+            
+            if (isset($query->row['total'])):
+                $cachefile = $query->row['total'];
+                $this->cache->set($key, $cachefile);
+            else:
+                $cachefile = 0;
+            endif;
+        endif;
+        
+        return $cachefile;
+    }
+    
+    public function getProductByModel($model) {
+        $query = $this->db->query("
 			SELECT DISTINCT product_id 
 			FROM {$this->db->prefix}product 
 			WHERE model = '" . $this->db->escape($model) . "'");
-
-		if ($query->num_rows)
-			return $this->getProduct($query->row['product_id']);
-		
-		return false;
-	}
-
-	public function joinWaitList($event_id, $customer_id) {
-		$this->db->query("
+        
+        if ($query->num_rows) return $this->getProduct($query->row['product_id']);
+        
+        return false;
+    }
+    
+    public function joinWaitList($event_id, $customer_id) {
+        $this->db->query("
 			INSERT INTO {$this->db->prefix}event_wait_list 
 			SET 
 				event_id = '" . (int)$event_id . "', 
 				customer_id = '" . (int)$customer_id . "'");
-		
-		$event_name = $this->db->query("
+        
+        $event_name = $this->db->query("
 			SELECT event_name 
 			FROM {$this->db->prefix}event_manager 
 			WHERE event_id = '" . (int)$event_id . "'");
-		
-		$customer_email = $this->db->query("
+        
+        $customer_email = $this->db->query("
 			SELECT email 
 			FROM {$this->db->prefix}customer 
 			WHERE customer_id = '" . (int)$customer_id . "'");
-		
-		if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-			$subject = sprintf($this->language->get('text_waitlist_subject'), $event_name->row['event_name']);
-			$this->theme->model('tool/image');
-			$image = IMAGE_URL . $this->config->get('config_logo');
-			$logo = str_replace(' ', '%20', $image);
-			$html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
-			$html .= '<div style="width: 100%; margin-bottom: 20px;">';
-			$html .= sprintf($this->language->get('text_waitlist_message'), $event_name->row['event_name']);
-			$html .= '</div>';
-			$html .= '<div style="width: 100%;">';
-			$html .= $this->config->get('config_name');
-			$html .= '</div>';
-			
-			$mail = new Mail();
-			$mail->protocol = $this->config->get('config_mail_protocol');
-			$mail->parameter = $this->config->get('config_mail_parameter');
-			$mail->hostname = $this->config->get('config_smtp_host');
-			$mail->username = $this->config->get('config_smtp_username');
-			$mail->password = $this->config->get('config_smtp_password');
-			$mail->port = $this->config->get('config_smtp_port');
-			$mail->timeout = $this->config->get('config_smtp_timeout');
-			$mail->setTo($customer_email->row['email']);
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender($this->config->get('config_name'));
-			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-			$mail->setHtml($html);
-			$mail->send();
-		}
-		return 1;
-	}
-
-	public function getEvents() {
-		$query = $this->db->query("
+        
+        if ($customer_email->num_rows && $customer_email->row['email'] != "") {
+            $subject = sprintf($this->language->get('text_waitlist_subject'), $event_name->row['event_name']);
+            $this->theme->model('tool/image');
+            $image = IMAGE_URL . $this->config->get('config_logo');
+            $logo = str_replace(' ', '%20', $image);
+            $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
+            $html.= '<div style="width: 100%; margin-bottom: 20px;">';
+            $html.= sprintf($this->language->get('text_waitlist_message'), $event_name->row['event_name']);
+            $html.= '</div>';
+            $html.= '<div style="width: 100%;">';
+            $html.= $this->config->get('config_name');
+            $html.= '</div>';
+            
+            $mail = new Mail();
+            $mail->protocol = $this->config->get('config_mail_protocol');
+            $mail->parameter = $this->config->get('config_mail_parameter');
+            $mail->hostname = $this->config->get('config_smtp_host');
+            $mail->username = $this->config->get('config_smtp_username');
+            $mail->password = $this->config->get('config_smtp_password');
+            $mail->port = $this->config->get('config_smtp_port');
+            $mail->timeout = $this->config->get('config_smtp_timeout');
+            $mail->setTo($customer_email->row['email']);
+            $mail->setFrom($this->config->get('config_email'));
+            $mail->setSender($this->config->get('config_name'));
+            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+            $mail->setHtml($html);
+            $mail->send();
+        }
+        return 1;
+    }
+    
+    public function getEvents() {
+        $query = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}event_manager 
 			WHERE visibility <= '" . (int)$this->customer->getGroupId() . "'");
-
-		return $query->rows;
-	}
-	
-	public function getEvent($event_id) {
-		$query = $this->db->query("
+        
+        return $query->rows;
+    }
+    
+    public function getEvent($event_id) {
+        $query = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}event_manager 
 			WHERE event_id = '" . (int)$event_id . "'");
-		
-		return $query->row;
-	}
-
-	public function buildEventPaths ($product_id) {
-		$category_id = $this->getProductParentCategory($product_id);	
-		$path = $category_id;
-		$categories = $this->getCategories ($product_id);
-		
-		foreach ($categories as $category):
-			if ($category['category_id'] != $category_id):
-				$path .= '_' . (int)$category['category_id'];
-			endif;
-		endforeach;
-		
-		return $path;
-	}
-	
-	public function getPresenterName($presenter_id) {
-		$query = $this->db->query("
+        
+        return $query->row;
+    }
+    
+    public function buildEventPaths($product_id) {
+        $category_id = $this->getProductParentCategory($product_id);
+        $path = $category_id;
+        $categories = $this->getCategories($product_id);
+        
+        foreach ($categories as $category):
+            if ($category['category_id'] != $category_id):
+                $path.= '_' . (int)$category['category_id'];
+            endif;
+        endforeach;
+        
+        return $path;
+    }
+    
+    public function getPresenterName($presenter_id) {
+        $query = $this->db->query("
 			SELECT presenter_name 
 			FROM {$this->db->prefix}presenter 
 			WHERE presenter_id = '" . (int)$presenter_id . "'");
-		
-		if ($query->num_rows) {
-			return $query->row['presenter_name'];
-		} else {
-			return;
-		}
-	}
-	
-	public function getPresenterBio($presenter_id) {
-		$query = $this->db->query("
+        
+        if ($query->num_rows) {
+            return $query->row['presenter_name'];
+        } else {
+            return;
+        }
+    }
+    
+    public function getPresenterBio($presenter_id) {
+        $query = $this->db->query("
 			SELECT bio 
 			FROM {$this->db->prefix}presenter 
 			WHERE presenter_id = '" . (int)$presenter_id . "'");
-		
-		return $query->row['bio'];
-	}
-	
-	public function getRoster($event_id, $customer_id) {
-		$registered = false;
-		
-		$query = $this->db->query("
+        
+        return $query->row['bio'];
+    }
+    
+    public function getRoster($event_id, $customer_id) {
+        $registered = false;
+        
+        $query = $this->db->query("
 			SELECT roster 
 			FROM {$this->db->prefix}event_manager 
 			WHERE event_id = '" . (int)$event_id . "'");
-		
-		if ($query->num_rows && !empty($query->row['roster'])) {
-			foreach (unserialize($query->row['roster']) as $row) {
-				if ($row['attendee_id'] == $customer_id) {
-					$registered = true;
-					break;
-				}
-			}
-		}
-		
-		return $registered;
-	}
-	
-	public function checkWaitList($event_id, $customer_id) {
-		$registered = false;
-		
-		$query = $this->db->query("
+        
+        if ($query->num_rows && !empty($query->row['roster'])) {
+            foreach (unserialize($query->row['roster']) as $row) {
+                if ($row['attendee_id'] == $customer_id) {
+                    $registered = true;
+                    break;
+                }
+            }
+        }
+        
+        return $registered;
+    }
+    
+    public function checkWaitList($event_id, $customer_id) {
+        $registered = false;
+        
+        $query = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}event_wait_list 
 			WHERE event_id = '" . (int)$event_id . "' 
 			AND customer_id = '" . (int)$customer_id . "'");
-		
-		if ($query->num_rows) {
-			$registered = true;
-		} else {
-			$registered = $this->getRoster($event_id, $customer_id);
-		}
-		
-		return $registered;
-	}
-
-	public function getEventImage ($product_id) {
-		$query = $this->db->query("
+        
+        if ($query->num_rows) {
+            $registered = true;
+        } else {
+            $registered = $this->getRoster($event_id, $customer_id);
+        }
+        
+        return $registered;
+    }
+    
+    public function getEventImage($product_id) {
+        $query = $this->db->query("
 			SELECT image 
 			FROM {$this->db->prefix}product 
 			WHERE product_id = '" . (int)$product_id . "'");
-
-		if ($query->num_rows):
-			return $query->row['image'];
-		else:
-			return 'placeholder.png';
-		endif;
-	}
+        
+        if ($query->num_rows):
+            return $query->row['image'];
+        else:
+            return 'placeholder.png';
+        endif;
+    }
 }
