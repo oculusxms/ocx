@@ -191,7 +191,8 @@ class Dashboard extends Controller {
 					$json['customer']['data'][] = array($key, $value['total']);
 				}
 
-				for ($i = 1; $i <= date('t'); $i++) {
+				$date_t = date('t');
+				for ($i = 1; $i <= $date_t; $i++) {
 					$date = date('Y') . '-' . date('m') . '-' . $i;
 
 					$json['xaxis'][] = array(date('j', strtotime($date)), date('d', strtotime($date)));

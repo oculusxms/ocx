@@ -83,7 +83,9 @@ class Calendar extends Controller {
 						'end' 	=> $event['date_end']
 					);
 					
-					for($i = 1; $i < count($days); $i++):
+					$count_days = count($days);
+
+					for($i = 1; $i < $count_days; $i++):
 						$start 	= strtotime($event['date_time']);
 						$end 	= strtotime($event['date_end']);
 						$event_times[] = array(

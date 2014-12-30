@@ -27,7 +27,10 @@ class Dashboard extends Model {
 	public function getTotalCustomersOnlineByHour() {
 		$online_data = array();
 
-		for ($i = strtotime('-1 hour'); $i < time(); $i = ($i + 60)) {
+		$minus_1 = strtotime('-1 hour');
+		$time 	 = time();
+
+		for ($i = $minus_1; $i < $time; $i = ($i + 60)) {
 			$time = (round($i / 60) * 60);
 
 			$online_data[$time] = array(
@@ -126,7 +129,9 @@ class Dashboard extends Model {
 	public function getTotalOrdersByMonth() {
 		$order_data = array();
 
-		for ($i = 1; $i <= date('t'); $i++) {
+		$date_t = date('t');
+
+		for ($i = 1; $i <= $date_t; $i++) {
 			$date = date('Y') . '-' . date('m') . '-' . $i;
 
 			$order_data[date('j', strtotime($date))] = array(
@@ -252,7 +257,9 @@ class Dashboard extends Model {
 	public function getTotalCustomersByMonth() {
 		$customer_data = array();
 
-		for ($i = 1; $i <= date('t'); $i++) {
+		$date_t = date('t');
+
+		for ($i = 1; $i <= $date_t; $i++) {
 			$date = date('Y') . '-' . date('m') . '-' . $i;
 
 			$customer_data[date('j', strtotime($date))] = array(

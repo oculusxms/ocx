@@ -25,7 +25,6 @@ class Footerblocks extends Controller {
 		 */
 
 		$routes   = explode('/', $route);
-		$layout   = $routes[0] . '/';
 
 		switch($routes[0]):
 			case 'account':
