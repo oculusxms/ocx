@@ -131,4 +131,4 @@ class Blog extends Controller {
         $this->response->setOutput($this->theme->view('content/home', $data));
     }
 }
-   
+  
