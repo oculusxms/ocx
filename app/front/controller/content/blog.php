@@ -18,6 +18,7 @@ namespace Front\Controller\Content;
 use Oculus\Engine\Controller;
 
 class Blog extends Controller {
+
     public function index() {
         $data = $this->theme->language('content/home');
         
@@ -131,4 +132,3 @@ class Blog extends Controller {
         $this->response->setOutput($this->theme->view('content/home', $data));
     }
 }
-  
