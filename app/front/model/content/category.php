@@ -132,7 +132,7 @@ class Category extends Model {
 						if ($this->config->get('config_top_level')):
 							$path = $category_info['category_id'];
 						else:
-							$path = $this->build_category_path($category_info['category_id']);
+							$path = $this->buildCategoryPath($category_info['category_id']);
 						endif;
 						
 						$category_data[] = array(
@@ -173,7 +173,7 @@ class Category extends Model {
 		return $cachefile;
 	}
 	
-	public function build_category_path ($category_id, $path = '', $run = true) {
+	public function buildCategoryPath ($category_id, $path = '', $run = true) {
 		$query = $this->db->query ("
 			SELECT parent_id 
 			FROM {$this->db->prefix}blog_category 
@@ -190,7 +190,7 @@ class Category extends Model {
 			return $path;
 		else:
 			$path = $parent_id . '_' . $path;
-			return $this->build_category_path($parent_id, $path, false);
+			return $this->buildCategoryPath($parent_id, $path, false);
 		endif;
 	}
 }

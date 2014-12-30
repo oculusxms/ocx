@@ -26,7 +26,7 @@ class Dashboard extends Controller {
 			->register('flot.resize.min', 'flot.min');
 		
 		if (strtotime('-24 hours', time()) > $this->user->getLastAccess()):
-			$this->check_folders();
+			$this->checkFolders();
 		endif;
 		
 		foreach ($this->errors as $error):
@@ -311,7 +311,7 @@ class Dashboard extends Controller {
 		}
 	}
 	
-	public function check_folders() {
+	public function checkFolders() {
 		$this->theme->language('common/dashboard');
 		
 		// Check image directory is writable

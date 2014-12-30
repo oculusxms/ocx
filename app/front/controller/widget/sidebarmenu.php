@@ -207,7 +207,7 @@ class Sidebarmenu extends Controller {
 				$link['href'] = $this->url->link($item['href']);
 				$link['name'] = $item['name'];
 			else:
-				$link['external'] = $this->external_sidebar($item['href'], $item['name']);
+				$link['external'] = $this->externalSidebar($item['href'], $item['name']);
 			endif;
 			$menu_items[] = $link;
 		endforeach;
@@ -215,7 +215,7 @@ class Sidebarmenu extends Controller {
 		return $menu_items;
 	}
 
-	private function external_sidebar($href, $text, $rel = 'nofollow', $target = '_blank') {
+	private function externalSidebar($href, $text, $rel = 'nofollow', $target = '_blank') {
 		$link = '<a class="list-group-item" href="' . $href . '" title="' . $text . '" rel="' . $rel . '" target="' . $target . '">' . $text . '
 					<span class="pull-right"><i class="fa fa-bars"></i></span></a>';
 

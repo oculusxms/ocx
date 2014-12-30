@@ -97,7 +97,7 @@ class Postwall extends Controller {
 				}
 				
 				if ($setting['description'] && $result['description']) {
-					$description = $this->format_description($result['description'], $chars);
+					$description = $this->formatDescription($result['description'], $chars);
 				} else {
 					$description = false;
 				}
@@ -132,7 +132,7 @@ class Postwall extends Controller {
 		return $this->theme->view('widget/postwall', $data);
 	}
 
-	protected function format_description($description, $chars = 100) {
+	protected function formatDescription($description, $chars = 100) {
 		$description = preg_replace('/<[^>]+>/i', ' ', html_entity_decode($description, ENT_QUOTES, 'UTF-8'));
 		
 		$this->theme->listen(__CLASS__, __FUNCTION__);
