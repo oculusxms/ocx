@@ -383,7 +383,8 @@ class Customer extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " AND {implode(" && ", $implode)}";
+			$imp = implode(" && ", $implode);
+			$sql .= " && {$imp}";
 		}
 
 		$sort_data = array(
@@ -595,7 +596,8 @@ class Customer extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" && ", $implode)}";
+			$imp = implode(" && ", $implode);
+			$sql .= " WHERE {$imp}";
 		}
 
 		$query = $this->db->query($sql);

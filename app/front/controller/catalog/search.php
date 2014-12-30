@@ -224,7 +224,7 @@ class Search extends Controller {
 					'price'       => $price,
 					'special'     => $special,
 					'tax'         => $tax,
-					'rating'      => $result['rating'],
+					'rating'      => $rating,
 					'reviews'     => sprintf($this->language->get('text_reviews'), (int)$result['reviews']),
 					'href'        => $this->url->link('catalog/product', 'product_id=' . $result['product_id'])
 				);

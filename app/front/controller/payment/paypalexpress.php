@@ -409,8 +409,6 @@ class Paypalexpress extends Controller {
 		$this->breadcrumb->add('text_title', 'payment/paypalexpress/express', '', true, 'SSL');
 		$this->breadcrumb->add('express_text_title', 'payment/paypalexpress/expressConfirm', '', true, 'SSL');
 
-		$points = $this->customer->getRewardPoints();
-
 		$points_total = 0;
 
 		foreach ($this->cart->getProducts() as $product) {

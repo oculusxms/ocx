@@ -8,14 +8,14 @@ class Event extends Controller {
 	private $error = array();
 	
   	public function index() {
-		$data = $this->theme->language('catalog/event');
+		$this->theme->language('catalog/event');
 		$this->theme->setTitle($this->language->get('heading_title'));
 		$this->theme->model('catalog/event');
 		$this->getList();
 	}
 	
   	public function insert() {
-    	$data = $this->theme->language('catalog/event');
+    	$this->theme->language('catalog/event');
     	$this->theme->setTitle($this->language->get('heading_title')); 
 		$this->theme->model('catalog/event');
     	if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -27,7 +27,7 @@ class Event extends Controller {
   	}
 
   	public function update() {
-    	$data = $this->theme->language('catalog/event');
+    	$this->theme->language('catalog/event');
     	$this->theme->setTitle($this->language->get('heading_title'));
 		$this->theme->model('catalog/event');
     	if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -39,7 +39,7 @@ class Event extends Controller {
   	}
 
   	public function delete() {
-    	$data = $this->theme->language('catalog/event');
+    	$this->theme->language('catalog/event');
     	$this->theme->setTitle($this->language->get('heading_title'));
 		$this->theme->model('catalog/event');
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -53,7 +53,7 @@ class Event extends Controller {
   	}
 
   	public function insert_presenter() {
-    	$data = $this->theme->language('catalog/event');
+    	$this->theme->language('catalog/event');
     	$this->theme->setTitle($this->language->get('heading_title')); 
 		$this->theme->model('catalog/event');
     	if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateFormPresenter()) {
@@ -65,7 +65,7 @@ class Event extends Controller {
   	}
 
   	public function update_presenter() {
-    	$data = $this->theme->language('catalog/event');
+    	$this->theme->language('catalog/event');
     	$this->theme->setTitle($this->language->get('heading_title'));
 		$this->theme->model('catalog/event');
     	if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateFormPresenter()) {
@@ -77,7 +77,7 @@ class Event extends Controller {
   	}
 
   	public function delete_presenter() {
-    	$data = $this->theme->language('catalog/event');
+    	$this->theme->language('catalog/event');
     	$this->theme->setTitle($this->language->get('heading_title'));
 		$this->theme->model('catalog/event');
 		if (isset($this->request->post['selected']) && $this->validateDeletePresenter()) {
@@ -91,7 +91,7 @@ class Event extends Controller {
   	}
 
 	public function add_to_wait_list() {
-		$data = $this->theme->language('catalog/event');
+		$this->theme->language('catalog/event');
 		$this->theme->model('catalog/event');
 		$json = array();
 		$results = $this->model_catalog_event->addToWaitList($this->request->post);
@@ -113,7 +113,7 @@ class Event extends Controller {
 	}
 
   	public function insert_attendee() {
-    	$data = $this->theme->language('catalog/event');
+    	$this->theme->language('catalog/event');
     	$this->theme->setTitle($this->language->get('heading_title')); 
 		$this->theme->model('catalog/event');
 		$json = array();
@@ -156,7 +156,7 @@ class Event extends Controller {
   	}
 
   	public function delete_attendee() {
-    	$data = $this->theme->language('catalog/event');
+    	$this->theme->language('catalog/event');
     	$this->theme->setTitle($this->language->get('heading_title'));
 		$this->theme->model('catalog/event');
 		
@@ -238,7 +238,7 @@ class Event extends Controller {
 	}
 
 	public function add_to_event() {
-		$data = $this->theme->language('catalog/event');
+		$this->theme->language('catalog/event');
 		$this->theme->model('catalog/event');
 		$this->model_catalog_event->addToEvent($this->request->get);
 		$this->session->data['success'] = $this->language->get('text_add_to_event');
@@ -246,7 +246,7 @@ class Event extends Controller {
 	}
 
 	public function remove_from_list() {
-		$data = $this->theme->language('catalog/event');
+		$this->theme->language('catalog/event');
 		$this->theme->model('catalog/event');
 		$this->model_catalog_event->removeFromList($this->request->get['event_wait_list_id']);
 		$this->session->data['success'] = $this->language->get('text_remove_from_list');

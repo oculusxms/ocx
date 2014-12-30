@@ -124,7 +124,7 @@ class Home extends Controller {
 					'name'        	=> $post['name'],
 					'short' 		=> utf8_substr(strip_tags(html_entity_decode($post['description'], ENT_QUOTES, 'UTF-8')), 0, 450) . '..',
 					'blurb' 		=> utf8_substr(strip_tags(html_entity_decode($post['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..',
-					'rating'      	=> $post['rating'],
+					'rating'      	=> $rating,
 					'views'       	=> sprintf($this->language->get('text_views'), (int)$post['viewed']),
 					'comments'    	=> sprintf($comment_text, (int)$post['comments']),
 					'href'        	=> $this->url->link('content/post', 'post_id=' . $post['post_id']),

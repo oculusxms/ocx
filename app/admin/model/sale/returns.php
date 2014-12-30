@@ -66,7 +66,8 @@ class Returns extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" && ", $implode)}";
+			$imp = implode(" && ", $implode);
+			$sql .= " WHERE {$imp}";
 		}
 
 		$sort_data = array(
@@ -147,7 +148,8 @@ class Returns extends Model {
 		}
 
 		if ($implode) {
-			$sql .= " WHERE {implode(" && ", $implode)}";
+			$imp = implode(" && ", $implode);
+			$sql .= " WHERE {$imp}";
 		}
 
 		$query = $this->db->query($sql);

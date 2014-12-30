@@ -13,8 +13,7 @@ class Register extends Plugin {
 	}
 	
 	public function add() {
-		$db 		= $this->app['db'];
-		$model 		= new PluginServiceModel($this->app);
+		$model = new PluginServiceModel($this->app);
 		
 		// set all event handlers
 		$model->setEventHandler('admin_edit_product', array(
@@ -48,8 +47,7 @@ class Register extends Plugin {
 	}
 	
 	public function remove() {
-		$db 		= $this->app['db'];
-		$model 		= new PluginServiceModel($this->app);
+		$model = new PluginServiceModel($this->app);
 		
 		// remove all event handlers
 		$model->removeEventHandler('admin_edit_product', array(

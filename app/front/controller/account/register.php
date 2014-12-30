@@ -178,7 +178,7 @@ class Register extends Controller {
 	public function username() {
 		$json = array();
 
-		$data = $this->theme->language('account/register');
+		$this->theme->language('account/register');
 		$this->theme->model('account/customer');
 
 		if ((utf8_strlen($this->request->get['username']) < 3) || (utf8_strlen($this->request->get['username']) > 16)):
@@ -195,7 +195,7 @@ class Register extends Controller {
 	public function email() {
 		$json = array();
 
-		$data = $this->theme->language('account/register');
+		$this->theme->language('account/register');
 		$this->theme->model('account/customer');
 
 		if ((utf8_strlen($this->request->get['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->get['email'])):
@@ -212,7 +212,7 @@ class Register extends Controller {
 	public function password() {
 		$json = array();
 
-		$data = $this->theme->language('account/register');
+		$this->theme->language('account/register');
 		$this->theme->model('account/customer');
 
 		if ((utf8_strlen($this->request->get['password']) < 4) || (utf8_strlen($this->request->get['password']) > 20)):

@@ -463,7 +463,7 @@ class Cart extends Controller {
 	}
 
 	public function add() {
-		$data = $this->theme->language('checkout/cart');
+		$this->theme->language('checkout/cart');
 
 		$json = array();
 
@@ -649,7 +649,7 @@ class Cart extends Controller {
 	}
 
 	public function quote() {
-		$data = $this->theme->language('checkout/cart');
+		$this->theme->language('checkout/cart');
 
 		$json = array();	
 

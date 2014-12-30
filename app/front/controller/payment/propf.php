@@ -74,7 +74,7 @@ class Propf extends Controller {
 	}
 
 	public function send() {
-		$data = $this->theme->language('payment/propf');
+		$this->theme->language('payment/propf');
 
 		$this->theme->model('checkout/order');
 

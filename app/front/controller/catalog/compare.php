@@ -132,7 +132,7 @@ class Compare extends Controller {
 	}
 
 	public function add() {
-		$data = $this->theme->language('catalog/compare');
+		$this->theme->language('catalog/compare');
 
 		$json = array();
 

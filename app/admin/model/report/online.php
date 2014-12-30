@@ -18,7 +18,8 @@ class Online extends Model {
 		}
 				
 		if ($implode) {
-			$sql .= " WHERE {implode(" && ", $implode)}";
+			$imp = implode(" && ", $implode);
+			$sql .= " WHERE {$imp}";
 		}
 				
 		$sql .= " ORDER BY co.date_added DESC";
@@ -54,7 +55,8 @@ class Online extends Model {
 		}
 		
 		if ($implode) {
-			$sql .= " WHERE {implode(" && ", $implode)}";
+			$imp = implode(" && ", $implode);
+			$sql .= " WHERE {$imp}";
 		}
 				
 		$query = $this->db->query($sql);

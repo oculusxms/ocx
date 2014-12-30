@@ -32,8 +32,6 @@ class Product extends Controller {
 
 		$this->theme->model('tool/image');
 
-		$total = count($results);
-
 		$data['products'] = array();
 		
 		foreach ($results as $result) {
@@ -76,7 +74,7 @@ class Product extends Controller {
 				'price'       => $price,
 				'special'     => $special,
 				'tax'         => $tax,
-				'rating'      => $result['rating'],
+				'rating'      => $rating,
 				'reviews'     => sprintf($this->language->get('text_reviews'), (int)$result['reviews']),
 				'href'        => $this->url->link('catalog/product', 'product_id=' . $result['product_id'])
 			);

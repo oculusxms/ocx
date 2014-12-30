@@ -4,7 +4,6 @@ namespace Front\Controller\Affiliate;
 use Oculus\Engine\Controller;
 
 class Payment extends Controller {
-	private $error = array();
 
 	public function index() {
 		if (!$this->affiliate->isLogged()) {

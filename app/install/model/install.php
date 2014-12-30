@@ -2,10 +2,6 @@
 
 namespace Install\Model;
 use Oculus\Engine\Model;
-use Oculus\Driver\Database\Dbmmsql;
-use Oculus\Driver\Database\Dbmpdo;
-use Oculus\Driver\Database\Dbmysqli;
-use Oculus\Driver\Database\Dbpostgre;
 use Oculus\Library\Db;
 
 class Install extends Model {
@@ -68,19 +64,6 @@ class Install extends Model {
 					`key` = 'config_email', 
 					value = '" . $db->escape($data['email']) . "'
 			");
-			
-			// $db->query("
-			// 	DELETE FROM `" . $data['db_prefix'] . "setting` 
-			// 	WHERE `key` = 'config_url'
-			// ");
-			
-			// $db->query("
-			// 	INSERT INTO `" . $data['db_prefix'] . "setting` 
-			// 	SET 
-			// 		`group` = 'config', 
-			// 		`key` = 'config_url', 
-			// 		value = '" . $db->escape(HTTP_OCX) . "'
-			// ");
 			
 			$db->query("
 				DELETE FROM {$data['db_prefix']}setting 

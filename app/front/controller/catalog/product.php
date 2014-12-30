@@ -2,10 +2,9 @@
 
 namespace Front\Controller\Catalog;
 use Oculus\Engine\Controller;
-use Front\Controller\Tool\Captcha as Captcha;
+use Front\Controller\Tool\Captcha;
  
 class Product extends Controller {
-	private $error = array();
 
 	public function index() {
 		$data = $this->theme->language('catalog/product');
@@ -635,7 +634,7 @@ class Product extends Controller {
 	}
 
 	public function getRecurringDescription() {
-		$data = $this->theme->language('catalog/product');
+		$this->theme->language('catalog/product');
 		$this->theme->model('catalog/product');
 
 		if (isset($this->request->post['product_id'])) {
@@ -697,8 +696,7 @@ class Product extends Controller {
 	}
 
 	public function write() {
-		$data = $this->theme->language('catalog/product');
-
+		$this->theme->language('catalog/product');
 		$this->theme->model('catalog/review');
 
 		$json = array();
@@ -745,7 +743,7 @@ class Product extends Controller {
 	}
 
 	public function upload() {
-		$data = $this->theme->language('catalog/product');
+		$this->theme->language('catalog/product');
 
 		$json = array();
 

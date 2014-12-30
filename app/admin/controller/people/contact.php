@@ -2,10 +2,9 @@
 
 namespace Admin\Controller\People;
 use Oculus\Engine\Controller;
-use Oculus\Library\Mail as Mail;
+use Oculus\Library\Mail;
  
 class Contact extends Controller {
-	private $error = array();
 
 	public function index() {
 		$data = $this->theme->language('people/contact');

@@ -178,7 +178,7 @@ class Category extends Controller {
 					'name'        	=> $result['name'],
 					'short' 		=> utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 450) . '..',
 					'blurb' 		=> utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..',
-					'rating'      	=> $result['rating'],
+					'rating'      	=> $rating,
 					'views'       	=> sprintf($this->language->get('text_views'), (int)$result['viewed']),
 					'comments'    	=> sprintf($comment_text, (int)$result['comments']),
 					'href'        	=> $this->url->link('content/post', 'bpath=' . $this->request->get['bpath'] . '&post_id=' . $result['post_id']),

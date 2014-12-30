@@ -5,27 +5,6 @@ use Oculus\Engine\Model;
 
 class Recurring extends Model {
 
-	private $recurring_status = array(
-		0 => 'Inactive',
-		1 => 'Active',
-		2 => 'Suspended',
-		3 => 'Cancelled',
-		4 => 'Expired / Complete'
-	);
-
-	private $transaction_type = array(
-		0 => 'Created',
-		1 => 'Payment',
-		2 => 'Outstanding payment',
-		3 => 'Payment skipped',
-		4 => 'Payment failed',
-		5 => 'Cancelled',
-		6 => 'Suspended',
-		7 => 'Suspended from failed payment',
-		8 => 'Outstanding payment failed',
-		9 => 'Expired',
-	);
-
 	public function getProfile($id) {
 		$result = $this->db->query("
 			SELECT 

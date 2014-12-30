@@ -5,7 +5,7 @@ use Oculus\Engine\Model;
 
 class Menu extends Model {
 	public function addMenu($data) {
-		$query = $this->db->query("
+		$this->db->query("
 			INSERT INTO {$this->db->prefix}menu 
 			SET 
 				name = '" . $this->db->escape($data['name']) . "', 
@@ -13,8 +13,6 @@ class Menu extends Model {
 				items = '" . $this->db->escape(serialize($data['menu_item'])) . "', 
 				status = '" . (int)$data['status'] . "'
 		");
-				
-		$menu_id = $this->db->getLastId();
 
 		$this->cache->delete('menu');
 	}

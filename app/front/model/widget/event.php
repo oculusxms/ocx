@@ -6,7 +6,6 @@ use Oculus\Engine\Model;
 class Event extends Model {
 	public function getEvents($customer_id) {
 		$events_data = array();
-		$time 		 = time();
 		
 		$events = $this->db->query("
 			SELECT * 

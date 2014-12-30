@@ -245,7 +245,8 @@ class Product extends Model {
 						endforeach;
 		
 						if ($implode):
-							$sql .= " {implode(" && ", $implode)}";
+							$imp  = implode(" && ", $implode);
+							$sql .= " {$imp}";
 						endif;
 		
 						if (!empty($data['filter_description'])):
@@ -1252,7 +1253,7 @@ class Product extends Model {
 	}
 
 	public function joinWaitList($event_id, $customer_id) {
-		$query = $this->db->query("
+		$this->db->query("
 			INSERT INTO {$this->db->prefix}event_wait_list 
 			SET 
 				event_id = '" . (int)$event_id . "', 

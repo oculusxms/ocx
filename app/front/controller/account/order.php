@@ -4,8 +4,7 @@ namespace Front\Controller\Account;
 use Oculus\Engine\Controller;
 
 class Order extends Controller {
-	private $error = array();
-
+	
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/order', '', 'SSL');

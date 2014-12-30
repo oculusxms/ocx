@@ -704,8 +704,6 @@ class Order extends Model {
 				else:
 					$hangout = '';
 				endif;
-				
-				$weight_class_id = $product_data['weight_class_id'];
 
 				$option_data = array();
 

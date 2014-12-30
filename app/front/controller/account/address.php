@@ -13,7 +13,7 @@ class Address extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', 'SSL'));
 		}
 
-		$data = $this->theme->language('account/address');
+		$this->theme->language('account/address');
 		$this->theme->setTitle($this->language->get('heading_title'));
 		$this->theme->model('account/address');
 		
@@ -29,7 +29,7 @@ class Address extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', 'SSL'));
 		}
 
-		$data = $this->theme->language('account/address');
+		$this->theme->language('account/address');
 
 		$this->theme->setTitle($this->language->get('heading_title'));
 
@@ -55,7 +55,7 @@ class Address extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', 'SSL'));
 		}
 
-		$data = $this->theme->language('account/address');
+		$this->theme->language('account/address');
 
 		$this->theme->setTitle($this->language->get('heading_title'));
 
@@ -104,7 +104,7 @@ class Address extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', 'SSL'));
 		}
 
-		$data = $this->theme->language('account/address');
+		$this->theme->language('account/address');
 
 		$this->theme->setTitle($this->language->get('heading_title'));
 

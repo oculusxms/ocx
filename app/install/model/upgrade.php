@@ -2,10 +2,6 @@
 
 namespace Install\Model;
 use Oculus\Engine\Model;
-use Oculus\Driver\Database\Dbmmsql;
-use Oculus\Driver\Database\Dbmpdo;
-use Oculus\Driver\Database\Dbmysqli;
-use Oculus\Driver\Database\Dbpostgre;
 use Oculus\Library\Db;
 
 class Upgrade extends Model {

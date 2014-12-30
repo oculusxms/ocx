@@ -106,7 +106,8 @@ class Customer extends Model {
 		}
 		
 		if ($implode) {
-			$sql .= " WHERE {implode(" && ", $implode)}";
+			$imp = implode(" && ", $implode);
+			$sql .= " WHERE {$imp}";
 		}
 				
 		if (isset($data['start']) || isset($data['limit'])) {
@@ -170,7 +171,8 @@ class Customer extends Model {
 		}
 		
 		if ($implode) {
-			$sql .= " WHERE {implode(" && ", $implode)}";
+			$imp = implode(" && ", $implode);
+			$sql .= " WHERE {$imp}";
 		}
 				
 		if (isset($data['start']) || isset($data['limit'])) {

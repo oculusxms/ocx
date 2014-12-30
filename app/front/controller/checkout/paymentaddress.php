@@ -75,7 +75,7 @@ class Paymentaddress extends Controller {
 	}
 
 	public function validate() {
-		$data = $this->theme->language('checkout/checkout');
+		$this->theme->language('checkout/checkout');
 
 		$json = array();
 

@@ -258,7 +258,6 @@ class Payflowiframe extends Controller {
 		if (isset($this->request->post['order_id']) && isset($this->request->post['amount']) && isset($this->request->post['complete'])) {
 			$order_id = $this->request->post['order_id'];
 			$paypal_order = $this->model_payment_payflowiframe->getOrder($order_id);
-			$paypal_transactions = $this->model_payment_payflowiframe->getTransactions($order_id);
 			$order_info = $this->model_sale_order->getOrder($order_id);
 
 			if ($paypal_order && $order_info) {

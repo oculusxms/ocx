@@ -5,7 +5,6 @@ use Oculus\Engine\Controller;
 use Front\Controller\Tool\Captcha;
  
 class Post extends Controller {
-	private $error = array(); 
 	
 	public function index() { 
 		$data = $this->theme->language('content/post');

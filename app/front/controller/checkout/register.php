@@ -75,8 +75,7 @@ class Register extends Controller {
 	}
 
 	public function validate() {
-		$data = $this->theme->language('checkout/checkout');
-
+		$this->theme->language('checkout/checkout');
 		$this->theme->model('account/customer');
 
 		$json = array();

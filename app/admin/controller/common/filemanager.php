@@ -4,7 +4,6 @@ namespace Admin\Controller\Common;
 use Oculus\Engine\Controller;
 
 class Filemanager extends Controller {
-	private $error = array();
 
 	public function index() {
 		$data = $this->theme->language('common/filemanager');

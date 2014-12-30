@@ -4,7 +4,6 @@ namespace Admin\Controller\Tool;
 use Oculus\Engine\Controller;
 
 class Errorlog extends Controller { 
-	private $error = array();
 
 	public function index() {		
 		$data = $this->theme->language('tool/error_log');

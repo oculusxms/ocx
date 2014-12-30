@@ -2,11 +2,10 @@
 
 namespace Front\Controller\Checkout;
 use Oculus\Engine\Controller;
-use Oculus\Library\User;
  
 class Manual extends Controller {
 	public function index() {
-		$data = $this->theme->language('checkout/manual');
+		$this->theme->language('checkout/manual');
 
 		$json = array();
 		
