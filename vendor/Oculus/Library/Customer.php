@@ -26,14 +26,13 @@ class Customer extends LibraryService {
     private $email;
     private $telephone;
     private $newsletter;
-    public $customer_group_id;
-    public $customer_group_name;
     private $address_id;
     private $profile_complete;
     private $address_complete;
-    
-    //private $upload_path;
     private $customer_products;
+    
+    public  $customer_group_id;
+    public  $customer_group_name;
     
     public function __construct(Container $app) {
         parent::__construct($app);
@@ -43,21 +42,20 @@ class Customer extends LibraryService {
         $session = $app['session'];
         
         if (isset($session->data['customer_id'])):
-            $this->customer_id = $session->data['customer_id'];
-            $this->username = $session->data['username'];
-            $this->firstname = $session->data['firstname'];
-            $this->lastname = $session->data['lastname'];
-            $this->email = $session->data['email'];
-            $this->telephone = $session->data['telephone'];
-            $this->newsletter = $session->data['newsletter'];
-            $this->customer_group_id = $session->data['customer_group_id'];
+            $this->customer_id         = $session->data['customer_id'];
+            $this->username            = $session->data['username'];
+            $this->firstname           = $session->data['firstname'];
+            $this->lastname            = $session->data['lastname'];
+            $this->email               = $session->data['email'];
+            $this->telephone           = $session->data['telephone'];
+            $this->newsletter          = $session->data['newsletter'];
+            $this->customer_group_id   = $session->data['customer_group_id'];
             $this->customer_group_name = $session->data['customer_group_name'];
-            $this->address_id = $session->data['address_id'];
+            $this->address_id          = $session->data['address_id'];
             
-            //$this->upload_path			= $session->data['upload_path'];
-            $this->profile_complete = $session->data['profile_complete'];
-            $this->address_complete = $session->data['address_complete'];
-            $this->customer_products = $session->data['customer_products'];
+            $this->profile_complete    = $session->data['profile_complete'];
+            $this->address_complete    = $session->data['address_complete'];
+            $this->customer_products   = $session->data['customer_products'];
             
             $db->query("
 				UPDATE {$db->prefix}customer 
@@ -76,8 +74,6 @@ class Customer extends LibraryService {
         $db = parent::$app['db'];
         $session = parent::$app['session'];
         $request = parent::$app['request'];
-        
-        //$up_path = parent::$app['path.image'] . 'data/' . parent::$app['config_member_image_dir'];
         
         if ($override):
             $customer_query = $db->query("
@@ -126,17 +122,15 @@ class Customer extends LibraryService {
                 endforeach;
             endif;
             
-            $session->data['customer_id'] = $customer_query->row['customer_id'];
-            $session->data['username'] = $customer_query->row['username'];
-            $session->data['firstname'] = $customer_query->row['firstname'];
-            $session->data['lastname'] = $customer_query->row['lastname'];
-            $session->data['email'] = $customer_query->row['email'];
-            $session->data['telephone'] = $customer_query->row['telephone'];
-            $session->data['newsletter'] = $customer_query->row['newsletter'];
+            $session->data['customer_id']       = $customer_query->row['customer_id'];
+            $session->data['username']          = $customer_query->row['username'];
+            $session->data['firstname']         = $customer_query->row['firstname'];
+            $session->data['lastname']          = $customer_query->row['lastname'];
+            $session->data['email']             = $customer_query->row['email'];
+            $session->data['telephone']         = $customer_query->row['telephone'];
+            $session->data['newsletter']        = $customer_query->row['newsletter'];
             $session->data['customer_group_id'] = $customer_query->row['customer_group_id'];
-            $session->data['address_id'] = $customer_query->row['address_id'];
-            
-            //$session->data['upload_path']		= $up_path . '/' . $customer_query->row['username'];
+            $session->data['address_id']        = $customer_query->row['address_id'];
             
             $customer_group_query = $db->query("
 				SELECT name 
@@ -235,26 +229,22 @@ class Customer extends LibraryService {
         unset($session->data['customer_group_id']);
         unset($session->data['customer_group_name']);
         unset($session->data['address_id']);
-        
-        //unset($session->data['upload_path']);
         unset($session->data['profile_complete']);
         unset($session->data['address_complete']);
         unset($session->data['customer_products']);
         
-        $this->customer_id = '';
-        $this->username = '';
-        $this->firstname = '';
-        $this->lastname = '';
-        $this->email = '';
-        $this->telephone = '';
-        $this->newsletter = '';
+        $this->customer_id         = '';
+        $this->username            = '';
+        $this->firstname           = '';
+        $this->lastname            = '';
+        $this->email               = '';
+        $this->telephone           = '';
+        $this->newsletter          = '';
         $this->customer_group_name = '';
-        $this->address_id = '';
-        
-        //$this->upload_path			= '';
-        $this->profile_complete = false;
-        $this->address_complete = false;
-        $this->customer_products = false;
+        $this->address_id          = '';
+        $this->profile_complete    = false;
+        $this->address_complete    = false;
+        $this->customer_products   = false;
         
         // set group id to publically visible
         $this->customer_group_id = parent::$app['config_default_visibility'];
@@ -399,14 +389,14 @@ class Customer extends LibraryService {
 			");
             
             if ($country_query->num_rows) {
-                $country = $country_query->row['name'];
-                $iso_code_2 = $country_query->row['iso_code_2'];
-                $iso_code_3 = $country_query->row['iso_code_3'];
+                $country        = $country_query->row['name'];
+                $iso_code_2     = $country_query->row['iso_code_2'];
+                $iso_code_3     = $country_query->row['iso_code_3'];
                 $address_format = $country_query->row['address_format'];
             } else {
-                $country = '';
-                $iso_code_2 = '';
-                $iso_code_3 = '';
+                $country        = '';
+                $iso_code_2     = '';
+                $iso_code_3     = '';
                 $address_format = '';
             }
             
@@ -434,7 +424,6 @@ class Customer extends LibraryService {
     
     public function processMembership($products) {
         $db = parent::$app['db'];
-        $session = parent::$app['session'];
         
         // find all recurring products in ordered products passed in
         // should be only one but you never know

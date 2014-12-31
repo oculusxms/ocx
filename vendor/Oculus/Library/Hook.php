@@ -57,8 +57,6 @@ class Hook extends LibraryService {
                     $theme_file = str_replace(dirname(parent::$app['path.application']) . '/', '', $theme_path);
                     $parts = explode('/', $theme_file);
                     
-                    //array_shift($parts);
-                    
                     foreach ($parts as $part):
                         $class_path.= ucfirst($part) . '\\';
                     endforeach;

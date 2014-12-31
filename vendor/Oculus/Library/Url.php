@@ -123,16 +123,13 @@ class Url extends LibraryService {
     Routing is routing and url creation is url creation, no need to mix the two.
     */
     private function rewrite($link) {
-        $cache = parent::$app['cache'];
-        $db = parent::$app['db'];
-        $ucfirst = parent::$app['config_ucfirst'];
-        
-        $slugs = parent::$app['routes'];
-        $custom = parent::$app['custom_routes'];
+        $ucfirst  = parent::$app['config_ucfirst'];
+        $slugs    = parent::$app['routes'];
+        $custom   = parent::$app['custom_routes'];
         
         $url_info = parse_url(str_replace('&amp;', '&', $link));
-        $url = '';
-        $route = array();
+        $url      = '';
+        $route    = array();
         parse_str($url_info['query'], $route);
         
         // Some standard routes

@@ -19,7 +19,6 @@ use Oculus\Service\LibraryService;
 
 class Apc extends LibraryService {
     private $expire;
-    private $cache;
     
     public function __construct($expire, $app) {
         parent::__construct($app);

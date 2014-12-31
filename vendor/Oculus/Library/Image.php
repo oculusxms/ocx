@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -27,7 +27,12 @@ class Image {
             
             $info = getimagesize($file);
             
-            $this->info = array('width' => $info[0], 'height' => $info[1], 'bits' => $info['bits'], 'mime' => $info['mime']);
+            $this->info = array(
+                'width'  => $info[0],
+                'height' => $info[1],
+                'bits'   => $info['bits'],
+                'mime'   => $info['mime']
+            );
             
             $this->image = $this->create($file);
         else:
@@ -89,10 +94,10 @@ class Image {
             return;
         endif;
         
-        $new_width = (int)($this->info['width'] * $scale);
+        $new_width  = (int)($this->info['width'] * $scale);
         $new_height = (int)($this->info['height'] * $scale);
-        $xpos = (int)(($width - $new_width) / 2);
-        $ypos = (int)(($height - $new_height) / 2);
+        $xpos       = (int)(($width - $new_width) / 2);
+        $ypos       = (int)(($height - $new_height) / 2);
         
         $image_old = $this->image;
         $this->image = imagecreatetruecolor($width, $height);
@@ -193,9 +198,17 @@ class Image {
         endif;
         
         if (strlen($color) == 6):
-            list($r, $g, $b) = array($color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5]);
+            list($r, $g, $b) = array(
+                $color[0] . $color[1],
+                $color[2] . $color[3],
+                $color[4] . $color[5]
+            );
         elseif (strlen($color) == 3):
-            list($r, $g, $b) = array($color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
+            list($r, $g, $b) = array(
+                $color[0] . $color[0],
+                $color[1] . $color[1],
+                $color[2] . $color[2]
+            );
         else:
             return false;
         endif;
@@ -204,6 +217,10 @@ class Image {
         $g = hexdec($g);
         $b = hexdec($b);
         
-        return array($r, $g, $b);
+        return array(
+            $r,
+            $g,
+            $b
+        );
     }
 }

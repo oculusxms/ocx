@@ -24,12 +24,6 @@ class Length extends LibraryService {
     public function __construct(Container $app) {
         parent::__construct($app);
         
-        /**
-         * Call the language Closure so that we can ensure we have
-         * the config_language_id param for our query.
-         */
-        $language = $app['language'];
-        
         $key = 'default.store.lengths';
         $rows = $app['cache']->get($key);
         

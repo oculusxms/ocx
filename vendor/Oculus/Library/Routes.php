@@ -20,8 +20,6 @@ use Oculus\Service\LibraryService;
 
 class Routes extends LibraryService {
     
-    private $store;
-    
     public function __construct(Container $app) {
         parent::__construct($app);
         

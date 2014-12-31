@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Front\Controller\Widget;
@@ -27,7 +27,7 @@ class Masonry extends Controller {
         
         $data['heading_title'] = $this->language->get('heading_' . $setting['product_type']);
         
-        $data['text_empty'] = sprintf($this->language->get('text_empty'), $setting['product_type']);
+        $data['text_empty'] = sprintf($this->language->get('text_empty') , $setting['product_type']);
         
         $this->theme->model('catalog/product');
         $this->theme->model('tool/image');
@@ -37,7 +37,13 @@ class Masonry extends Controller {
         
         $data['class_row'] = ($setting['span'] == 1) ? 'slim-row' : 'row';
         
-        $class_col = array(1 => 'slim-col-xs-4 slim-col-sm-2 slim-col-md-1', 2 => 'col-xs-6 col-sm-3 col-md-2', 3 => 'col-xs-12 col-sm-4 col-md-3', 4 => 'col-xs-12 col-sm-6 col-md-4', 6 => 'col-xs-12 col-sm-6');
+        $class_col = array(
+            1 => 'slim-col-xs-4 slim-col-sm-2 slim-col-md-1',
+            2 => 'col-xs-6 col-sm-3 col-md-2',
+            3 => 'col-xs-12 col-sm-4 col-md-3',
+            4 => 'col-xs-12 col-sm-6 col-md-4',
+            6 => 'col-xs-12 col-sm-6'
+        );
         
         $data['class_col'] = $class_col[$setting['span']];
         
@@ -78,11 +84,21 @@ class Masonry extends Controller {
                     }
                 }
             } elseif ($setting['product_type'] == 'special') {
-                $results = $this->model_catalog_product->getProductSpecials(array('sort' => 'pd.name', 'order' => 'ASC', 'start' => 0, 'limit' => $setting['limit']));
+                $results = $this->model_catalog_product->getProductSpecials(array(
+                    'sort' => 'pd.name',
+                    'order' => 'ASC',
+                    'start' => 0,
+                    'limit' => $setting['limit']
+                ));
             } elseif ($setting['product_type'] == 'bestseller') {
                 $results = $this->model_catalog_product->getBestSellerProducts($setting['limit']);
             } else {
-                $results = $this->model_catalog_product->getProducts(array('sort' => 'p.date_added', 'order' => 'DESC', 'start' => 0, 'limit' => $setting['limit']));
+                $results = $this->model_catalog_product->getProducts(array(
+                    'sort' => 'p.date_added',
+                    'order' => 'DESC',
+                    'start' => 0,
+                    'limit' => $setting['limit']
+                ));
             }
             
             $display_price = $this->config->get('config_customer_price') && $this->customer->isLogged() || !$this->config->get('config_customer_price');
@@ -91,7 +107,7 @@ class Masonry extends Controller {
             
             foreach ($results as $result) {
                 if ($result['image'] && file_exists($this->app['path.image'] . $result['image'])) {
-                    if ($setting['height'] !== false) {
+                    if ($setting['height']) {
                         $height = $setting['height'];
                     } else {
                         $size = getimagesize($this->app['path.image'] . $result['image']);
@@ -100,6 +116,7 @@ class Masonry extends Controller {
                     }
                     
                     $image = $this->model_tool_image->resize($result['image'], (int)$image_width, $height);
+                    
                 } else {
                     $image = '';
                 }
@@ -130,7 +147,18 @@ class Masonry extends Controller {
                     $rating = false;
                 }
                 
-                $masonry_products[] = array('product_id' => $result['product_id'], 'event_id' => $result['event_id'], 'thumb' => $image, 'name' => $result['name'], 'description' => $description, 'price' => $price, 'special' => $special, 'rating' => $rating, 'reviews' => sprintf($this->language->get('text_reviews'), (int)$result['reviews']), 'href' => $this->url->link('catalog/product', 'product_id=' . $result['product_id']),);
+                $masonry_products[] = array(
+                    'product_id'  => $result['product_id'],
+                    'event_id'    => $result['event_id'],
+                    'thumb'       => $image,
+                    'name'        => $result['name'],
+                    'description' => $description,
+                    'price'       => $price,
+                    'special'     => $special,
+                    'rating'      => $rating,
+                    'reviews'     => sprintf($this->language->get('text_reviews') , (int)$result['reviews']) ,
+                    'href'        => $this->url->link('catalog/product', 'product_id=' . $result['product_id']) ,
+                );
             }
             
             $cachefile = $masonry_products;

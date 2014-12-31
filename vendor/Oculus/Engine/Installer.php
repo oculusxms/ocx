@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Engine;
@@ -82,7 +82,7 @@ class Installer {
          */
         
         $request->server['SCRIPT_NAME'] = str_replace(PUBLIC_DIR, '', $request->server['SCRIPT_NAME']);
-        $request->server['PHP_SELF'] = str_replace(PUBLIC_DIR, '', $request->server['PHP_SELF']);
+        $request->server['PHP_SELF']    = str_replace(PUBLIC_DIR, '', $request->server['PHP_SELF']);
         
         if (!$route):
             unset($request->get['_route_']);
@@ -177,8 +177,6 @@ class Installer {
         // Set theme name to container
         $this->data['theme.name'] = 'install';
         
-        $prefix = $this->data['prefix.fascade'];
-        
         // theme
         $this->data['theme'] = function ($data) {
             return new Theme($data);
@@ -192,7 +190,10 @@ class Installer {
             return new Error($data);
         };
         
-        set_error_handler(array($this->data['errorhandler'], 'error_handler'));
+        set_error_handler(array(
+            $this->data['errorhandler'],
+            'error_handler'
+        ));
         
         $controller = new Front($this->data);
         
@@ -205,18 +206,12 @@ class Installer {
                 $upgrade = true;
                 $lines = file($this->data['path.database'] . 'config/db.php');
                 foreach ($lines as $line):
-                    if (strpos(strtoupper($line), 'DB_') !== false):
+                    if (strpos(strtoupper($line) , 'DB_') !== false):
                         eval($line);
                     endif;
                 endforeach;
             endif;
         endif;
-        
-        // if (isset($this->data['request']->get['route'])):
-        // 	$action = new Action(new ActionService($this->data, $this->data['request']->get['route']));
-        // else:
-        // 	$action = new Action(new ActionService($this->data, 'welcome'));
-        // endif;
         
         if (isset($this->data['request']->get['route'])):
             $action = new Action(new ActionService($this->data, $this->data['request']->get['route']));

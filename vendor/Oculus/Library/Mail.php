@@ -15,7 +15,6 @@
 */
 
 namespace Oculus\Library;
-use Oculus\Engine\Container;
 use Oculus\Service\LibraryService;
 use Oculus\Mailer\PHPMailer;
 

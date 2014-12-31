@@ -59,7 +59,7 @@ class Asset extends LibraryService {
         
         $expires = ($expire) ? $expire : $this->expire;
         
-        $file = parent::$app['path.filecache'] . parent::$app['cache.prefix'] . '.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $this->expire);
+        $file = parent::$app['path.filecache'] . parent::$app['cache.prefix'] . '.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $expires);
         
         $data = (is_array($value)) ? serialize($value) : $value;
         

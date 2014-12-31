@@ -14,7 +14,7 @@
 |	
 |
 |--------------------------------------------------------------------------
-|	Override Function for Framework Overrides
+|	Override Class for Framework Overrides
 |--------------------------------------------------------------------------
 |
 |	All of our autoloaded framework classes are passed through this method
@@ -22,16 +22,18 @@
 |
 */
 
-function override($filename) {
-    if (substr($filename, 0, strlen(FRAMEWORK)) == FRAMEWORK):
-        $file = dirname(APP_PATH) . '/override' . substr($filename, strlen(dirname(FRAMEWORK)));
-    endif;
-    
-    if (is_readable($file)):
-        return $file;
-    else:
-        return $filename;
-    endif;
+class Override {
+    public function fetch($filename) {
+        if (substr($filename, 0, strlen(FRAMEWORK)) == FRAMEWORK):
+            $file = dirname(APP_PATH) . '/override' . substr($filename, strlen(dirname(FRAMEWORK)));
+        endif;
+        
+        if (is_readable($file)):
+            return $file;
+        else:
+            return $filename;
+        endif;
+    }    
 }
 
 /*
@@ -50,7 +52,9 @@ spl_autoload_register(function ($class) {
     if (!is_readable($file)):
         return;
     else:
-        require override($file);
+        $override = new Override();
+
+        require $override->fetch($file);
         return true;
     endif;
 });
@@ -64,9 +68,11 @@ spl_autoload_register(function ($class) {
 |
 */
 
-require override(FRAMEWORK . 'Helper/json.php');
-require override(FRAMEWORK . 'Helper/utf8.php');
-require override(FRAMEWORK . 'Helper/vat.php');
+$override = new Override();
+
+require $override->fetch(FRAMEWORK . 'Helper/json.php');
+require $override->fetch(FRAMEWORK . 'Helper/utf8.php');
+require $override->fetch(FRAMEWORK . 'Helper/vat.php');
 
 /*
 |--------------------------------------------------------------------------

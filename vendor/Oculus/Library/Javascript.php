@@ -112,8 +112,6 @@ class Javascript extends LibraryService {
     }
     
     public function load($file, $data, $path = '') {
-        $session = parent::$app['session'];
-        
         $script_path = ($path) ? $path : $this->script_directory;
         
         if (!empty($this->script_data)):

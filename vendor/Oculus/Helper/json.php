@@ -29,7 +29,8 @@ if (!function_exists('json_encode')):
             $json = '';
             $string = '"' . addcslashes($data, "\\\"\n\r\t/" . chr(8) . chr(12)) . '"';
             // Convert UTF-8 to Hexadecimal Codepoints.
-            for ($i = 0; $i < strlen($string); $i++):
+            $string_length = strlen($string);
+            for ($i = 0; $i < $string_length; $i++):
                 $char = $string[$i];
                 $c1 = ord($char);
                 // Single byte;

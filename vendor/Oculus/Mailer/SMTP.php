@@ -835,4 +835,3 @@ class SMTP {
         return $data;
     }
 }
-?>

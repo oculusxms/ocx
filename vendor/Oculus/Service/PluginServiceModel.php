@@ -167,7 +167,6 @@ class PluginServiceModel extends Model {
 			AND hook = '" . $this->db->escape($hook) . "'
 		");
         
-        //var_dump($handler);
         $handlers = !empty($query->row['handlers']) ? unserialize($query->row['handlers']) : array();
         $handlers[] = $handler;
         

@@ -17,17 +17,11 @@
 namespace Oculus\Engine;
 use Oculus\Engine\Container;
 use Oculus\Engine\Controller;
-use Oculus\Library\Db;
-use Oculus\Service\PluginServiceModel;
-use Oculus\Engine\FrontView;
 use Oculus\Engine\View;
 
 class Plugin extends Controller {
     private $plugins = array();
     private $controllers = array();
-    private $files = array();
-    private $hooks = array();
-    private $events = array();
     private $locale;
     protected $app;
     protected $directory;

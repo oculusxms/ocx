@@ -66,7 +66,7 @@ class Image extends Model {
                     elseif ($width_orig < $height_orig):
                         $type = 'w';
                     else:
-                        $type = null;
+                        $type = '';
                     endif;
                 endif;
                 $image->resize($width, $height, $type);

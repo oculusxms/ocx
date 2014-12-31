@@ -27,10 +27,6 @@ use Oculus\Driver\Cache\Apc;
 use Oculus\Driver\Cache\Asset;
 use Oculus\Driver\Cache\File;
 use Oculus\Driver\Cache\Mem;
-use Oculus\Driver\Database\Dbmmsql;
-use Oculus\Driver\Database\Dbmpdo;
-use Oculus\Driver\Database\Dbmysqli;
-use Oculus\Driver\Database\Dbpostgre;
 use Oculus\Library\Affiliate;
 use Oculus\Library\Breadcrumb;
 use Oculus\Library\Cache;
@@ -509,8 +505,6 @@ class Application {
         
         // END
         
-        $store_id = ($this->data['config_store_id']) ? : 0;
-        
         $this->data['user'] = function ($data) {
             return new User($data);
         };
@@ -599,8 +593,6 @@ class Application {
         
         // Set to container
         $this->data['theme.name'] = $theme_name;
-        
-        $prefix = $this->data['prefix.fascade'];
         
         // Javascript
         $this->data['javascript'] = function ($data) {

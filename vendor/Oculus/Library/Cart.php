@@ -20,7 +20,6 @@ use Oculus\Service\LibraryService;
 
 class Cart extends LibraryService {
     private $data = array();
-    private $data_recurring = array();
     
     public function __construct(Container $app) {
         parent::__construct($app);
@@ -395,7 +394,6 @@ class Cart extends LibraryService {
     }
     
     public function getWeight() {
-        $config = parent::$app['config'];
         $weight = parent::$app['weight'];
         
         $weight_data = 0;
@@ -442,7 +440,6 @@ class Cart extends LibraryService {
     }
     
     public function getTotal() {
-        $config = parent::$app['config'];
         $tax = parent::$app['tax'];
         
         $total = 0;
