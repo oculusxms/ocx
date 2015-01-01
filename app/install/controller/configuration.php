@@ -222,7 +222,7 @@ class Configuration extends Controller {
             $this->error['password'] = 'Password required!';
         endif;
         
-        if ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])):
+        if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])):
             $this->error['email'] = 'Invalid E-Mail!';
         endif;
         

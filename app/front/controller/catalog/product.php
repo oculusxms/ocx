@@ -652,11 +652,11 @@ class Product extends Controller {
         $json = array();
         
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-            if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 25)) {
+            if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 25)) {
                 $json['error'] = $this->language->get('error_name');
             }
             
-            if ((utf8_strlen($this->request->post['text']) < 25) || (utf8_strlen($this->request->post['text']) > 1000)) {
+            if (($this->encode->strlen($this->request->post['text']) < 25) || ($this->encode->strlen($this->request->post['text']) > 1000)) {
                 $json['error'] = $this->language->get('error_text');
             }
             
@@ -700,7 +700,7 @@ class Product extends Controller {
         if (!empty($this->request->files['file']['name'])) {
             $filename = basename(preg_replace('/[^a-zA-Z0-9\.\-\s+]/', '', html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8')));
             
-            if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 64)) {
+            if (($this->encode->strlen($filename) < 3) || ($this->encode->strlen($filename) > 64)) {
                 $json['error'] = $this->language->get('error_filename');
             }
             

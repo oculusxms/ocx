@@ -615,10 +615,10 @@ class Order extends Model {
                     if ($option['type'] != 'file') {
                         $value = $option['value'];
                     } else {
-                        $value = utf8_substr($option['value'], 0, utf8_strrpos($option['value'], '.'));
+                        $value = $this->encode->substr($option['value'], 0, $this->encode->strrpos($option['value'], '.'));
                     }
                     
-                    $option_data[] = array('name' => $option['name'], 'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value));
+                    $option_data[] = array('name' => $option['name'], 'value' => ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value));
                 }
                 
                 $template->data['products'][] = array('image' => $image, 'order_product_id' => $product['order_product_id'], 'hangout' => $hangout, 'product_id' => $product['product_id'], 'weight' => $product_data['weight'], 'weight_fvalue' => $this->weight->format($product_data['weight'], $product_data['weight_class_id']), 'sku' => $product_data['sku'], 'stock_quantity' => $product_data['quantity'], 'stock_status' => $product_data['stock_status'], 'url' => $order_info['store_url'] . 'index.php?route=product/product&product_id=' . $product['product_id'], 'url_admin' => $this->app['https.server'] . ADMIN_FASCADE . '/index.php?route=catalog/product/update&product_id=' . $product['product_id'], 'name' => $product['name'], 'model' => $product['model'], 'option' => $option_data, 'quantity' => $product['quantity'], 'price' => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']), 'total' => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']));
@@ -662,7 +662,7 @@ class Order extends Model {
 				");
                 
                 foreach ($order_option_query->rows as $option) {
-                    $text.= chr(9) . '-' . $option['name'] . ' ' . (utf8_strlen($option['value']) > 20 ? utf8_substr($option['value'], 0, 20) . '..' : $option['value']) . "\n";
+                    $text.= chr(9) . '-' . $option['name'] . ' ' . ($this->encode->strlen($option['value']) > 20 ? $this->encode->substr($option['value'], 0, 20) . '..' : $option['value']) . "\n";
                 }
             }
             
@@ -741,10 +741,10 @@ class Order extends Model {
                         if ($option['type'] != 'file') {
                             $value = $option['value'];
                         } else {
-                            $value = utf8_substr($option['value'], 0, utf8_strrpos($option['value'], '.'));
+                            $value = $this->encode->substr($option['value'], 0, $this->encode->strrpos($option['value'], '.'));
                         }
                         
-                        $text.= chr(9) . '-' . $option['name'] . ' ' . (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value) . "\n";
+                        $text.= chr(9) . '-' . $option['name'] . ' ' . ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value) . "\n";
                     }
                 }
                 

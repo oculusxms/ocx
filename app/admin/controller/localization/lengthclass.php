@@ -316,11 +316,11 @@ class Lengthclass extends Controller {
         }
         
         foreach ($this->request->post['length_class_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['title']) < 3) || (utf8_strlen($value['title']) > 32)) {
+            if (($this->encode->strlen($value['title']) < 3) || ($this->encode->strlen($value['title']) > 32)) {
                 $this->error['title'][$language_id] = $this->language->get('error_title');
             }
             
-            if (!$value['unit'] || (utf8_strlen($value['unit']) > 4)) {
+            if (!$value['unit'] || ($this->encode->strlen($value['unit']) > 4)) {
                 $this->error['unit'][$language_id] = $this->language->get('error_unit');
             }
         }

@@ -183,19 +183,19 @@ class Manual extends Controller {
             
             // Add a new voucher if set
             if (isset($this->request->post['from_name']) && isset($this->request->post['from_email']) && isset($this->request->post['to_name']) && isset($this->request->post['to_email']) && isset($this->request->post['amount'])) {
-                if ((utf8_strlen($this->request->post['from_name']) < 1) || (utf8_strlen($this->request->post['from_name']) > 64)) {
+                if (($this->encode->strlen($this->request->post['from_name']) < 1) || ($this->encode->strlen($this->request->post['from_name']) > 64)) {
                     $json['error']['vouchers']['from_name'] = $this->language->get('error_from_name');
                 }
                 
-                if ((utf8_strlen($this->request->post['from_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['from_email'])) {
+                if (($this->encode->strlen($this->request->post['from_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['from_email'])) {
                     $json['error']['vouchers']['from_email'] = $this->language->get('error_email');
                 }
                 
-                if ((utf8_strlen($this->request->post['to_name']) < 1) || (utf8_strlen($this->request->post['to_name']) > 64)) {
+                if (($this->encode->strlen($this->request->post['to_name']) < 1) || ($this->encode->strlen($this->request->post['to_name']) > 64)) {
                     $json['error']['vouchers']['to_name'] = $this->language->get('error_to_name');
                 }
                 
-                if ((utf8_strlen($this->request->post['to_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['to_email'])) {
+                if (($this->encode->strlen($this->request->post['to_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['to_email'])) {
                     $json['error']['vouchers']['to_email'] = $this->language->get('error_email');
                 }
                 
@@ -234,7 +234,7 @@ class Manual extends Controller {
                 
                 $country_info = $this->model_localization_country->getCountry($this->request->post['shipping_country_id']);
                 
-                if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['shipping_postcode']) < 2) || (utf8_strlen($this->request->post['shipping_postcode']) > 10)) {
+                if ($country_info && $country_info['postcode_required'] && ($this->encode->strlen($this->request->post['shipping_postcode']) < 2) || ($this->encode->strlen($this->request->post['shipping_postcode']) > 10)) {
                     $json['error']['shipping']['postcode'] = $this->language->get('error_postcode');
                 }
                 
@@ -250,7 +250,7 @@ class Manual extends Controller {
                 
                 $country_info = $this->model_localization_country->getCountry($this->request->post['shipping_country_id']);
                 
-                if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['shipping_postcode']) < 2) || (utf8_strlen($this->request->post['shipping_postcode']) > 10)) {
+                if ($country_info && $country_info['postcode_required'] && ($this->encode->strlen($this->request->post['shipping_postcode']) < 2) || ($this->encode->strlen($this->request->post['shipping_postcode']) > 10)) {
                     $json['error']['shipping']['postcode'] = $this->language->get('error_postcode');
                 }
                 

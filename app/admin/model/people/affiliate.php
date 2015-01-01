@@ -107,7 +107,7 @@ class Affiliate extends Model {
     }
     
     public function getAffiliateByEmail($email) {
-        $query = $this->db->query("SELECT DISTINCT * FROM {$this->db->prefix}affiliate WHERE LCASE(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM {$this->db->prefix}affiliate WHERE LCASE(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'");
         
         return $query->row;
     }
@@ -122,7 +122,7 @@ class Affiliate extends Model {
         }
         
         if (!empty($data['filter_email'])) {
-            $implode[] = "LCASE(a.email) = '" . $this->db->escape(utf8_strtolower($data['filter_email'])) . "'";
+            $implode[] = "LCASE(a.email) = '" . $this->db->escape($this->encode->strtolower($data['filter_email'])) . "'";
         }
         
         if (!empty($data['filter_code'])) {
@@ -226,7 +226,7 @@ class Affiliate extends Model {
         }
         
         if (!empty($data['filter_email'])) {
-            $implode[] = "LCASE(email) = '" . $this->db->escape(utf8_strtolower($data['filter_email'])) . "'";
+            $implode[] = "LCASE(email) = '" . $this->db->escape($this->encode->strtolower($data['filter_email'])) . "'";
         }
         
         if (isset($data['filter_status']) && !is_null($data['filter_status'])) {

@@ -131,8 +131,8 @@ class Postwall extends Controller {
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
         
-        if (utf8_strlen($description) > $chars) {
-            return trim(utf8_substr($description, 0, $chars)) . '...';
+        if ($this->encode->strlen($description) > $chars) {
+            return trim($this->encode->substr($description, 0, $chars)) . '...';
         } else {
             return $description;
         }

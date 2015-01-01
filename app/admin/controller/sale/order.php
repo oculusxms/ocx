@@ -1022,35 +1022,35 @@ class Order extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
         
-        if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
+        if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
         
-        if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
+        if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
             $this->error['lastname'] = $this->language->get('error_lastname');
         }
         
-        if ((utf8_strlen($this->request->post['email']) > 96) || (!preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email']))) {
+        if (($this->encode->strlen($this->request->post['email']) > 96) || (!preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email']))) {
             $this->error['email'] = $this->language->get('error_email');
         }
         
-        if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
+        if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
         
-        if ((utf8_strlen($this->request->post['payment_firstname']) < 1) || (utf8_strlen($this->request->post['payment_firstname']) > 32)) {
+        if (($this->encode->strlen($this->request->post['payment_firstname']) < 1) || ($this->encode->strlen($this->request->post['payment_firstname']) > 32)) {
             $this->error['payment_firstname'] = $this->language->get('error_firstname');
         }
         
-        if ((utf8_strlen($this->request->post['payment_lastname']) < 1) || (utf8_strlen($this->request->post['payment_lastname']) > 32)) {
+        if (($this->encode->strlen($this->request->post['payment_lastname']) < 1) || ($this->encode->strlen($this->request->post['payment_lastname']) > 32)) {
             $this->error['payment_lastname'] = $this->language->get('error_lastname');
         }
         
-        if ((utf8_strlen($this->request->post['payment_address_1']) < 3) || (utf8_strlen($this->request->post['payment_address_1']) > 128)) {
+        if (($this->encode->strlen($this->request->post['payment_address_1']) < 3) || ($this->encode->strlen($this->request->post['payment_address_1']) > 128)) {
             $this->error['payment_address_1'] = $this->language->get('error_address_1');
         }
         
-        if ((utf8_strlen($this->request->post['payment_city']) < 3) || (utf8_strlen($this->request->post['payment_city']) > 128)) {
+        if (($this->encode->strlen($this->request->post['payment_city']) < 3) || ($this->encode->strlen($this->request->post['payment_city']) > 128)) {
             $this->error['payment_city'] = $this->language->get('error_city');
         }
         
@@ -1059,7 +1059,7 @@ class Order extends Controller {
         $country_info = $this->model_localization_country->getCountry($this->request->post['payment_country_id']);
         
         if ($country_info) {
-            if ($country_info['postcode_required'] && (utf8_strlen($this->request->post['payment_postcode']) < 2) || (utf8_strlen($this->request->post['payment_postcode']) > 10)) {
+            if ($country_info['postcode_required'] && ($this->encode->strlen($this->request->post['payment_postcode']) < 2) || ($this->encode->strlen($this->request->post['payment_postcode']) > 10)) {
                 $this->error['payment_postcode'] = $this->language->get('error_postcode');
             }
             
@@ -1096,19 +1096,19 @@ class Order extends Controller {
         }
         
         if ($shipping) {
-            if ((utf8_strlen($this->request->post['shipping_firstname']) < 1) || (utf8_strlen($this->request->post['shipping_firstname']) > 32)) {
+            if (($this->encode->strlen($this->request->post['shipping_firstname']) < 1) || ($this->encode->strlen($this->request->post['shipping_firstname']) > 32)) {
                 $this->error['shipping_firstname'] = $this->language->get('error_firstname');
             }
             
-            if ((utf8_strlen($this->request->post['shipping_lastname']) < 1) || (utf8_strlen($this->request->post['shipping_lastname']) > 32)) {
+            if (($this->encode->strlen($this->request->post['shipping_lastname']) < 1) || ($this->encode->strlen($this->request->post['shipping_lastname']) > 32)) {
                 $this->error['shipping_lastname'] = $this->language->get('error_lastname');
             }
             
-            if ((utf8_strlen($this->request->post['shipping_address_1']) < 3) || (utf8_strlen($this->request->post['shipping_address_1']) > 128)) {
+            if (($this->encode->strlen($this->request->post['shipping_address_1']) < 3) || ($this->encode->strlen($this->request->post['shipping_address_1']) > 128)) {
                 $this->error['shipping_address_1'] = $this->language->get('error_address_1');
             }
             
-            if ((utf8_strlen($this->request->post['shipping_city']) < 3) || (utf8_strlen($this->request->post['shipping_city']) > 128)) {
+            if (($this->encode->strlen($this->request->post['shipping_city']) < 3) || ($this->encode->strlen($this->request->post['shipping_city']) > 128)) {
                 $this->error['shipping_city'] = $this->language->get('error_city');
             }
             
@@ -1116,7 +1116,7 @@ class Order extends Controller {
             
             $country_info = $this->model_localization_country->getCountry($this->request->post['shipping_country_id']);
             
-            if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['shipping_postcode']) < 2) || (utf8_strlen($this->request->post['shipping_postcode']) > 10)) {
+            if ($country_info && $country_info['postcode_required'] && ($this->encode->strlen($this->request->post['shipping_postcode']) < 2) || ($this->encode->strlen($this->request->post['shipping_postcode']) > 10)) {
                 $this->error['shipping_postcode'] = $this->language->get('error_postcode');
             }
             
@@ -1354,7 +1354,7 @@ class Order extends Controller {
                     if ($option['type'] != 'file') {
                         $option_data[] = array('name' => $option['name'], 'value' => $option['value'], 'type' => $option['type']);
                     } else {
-                        $option_data[] = array('name' => $option['name'], 'value' => utf8_substr($option['value'], 0, utf8_strrpos($option['value'], '.')), 'type' => $option['type'], 'href' => $this->url->link('sale/order/download', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&order_option_id=' . $option['order_option_id'], 'SSL'));
+                        $option_data[] = array('name' => $option['name'], 'value' => $this->encode->substr($option['value'], 0, $this->encode->strrpos($option['value'], '.')), 'type' => $option['type'], 'href' => $this->url->link('sale/order/download', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&order_option_id=' . $option['order_option_id'], 'SSL'));
                     }
                 }
                 
@@ -1884,7 +1884,7 @@ class Order extends Controller {
         
         if ($option_info && $option_info['type'] == 'file') {
             $file = $this->app['path.download'] . $option_info['value'];
-            $mask = basename(utf8_substr($option_info['value'], 0, utf8_strrpos($option_info['value'], '.')));
+            $mask = basename($this->encode->substr($option_info['value'], 0, $this->encode->strrpos($option_info['value'], '.')));
             
             if (!headers_sent()) {
                 if (file_exists($file)) {
@@ -1928,7 +1928,7 @@ class Order extends Controller {
             if (!empty($this->request->files['file']['name'])) {
                 $filename = html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8');
                 
-                if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 128)) {
+                if (($this->encode->strlen($filename) < 3) || ($this->encode->strlen($filename) > 128)) {
                     $json['error'] = $this->language->get('error_filename');
                 }
                 
@@ -2078,7 +2078,7 @@ class Order extends Controller {
                         if ($option['type'] != 'file') {
                             $value = $option['value'];
                         } else {
-                            $value = utf8_substr($option['value'], 0, utf8_strrpos($option['value'], '.'));
+                            $value = $this->encode->substr($option['value'], 0, $this->encode->strrpos($option['value'], '.'));
                         }
                         
                         $option_data[] = array('name' => $option['name'], 'value' => $value);

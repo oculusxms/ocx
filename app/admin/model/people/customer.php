@@ -339,8 +339,8 @@ class Customer extends Model {
         $query = $this->db->query("
 			SELECT DISTINCT * 
 			FROM {$this->db->prefix}customer 
-			WHERE (LCASE(email) = '" . $this->db->escape(utf8_strtolower($email)) . "') 
-			OR LCASE(username) = '" . $this->db->escape(utf8_strtolower($username)) . "'");
+			WHERE (LCASE(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "') 
+			OR LCASE(username) = '" . $this->db->escape($this->encode->strtolower($username)) . "'");
         
         return $query->row;
     }

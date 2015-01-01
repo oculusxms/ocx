@@ -148,7 +148,7 @@ class Upgrade extends Model {
 		");
         
         foreach ($table_query->rows as $table):
-            if (utf8_substr($table['Tables_in_' . DB_DATABASE], 0, strlen(DB_PREFIX)) == DB_PREFIX):
+            if ($this->encode->substr($table['Tables_in_' . DB_DATABASE], 0, strlen(DB_PREFIX)) == DB_PREFIX):
                 $field_data = array();
                 $field_query = $this->db->query("
 					SHOW COLUMNS 

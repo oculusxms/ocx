@@ -48,10 +48,10 @@ class Paypalstandard extends Controller {
                     } else {
                         $filename = $this->encryption->decrypt($option['option_value']);
                         
-                        $value = utf8_substr($filename, 0, utf8_strrpos($filename, '.'));
+                        $value = $this->encode->substr($filename, 0, $this->encode->strrpos($filename, '.'));
                     }
                     
-                    $option_data[] = array('name' => $option['name'], 'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value));
+                    $option_data[] = array('name' => $option['name'], 'value' => ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value));
                 }
                 
                 $data['products'][] = array('name' => $product['name'], 'model' => $product['model'], 'price' => $this->currency->format($product['price'], $order_info['currency_code'], false, false), 'quantity' => $product['quantity'], 'option' => $option_data, 'weight' => $product['weight']);

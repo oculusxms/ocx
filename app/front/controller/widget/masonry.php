@@ -177,8 +177,8 @@ class Masonry extends Controller {
     protected function formatDescription($description, $chars = 100) {
         $description = preg_replace('/<[^>]+>/i', ' ', html_entity_decode($description, ENT_QUOTES, 'UTF-8'));
         
-        if (utf8_strlen($description) > $chars) {
-            return trim(utf8_substr($description, 0, $chars)) . '...';
+        if ($this->encode->strlen($description) > $chars) {
+            return trim($this->encode->substr($description, 0, $chars)) . '...';
         } else {
             return $description;
         }

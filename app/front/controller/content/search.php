@@ -199,7 +199,7 @@ class Search extends Controller {
                 
                 $comment_text = ($result['comments'] == 1) ? rtrim($this->language->get('text_comments'), 's') : $this->language->get('text_comments');
                 
-                $data['posts'][] = array('post_id' => $result['post_id'], 'author_name' => $result['author_name'], 'name' => $result['name'], 'blurb' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..', 'views' => sprintf($this->language->get('text_views'), (int)$result['viewed']), 'comments' => sprintf($comment_text, (int)$result['comments']), 'href' => $this->url->link('content/post', 'post_id=' . $result['post_id']), 'author_href' => $this->url->link('content/search', '&filter_author_id=' . $result['author_id']), 'date_added' => date($this->language->get('post_date'), strtotime($result['date_added'])), 'categories' => $posted_in_categories);
+                $data['posts'][] = array('post_id' => $result['post_id'], 'author_name' => $result['author_name'], 'name' => $result['name'], 'blurb' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..', 'views' => sprintf($this->language->get('text_views'), (int)$result['viewed']), 'comments' => sprintf($comment_text, (int)$result['comments']), 'href' => $this->url->link('content/post', 'post_id=' . $result['post_id']), 'author_href' => $this->url->link('content/search', '&filter_author_id=' . $result['author_id']), 'date_added' => date($this->language->get('post_date'), strtotime($result['date_added'])), 'categories' => $posted_in_categories);
             }
             
             $url = '';

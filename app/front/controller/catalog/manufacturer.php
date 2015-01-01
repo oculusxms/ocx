@@ -35,10 +35,10 @@ class Manufacturer extends Controller {
         $results = $this->model_catalog_manufacturer->getManufacturers();
         
         foreach ($results as $result) {
-            if (is_numeric(utf8_substr($result['name'], 0, 1))) {
+            if (is_numeric($this->encode->substr($result['name'], 0, 1))) {
                 $key = '0 - 9';
             } else {
-                $key = utf8_substr(utf8_strtoupper($result['name']), 0, 1);
+                $key = $this->encode->substr($this->encode->strtoupper($result['name']), 0, 1);
             }
             
             if (!isset($data['manufacturers'][$key])) {
@@ -173,7 +173,7 @@ class Manufacturer extends Controller {
                     $rating = false;
                 }
                 
-                $data['products'][] = array('product_id' => $result['product_id'], 'event_id' => $result['event_id'], 'thumb' => $image, 'name' => $result['name'], 'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 100) . '..', 'price' => $price, 'special' => $special, 'tax' => $tax, 'rating' => $rating, 'reviews' => sprintf($this->language->get('text_reviews'), (int)$result['reviews']), 'href' => $this->url->link('catalog/product', 'product_id=' . $result['product_id'] . $url));
+                $data['products'][] = array('product_id' => $result['product_id'], 'event_id' => $result['event_id'], 'thumb' => $image, 'name' => $result['name'], 'description' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 100) . '..', 'price' => $price, 'special' => $special, 'tax' => $tax, 'rating' => $rating, 'reviews' => sprintf($this->language->get('text_reviews'), (int)$result['reviews']), 'href' => $this->url->link('catalog/product', 'product_id=' . $result['product_id'] . $url));
             }
             
             $url = '';

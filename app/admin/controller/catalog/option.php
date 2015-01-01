@@ -361,7 +361,7 @@ class Option extends Controller {
         }
         
         foreach ($this->request->post['option_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 128)) {
+            if (($this->encode->strlen($value['name']) < 1) || ($this->encode->strlen($value['name']) > 128)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
         }
@@ -373,7 +373,7 @@ class Option extends Controller {
         if (isset($this->request->post['option_value'])) {
             foreach ($this->request->post['option_value'] as $option_value_id => $option_value) {
                 foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
-                    if ((utf8_strlen($option_value_description['name']) < 1) || (utf8_strlen($option_value_description['name']) > 128)) {
+                    if (($this->encode->strlen($option_value_description['name']) < 1) || ($this->encode->strlen($option_value_description['name']) > 128)) {
                         $this->error['option_value'][$option_value_id][$language_id] = $this->language->get('error_option_value');
                     }
                 }

@@ -362,11 +362,11 @@ class Manufacturer extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
         
-        if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
+        if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 64)) {
             $this->error['name'] = $this->language->get('error_name');
         }
         
-        if (isset($this->request->post['slug']) && utf8_strlen($this->request->post['slug']) > 0):
+        if (isset($this->request->post['slug']) && $this->encode->strlen($this->request->post['slug']) > 0):
             $this->theme->model('tool/utility');
             $query = $this->model_tool_utility->findSlugByName($this->request->post['slug']);
             
@@ -444,7 +444,7 @@ class Manufacturer extends Controller {
         
         $json = array();
         
-        if (!isset($this->request->get['name']) || utf8_strlen($this->request->get['name']) < 1):
+        if (!isset($this->request->get['name']) || $this->encode->strlen($this->request->get['name']) < 1):
             $json['error'] = $this->language->get('error_name_first');
         else:
             

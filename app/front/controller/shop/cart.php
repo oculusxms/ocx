@@ -86,10 +86,10 @@ class Cart extends Controller {
                 } else {
                     $filename = $this->encryption->decrypt($option['option_value']);
                     
-                    $value = utf8_substr($filename, 0, utf8_strrpos($filename, '.'));
+                    $value = $this->encode->substr($filename, 0, $this->encode->strrpos($filename, '.'));
                 }
                 
-                $option_data[] = array('name' => $option['name'], 'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value), 'type' => $option['type']);
+                $option_data[] = array('name' => $option['name'], 'value' => ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value), 'type' => $option['type']);
             }
             
             // Display prices

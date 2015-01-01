@@ -365,12 +365,12 @@ class Download extends Controller {
         }
         
         foreach ($this->request->post['download_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 64)) {
+            if (($this->encode->strlen($value['name']) < 3) || ($this->encode->strlen($value['name']) > 64)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
         }
         
-        if ((utf8_strlen($this->request->post['filename']) < 3) || (utf8_strlen($this->request->post['filename']) > 128)) {
+        if (($this->encode->strlen($this->request->post['filename']) < 3) || ($this->encode->strlen($this->request->post['filename']) > 128)) {
             $this->error['filename'] = $this->language->get('error_filename');
         }
         
@@ -378,7 +378,7 @@ class Download extends Controller {
             $this->error['filename'] = $this->language->get('error_exists');
         }
         
-        if ((utf8_strlen($this->request->post['mask']) < 3) || (utf8_strlen($this->request->post['mask']) > 128)) {
+        if (($this->encode->strlen($this->request->post['mask']) < 3) || ($this->encode->strlen($this->request->post['mask']) > 128)) {
             $this->error['mask'] = $this->language->get('error_mask');
         }
         
@@ -420,7 +420,7 @@ class Download extends Controller {
             if (!empty($this->request->files['file']['name'])) {
                 $filename = basename(html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8'));
                 
-                if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 128)) {
+                if (($this->encode->strlen($filename) < 3) || ($this->encode->strlen($filename) > 128)) {
                     $json['error'] = $this->language->get('error_filename');
                 }
                 

@@ -26,7 +26,7 @@
 				</div>
 				<div class="media-body">
 					<div class="lead media-heading"><?= $product['name']; ?></div>
-					<?php if (utf8_strlen($product['description']) > 2) { ?>
+					<?php if (strlen($product['description']) > 2) { ?>
 						<p class="description"><?= $product['description']; ?></p>
 					<?php } ?>
 					<?php if ($product['rating']) { ?>

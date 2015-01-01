@@ -352,14 +352,14 @@ class Banner extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
         
-        if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
+        if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 64)) {
             $this->error['name'] = $this->language->get('error_name');
         }
         
         if (isset($this->request->post['banner_image'])) {
             foreach ($this->request->post['banner_image'] as $banner_image_id => $banner_image) {
                 foreach ($banner_image['banner_image_description'] as $language_id => $banner_image_description) {
-                    if ((utf8_strlen($banner_image_description['title']) < 2) || (utf8_strlen($banner_image_description['title']) > 64)) {
+                    if (($this->encode->strlen($banner_image_description['title']) < 2) || ($this->encode->strlen($banner_image_description['title']) > 64)) {
                         $this->error['banner_image'][$banner_image_id][$language_id] = $this->language->get('error_title');
                     }
                 }

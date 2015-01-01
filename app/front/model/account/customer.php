@@ -172,7 +172,7 @@ class Customer extends Model {
 			SET 
 				salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
 				password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "' 
-			WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'
+			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         
         $this->theme->trigger('customer_edit_password', array('customer_id' => $this->customer->getId()));
@@ -202,7 +202,7 @@ class Customer extends Model {
         $query = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}customer 
-			WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'
+			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         
         return $query->row;
@@ -236,11 +236,11 @@ class Customer extends Model {
         $implode = array();
         
         if (isset($data['filter_name']) && !is_null($data['filter_name'])) {
-            $implode[] = "LCASE(CONCAT(c.firstname, ' ', c.lastname)) LIKE '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%'";
+            $implode[] = "LCASE(CONCAT(c.firstname, ' ', c.lastname)) LIKE '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "%'";
         }
         
         if (isset($data['filter_email']) && !is_null($data['filter_email'])) {
-            $implode[] = "LCASE(c.email) = '" . $this->db->escape(utf8_strtolower($data['filter_email'])) . "'";
+            $implode[] = "LCASE(c.email) = '" . $this->db->escape($this->encode->strtolower($data['filter_email'])) . "'";
         }
         
         if (isset($data['filter_customer_group_id']) && !is_null($data['filter_customer_group_id'])) {
@@ -303,7 +303,7 @@ class Customer extends Model {
         $query = $this->db->query("
 			SELECT COUNT(*) AS total 
 			FROM {$this->db->prefix}customer 
-			WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'
+			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         
         return $query->row['total'];
@@ -313,7 +313,7 @@ class Customer extends Model {
         $query = $this->db->query("
 			SELECT COUNT(*) AS total 
 			FROM {$this->db->prefix}customer 
-			WHERE LOWER(username) = '" . $this->db->escape(utf8_strtolower($username)) . "'
+			WHERE LOWER(username) = '" . $this->db->escape($this->encode->strtolower($username)) . "'
 		");
         
         return $query->row['total'];

@@ -71,7 +71,6 @@ spl_autoload_register(function ($class) {
 $override = new Override();
 
 require $override->fetch(FRAMEWORK . 'Helper/json.php');
-require $override->fetch(FRAMEWORK . 'Helper/utf8.php');
 require $override->fetch(FRAMEWORK . 'Helper/vat.php');
 
 /*

@@ -367,12 +367,12 @@ class Category extends Controller {
         }
         
         foreach ($this->request->post['category_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 2) || (utf8_strlen($value['name']) > 255)) {
+            if (($this->encode->strlen($value['name']) < 2) || ($this->encode->strlen($value['name']) > 255)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
         }
         
-        if (isset($this->request->post['slug']) && utf8_strlen($this->request->post['slug']) > 0):
+        if (isset($this->request->post['slug']) && $this->encode->strlen($this->request->post['slug']) > 0):
             $this->theme->model('tool/utility');
             $query = $this->model_tool_utility->findSlugByName($this->request->post['slug']);
             
@@ -454,7 +454,7 @@ class Category extends Controller {
         
         $json = array();
         
-        if (!isset($this->request->get['name']) || utf8_strlen($this->request->get['name']) < 1):
+        if (!isset($this->request->get['name']) || $this->encode->strlen($this->request->get['name']) < 1):
             $json['error'] = $this->language->get('error_name_first');
         else:
             

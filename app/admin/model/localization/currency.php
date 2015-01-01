@@ -176,8 +176,8 @@ class Currency extends Model {
             $lines = explode("\n", trim($content));
             
             foreach ($lines as $line) {
-                $currency = utf8_substr($line, 4, 3);
-                $value = utf8_substr($line, 11, 6);
+                $currency = $this->encode->substr($line, 4, 3);
+                $value = $this->encode->substr($line, 11, 6);
                 
                 if ((float)$value) {
                     $this->db->query("

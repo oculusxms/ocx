@@ -191,10 +191,10 @@ class Order extends Controller {
                     if ($option['type'] != 'file') {
                         $value = $option['value'];
                     } else {
-                        $value = utf8_substr($option['value'], 0, utf8_strrpos($option['value'], '.'));
+                        $value = $this->encode->substr($option['value'], 0, $this->encode->strrpos($option['value'], '.'));
                     }
                     
-                    $option_data[] = array('name' => $option['name'], 'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value));
+                    $option_data[] = array('name' => $option['name'], 'value' => ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value));
                 }
                 
                 $data['products'][] = array('name' => $product['name'], 'model' => $product['model'], 'option' => $option_data, 'quantity' => $product['quantity'], 'price' => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']), 'total' => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']), 'return' => $this->url->link('account/returns/insert', 'order_id=' . $order_info['order_id'] . '&product_id=' . $product['product_id'], 'SSL'));

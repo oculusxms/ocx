@@ -851,7 +851,7 @@ class Event extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
         
-        if ((utf8_strlen($this->request->post['name']) < 1) || (utf8_strlen($this->request->post['name']) > 150)) {
+        if (($this->encode->strlen($this->request->post['name']) < 1) || ($this->encode->strlen($this->request->post['name']) > 150)) {
             $this->error['name'] = $this->language->get('error_name');
         }
         
@@ -859,11 +859,11 @@ class Event extends Controller {
             $this->error['slug'] = $this->language->get('error_slug');
         }
         
-        if ((utf8_strlen($this->request->post['model']) < 1) || (utf8_strlen($this->request->post['model']) > 50)) {
+        if (($this->encode->strlen($this->request->post['model']) < 1) || ($this->encode->strlen($this->request->post['model']) > 50)) {
             $this->error['model'] = $this->language->get('error_model');
         }
         
-        if ((utf8_strlen($this->request->post['event_length']) < 1) || (utf8_strlen($this->request->post['event_length']) > 40)) {
+        if (($this->encode->strlen($this->request->post['event_length']) < 1) || ($this->encode->strlen($this->request->post['event_length']) > 40)) {
             $this->error['event_length'] = $this->language->get('error_event_length');
         }
         
@@ -876,11 +876,11 @@ class Event extends Controller {
         }
         
         if ($this->request->post['online']):
-            if (utf8_strlen($this->request->post['hangout']) < 1):
+            if ($this->encode->strlen($this->request->post['hangout']) < 1):
                 $this->error['hangout'] = $this->language->get('error_hangout');
             endif;
         else:
-            if ((utf8_strlen($this->request->post['location']) < 1) || (utf8_strlen($this->request->post['location']) > 200)) {
+            if (($this->encode->strlen($this->request->post['location']) < 1) || ($this->encode->strlen($this->request->post['location']) > 200)) {
                 $this->error['location'] = $this->language->get('error_location');
             }
         endif;
@@ -897,7 +897,7 @@ class Event extends Controller {
             $this->error['seats'] = $this->language->get('error_seats');
         }
         
-        if (utf8_strlen($this->request->post['description']) < 25) {
+        if ($this->encode->strlen($this->request->post['description']) < 25) {
             $this->error['description'] = $this->language->get('error_description');
         }
         
@@ -920,11 +920,11 @@ class Event extends Controller {
         if (!$this->user->hasPermission('modify', 'catalog/event')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
-        if ((utf8_strlen($this->request->post['presenter_name']) < 1) || (utf8_strlen($this->request->post['presenter_name']) > 150)) {
+        if (($this->encode->strlen($this->request->post['presenter_name']) < 1) || ($this->encode->strlen($this->request->post['presenter_name']) > 150)) {
             $this->error['presenter_name'] = $this->language->get('error_presenter_name');
         }
         
-        if (utf8_strlen($this->request->post['bio']) < 25) {
+        if ($this->encode->strlen($this->request->post['bio']) < 25) {
             $this->error['bio'] = $this->language->get('error_bio');
         }
         
@@ -953,7 +953,7 @@ class Event extends Controller {
         
         $json = array();
         
-        if (!isset($this->request->get['name']) || utf8_strlen($this->request->get['name']) < 1):
+        if (!isset($this->request->get['name']) || $this->encode->strlen($this->request->get['name']) < 1):
             $json['error'] = $this->language->get('error_name_first');
         else:
             

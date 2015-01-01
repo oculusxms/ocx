@@ -29,7 +29,7 @@ class Image extends Model {
         $extension = $info['extension'];
         
         $old_image = $filename;
-        $new_image = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . $width . 'x' . $height . '.' . $extension;
+        $new_image = 'cache/' . $this->encode->substr($filename, 0, $this->encode->strrpos($filename, '.')) . '-' . $width . 'x' . $height . '.' . $extension;
         
         if (!file_exists($this->app['path.image'] . $new_image) || (filemtime($this->app['path.image'] . $old_image) > filemtime($this->app['path.image'] . $new_image))) {
             $path = '';

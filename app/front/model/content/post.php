@@ -109,11 +109,11 @@ class Post extends Model {
                 if (!empty($data['filter_name'])) {
                     if (!empty($data['filter_description'])) {
                         $sql.= "LCASE(pd.name) 
-								 LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%' 
+								 LIKE '%" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "%' 
 								 OR MATCH(pd.description) 
-								 AGAINST('" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "')";
+								 AGAINST('" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "')";
                     } else {
-                        $sql.= "LCASE(pd.name) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%'";
+                        $sql.= "LCASE(pd.name) LIKE '%" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "%'";
                     }
                 }
                 
@@ -122,7 +122,7 @@ class Post extends Model {
                 }
                 
                 if (!empty($data['filter_tag'])) {
-                    $sql.= "LOWER(pd.tag) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_tag'])) . "%'";
+                    $sql.= "LOWER(pd.tag) LIKE '%" . $this->db->escape($this->encode->strtolower($data['filter_tag'])) . "%'";
                 }
                 
                 $sql.= ")";
@@ -502,11 +502,11 @@ class Post extends Model {
                 if (!empty($data['filter_name'])) {
                     if (!empty($data['filter_description'])) {
                         $sql.= "LCASE(pd.name) 
-								 LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%' 
+								 LIKE '%" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "%' 
 								 OR MATCH(pd.description) 
-								 AGAINST('" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "')";
+								 AGAINST('" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "')";
                     } else {
-                        $sql.= "LCASE(pd.name) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%'";
+                        $sql.= "LCASE(pd.name) LIKE '%" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "%'";
                     }
                 }
                 
@@ -515,7 +515,7 @@ class Post extends Model {
                 }
                 
                 if (!empty($data['filter_tag'])) {
-                    $sql.= "MATCH(pd.tag) AGAINST('" . $this->db->escape(utf8_strtolower($data['filter_tag'])) . "')";
+                    $sql.= "MATCH(pd.tag) AGAINST('" . $this->db->escape($this->encode->strtolower($data['filter_tag'])) . "')";
                 }
                 
                 $sql.= ")";

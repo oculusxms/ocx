@@ -327,7 +327,7 @@ class Post extends Model {
             $sql.= " WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
             
             if (!empty($data['filter_name'])) {
-                $sql.= " AND LCASE(pd.name) LIKE '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%'";
+                $sql.= " AND LCASE(pd.name) LIKE '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "%'";
             }
             
             if (!empty($data['filter_author_id'])) {
@@ -606,7 +606,7 @@ class Post extends Model {
         $sql.= " WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
         
         if (!empty($data['filter_name'])) {
-            $sql.= " AND LCASE(pd.name) LIKE '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%'";
+            $sql.= " AND LCASE(pd.name) LIKE '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "%'";
         }
         
         if (!empty($data['filter_author_id'])) {

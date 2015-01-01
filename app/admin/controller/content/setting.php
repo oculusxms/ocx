@@ -308,7 +308,7 @@ class Setting extends Controller {
             $this->error['title'] = $this->language->get('error_title');
         }
         
-        if ((utf8_strlen($this->request->post['blog_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['blog_email'])) {
+        if (($this->encode->strlen($this->request->post['blog_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['blog_email'])) {
             $this->error['email'] = $this->language->get('error_email');
         }
         
@@ -336,15 +336,15 @@ class Setting extends Controller {
             $this->error['blog_limit'] = $this->language->get('error_limit');
         }
         
-        if (utf8_strlen($this->request->post['blog_posted_by']) == 0) {
+        if ($this->encode->strlen($this->request->post['blog_posted_by']) == 0) {
             $this->error['blog_posted_by'] = $this->language->get('error_posted_by');
         }
         
-        if (utf8_strlen($this->request->post['blog_admin_group_id']) == 0) {
+        if ($this->encode->strlen($this->request->post['blog_admin_group_id']) == 0) {
             $this->error['blog_admin_group_id'] = $this->language->get('error_admin_group_id');
         }
         
-        if (utf8_strlen($this->request->post['blog_author_group_id']) == 0) {
+        if ($this->encode->strlen($this->request->post['blog_author_group_id']) == 0) {
             $this->error['blog_author_group_id'] = $this->language->get('error_author_group_id');
         }
         

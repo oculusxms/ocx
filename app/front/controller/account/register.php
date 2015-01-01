@@ -151,11 +151,11 @@ class Register extends Controller {
     }
     
     protected function validate() {
-        if ((utf8_strlen($this->request->post['username']) < 3) || (utf8_strlen($this->request->post['username']) > 16)) {
+        if (($this->encode->strlen($this->request->post['username']) < 3) || ($this->encode->strlen($this->request->post['username']) > 16)) {
             $this->error['username'] = $this->language->get('error_username');
         }
         
-        if ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
+        if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
             $this->error['email'] = $this->language->get('error_email');
         }
         
@@ -167,7 +167,7 @@ class Register extends Controller {
             $this->error['warning'] = $this->language->get('error_uexists');
         }
         
-        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+        if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {
             $this->error['password'] = $this->language->get('error_password');
         }
         
@@ -196,7 +196,7 @@ class Register extends Controller {
         $this->theme->language('account/register');
         $this->theme->model('account/customer');
         
-        if ((utf8_strlen($this->request->get['username']) < 3) || (utf8_strlen($this->request->get['username']) > 16)):
+        if (($this->encode->strlen($this->request->get['username']) < 3) || ($this->encode->strlen($this->request->get['username']) > 16)):
             $json['error'] = $this->language->get('error_username');
         endif;
         
@@ -213,7 +213,7 @@ class Register extends Controller {
         $this->theme->language('account/register');
         $this->theme->model('account/customer');
         
-        if ((utf8_strlen($this->request->get['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->get['email'])):
+        if (($this->encode->strlen($this->request->get['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->get['email'])):
             $json['error'] = $this->language->get('error_email');
         endif;
         
@@ -230,7 +230,7 @@ class Register extends Controller {
         $this->theme->language('account/register');
         $this->theme->model('account/customer');
         
-        if ((utf8_strlen($this->request->get['password']) < 4) || (utf8_strlen($this->request->get['password']) > 20)):
+        if (($this->encode->strlen($this->request->get['password']) < 4) || ($this->encode->strlen($this->request->get['password']) > 20)):
             $json['error'] = $this->language->get('error_password');
         endif;
         

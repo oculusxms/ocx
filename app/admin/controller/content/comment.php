@@ -364,11 +364,11 @@ class Comment extends Controller {
             $this->error['post'] = $this->language->get('error_post');
         }
         
-        if ((utf8_strlen($this->request->post['author']) < 3) || (utf8_strlen($this->request->post['author']) > 64)) {
+        if (($this->encode->strlen($this->request->post['author']) < 3) || ($this->encode->strlen($this->request->post['author']) > 64)) {
             $this->error['author'] = $this->language->get('error_author');
         }
         
-        if (utf8_strlen($this->request->post['text']) < 1) {
+        if ($this->encode->strlen($this->request->post['text']) < 1) {
             $this->error['text'] = $this->language->get('error_text');
         }
         

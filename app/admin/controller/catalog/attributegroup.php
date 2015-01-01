@@ -319,7 +319,7 @@ class Attributegroup extends Controller {
         }
         
         foreach ($this->request->post['attribute_group_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 64)) {
+            if (($this->encode->strlen($value['name']) < 3) || ($this->encode->strlen($value['name']) > 64)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
         }

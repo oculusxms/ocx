@@ -84,7 +84,7 @@ class Filemanager extends Controller {
                 
                 foreach ($directories as $directory) {
                     $json[$i]['data'] = basename($directory);
-                    $json[$i]['attributes']['directory'] = utf8_substr($directory, strlen($this->app['path.image'] . 'data/'));
+                    $json[$i]['attributes']['directory'] = $this->encode->substr($directory, strlen($this->app['path.image'] . 'data/'));
                     
                     $children = glob(rtrim($directory, '/') . '/*', GLOB_ONLYDIR);
                     
@@ -135,7 +135,7 @@ class Filemanager extends Controller {
                         $i++;
                     }
                     
-                    $json[] = array('filename' => basename($file), 'file' => utf8_substr($file, utf8_strlen($this->app['path.image'] . 'data/')), 'size' => round(utf8_substr($size, 0, utf8_strpos($size, '.') + 4), 2) . $suffix[$i]);
+                    $json[] = array('filename' => basename($file), 'file' => $this->encode->substr($file, $this->encode->strlen($this->app['path.image'] . 'data/')), 'size' => round($this->encode->substr($size, 0, $this->encode->strpos($size, '.') + 4), 2) . $suffix[$i]);
                 }
             }
         }
@@ -295,7 +295,7 @@ class Filemanager extends Controller {
         $json = array();
         
         if (isset($this->request->post['path']) && isset($this->request->post['name'])) {
-            if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 255)) {
+            if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 255)) {
                 $json['error'] = $this->language->get('error_filename');
             }
             
@@ -364,7 +364,7 @@ class Filemanager extends Controller {
     protected function recursiveFolders($directory) {
         $output = '';
         
-        $output.= '<option value="' . utf8_substr($directory, strlen($this->app['path.image'] . 'data/')) . '">' . utf8_substr($directory, strlen($this->app['path.image'] . 'data/')) . '</option>';
+        $output.= '<option value="' . $this->encode->substr($directory, strlen($this->app['path.image'] . 'data/')) . '">' . $this->encode->substr($directory, strlen($this->app['path.image'] . 'data/')) . '</option>';
         
         $directories = glob(rtrim(str_replace('../', '', $directory), '/') . '/*', GLOB_ONLYDIR);
         
@@ -381,7 +381,7 @@ class Filemanager extends Controller {
         $json = array();
         
         if (isset($this->request->post['path']) && isset($this->request->post['name'])) {
-            if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 255)) {
+            if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 255)) {
                 $json['error'] = $this->language->get('error_filename');
             }
             

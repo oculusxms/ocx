@@ -400,20 +400,20 @@ class Page extends Controller {
         }
         
         foreach ($this->request->post['page_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['title']) < 3) || (utf8_strlen($value['title']) > 64)) {
+            if (($this->encode->strlen($value['title']) < 3) || ($this->encode->strlen($value['title']) > 64)) {
                 $this->error['title'][$language_id] = $this->language->get('error_title');
             }
             
-            if (utf8_strlen($value['description']) < 3) {
+            if ($this->encode->strlen($value['description']) < 3) {
                 $this->error['description'][$language_id] = $this->language->get('error_description');
             }
             
-            if (utf8_strlen($value['meta_description']) < 1) {
+            if ($this->encode->strlen($value['meta_description']) < 1) {
                 $this->error['meta_description'][$language_id] = $this->language->get('error_meta_description');
             }
         }
         
-        if (isset($this->request->post['slug']) && utf8_strlen($this->request->post['slug']) > 0):
+        if (isset($this->request->post['slug']) && $this->encode->strlen($this->request->post['slug']) > 0):
             $this->theme->model('tool/utility');
             $query = $this->model_tool_utility->findSlugByName($this->request->post['slug']);
             
@@ -479,7 +479,7 @@ class Page extends Controller {
         
         $json = array();
         
-        if (!isset($this->request->get['name']) || utf8_strlen($this->request->get['name']) < 1):
+        if (!isset($this->request->get['name']) || $this->encode->strlen($this->request->get['name']) < 1):
             $json['error'] = $this->language->get('error_name_first');
         else:
             

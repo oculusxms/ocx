@@ -6,16 +6,15 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Engine;
-
 use Oculus\Engine\Container;
 use Oculus\Engine\Action;
 use Oculus\Service\ActionService;
@@ -36,6 +35,7 @@ use Oculus\Library\Css;
 use Oculus\Library\Currency;
 use Oculus\Library\Customer;
 use Oculus\Library\Db;
+use Oculus\Library\Encode;
 use Oculus\Library\Encryption;
 use Oculus\Library\Error;
 use Oculus\Library\Event;
@@ -206,11 +206,11 @@ class Application {
         if ($configuration['active.fascade'] === FRONT_FASCADE):
             if (isset($_SERVER['HTTPS']) && (($_SERVER['HTTPS'] == 'on') || ($_SERVER['HTTPS'] == '1'))):
                 $store_query = $db->query("
-					SELECT * 
-					FROM {$db->prefix}store 
-					WHERE 
-						REPLACE(`ssl`, 'www.', '') = '" . $db->escape('https://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'
-				");
+                    SELECT * 
+                    FROM {$db->prefix}store 
+                    WHERE 
+                        REPLACE(`ssl`, 'www.', '') = '" . $db->escape('https://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']) , '/.\\') . '/') . "'
+                ");
                 
                 if ($store_query->num_rows):
                     $configuration['config_store_id'] = $store_query->row['store_id'];
@@ -225,11 +225,11 @@ class Application {
                 $image_url = $configuration['https.server'] . 'image/';
             else:
                 $store_query = $db->query("
-					SELECT * 
-					FROM {$db->prefix}store 
-					WHERE 
-						REPLACE(`url`, 'www.', '') = '" . $db->escape('http://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'
-				");
+                    SELECT * 
+                    FROM {$db->prefix}store 
+                    WHERE 
+                        REPLACE(`url`, 'www.', '') = '" . $db->escape('http://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']) , '/.\\') . '/') . "'
+                ");
                 
                 if ($store_query->num_rows):
                     $configuration['config_store_id'] = $store_query->row['store_id'];
@@ -254,12 +254,12 @@ class Application {
         endif;
         
         $query = $db->query("
-			SELECT * 
-			FROM {$db->prefix}setting 
-			WHERE store_id = '0' 
-			OR store_id = '" . (int)$configuration['config_store_id'] . "' 
-			ORDER BY store_id ASC
-		");
+            SELECT * 
+            FROM {$db->prefix}setting 
+            WHERE store_id = '0' 
+            OR store_id = '" . (int)$configuration['config_store_id'] . "' 
+            ORDER BY store_id ASC
+        ");
         
         $settings = $query->rows;
         
@@ -299,7 +299,7 @@ class Application {
     protected function buildDatabase() {
         $this->data['db'] = function ($data) {
             $driver = 'Oculus\Driver\Database\\' . DB_DRIVER;
-            return new Db(new $driver(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PREFIX), $data);
+            return new Db(new $driver(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PREFIX) , $data);
         };
     }
     
@@ -349,12 +349,17 @@ class Application {
             
             return new Cache($driver, $data);
         };
+
+        // encoder
+        $this->data['encode'] = function($data) {
+            return new Encode($data);
+        };
         
         // url
         $this->data['url'] = function ($data) {
-            $url = $data['config_url'];
+            $url    = $data['config_url'];
             $secure = $data['config_secure'];
-            $ssl = $data['config_ssl'];
+            $ssl    = $data['config_ssl'];
             
             return new Url($url, $secure ? $ssl : $url, $data);
         };
@@ -397,10 +402,10 @@ class Application {
             $languages = array();
             
             $query = $this->data['db']->query("
-				SELECT * 
-				FROM `{$this->data['db']->prefix}language` 
-				WHERE status = '1'
-			");
+                SELECT * 
+                FROM `{$this->data['db']->prefix}language` 
+                WHERE status = '1'
+            ");
             
             foreach ($query->rows as $result):
                 $languages[$result['code']] = $result;
@@ -480,8 +485,10 @@ class Application {
         
         // file cache
         $this->data['filecache'] = function ($data) {
-            return new Cache(new Asset(31536000, $data), $data);
-             // 1 year in seconds to match htaccess rules
+            return new Cache(new Asset(31536000, $data) , $data);
+            
+            // 1 year in seconds to match htaccess rules
+            
             
         };
     }
@@ -489,6 +496,7 @@ class Application {
     protected function installClasses() {
         
         // assemble only the classes needed for upgrade.
+        
         
     }
     
@@ -642,7 +650,10 @@ class Application {
             return new Error($data);
         };
         
-        set_error_handler(array($this->data['errorhandler'], 'error_handler'));
+        set_error_handler(array(
+            $this->data['errorhandler'],
+            'error_handler'
+        ));
         
         $controller = new Front($this->data);
         

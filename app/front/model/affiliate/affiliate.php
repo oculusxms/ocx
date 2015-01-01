@@ -128,7 +128,7 @@ class Affiliate extends Model {
 			SET 
 				salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
 				password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "' 
-			WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'
+			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         
         $this->theme->trigger('affiliate_edit_password', array('affiliate_id' => $this->affiliate->getId()));
@@ -148,7 +148,7 @@ class Affiliate extends Model {
         $query = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}affiliate 
-			WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'
+			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         
         return $query->row;
@@ -168,7 +168,7 @@ class Affiliate extends Model {
         $query = $this->db->query("
 			SELECT COUNT(*) AS total 
 			FROM {$this->db->prefix}affiliate 
-			WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'
+			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         
         return $query->row['total'];

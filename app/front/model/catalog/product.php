@@ -233,31 +233,31 @@ class Product extends Model {
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.model) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.sku) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.upc) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.ean) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.jan) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.isbn) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.mpn) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     $sql.= ")";
@@ -981,35 +981,35 @@ class Product extends Model {
                     endif;
                     
                     if (!empty($data['filter_tag'])):
-                        $sql.= "pd.tag LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_tag'])) . "%'";
+                        $sql.= "pd.tag LIKE '%" . $this->db->escape($this->encode->strtolower($data['filter_tag'])) . "%'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.model) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.sku) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.upc) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.ean) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.jan) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.isbn) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     if (!empty($data['filter_name'])):
-                        $sql.= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                        $sql.= " OR LCASE(p.mpn) = '" . $this->db->escape($this->encode->strtolower($data['filter_name'])) . "'";
                     endif;
                     
                     $sql.= ")";
