@@ -52,6 +52,7 @@ use Oculus\Library\Session;
 use Oculus\Library\Tax;
 use Oculus\Library\Url;
 use Oculus\Library\User;
+use Oculus\Library\Vat;
 use Oculus\Library\Weight;
 
 class Application {
@@ -353,6 +354,11 @@ class Application {
         // encoder
         $this->data['encode'] = function($data) {
             return new Encode($data);
+        };
+
+        // vat
+        $this->data['vat'] = function($data) {
+            return new Vat($data);
         };
         
         // url

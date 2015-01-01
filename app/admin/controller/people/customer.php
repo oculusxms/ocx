@@ -823,7 +823,7 @@ class Customer extends Controller {
                         $this->error['address_postcode'][$key] = $this->language->get('error_postcode');
                     }
                     
-                    if ($this->config->get('config_vat') && $value['tax_id'] && (vat_validation($country_info['iso_code_2'], $value['tax_id']) == 'invalid')) {
+                    if ($this->config->get('config_vat') && $value['tax_id'] && ($this->vat->validate($country_info['iso_code_2'], $value['tax_id']) == 'invalid')) {
                         $this->error['address_tax_id'][$key] = $this->language->get('error_vat');
                     }
                 }

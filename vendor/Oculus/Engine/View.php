@@ -40,7 +40,7 @@ class View {
         if (is_readable($this->file)):
             extract($this->data);
             ob_start();
-            require_once $this->file;
+            require $this->file;
             $output = ob_get_contents();
             ob_end_clean();
             

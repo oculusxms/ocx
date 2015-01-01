@@ -69,10 +69,33 @@ define('APP_PATH', $_SERVER['DOCUMENT_ROOT'] . '/app/');
 define('STORAGE', APP_PATH . 'storage/');
 define('PUBLIC_DIR', 'public/');
 
-$base = array('cache.prefix' => 'ocx.' . str_replace('.', '', VERSION), 'cache.hostname' => 'localhost', 'cache.port' => 11211, 'cache.time' => 86400, 'path.app_path' => APP_PATH, 'path.framework' => FRAMEWORK, 'path.database' => APP_PATH . 'database/', 'path.download' => APP_PATH . 'download/', 'path.override' => APP_PATH . 'override/', 'path.plugin' => APP_PATH . 'plugin/', 'path.storage' => STORAGE, 'path.cache' => STORAGE . 'cache/', 'path.filecache' => STORAGE . 'compiled/', 'path.logs' => STORAGE . 'logs/', 'path.sessions' => STORAGE . 'sessions/', 'path.views' => STORAGE . 'views/', 'prefix.plugin' => 'plugin');
+$base = array(
+	'cache.prefix'   => 'ocx.' . str_replace('.', '', VERSION) ,
+	'cache.hostname' => 'localhost',
+	'cache.port'     => 11211,
+	'cache.time'     => 86400,
+	'path.app_path'  => APP_PATH,
+	'path.framework' => FRAMEWORK,
+	'path.database'  => APP_PATH . 'database/',
+	'path.download'  => APP_PATH . 'download/',
+	'path.override'  => APP_PATH . 'override/',
+	'path.plugin'    => APP_PATH . 'plugin/',
+	'path.storage'   => STORAGE,
+	'path.cache'     => STORAGE . 'cache/',
+	'path.filecache' => STORAGE . 'compiled/',
+	'path.logs'      => STORAGE . 'logs/',
+	'path.sessions'  => STORAGE . 'sessions/',
+	'path.views'     => STORAGE . 'views/',
+	'prefix.plugin'  => 'plugin'
+);
+
+// Pushing this to a definition so it can be 
+// used to implement the override functionality.
+define('OVERRIDE', dirname(APP_PATH) . '/' . basename($base['path.override']));
 
 $config['base'] = $base;
- // DO NOT CHANGE THE NAME OF THIS KEY
+
+// DO NOT CHANGE THE NAME OF THIS KEY
 
 /*
 |--------------------------------------------------------------------------
@@ -86,15 +109,45 @@ $config['base'] = $base;
 |
 */
 
-$front = array('http.server' => 'http://' . $_SERVER['SERVER_NAME'] . '/', 'https.server' => 'http://' . $_SERVER['SERVER_NAME'] . '/', 'path.application' => APP_PATH . 'front/', 'path.language' => APP_PATH . 'front/language/', 'path.theme' => APP_PATH . 'theme/front/', 'path.public' => dirname(__DIR__) . '/' . PUBLIC_DIR, 'path.image' => dirname(__DIR__) . '/' . PUBLIC_DIR . 'image/', 'path.asset' => dirname(__DIR__) . '/' . PUBLIC_DIR . 'asset/', 'prefix.fascade' => 'Front\\');
+$front = array(
+	'http.server'      => 'http://' . $_SERVER['SERVER_NAME'] . '/',
+	'https.server'     => 'http://' . $_SERVER['SERVER_NAME'] . '/',
+	'path.application' => APP_PATH . 'front/',
+	'path.language'    => APP_PATH . 'front/language/',
+	'path.theme'       => APP_PATH . 'theme/front/',
+	'path.public'      => dirname(__DIR__) . '/' . PUBLIC_DIR,
+	'path.image'       => dirname(__DIR__) . '/' . PUBLIC_DIR . 'image/',
+	'path.asset'       => dirname(__DIR__) . '/' . PUBLIC_DIR . 'asset/',
+	'prefix.fascade'   => 'Front\\'
+);
 
 $config[FRONT_FASCADE] = $front;
 
-$admin = array('http.server' => 'http://' . $_SERVER['SERVER_NAME'] . '/' . ADMIN_FASCADE . '/', 'http.public' => 'http://' . $_SERVER['SERVER_NAME'] . '/', 'https.server' => 'http://' . $_SERVER['SERVER_NAME'] . '/' . ADMIN_FASCADE . '/', 'https.public' => 'http://' . $_SERVER['SERVER_NAME'] . '/', 'path.application' => APP_PATH . 'admin/', 'path.language' => APP_PATH . 'admin/language/', 'path.theme' => APP_PATH . 'theme/admin/', 'path.image' => dirname(__DIR__) . '/' . PUBLIC_DIR . 'image/', 'path.asset' => dirname(__DIR__) . '/' . PUBLIC_DIR . 'asset/', 'prefix.fascade' => 'Admin\\');
+$admin = array(
+	'http.server'      => 'http://' . $_SERVER['SERVER_NAME'] . '/' . ADMIN_FASCADE . '/',
+	'http.public'      => 'http://' . $_SERVER['SERVER_NAME'] . '/',
+	'https.server'     => 'http://' . $_SERVER['SERVER_NAME'] . '/' . ADMIN_FASCADE . '/',
+	'https.public'     => 'http://' . $_SERVER['SERVER_NAME'] . '/',
+	'path.application' => APP_PATH . 'admin/',
+	'path.language'    => APP_PATH . 'admin/language/',
+	'path.theme'       => APP_PATH . 'theme/admin/',
+	'path.image'       => dirname(__DIR__) . '/' . PUBLIC_DIR . 'image/',
+	'path.asset'       => dirname(__DIR__) . '/' . PUBLIC_DIR . 'asset/',
+	'prefix.fascade'   => 'Admin\\'
+);
 
 $config[ADMIN_FASCADE] = $admin;
 
-$install = array('http.server' => 'http://' . $_SERVER['SERVER_NAME'] . '/install/', 'https.server' => 'http://' . $_SERVER['SERVER_NAME'] . '/install/', 'path.application' => APP_PATH . 'install/', 'path.language' => APP_PATH . 'install/language/', 'path.theme' => APP_PATH . 'theme/install/', 'path.ocx' => $_SERVER['DOCUMENT_ROOT'] . '/', 'path.asset' => dirname(__DIR__) . '/' . PUBLIC_DIR . 'asset/', 'prefix.fascade' => 'Install\\');
+$install = array(
+	'http.server'      => 'http://' . $_SERVER['SERVER_NAME'] . '/install/',
+	'https.server'     => 'http://' . $_SERVER['SERVER_NAME'] . '/install/',
+	'path.application' => APP_PATH . 'install/',
+	'path.language'    => APP_PATH . 'install/language/',
+	'path.theme'       => APP_PATH . 'theme/install/',
+	'path.ocx'         => $_SERVER['DOCUMENT_ROOT'] . '/',
+	'path.asset'       => dirname(__DIR__) . '/' . PUBLIC_DIR . 'asset/',
+	'prefix.fascade'   => 'Install\\'
+);
 
 $config[INSTALL_FASCADE] = $install;
 
@@ -118,6 +171,15 @@ require __DIR__ . '/controllers.php';
 |	class. 
 */
 
-$custom_routes = array('contact' => 'content/contact', 'sitemap' => 'content/sitemap', 'login' => 'account/login', 'logout' => 'account/logout', 'register' => 'account/register', 'blog' => 'content/home', 'shop' => 'shop/home', 'calendar' => 'content/calendar');
+$custom_routes = array(
+	'contact'  => 'content/contact',
+	'sitemap'  => 'content/sitemap',
+	'login'    => 'account/login',
+	'logout'   => 'account/logout',
+	'register' => 'account/register',
+	'blog'     => 'content/home',
+	'shop'     => 'shop/home',
+	'calendar' => 'content/calendar'
+);
 
 $config[FRONT_FASCADE]['custom.routes'] = $custom_routes;

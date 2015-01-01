@@ -11,32 +11,8 @@
 |	
 |	For the full copyright and license information, please view the LICENSE
 |	file that was distributed with this source code.
-|	
+|   
 |
-|--------------------------------------------------------------------------
-|	Override Class for Framework Overrides
-|--------------------------------------------------------------------------
-|
-|	All of our autoloaded framework classes are passed through this method
-|	so that they can be overriden by developers.
-|
-*/
-
-class Override {
-    public function fetch($filename) {
-        if (substr($filename, 0, strlen(FRAMEWORK)) == FRAMEWORK):
-            $file = dirname(APP_PATH) . '/override' . substr($filename, strlen(dirname(FRAMEWORK)));
-        endif;
-        
-        if (is_readable($file)):
-            return $file;
-        else:
-            return $filename;
-        endif;
-    }    
-}
-
-/*
 |--------------------------------------------------------------------------
 |	Oculus Framework Autoloader
 |--------------------------------------------------------------------------
@@ -52,26 +28,30 @@ spl_autoload_register(function ($class) {
     if (!is_readable($file)):
         return;
     else:
-        $override = new Override();
+        
+        /*
+        |--------------------------------------------------------------------------
+        |   Override Framework Files
+        |--------------------------------------------------------------------------
+        |
+        |   All of our autoloaded framework classes are passed through this 
+        |   statement so that they can be overriden by developers.
+        |
+        */
 
-        require $override->fetch($file);
+        if (substr($file, 0, strlen(FRAMEWORK)) == FRAMEWORK):
+            $override = OVERRIDE . substr($file, strlen(dirname(FRAMEWORK)));
+        endif;
+
+        if (is_readable($override)):
+            require $override;
+        else:
+            require $file;
+        endif;
+
         return true;
     endif;
 });
-
-/*
-|--------------------------------------------------------------------------
-|	Include our Helper files
-|--------------------------------------------------------------------------
-|
-|	All helper files with no classes need to be loaded traditionally
-|
-*/
-
-$override = new Override();
-
-require $override->fetch(FRAMEWORK . 'Helper/json.php');
-require $override->fetch(FRAMEWORK . 'Helper/vat.php');
 
 /*
 |--------------------------------------------------------------------------

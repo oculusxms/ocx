@@ -228,7 +228,7 @@ class Guest extends Controller {
                     $json['error']['postcode'] = $this->language->get('error_postcode');
                 }
                 
-                if ($this->config->get('config_vat') && $this->request->post['tax_id'] && (vat_validation($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
+                if ($this->config->get('config_vat') && $this->request->post['tax_id'] && ($this->vat->validate($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
                     $json['error']['tax_id'] = $this->language->get('error_vat');
                 }
             }

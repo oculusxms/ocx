@@ -38,7 +38,7 @@ class Template extends LibraryService {
         if (is_readable($file)):
             extract($this->data);
             ob_start();
-            include ($file);
+            require $file;
             $content = ob_get_clean();
             
             if ($mail) return $this->wrap($content);
@@ -57,7 +57,7 @@ class Template extends LibraryService {
         if (is_readable($file)):
             extract($data);
             ob_start();
-            include ($file);
+            require $file;
             $content = ob_get_clean();
             return $content;
         else:

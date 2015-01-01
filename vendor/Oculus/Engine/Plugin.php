@@ -20,12 +20,12 @@ use Oculus\Engine\Controller;
 use Oculus\Engine\View;
 
 class Plugin extends Controller {
-    private $plugins = array();
-    private $controllers = array();
-    private $locale;
-    protected $app;
-    protected $directory;
-    protected $plugin_name;
+    private     $plugins = array();
+    private     $controllers = array();
+    private     $locale;
+    protected   $app;
+    protected   $directory;
+    protected   $plugin_name;
     
     public function __construct(Container $app) {
         parent::__construct($app);
@@ -54,8 +54,9 @@ class Plugin extends Controller {
         $files = glob($this->directory . '*/*/controller/*.php');
         
         foreach ($files as $key => $file):
-            $path = str_replace($this->app['path.plugin'], '', rtrim($file, '.php'));
+            $path  = str_replace($this->app['path.plugin'], '', rtrim($file, '.php'));
             $slugs = explode('/', $path);
+            
             if ($slugs[0] !== end($slugs)):
                 $this->controllers[] = $this->app['prefix.plugin'] . '/' . $slugs[0] . '/' . end($slugs);
             endif;
@@ -75,7 +76,7 @@ class Plugin extends Controller {
     }
     
     public function install($plugin) {
-        $class = 'Plugin\\' . $this->format($plugin) . '\Register';
+        $class      = 'Plugin\\' . $this->format($plugin) . '\Register';
         $controller = new $class($this->app);
         
         if (is_callable(array($controller, 'add'))):
@@ -84,7 +85,7 @@ class Plugin extends Controller {
     }
     
     public function uninstall($plugin) {
-        $class = 'Plugin\\' . $this->format($plugin) . '\Register';
+        $class      = 'Plugin\\' . $this->format($plugin) . '\Register';
         $controller = new $class($this->app);
         
         if (is_callable(array($controller, 'remove'))):
@@ -114,7 +115,7 @@ class Plugin extends Controller {
     
     public function model($model) {
         $items = $this->build_model($model);
-        $key = $items['key'];
+        $key   = $items['key'];
         
         if (!$this->app->offsetExists($key)):
             $class = $items['class'];
@@ -129,7 +130,7 @@ class Plugin extends Controller {
         $_ = array();
         
         $language = $this->app['language'];
-        $locale = $language->getDirectory();
+        $locale   = $language->getDirectory();
         
         $plugin_locale = (isset($this->plugin_name)) ? $this->plugin_name : $plugin;
         
@@ -139,10 +140,8 @@ class Plugin extends Controller {
             $lang = array_merge($lang, $data);
         endif;
         
-        $file = $this->directory . $plugin_locale . '/' . $this->locale . 'language/' . $locale . '/' . $plugin . '.php';
-        
-        if (is_readable($file)):
-            require ($file);
+        if (is_readable($file = $this->directory . $plugin_locale . '/' . $this->locale . 'language/' . $locale . '/' . $plugin . '.php')):
+            require $file;
         endif;
         
         foreach ($_ as $key => $value):
@@ -153,18 +152,18 @@ class Plugin extends Controller {
     }
     
     public function view($template, $data = array()) {
-        $dir = $this->directory . $this->plugin_name . '/' . $this->locale;
+        $dir  = $this->directory . $this->plugin_name . '/' . $this->locale;
         $view = new View($dir);
         
         return $view->render($template, $data);
     }
     
     private function build_model($model) {
-        $data = array();
+        $data        = array();
         $data['key'] = 'model_' . str_replace('/', '_', $model);
         
         $parts = explode('/', $model);
-        $path = '';
+        $path  = '';
         
         foreach ($parts as $part):
             $path.= ucfirst(str_replace('_', '', $part)) . '/';
