@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -20,7 +20,7 @@ use Oculus\Service\LibraryService;
 
 class Response extends LibraryService {
     private $headers = array();
-    private $level = 0;
+    private $level   = 0;
     private $output;
     
     public function __construct(Container $app) {
@@ -33,7 +33,15 @@ class Response extends LibraryService {
     
     public function redirect($url, $status = 302) {
         header('Status: ' . $status);
-        header('Location: ' . str_replace(array('&amp;', "\n", "\r"), array('&', '', ''), $url));
+        header('Location: ' . str_replace(array(
+            '&amp;',
+            "\n",
+            "\r"
+        ) , array(
+            '&',
+            '',
+            ''
+        ) , $url));
     }
     
     public function setCompression($level) {

@@ -29,18 +29,18 @@ class User extends LibraryService {
         parent::__construct($app);
         
         if (isset($app['session']->data['user_id'])):
-            $this->user_id = $app['session']->data['user_id'];
-            $this->username = $app['session']->data['username'];
-            $this->user_group_id = $app['session']->data['user_group_id'];
+            $this->user_id          = $app['session']->data['user_id'];
+            $this->username         = $app['session']->data['username'];
+            $this->user_group_id    = $app['session']->data['user_group_id'];
             $this->user_last_access = $app['session']->data['user_last_access'];
-            $this->permission = $app['session']->data['permission'];
+            $this->permission       = $app['session']->data['permission'];
         else:
             $this->logout();
         endif;
     }
     
     public function login($username, $password) {
-        $db = parent::$app['db'];
+        $db      = parent::$app['db'];
         $request = parent::$app['request'];
         $session = parent::$app['session'];
         
@@ -54,9 +54,9 @@ class User extends LibraryService {
 		");
         
         if ($user_query->num_rows):
-            $session->data['user_id'] = $user_query->row['user_id'];
-            $session->data['username'] = $user_query->row['username'];
-            $session->data['user_group_id'] = $user_query->row['user_group_id'];
+            $session->data['user_id']          = $user_query->row['user_id'];
+            $session->data['username']         = $user_query->row['username'];
+            $session->data['user_group_id']    = $user_query->row['user_group_id'];
             $session->data['user_last_access'] = strtotime($user_query->row['last_access']);
             
             $db->query("
@@ -92,11 +92,11 @@ class User extends LibraryService {
         
         unset($session);
         
-        $this->user_id = '';
-        $this->username = '';
-        $this->user_group_id = '';
+        $this->user_id          = '';
+        $this->username         = '';
+        $this->user_group_id    = '';
         $this->user_last_access = '';
-        $this->permission = array(null);
+        $this->permission       = array(null);
     }
     
     public function hasPermission($key, $value) {

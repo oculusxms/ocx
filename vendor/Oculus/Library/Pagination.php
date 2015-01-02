@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -19,17 +19,17 @@ use Oculus\Engine\Container;
 use Oculus\Service\LibraryService;
 
 class Pagination extends LibraryService {
-    public $total = 0;
-    public $page = 1;
-    public $limit = 20;
-    public $num_links = 10;
-    public $url = '';
-    public $text = 'Showing {start} to {end} of {total} ({pages} Pages)';
-    public $text_first = '|&lt;';
-    public $text_last = '&gt;|';
-    public $text_next = '&gt;';
-    public $text_prev = '&lt;';
-    public $style_links = 'links';
+    public $total         = 0;
+    public $page          = 1;
+    public $limit         = 20;
+    public $num_links     = 10;
+    public $url           = '';
+    public $text          = 'Showing {start} to {end} of {total} ({pages} Pages)';
+    public $text_first    = '|&lt;';
+    public $text_last     = '&gt;|';
+    public $text_next     = '&gt;';
+    public $text_prev     = '&lt;';
+    public $style_links   = 'links';
     public $style_results = 'results';
     
     public function __construct(Container $app) {
@@ -100,9 +100,19 @@ class Pagination extends LibraryService {
             $output.= ' <a href="' . str_replace('{page}', $page + 1, $this->url) . '">' . $this->text_next . '</a> <a href="' . str_replace('{page}', $num_pages, $this->url) . '">' . $this->text_last . '</a> ';
         endif;
         
-        $find = array('{start}', '{end}', '{total}', '{pages}');
+        $find = array(
+            '{start}',
+            '{end}',
+            '{total}',
+            '{pages}'
+        );
         
-        $replace = array(($total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($total - $limit)) ? $total : ((($page - 1) * $limit) + $limit), $total, $num_pages);
+        $replace = array(
+            ($total) ? (($page - 1) * $limit) + 1 : 0,
+            ((($page - 1) * $limit) > ($total - $limit)) ? $total : ((($page - 1) * $limit) + $limit) ,
+            $total,
+            $num_pages
+        );
         
         return ($output ? '<div class="' . $this->style_links . '">' . $output . '</div>' : '') . '<div class="' . $this->style_results . '">' . str_replace($find, $replace, $this->text) . '</div>';
     }

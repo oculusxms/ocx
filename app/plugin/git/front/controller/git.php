@@ -148,7 +148,7 @@ class Git extends Plugin {
         
         foreach ($directories as $directory):
             if (in_array('.git', scandir($directory))):
-                $paths['parent'] = dirname($directory);
+                $paths['parent']    = dirname($directory);
                 $paths['directory'] = basename($directory);
             endif;
         endforeach;

@@ -26,10 +26,10 @@ final class Action {
     protected $args = array();
     
     public function __construct(ActionServiceInterface $action) {
-        $this->file = $action->get('file');
+        $this->file   = $action->get('file');
         $this->method = $action->get('method');
-        $this->class = $action->get('class');
-        $this->args = $action->get('args');
+        $this->class  = $action->get('class');
+        $this->args   = $action->get('args');
     }
     
     public function execute(Container $app) {

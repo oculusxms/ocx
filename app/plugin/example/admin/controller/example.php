@@ -32,9 +32,9 @@ class Example extends Plugin {
         $this->breadcrumb->add('text_plugin', 'module/plugin');
         $this->breadcrumb->add('heading_title', 'plugin/example');
         
-        $data['header'] = $this->theme->controller('common/header');
+        $data['header']     = $this->theme->controller('common/header');
         $data['breadcrumb'] = $this->theme->controller('common/breadcrumb');
-        $data['footer'] = $this->theme->controller('common/footer');
+        $data['footer']     = $this->theme->controller('common/footer');
         
         $this->response->setOutput($this->view('example', $data));
     }

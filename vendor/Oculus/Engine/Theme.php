@@ -312,10 +312,10 @@ final class Theme {
         $paging = $this->app['paginate'];
         
         $paging->total = $total;
-        $paging->page = $page;
+        $paging->page  = $page;
         $paging->limit = $limit;
-        $paging->text = $text;
-        $paging->url = $url;
+        $paging->text  = $text;
+        $paging->url   = $url;
         
         return $paging->render();
     }
@@ -359,7 +359,7 @@ final class Theme {
     }
     
     private function format_class($file) {
-        $file = rtrim($file, '.php');
+        $file  = rtrim($file, '.php');
         $paths = explode('/', $file);
         $class = array();
         

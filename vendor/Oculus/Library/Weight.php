@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -29,12 +29,12 @@ class Weight extends LibraryService {
         
         if (is_bool($rows)):
             $weight_class_query = $app['db']->query("
-				SELECT * 
-				FROM {$app['db']->prefix}weight_class wc 
-				LEFT JOIN {$app['db']->prefix}weight_class_description wcd 
-					ON (wc.weight_class_id = wcd.weight_class_id) 
-				WHERE wcd.language_id = '" . (int)$app['config_language_id'] . "'
-			");
+                SELECT * 
+                FROM {$app['db']->prefix}weight_class wc 
+                LEFT JOIN {$app['db']->prefix}weight_class_description wcd 
+                    ON (wc.weight_class_id = wcd.weight_class_id) 
+                WHERE wcd.language_id = '" . (int)$app['config_language_id'] . "'
+            ");
             
             $rows = $weight_class_query->rows;
             $app['cache']->set($key, $rows);
@@ -42,7 +42,12 @@ class Weight extends LibraryService {
         unset($key);
         
         foreach ($rows as $result):
-            $this->weights[$result['weight_class_id']] = array('weight_class_id' => $result['weight_class_id'], 'title' => $result['title'], 'unit' => $result['unit'], 'value' => $result['value']);
+            $this->weights[$result['weight_class_id']] = array(
+                'weight_class_id' => $result['weight_class_id'],
+                'title'           => $result['title'],
+                'unit'            => $result['unit'],
+                'value'           => $result['value']
+            );
         endforeach;
     }
     

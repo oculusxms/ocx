@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -51,36 +51,42 @@ class Tax extends LibraryService {
         
         if (is_bool($rows)):
             $tax_query = $db->query("
-				SELECT 
-					tr1.tax_class_id, 
-					tr2.tax_rate_id, 
-					tr2.name, 
-					tr2.rate, 
-					tr2.type, 
-					tr1.priority 
-				FROM {$db->prefix}tax_rule tr1 
-				LEFT JOIN {$db->prefix}tax_rate tr2 
-					ON (tr1.tax_rate_id = tr2.tax_rate_id) 
-				INNER JOIN {$db->prefix}tax_rate_to_customer_group tr2cg 
-					ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
-				LEFT JOIN {$db->prefix}zone_to_geo_zone z2gz 
-					ON (tr2.geo_zone_id = z2gz.geo_zone_id) 
-				LEFT JOIN {$db->prefix}geo_zone gz 
-					ON (tr2.geo_zone_id = gz.geo_zone_id) 
-				WHERE tr1.based = 'shipping' 
-				AND tr2cg.customer_group_id = '" . (int)parent::$app['config_customer_group_id'] . "' 
-				AND z2gz.country_id = '" . (int)$country_id . "' 
-				AND (z2gz.zone_id = '0' 
-				OR z2gz.zone_id = '" . (int)$zone_id . "') 
-				ORDER BY tr1.priority ASC
-			");
+                SELECT 
+                    tr1.tax_class_id, 
+                    tr2.tax_rate_id, 
+                    tr2.name, 
+                    tr2.rate, 
+                    tr2.type, 
+                    tr1.priority 
+                FROM {$db->prefix}tax_rule tr1 
+                LEFT JOIN {$db->prefix}tax_rate tr2 
+                    ON (tr1.tax_rate_id = tr2.tax_rate_id) 
+                INNER JOIN {$db->prefix}tax_rate_to_customer_group tr2cg 
+                    ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
+                LEFT JOIN {$db->prefix}zone_to_geo_zone z2gz 
+                    ON (tr2.geo_zone_id = z2gz.geo_zone_id) 
+                LEFT JOIN {$db->prefix}geo_zone gz 
+                    ON (tr2.geo_zone_id = gz.geo_zone_id) 
+                WHERE tr1.based = 'shipping' 
+                AND tr2cg.customer_group_id = '" . (int)parent::$app['config_customer_group_id'] . "' 
+                AND z2gz.country_id = '" . (int)$country_id . "' 
+                AND (z2gz.zone_id = '0' 
+                OR z2gz.zone_id = '" . (int)$zone_id . "') 
+                ORDER BY tr1.priority ASC
+            ");
             
             $rows = $tax_query->rows;
             $cache->set($key, $rows);
         endif;
         
         foreach ($rows as $result):
-            $this->tax_rates[$result['tax_class_id']][$result['tax_rate_id']] = array('tax_rate_id' => $result['tax_rate_id'], 'name' => $result['name'], 'rate' => $result['rate'], 'type' => $result['type'], 'priority' => $result['priority']);
+            $this->tax_rates[$result['tax_class_id']][$result['tax_rate_id']] = array(
+                'tax_rate_id' => $result['tax_rate_id'],
+                'name'        => $result['name'],
+                'rate'        => $result['rate'],
+                'type'        => $result['type'],
+                'priority'    => $result['priority']
+            );
         endforeach;
     }
     
@@ -93,78 +99,90 @@ class Tax extends LibraryService {
         
         if (is_bool($rows)):
             $tax_query = $db->query("
-				SELECT 
-					tr1.tax_class_id, 
-					tr2.tax_rate_id, 
-					tr2.name, 
-					tr2.rate, 
-					tr2.type, 
-					tr1.priority 
-				FROM {$db->prefix}tax_rule tr1 
-				LEFT JOIN {$db->prefix}tax_rate tr2 
-					ON (tr1.tax_rate_id = tr2.tax_rate_id) 
-				INNER JOIN {$db->prefix}tax_rate_to_customer_group tr2cg 
-					ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
-				LEFT JOIN {$db->prefix}zone_to_geo_zone z2gz 
-					ON (tr2.geo_zone_id = z2gz.geo_zone_id) 
-				LEFT JOIN {$db->prefix}geo_zone gz 
-					ON (tr2.geo_zone_id = gz.geo_zone_id) 
-				WHERE tr1.based = 'payment' 
-				AND tr2cg.customer_group_id = '" . (int)parent::$app['config_customer_group_id'] . "' 
-				AND z2gz.country_id = '" . (int)$country_id . "' 
-				AND (z2gz.zone_id = '0' 
-				OR z2gz.zone_id = '" . (int)$zone_id . "') 
-				ORDER BY tr1.priority ASC
-			");
+                SELECT 
+                    tr1.tax_class_id, 
+                    tr2.tax_rate_id, 
+                    tr2.name, 
+                    tr2.rate, 
+                    tr2.type, 
+                    tr1.priority 
+                FROM {$db->prefix}tax_rule tr1 
+                LEFT JOIN {$db->prefix}tax_rate tr2 
+                    ON (tr1.tax_rate_id = tr2.tax_rate_id) 
+                INNER JOIN {$db->prefix}tax_rate_to_customer_group tr2cg 
+                    ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
+                LEFT JOIN {$db->prefix}zone_to_geo_zone z2gz 
+                    ON (tr2.geo_zone_id = z2gz.geo_zone_id) 
+                LEFT JOIN {$db->prefix}geo_zone gz 
+                    ON (tr2.geo_zone_id = gz.geo_zone_id) 
+                WHERE tr1.based = 'payment' 
+                AND tr2cg.customer_group_id = '" . (int)parent::$app['config_customer_group_id'] . "' 
+                AND z2gz.country_id = '" . (int)$country_id . "' 
+                AND (z2gz.zone_id = '0' 
+                OR z2gz.zone_id = '" . (int)$zone_id . "') 
+                ORDER BY tr1.priority ASC
+            ");
             
             $rows = $tax_query->rows;
             $cache->set($key, $rows);
         endif;
         
         foreach ($rows as $result):
-            $this->tax_rates[$result['tax_class_id']][$result['tax_rate_id']] = array('tax_rate_id' => $result['tax_rate_id'], 'name' => $result['name'], 'rate' => $result['rate'], 'type' => $result['type'], 'priority' => $result['priority']);
+            $this->tax_rates[$result['tax_class_id']][$result['tax_rate_id']] = array(
+                'tax_rate_id' => $result['tax_rate_id'],
+                'name'        => $result['name'],
+                'rate'        => $result['rate'],
+                'type'        => $result['type'],
+                'priority'    => $result['priority']
+            );
         endforeach;
     }
     
     public function setStoreAddress($country_id, $zone_id) {
-        $db = parent::$app['db'];
+        $db    = parent::$app['db'];
         $cache = parent::$app['cache'];
         
-        $key = 'store.address.tax.' . $country_id . '.' . $zone_id;
+        $key  = 'store.address.tax.' . $country_id . '.' . $zone_id;
         $rows = $cache->get($key);
         
         if (is_bool($rows)):
             $tax_query = $db->query("
-				SELECT 
-					tr1.tax_class_id, 
-					tr2.tax_rate_id, 
-					tr2.name, 
-					tr2.rate, 
-					tr2.type, 
-					tr1.priority 
-				FROM {$db->prefix}tax_rule tr1 
-				LEFT JOIN {$db->prefix}tax_rate tr2 
-					ON (tr1.tax_rate_id = tr2.tax_rate_id) 
-				INNER JOIN {$db->prefix}tax_rate_to_customer_group tr2cg 
-					ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
-				LEFT JOIN {$db->prefix}zone_to_geo_zone z2gz 
-					ON (tr2.geo_zone_id = z2gz.geo_zone_id) 
-				LEFT JOIN {$db->prefix}geo_zone gz 
-					ON (tr2.geo_zone_id = gz.geo_zone_id) 
-				WHERE tr1.based = 'store' 
-				AND tr2cg.customer_group_id = '" . (int)parent::$app['config_customer_group_id'] . "' 
-				AND z2gz.country_id = '" . (int)$country_id . "' 
-				AND (z2gz.zone_id = '0' 
-				OR z2gz.zone_id = '" . (int)$zone_id . "') 
-				ORDER BY tr1.priority ASC
-			");
+                SELECT 
+                    tr1.tax_class_id, 
+                    tr2.tax_rate_id, 
+                    tr2.name, 
+                    tr2.rate, 
+                    tr2.type, 
+                    tr1.priority 
+                FROM {$db->prefix}tax_rule tr1 
+                LEFT JOIN {$db->prefix}tax_rate tr2 
+                    ON (tr1.tax_rate_id = tr2.tax_rate_id) 
+                INNER JOIN {$db->prefix}tax_rate_to_customer_group tr2cg 
+                    ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
+                LEFT JOIN {$db->prefix}zone_to_geo_zone z2gz 
+                    ON (tr2.geo_zone_id = z2gz.geo_zone_id) 
+                LEFT JOIN {$db->prefix}geo_zone gz 
+                    ON (tr2.geo_zone_id = gz.geo_zone_id) 
+                WHERE tr1.based = 'store' 
+                AND tr2cg.customer_group_id = '" . (int)parent::$app['config_customer_group_id'] . "' 
+                AND z2gz.country_id = '" . (int)$country_id . "' 
+                AND (z2gz.zone_id = '0' 
+                OR z2gz.zone_id = '" . (int)$zone_id . "') 
+                ORDER BY tr1.priority ASC
+            ");
             
             $rows = $tax_query->rows;
             $cache->set($key, $rows);
         endif;
         
         foreach ($rows as $result):
-            $this->tax_rates[$result['tax_class_id']][$result['tax_rate_id']] = array('tax_rate_id' => $result['tax_rate_id'], 'name' => $result['name'], 'rate' => $result['rate'], 'type' => $result['type'], 'priority' => $result['priority']);
+            $this->tax_rates[$result['tax_class_id']][$result['tax_rate_id']] = array(
+                'tax_rate_id' => $result['tax_rate_id'],
+                'name'        => $result['name'],
+                'rate'        => $result['rate'],
+                'type'        => $result['type'],
+                'priority'    => $result['priority']
+            );
         endforeach;
     }
     
@@ -209,10 +227,10 @@ class Tax extends LibraryService {
         
         if (is_bool($cachefile)):
             $tax_query = $db->query("
-				SELECT name 
-				FROM {$db->prefix}tax_rate 
-				WHERE tax_rate_id = '" . (int)$tax_rate_id . "'
-			");
+                SELECT name 
+                FROM {$db->prefix}tax_rate 
+                WHERE tax_rate_id = '" . (int)$tax_rate_id . "'
+            ");
             
             if ($tax_query->num_rows):
                 $cachefile = $tax_query->row['name'];
@@ -243,7 +261,13 @@ class Tax extends LibraryService {
                     $amount+= ($value / 100 * $tax_rate['rate']);
                 endif;
                 
-                $tax_rate_data[$tax_rate['tax_rate_id']] = array('tax_rate_id' => $tax_rate['tax_rate_id'], 'name' => $tax_rate['name'], 'rate' => $tax_rate['rate'], 'type' => $tax_rate['type'], 'amount' => $amount);
+                $tax_rate_data[$tax_rate['tax_rate_id']] = array(
+                    'tax_rate_id' => $tax_rate['tax_rate_id'],
+                    'name'        => $tax_rate['name'],
+                    'rate'        => $tax_rate['rate'],
+                    'type'        => $tax_rate['type'],
+                    'amount'      => $amount
+                );
             endforeach;
         endif;
         

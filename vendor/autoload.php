@@ -55,6 +55,18 @@ spl_autoload_register(function ($class) {
 
 /*
 |--------------------------------------------------------------------------
+|   Autoload Swiftmailer
+|--------------------------------------------------------------------------
+|
+|   We've replaced PHPMailer with Swiftmailer so let's require it's
+|   autoloader file here.
+|
+*/
+
+require dirname(__FILE__) . '/SwiftMailer/swift_required.php';
+
+/*
+|--------------------------------------------------------------------------
 |	Application Autoloader
 |--------------------------------------------------------------------------
 |

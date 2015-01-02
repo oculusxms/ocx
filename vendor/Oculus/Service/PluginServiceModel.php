@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Service;
@@ -23,10 +23,10 @@ class PluginServiceModel extends Model {
         $module_data = array();
         
         $query = $this->db->query("
-			SELECT * 
-			FROM {$this->db->prefix}module 
-			WHERE `type` = 'plugin'
-		");
+            SELECT * 
+            FROM {$this->db->prefix}module 
+            WHERE `type` = 'plugin'
+        ");
         
         foreach ($query->rows as $result):
             $module_data[] = $result['code'];
@@ -41,10 +41,10 @@ class PluginServiceModel extends Model {
         
         if (is_bool($cachefile)):
             $query = $this->db->query("
-				SELECT * 
-				FROM {$this->db->prefix}event 
-				WHERE store_id = '" . (int)$store_id . "'
-			");
+                SELECT * 
+                FROM {$this->db->prefix}event 
+                WHERE store_id = '" . (int)$store_id . "'
+            ");
             
             $cachefile = $query->rows;
             $this->cache->set($key, $cachefile);
@@ -61,29 +61,29 @@ class PluginServiceModel extends Model {
         $handler = $handler['plugin'] . '/' . $handler['file'] . '/' . $handler['method'];
         
         $query = $this->db->query("
-			SELECT * 
-			FROM {$this->db->prefix}event 
-			WHERE store_id = '" . (int)$store_id . "' 
-			AND event = '" . $this->db->escape($event) . "'
-		");
+            SELECT * 
+            FROM {$this->db->prefix}event 
+            WHERE store_id = '" . (int)$store_id . "' 
+            AND event = '" . $this->db->escape($event) . "'
+        ");
         
         $handlers = !empty($query->row['handlers']) ? unserialize($query->row['handlers']) : array();
         $handlers[] = $handler;
         
         $this->db->query("
-			DELETE 
-			FROM {$this->db->prefix}event 
-			WHERE store_id = '" . (int)$store_id . "' 
-			AND event = '" . $this->db->escape($event) . "'
-		");
+            DELETE 
+            FROM {$this->db->prefix}event 
+            WHERE store_id = '" . (int)$store_id . "' 
+            AND event = '" . $this->db->escape($event) . "'
+        ");
         
         $this->db->query("
-			INSERT INTO {$this->db->prefix}event 
-			SET 
-				store_id = '" . (int)$store_id . "', 
-				event = '" . $this->db->escape($event) . "', 
-				handlers = '" . $this->db->escape(serialize($handlers)) . "'
-		");
+            INSERT INTO {$this->db->prefix}event 
+            SET 
+                store_id = '" . (int)$store_id . "', 
+                event = '" . $this->db->escape($event) . "', 
+                handlers = '" . $this->db->escape(serialize($handlers)) . "'
+        ");
         
         $this->cache->delete('plugin.event.handlers');
         
@@ -98,11 +98,11 @@ class PluginServiceModel extends Model {
         $handler = $handler['plugin'] . '/' . $handler['file'] . '/' . $handler['method'];
         
         $query = $this->db->query("
-			SELECT * 
-			FROM {$this->db->prefix}event 
-			WHERE store_id = '" . (int)$store_id . "' 
-			AND event = '" . $this->db->escape($event) . "'
-		");
+            SELECT * 
+            FROM {$this->db->prefix}event 
+            WHERE store_id = '" . (int)$store_id . "' 
+            AND event = '" . $this->db->escape($event) . "'
+        ");
         
         $handlers = !empty($query->row['handlers']) ? unserialize($query->row['handlers']) : array();
         
@@ -115,19 +115,19 @@ class PluginServiceModel extends Model {
         unset($handlers[$key]);
         
         $this->db->query("
-			DELETE 
-			FROM {$this->db->prefix}event 
-			WHERE store_id = '" . (int)$store_id . "' 
-			AND event = '" . $this->db->escape($event) . "'
-		");
+            DELETE 
+            FROM {$this->db->prefix}event 
+            WHERE store_id = '" . (int)$store_id . "' 
+            AND event = '" . $this->db->escape($event) . "'
+        ");
         
         $this->db->query("
-			INSERT INTO {$this->db->prefix}event 
-			SET 
-				store_id = '" . (int)$store_id . "', 
-				event = '" . $this->db->escape($event) . "', 
-				handlers = '" . $this->db->escape(serialize($handlers)) . "'
-		");
+            INSERT INTO {$this->db->prefix}event 
+            SET 
+                store_id = '" . (int)$store_id . "', 
+                event = '" . $this->db->escape($event) . "', 
+                handlers = '" . $this->db->escape(serialize($handlers)) . "'
+        ");
         
         $this->cache->delete('plugin.event.handlers');
         
@@ -135,7 +135,7 @@ class PluginServiceModel extends Model {
     }
     
     /**
-     *	Methods for handling hooks
+     *  Methods for handling hooks
      */
     public function getHookHandlers($store_id = 0) {
         $key = 'plugin.hook.handlers' . $store_id;
@@ -143,10 +143,10 @@ class PluginServiceModel extends Model {
         
         if (is_bool($cachefile)):
             $query = $this->db->query("
-				SELECT * 
-				FROM {$this->db->prefix}hook 
-				WHERE store_id = '" . (int)$store_id . "'
-			");
+                SELECT * 
+                FROM {$this->db->prefix}hook 
+                WHERE store_id = '" . (int)$store_id . "'
+            ");
             
             $cachefile = $query->rows;
             $this->cache->set($key, $cachefile);
@@ -161,29 +161,29 @@ class PluginServiceModel extends Model {
         endif;
         
         $query = $this->db->query("
-			SELECT * 
-			FROM {$this->db->prefix}hook 
-			WHERE store_id = '" . (int)$store_id . "' 
-			AND hook = '" . $this->db->escape($hook) . "'
-		");
+            SELECT * 
+            FROM {$this->db->prefix}hook 
+            WHERE store_id = '" . (int)$store_id . "' 
+            AND hook = '" . $this->db->escape($hook) . "'
+        ");
         
         $handlers = !empty($query->row['handlers']) ? unserialize($query->row['handlers']) : array();
         $handlers[] = $handler;
         
         $this->db->query("
-			DELETE 
-			FROM {$this->db->prefix}hook 
-			WHERE store_id = '" . (int)$store_id . "' 
-			AND hook = '" . $this->db->escape($hook) . "'
-		");
+            DELETE 
+            FROM {$this->db->prefix}hook 
+            WHERE store_id = '" . (int)$store_id . "' 
+            AND hook = '" . $this->db->escape($hook) . "'
+        ");
         
         $this->db->query("
-			INSERT INTO {$this->db->prefix}hook 
-			SET 
-				store_id = '" . (int)$store_id . "', 
-				hook = '" . $this->db->escape($hook) . "', 
-				handlers = '" . $this->db->escape(serialize($handlers)) . "'
-		");
+            INSERT INTO {$this->db->prefix}hook 
+            SET 
+                store_id = '" . (int)$store_id . "', 
+                hook = '" . $this->db->escape($hook) . "', 
+                handlers = '" . $this->db->escape(serialize($handlers)) . "'
+        ");
         
         $this->cache->delete('plugin.hook.handlers');
         
@@ -196,11 +196,11 @@ class PluginServiceModel extends Model {
         endif;
         
         $query = $this->db->query("
-			SELECT * 
-			FROM {$this->db->prefix}hook 
-			WHERE store_id = '" . (int)$store_id . "' 
-			AND hook = '" . $this->db->escape($hook) . "'
-		");
+            SELECT * 
+            FROM {$this->db->prefix}hook 
+            WHERE store_id = '" . (int)$store_id . "' 
+            AND hook = '" . $this->db->escape($hook) . "'
+        ");
         
         $handlers = !empty($query->row['handlers']) ? unserialize($query->row['handlers']) : array();
         
@@ -213,19 +213,19 @@ class PluginServiceModel extends Model {
         unset($handlers[$key]);
         
         $this->db->query("
-			DELETE 
-			FROM {$this->db->prefix}hook 
-			WHERE store_id = '" . (int)$store_id . "' 
-			AND hook = '" . $this->db->escape($hook) . "'
-		");
+            DELETE 
+            FROM {$this->db->prefix}hook 
+            WHERE store_id = '" . (int)$store_id . "' 
+            AND hook = '" . $this->db->escape($hook) . "'
+        ");
         
         $this->db->query("
-			INSERT INTO {$this->db->prefix}hook 
-			SET 
-				store_id = '" . (int)$store_id . "', 
-				hook = '" . $this->db->escape($hook) . "', 
-				handlers = '" . $this->db->escape(serialize($handlers)) . "'
-		");
+            INSERT INTO {$this->db->prefix}hook 
+            SET 
+                store_id = '" . (int)$store_id . "', 
+                hook = '" . $this->db->escape($hook) . "', 
+                handlers = '" . $this->db->escape(serialize($handlers)) . "'
+        ");
         
         $this->cache->delete('plugin.hook.handlers');
         

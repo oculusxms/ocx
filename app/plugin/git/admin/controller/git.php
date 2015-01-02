@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Plugin\Git\Admin\Controller;
@@ -88,10 +88,20 @@ class Git extends Plugin {
         
         $data['git_providers'] = array();
         
-        $providers = array(1 => 'Code Solution', 2 => 'GitHub', 3 => 'BeanStalk', 4 => 'BitBucket', 5 => 'Gitorious', 6 => 'Google Code',);
+        $providers = array(
+            1 => 'Code Solution',
+            2 => 'GitHub',
+            3 => 'BeanStalk',
+            4 => 'BitBucket',
+            5 => 'Gitorious',
+            6 => 'Google Code',
+        );
         
         foreach ($providers as $key => $value):
-            $data['git_providers'][] = array('id' => $key, 'name' => $value);
+            $data['git_providers'][] = array(
+                'id' => $key,
+                'name' => $value
+            );
         endforeach;
         
         if (isset($this->request->post['git_url'])):
@@ -112,10 +122,18 @@ class Git extends Plugin {
         
         $data['git_branches'] = array();
         
-        $branches = array('master', 'develop', 'release', 'feature', 'hotfix');
+        $branches = array(
+            'master',
+            'develop',
+            'release',
+            'feature',
+            'hotfix'
+        );
         
         foreach ($branches as $branch):
-            $data['git_branches'][] = array('name' => $branch);
+            $data['git_branches'][] = array(
+                'name' => $branch
+            );
         endforeach;
         
         if (isset($this->request->post['git_status'])):
@@ -132,9 +150,9 @@ class Git extends Plugin {
         
         $this->theme->loadjs('git', $data, $this->script_directory);
         
-        $data['header'] = $this->theme->controller('common/header');
+        $data['header']     = $this->theme->controller('common/header');
         $data['breadcrumb'] = $this->theme->controller('common/breadcrumb');
-        $data['footer'] = $this->theme->controller('common/footer');
+        $data['footer']     = $this->theme->controller('common/footer');
         
         $this->response->setOutput($this->view('git', $data));
     }
@@ -178,7 +196,7 @@ class Git extends Plugin {
         
         foreach ($directories as $directory):
             if (in_array('.git', scandir($directory))):
-                $paths['parent'] = dirname($directory);
+                $paths['parent']    = dirname($directory);
                 $paths['directory'] = basename($directory);
             endif;
         endforeach;

@@ -127,25 +127,25 @@ class Image {
         $watermark_height = imagesy($watermark);
         
         switch ($position):
-        case 'topleft':
-            $watermark_pos_x = 0;
-            $watermark_pos_y = 0;
-            break;
+            case 'topleft':
+                $watermark_pos_x = 0;
+                $watermark_pos_y = 0;
+                break;
 
-        case 'topright':
-            $watermark_pos_x = $this->info['width'] - $watermark_width;
-            $watermark_pos_y = 0;
-            break;
+            case 'topright':
+                $watermark_pos_x = $this->info['width'] - $watermark_width;
+                $watermark_pos_y = 0;
+                break;
 
-        case 'bottomleft':
-            $watermark_pos_x = 0;
-            $watermark_pos_y = $this->info['height'] - $watermark_height;
-            break;
+            case 'bottomleft':
+                $watermark_pos_x = 0;
+                $watermark_pos_y = $this->info['height'] - $watermark_height;
+                break;
 
-        case 'bottomright':
-            $watermark_pos_x = $this->info['width'] - $watermark_width;
-            $watermark_pos_y = $this->info['height'] - $watermark_height;
-            break;
+            case 'bottomright':
+                $watermark_pos_x = $this->info['width'] - $watermark_width;
+                $watermark_pos_y = $this->info['height'] - $watermark_height;
+                break;
         endswitch;
         
         imagecopy($this->image, $watermark, $watermark_pos_x, $watermark_pos_y, 0, 0, 120, 40);

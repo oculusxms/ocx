@@ -6,31 +6,30 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
 
 class Request {
-    public $get = array();
-    public $post = array();
+    public $get    = array();
+    public $post   = array();
     public $cookie = array();
-    public $files = array();
+    public $files  = array();
     public $server = array();
     
     public function __construct() {
-        
-        $this->get = $this->clean($_GET);
-        $this->post = $this->clean($_POST);
+        $this->get     = $this->clean($_GET);
+        $this->post    = $this->clean($_POST);
         $this->request = $this->clean($_REQUEST);
-        $this->cookie = $this->clean($_COOKIE);
-        $this->files = $this->clean($_FILES);
-        $this->server = $this->clean($_SERVER);
+        $this->cookie  = $this->clean($_COOKIE);
+        $this->files   = $this->clean($_FILES);
+        $this->server  = $this->clean($_SERVER);
         
         return $this;
     }

@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -40,13 +40,20 @@ class Javascript extends LibraryService {
     public function register($name, $dep = null, $last = false) {
         if ((array_key_exists($dep, $this->registered) || !isset($dep)) && !$last):
             if (is_readable($this->directory . $name . '.js')):
-                $this->registered[basename($name) ] = array('file' => $name . '.js',);
+                $this->registered[basename($name) ] = array(
+                    'file' => $name . '.js',
+                );
             endif;
         elseif ($last):
             $this->last_file = $name;
         else:
             if (is_readable($this->directory . $name . '.js')):
-                $this->queued[] = array('name' => $name, 'file' => $name . '.js', 'dep' => $dep, 'last' => $last);
+                $this->queued[] = array(
+                    'name' => $name,
+                    'file' => $name . '.js',
+                    'dep'  => $dep,
+                    'last' => $last
+                );
             endif;
         endif;
         
@@ -59,7 +66,9 @@ class Javascript extends LibraryService {
         if (!empty($this->queued)):
             foreach ($this->queued as $key => $script):
                 if (array_key_exists($script['dep'], $this->registered)):
-                    $this->registered[basename($script['name']) ] = array('file' => $script['file']);
+                    $this->registered[basename($script['name']) ] = array(
+                        'file' => $script['file']
+                    );
                     unset($this->queued[$key]);
                 endif;
             endforeach;
@@ -73,7 +82,9 @@ class Javascript extends LibraryService {
         unset($this->queued);
         
         if (isset($this->last_file)):
-            $this->registered[$this->last_file] = array('file' => $this->last_file . '.js');
+            $this->registered[$this->last_file] = array(
+                'file' => $this->last_file . '.js'
+            );
             unset($this->last_file);
         endif;
         
@@ -106,9 +117,9 @@ class Javascript extends LibraryService {
     
     public function reset() {
         $this->registered = array();
-        $this->queued = array();
-        $this->complete = array();
-        $this->last_file = '';
+        $this->queued     = array();
+        $this->complete   = array();
+        $this->last_file  = '';
     }
     
     public function load($file, $data, $path = '') {
@@ -124,6 +135,9 @@ class Javascript extends LibraryService {
     }
     
     public function fetch() {
-        return array('data' => $this->script_data, 'files' => $this->controllers);
+        return array(
+            'data'  => $this->script_data,
+            'files' => $this->controllers
+        );
     }
 }

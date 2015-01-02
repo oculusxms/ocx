@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -27,26 +27,32 @@ class Routes extends LibraryService {
     }
     
     public function generate() {
-        $db = parent::$app['db'];
-        $cache = parent::$app['cache'];
+        $db        = parent::$app['db'];
+        $cache     = parent::$app['cache'];
         
-        $key = 'default.store.routes';
+        $key       = 'default.store.routes';
         $cachefile = $cache->get($key);
         
         if (is_bool($cachefile)):
             $query = $db->query("
-				SELECT * 
-				FROM {$db->prefix}route 
-				GROUP BY route, route_id
-			");
+                SELECT * 
+                FROM {$db->prefix}route 
+                GROUP BY route, route_id
+            ");
             
             $routes = array();
             
             foreach ($query->rows as $route):
                 if (!array_key_exists($route['route'], $routes)):
-                    $routes[$route['route']][] = array('query' => $route['query'], 'slug' => $route['slug']);
+                    $routes[$route['route']][] = array(
+                        'query' => $route['query'],
+                        'slug'  => $route['slug']
+                    );
                 else:
-                    $items = array('query' => $route['query'], 'slug' => $route['slug']);
+                    $items = array(
+                        'query' => $route['query'],
+                        'slug'  => $route['slug']
+                    );
                     
                     $routes[$route['route']][] = $items;
                 endif;
@@ -56,7 +62,7 @@ class Routes extends LibraryService {
             $cache->set($key, $cachefile);
         endif;
         
-        parent::$app['routes'] = $cachefile;
+        parent::$app['routes']        = $cachefile;
         parent::$app['custom_routes'] = $this->custom_routes();
     }
     

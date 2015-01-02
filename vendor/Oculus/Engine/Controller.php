@@ -38,7 +38,7 @@ abstract class Controller {
     }
     
     /**
-     * Use the $this->container[$key] = $value method
+     * Use the $this->app[$key] = $value method
      * to add any key/value parameters to the container.
      */
     public function __set($key, $value) {

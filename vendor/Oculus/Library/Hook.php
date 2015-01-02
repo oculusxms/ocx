@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -34,8 +34,8 @@ class Hook extends LibraryService {
         $hooks = $this->model->getHookHandlers();
         
         foreach ($hooks as $hook):
-            $handlers = unserialize($hook['handlers']);
-            $parts = explode('_', $hook['hook']);
+            $handlers     = unserialize($hook['handlers']);
+            $parts        = explode('_', $hook['hook']);
             $class_locale = '';
             $theme_locale = parent::$app['path.theme'] . parent::$app['theme.name'] . '/' . end($parts);
             
@@ -55,7 +55,7 @@ class Hook extends LibraryService {
                     $class_path = '';
                     
                     $theme_file = str_replace(dirname(parent::$app['path.application']) . '/', '', $theme_path);
-                    $parts = explode('/', $theme_file);
+                    $parts      = explode('/', $theme_file);
                     
                     foreach ($parts as $part):
                         $class_path.= ucfirst($part) . '\\';
@@ -63,7 +63,7 @@ class Hook extends LibraryService {
                     unset($parts);
                 else:
                     $class_path = '';
-                    $parts = explode('/', $handler['class']);
+                    $parts      = explode('/', $handler['class']);
                     
                     foreach ($parts as $part):
                         $class_path.= $this->format($part) . '\\';
@@ -73,7 +73,7 @@ class Hook extends LibraryService {
                     $class_path = $class_locale . $class_path;
                 endif;
                 
-                $class_path = rtrim($class_path, '\\');
+                $class_path  = rtrim($class_path, '\\');
                 $plugin_path = 'Plugin/' . $this->format($handler['plugin']);
                 
                 $parts = explode('/', $handler['file']);
@@ -85,7 +85,13 @@ class Hook extends LibraryService {
                 
                 $plugin_path.= '/' . $handler['callback'];
                 
-                $handler_array = array('class' => $class_path, 'method' => $handler['method'], 'type' => $handler['type'], 'callback' => $plugin_path, 'arguments' => isset($handler['args']) ? $handler['args'] : null);
+                $handler_array = array(
+                    'class'     => $class_path,
+                    'method'    => $handler['method'],
+                    'type'      => $handler['type'],
+                    'callback'  => $plugin_path,
+                    'arguments' => isset($handler['args']) ? $handler['args'] : null
+                );
                 
                 $this->hooks[$hook['hook']][] = $handler_array;
             endforeach;
@@ -111,8 +117,8 @@ class Hook extends LibraryService {
             foreach ($this->hooks[$key] as $hook):
                 if ($hook['class'] === $class && $hook['method'] === $method && $hook['type'] === 'post'):
                     $mthd = basename($hook['callback']);
-                    $cls = rtrim(str_replace($mthd, '', $hook['callback']), '/');
-                    $cls = str_replace('/', '\\', $cls);
+                    $cls  = rtrim(str_replace($mthd, '', $hook['callback']) , '/');
+                    $cls  = str_replace('/', '\\', $cls);
                     
                     if (!empty($hook['arguments'])):
                         $data = array_merge($data, $hook['arguments']);
@@ -121,7 +127,7 @@ class Hook extends LibraryService {
                     $hook = new $cls(parent::$app);
                     
                     if (is_callable(array($hook, $mthd))):
-                        $data = call_user_func_array(array($hook, $mthd), array($data));
+                        $data = call_user_func_array(array($hook, $mthd) , array($data));
                     endif;
                 endif;
             endforeach;

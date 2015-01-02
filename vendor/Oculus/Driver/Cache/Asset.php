@@ -117,7 +117,7 @@ class Asset extends LibraryService {
             case 'd':
                 if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data)) return true;
                 break;
-            }
-            return false;
         }
+        return false;
+    }
 }

@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -25,11 +25,13 @@ class Currency extends LibraryService {
     public function __construct(Container $app) {
         parent::__construct($app);
         
-        $key = 'default.store.currency';
+        $key  = 'default.store.currency';
         $rows = $app['cache']->get($key);
         
         if (is_bool($rows)):
-            $query = $app['db']->query("SELECT * FROM {$app['db']->prefix}currency");
+            $query = $app['db']->query("
+                SELECT * 
+                FROM {$app['db']->prefix}currency");
             
             $rows = $query->rows;
             $app['cache']->set($key, $rows);
@@ -37,7 +39,14 @@ class Currency extends LibraryService {
         unset($key);
         
         foreach ($rows as $result):
-            $this->currencies[$result['code']] = array('currency_id' => $result['currency_id'], 'title' => $result['title'], 'symbol_left' => $result['symbol_left'], 'symbol_right' => $result['symbol_right'], 'decimal_place' => $result['decimal_place'], 'value' => $result['value']);
+            $this->currencies[$result['code']] = array(
+                'currency_id'   => $result['currency_id'],
+                'title'         => $result['title'],
+                'symbol_left'   => $result['symbol_left'],
+                'symbol_right'  => $result['symbol_right'],
+                'decimal_place' => $result['decimal_place'],
+                'value'         => $result['value']
+            );
         endforeach;
         
         if (isset($app['request']->get['currency']) && (array_key_exists($app['request']->get['currency'], $this->currencies))):
@@ -70,15 +79,15 @@ class Currency extends LibraryService {
         $language = parent::$app['language'];
         
         if ($currency && $this->has($currency)):
-            $symbol_left = $this->currencies[$currency]['symbol_left'];
-            $symbol_right = $this->currencies[$currency]['symbol_right'];
+            $symbol_left   = $this->currencies[$currency]['symbol_left'];
+            $symbol_right  = $this->currencies[$currency]['symbol_right'];
             $decimal_place = $this->currencies[$currency]['decimal_place'];
         else:
-            $symbol_left = $this->currencies[$this->code]['symbol_left'];
-            $symbol_right = $this->currencies[$this->code]['symbol_right'];
+            $symbol_left   = $this->currencies[$this->code]['symbol_left'];
+            $symbol_right  = $this->currencies[$this->code]['symbol_right'];
             $decimal_place = $this->currencies[$this->code]['decimal_place'];
             
-            $currency = $this->code;
+            $currency      = $this->code;
         endif;
         
         if ($value):
@@ -111,7 +120,7 @@ class Currency extends LibraryService {
             $thousand_point = '';
         endif;
         
-        $string.= number_format(round($value, (int)$decimal_place), (int)$decimal_place, $decimal_point, $thousand_point);
+        $string.= number_format(round($value, (int)$decimal_place) , (int)$decimal_place, $decimal_point, $thousand_point);
         
         if (($symbol_right) && ($format)):
             $string.= $symbol_right;

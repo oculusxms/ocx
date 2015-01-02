@@ -6,14 +6,13 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
-
 
 namespace Oculus\Library;
 use Oculus\Service\LibraryService;
@@ -28,9 +27,17 @@ class Breadcrumb extends LibraryService {
         if ($app['active.fascade'] === ADMIN_FASCADE):
             $query = (isset($app['session']->data['token'])) ? 'token=' . $app['session']->data['token'] : false;
             
-            $this->breadcrumbs[] = array('text' => $app['language']->get('text_dashboard'), 'href' => $app['url']->link('common/dashboard', $query, 'SSL'), 'separator' => false);
+            $this->breadcrumbs[] = array(
+                'text'      => $app['language']->get('text_dashboard') ,
+                'href'      => $app['url']->link('common/dashboard', $query, 'SSL') ,
+                'separator' => false
+            );
         else:
-            $this->breadcrumbs[] = array('text' => $app['language']->get('text_home'), 'href' => '/', 'separator' => false);
+            $this->breadcrumbs[] = array(
+                'text'      => $app['language']->get('text_home') ,
+                'href'      => '/',
+                'separator' => false
+            );
         endif;
     }
     
@@ -42,8 +49,8 @@ class Breadcrumb extends LibraryService {
         endif;
         
         if (parent::$app['active.fascade'] === ADMIN_FASCADE):
-            $query = (isset(parent::$app['session']->data['token'])) ? 'token=' . parent::$app['session']->data['token'] . $query : $query;
-            $url = parent::$app['url']->link($route, $query, 'SSL');
+            $query  = (isset(parent::$app['session']->data['token'])) ? 'token=' . parent::$app['session']->data['token'] . $query : $query;
+            $url    = parent::$app['url']->link($route, $query, 'SSL');
         else:
             if ($ssl == 'SSL'):
                 $url = parent::$app['url']->link($route, $query, 'SSL');
@@ -54,7 +61,11 @@ class Breadcrumb extends LibraryService {
         
         $text = (parent::$app['language']->get($text)) ? parent::$app['language']->get($text) : $text;
         
-        $this->breadcrumbs[] = array('text' => $text, 'href' => $url, 'separator' => $separator);
+        $this->breadcrumbs[] = array(
+            'text'      => $text,
+            'href'      => $url,
+            'separator' => $separator
+        );
     }
     
     public function last($text, $sep = false) {
@@ -66,7 +77,10 @@ class Breadcrumb extends LibraryService {
         
         $text = (parent::$app['language']->get($text)) ? parent::$app['language']->get($text) : $text;
         
-        $this->breadcrumbs[] = array('link' => $text, 'separator' => $separator);
+        $this->breadcrumbs[] = array(
+            'link'      => $text,
+            'separator' => $separator
+        );
     }
     
     public function fetch($pop = false) {

@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Install\Controller;
@@ -64,7 +64,7 @@ class Upgrade extends Controller {
         endif;
         
         $data['manager'] = 'http://' . $this->request->server['SERVER_NAME'] . '/manage/';
-        $data['home'] = 'http://' . $this->request->server['SERVER_NAME'] . '/';
+        $data['home']    = 'http://' . $this->request->server['SERVER_NAME'] . '/';
         
         $data['header'] = $this->theme->controller('header');
         $data['footer'] = $this->theme->controller('footer');

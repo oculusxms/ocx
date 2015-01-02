@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Service;
@@ -36,7 +36,7 @@ class ActionService implements ActionServiceInterface {
         $this->class = $this->build_class();
         
         /**
-         * 	No pre-controller hooks for our installer.
+         *  No pre-controller hooks for our installer.
          */
         if ($this->fascade !== INSTALL_FASCADE):
             $this->buildPrecontrollerHooks($app);
@@ -89,12 +89,12 @@ class ActionService implements ActionServiceInterface {
             $this->method = $this->args['method'];
         endif;
         
-        if (is_readable($file = $app['path.theme'] . $app['theme.name'] . '/controller/' . str_replace(array('../', '..\\', '..'), '', $path) . '.php')):
+        if (is_readable($file = $app['path.theme'] . $app['theme.name'] . '/controller/' . str_replace(array('../', '..\\', '..') , '', $path) . '.php')):
             $this->file = $file;
-        elseif (is_readable($file = $app['path.plugin'] . $plugin . '/' . $this->fascade . '/controller/' . str_replace(array('../', '..\\', '..'), '', $path) . '.php')):
+        elseif (is_readable($file = $app['path.plugin'] . $plugin . '/' . $this->fascade . '/controller/' . str_replace(array('../', '..\\', '..') , '', $path) . '.php')):
             $this->file = $file;
         else:
-            $this->file = $app['path.application'] . 'controller/' . str_replace(array('../', '..\\', '..'), '', $path) . '.php';
+            $this->file = $app['path.application'] . 'controller/' . str_replace(array('../', '..\\', '..') , '', $path) . '.php';
         endif;
     }
     
@@ -106,21 +106,25 @@ class ActionService implements ActionServiceInterface {
         $callable = false;
         $hook_key = $this->fascade . '_controller';
         
-        $hooks = $app['plugin_hooks'];
+        $hooks    = $app['plugin_hooks'];
         
         if (array_key_exists($hook_key, $hooks)):
             foreach ($hooks[$hook_key] as $hook):
                 if ($hook['class'] === $this->class && $hook['method'] === $this->method && $hook['type'] == 'pre'):
                     
                     $mthd = basename($hook['callback']);
-                    $cls = rtrim(str_replace($mthd, '', $hook['callback']), '/');
+                    $cls  = rtrim(str_replace($mthd, '', $hook['callback']) , '/');
                     
-                    $callback = array('class' => str_replace('/', '\\', $cls), 'method' => $mthd, 'args' => $hook['arguments']);
+                    $callback = array(
+                        'class'  => str_replace('/', '\\', $cls) ,
+                        'method' => $mthd,
+                        'args'   => $hook['arguments']
+                    );
                     
                     $callable = function () use ($callback, $app) {
                         $hook = new $callback['class']($app);
                         if (is_callable(array($hook, $callback['method']))):
-                            return call_user_func_array(array($hook, $callback['method']), array($callback['args']));
+                            return call_user_func_array(array($hook, $callback['method']) , array($callback['args']));
                         endif;
                     };
                 endif;
@@ -135,7 +139,7 @@ class ActionService implements ActionServiceInterface {
     // determine class name
     protected function build_class() {
         
-        $file = str_replace(APP_PATH, '', str_replace('.php', '', $this->file));
+        $file  = str_replace(APP_PATH, '', str_replace('.php', '', $this->file));
         $class = '';
         
         $parts = explode('/', $file);

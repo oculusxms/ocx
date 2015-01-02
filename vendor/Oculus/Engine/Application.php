@@ -44,6 +44,7 @@ use Oculus\Library\Javascript;
 use Oculus\Library\Language;
 use Oculus\Library\Length;
 use Oculus\Library\Log;
+use Oculus\Library\Mail;
 use Oculus\Library\Pagination;
 use Oculus\Library\Request;
 use Oculus\Library\Response;
@@ -494,8 +495,10 @@ class Application {
             return new Cache(new Asset(31536000, $data) , $data);
             
             // 1 year in seconds to match htaccess rules
-            
-            
+        };
+
+        $this->data['mailer'] = function ($data) {
+            return new Mail($data);
         };
     }
     

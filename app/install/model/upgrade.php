@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Install\Model;
@@ -77,7 +77,17 @@ class Upgrade extends Model {
             preg_match_all('#`(\w[\w\d]*)`\s+((tinyint|smallint|mediumint|bigint|int|tinytext|text|mediumtext|longtext|tinyblob|blob|mediumblob|longblob|varchar|char|datetime|date|float|double|decimal|timestamp|time|year|enum|set|binary|varbinary)(\((.*)\))?){1}\s*(collate (\w+)\s*)?(unsigned\s*)?((NOT\s*NULL\s*)|(NULL\s*))?(auto_increment\s*)?(default \'([^\']*)\'\s*)?#i', $sql, $match);
             
             foreach (array_keys($match[0]) as $key):
-                $field_data[] = array('name' => trim($match[1][$key]), 'type' => strtoupper(trim($match[3][$key])), 'size' => str_replace(array('(', ')'), '', trim($match[4][$key])), 'sizeext' => trim($match[6][$key]), 'collation' => trim($match[7][$key]), 'unsigned' => trim($match[8][$key]), 'notnull' => trim($match[9][$key]), 'autoincrement' => trim($match[12][$key]), 'default' => trim($match[14][$key]),);
+                $field_data[] = array(
+                    'name'          => trim($match[1][$key]) ,
+                    'type'          => strtoupper(trim($match[3][$key])) ,
+                    'size'          => str_replace(array('(', ')') , '', trim($match[4][$key])) ,
+                    'sizeext'       => trim($match[6][$key]) ,
+                    'collation'     => trim($match[7][$key]) ,
+                    'unsigned'      => trim($match[8][$key]) ,
+                    'notnull'       => trim($match[9][$key]) ,
+                    'autoincrement' => trim($match[12][$key]) ,
+                    'default'       => trim($match[14][$key]) ,
+                );
             endforeach;
             
             // Get primary keys
@@ -133,27 +143,34 @@ class Upgrade extends Model {
             preg_match_all('#create\s*table\s*if\s*not\s*exists\s*`(\w+)`#i', $sql, $table);
             
             if (isset($table[1][0])):
-                $table_new_data[] = array('sql' => $sql, 'name' => $table[1][0], 'field' => $field_data, 'primary' => $primary_data, 'index' => $index_data, 'option' => $option_data);
+                $table_new_data[] = array(
+                    'sql'     => $sql,
+                    'name'    => $table[1][0],
+                    'field'   => $field_data,
+                    'primary' => $primary_data,
+                    'index'   => $index_data,
+                    'option'  => $option_data
+                );
             endif;
         }
         
         $driver = 'Oculus\Driver\Database\\' . DB_DRIVER;
-        $this->db = new Db(new $driver(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PREFIX), $this->app);
+        $this->db = new Db(new $driver(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PREFIX) , $this->app);
         
         // Get all current tables, fields, type, size, etc..
         $table_old_data = array();
         
         $table_query = $this->db->query("
-			SHOW TABLES FROM `" . DB_DATABASE . "`
-		");
+            SHOW TABLES FROM `" . DB_DATABASE . "`
+        ");
         
         foreach ($table_query->rows as $table):
             if ($this->encode->substr($table['Tables_in_' . DB_DATABASE], 0, strlen(DB_PREFIX)) == DB_PREFIX):
                 $field_data = array();
                 $field_query = $this->db->query("
-					SHOW COLUMNS 
-					FROM `" . $table['Tables_in_' . DB_DATABASE] . "`
-				");
+                    SHOW COLUMNS 
+                    FROM `" . $table['Tables_in_' . DB_DATABASE] . "`
+                ");
                 
                 foreach ($field_query->rows as $field):
                     $field_data[] = $field['Field'];
@@ -173,18 +190,18 @@ class Upgrade extends Model {
                 // DB Engine
                 if (isset($table['option']['ENGINE'])):
                     $this->db->query("
-						ALTER TABLE `" . $table['name'] . "` 
-						ENGINE = `" . $table['option']['ENGINE'] . "`
-					");
+                        ALTER TABLE `" . $table['name'] . "` 
+                        ENGINE = `" . $table['option']['ENGINE'] . "`
+                    ");
                 endif;
                 
                 // Charset
                 if (isset($table['option']['CHARSET']) && isset($table['option']['COLLATE'])):
                     $this->db->query("
-						ALTER TABLE `" . $table['name'] . "` 
-						DEFAULT CHARACTER SET `" . $table['option']['CHARSET'] . "` 
-						COLLATE `" . $table['option']['COLLATE'] . "`
-					");
+                        ALTER TABLE `" . $table['name'] . "` 
+                        DEFAULT CHARACTER SET `" . $table['option']['CHARSET'] . "` 
+                        COLLATE `" . $table['option']['COLLATE'] . "`
+                    ");
                 endif;
                 
                 $i = 0;
@@ -194,8 +211,8 @@ class Upgrade extends Model {
                     // If field is not found create it
                     if (!in_array($field['name'], $table_old_data[$table['name']])):
                         $sql = "
-							ALTER TABLE `" . $table['name'] . "` 
-							ADD `" . $field['name'] . "` " . $field['type'];
+                            ALTER TABLE `" . $table['name'] . "` 
+                            ADD `" . $field['name'] . "` " . $field['type'];
                         
                         if ($field['size']):
                             $sql.= "(" . $field['size'] . ")";
@@ -224,8 +241,8 @@ class Upgrade extends Model {
                         
                         // Remove auto increment from all fields
                         $sql = "
-							ALTER TABLE `" . $table['name'] . "` 
-							CHANGE `" . $field['name'] . "` `" . $field['name'] . "` " . strtoupper($field['type']);
+                            ALTER TABLE `" . $table['name'] . "` 
+                            CHANGE `" . $field['name'] . "` `" . $field['name'] . "` " . strtoupper($field['type']);
                         
                         if ($field['size']):
                             $sql.= "(" . $field['size'] . ")";
@@ -259,15 +276,15 @@ class Upgrade extends Model {
                 
                 // Drop primary keys and indexes.
                 $query = $this->db->query("
-					SHOW INDEXES FROM `" . $table['name'] . "`
-				");
+                    SHOW INDEXES FROM `" . $table['name'] . "`
+                ");
                 
                 foreach ($query->rows as $result):
                     if ($result['Key_name'] != 'PRIMARY'):
                         $this->db->query("
-							ALTER TABLE `" . $table['name'] . "` 
-							DROP INDEX `" . $result['Key_name'] . "`
-						");
+                            ALTER TABLE `" . $table['name'] . "` 
+                            DROP INDEX `" . $result['Key_name'] . "`
+                        ");
                     else:
                         $status = true;
                     endif;
@@ -275,9 +292,9 @@ class Upgrade extends Model {
                 
                 if ($status):
                     $this->db->query("
-						ALTER TABLE `" . $table['name'] . "` 
-						DROP PRIMARY KEY
-					");
+                        ALTER TABLE `" . $table['name'] . "` 
+                        DROP PRIMARY KEY
+                    ");
                 endif;
                 
                 // Add a new primary key.
@@ -289,9 +306,9 @@ class Upgrade extends Model {
                 
                 if ($primary_data):
                     $this->db->query("
-						ALTER TABLE `" . $table['name'] . "` 
-						ADD PRIMARY KEY(" . implode(',', $primary_data) . ")
-					");
+                        ALTER TABLE `" . $table['name'] . "` 
+                        ADD PRIMARY KEY(" . implode(',', $primary_data) . ")
+                    ");
                 endif;
                 
                 // Add the new indexes
@@ -304,9 +321,9 @@ class Upgrade extends Model {
                     
                     if ($index_data):
                         $this->db->query("
-							ALTER TABLE `" . $table['name'] . "` 
-							ADD INDEX (" . implode(',', $index_data) . ")
-						");
+                            ALTER TABLE `" . $table['name'] . "` 
+                            ADD INDEX (" . implode(',', $index_data) . ")
+                        ");
                     endif;
                 endforeach;
                 
@@ -314,8 +331,8 @@ class Upgrade extends Model {
                 foreach ($table['field'] as $field):
                     if ($field['autoincrement']):
                         $sql = "
-							ALTER TABLE `" . $table['name'] . "` 
-							CHANGE `" . $field['name'] . "` `" . $field['name'] . "` " . strtoupper($field['type']);
+                            ALTER TABLE `" . $table['name'] . "` 
+                            CHANGE `" . $field['name'] . "` `" . $field['name'] . "` " . strtoupper($field['type']);
                         
                         if ($field['size']):
                             $sql.= "(" . $field['size'] . ")";
@@ -347,11 +364,11 @@ class Upgrade extends Model {
         
         // Settings
         $query = $this->db->query("
-			SELECT * 
-			FROM `{$this->db->prefix}setting` 
-			WHERE `store_id` = '0' 
-			ORDER BY `store_id` ASC
-		");
+            SELECT * 
+            FROM `{$this->db->prefix}setting` 
+            WHERE `store_id` = '0' 
+            ORDER BY `store_id` ASC
+        ");
         
         foreach ($query->rows as $setting):
             if (!$setting['serialized']):
@@ -364,24 +381,24 @@ class Upgrade extends Model {
         // Set defaults for new voucher min/max fields if not set
         if (empty($settings['config_voucher_min'])):
             $this->db->query("
-				INSERT INTO `{$this->db->prefix}setting` 
-				SET 
-					`value` = '1', 
-					`key` = 'config_voucher_min', 
-					`group` = 'config', 
-					`store_id` = 0
-			");
+                INSERT INTO `{$this->db->prefix}setting` 
+                SET 
+                    `value` = '1', 
+                    `key` = 'config_voucher_min', 
+                    `group` = 'config', 
+                    `store_id` = 0
+            ");
         endif;
         
         if (empty($settings['config_voucher_max'])):
             $this->db->query("
-				INSERT INTO `{$this->db->prefix}setting` 
-				SET 
-					`value` = '1000', 
-					`key` = 'config_voucher_max', 
-					`group` = 'config', 
-					`store_id` = 0
-			");
+                INSERT INTO `{$this->db->prefix}setting` 
+                SET 
+                    `value` = '1000', 
+                    `key` = 'config_voucher_max', 
+                    `group` = 'config', 
+                    `store_id` = 0
+            ");
         endif;
         
         // Update the customer group table
@@ -392,18 +409,18 @@ class Upgrade extends Model {
             
             foreach ($customer_group_query->rows as $customer_group):
                 $language_query = $this->db->query("
-					SELECT `language_id` 
-					FROM `{$this->db->prefix}language`
-				");
+                    SELECT `language_id` 
+                    FROM `{$this->db->prefix}language`
+                ");
                 
                 foreach ($language_query->rows as $language):
                     $this->db->query("
-						REPLACE INTO `{$this->db->prefix}customer_group_description` 
-						SET 
-							`customer_group_id` = '" . (int)$customer_group['customer_group_id'] . "', 
-							`language_id` = '" . (int)$language['language_id'] . "', 
-							`name` = '" . $this->db->escape($customer_group['name']) . "'
-					");
+                        REPLACE INTO `{$this->db->prefix}customer_group_description` 
+                        SET 
+                            `customer_group_id` = '" . (int)$customer_group['customer_group_id'] . "', 
+                            `language_id` = '" . (int)$language['language_id'] . "', 
+                            `name` = '" . $this->db->escape($customer_group['name']) . "'
+                    ");
                 endforeach;
             endforeach;
             
@@ -413,25 +430,25 @@ class Upgrade extends Model {
         // Move blacklisted ip to ban ip table
         
         $query = $this->db->query("
-			SHOW TABLES LIKE '{$this->db->prefix}customer_ip_blacklist'
-		");
+            SHOW TABLES LIKE '{$this->db->prefix}customer_ip_blacklist'
+        ");
         
         if ($query->num_rows):
             $query = $this->db->query("
-				SELECT * FROM {$this->db->prefix}customer_ip_blacklist
-			");
+                SELECT * FROM {$this->db->prefix}customer_ip_blacklist
+            ");
             
             foreach ($query->rows as $result):
                 $this->db->query("
-					INSERT INTO {$this->db->prefix}customer_ban_ip 
-					SET ip = '" . $this->db->escape($result['ip']) . "'
-				");
+                    INSERT INTO {$this->db->prefix}customer_ban_ip 
+                    SET ip = '" . $this->db->escape($result['ip']) . "'
+                ");
             endforeach;
             
             // drop unused table
             $this->db->query("
-				DROP TABLE IF EXISTS `{$this->db->prefix}customer_ip_blacklist`
-			");
+                DROP TABLE IF EXISTS `{$this->db->prefix}customer_ip_blacklist`
+            ");
         endif;
         
         // Sort the categories to take advantage of the nested set model
@@ -441,47 +458,47 @@ class Upgrade extends Model {
     // Function to repair any erroneous categories that are not in the category path table.
     public function repairCategories($parent_id = 0) {
         $query = $this->db->query("
-			SELECT * FROM `{$this->db->prefix}category` 
-			WHERE `parent_id` = '" . (int)$parent_id . "'
-		");
+            SELECT * FROM `{$this->db->prefix}category` 
+            WHERE `parent_id` = '" . (int)$parent_id . "'
+        ");
         
         foreach ($query->rows as $category) {
             
             // Delete the path below the current one
             $this->db->query("
-				DELETE FROM `{$this->db->prefix}category_path` 
-				WHERE `category_id` = '" . (int)$category['category_id'] . "'
-			");
+                DELETE FROM `{$this->db->prefix}category_path` 
+                WHERE `category_id` = '" . (int)$category['category_id'] . "'
+            ");
             
             // Fix for records with no paths
             $level = 0;
             
             $query = $this->db->query("
-				SELECT * 
-				FROM `{$this->db->prefix}category_path` 
-				WHERE `category_id` = '" . (int)$parent_id . "' 
-				ORDER BY `level` ASC
-			");
+                SELECT * 
+                FROM `{$this->db->prefix}category_path` 
+                WHERE `category_id` = '" . (int)$parent_id . "' 
+                ORDER BY `level` ASC
+            ");
             
             foreach ($query->rows as $result):
                 $this->db->query("
-					INSERT INTO `{$this->db->prefix}category_path` 
-					SET 
-						`category_id` = '" . (int)$category['category_id'] . "', 
-						`path_id` = '" . (int)$result['path_id'] . "', 
-						`level` = '" . (int)$level . "'
-				");
+                    INSERT INTO `{$this->db->prefix}category_path` 
+                    SET 
+                        `category_id` = '" . (int)$category['category_id'] . "', 
+                        `path_id` = '" . (int)$result['path_id'] . "', 
+                        `level` = '" . (int)$level . "'
+                ");
                 
                 $level++;
             endforeach;
             
             $this->db->query("
-				REPLACE INTO `{$this->db->prefix}category_path` 
-				SET 
-					`category_id` = '" . (int)$category['category_id'] . "', 
-					`path_id` = '" . (int)$category['category_id'] . "', 
-					`level` = '" . (int)$level . "'
-			");
+                REPLACE INTO `{$this->db->prefix}category_path` 
+                SET 
+                    `category_id` = '" . (int)$category['category_id'] . "', 
+                    `path_id` = '" . (int)$category['category_id'] . "', 
+                    `level` = '" . (int)$level . "'
+            ");
             
             $this->repairCategories($category['category_id']);
         }

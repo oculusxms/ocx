@@ -25,7 +25,7 @@ class Css extends LibraryService {
     private $complete = array();
     private $last_file;
     private $directory;
-    public $cache_key;
+    public  $cache_key;
     
     public function __construct(Container $app) {
         parent::__construct($app);
@@ -103,8 +103,8 @@ class Css extends LibraryService {
     
     public function reset() {
         $this->registered = array();
-        $this->queued = array();
-        $this->complete = array();
-        $this->last_file = '';
+        $this->queued     = array();
+        $this->complete   = array();
+        $this->last_file  = '';
     }
 }

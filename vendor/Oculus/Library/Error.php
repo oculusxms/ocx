@@ -25,7 +25,7 @@ class Error extends LibraryService {
     }
     
     public function error_handler($errno, $errstr, $errfile, $errline) {
-        $log = parent::$app['log'];
+        $log    = parent::$app['log'];
         $config = parent::$app['config'];
         
         // Error supression via @ symbol

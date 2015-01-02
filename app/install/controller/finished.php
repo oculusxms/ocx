@@ -23,7 +23,7 @@ class Finished extends Controller {
         $this->theme->setTitle('OCX Install || Step 4 - Finished');
         
         $data['manager'] = 'http://' . $this->request->server['SERVER_NAME'] . '/' . ADMIN_FASCADE;
-        $data['home'] = 'http://' . $this->request->server['SERVER_NAME'];
+        $data['home']    = 'http://' . $this->request->server['SERVER_NAME'];
         
         $name = date('m-d-Y-h.i.s', time()) . '.sql';
         

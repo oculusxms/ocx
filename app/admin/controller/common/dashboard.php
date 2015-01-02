@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Admin\Controller\Common;
@@ -21,14 +21,22 @@ use Oculus\Service\ActionService;
 
 class Dashboard extends Controller {
     private $error;
-    private $errors = array('install', 'image', 'image_cache', 'cache', 'download', 'logs');
+    private $errors = array(
+        'install',
+        'image',
+        'image_cache',
+        'cache',
+        'download',
+        'logs'
+    );
     
     public function index() {
         $data = $this->theme->language('common/dashboard');
         
         $this->theme->setTitle($this->language->get('heading_title'));
         
-        $this->javascript->register('flot.min', 'summernote.min')->register('flot.resize.min', 'flot.min');
+        $this->javascript->register('flot.min', 'summernote.min')
+            ->register('flot.resize.min', 'flot.min');
         
         if (strtotime('-24 hours', time()) > $this->user->getLastAccess()):
             $this->checkFolders();
@@ -60,37 +68,52 @@ class Dashboard extends Controller {
         
         $this->theme->model('sale/order');
         
-        $data['total_sale'] = $this->currency->format($this->model_sale_order->getTotalSales(), $this->config->get('config_currency'));
-        $data['total_sale_year'] = $this->currency->format($this->model_sale_order->getTotalSalesByYear(date('Y')), $this->config->get('config_currency'));
-        $data['total_order'] = $this->model_sale_order->getTotalOrders();
+        $data['total_sale']      = $this->currency->format($this->model_sale_order->getTotalSales() , $this->config->get('config_currency'));
+        $data['total_sale_year'] = $this->currency->format($this->model_sale_order->getTotalSalesByYear(date('Y')) , $this->config->get('config_currency'));
+        $data['total_order']     = $this->model_sale_order->getTotalOrders();
         
         $this->theme->model('people/customer');
         
-        $data['total_customer'] = $this->model_people_customer->getTotalCustomers();
+        $data['total_customer']          = $this->model_people_customer->getTotalCustomers();
         $data['total_customer_approval'] = $this->model_people_customer->getTotalCustomersAwaitingApproval();
         
         $this->theme->model('catalog/review');
         
-        $data['total_review'] = $this->model_catalog_review->getTotalReviews();
+        $data['total_review']          = $this->model_catalog_review->getTotalReviews();
         $data['total_review_approval'] = $this->model_catalog_review->getTotalReviewsAwaitingApproval();
         
         $this->theme->model('people/affiliate');
         
-        $data['total_affiliate'] = $this->model_people_affiliate->getTotalAffiliates();
+        $data['total_affiliate']          = $this->model_people_affiliate->getTotalAffiliates();
         $data['total_affiliate_approval'] = $this->model_people_affiliate->getTotalAffiliatesAwaitingApproval();
         
         $data['orders'] = array();
         
-        $filter = array('sort' => 'o.date_added', 'order' => 'DESC', 'start' => 0, 'limit' => 10);
+        $filter = array(
+            'sort'  => 'o.date_added',
+            'order' => 'DESC',
+            'start' => 0,
+            'limit' => 10
+        );
         
         $results = $this->model_sale_order->getOrders($filter);
         
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_view'), 'href' => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'], 'SSL'));
+            $action[] = array(
+                'text' => $this->language->get('text_view') ,
+                'href' => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'], 'SSL')
+            );
             
-            $data['orders'][] = array('order_id' => $result['order_id'], 'customer' => $result['customer'], 'status' => $result['status'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'total' => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']), 'action' => $action);
+            $data['orders'][] = array(
+                'order_id'   => $result['order_id'],
+                'customer'   => $result['customer'],
+                'status'     => $result['status'],
+                'date_added' => date($this->language->get('date_format_short') , strtotime($result['date_added'])) ,
+                'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']) ,
+                'action'     => $action
+            );
         }
         
         if ($this->config->get('config_currency_auto')) {
@@ -115,11 +138,11 @@ class Dashboard extends Controller {
         
         $this->theme->model('report/dashboard');
         
-        $json['orders'] = array();
-        $json['customers'] = array();
-        $json['xaxis'] = array();
+        $json['orders']            = array();
+        $json['customers']         = array();
+        $json['xaxis']             = array();
         
-        $json['order']['label'] = $this->language->get('text_order');
+        $json['order']['label']    = $this->language->get('text_order');
         $json['customer']['label'] = $this->language->get('text_customer');
         
         if (isset($this->request->get['range'])) {
@@ -140,7 +163,7 @@ class Dashboard extends Controller {
                 $results = $this->model_report_dashboard->getTotalCustomersByDay();
                 
                 foreach ($results as $key => $value) {
-                    $json['customer']['data'][] = array($key, $value['total']);
+                    $json['customer']['data'][] = array($key,$value['total']);
                 }
                 
                 for ($i = 0; $i < 24; $i++) {
@@ -230,14 +253,31 @@ class Dashboard extends Controller {
             }
         }
         
-        $ignore = array('common/login', 'common/forgotten', 'common/reset', 'common/javascript', 'common/css');
+        $ignore = array(
+            'common/login',
+            'common/forgotten',
+            'common/reset',
+            'common/javascript',
+            'common/css'
+        );
         
         if (!$this->user->isLogged() && !in_array($route, $ignore)) {
             return new Action(new ActionService($this->app, 'common/login'));
         }
         
         if (isset($this->request->get['route'])) {
-            $ignore = array('common/login', 'common/logout', 'common/forgotten', 'common/reset', 'error/notfound', 'error/permission', 'common/breadcrumb', 'common/menu', 'common/javascript', 'common/css');
+            $ignore = array(
+                'common/login',
+                'common/logout',
+                'common/forgotten',
+                'common/reset',
+                'error/notfound',
+                'error/permission',
+                'common/breadcrumb',
+                'common/menu',
+                'common/javascript',
+                'common/css'
+            );
             
             $config_ignore = array();
             
@@ -267,7 +307,19 @@ class Dashboard extends Controller {
                 $route.= '/' . $part[1];
             }
             
-            $ignore = array('common/dashboard', 'common/login', 'common/logout', 'common/forgotten', 'common/reset', 'common/breadcrumb', 'common/menu', 'error/notfound', 'error/permission', 'common/javascript', 'common/css');
+            $ignore = array(
+                'common/dashboard',
+                'common/login',
+                'common/logout',
+                'common/forgotten',
+                'common/reset',
+                'common/breadcrumb',
+                'common/menu',
+                'error/notfound',
+                'error/permission',
+                'common/javascript',
+                'common/css'
+            );
             
             if (!in_array($route, $ignore) && !$this->user->hasPermission('access', $route)) {
                 return new Action(new ActionService($this->app, 'error/permission'));
@@ -286,7 +338,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['image'] = sprintf($this->language->get('error_image'), $this->app['path.image']);
+            $this->error['image'] = sprintf($this->language->get('error_image') , $this->app['path.image']);
         else:
             $this->error['image'] = '';
             unlink($file);
@@ -300,7 +352,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['image_cache'] = sprintf($this->language->get('error_image_cache'), $this->app['path.image'] . 'cache/');
+            $this->error['image_cache'] = sprintf($this->language->get('error_image_cache') , $this->app['path.image'] . 'cache/');
         else:
             $this->error['image_cache'] = '';
             unlink($file);
@@ -314,7 +366,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['cache'] = sprintf($this->language->get('error_image_cache'), $this->app['path.cache']);
+            $this->error['cache'] = sprintf($this->language->get('error_image_cache') , $this->app['path.cache']);
         else:
             $this->error['cache'] = '';
             unlink($file);
@@ -328,7 +380,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['download'] = sprintf($this->language->get('error_download'), $this->app['path.download']);
+            $this->error['download'] = sprintf($this->language->get('error_download') , $this->app['path.download']);
         else:
             $this->error['download'] = '';
             unlink($file);
@@ -342,7 +394,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['logs'] = sprintf($this->language->get('error_logs'), $this->app['path.logs']);
+            $this->error['logs'] = sprintf($this->language->get('error_logs') , $this->app['path.logs']);
         else:
             $this->error['logs'] = '';
             unlink($file);

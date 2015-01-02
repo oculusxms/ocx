@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -29,18 +29,23 @@ class Length extends LibraryService {
         
         if (is_bool($rows)):
             $length_class_query = $app['db']->query("
-				SELECT * 
-				FROM {$app['db']->prefix}length_class mc 
-				LEFT JOIN {$app['db']->prefix}length_class_description mcd 
-				ON (mc.length_class_id = mcd.length_class_id) 
-				WHERE mcd.language_id = '" . (int)$app['config_language_id'] . "'
-			");
+                SELECT * 
+                FROM {$app['db']->prefix}length_class mc 
+                LEFT JOIN {$app['db']->prefix}length_class_description mcd 
+                ON (mc.length_class_id = mcd.length_class_id) 
+                WHERE mcd.language_id = '" . (int)$app['config_language_id'] . "'
+            ");
             $rows = $length_class_query->rows;
             $app['cache']->set($key, $rows);
         endif;
         
         foreach ($rows as $result):
-            $this->lengths[$result['length_class_id']] = array('length_class_id' => $result['length_class_id'], 'title' => $result['title'], 'unit' => $result['unit'], 'value' => $result['value']);
+            $this->lengths[$result['length_class_id']] = array(
+                'length_class_id' => $result['length_class_id'],
+                'title'           => $result['title'],
+                'unit'            => $result['unit'],
+                'value'           => $result['value']
+            );
         endforeach;
     }
     

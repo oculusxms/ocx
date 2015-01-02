@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Install\Controller;
@@ -37,20 +37,20 @@ class Preinstallation extends Controller {
             $data['error_warning'] = '';
         endif;
         
-        $data['action'] = $this->url->link('preinstallation');
+        $data['action']      = $this->url->link('preinstallation');
         
-        $data['config'] = APP_PATH . 'database/config';
-        $data['cache'] = STORAGE . 'cache';
-        $data['logs'] = STORAGE . 'logs';
-        $data['image'] = $this->get('path.ocx') . PUBLIC_DIR . 'image';
+        $data['config']      = APP_PATH . 'database/config';
+        $data['cache']       = STORAGE . 'cache';
+        $data['logs']        = STORAGE . 'logs';
+        $data['image']       = $this->get('path.ocx') . PUBLIC_DIR . 'image';
         $data['image_cache'] = $this->get('path.ocx') . PUBLIC_DIR . 'image/cache';
-        $data['image_data'] = $this->get('path.ocx') . PUBLIC_DIR . 'image/data';
-        $data['download'] = APP_PATH . 'download';
+        $data['image_data']  = $this->get('path.ocx') . PUBLIC_DIR . 'image/data';
+        $data['download']    = APP_PATH . 'download';
         
-        $data['back'] = $this->url->link('license');
+        $data['back']        = $this->url->link('license');
         
-        $data['header'] = $this->theme->controller('header');
-        $data['footer'] = $this->theme->controller('footer');
+        $data['header']      = $this->theme->controller('header');
+        $data['footer']      = $this->theme->controller('footer');
         
         $this->response->setOutput($this->theme->view('preinstallation', $data));
     }

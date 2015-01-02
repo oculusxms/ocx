@@ -6,12 +6,12 @@
 |--------------------------------------------------------------------------
 |
 |   This file is part of the Oculus XMS Framework package.
-|	
-|	(c) Vince Kronlein <vince@ocx.io>
-|	
-|	For the full copyright and license information, please view the LICENSE
-|	file that was distributed with this source code.
-|	
+|   
+|   (c) Vince Kronlein <vince@ocx.io>
+|   
+|   For the full copyright and license information, please view the LICENSE
+|   file that was distributed with this source code.
+|   
 */
 
 namespace Oculus\Library;
@@ -26,7 +26,7 @@ class Url extends LibraryService {
         parent::__construct($app);
         
         $this->domain = $domain;
-        $this->ssl = $ssl;
+        $this->ssl    = $ssl;
     }
     
     public function external($href, $text, $rel = 'nofollow', $target = '_blank') {
@@ -48,17 +48,19 @@ class Url extends LibraryService {
         
         if ($args):
             if (parent::$app['active.fascade'] === FRONT_FASCADE):
-                 // Catalog access only
+                
+                // Catalog access only
                 $cache = parent::$app['cache'];
                 parse_str($args, $urlargs);
                 if (array_key_exists('product_id', $urlargs)):
-                     // Product URLS
+                    
+                    // Product URLS
                     if (!parent::$app['config_top_level']):
                         if (!array_key_exists('path', $urlargs)):
                             $key = 'product.paths.' . md5(serialize($urlargs));
                             $urlargs['path'] = $cache->get($key);
                             if (is_bool($urlargs['path'])):
-                                $path = $this->build_category_paths((int)$urlargs['product_id']);
+                                $path            = $this->build_category_paths((int)$urlargs['product_id']);
                                 $urlargs['path'] = $path;
                                 $cache->set($key, $urlargs['path']);
                             endif;
@@ -69,13 +71,14 @@ class Url extends LibraryService {
                         endif;
                     endif;
                 elseif (array_key_exists('post_id', $urlargs)):
-                     // Blog post URLS
+                    
+                    // Blog post URLS
                     if (!parent::$app['config_top_level']):
                         if (!array_key_exists('bpath', $urlargs)):
-                            $key = 'blog.category.paths.' . md5(serialize($urlargs));
+                            $key              = 'blog.category.paths.' . md5(serialize($urlargs));
                             $urlargs['bpath'] = $cache->get($key);
                             if (is_bool($urlargs['bpath'])):
-                                $path = $this->build_blog_category_paths((int)$urlargs['post_id']);
+                                $path             = $this->build_blog_category_paths((int)$urlargs['post_id']);
                                 $urlargs['bpath'] = $path;
                                 $cache->set($key, $urlargs['bpath']);
                             endif;
@@ -88,12 +91,14 @@ class Url extends LibraryService {
                 else:
                     if (parent::$app['config_top_level']):
                         if (array_key_exists('path', $urlargs)):
-                             // Product categories
+                            
+                            // Product categories
                             $paths = explode('_', $urlargs['path']);
                             $urlargs['path'] = array_pop($paths);
                         endif;
                         if (array_key_exists('bpath', $urlargs)):
-                             // Blog categories
+                            
+                            // Blog categories
                             $bpaths = explode('_', $urlargs['bpath']);
                             $urlargs['bpath'] = array_pop($bpaths);
                         endif;
@@ -106,10 +111,12 @@ class Url extends LibraryService {
         endif;
         
         if (parent::$app['active.fascade'] === FRONT_FASCADE):
-             // Catalog access
+            
+            // Catalog access
             return $this->rewrite($url);
         elseif (parent::$app['active.fascade'] === INSTALL_FASCADE):
-             // Installer access
+            
+            // Installer access
             return $this->install_rewrite($url);
         else:
             return $url;
@@ -123,9 +130,9 @@ class Url extends LibraryService {
     Routing is routing and url creation is url creation, no need to mix the two.
     */
     private function rewrite($link) {
-        $ucfirst  = parent::$app['config_ucfirst'];
-        $slugs    = parent::$app['routes'];
-        $custom   = parent::$app['custom_routes'];
+        $ucfirst = parent::$app['config_ucfirst'];
+        $slugs   = parent::$app['routes'];
+        $custom  = parent::$app['custom_routes'];
         
         $url_info = parse_url(str_replace('&amp;', '&', $link));
         $url      = '';
@@ -137,20 +144,20 @@ class Url extends LibraryService {
             foreach ($route as $k => $v):
                 if (isset($route['route'])):
                     switch ($route['route']):
-                    case $value:
-                        $url.= '/' . $key;
-                        break;
+                        case $value:
+                            $url.= '/' . $key;
+                            break;
 
-                    case 'account/returns/insert':
-                         // special case for return insert
-                        if (isset($route['order_id']) && isset($route['product_id'])):
-                            $url.= '/' . $route['route'] . '&order_id=' . $route['order_id'] . '&product_id=' . $route['product_id'];
-                            unset($route[$key]);
-                            unset($route['order_id']);
-                            unset($route['product_id']);
-                            unset($route['path']);
-                        endif;
-                        break;
+                        case 'account/returns/insert':
+                            // special case for return insert
+                            if (isset($route['order_id']) && isset($route['product_id'])):
+                                $url.= '/' . $route['route'] . '&order_id=' . $route['order_id'] . '&product_id=' . $route['product_id'];
+                                unset($route[$key]);
+                                unset($route['order_id']);
+                                unset($route['product_id']);
+                                unset($route['path']);
+                            endif;
+                            break;
                     endswitch;
                 endif;
             endforeach;
@@ -164,11 +171,49 @@ class Url extends LibraryService {
                 endif;
             endforeach;
             switch ($route['route']):
-            case 'catalog/product' && $key === 'path':
-                $array = $slugs['catalog/category'];
-                $categories = explode('_', $value);
-                foreach ($categories as $category):
-                    $slug = 'category_id:' . $category;
+                case 'catalog/product' && $key === 'path':
+                    $array = $slugs['catalog/category'];
+                    $categories = explode('_', $value);
+                    foreach ($categories as $category):
+                        $slug = 'category_id:' . $category;
+                        foreach ($array as $k => $v):
+                            if (in_array($slug, $v)):
+                                if ($ucfirst):
+                                    $url.= '/' . $this->cap_slug($v['slug']);
+                                else:
+                                    $url.= '/' . $v['slug'];
+                                endif;
+                            endif;
+                        endforeach;
+                        unset($route[$key]);
+                        unset($slug);
+                    endforeach;
+                    unset($array);
+                    break;
+
+                case 'catalog/category' && $key === 'path':
+                    $array = $slugs['catalog/category'];
+                    $categories = explode('_', $value);
+                    foreach ($categories as $category):
+                        $slug = 'category_id:' . $category;
+                        foreach ($array as $k => $v):
+                            if (in_array($slug, $v)):
+                                if ($ucfirst):
+                                    $url.= '/' . $this->cap_slug($v['slug']);
+                                else:
+                                    $url.= '/' . $v['slug'];
+                                endif;
+                            endif;
+                        endforeach;
+                        unset($route[$key]);
+                        unset($slug);
+                    endforeach;
+                    unset($array);
+                    break;
+
+                case 'catalog/product' && $key === 'product_id':
+                    $array = $slugs['catalog/product'];
+                    $slug = 'product_id:' . $value;
                     foreach ($array as $k => $v):
                         if (in_array($slug, $v)):
                             if ($ucfirst):
@@ -180,15 +225,12 @@ class Url extends LibraryService {
                     endforeach;
                     unset($route[$key]);
                     unset($slug);
-                endforeach;
-                unset($array);
-                break;
+                    unset($array);
+                    break;
 
-            case 'catalog/category' && $key === 'path':
-                $array = $slugs['catalog/category'];
-                $categories = explode('_', $value);
-                foreach ($categories as $category):
-                    $slug = 'category_id:' . $category;
+                case ('catalog/manufacturer/info' || 'catalog/product') && $key === 'manufacturer_id':
+                    $array = $slugs['catalog/manufacturer/info'];
+                    $slug = 'manufacturer_id:' . $value;
                     foreach ($array as $k => $v):
                         if (in_array($slug, $v)):
                             if ($ucfirst):
@@ -200,83 +242,12 @@ class Url extends LibraryService {
                     endforeach;
                     unset($route[$key]);
                     unset($slug);
-                endforeach;
-                unset($array);
-                break;
+                    unset($array);
+                    break;
 
-            case 'catalog/product' && $key === 'product_id':
-                $array = $slugs['catalog/product'];
-                $slug = 'product_id:' . $value;
-                foreach ($array as $k => $v):
-                    if (in_array($slug, $v)):
-                        if ($ucfirst):
-                            $url.= '/' . $this->cap_slug($v['slug']);
-                        else:
-                            $url.= '/' . $v['slug'];
-                        endif;
-                    endif;
-                endforeach;
-                unset($route[$key]);
-                unset($slug);
-                unset($array);
-                break;
-
-            case ('catalog/manufacturer/info' || 'catalog/product') && $key === 'manufacturer_id':
-                $array = $slugs['catalog/manufacturer/info'];
-                $slug = 'manufacturer_id:' . $value;
-                foreach ($array as $k => $v):
-                    if (in_array($slug, $v)):
-                        if ($ucfirst):
-                            $url.= '/' . $this->cap_slug($v['slug']);
-                        else:
-                            $url.= '/' . $v['slug'];
-                        endif;
-                    endif;
-                endforeach;
-                unset($route[$key]);
-                unset($slug);
-                unset($array);
-                break;
-
-            case ('content/page' && $route['route'] !== 'content/page/info') && $key === 'page_id':
-                $array = $slugs['content/page'];
-                $slug = 'page_id:' . $value;
-                foreach ($array as $k => $v):
-                    if (in_array($slug, $v)):
-                        if ($ucfirst):
-                            $url.= '/' . $this->cap_slug($v['slug']);
-                        else:
-                            $url.= '/' . $v['slug'];
-                        endif;
-                    endif;
-                endforeach;
-                unset($route[$key]);
-                unset($slug);
-                unset($array);
-                break;
-
-            case 'content/page/info' && $key === 'page_id':
-                $array = $slugs['content/page'];
-                $slug = 'page_id:' . $value;
-                foreach ($array as $k => $v):
-                    if (in_array($slug, $v)):
-                        if ($ucfirst):
-                            $url.= '/content/page/info/' . $this->cap_slug($v['slug']);
-                        else:
-                            $url.= '/content/page/info/' . $v['slug'];
-                        endif;
-                    endif;
-                endforeach;
-                unset($route[$key]);
-                unset($slug);
-                unset($array);
-                break;
-
-            case 'content/category' && $key == 'bpath':
-                $array = $slugs['content/category'];
-                $categories = explode('_', $value);
-                foreach ($categories as $category):
-                    $slug = 'blog_category_id:' . $category;
+                case ('content/page' && $route['route'] !== 'content/page/info') && $key === 'page_id':
+                    $array = $slugs['content/page'];
+                    $slug = 'page_id:' . $value;
                     foreach ($array as $k => $v):
                         if (in_array($slug, $v)):
                             if ($ucfirst):
@@ -288,26 +259,62 @@ class Url extends LibraryService {
                     endforeach;
                     unset($route[$key]);
                     unset($slug);
-                endforeach;
-                unset($array);
-                break;
+                    unset($array);
+                    break;
 
-            case 'content/post' && $key === 'post_id':
-                $array = $slugs['content/post'];
-                $slug = 'post_id:' . $value;
-                foreach ($array as $k => $v):
-                    if (in_array($slug, $v)):
-                        if ($ucfirst):
-                            $url.= '/' . $this->cap_slug($v['slug']);
-                        else:
-                            $url.= '/' . $v['slug'];
+                case 'content/page/info' && $key === 'page_id':
+                    $array = $slugs['content/page'];
+                    $slug = 'page_id:' . $value;
+                    foreach ($array as $k => $v):
+                        if (in_array($slug, $v)):
+                            if ($ucfirst):
+                                $url.= '/content/page/info/' . $this->cap_slug($v['slug']);
+                            else:
+                                $url.= '/content/page/info/' . $v['slug'];
+                            endif;
                         endif;
-                    endif;
-                endforeach;
-                unset($route[$key]);
-                unset($slug);
-                unset($array);
-                break;
+                    endforeach;
+                    unset($route[$key]);
+                    unset($slug);
+                    unset($array);
+                    break;
+
+                case 'content/category' && $key == 'bpath':
+                    $array = $slugs['content/category'];
+                    $categories = explode('_', $value);
+                    foreach ($categories as $category):
+                        $slug = 'blog_category_id:' . $category;
+                        foreach ($array as $k => $v):
+                            if (in_array($slug, $v)):
+                                if ($ucfirst):
+                                    $url.= '/' . $this->cap_slug($v['slug']);
+                                else:
+                                    $url.= '/' . $v['slug'];
+                                endif;
+                            endif;
+                        endforeach;
+                        unset($route[$key]);
+                        unset($slug);
+                    endforeach;
+                    unset($array);
+                    break;
+
+                case 'content/post' && $key === 'post_id':
+                    $array = $slugs['content/post'];
+                    $slug = 'post_id:' . $value;
+                    foreach ($array as $k => $v):
+                        if (in_array($slug, $v)):
+                            if ($ucfirst):
+                                $url.= '/' . $this->cap_slug($v['slug']);
+                            else:
+                                $url.= '/' . $v['slug'];
+                            endif;
+                        endif;
+                    endforeach;
+                    unset($route[$key]);
+                    unset($slug);
+                    unset($array);
+                    break;
             endswitch;
         endforeach;
         
@@ -425,7 +432,76 @@ class Url extends LibraryService {
     */
     
     public function sanitize_name($string) {
-        $normalize = array('Š' => 'S', 'š' => 's', 'Ð' => 'Dj', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c', 'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'ƒ' => 'f', '"&#xA0;' => "'");
+        $normalize = array(
+            'Š' => 'S',
+            'š' => 's',
+            'Ð' => 'Dj',
+            'Ž' => 'Z',
+            'ž' => 'z',
+            'À' => 'A',
+            'Á' => 'A',
+            'Â' => 'A',
+            'Ã' => 'A',
+            'Ä' => 'A',
+            'Å' => 'A',
+            'Æ' => 'A',
+            'Ç' => 'C',
+            'È' => 'E',
+            'É' => 'E',
+            'Ê' => 'E',
+            'Ë' => 'E',
+            'Ì' => 'I',
+            'Í' => 'I',
+            'Î' => 'I',
+            'Ï' => 'I',
+            'Ñ' => 'N',
+            'Ò' => 'O',
+            'Ó' => 'O',
+            'Ô' => 'O',
+            'Õ' => 'O',
+            'Ö' => 'O',
+            'Ø' => 'O',
+            'Ù' => 'U',
+            'Ú' => 'U',
+            'Û' => 'U',
+            'Ü' => 'U',
+            'Ý' => 'Y',
+            'Þ' => 'B',
+            'ß' => 'Ss',
+            'à' => 'a',
+            'á' => 'a',
+            'â' => 'a',
+            'ã' => 'a',
+            'ä' => 'a',
+            'å' => 'a',
+            'æ' => 'a',
+            'ç' => 'c',
+            'è' => 'e',
+            'é' => 'e',
+            'ê' => 'e',
+            'ë' => 'e',
+            'ì' => 'i',
+            'í' => 'i',
+            'î' => 'i',
+            'ï' => 'i',
+            'ð' => 'o',
+            'ñ' => 'n',
+            'ò' => 'o',
+            'ó' => 'o',
+            'ô' => 'o',
+            'õ' => 'o',
+            'ö' => 'o',
+            'ø' => 'o',
+            'ù' => 'u',
+            'ú' => 'u',
+            'û' => 'u',
+            'ý' => 'y',
+            'ý' => 'y',
+            'þ' => 'b',
+            'ÿ' => 'y',
+            'ƒ' => 'f',
+            '"&#xA0;' => "'"
+        );
         
         $string = str_replace(', ', ',', $string);
         $string = str_replace(',', ', ', $string);
@@ -473,7 +549,6 @@ class Url extends LibraryService {
         $string = str_replace(' ', '-', $string);
         $string = str_replace('--', '-', $string);
         $string = str_replace('-------', '-', $string);
-         // hack for rocks off f
         
         return strtolower($string);
     }
