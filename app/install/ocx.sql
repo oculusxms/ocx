@@ -3621,7 +3621,10 @@ INSERT INTO `ocx_setting` VALUES
 (10151, 0, 'config', 'config_error_filename', 'error.txt', 0),
 (10152, 0, 'config', 'config_google_analytics', '', 0),
 (10153, 0, 'config', 'config_cache_type_id', 'file', 0),
-(10154, 0, 'config', 'config_cache_status', '0', 0);
+(10154, 0, 'config', 'config_default_visibility', '1', 0),
+(10155, 0, 'config', 'config_free_customer', '1', 0),
+(10156, 0, 'config', 'config_top_customer', '1', 0),
+(10157, 0, 'config', 'config_cache_status', '0', 0);
 
 -- --------------------------------------------------------
 
