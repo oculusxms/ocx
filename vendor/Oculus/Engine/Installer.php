@@ -22,6 +22,7 @@ use Oculus\Service\ActionService;
 use Oculus\Engine\Front;
 use Oculus\Engine\Theme;
 use Oculus\Library\Config;
+use Oculus\Library\Encode;
 use Oculus\Library\Error;
 use Oculus\Library\Log;
 use Oculus\Library\Request;
@@ -158,6 +159,11 @@ class Installer {
         // url
         $this->data['url'] = function ($data) {
             return new Url($data['http.server'], '', $data);
+        };
+
+        // encoder
+        $this->data['encode'] = function($data) {
+            return new Encode($data);
         };
         
         // log (required by error class)
