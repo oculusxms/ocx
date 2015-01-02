@@ -4,6 +4,8 @@
 /app/storage/cache/*
 /app/storage/compiled/*
 /app/storage/logs/*
+/app/storage/session/admin/*
+/app/storage/session/front/*
 /app/storage/session/*
 /app/storage/views/*
 /app/front/controller/tool/test.php
