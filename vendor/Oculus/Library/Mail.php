@@ -54,17 +54,24 @@ class Mail extends LibraryService {
 		$this->mailer = Swift_Mailer::newInstance($transport);
 	}
 
-	public function build($subject, $email, $name, $html, $text) {
+	public function build($subject, $email, $name, $text = '', $html = false, $send = false) {
 		$message = Swift_Message::newInstance();
 		$message->setFrom(array($app['config_email'] => $app['config_name']));
 
 		// customer/function specific details
 		$message->setSubject($subject);
 		$message->setTo(array($email => $name));
-		$message->setBody($html);
-		$message->addPart($text, 'text/plain');
+
+		if ($html):
+			$message->setBody($html);
+			$message->addPart($text, 'text/plain');
+		else:
+			$message->setBody($text);
+		endif;
 
 		$this->message = $message;
+
+		if ($send) $this->send();
 	}
 
 	public function send() {

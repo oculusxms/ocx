@@ -43,14 +43,18 @@ class Git extends Plugin {
             return;
         endif;
         
-        $this->branch = $settings['git_branch'];
+        $this->branch    = $settings['git_branch'];
         
-        $paths = $this->seek();
+        $paths           = $this->seek();
         $this->directory = $paths['parent'];
-        $this->alias = $paths['directory'];
-        
-        $HTTP_RAW_POST_DATA = file_get_contents('php://input');
-        
+        $this->alias     = $paths['directory'];
+
+        if(isset($this->request->post['payload'])):    
+            $HTTP_RAW_POST_DATA = $this->request->post['payload'];
+        else:
+            $HTTP_RAW_POST_DATA = file_get_contents('php://input');
+        endif;
+
         try {
             if (isset($HTTP_RAW_POST_DATA)):
                 if ($this->data = json_decode($HTTP_RAW_POST_DATA)):
