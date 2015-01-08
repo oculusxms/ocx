@@ -95,22 +95,17 @@ class Customer extends Model {
         $message.= $this->language->get('text_thanks') . "\n";
         $message.= $this->config->get('config_name');
         
-        $mail = new Mail();
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
-        $mail->hostname = $this->config->get('config_smtp_host');
-        $mail->username = $this->config->get('config_smtp_username');
-        $mail->password = $this->config->get('config_smtp_password');
-        $mail->port = $this->config->get('config_smtp_port');
-        $mail->timeout = $this->config->get('config_smtp_timeout');
-        $mail->setTo($data['email']);
-        $mail->setFrom($this->config->get('config_email'));
-        $mail->setSender($this->config->get('config_name'));
-        $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-        $mail->setHtml($html);
-        $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-        $mail->send();
         
+        $this->mailer->build(
+            html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
+            $data['email'], 
+            $data['username'], 
+            html_entity_decode($message, ENT_QUOTES, 'UTF-8'), 
+            $html
+        );
+        
+        $this->mailer->send();
+
         // Send to main admin email if new account email is enabled
         if ($this->config->get('config_account_mail')) {
             $message = $this->language->get('text_signup') . "\n\n";
@@ -125,26 +120,35 @@ class Customer extends Model {
             if ($customer_group_info['approval']) {
                 $template->data['text_approve'] = $this->language->get('text_approve');
                 $template->data['account_approve'] = $this->app['https.server'] . ADMIN_FASCADE . '/index.php?route=sale/customer&filter_approved=0';
-                $mail->setSubject("ADMIN APPROVAL - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8'));
+                $subject = "ADMIN APPROVAL - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
             } else {
-                $mail->setSubject("ADMIN - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8'));
+                $subject = "ADMIN - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
             }
             
             $html = $template->fetch('mail/customer_register_admin');
             
-            $mail->setTo($this->config->get('config_email'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->setHtml($html);
-            $mail->send();
-            
+            $this->mailer->build(
+                $subject,
+                $this->config->get('config_email'),
+                $this->config->get('config_name'),
+                html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
+                $html,
+                true
+            );
+
             // Send to additional alert emails if new account email is enabled
             $emails = explode(',', $this->config->get('config_alert_emails'));
             
             foreach ($emails as $email) {
                 if (strlen($email) > 0 && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)) {
-                    $mail->setTo($email);
-                    $mail->setHtml($html);
-                    $mail->send();
+                    $this->mailer->build(
+                        $subject,
+                        $email,
+                        $this->config->get('config_name'),
+                        html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
+                        $html,
+                        true
+                    );
                 }
             }
         }
