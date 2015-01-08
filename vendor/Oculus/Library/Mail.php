@@ -53,8 +53,8 @@ class Mail extends LibraryService {
 		$this->mailer = Swift_Mailer::newInstance($transport);
 	}
 
-	public function build($subject, $email, $name, $text = '', $html = '', $send = false) {
-		$message = Swift_Message::newInstance();
+	public function build($subject, $email, $name, $text, $html = false, $send = false) {
+		$message = Swift_Message::newInstance()->setCharset('iso-8859-2');
 		$message->setFrom(array(parent::$app['config_email'] => parent::$app['config_name']));
 
 		// customer/function specific details
@@ -62,10 +62,15 @@ class Mail extends LibraryService {
 		$message->setTo(array($email => $name));
 
 		$message->setBody($text, 'text/plain');
-
-		if ($html !== ''):
+		
+		if ($html):
 			$message->addPart($html, 'text/html');
 		endif;
+
+		//$message = quoted_printable_decode($message);
+
+		//parent::$app['theme']->test($message->toString());
+		//exit;
 
 		$this->message = $message;
 

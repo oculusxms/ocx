@@ -65,7 +65,7 @@ class Forgotten extends Controller {
                 html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
                 $this->request->post['email'], 
                 $to_name,
-                html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
+                $text,
                 false,
                 true
             );
