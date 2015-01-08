@@ -57,7 +57,7 @@ Thanks.
 ' . parent::$app['http.server'] . '
 
 ' . parent::$app['config_address'] . '
-' . parent::$app['config_telehone'] . '
+' . parent::$app['config_telephone'] . '
 
 -----------------------------------
 You are receiving this because:
