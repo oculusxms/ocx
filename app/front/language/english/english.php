@@ -36,9 +36,41 @@ $_['text_separator']        = ' &raquo; ';
 $_['text_read_more']        = 'Read More';
 $_['text_by']               = 'by';
 
-$_['email_store_name']      = '<i>Thanks.<br><br>Your Site Management<br>FoundHER<br>yoursite.com</i><br><br>';
-$_['email_store_url']       = 'http://yoursite.com';
+// Email goodies
+$_['email_store_name']      = '<i>Thanks.<br><br>' . parent::$app['config_name'] . ' Management</i><br><br>';
+$_['email_store_url']       = parent::$app['http.server'];
 $_['email_server']          = '<i>Thanks.<br><br>OCX Server<br></i>';
+
+$_['email_template'] = '
+===========================================
+' . parent::$app['config_name'] . '
+===========================================
+
+%s
+
+Thanks.
+
+' . parent::$app['config_name'] . ' Administration
+
+==========================
+' . parent::$app['config_name'] . '
+' . parent::$app['http.server'] . '
+
+' . parent::$app['config_address'] . '
+' . parent::$app['config_telehone'] . '
+
+-----------------------------------
+You are receiving this because:
+1.) You\'re a member of ' . parent::$app['http.server'] . ' or
+2.) You subscribed via our website (' . parent::$app['http.server'] . ')
+
+Want to be removed? No problem, click here:
+' . parent::$app['http.server'] . 'contact
+and let us know you\'d like to close your account.
+-----------------------------------
+http://twitter.com/twitterpage
+http://www.facebook.com/yourpage
+';
 
 // Buttons
 $_['button_add_address']    = 'Add Address';

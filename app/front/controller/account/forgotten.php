@@ -56,14 +56,16 @@ class Forgotten extends Controller {
             $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
             
             $message = sprintf($this->language->get('text_greeting'), $this->config->get('config_name')) . "\n\n";
-            $message.= $this->language->get('text_password') . "\n\n";
+            $message.= $this->language->get('text_new_password') . "\n\n";
             $message.= $password;
+
+            $text = sprintf($this->language->get('email_template'), $message);
             
             $this->mailer->build(
                 html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
                 $this->request->post['email'], 
                 $to_name,
-                html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
+                html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
                 $html,
                 true
             );

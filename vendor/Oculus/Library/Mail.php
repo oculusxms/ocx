@@ -61,11 +61,10 @@ class Mail extends LibraryService {
 		$message->setSubject($subject);
 		$message->setTo(array($email => $name));
 
+		$message->setBody($text, 'text/plain');
+
 		if ($html !== ''):
-			$message->setBody($html);
-			$message->addPart($text, 'text/plain');
-		else:
-			$message->setBody($text);
+			$message->addPart($html, 'text/html');
 		endif;
 
 		$this->message = $message;
