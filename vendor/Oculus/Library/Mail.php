@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 |--------------------------------------------------------------------------
 |   Oculus XMS
@@ -56,7 +55,7 @@ class Mail extends LibraryService {
 
 	public function build($subject, $email, $name, $text = '', $html = false, $send = false) {
 		$message = Swift_Message::newInstance();
-		$message->setFrom(array($app['config_email'] => $app['config_name']));
+		$message->setFrom(array(parent::$app['config_email'] => parent::$app['config_name']));
 
 		// customer/function specific details
 		$message->setSubject($subject);
