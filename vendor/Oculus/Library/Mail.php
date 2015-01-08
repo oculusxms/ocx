@@ -67,11 +67,6 @@ class Mail extends LibraryService {
 			$message->addPart($html, 'text/html');
 		endif;
 
-		//$message = quoted_printable_decode($message);
-
-		//parent::$app['theme']->test($message->toString());
-		//exit;
-
 		$this->message = $message;
 
 		if ($send) $this->send();
