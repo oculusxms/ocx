@@ -36,7 +36,7 @@
 			<!-- One Column -->
 			<table width="580"  class="deviceWidth boxed" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#E9E8DD">
 				<tr>
-					<td valign="top" align="center" style="padding:0;padding-top:10px" bgcolor="#ffffff">
+					<td valign="top" align="center" style="padding:10px" bgcolor="#ffffff">
 						<a href="<?= parent::$app['http.server']; ?>"><img  class="deviceWidth" src="<?= parent::$app['http.server']; ?>image/data/email/logo.png" alt="" border="0" style="display: block;" /></a>						
 					</td>
 				</tr>
