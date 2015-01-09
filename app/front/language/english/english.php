@@ -39,7 +39,13 @@ $_['text_by']               = 'by';
 // Email goodies
 $_['email_store_name']      = '<i>Thanks.<br><br>' . parent::$app['config_name'] . ' Management</i><br><br>';
 $_['email_store_url']       = parent::$app['http.server'];
+$_['email_title_server']	= 'OCX Server';
 $_['email_server']          = '<i>Thanks.<br><br>OCX Server<br></i>';
+$_['email_text_server'] = '
+Thanks.
+
+OCX Server
+';
 
 $_['email_template'] = '
 ===========================================

@@ -3624,7 +3624,9 @@ INSERT INTO `ocx_setting` VALUES
 (10154, 0, 'config', 'config_default_visibility', '1', 0),
 (10155, 0, 'config', 'config_free_customer', '1', 0),
 (10156, 0, 'config', 'config_top_customer', '1', 0),
-(10157, 0, 'config', 'config_cache_status', '0', 0);
+(10157, 0, 'config', 'config_mail_twitter', 'TwitterHandle', 0),
+(10158, 0, 'config', 'config_mail_facebook', 'FacebookPage', 0),
+(10159, 0, 'config', 'config_cache_status', '0', 0);
 
 -- --------------------------------------------------------
 

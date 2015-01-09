@@ -36,6 +36,10 @@ class Forgotten extends Controller {
             $data = $this->theme->language('mail/forgotten', $data);
             
             $password = substr(md5(mt_rand()), 0, 10);
+
+            $affiliate = $this->model_affiliate_affiliate->getAffiliateByEmail($this->request->post['email']);
+
+            $to_affiliate = $affiliate['firstname'] . ' ' . $affiliate['lastname'];
             
             $this->model_affiliate_affiliate->editPassword($this->request->post['email'], $password);
             
@@ -45,20 +49,16 @@ class Forgotten extends Controller {
             $message.= $this->language->get('text_password') . "\n\n";
             $message.= $password;
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($this->request->post['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($this->config->get('config_name'));
-            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->send();
+            $text = sprintf($this->language->get('email_template'), $message);
+
+            $this->mailer->build(
+                html_entity_decode($subject, ENT_QUOTES, 'UTF-8'),
+                $this->request->post['email'],
+                $to_affiliate,
+                html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
+                $html,
+                true
+            );
             
             $this->session->data['success'] = $this->language->get('text_success');
             

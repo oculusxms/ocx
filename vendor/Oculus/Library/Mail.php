@@ -72,6 +72,16 @@ class Mail extends LibraryService {
 		if ($send) $this->send();
 	}
 
+	/**
+	 * used to override the defaults for sending message to
+	 * admins on contact, order, register etc.
+	 * @param string $email [from email address]
+	 * @param string $name  [from name]
+	 */
+	public function setFrom($email, $name) {
+		$this->message->setFrom(array($email => $name));
+	}
+
 	public function send() {
 		$this->mailer->send($this->message);
 		unset($this->message);

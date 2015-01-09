@@ -31,6 +31,18 @@ class Contact extends Controller {
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             unset($this->session->data['captcha']);
             
+            $this->theme->language('mail/contact');
+
+            $message  = $this->language->get('text_admin_message') . "\n\n";
+            $message .= $this->language->get('text_name') . ' ' . $this->request->post['name'] . "\n";
+            $message .= $this->language->get('text_email') . ' ' . $this->request->post['email'] . "\n";
+            $message .= $this->language->get('text_enquiry') . "\n\n";
+            $message .= strip_tags(html_entity_decode($this->request->post['enquiry'], ENT_QUOTES, 'UTF-8')) . "\n\n";
+
+            $text = sprintf($this->language->get('email_template'), $message);
+
+            $subject = html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8');
+
             $template = new Template($this->app);
             $template->data = $this->theme->language('mail/contact', $data);
             $template->data['title'] = $this->language->get('heading_title');
@@ -40,32 +52,40 @@ class Contact extends Controller {
             
             $html = $template->fetch('mail/contact_admin');
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($this->config->get('config_email'));
-            $mail->setFrom($this->request->post['email']);
-            $mail->setSender($this->request->post['name']);
-            $mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8'));
-            $mail->setText(strip_tags(html_entity_decode($this->request->post['enquiry'], ENT_QUOTES, 'UTF-8')));
-            $mail->setHtml($html);
-            $mail->send();
+            $this->mailer->build(
+                $subject,
+                $this->config->get('config_email'),
+                $this->config->get('config_owner'),
+                $text,
+                $html
+            );
+
+            $this->mailer->setFrom($this->config->get('config_email'), $this->language->get('email_title_server'));
+            $this->mailer->send();
             
+            unset($message);
+            unset($text);
             unset($html);
+
+            $message  = $this->language->get('entry_enquiry_customer') . "\n\n";
+            $message .= $this->language->get('text_name') . ' ' . $this->request->post['name'] . "\n";
+            $message .= $this->language->get('text_email') . ' ' . $this->request->post['email'] . "\n";
+            $message .= $this->language->get('text_enquiry') . "\n\n";
+            $message .= strip_tags(html_entity_decode($this->request->post['enquiry'], ENT_QUOTES, 'UTF-8')) . "\n\n";
+            $message .= $this->language->get('entry_footer') . "\n\n";
+
+            $text = sprintf($this->language->get('email_template'), $message);
             
             $html = $template->fetch('mail/contact');
-            
-            $mail->setTo($this->request->post['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($this->config->get('config_name'));
-            $mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8'));
-            $mail->setHtml($html);
-            $mail->send();
+
+            $this->mailer->build(
+                $subject,
+                $this->request->post['email'],
+                $this->request->post['name'],
+                $text,
+                $html,
+                true
+            );
             
             $this->response->redirect($this->url->link('content/contact/success'));
         }

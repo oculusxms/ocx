@@ -27,6 +27,7 @@
 	<tr>
     	<td bgcolor="#f6f6f6" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; border-bottom:1px solid #e0e0e0;" align="left">
     		<?= $enquiry; ?>
+    		<p><?= $entry_footer; ?></p>
         </td>
 	</tr>
 </tbody>
