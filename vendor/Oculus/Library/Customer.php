@@ -74,7 +74,7 @@ class Customer extends LibraryService {
         $db      = parent::$app['db'];
         $session = parent::$app['session'];
         $request = parent::$app['request'];
-        $encode  = $app['encode'];
+        $encode  = parent::$app['encode'];
         
         if ($override):
             $customer_query = $db->query("
