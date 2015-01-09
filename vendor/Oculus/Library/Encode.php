@@ -31,7 +31,7 @@ class Encode extends LibraryService {
 		    mb_internal_encoding('UTF-8');
 		    $this->encode = new Mbstring($app);
 		    
-		elseif(function_exists('iconv')):
+		elseif (function_exists('iconv')):
 		    $this->encode = new Iconv($app);
 		endif;
 	}

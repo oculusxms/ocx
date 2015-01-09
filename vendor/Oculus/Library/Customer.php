@@ -74,18 +74,19 @@ class Customer extends LibraryService {
         $db      = parent::$app['db'];
         $session = parent::$app['session'];
         $request = parent::$app['request'];
+        $encode  = $app['encode'];
         
         if ($override):
             $customer_query = $db->query("
                 SELECT * FROM {$db->prefix}customer 
-                WHERE LOWER(email) = '" . $db->escape(utf8_strtolower($email)) . "' 
+                WHERE LOWER(email) = '" . $db->escape($encode->strtolower($email)) . "' 
                 AND status = '1'
             ");
         else:
             $customer_query = $db->query("
                 SELECT * FROM {$db->prefix}customer 
-                WHERE (LOWER(email) = '" . $db->escape(utf8_strtolower($email)) . "') 
-                OR LOWER(username) = '" . $db->escape(utf8_strtolower($email)) . "' 
+                WHERE (LOWER(email) = '" . $db->escape($encode->strtolower($email)) . "') 
+                OR LOWER(username) = '" . $db->escape($encode->strtolower($email)) . "' 
                 AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $db->escape($password) . "'))))) 
                 OR password = '" . $db->escape(md5($password)) . "') 
                 AND status = '1' 
