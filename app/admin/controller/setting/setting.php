@@ -867,6 +867,22 @@ class Setting extends Controller {
             $data['config_smtp_timeout'] = 5;
         }
         
+        if (isset($this->request->post['config_mail_twitter'])) {
+            $data['config_mail_twitter'] = $this->request->post['config_mail_twitter'];
+        } elseif ($this->config->get('config_mail_twitter')) {
+            $data['config_mail_twitter'] = $this->config->get('config_mail_twitter');
+        } else {
+            $data['config_mail_twitter'] = '';
+        }
+
+        if (isset($this->request->post['config_mail_facebook'])) {
+            $data['config_mail_facebook'] = $this->request->post['config_mail_facebook'];
+        } elseif ($this->config->get('config_mail_facebook')) {
+            $data['config_mail_facebook'] = $this->config->get('config_mail_facebook');
+        } else {
+            $data['config_mail_facebook'] = '';
+        }
+
         if (isset($this->request->post['config_alert_mail'])) {
             $data['config_alert_mail'] = $this->request->post['config_alert_mail'];
         } else {

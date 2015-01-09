@@ -991,6 +991,18 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="control-label col-sm-2"><?= $entry_mail_twitter; ?></label>
+						<div class="control-field col-sm-4">
+							<input type="text" name="config_mail_twitter" value="<?= $config_mail_twitter; ?>" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2"><?= $entry_mail_facebook; ?></label>
+						<div class="control-field col-sm-4">
+							<input type="text" name="config_mail_facebook" value="<?= $config_mail_facebook; ?>" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="control-label col-sm-2"><?= $entry_alert_mail; ?></label>
 						<div class="col-sm-6">
 							<?php if ($config_alert_mail) { ?>

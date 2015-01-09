@@ -68,8 +68,8 @@ Want to be removed? No problem, click here:
 ' . parent::$app['http.server'] . 'contact
 and let us know you\'d like to close your account.
 -----------------------------------
-http://twitter.com/twitterpage
-http://www.facebook.com/yourpage
+http://twitter.com/' . parent::$app['config_mail_twitter'] . '
+http://www.facebook.com/' . parent::$app['config_mail_facebook'] . '
 ';
 
 // Buttons

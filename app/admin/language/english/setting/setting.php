@@ -119,6 +119,8 @@ $_['entry_smtp_username']          = 'SMTP Username:';
 $_['entry_smtp_password']          = 'SMTP Password:';
 $_['entry_smtp_port']              = 'SMTP Port:';
 $_['entry_smtp_timeout']           = 'SMTP Timeout:';
+$_['entry_mail_twitter']		   = 'Twitter Handle:<br><span class="help">Your Twitter handle for your store. DO NOT include the http address, just the handle. IE: Oculus <b>NOT</b> http://twitter.com/Oculus.</span>';	
+$_['entry_mail_facebook']		   = 'Facebook Page:<br><span class="help">Your Facebook page for your store. DO NOT include the http address, just the page name. IE: Oculus <b>NOT</b> http://www.facebook.com/Oculus.</span>';	
 $_['entry_account_mail']           = 'New Account Alert Mail:<br /><span class="help">Send an E-mail to the store owner when a new account is registered.</span>';
 $_['entry_alert_mail']             = 'New Order Alert Mail:<br /><span class="help">Send an E-mail to the store owner when a new order is created.</span>';
 $_['entry_alert_emails']           = 'Additional Alert E-Mails:<br /><span class="help">Any additional E-mail accounts you want alert E-mails sent to, in addition to the main store email. (comma separated)</span>';
