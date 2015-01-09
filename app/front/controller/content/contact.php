@@ -57,7 +57,7 @@ class Contact extends Controller {
                 $this->config->get('config_email'),
                 $this->config->get('config_owner'),
                 $text,
-                $html
+                false
             );
 
             $this->mailer->setFrom($this->config->get('config_email'), $this->language->get('email_title_server'));
@@ -83,7 +83,7 @@ class Contact extends Controller {
                 $this->request->post['email'],
                 $this->request->post['name'],
                 $text,
-                $html,
+                false,
                 true
             );
             
