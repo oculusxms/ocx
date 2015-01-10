@@ -87,14 +87,14 @@ class Affiliate extends Model {
 
         $subject = sprintf($this->language->get('text_admin_subject'), $this->config->get('config_name'));
 
-        $message  = sprintf($this->language->get('text_admin_welcome'), $this->config->get('config_name')) . "\n\n";
-        $message .= sprintf($this->language->get('text_admin_services'), $data['firstname'] . ' ' . $data['lastname']) . "\n";
+        $message  = sprintf($this->language->get('text_admin_welcome'), $data['firstname'] . ' ' . $data['lastname']) . "\n\n";
+        $message .= $this->language->get('text_admin_services') . "\n";
         $message .= $this->app['https.server'] . ADMIN_FASCADE . "\n";
 
         $text = sprintf($this->language->get('email_template'), $message);
 
-        $template->data['title'] = sprintf($this->language->get('text_admin_welcome'), $this->config->get('config_name'));
-        $template->data['text_services'] = sprintf($this->language->get('text_admin_services'), $data['firstname'] . ' ' . $data['lastname']);
+        $template->data['title'] = sprintf($this->language->get('text_admin_welcome'), $data['firstname'] . ' ' . $data['lastname']);
+        $template->data['text_services'] = $this->language->get('text_admin_services');
         $template->data['admin_login'] = $this->app['https.server'] . ADMIN_FASCADE;
 
         $html = $template->fetch('mail/affiliate_register_admin');
