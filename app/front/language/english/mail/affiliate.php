@@ -23,4 +23,4 @@ $_['text_services']       = 'Upon logging in, you will be able to generate track
 // admin
 $_['text_admin_subject']  = 'New %s Affiliate Enrolled';
 $_['text_admin_welcome']  = 'A new affiliate: %s, has enrolled in your affiliate program.';
-$_['text_admin_services'] = 'Depending on your settings, you may need to log into the admin area and approve this new affiliate. Your can do that via the following URL:';
+$_['text_admin_services'] = 'Depending on your settings, you may need to log into the admin area and approve this new affiliate. You can do that via the following URL:';

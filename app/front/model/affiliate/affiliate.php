@@ -77,7 +77,7 @@ class Affiliate extends Model {
         	$this->request->post['email'],
         	$data['firstname'] . ' ' . $data['lastname'],
         	html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
-        	false,
+        	$html,
         	true
         );
 
@@ -104,7 +104,7 @@ class Affiliate extends Model {
         	$this->config->get('config_admin_email'),
         	$this->config->get('config_owner'),
         	html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
-        	false,
+        	$html,
         	true
         );
         
