@@ -2443,12 +2443,12 @@ CREATE TABLE IF NOT EXISTS `ocx_page` (
 --
 
 INSERT INTO `ocx_page` VALUES
-(3, 1, 3, 1),
-(4, 1, 1, 1),
-(5, 1, 4, 1),
-(6, 1, 2, 1),
-(7, 0, 0, 1),
-(8, 0, 0, 1);
+(3, 1, 3, 1, 1),
+(4, 1, 1, 1, 1),
+(5, 1, 4, 1, 1),
+(6, 1, 2, 1, 1),
+(7, 0, 0, 1, 1),
+(8, 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2472,12 +2472,12 @@ CREATE TABLE IF NOT EXISTS `ocx_page_description` (
 --
 
 INSERT INTO `ocx_page_description` VALUES
-(3, 1, 'Privacy Policy', '&lt;p&gt;Privacy Policy&lt;/p&gt;\r\n', '', '', 1),
-(4, 1, 'About Us', '&lt;p&gt;\r\n  \r\n    About Us\r\n  \r\n&lt;/p&gt;', '', '', 1),
-(5, 1, 'Terms &amp; Conditions', '&lt;p&gt;Terms &amp;amp; Conditions&lt;/p&gt;\r\n', '', '', 1),
-(6, 1, 'Delivery Information', '&lt;p&gt;Delivery Information&lt;/p&gt;\r\n', '', '', 1),
-(7, 1, 'Return Policy', '&lt;p&gt;Your return policy here.&lt;/p&gt;\r\n', '', '', 1),
-(8, 1, 'Affiliate Terms', '&lt;p&gt;Affiliate terms go here.&lt;/p&gt;\r\n', '', '', 1);
+(3, 1, 'Privacy Policy', '&lt;p&gt;Privacy Policy&lt;/p&gt;\r\n', '', ''),
+(4, 1, 'About Us', '&lt;p&gt;\r\n  \r\n    About Us\r\n  \r\n&lt;/p&gt;', '', ''),
+(5, 1, 'Terms &amp; Conditions', '&lt;p&gt;Terms &amp;amp; Conditions&lt;/p&gt;\r\n', '', ''),
+(6, 1, 'Delivery Information', '&lt;p&gt;Delivery Information&lt;/p&gt;\r\n', '', ''),
+(7, 1, 'Return Policy', '&lt;p&gt;Your return policy here.&lt;/p&gt;\r\n', '', ''),
+(8, 1, 'Affiliate Terms', '&lt;p&gt;Affiliate terms go here.&lt;/p&gt;\r\n', '', '');
 
 -- --------------------------------------------------------
 

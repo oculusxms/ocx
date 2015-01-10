@@ -16,7 +16,8 @@
 
 namespace Front\Model\Affiliate;
 use Oculus\Engine\Model;
-use Oculus\Library\Mail as Mail;
+use Oculus\Library\Mail;
+use Oculus\Library\Template;
 
 class Affiliate extends Model {
     public function addAffiliate($data) {
@@ -60,16 +61,48 @@ class Affiliate extends Model {
         $message = sprintf($this->language->get('text_welcome'), $this->config->get('config_name')) . "\n\n";
         $message.= $this->language->get('text_approval') . "\n";
         $message.= $this->url->link('affiliate/login', '', 'SSL') . "\n\n";
-        $message.= $this->language->get('text_services') . "\n\n";
-        $message.= $this->language->get('text_thanks') . "\n";
-        $message.= $this->config->get('config_name');
+        $message.= $this->language->get('text_services') . "\n";
         
         $text = sprintf($this->language->get('email_template'), $message);
+
+        $template = new Template($this->app);
+        $template->data = $this->theme->language('mail/affiliate');
+        $template->data['title'] = sprintf($this->language->get('text_welcome'), $this->config->get('config_name'));
+        $template->data['url_affiliate_login'] = $this->url->link('affiliate/login', '', 'SSL');
+
+        $html = $template->fetch('mail/affiliate_register');
 
         $this->mailer->build(
         	html_entity_decode($subject, ENT_QUOTES, 'UTF-8'),
         	$this->request->post['email'],
         	$data['firstname'] . ' ' . $data['lastname'],
+        	html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
+        	false,
+        	true
+        );
+
+        unset($message);
+        unset($text);
+        unset($html);
+
+        $subject = sprintf($this->language->get('text_admin_subject'), $this->config->get('config_name'));
+
+        $message  = sprintf($this->language->get('text_admin_welcome'), $this->config->get('config_name')) . "\n\n";
+        $message .= sprintf($this->language->get('text_admin_services'), $data['firstname'] . ' ' . $data['lastname']) . "\n";
+        $message .= $this->app['https.server'] . ADMIN_FASCADE . "\n";
+
+        $text = sprintf($this->language->get('email_template'), $message);
+
+        $template->data['title'] = sprintf($this->language->get('text_admin_welcome'), $this->config->get('config_name'));
+        $template->data['text_services'] = sprintf($this->language->get('text_admin_services'), $data['firstname'] . ' ' . $data['lastname']);
+        $template->data['admin_login'] = $this->app['https.server'] . ADMIN_FASCADE;
+
+        $html = $template->fetch('mail/affiliate_register_admin');
+
+        $this->mailer->build(
+        	html_entity_decode($subject, ENT_QUOTES, 'UTF-8'),
+        	$this->config->get('config_admin_email'),
+        	$this->config->get('config_owner'),
         	html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
         	false,
         	true

@@ -47,7 +47,8 @@ $_['text_style_site']              = 'Website';
 $_['entry_name']                   = 'Store Name:';
 $_['entry_owner']                  = 'Store Owner:';
 $_['entry_address']                = 'Address:';
-$_['entry_email']                  = 'E-Mail:';
+$_['entry_email']                  = 'E-Mail:<br><span class="help">This serves as the from email for all outgoing email from your site.</span>';
+$_['entry_admin_email']			   = 'Administrator E-Mail:<br><span class="help">This is a personal admin email address where the administrator can receive notification emails from the server.</span>';
 $_['entry_telephone']              = 'Telephone:';
 $_['entry_title']                  = 'Title:';
 $_['entry_meta_description']       = 'Meta Tag Description:';
@@ -163,6 +164,7 @@ $_['error_name']                   = 'Store name must be between 3 and 32 charac
 $_['error_owner']                  = 'Store owner must be between 3 and 64 characters.';
 $_['error_address']                = 'Store address must be between 10 and 256 characters.';
 $_['error_email']                  = 'E-Mail address does not appear to be valid.';
+$_['error_admin_email']            = 'Administrator email is required.';
 $_['error_telephone']              = 'Telephone must be between 3 and 32 characters.';
 $_['error_title']                  = 'Title must be between 3 and 32 characters.';
 $_['error_limit']                  = 'Limit required.';

@@ -68,6 +68,12 @@ class Setting extends Controller {
         } else {
             $data['error_email'] = '';
         }
+
+        if (isset($this->error['admin_email'])) {
+            $data['error_admin_email'] = $this->error['admin_email'];
+        } else {
+            $data['error_admin_email'] = '';
+        }
         
         if (isset($this->error['telephone'])) {
             $data['error_telephone'] = $this->error['telephone'];
@@ -258,6 +264,12 @@ class Setting extends Controller {
             $data['config_email'] = $this->config->get('config_email');
         }
         
+        if (isset($this->request->post['config_admin_email'])) {
+            $data['config_admin_email'] = $this->request->post['config_admin_email'];
+        } else {
+            $data['config_admin_email'] = $this->config->get('config_admin_email');
+        }
+
         if (isset($this->request->post['config_telephone'])) {
             $data['config_telephone'] = $this->request->post['config_telephone'];
         } else {
@@ -1074,6 +1086,14 @@ class Setting extends Controller {
         
         if (($this->encode->strlen($this->request->post['config_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['config_email'])) {
             $this->error['email'] = $this->language->get('error_email');
+        }
+
+        if (($this->encode->strlen($this->request->post['config_admin_email']) < 1)):
+             $this->error['admin_email'] = $this->language->get('error_admin_email');
+        endif;
+
+        if (($this->encode->strlen($this->request->post['config_admin_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['config_admin_email'])) {
+            $this->error['admin_email'] = $this->language->get('error_email');
         }
         
         if (($this->encode->strlen($this->request->post['config_telephone']) < 3) || ($this->encode->strlen($this->request->post['config_telephone']) > 32)) {
