@@ -63,6 +63,7 @@ $_['text_logout']                      = 'Logout';
 $_['text_contact']                     = 'Mailer';
 $_['text_menubuilder']                 = 'Menu Builder';
 $_['text_manufacturer']                = 'Manufacturers';
+$_['text_notification']				   = 'Notifications';
 $_['text_widget']                      = 'Widgets';
 $_['text_ocx']                         = 'Homepage';
 $_['text_online']                      = 'Customers Online';

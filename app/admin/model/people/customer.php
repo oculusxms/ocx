@@ -452,28 +452,31 @@ class Customer extends Model {
                 $store_name = $this->config->get('config_name');
                 $store_url = $this->app['http.public'] . 'account/login';
             }
+
+            // NEW MAILER
+            // admin_customer_approve
             
-            $message = sprintf($this->language->get('text_approve_welcome'), $store_name) . "\n\n";
-            $message.= $this->language->get('text_approve_login') . "\n";
-            $message.= $store_url . "\n\n";
-            $message.= $this->language->get('text_approve_services') . "\n\n";
-            $message.= $this->language->get('text_approve_thanks') . "\n";
-            $message.= $store_name;
+            // $message = sprintf($this->language->get('text_approve_welcome'), $store_name) . "\n\n";
+            // $message.= $this->language->get('text_approve_login') . "\n";
+            // $message.= $store_url . "\n\n";
+            // $message.= $this->language->get('text_approve_services') . "\n\n";
+            // $message.= $this->language->get('text_approve_thanks') . "\n";
+            // $message.= $store_name;
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($customer_info['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($store_name);
-            $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_approve_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->send();
+            // $mail = new Mail();
+            // $mail->protocol = $this->config->get('config_mail_protocol');
+            // $mail->parameter = $this->config->get('config_mail_parameter');
+            // $mail->hostname = $this->config->get('config_smtp_host');
+            // $mail->username = $this->config->get('config_smtp_username');
+            // $mail->password = $this->config->get('config_smtp_password');
+            // $mail->port = $this->config->get('config_smtp_port');
+            // $mail->timeout = $this->config->get('config_smtp_timeout');
+            // $mail->setTo($customer_info['email']);
+            // $mail->setFrom($this->config->get('config_email'));
+            // $mail->setSender($store_name);
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_approve_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
+            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+            // $mail->send();
         }
     }
     
@@ -698,24 +701,27 @@ class Customer extends Model {
             } else {
                 $store_name = $this->config->get('config_name');
             }
+
+            // NEW MAILER
+            // admin_customer_add_transaction
             
-            $message = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
-            $message.= sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($customer_id)));
+            // $message = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
+            // $message.= sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($customer_id)));
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($customer_info['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($store_name);
-            $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->send();
+            // $mail = new Mail();
+            // $mail->protocol = $this->config->get('config_mail_protocol');
+            // $mail->parameter = $this->config->get('config_mail_parameter');
+            // $mail->hostname = $this->config->get('config_smtp_host');
+            // $mail->username = $this->config->get('config_smtp_username');
+            // $mail->password = $this->config->get('config_smtp_password');
+            // $mail->port = $this->config->get('config_smtp_port');
+            // $mail->timeout = $this->config->get('config_smtp_timeout');
+            // $mail->setTo($customer_info['email']);
+            // $mail->setFrom($this->config->get('config_email'));
+            // $mail->setSender($store_name);
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+            // $mail->send();
         }
     }
     
@@ -800,24 +806,27 @@ class Customer extends Model {
             } else {
                 $store_name = $this->config->get('config_name');
             }
+
+            // NEW MAILER
+            // admin_customer_add_reward
             
-            $message = sprintf($this->language->get('text_reward_received'), $points) . "\n\n";
-            $message.= sprintf($this->language->get('text_reward_total'), $this->getRewardTotal($customer_id));
+            // $message = sprintf($this->language->get('text_reward_received'), $points) . "\n\n";
+            // $message.= sprintf($this->language->get('text_reward_total'), $this->getRewardTotal($customer_id));
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($customer_info['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($store_name);
-            $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_reward_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->send();
+            // $mail = new Mail();
+            // $mail->protocol = $this->config->get('config_mail_protocol');
+            // $mail->parameter = $this->config->get('config_mail_parameter');
+            // $mail->hostname = $this->config->get('config_smtp_host');
+            // $mail->username = $this->config->get('config_smtp_username');
+            // $mail->password = $this->config->get('config_smtp_password');
+            // $mail->port = $this->config->get('config_smtp_port');
+            // $mail->timeout = $this->config->get('config_smtp_timeout');
+            // $mail->setTo($customer_info['email']);
+            // $mail->setFrom($this->config->get('config_email'));
+            // $mail->setSender($store_name);
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_reward_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
+            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+            // $mail->send();
         }
     }
     

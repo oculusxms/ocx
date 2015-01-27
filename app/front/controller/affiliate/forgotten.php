@@ -42,23 +42,26 @@ class Forgotten extends Controller {
             $to_affiliate = $affiliate['firstname'] . ' ' . $affiliate['lastname'];
             
             $this->model_affiliate_affiliate->editPassword($this->request->post['email'], $password);
-            
-            $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
-            
-            $message = sprintf($this->language->get('text_greeting'), $this->config->get('config_name')) . "\n\n";
-            $message.= $this->language->get('text_password') . "\n\n";
-            $message.= $password;
-            
-            $text = sprintf($this->language->get('email_template'), $message);
 
-            $this->mailer->build(
-                html_entity_decode($subject, ENT_QUOTES, 'UTF-8'),
-                $this->request->post['email'],
-                $to_affiliate,
-                html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
-                $html,
-                true
-            );
+            // NEW MAILER
+            // public_affiliate_forgotten
+            
+            // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
+            
+            // $message = sprintf($this->language->get('text_greeting'), $this->config->get('config_name')) . "\n\n";
+            // $message.= $this->language->get('text_password') . "\n\n";
+            // $message.= $password;
+            
+            // $text = sprintf($this->language->get('email_template'), $message);
+
+            // $this->mailer->build(
+            //     html_entity_decode($subject, ENT_QUOTES, 'UTF-8'),
+            //     $this->request->post['email'],
+            //     $to_affiliate,
+            //     html_entity_decode($text, ENT_QUOTES, 'UTF-8'),
+            //     $html,
+            //     true
+            // );
             
             $this->session->data['success'] = $this->language->get('text_success');
             

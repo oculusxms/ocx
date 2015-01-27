@@ -190,35 +190,39 @@ class Returns extends Model {
             
             if ($return_query->num_rows) {
                 $this->language->load('mail/return');
+               
+                // NEW MAILER
+                // admin_return_add_history 
                 
-                $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'), $return_id);
+
+                // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'), $return_id);
                 
-                $message = $this->language->get('text_return_id') . ' ' . $return_id . "\n";
-                $message.= $this->language->get('text_date_added') . ' ' . date($this->language->get('date_format_short'), strtotime($return_query->row['date_added'])) . "\n\n";
-                $message.= $this->language->get('text_return_status') . "\n";
-                $message.= $return_query->row['status'] . "\n\n";
+                // $message = $this->language->get('text_return_id') . ' ' . $return_id . "\n";
+                // $message.= $this->language->get('text_date_added') . ' ' . date($this->language->get('date_format_short'), strtotime($return_query->row['date_added'])) . "\n\n";
+                // $message.= $this->language->get('text_return_status') . "\n";
+                // $message.= $return_query->row['status'] . "\n\n";
                 
-                if ($data['comment']) {
-                    $message.= $this->language->get('text_comment') . "\n\n";
-                    $message.= strip_tags(html_entity_decode($data['comment'], ENT_QUOTES, 'UTF-8')) . "\n\n";
-                }
+                // if ($data['comment']) {
+                //     $message.= $this->language->get('text_comment') . "\n\n";
+                //     $message.= strip_tags(html_entity_decode($data['comment'], ENT_QUOTES, 'UTF-8')) . "\n\n";
+                // }
                 
-                $message.= $this->language->get('text_footer');
+                // $message.= $this->language->get('text_footer');
                 
-                $mail = new Mail();
-                $mail->protocol = $this->config->get('config_mail_protocol');
-                $mail->parameter = $this->config->get('config_mail_parameter');
-                $mail->hostname = $this->config->get('config_smtp_host');
-                $mail->username = $this->config->get('config_smtp_username');
-                $mail->password = $this->config->get('config_smtp_password');
-                $mail->port = $this->config->get('config_smtp_port');
-                $mail->timeout = $this->config->get('config_smtp_timeout');
-                $mail->setTo($return_query->row['email']);
-                $mail->setFrom($this->config->get('config_email'));
-                $mail->setSender($this->config->get('config_name'));
-                $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-                $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-                $mail->send();
+                // $mail = new Mail();
+                // $mail->protocol = $this->config->get('config_mail_protocol');
+                // $mail->parameter = $this->config->get('config_mail_parameter');
+                // $mail->hostname = $this->config->get('config_smtp_host');
+                // $mail->username = $this->config->get('config_smtp_username');
+                // $mail->password = $this->config->get('config_smtp_password');
+                // $mail->port = $this->config->get('config_smtp_port');
+                // $mail->timeout = $this->config->get('config_smtp_timeout');
+                // $mail->setTo($return_query->row['email']);
+                // $mail->setFrom($this->config->get('config_email'));
+                // $mail->setSender($this->config->get('config_name'));
+                // $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+                // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+                // $mail->send();
             }
         }
     }

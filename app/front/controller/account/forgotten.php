@@ -43,32 +43,35 @@ class Forgotten extends Controller {
             $password = substr(sha1(uniqid(mt_rand(), true)), 0, 10);
             
             $this->model_account_customer->editPassword($this->request->post['email'], $password);
-            
-            $template = new Template($this->app);
-            $template->data = $this->theme->language('mail/forgotten', $data);
-            
-            $template->data['title'] = sprintf($this->language->get('text_greeting'), $this->config->get('config_name'));
-            $template->data['password'] = $password;
-            $template->data['account_login'] = $this->url->link('account/login', '', 'SSL');
-            
-            $html = $template->fetch('mail/customer_forgotten');
-            
-            $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
-            
-            $message = sprintf($this->language->get('text_greeting'), $this->config->get('config_name')) . "\n\n";
-            $message.= $this->language->get('text_new_password') . "\n\n";
-            $message.= $password;
 
-            $text = sprintf($this->language->get('email_template'), $message);
+            // NEW MAILER
+            // public_customer_forgotten
             
-            $this->mailer->build(
-                html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
-                $this->request->post['email'], 
-                $to_name,
-                $text,
-                $html,
-                true
-            );
+            // $template = new Template($this->app);
+            // $template->data = $this->theme->language('mail/forgotten', $data);
+            
+            // $template->data['title'] = sprintf($this->language->get('text_greeting'), $this->config->get('config_name'));
+            // $template->data['password'] = $password;
+            // $template->data['account_login'] = $this->url->link('account/login', '', 'SSL');
+            
+            // $html = $template->fetch('mail/customer_forgotten');
+            
+            // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
+            
+            // $message = sprintf($this->language->get('text_greeting'), $this->config->get('config_name')) . "\n\n";
+            // $message.= $this->language->get('text_new_password') . "\n\n";
+            // $message.= $password;
+
+            // $text = sprintf($this->language->get('email_template'), $message);
+            
+            // $this->mailer->build(
+            //     html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
+            //     $this->request->post['email'], 
+            //     $to_name,
+            //     $text,
+            //     $html,
+            //     true
+            // );
             
             $this->session->data['success'] = $this->language->get('text_success');
             

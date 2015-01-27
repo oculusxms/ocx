@@ -47,6 +47,7 @@
 					<ul class="dropdown-menu">
 						<li class="dropdown-header"><?= $text_core_mods; ?></li>
 						<li><a href="<?= $menubuilder; ?>"><?= $text_menubuilder; ?></a></li>
+						<li><a href="<?= $notification; ?>"><?= $text_notification; ?></a></li>
 						<div class="divider"></div>
 						<li class="dropdown-header"><?= $text_core_cart; ?></li>
 						<li><a href="<?= $shipping; ?>"><?= $text_shipping; ?></a></li>

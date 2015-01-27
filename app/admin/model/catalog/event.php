@@ -414,60 +414,63 @@ class Event extends Model {
 			FROM {$this->db->prefix}customer 
 			WHERE customer_id = '" . (int)$data['customer_id'] . "'");
         
-        if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-            $subject = sprintf($this->language->get('text_add_event_subject'), $event_info->row['event_name']);
-            $image = IMAGE_URL . $this->config->get('config_logo');
-            $logo = str_replace(' ', '%20', $image);
-            $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
-            $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-            $html.= sprintf($this->language->get('text_add_event_message'), $event_info->row['event_name']);
-            $html.= '</div>';
-            $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-            $html.= '<table>';
-            $html.= '<tr>';
-            $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_event_name') . ':</td>';
-            $html.= '<td>' . $event_info->row['event_name'] . '</td>';
-            $html.= '</tr>';
-            $html.= '<tr>';
-            $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_date_time') . ':</td>';
-            $html.= '<td>' . date($this->language->get('date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('time_format'), strtotime($event_info->row['date_time'])) . '</td>';
-            $html.= '</tr>';
+        // NEW MAILER
+        // admin_event_add
             
-            if ($event_info->row['location'] != "") {
-                $html.= '<tr>';
-                $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_location') . ':</td>';
-                $html.= '<td>' . $event_info->row['location'] . '</td>';
-                $html.= '</tr>';
-            }
+        // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
+        //     $subject = sprintf($this->language->get('text_add_event_subject'), $event_info->row['event_name']);
+        //     $image = IMAGE_URL . $this->config->get('config_logo');
+        //     $logo = str_replace(' ', '%20', $image);
+        //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
+        //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
+        //     $html.= sprintf($this->language->get('text_add_event_message'), $event_info->row['event_name']);
+        //     $html.= '</div>';
+        //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
+        //     $html.= '<table>';
+        //     $html.= '<tr>';
+        //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_event_name') . ':</td>';
+        //     $html.= '<td>' . $event_info->row['event_name'] . '</td>';
+        //     $html.= '</tr>';
+        //     $html.= '<tr>';
+        //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_date_time') . ':</td>';
+        //     $html.= '<td>' . date($this->language->get('date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('time_format'), strtotime($event_info->row['date_time'])) . '</td>';
+        //     $html.= '</tr>';
             
-            if ($event_info->row['telephone'] != "") {
-                $html.= '<tr>';
-                $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_telephone') . ':</td>';
-                $html.= '<td>' . $event_info->row['telephone'] . '</td>';
-                $html.= '</tr>';
-            }
+        //     if ($event_info->row['location'] != "") {
+        //         $html.= '<tr>';
+        //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_location') . ':</td>';
+        //         $html.= '<td>' . $event_info->row['location'] . '</td>';
+        //         $html.= '</tr>';
+        //     }
             
-            $html.= '</table>';
-            $html.= '</div>';
-            $html.= '<div style="width: 100%;">';
-            $html.= $this->config->get('config_name');
-            $html.= '</div>';
+        //     if ($event_info->row['telephone'] != "") {
+        //         $html.= '<tr>';
+        //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_telephone') . ':</td>';
+        //         $html.= '<td>' . $event_info->row['telephone'] . '</td>';
+        //         $html.= '</tr>';
+        //     }
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($customer_email->row['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($this->config->get('config_name'));
-            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-            $mail->setHtml($html);
-            $mail->send();
-        }
+        //     $html.= '</table>';
+        //     $html.= '</div>';
+        //     $html.= '<div style="width: 100%;">';
+        //     $html.= $this->config->get('config_name');
+        //     $html.= '</div>';
+            
+        //     $mail = new Mail();
+        //     $mail->protocol = $this->config->get('config_mail_protocol');
+        //     $mail->parameter = $this->config->get('config_mail_parameter');
+        //     $mail->hostname = $this->config->get('config_smtp_host');
+        //     $mail->username = $this->config->get('config_smtp_username');
+        //     $mail->password = $this->config->get('config_smtp_password');
+        //     $mail->port = $this->config->get('config_smtp_port');
+        //     $mail->timeout = $this->config->get('config_smtp_timeout');
+        //     $mail->setTo($customer_email->row['email']);
+        //     $mail->setFrom($this->config->get('config_email'));
+        //     $mail->setSender($this->config->get('config_name'));
+        //     $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+        //     $mail->setHtml($html);
+        //     $mail->send();
+        // }
         
         return;
     }
@@ -499,61 +502,64 @@ class Event extends Model {
 				SELECT email 
 				FROM {$this->db->prefix}customer 
 				WHERE customer_id = '" . (int)$data['attendee_id'] . "'");
+
+            // NEW MAILER
+            // admin_event_waitlist
             
-            if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-                $subject = sprintf($this->language->get('text_add_wait_subject'), $event_info->row['event_name']);
-                $image = IMAGE_URL . $this->config->get('config_logo');
-                $logo = str_replace(' ', '%20', $image);
-                $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
-                $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-                $html.= sprintf($this->language->get('text_add_wait_message'), $event_info->row['event_name']);
-                $html.= '</div>';
-                $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-                $html.= '<table>';
-                $html.= '<tr>';
-                $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_event_name') . ':</td>';
-                $html.= '<td>' . $event_info->row['event_name'] . '</td>';
-                $html.= '</tr>';
-                $html.= '<tr>';
-                $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_date_time') . ':</td>';
-                $html.= '<td>' . date($this->language->get('date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('time_format'), strtotime($event_info->row['date_time'])) . '</td>';
-                $html.= '</tr>';
+            // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
+            //     $subject = sprintf($this->language->get('text_add_wait_subject'), $event_info->row['event_name']);
+            //     $image = IMAGE_URL . $this->config->get('config_logo');
+            //     $logo = str_replace(' ', '%20', $image);
+            //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
+            //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
+            //     $html.= sprintf($this->language->get('text_add_wait_message'), $event_info->row['event_name']);
+            //     $html.= '</div>';
+            //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
+            //     $html.= '<table>';
+            //     $html.= '<tr>';
+            //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_event_name') . ':</td>';
+            //     $html.= '<td>' . $event_info->row['event_name'] . '</td>';
+            //     $html.= '</tr>';
+            //     $html.= '<tr>';
+            //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_date_time') . ':</td>';
+            //     $html.= '<td>' . date($this->language->get('date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('time_format'), strtotime($event_info->row['date_time'])) . '</td>';
+            //     $html.= '</tr>';
                 
-                if ($event_info->row['location'] != "") {
-                    $html.= '<tr>';
-                    $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_location') . ':</td>';
-                    $html.= '<td>' . $event_info->row['location'] . '</td>';
-                    $html.= '</tr>';
-                }
+            //     if ($event_info->row['location'] != "") {
+            //         $html.= '<tr>';
+            //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_location') . ':</td>';
+            //         $html.= '<td>' . $event_info->row['location'] . '</td>';
+            //         $html.= '</tr>';
+            //     }
                 
-                if ($event_info->row['telephone'] != "") {
-                    $html.= '<tr>';
-                    $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_telephone') . ':</td>';
-                    $html.= '<td>' . $event_info->row['telephone'] . '</td>';
-                    $html.= '</tr>';
-                }
+            //     if ($event_info->row['telephone'] != "") {
+            //         $html.= '<tr>';
+            //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_telephone') . ':</td>';
+            //         $html.= '<td>' . $event_info->row['telephone'] . '</td>';
+            //         $html.= '</tr>';
+            //     }
                 
-                $html.= '</table>';
-                $html.= '</div>';
-                $html.= '<div style="width: 100%;">';
-                $html.= $this->config->get('config_name');
-                $html.= '</div>';
+            //     $html.= '</table>';
+            //     $html.= '</div>';
+            //     $html.= '<div style="width: 100%;">';
+            //     $html.= $this->config->get('config_name');
+            //     $html.= '</div>';
                 
-                $mail = new Mail();
-                $mail->protocol = $this->config->get('config_mail_protocol');
-                $mail->parameter = $this->config->get('config_mail_parameter');
-                $mail->hostname = $this->config->get('config_smtp_host');
-                $mail->username = $this->config->get('config_smtp_username');
-                $mail->password = $this->config->get('config_smtp_password');
-                $mail->port = $this->config->get('config_smtp_port');
-                $mail->timeout = $this->config->get('config_smtp_timeout');
-                $mail->setTo($customer_email->row['email']);
-                $mail->setFrom($this->config->get('config_email'));
-                $mail->setSender($this->config->get('config_name'));
-                $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-                $mail->setHtml($html);
-                $mail->send();
-            }
+            //     $mail = new Mail();
+            //     $mail->protocol = $this->config->get('config_mail_protocol');
+            //     $mail->parameter = $this->config->get('config_mail_parameter');
+            //     $mail->hostname = $this->config->get('config_smtp_host');
+            //     $mail->username = $this->config->get('config_smtp_username');
+            //     $mail->password = $this->config->get('config_smtp_password');
+            //     $mail->port = $this->config->get('config_smtp_port');
+            //     $mail->timeout = $this->config->get('config_smtp_timeout');
+            //     $mail->setTo($customer_email->row['email']);
+            //     $mail->setFrom($this->config->get('config_email'));
+            //     $mail->setSender($this->config->get('config_name'));
+            //     $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+            //     $mail->setHtml($html);
+            //     $mail->send();
+            // }
             return true;
         } else {
             return false;

@@ -179,7 +179,12 @@ class Page extends Controller {
         
         $data['pages'] = array();
         
-        $filter = array('sort' => $sort, 'order' => $order, 'start' => ($page - 1) * $this->config->get('config_admin_limit'), 'limit' => $this->config->get('config_admin_limit'));
+        $filter = array(
+            'sort'  => $sort, 
+            'order' => $order, 
+            'start' => ($page - 1) * $this->config->get('config_admin_limit'), 
+            'limit' => $this->config->get('config_admin_limit')
+        );
         
         $page_total = $this->model_content_page->getTotalPages();
         

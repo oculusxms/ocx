@@ -205,31 +205,34 @@ class Contact extends Controller {
                         $json['redirect'] = str_replace('&amp;', '&', $this->url->link('people/contact', 'token=' . $this->session->data['token'], 'SSL'));
                         $this->session->data['success'] = $this->language->get('text_success');
                     }
+
+                    // NEW MAILER
+                    // admin_people_contact
                     
-                    $message = '<html dir="ltr" lang="en">' . "\n";
-                    $message.= '  <head>' . "\n";
-                    $message.= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
-                    $message.= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
-                    $message.= '  </head>' . "\n";
-                    $message.= '  <body>' . html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
-                    $message.= '</html>' . "\n";
+                    // $message = '<html dir="ltr" lang="en">' . "\n";
+                    // $message.= '  <head>' . "\n";
+                    // $message.= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
+                    // $message.= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
+                    // $message.= '  </head>' . "\n";
+                    // $message.= '  <body>' . html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
+                    // $message.= '</html>' . "\n";
                     
-                    foreach ($emails as $email) {
-                        $mail = new Mail();
-                        $mail->protocol = $this->config->get('config_mail_protocol');
-                        $mail->parameter = $this->config->get('config_mail_parameter');
-                        $mail->hostname = $this->config->get('config_smtp_host');
-                        $mail->username = $this->config->get('config_smtp_username');
-                        $mail->password = $this->config->get('config_smtp_password');
-                        $mail->port = $this->config->get('config_smtp_port');
-                        $mail->timeout = $this->config->get('config_smtp_timeout');
-                        $mail->setTo($email);
-                        $mail->setFrom($this->config->get('config_email'));
-                        $mail->setSender($store_name);
-                        $mail->setSubject(html_entity_decode($this->request->post['subject'], ENT_QUOTES, 'UTF-8'));
-                        $mail->setHtml($message);
-                        $mail->send();
-                    }
+                    // foreach ($emails as $email) {
+                    //     $mail = new Mail();
+                    //     $mail->protocol = $this->config->get('config_mail_protocol');
+                    //     $mail->parameter = $this->config->get('config_mail_parameter');
+                    //     $mail->hostname = $this->config->get('config_smtp_host');
+                    //     $mail->username = $this->config->get('config_smtp_username');
+                    //     $mail->password = $this->config->get('config_smtp_password');
+                    //     $mail->port = $this->config->get('config_smtp_port');
+                    //     $mail->timeout = $this->config->get('config_smtp_timeout');
+                    //     $mail->setTo($email);
+                    //     $mail->setFrom($this->config->get('config_email'));
+                    //     $mail->setSender($store_name);
+                    //     $mail->setSubject(html_entity_decode($this->request->post['subject'], ENT_QUOTES, 'UTF-8'));
+                    //     $mail->setHtml($message);
+                    //     $mail->send();
+                    // }
                 }
             }
         }

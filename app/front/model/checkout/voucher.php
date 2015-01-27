@@ -142,48 +142,51 @@ class Voucher extends Model {
                 WHERE v.order_id = '" . (int)$order_id . "'");
             
             foreach ($voucher_query->rows as $voucher) {
+
+                // NEW MAILER
+                // public_voucher_confirm
                 
                 // Text email
-                $text  = sprintf($language->get('text_greeting') , $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value'])) . "\n\n";
-                $text .= sprintf($language->get('text_from') , $voucher['from_name']) . "\n\n";
-                $text .= $language->get('text_message') . "\n\n";
-                $text .= sprintf($language->get('text_redeem') , $voucher['code']) . "\n\n";
-                $text .= $language->get('text_footer') . "\n\n";
+                // $text  = sprintf($language->get('text_greeting') , $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value'])) . "\n\n";
+                // $text .= sprintf($language->get('text_from') , $voucher['from_name']) . "\n\n";
+                // $text .= $language->get('text_message') . "\n\n";
+                // $text .= sprintf($language->get('text_redeem') , $voucher['code']) . "\n\n";
+                // $text .= $language->get('text_footer') . "\n\n";
 
-                // HTML Mail
-                $template = new Template($this->app);
+                // // HTML Mail
+                // $template = new Template($this->app);
                 
-                $template->data['title'] = sprintf($language->get('text_subject') , $voucher['from_name']);
+                // $template->data['title'] = sprintf($language->get('text_subject') , $voucher['from_name']);
                 
-                $template->data['text_greeting'] = sprintf($language->get('text_greeting') , $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']));
-                $template->data['text_from']     = sprintf($language->get('text_from') , $voucher['from_name']);
-                $template->data['text_message']  = $language->get('text_message');
-                $template->data['text_redeem']   = sprintf($language->get('text_redeem') , $voucher['code']);
-                $template->data['text_footer']   = $language->get('text_footer');
+                // $template->data['text_greeting'] = sprintf($language->get('text_greeting') , $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']));
+                // $template->data['text_from']     = sprintf($language->get('text_from') , $voucher['from_name']);
+                // $template->data['text_message']  = $language->get('text_message');
+                // $template->data['text_redeem']   = sprintf($language->get('text_redeem') , $voucher['code']);
+                // $template->data['text_footer']   = $language->get('text_footer');
                 
-                if (file_exists($this->app['path.image'] . $voucher['image'])) {
-                    $template->data['image'] = $this->config->get('config_url') . 'image/' . $voucher['image'];
-                } else {
-                    $template->data['image'] = '';
-                }
+                // if (file_exists($this->app['path.image'] . $voucher['image'])) {
+                //     $template->data['image'] = $this->config->get('config_url') . 'image/' . $voucher['image'];
+                // } else {
+                //     $template->data['image'] = '';
+                // }
                 
-                $template->data['store_name']       = $order_info['store_name'];
-                $template->data['store_url']        = $order_info['store_url'];
-                $template->data['message']          = nl2br($voucher['message']);
+                // $template->data['store_name']       = $order_info['store_name'];
+                // $template->data['store_url']        = $order_info['store_url'];
+                // $template->data['message']          = nl2br($voucher['message']);
                 
-                $template->data['email_store_url']  = $language->get('email_store_url');
-                $template->data['email_store_name'] = $language->get('email_store_name');
+                // $template->data['email_store_url']  = $language->get('email_store_url');
+                // $template->data['email_store_name'] = $language->get('email_store_name');
                 
-                $html = $template->fetch('mail/voucher_customer');
+                // $html = $template->fetch('mail/voucher_customer');
                 
-                $this->mailer->build(
-                    html_entity_decode(sprintf($language->get('text_subject') , $voucher['from_name']) , ENT_QUOTES, 'UTF-8'), 
-                    $voucher['to_email'], 
-                    $voucher['to_name'],
-                    $text,
-                    $html,
-                    true
-                );
+                // $this->mailer->build(
+                //     html_entity_decode(sprintf($language->get('text_subject') , $voucher['from_name']) , ENT_QUOTES, 'UTF-8'), 
+                //     $voucher['to_email'], 
+                //     $voucher['to_name'],
+                //     $text,
+                //     $html,
+                //     true
+                // );
             }
         }
     }

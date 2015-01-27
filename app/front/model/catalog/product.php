@@ -1188,35 +1188,38 @@ class Product extends Model {
 			SELECT email 
 			FROM {$this->db->prefix}customer 
 			WHERE customer_id = '" . (int)$customer_id . "'");
+
+        // NEW MAILER
+        // public_waitlist_join
         
-        if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-            $subject = sprintf($this->language->get('text_waitlist_subject'), $event_name->row['event_name']);
-            $this->theme->model('tool/image');
-            $image = IMAGE_URL . $this->config->get('config_logo');
-            $logo = str_replace(' ', '%20', $image);
-            $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
-            $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-            $html.= sprintf($this->language->get('text_waitlist_message'), $event_name->row['event_name']);
-            $html.= '</div>';
-            $html.= '<div style="width: 100%;">';
-            $html.= $this->config->get('config_name');
-            $html.= '</div>';
+        // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
+        //     $subject = sprintf($this->language->get('text_waitlist_subject'), $event_name->row['event_name']);
+        //     $this->theme->model('tool/image');
+        //     $image = IMAGE_URL . $this->config->get('config_logo');
+        //     $logo = str_replace(' ', '%20', $image);
+        //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
+        //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
+        //     $html.= sprintf($this->language->get('text_waitlist_message'), $event_name->row['event_name']);
+        //     $html.= '</div>';
+        //     $html.= '<div style="width: 100%;">';
+        //     $html.= $this->config->get('config_name');
+        //     $html.= '</div>';
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($customer_email->row['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($this->config->get('config_name'));
-            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-            $mail->setHtml($html);
-            $mail->send();
-        }
+        //     $mail = new Mail();
+        //     $mail->protocol = $this->config->get('config_mail_protocol');
+        //     $mail->parameter = $this->config->get('config_mail_parameter');
+        //     $mail->hostname = $this->config->get('config_smtp_host');
+        //     $mail->username = $this->config->get('config_smtp_username');
+        //     $mail->password = $this->config->get('config_smtp_password');
+        //     $mail->port = $this->config->get('config_smtp_port');
+        //     $mail->timeout = $this->config->get('config_smtp_timeout');
+        //     $mail->setTo($customer_email->row['email']);
+        //     $mail->setFrom($this->config->get('config_email'));
+        //     $mail->setSender($this->config->get('config_name'));
+        //     $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+        //     $mail->setHtml($html);
+        //     $mail->send();
+        // }
         return 1;
     }
     

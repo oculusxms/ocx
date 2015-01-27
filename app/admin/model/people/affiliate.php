@@ -184,27 +184,30 @@ class Affiliate extends Model {
             $this->db->query("UPDATE {$this->db->prefix}affiliate SET approved = '1' WHERE affiliate_id = '" . (int)$affiliate_id . "'");
             
             $this->language->load('mail/affiliate');
+
+            // NEW MAILER
+            // admin_affiliate_approve
             
-            $message = sprintf($this->language->get('text_approve_welcome'), $this->config->get('config_name')) . "\n\n";
-            $message.= $this->language->get('text_approve_login') . "\n";
-            $message.= $this->app['http.public'] . 'affiliate/login' . "\n\n";
-            $message.= $this->language->get('text_approve_services') . "\n\n";
-            $message.= $this->language->get('text_approve_thanks') . "\n";
-            $message.= $this->config->get('config_name');
+            // $message = sprintf($this->language->get('text_approve_welcome'), $this->config->get('config_name')) . "\n\n";
+            // $message.= $this->language->get('text_approve_login') . "\n";
+            // $message.= $this->app['http.public'] . 'affiliate/login' . "\n\n";
+            // $message.= $this->language->get('text_approve_services') . "\n\n";
+            // $message.= $this->language->get('text_approve_thanks') . "\n";
+            // $message.= $this->config->get('config_name');
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($affiliate_info['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($this->config->get('config_name'));
-            $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_approve_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->send();
+            // $mail = new Mail();
+            // $mail->protocol = $this->config->get('config_mail_protocol');
+            // $mail->hostname = $this->config->get('config_smtp_host');
+            // $mail->username = $this->config->get('config_smtp_username');
+            // $mail->password = $this->config->get('config_smtp_password');
+            // $mail->port = $this->config->get('config_smtp_port');
+            // $mail->timeout = $this->config->get('config_smtp_timeout');
+            // $mail->setTo($affiliate_info['email']);
+            // $mail->setFrom($this->config->get('config_email'));
+            // $mail->setSender($this->config->get('config_name'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_approve_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+            // $mail->send();
             
             $this->theme->trigger('admin_approve_affiliate', array('affiliate_id' => $affiliate_id));
         }
@@ -278,24 +281,27 @@ class Affiliate extends Model {
             $affiliate_transaction_id = $this->db->getLastId();
             
             $this->language->load('mail/affiliate');
+
+            // NEW MAILER
+            // admin_affiliate_add_transaction
             
-            $message = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
-            $message.= sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($affiliate_id), $this->config->get('config_currency')));
+            // $message = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
+            // $message.= sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($affiliate_id), $this->config->get('config_currency')));
             
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->hostname = $this->config->get('config_smtp_host');
-            $mail->username = $this->config->get('config_smtp_username');
-            $mail->password = $this->config->get('config_smtp_password');
-            $mail->port = $this->config->get('config_smtp_port');
-            $mail->timeout = $this->config->get('config_smtp_timeout');
-            $mail->setTo($affiliate_info['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender($this->config->get('config_name'));
-            $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->send();
+            // $mail = new Mail();
+            // $mail->protocol = $this->config->get('config_mail_protocol');
+            // $mail->parameter = $this->config->get('config_mail_parameter');
+            // $mail->hostname = $this->config->get('config_smtp_host');
+            // $mail->username = $this->config->get('config_smtp_username');
+            // $mail->password = $this->config->get('config_smtp_password');
+            // $mail->port = $this->config->get('config_smtp_port');
+            // $mail->timeout = $this->config->get('config_smtp_timeout');
+            // $mail->setTo($affiliate_info['email']);
+            // $mail->setFrom($this->config->get('config_email'));
+            // $mail->setSender($this->config->get('config_name'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+            // $mail->send();
             
             $this->theme->trigger('admin_add_affiliate_transaction', array('affiliate_transaction_id' => $affiliate_transaction_id));
         }

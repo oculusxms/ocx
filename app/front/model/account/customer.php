@@ -63,92 +63,100 @@ class Customer extends Model {
 		");
         
         $lang = $this->language->load('mail/customer');
+
+        // NEW MAILER
+        // public_register_customer
         
-        $template = new Template($this->app);
-        $template->data = $lang;
+        // $template = new Template($this->app);
+        // $template->data = $lang;
         
-        $template->data['username'] = $data['username'];
-        $template->data['title'] = sprintf($this->language->get('text_welcome'), $this->config->get('config_name'));
-        $template->data['account_login'] = $this->url->link('account/login', '', 'SSL');
-        $template->data['email'] = $data['email'];
+        // $template->data['username'] = $data['username'];
+        // $template->data['title'] = sprintf($this->language->get('text_welcome'), $this->config->get('config_name'));
+        // $template->data['account_login'] = $this->url->link('account/login', '', 'SSL');
+        // $template->data['email'] = $data['email'];
         
-        if (!$customer_group_info['approval']) {
-            $template->data['customer_text'] = $this->language->get('text_login');
-        } else {
-            $template->data['customer_text'] = $this->language->get('text_approval');
-        }
+        // if (!$customer_group_info['approval']) {
+        //     $template->data['customer_text'] = $this->language->get('text_login');
+        // } else {
+        //     $template->data['customer_text'] = $this->language->get('text_approval');
+        // }
         
-        $html = $template->fetch('mail/customer_register');
+        // $html = $template->fetch('mail/customer_register');
         
-        $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
+        // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
         
-        $message = sprintf($this->language->get('text_welcome'), $this->config->get('config_name')) . "\n\n";
+        // $message = sprintf($this->language->get('text_welcome'), $this->config->get('config_name')) . "\n\n";
         
-        if (!$customer_group_info['approval']) {
-            $message.= $this->language->get('text_login') . "\n";
-        } else {
-            $message.= $this->language->get('text_approval') . "\n";
-        }
+        // if (!$customer_group_info['approval']) {
+        //     $message.= $this->language->get('text_login') . "\n";
+        // } else {
+        //     $message.= $this->language->get('text_approval') . "\n";
+        // }
         
-        $message.= $this->url->link('account/login', '', 'SSL') . "\n\n";
-        $message.= $this->language->get('text_services') . "\n\n";
-        $message.= $this->language->get('text_thanks') . "\n";
-        $message.= $this->config->get('config_name');
+        // $message.= $this->url->link('account/login', '', 'SSL') . "\n\n";
+        // $message.= $this->language->get('text_services') . "\n\n";
+        // $message.= $this->language->get('text_thanks') . "\n";
+        // $message.= $this->config->get('config_name');
         
         
-        $this->mailer->build(
-            html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
-            $data['email'], 
-            $data['username'], 
-            html_entity_decode($message, ENT_QUOTES, 'UTF-8'), 
-            $html
-        );
+        // $this->mailer->build(
+        //     html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
+        //     $data['email'], 
+        //     $data['username'], 
+        //     html_entity_decode($message, ENT_QUOTES, 'UTF-8'), 
+        //     $html
+        // );
         
-        $this->mailer->send();
+        // $this->mailer->send();
 
         // Send to main admin email if new account email is enabled
         if ($this->config->get('config_account_mail')) {
-            $message = $this->language->get('text_signup') . "\n\n";
-            $message.= $this->language->get('text_website') . ' ' . $this->config->get('config_name') . "\n";
-            $message.= $this->language->get('text_username') . ' ' . $data['username'] . "\n";
-            $message.= $this->language->get('text_customer_group') . ' ' . $customer_group_info['name'] . "\n";
+            // NEW MAILER
+            // public_register_admin
+
+            // $message = $this->language->get('text_signup') . "\n\n";
+            // $message.= $this->language->get('text_website') . ' ' . $this->config->get('config_name') . "\n";
+            // $message.= $this->language->get('text_username') . ' ' . $data['username'] . "\n";
+            // $message.= $this->language->get('text_customer_group') . ' ' . $customer_group_info['name'] . "\n";
             
-            $message.= $this->language->get('text_email') . ' ' . $data['email'] . "\n";
+            // $message.= $this->language->get('text_email') . ' ' . $data['email'] . "\n";
             
-            $template->data['title'] = $this->language->get('text_signup');
+            // $template->data['title'] = $this->language->get('text_signup');
             
-            if ($customer_group_info['approval']) {
-                $template->data['text_approve'] = $this->language->get('text_approve');
-                $template->data['account_approve'] = $this->app['https.server'] . ADMIN_FASCADE . '/index.php?route=sale/customer&filter_approved=0';
-                $subject = "ADMIN APPROVAL - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
-            } else {
-                $subject = "ADMIN - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
-            }
+            // if ($customer_group_info['approval']) {
+            //     $template->data['text_approve'] = $this->language->get('text_approve');
+            //     $template->data['account_approve'] = $this->app['https.server'] . ADMIN_FASCADE . '/index.php?route=sale/customer&filter_approved=0';
+            //     $subject = "ADMIN APPROVAL - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
+            // } else {
+            //     $subject = "ADMIN - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
+            // }
             
-            $html = $template->fetch('mail/customer_register_admin');
+            // $html = $template->fetch('mail/customer_register_admin');
             
-            $this->mailer->build(
-                $subject,
-                $this->config->get('config_email'),
-                $this->config->get('config_name'),
-                html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
-                $html,
-                true
-            );
+            // $this->mailer->build(
+            //     $subject,
+            //     $this->config->get('config_email'),
+            //     $this->config->get('config_name'),
+            //     html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
+            //     $html,
+            //     true
+            // );
 
             // Send to additional alert emails if new account email is enabled
             $emails = explode(',', $this->config->get('config_alert_emails'));
             
             foreach ($emails as $email) {
                 if (strlen($email) > 0 && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)) {
-                    $this->mailer->build(
-                        $subject,
-                        $email,
-                        $this->config->get('config_name'),
-                        html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
-                        $html,
-                        true
-                    );
+                    // public_register_admin
+
+                    // $this->mailer->build(
+                    //     $subject,
+                    //     $email,
+                    //     $this->config->get('config_name'),
+                    //     html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
+                    //     $html,
+                    //     true
+                    // );
                 }
             }
         }

@@ -101,90 +101,96 @@ class Voucher extends Model {
                 $language = new Language($order_info['language_directory'], $this->app['path.language'], $this->app);
                 $language->load($order_info['language_filename']);
                 $language->load('mail/voucher');
+
+                // NEW MAILER
+                // admin_voucher_order_send
                 
                 // HTML Mail
-                $template = new Template($this->app);
+                // $template = new Template($this->app);
                 
-                $template->data['title'] = sprintf($language->get('text_subject'), $voucher_info['from_name']);
+                // $template->data['title'] = sprintf($language->get('text_subject'), $voucher_info['from_name']);
                 
-                $template->data['text_greeting'] = sprintf($language->get('text_greeting'), $this->currency->format($voucher_info['amount'], $order_info['currency_code'], $order_info['currency_value']));
-                $template->data['text_from'] = sprintf($language->get('text_from'), $voucher_info['from_name']);
-                $template->data['text_message'] = $language->get('text_message');
-                $template->data['text_redeem'] = sprintf($language->get('text_redeem'), $voucher_info['code']);
-                $template->data['text_footer'] = $language->get('text_footer');
+                // $template->data['text_greeting'] = sprintf($language->get('text_greeting'), $this->currency->format($voucher_info['amount'], $order_info['currency_code'], $order_info['currency_value']));
+                // $template->data['text_from'] = sprintf($language->get('text_from'), $voucher_info['from_name']);
+                // $template->data['text_message'] = $language->get('text_message');
+                // $template->data['text_redeem'] = sprintf($language->get('text_redeem'), $voucher_info['code']);
+                // $template->data['text_footer'] = $language->get('text_footer');
                 
-                $this->theme->model('sale/vouchertheme');
+                // $this->theme->model('sale/vouchertheme');
                 
-                $voucher_theme_info = $this->model_sale_vouchertheme->getVoucherTheme($voucher_info['voucher_theme_id']);
+                // $voucher_theme_info = $this->model_sale_vouchertheme->getVoucherTheme($voucher_info['voucher_theme_id']);
                 
-                if ($voucher_info && file_exists($this->app['path.image'] . $voucher_theme_info['image'])) {
-                    $template->data['image'] = $this->app['http.public'] . 'image/' . $voucher_theme_info['image'];
-                } else {
-                    $template->data['image'] = '';
-                }
+                // if ($voucher_info && file_exists($this->app['path.image'] . $voucher_theme_info['image'])) {
+                //     $template->data['image'] = $this->app['http.public'] . 'image/' . $voucher_theme_info['image'];
+                // } else {
+                //     $template->data['image'] = '';
+                // }
                 
-                $template->data['store_name'] = $order_info['store_name'];
-                $template->data['store_url'] = $order_info['store_url'];
-                $template->data['message'] = nl2br($voucher_info['message']);
+                // $template->data['store_name'] = $order_info['store_name'];
+                // $template->data['store_url'] = $order_info['store_url'];
+                // $template->data['message'] = nl2br($voucher_info['message']);
                 
-                $mail = new Mail();
-                $mail->protocol = $this->config->get('config_mail_protocol');
-                $mail->parameter = $this->config->get('config_mail_parameter');
-                $mail->hostname = $this->config->get('config_smtp_host');
-                $mail->username = $this->config->get('config_smtp_username');
-                $mail->password = $this->config->get('config_smtp_password');
-                $mail->port = $this->config->get('config_smtp_port');
-                $mail->timeout = $this->config->get('config_smtp_timeout');
-                $mail->setTo($voucher_info['to_email']);
-                $mail->setFrom($this->config->get('config_email'));
-                $mail->setSender($order_info['store_name']);
-                $mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $voucher_info['from_name']), ENT_QUOTES, 'UTF-8'));
-                $mail->setHtml($template->fetch('mail/voucher'));
-                $mail->send();
+                // $mail = new Mail();
+                // $mail->protocol = $this->config->get('config_mail_protocol');
+                // $mail->parameter = $this->config->get('config_mail_parameter');
+                // $mail->hostname = $this->config->get('config_smtp_host');
+                // $mail->username = $this->config->get('config_smtp_username');
+                // $mail->password = $this->config->get('config_smtp_password');
+                // $mail->port = $this->config->get('config_smtp_port');
+                // $mail->timeout = $this->config->get('config_smtp_timeout');
+                // $mail->setTo($voucher_info['to_email']);
+                // $mail->setFrom($this->config->get('config_email'));
+                // $mail->setSender($order_info['store_name']);
+                // $mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $voucher_info['from_name']), ENT_QUOTES, 'UTF-8'));
+                // $mail->setHtml($template->fetch('mail/voucher'));
+                // $mail->send();
                 
                 // If voucher does not belong to an order
                 
             } else {
                 $this->language->load('mail/voucher');
+
+                // NEW MAILER
+                // admin_voucher_no_order_send
                 
-                $template = new Template($this->app);
+                // $template = new Template($this->app);
                 
-                $template->data['title'] = sprintf($this->language->get('text_subject'), $voucher_info['from_name']);
+                // $template->data['title'] = sprintf($this->language->get('text_subject'), $voucher_info['from_name']);
                 
-                $template->data['text_greeting'] = sprintf($this->language->get('text_greeting'), $this->currency->format($voucher_info['amount'], $order_info['currency_code'], $order_info['currency_value']));
-                $template->data['text_from'] = sprintf($this->language->get('text_from'), $voucher_info['from_name']);
-                $template->data['text_message'] = $this->language->get('text_message');
-                $template->data['text_redeem'] = sprintf($this->language->get('text_redeem'), $voucher_info['code']);
-                $template->data['text_footer'] = $this->language->get('text_footer');
+                // $template->data['text_greeting'] = sprintf($this->language->get('text_greeting'), $this->currency->format($voucher_info['amount'], $order_info['currency_code'], $order_info['currency_value']));
+                // $template->data['text_from'] = sprintf($this->language->get('text_from'), $voucher_info['from_name']);
+                // $template->data['text_message'] = $this->language->get('text_message');
+                // $template->data['text_redeem'] = sprintf($this->language->get('text_redeem'), $voucher_info['code']);
+                // $template->data['text_footer'] = $this->language->get('text_footer');
                 
-                $this->theme->model('sale/vouchertheme');
+                // $this->theme->model('sale/vouchertheme');
                 
-                $voucher_theme_info = $this->model_sale_vouchertheme->getVoucherTheme($voucher_info['voucher_theme_id']);
+                // $voucher_theme_info = $this->model_sale_vouchertheme->getVoucherTheme($voucher_info['voucher_theme_id']);
                 
-                if ($voucher_info && file_exists($this->app['path.image'] . $voucher_theme_info['image'])) {
-                    $template->data['image'] = $this->app['http.public'] . 'image/' . $voucher_theme_info['image'];
-                } else {
-                    $template->data['image'] = '';
-                }
+                // if ($voucher_info && file_exists($this->app['path.image'] . $voucher_theme_info['image'])) {
+                //     $template->data['image'] = $this->app['http.public'] . 'image/' . $voucher_theme_info['image'];
+                // } else {
+                //     $template->data['image'] = '';
+                // }
                 
-                $template->data['store_name'] = $this->config->get('config_name');
-                $template->data['store_url'] = $this->app['http.public'];
-                $template->data['message'] = nl2br($voucher_info['message']);
+                // $template->data['store_name'] = $this->config->get('config_name');
+                // $template->data['store_url'] = $this->app['http.public'];
+                // $template->data['message'] = nl2br($voucher_info['message']);
                 
-                $mail = new Mail();
-                $mail->protocol = $this->config->get('config_mail_protocol');
-                $mail->parameter = $this->config->get('config_mail_parameter');
-                $mail->hostname = $this->config->get('config_smtp_host');
-                $mail->username = $this->config->get('config_smtp_username');
-                $mail->password = $this->config->get('config_smtp_password');
-                $mail->port = $this->config->get('config_smtp_port');
-                $mail->timeout = $this->config->get('config_smtp_timeout');
-                $mail->setTo($voucher_info['to_email']);
-                $mail->setFrom($this->config->get('config_email'));
-                $mail->setSender($this->config->get('config_name'));
-                $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_subject'), $voucher_info['from_name']), ENT_QUOTES, 'UTF-8'));
-                $mail->setHtml($template->fetch('mail/voucher'));
-                $mail->send();
+                // $mail = new Mail();
+                // $mail->protocol = $this->config->get('config_mail_protocol');
+                // $mail->parameter = $this->config->get('config_mail_parameter');
+                // $mail->hostname = $this->config->get('config_smtp_host');
+                // $mail->username = $this->config->get('config_smtp_username');
+                // $mail->password = $this->config->get('config_smtp_password');
+                // $mail->port = $this->config->get('config_smtp_port');
+                // $mail->timeout = $this->config->get('config_smtp_timeout');
+                // $mail->setTo($voucher_info['to_email']);
+                // $mail->setFrom($this->config->get('config_email'));
+                // $mail->setSender($this->config->get('config_name'));
+                // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_subject'), $voucher_info['from_name']), ENT_QUOTES, 'UTF-8'));
+                // $mail->setHtml($template->fetch('mail/voucher'));
+                // $mail->send();
             }
         }
     }
