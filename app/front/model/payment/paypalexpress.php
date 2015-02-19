@@ -101,7 +101,7 @@ class Paypalexpress extends Model {
         $method_data = array();
         
         if ($status) {
-            $method_data = array('code' => 'paypalexpress', 'title' => $this->language->get('text_title'), 'terms' => '', 'sort_order' => $this->config->get('paypalexpress_sort_order'));
+            $method_data = array('code' => 'paypalexpress', 'title' => $this->language->get('lang_text_title'), 'terms' => '', 'sort_order' => $this->config->get('paypalexpress_sort_order'));
         }
         
         return $method_data;
@@ -290,16 +290,16 @@ class Paypalexpress extends Model {
                 
                 if ($item['recurring']['trial']) {
                     $trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'] . ' ' . $this->currency->getCode();
-                    $trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
+                    $trial_text = sprintf($this->language->get('lang_text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
                 } else {
                     $trial_text = '';
                 }
                 
                 $recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'] . ' ' . $this->currency->getCode();
-                $recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
+                $recurring_description = $trial_text . sprintf($this->language->get('lang_text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
                 
                 if ($item['recurring']['duration'] > 0) {
-                    $recurring_description.= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
+                    $recurring_description.= sprintf($this->language->get('lang_text_length'), $item['recurring']['duration']);
                 }
                 
                 $data['L_BILLINGAGREEMENTDESCRIPTION' . $z] = $recurring_description;

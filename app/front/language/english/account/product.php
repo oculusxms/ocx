@@ -13,6 +13,6 @@
 |	file that was distributed with this source code.
 |	
 */
-$_['heading_title']  = 'My Products';
+$_['lang_heading_title']  = 'My Products';
 
-$_['text_dashboard'] = 'Dashboard';
+$_['lang_text_dashboard'] = 'Dashboard';

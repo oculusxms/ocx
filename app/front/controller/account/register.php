@@ -28,7 +28,7 @@ class Register extends Controller {
         
         $data = $this->theme->language('account/register');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('account/customer');
         
@@ -42,9 +42,9 @@ class Register extends Controller {
             $this->response->redirect($this->url->link('account/success'));
         }
         
-        $this->breadcrumb->add('text_register', 'account/register', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_register', 'account/register', null, true, 'SSL');
         
-        $data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('account/login', '', 'SSL'));
+        $data['text_account_already'] = sprintf($this->language->get('lang_text_account_already'), $this->url->link('account/login', '', 'SSL'));
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -127,7 +127,7 @@ class Register extends Controller {
             
             $page_info = $this->model_content_page->getPage($this->config->get('config_account_id'));
             if ($page_info) {
-                $data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_account_id'), 'SSL'), $page_info['title'], $page_info['title']);
+                $data['text_agree'] = sprintf($this->language->get('lang_text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_account_id'), 'SSL'), $page_info['title'], $page_info['title']);
             } else {
                 $data['text_agree'] = '';
             }
@@ -152,27 +152,27 @@ class Register extends Controller {
     
     protected function validate() {
         if (($this->encode->strlen($this->request->post['username']) < 3) || ($this->encode->strlen($this->request->post['username']) > 16)) {
-            $this->error['username'] = $this->language->get('error_username');
+            $this->error['username'] = $this->language->get('lang_error_username');
         }
         
         if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if ($this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_exists');
+            $this->error['warning'] = $this->language->get('lang_error_exists');
         }
         
         if ($this->model_account_customer->getTotalCustomersByUsername($this->request->post['username'])) {
-            $this->error['warning'] = $this->language->get('error_uexists');
+            $this->error['warning'] = $this->language->get('lang_error_uexists');
         }
         
         if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {
-            $this->error['password'] = $this->language->get('error_password');
+            $this->error['password'] = $this->language->get('lang_error_password');
         }
         
         if ($this->request->post['confirm'] != $this->request->post['password']) {
-            $this->error['confirm'] = $this->language->get('error_confirm');
+            $this->error['confirm'] = $this->language->get('lang_error_confirm');
         }
         
         if ($this->config->get('config_account_id')) {
@@ -181,7 +181,7 @@ class Register extends Controller {
             $page_info = $this->model_content_page->getPage($this->config->get('config_account_id'));
             
             if ($page_info && !isset($this->request->post['agree'])) {
-                $this->error['warning'] = sprintf($this->language->get('error_agree'), $page_info['title']);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_agree'), $page_info['title']);
             }
         }
         
@@ -197,11 +197,11 @@ class Register extends Controller {
         $this->theme->model('account/customer');
         
         if (($this->encode->strlen($this->request->get['username']) < 3) || ($this->encode->strlen($this->request->get['username']) > 16)):
-            $json['error'] = $this->language->get('error_username');
+            $json['error'] = $this->language->get('lang_error_username');
         endif;
         
         if ($this->model_account_customer->getTotalCustomersByUsername($this->request->get['username'])):
-            $json['error'] = $this->language->get('error_uexists');
+            $json['error'] = $this->language->get('lang_error_uexists');
         endif;
         
         $this->response->setOutput(json_encode($json));
@@ -214,11 +214,11 @@ class Register extends Controller {
         $this->theme->model('account/customer');
         
         if (($this->encode->strlen($this->request->get['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->get['email'])):
-            $json['error'] = $this->language->get('error_email');
+            $json['error'] = $this->language->get('lang_error_email');
         endif;
         
         if ($this->model_account_customer->getTotalCustomersByEmail($this->request->get['email'])):
-            $json['error'] = $this->language->get('error_exists');
+            $json['error'] = $this->language->get('lang_error_exists');
         endif;
         
         $this->response->setOutput(json_encode($json));
@@ -231,7 +231,7 @@ class Register extends Controller {
         $this->theme->model('account/customer');
         
         if (($this->encode->strlen($this->request->get['password']) < 4) || ($this->encode->strlen($this->request->get['password']) > 20)):
-            $json['error'] = $this->language->get('error_password');
+            $json['error'] = $this->language->get('lang_error_password');
         endif;
         
         $this->response->setOutput(json_encode($json));

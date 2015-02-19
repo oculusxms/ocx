@@ -13,7 +13,7 @@
 						}
 					} ?></div>
 					<p><?= $review['text']; ?></p>
-					<small class="text-muted">&mdash; <?= $review['author']; ?> <?= $text_on; ?> <?= $review['date_added']; ?></small>
+					<small class="text-muted">&mdash; <?= $review['author']; ?> <?= $lang_text_on; ?> <?= $review['date_added']; ?></small>
 				</div>
 			</div>
 		</div>
@@ -21,5 +21,5 @@
 	<?php } ?>
 	<div class="pagination"><?= str_replace('....','',$pagination); ?></div>
 <?php } else { ?>
-	<div class="alert alert-warning"><?= $text_no_reviews; ?></div>
+	<div class="alert alert-warning"><?= $lang_text_no_reviews; ?></div>
 <?php } ?>

@@ -50,7 +50,7 @@ $(function(){
 	$('#create').click(function(){
 		var tree=$.tree.focused();
 		if(tree.selected){
-			openDialog('<?= $button_folder; ?>','<?= $entry_folder; ?>');
+			openDialog('<?= $lang_button_folder; ?>','<?= $lang_entry_folder; ?>');
 			$('#dialog button[type="submit"]').click(function(e){
 				e.preventDefault();
 				$.ajax({
@@ -70,7 +70,7 @@ $(function(){
 				});
 			});
 		}else{
-			$('#notification').html('<?= $error_directory; ?>');
+			$('#notification').html('<?= $lang_error_directory; ?>');
 		}
 	});
 	$('#delete').click(function(){
@@ -122,7 +122,7 @@ $(function(){
 					}
 				});	
 			}else{
-				n.html('<?= $error_select; ?>');
+				n.html('<?= $lang_error_select; ?>');
 			}			
 		}
 	});
@@ -130,9 +130,9 @@ $(function(){
 		$('#dialog').remove();
 		html = '<div id="dialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">';
 		html += '<div class="modal-dialog"><div class="modal-content">';
-		html += '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title"><?= $button_move; ?></h4></div>';
+		html += '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title"><?= $lang_button_move; ?></h4></div>';
 		html += '<div class="modal-body"><select name="to" class="form-control"></select></div>';
-		html += '<div class="modal-footer"><button type="submit" class="btn btn-primary"><?= $button_submit; ?></button></div>';
+		html += '<div class="modal-footer"><button type="submit" class="btn btn-primary"><?= $lang_button_submit; ?></button></div>';
 		html += '</div></div>';
 		html += '</div>';
 		$('body').prepend(html);
@@ -174,7 +174,7 @@ $(function(){
 		});
 	});
 	$('#copy').click(function(){
-		openDialog('<?= $button_copy; ?>','<?= $entry_copy; ?>');
+		openDialog('<?= $lang_button_copy; ?>','<?= $lang_entry_copy; ?>');
 		$('#dialog select[name="to"]').load('index.php?route=common/filemanager/folders&token=<?= $token; ?>');
 		$('#dialog button[type="submit"]').click(function(e){
 			e.preventDefault();
@@ -212,7 +212,7 @@ $(function(){
 		});
 	});
 	$('#rename').click(function(){
-		openDialog('<?= $button_rename; ?>','<?= $entry_rename; ?>');
+		openDialog('<?= $lang_button_rename; ?>','<?= $lang_entry_rename; ?>');
 		$('#dialog button[type="submit"]').click(function(e){
 			e.preventDefault();
 			path=$('#column-right .btn.active').find('input[name="image"]').val();
@@ -284,7 +284,7 @@ function openDialog(title,entry){
 	html += '<div class="modal-dialog"><div class="modal-content">';
 	html += '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">'+title+'</h4></div>';
 	html += '<div class="modal-body"><input type="text" name="name" value="" class="form-control" autocomplete="off" placeholder="'+entry+'" class="form-control"></div>';
-	html += '<div class="modal-footer"><button type="submit" class="btn btn-primary"><?= $button_submit; ?></button></div>';
+	html += '<div class="modal-footer"><button type="submit" class="btn btn-primary"><?= $lang_button_submit; ?></button></div>';
 	html += '</div></div>';
 	html += '</form>';
 

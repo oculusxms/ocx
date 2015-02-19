@@ -21,8 +21,6 @@ class Blogcategory extends Controller {
     public function index($setting) {
         $data = $this->theme->language('widget/blogcategory');
         
-        $data['heading_title'] = $this->language->get('heading_title');
-        
         if (isset($this->request->get['bpath'])) {
             $parts = explode('_', (string)$this->request->get['bpath']);
         } else {

@@ -11,13 +11,13 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="pull-left h2"><i class="fa fa-th-list"></i><?= $heading_title; ?></div>
+		<div class="pull-left h2"><i class="fa fa-th-list"></i><?= $lang_heading_title; ?></div>
 		<div class="pull-right">
 			<a href="<?= $insert; ?>" class="btn btn-primary">
-				<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_insert; ?></span>
+				<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_insert; ?></span>
 			</a>
 			<button type="submit" form="form" id="btn-delete" class="btn btn-danger">
-				<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_delete; ?></span>
+				<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_delete; ?></span>
 			</button>
 		</div>
 	</div>
@@ -27,10 +27,10 @@
 				<thead>
 					<tr>
 						<th width="40" class="text-center"><input type="checkbox" data-toggle="selected"></th>
-						<th><?= $column_name; ?></th>
-						<th><?= $column_type; ?></th>
-						<th class="hidden-xs"><?= $column_status; ?></th>
-						<th class="text-right"><span class="hidden-xs"><?= $column_action; ?></span></th>
+						<th><?= $lang_column_name; ?></th>
+						<th><?= $lang_column_type; ?></th>
+						<th class="hidden-xs"><?= $lang_column_status; ?></th>
+						<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 					</tr>
 				</thead>
 				<tbody data-link="row" class="rowlink">
@@ -56,7 +56,7 @@
 					<?php } ?>
 					<?php } else { ?>
 					<tr>
-						<td class="text-center" colspan="5"><?= $text_no_results; ?></td>
+						<td class="text-center" colspan="5"><?= $lang_text_no_results; ?></td>
 					</tr>
 					<?php } ?>
 				</tbody>

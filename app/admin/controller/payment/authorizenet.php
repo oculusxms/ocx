@@ -22,12 +22,12 @@ class Authorizenet extends Controller {
     
     public function index() {
         $data = $this->theme->language('payment/authorizenet');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('authorizenet', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/payment', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -50,8 +50,8 @@ class Authorizenet extends Controller {
             $data['error_key'] = '';
         }
         
-        $this->breadcrumb->add('text_payment', 'module/payment');
-        $this->breadcrumb->add('heading_title', 'payment/authorizenetaim');
+        $this->breadcrumb->add('lang_text_payment', 'module/payment');
+        $this->breadcrumb->add('lang_heading_title', 'payment/authorizenetaim');
         
         $data['action'] = $this->url->link('payment/authorizenetaim', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -140,15 +140,15 @@ class Authorizenet extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'payment/authorizenetaim')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['authorizenet_login']) {
-            $this->error['login'] = $this->language->get('error_login');
+            $this->error['login'] = $this->language->get('lang_error_login');
         }
         
         if (!$this->request->post['authorizenet_key']) {
-            $this->error['key'] = $this->language->get('error_key');
+            $this->error['key'] = $this->language->get('lang_error_key');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

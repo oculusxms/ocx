@@ -20,7 +20,7 @@ use Oculus\Engine\Controller;
 class Productpurchased extends Controller {
     public function index() {
         $data = $this->theme->language('report/product_purchased');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (isset($this->request->get['filter_date_start'])) {
             $filter_date_start = $this->request->get['filter_date_start'];
@@ -64,7 +64,7 @@ class Productpurchased extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'report/productpurchased', $url);
+        $this->breadcrumb->add('lang_heading_title', 'report/productpurchased', $url);
         
         $this->theme->model('report/product');
         
@@ -100,7 +100,7 @@ class Productpurchased extends Controller {
             $url.= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
         }
         
-        $data['pagination'] = $this->theme->paginate($product_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('report/productpurchased', 'token=' . $this->session->data['token'] . $url . '&page={page}'));
+        $data['pagination'] = $this->theme->paginate($product_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('report/productpurchased', 'token=' . $this->session->data['token'] . $url . '&page={page}'));
         
         $data['filter_date_start'] = $filter_date_start;
         $data['filter_date_end'] = $filter_date_end;

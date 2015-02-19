@@ -183,10 +183,10 @@ class Fedex extends Model {
                     $code = strtolower($rate_reply_detail->getElementsByTagName('ServiceType')->item(0)->nodeValue);
                     
                     if (in_array(strtoupper($code), $this->config->get('fedex_service'))) {
-                        $title = $this->language->get('text_' . $code);
+                        $title = $this->language->get('lang_text_' . $code);
                         
                         if ($this->config->get('fedex_display_time')) {
-                            $title.= ' (' . $this->language->get('text_eta') . ' ' . date($this->language->get('date_format_short') . ' ' . $this->language->get('time_format'), strtotime($rate_reply_detail->getElementsByTagName('DeliveryTimestamp')->item(0)->nodeValue)) . ')';
+                            $title.= ' (' . $this->language->get('lang_text_eta') . ' ' . date($this->language->get('lang_date_format_short') . ' ' . $this->language->get('lang_time_format'), strtotime($rate_reply_detail->getElementsByTagName('DeliveryTimestamp')->item(0)->nodeValue)) . ')';
                         }
                         
                         $total_net_charge = $rate_reply_detail->getElementsByTagName('RatedShipmentDetails')->item(0)->getElementsByTagName('ShipmentRateDetail')->item(0)->getElementsByTagName('TotalNetCharge')->item(0);
@@ -204,10 +204,10 @@ class Fedex extends Model {
         $method_data = array();
         
         if ($quote_data || $error) {
-            $title = $this->language->get('text_title');
+            $title = $this->language->get('lang_text_title');
             
             if ($this->config->get('fedex_display_weight')) {
-                $title.= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('fedex_weight_class_id')) . ')';
+                $title.= ' (' . $this->language->get('lang_text_weight') . ' ' . $this->weight->format($weight, $this->config->get('fedex_weight_class_id')) . ')';
             }
             
             $method_data = array('code' => 'fedex', 'title' => $title, 'quote' => $quote_data, 'sort_order' => $this->config->get('fedex_sort_order'), 'error' => $error);

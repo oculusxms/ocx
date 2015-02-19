@@ -22,12 +22,12 @@ class Blogsearch extends Controller {
     
     public function index() {
         $data = $this->theme->language('widget/blogsearch');
-        $this->theme->setTitle($this->language->get('doc_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('blogsearch', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/widget', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -38,8 +38,8 @@ class Blogsearch extends Controller {
             $data['error_warning'] = '';
         }
         
-        $this->breadcrumb->add('text_widget', 'module/widget');
-        $this->breadcrumb->add('heading_title', 'widget/blogsearch');
+        $this->breadcrumb->add('lang_text_widget', 'module/widget');
+        $this->breadcrumb->add('lang_heading_title', 'widget/blogsearch');
         
         $data['action'] = $this->url->link('widget/blogsearch', 'token=' . $this->session->data['token'], 'SSL');
         $data['cancel'] = $this->url->link('module/widget', 'token=' . $this->session->data['token'], 'SSL');
@@ -67,7 +67,7 @@ class Blogsearch extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'widget/blogsearch')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

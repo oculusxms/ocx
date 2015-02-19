@@ -29,7 +29,7 @@ class Address extends Controller {
         }
         
         $this->theme->language('account/address');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('account/address');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -46,14 +46,14 @@ class Address extends Controller {
         
         $this->theme->language('account/address');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('account/address');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_account_address->addAddress($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_insert');
+            $this->session->data['success'] = $this->language->get('lang_text_insert');
             
             $this->response->redirect($this->url->link('account/address', '', 'SSL'));
         }
@@ -72,7 +72,7 @@ class Address extends Controller {
         
         $this->theme->language('account/address');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('account/address');
         
@@ -98,7 +98,7 @@ class Address extends Controller {
                 unset($this->session->data['payment_methods']);
             }
             
-            $this->session->data['success'] = $this->language->get('text_update');
+            $this->session->data['success'] = $this->language->get('lang_text_update');
             
             if (!$this->session->data['address_complete']):
                 $this->session->data['address_complete'] = true;
@@ -121,7 +121,7 @@ class Address extends Controller {
         
         $this->theme->language('account/address');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('account/address');
         
@@ -147,7 +147,7 @@ class Address extends Controller {
                 unset($this->session->data['payment_methods']);
             }
             
-            $this->session->data['success'] = $this->language->get('text_delete');
+            $this->session->data['success'] = $this->language->get('lang_text_delete');
             
             $this->response->redirect($this->url->link('account/address', '', 'SSL'));
         }
@@ -160,8 +160,8 @@ class Address extends Controller {
     protected function getList() {
         $data = $this->theme->language('account/address');
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('heading_title', 'account/address', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/address', null, true, 'SSL');
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -211,13 +211,13 @@ class Address extends Controller {
     protected function getForm() {
         $data = $this->theme->language('account/address');
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('heading_title', 'account/address', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/address', null, true, 'SSL');
         
         if (!isset($this->request->get['address_id'])) {
-            $this->breadcrumb->add('text_edit_address', 'account/address/edit', null, true, 'SSL');
+            $this->breadcrumb->add('lang_text_edit_address', 'account/address/edit', null, true, 'SSL');
         } else {
-            $this->breadcrumb->add('text_edit_address', 'account/address/edit', 'address_id=' . $this->request->get['address_id'], true, 'SSL');
+            $this->breadcrumb->add('lang_text_edit_address', 'account/address/edit', 'address_id=' . $this->request->get['address_id'], true, 'SSL');
         }
         
         if (isset($this->error['firstname'])) {
@@ -388,7 +388,7 @@ class Address extends Controller {
             $data['zone_id'] = '';
         }
         
-        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('text_select') . '","none":"' . $this->language->get('text_none') . '"}');
+        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('lang_text_select') . '","none":"' . $this->language->get('lang_text_none') . '"}');
         
         $this->theme->model('localization/country');
         
@@ -416,19 +416,19 @@ class Address extends Controller {
     
     protected function validateForm() {
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['address_1']) < 3) || ($this->encode->strlen($this->request->post['address_1']) > 128)) {
-            $this->error['address_1'] = $this->language->get('error_address_1');
+            $this->error['address_1'] = $this->language->get('lang_error_address_1');
         }
         
         if (($this->encode->strlen($this->request->post['city']) < 2) || ($this->encode->strlen($this->request->post['city']) > 128)) {
-            $this->error['city'] = $this->language->get('error_city');
+            $this->error['city'] = $this->language->get('lang_error_city');
         }
         
         $this->theme->model('localization/country');
@@ -437,20 +437,20 @@ class Address extends Controller {
         
         if ($country_info) {
             if ($country_info['postcode_required'] && ($this->encode->strlen($this->request->post['postcode']) < 2) || ($this->encode->strlen($this->request->post['postcode']) > 10)) {
-                $this->error['postcode'] = $this->language->get('error_postcode');
+                $this->error['postcode'] = $this->language->get('lang_error_postcode');
             }
             
             if ($this->config->get('config_vat') && !empty($this->request->post['tax_id']) && ($this->vat->validate($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
-                $this->error['tax_id'] = $this->language->get('error_vat');
+                $this->error['tax_id'] = $this->language->get('lang_error_vat');
             }
         }
         
         if ($this->request->post['country_id'] == '') {
-            $this->error['country'] = $this->language->get('error_country');
+            $this->error['country'] = $this->language->get('lang_error_country');
         }
         
         if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-            $this->error['zone'] = $this->language->get('error_zone');
+            $this->error['zone'] = $this->language->get('lang_error_zone');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -460,11 +460,11 @@ class Address extends Controller {
     
     protected function validateDelete() {
         if ($this->model_account_address->getTotalAddresses() == 1) {
-            $this->error['warning'] = $this->language->get('error_delete');
+            $this->error['warning'] = $this->language->get('lang_error_delete');
         }
         
         if ($this->customer->getAddressId() == $this->request->get['address_id']) {
-            $this->error['warning'] = $this->language->get('error_default');
+            $this->error['warning'] = $this->language->get('lang_error_default');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

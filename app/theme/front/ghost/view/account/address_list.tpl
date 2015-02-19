@@ -11,23 +11,23 @@
 	<div class="col-sm-<?php $span = trim($column_left) ? 9 : 12; $span = trim($column_right) ? $span - 3 : $span; echo $span; ?>">
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
-		<div class="page-header"><h1><?= $heading_title; ?></h1></div>
-		<h4><?= $text_address_book; ?></h4>
+		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
+		<h4><?= $lang_text_address_book; ?></h4>
 		<table class="table table-striped">
 			<tbody>
 			<?php foreach ($addresses as $result) { ?>
 				<tr>
 					<td><?= $result['address']; ?></td>
-					<td class="text-right"><a href="<?= $result['update']; ?>" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> <?= $button_edit; ?></a>
-					<a href="<?= $result['delete']; ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i><span class="hidden-xs"> <?= $button_delete; ?></span></a></td>
+					<td class="text-right"><a href="<?= $result['update']; ?>" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> <?= $lang_button_edit; ?></a>
+					<a href="<?= $result['delete']; ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i><span class="hidden-xs"> <?= $lang_button_delete; ?></span></a></td>
 				</tr>
 			<?php } ?>
 			</tbody>
 		</table>
 		<div class="form-actions">
 			<div class="form-actions-inner text-right">
-				<a href="<?= $back; ?>" class="btn btn-default pull-left"><?= $button_back; ?></a>
-				<a href="<?= $insert; ?>" class="btn btn-primary"><i class="hidden-xs icon-plus"></i> <?= $button_new_address; ?></a>
+				<a href="<?= $back; ?>" class="btn btn-default pull-left"><?= $lang_button_back; ?></a>
+				<a href="<?= $insert; ?>" class="btn btn-primary"><i class="hidden-xs icon-plus"></i> <?= $lang_button_new_address; ?></a>
 			</div>
 		</div>
 		<?= $content_bottom; ?>

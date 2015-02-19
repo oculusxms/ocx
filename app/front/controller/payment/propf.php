@@ -157,24 +157,24 @@ class Propf extends Controller {
             switch ($response_info['RESULT']) {
                 case '1':
                 case '26':
-                    $json['error'] = $this->language->get('error_config');
+                    $json['error'] = $this->language->get('lang_error_config');
                     break;
 
                 case '7':
-                    $json['error'] = $this->language->get('error_address');
+                    $json['error'] = $this->language->get('lang_error_address');
                     break;
 
                 case '12':
-                    $json['error'] = $this->language->get('error_declined');
+                    $json['error'] = $this->language->get('lang_error_declined');
                     break;
 
                 case '23':
                 case '24':
-                    $json['error'] = $this->language->get('error_invalid');
+                    $json['error'] = $this->language->get('lang_error_invalid');
                     break;
 
                 default:
-                    $json['error'] = $this->language->get('error_general');
+                    $json['error'] = $this->language->get('lang_error_general');
                     break;
             }
         }

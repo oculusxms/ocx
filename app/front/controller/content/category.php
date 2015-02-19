@@ -164,7 +164,7 @@ class Category extends Controller {
                 
                 if ($categories) {
                     foreach ($categories as $category) {
-                        $posted_in[] = sprintf($this->language->get('text_posted_categories'), $category['href'], $category['name']);
+                        $posted_in[] = sprintf($this->language->get('lang_text_posted_categories'), $category['href'], $category['name']);
                     }
                 }
                 
@@ -172,9 +172,9 @@ class Category extends Controller {
                     $posted_in_categories = implode(", ", $posted_in);
                 endif;
                 
-                $comment_text = ($result['comments'] == 1) ? rtrim($this->language->get('text_comments'), 's') : $this->language->get('text_comments');
+                $comment_text = ($result['comments'] == 1) ? rtrim($this->language->get('lang_text_comments'), 's') : $this->language->get('lang_text_comments');
                 
-                $data['posts'][] = array('post_id' => $result['post_id'], 'author_name' => $result['author_name'], 'thumb' => $image, 'name' => $result['name'], 'short' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 450) . '..', 'blurb' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..', 'rating' => $rating, 'views' => sprintf($this->language->get('text_views'), (int)$result['viewed']), 'comments' => sprintf($comment_text, (int)$result['comments']), 'href' => $this->url->link('content/post', 'bpath=' . $this->request->get['bpath'] . '&post_id=' . $result['post_id']), 'comments_href' => $this->url->link('content/post', 'post_id=' . $result['post_id'] . '&to_comments=1'), 'author_href' => $this->url->link('content/search', '&filter_author_id=' . $result['author_id']), 'date_added' => date($this->language->get('post_date'), strtotime($result['date_added'])), 'categories' => $posted_in_categories);
+                $data['posts'][] = array('post_id' => $result['post_id'], 'author_name' => $result['author_name'], 'thumb' => $image, 'name' => $result['name'], 'short' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 450) . '..', 'blurb' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..', 'rating' => $rating, 'views' => sprintf($this->language->get('lang_text_views'), (int)$result['viewed']), 'comments' => sprintf($comment_text, (int)$result['comments']), 'href' => $this->url->link('content/post', 'bpath=' . $this->request->get['bpath'] . '&post_id=' . $result['post_id']), 'comments_href' => $this->url->link('content/post', 'post_id=' . $result['post_id'] . '&to_comments=1'), 'author_href' => $this->url->link('content/search', '&filter_author_id=' . $result['author_id']), 'date_added' => date($this->language->get('lang_post_date'), strtotime($result['date_added'])), 'categories' => $posted_in_categories);
             }
             
             $url = '';
@@ -191,7 +191,7 @@ class Category extends Controller {
                 $url.= '&limit=' . $this->request->get['limit'];
             }
             
-            $data['pagination'] = $this->theme->paginate($post_total, $page, $limit, $this->language->get('text_pagination'), $this->url->link('content/category', 'bpath=' . $this->request->get['bpath'] . $url . '&page={page}'));
+            $data['pagination'] = $this->theme->paginate($post_total, $page, $limit, $this->language->get('lang_text_pagination'), $this->url->link('content/category', 'bpath=' . $this->request->get['bpath'] . $url . '&page={page}'));
             
             $data['sort'] = $sort;
             $data['order'] = $order;
@@ -235,11 +235,11 @@ class Category extends Controller {
                 $url.= '&limit=' . $this->request->get['limit'];
             }
             
-            $this->breadcrumb->add('text_error', 'content/category', $url);
+            $this->breadcrumb->add('lang_text_error', 'content/category', $url);
             
-            $this->theme->setTitle($this->language->get('text_error'));
+            $this->theme->setTitle($this->language->get('lang_text_error'));
             
-            $data['heading_title'] = $this->language->get('text_error');
+            $data['heading_title'] = $this->language->get('lang_text_error');
             
             $data['continue'] = $this->url->link('content/home');
             

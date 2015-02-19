@@ -53,11 +53,11 @@ class Page extends Controller {
             
             $this->response->setOutput($this->theme->view('content/page', $data));
         } else {
-            $this->breadcrumb->add('text_error', 'content/page', 'page_id=' . $page_id);
+            $this->breadcrumb->add('lang_text_error', 'content/page', 'page_id=' . $page_id);
             
-            $this->theme->setTitle($this->language->get('text_error'));
+            $this->theme->setTitle($this->language->get('lang_text_error'));
             
-            $data['heading_title'] = $this->language->get('text_error');
+            $data['heading_title'] = $this->language->get('lang_text_error');
             
             $data['continue'] = $this->url->link('content/home');
             

@@ -23,7 +23,7 @@ class Product extends Controller {
     public function index() {
         $this->language->load('catalog/product');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/product');
         
@@ -35,14 +35,14 @@ class Product extends Controller {
     public function insert() {
         $this->language->load('catalog/product');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/product');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_product->addProduct($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -89,14 +89,14 @@ class Product extends Controller {
     public function update() {
         $this->language->load('catalog/product');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/product');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -143,7 +143,7 @@ class Product extends Controller {
     public function delete() {
         $this->language->load('catalog/product');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/product');
         
@@ -152,7 +152,7 @@ class Product extends Controller {
                 $this->model_catalog_product->deleteProduct($product_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -199,7 +199,7 @@ class Product extends Controller {
     public function copy() {
         $this->language->load('catalog/product');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/product');
         
@@ -208,7 +208,7 @@ class Product extends Controller {
                 $this->model_catalog_product->copyProduct($product_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -337,7 +337,7 @@ class Product extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/product', $url);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/product', $url);
         
         $data['insert'] = $this->url->link('catalog/product/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['copy'] = $this->url->link('catalog/product/copy', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -356,7 +356,7 @@ class Product extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $result['product_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $result['product_id'] . $url, 'SSL'));
             
             if ($result['image'] && file_exists($this->app['path.image'] . $result['image'])) {
                 $image = $this->model_tool_image->resize($result['image'], 40, 40);
@@ -376,7 +376,7 @@ class Product extends Controller {
                 }
             }
             
-            $data['products'][] = array('product_id' => $result['product_id'], 'name' => $result['name'], 'model' => $result['model'], 'price' => $result['price'], 'special' => $special, 'image' => $image, 'quantity' => $result['quantity'], 'status' => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')), 'selected' => isset($this->request->post['selected']) && in_array($result['product_id'], $this->request->post['selected']), 'action' => $action);
+            $data['products'][] = array('product_id' => $result['product_id'], 'name' => $result['name'], 'model' => $result['model'], 'price' => $result['price'], 'special' => $special, 'image' => $image, 'quantity' => $result['quantity'], 'status' => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 'selected' => isset($this->request->post['selected']) && in_array($result['product_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         $data['token'] = $this->session->data['token'];
@@ -464,7 +464,7 @@ class Product extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($product_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('catalog/product', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($product_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('catalog/product', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['filter_name'] = $filter_name;
         $data['filter_model'] = $filter_model;
@@ -561,7 +561,7 @@ class Product extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/product', $url);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/product', $url);
         
         if (!isset($this->request->get['product_id'])) {
             $data['action'] = $this->url->link('catalog/product/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -1117,12 +1117,12 @@ class Product extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/product')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['product_description'] as $language_id => $value) {
             if (($this->encode->strlen($value['name']) < 1) || ($this->encode->strlen($value['name']) > 255)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
+                $this->error['name'][$language_id] = $this->language->get('lang_error_name');
             }
         }
         
@@ -1133,24 +1133,24 @@ class Product extends Controller {
             if (isset($this->request->get['product_id'])):
                 if (isset($query)):
                     if ($query != 'product_id:' . $this->request->get['product_id']):
-                        $this->error['slug'] = sprintf($this->language->get('error_slug_found'), $this->request->post['slug']);
+                        $this->error['slug'] = sprintf($this->language->get('lang_error_slug_found'), $this->request->post['slug']);
                     endif;
                 endif;
             else:
                 if (isset($query)):
-                    $this->error['slug'] = sprintf($this->language->get('error_slug_found'), $this->request->post['slug']);
+                    $this->error['slug'] = sprintf($this->language->get('lang_error_slug_found'), $this->request->post['slug']);
                 endif;
             endif;
         else:
-            $this->error['slug'] = $this->language->get('error_slug');
+            $this->error['slug'] = $this->language->get('lang_error_slug');
         endif;
         
         if (($this->encode->strlen($this->request->post['model']) < 1) || ($this->encode->strlen($this->request->post['model']) > 64)) {
-            $this->error['model'] = $this->language->get('error_model');
+            $this->error['model'] = $this->language->get('lang_error_model');
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -1160,7 +1160,7 @@ class Product extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'catalog/product')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -1170,7 +1170,7 @@ class Product extends Controller {
     
     protected function validateCopy() {
         if (!$this->user->hasPermission('modify', 'catalog/product')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -1276,7 +1276,7 @@ class Product extends Controller {
         $json = array();
         
         if (!isset($this->request->get['name']) || $this->encode->strlen($this->request->get['name']) < 1):
-            $json['error'] = $this->language->get('error_name_first');
+            $json['error'] = $this->language->get('lang_error_name_first');
         else:
             
             // build slug
@@ -1288,12 +1288,12 @@ class Product extends Controller {
             if (isset($query)):
                 if (isset($this->request->get['product_id'])):
                     if ($query != 'product_id:' . $this->request->get['product_id']):
-                        $json['error'] = sprintf($this->language->get('error_slug_found'), $slug);
+                        $json['error'] = sprintf($this->language->get('lang_error_slug_found'), $slug);
                     else:
                         $json['slug'] = $slug;
                     endif;
                 else:
-                    $json['error'] = sprintf($this->language->get('error_slug_found'), $slug);
+                    $json['error'] = sprintf($this->language->get('lang_error_slug_found'), $slug);
                 endif;
             else:
                 $json['slug'] = $slug;

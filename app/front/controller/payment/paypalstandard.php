@@ -62,7 +62,7 @@ class Paypalstandard extends Controller {
             $total = $this->currency->format($order_info['total'] - $this->cart->getSubTotal(), $order_info['currency_code'], false, false);
             
             if ($total > 0) {
-                $data['products'][] = array('name' => $this->language->get('text_total'), 'model' => '', 'price' => $total, 'quantity' => 1, 'option' => array(), 'weight' => 0);
+                $data['products'][] = array('name' => $this->language->get('lang_text_total'), 'model' => '', 'price' => $total, 'quantity' => 1, 'option' => array(), 'weight' => 0);
             } else {
                 $data['discount_amount_cart']-= $total;
             }

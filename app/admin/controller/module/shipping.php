@@ -20,9 +20,9 @@ use Oculus\Engine\Controller;
 class Shipping extends Controller {
     public function index() {
         $data = $this->theme->language('module/shipping');
-        $this->theme->setTitle($this->language->get('heading_shipping'));
+        $this->theme->setTitle($this->language->get('lang_heading_shipping'));
         
-        $this->breadcrumb->add('heading_shipping', 'module/shipping');
+        $this->breadcrumb->add('lang_heading_shipping', 'module/shipping');
         
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -68,14 +68,14 @@ class Shipping extends Controller {
                 $action = array();
                 
                 if (!in_array($module, $modules)) {
-                    $action[] = array('text' => $this->language->get('text_install'), 'href' => $this->url->link('module/shipping/install', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_install'), 'href' => $this->url->link('module/shipping/install', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
                 } else {
-                    $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('shipping/' . $module . '', 'token=' . $this->session->data['token'], 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('shipping/' . $module . '', 'token=' . $this->session->data['token'], 'SSL'));
                     
-                    $action[] = array('text' => $this->language->get('text_uninstall'), 'href' => $this->url->link('module/shipping/uninstall', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_uninstall'), 'href' => $this->url->link('module/shipping/uninstall', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
                 }
                 
-                $data['modules'][] = array('name' => $this->language->get('heading_title'), 'status' => $this->config->get($module . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'), 'sort_order' => $this->config->get($module . '_sort_order'), 'action' => $action);
+                $data['modules'][] = array('name' => $this->language->get('lang_heading_title'), 'status' => $this->config->get($module . '_status') ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled'), 'sort_order' => $this->config->get($module . '_sort_order'), 'action' => $action);
             }
         }
         
@@ -90,7 +90,7 @@ class Shipping extends Controller {
         $this->language->load('module/shipping');
         
         if (!$this->user->hasPermission('modify', 'module/shipping')) {
-            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->session->data['error'] = $this->language->get('lang_error_permission');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             
@@ -127,7 +127,7 @@ class Shipping extends Controller {
         $this->language->load('module/shipping');
         
         if (!$this->user->hasPermission('modify', 'module/shipping')) {
-            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->session->data['error'] = $this->language->get('lang_error_permission');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             

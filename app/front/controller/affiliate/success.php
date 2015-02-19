@@ -21,12 +21,12 @@ class Success extends Controller {
     public function index() {
         $data = $this->theme->language('affiliate/success');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'affiliate/account', null, true, 'SSL');
-        $this->breadcrumb->add('text_success', 'affiliate/success', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'affiliate/account', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_success', 'affiliate/success', null, true, 'SSL');
         
-        $data['text_message'] = sprintf($this->language->get('text_approval'), $this->config->get('config_name'), $this->url->link('content/contact'));
+        $data['text_message'] = sprintf($this->language->get('lang_text_approval'), $this->config->get('config_name'), $this->url->link('content/contact'));
         
         $data['continue'] = $this->url->link('affiliate/account', '', 'SSL');
         

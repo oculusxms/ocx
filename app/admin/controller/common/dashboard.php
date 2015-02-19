@@ -33,7 +33,7 @@ class Dashboard extends Controller {
     public function index() {
         $data = $this->theme->language('common/dashboard');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->javascript->register('flot.min', 'summernote.min')
             ->register('flot.resize.min', 'flot.min');
@@ -102,7 +102,7 @@ class Dashboard extends Controller {
             $action = array();
             
             $action[] = array(
-                'text' => $this->language->get('text_view') ,
+                'text' => $this->language->get('lang_text_view') ,
                 'href' => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'], 'SSL')
             );
             
@@ -110,7 +110,7 @@ class Dashboard extends Controller {
                 'order_id'   => $result['order_id'],
                 'customer'   => $result['customer'],
                 'status'     => $result['status'],
-                'date_added' => date($this->language->get('date_format_short') , strtotime($result['date_added'])) ,
+                'date_added' => date($this->language->get('lang_date_format_short') , strtotime($result['date_added'])) ,
                 'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']) ,
                 'action'     => $action
             );
@@ -142,8 +142,8 @@ class Dashboard extends Controller {
         $json['customers']         = array();
         $json['xaxis']             = array();
         
-        $json['order']['label']    = $this->language->get('text_order');
-        $json['customer']['label'] = $this->language->get('text_customer');
+        $json['order']['label']    = $this->language->get('lang_text_order');
+        $json['customer']['label'] = $this->language->get('lang_text_customer');
         
         if (isset($this->request->get['range'])) {
             $range = $this->request->get['range'];
@@ -338,7 +338,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['image'] = sprintf($this->language->get('error_image') , $this->app['path.image']);
+            $this->error['image'] = sprintf($this->language->get('lang_error_image') , $this->app['path.image']);
         else:
             $this->error['image'] = '';
             unlink($file);
@@ -352,7 +352,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['image_cache'] = sprintf($this->language->get('error_image_cache') , $this->app['path.image'] . 'cache/');
+            $this->error['image_cache'] = sprintf($this->language->get('lang_error_image_cache') , $this->app['path.image'] . 'cache/');
         else:
             $this->error['image_cache'] = '';
             unlink($file);
@@ -366,7 +366,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['cache'] = sprintf($this->language->get('error_image_cache') , $this->app['path.cache']);
+            $this->error['cache'] = sprintf($this->language->get('lang_error_image_cache') , $this->app['path.cache']);
         else:
             $this->error['cache'] = '';
             unlink($file);
@@ -380,7 +380,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['download'] = sprintf($this->language->get('error_download') , $this->app['path.download']);
+            $this->error['download'] = sprintf($this->language->get('lang_error_download') , $this->app['path.download']);
         else:
             $this->error['download'] = '';
             unlink($file);
@@ -394,7 +394,7 @@ class Dashboard extends Controller {
         fclose($handle);
         
         if (!is_readable($file)):
-            $this->error['logs'] = sprintf($this->language->get('error_logs') , $this->app['path.logs']);
+            $this->error['logs'] = sprintf($this->language->get('lang_error_logs') , $this->app['path.logs']);
         else:
             $this->error['logs'] = '';
             unlink($file);

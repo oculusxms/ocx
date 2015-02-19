@@ -15,9 +15,9 @@
 */
 
 // Heading
-$_['heading_title']          = 'Latest Posts';
+$_['lang_heading_title']          = 'Latest Posts';
 
 // Text
-$_['text_reviews']           = '%s comments';
-$_['text_posted_categories'] = '<a href="%s">%s</a>';
-$_['text_views']             = '%s views';
+$_['lang_text_reviews']           = '%s comments';
+$_['lang_text_posted_categories'] = '<a href="%s">%s</a>';
+$_['lang_text_views']             = '%s views';

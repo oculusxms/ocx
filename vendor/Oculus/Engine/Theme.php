@@ -19,6 +19,7 @@ use Oculus\Engine\Container;
 use Oculus\Engine\Action;
 use Oculus\Service\ActionService;
 use Oculus\Engine\View;
+use Oculus\Library\Email;
 
 final class Theme {
     private $title;
@@ -40,7 +41,7 @@ final class Theme {
     public $style;
     
     public function __construct(Container $app) {
-        $this->app = $app;
+        $this->app  = $app;
         $this->path = $app['path.theme'] . $app['theme.name'] . '/';
         $this->name = ucfirst(basename($this->path));
         
@@ -88,7 +89,7 @@ final class Theme {
     
     public function model($model) {
         $items = $this->build_model($model);
-        $key = $items['key'];
+        $key   = $items['key'];
         
         if (!$this->app->offsetExists($key)):
             $class = $items['class'];
@@ -130,7 +131,7 @@ final class Theme {
      * @return $data   data array passed back from hook
      */
     public function hook($route, $method, $data = array()) {
-        $file = 'theme/' . $this->app['active.fascade'] . '/' . $this->app['theme.name'] . '/controller/' . $route . '.php';
+        $file    = 'theme/' . $this->app['active.fascade'] . '/' . $this->app['theme.name'] . '/controller/' . $route . '.php';
         $default = $this->app['active.fascade'] . '/controller/' . $route . '.php';
         
         if (is_readable($this->app['path.app_path'] . $file)):
@@ -142,14 +143,168 @@ final class Theme {
         endif;
         
         $class = $this->format_class($file);
-        
-        $hook = new $class($this->app);
+        $hook  = new $class($this->app);
         
         if (is_callable(array($hook, $method))):
             $data = call_user_func_array(array($hook, $method), array($data));
         endif;
         
         return $data;
+    }
+
+    /**
+     * Create email then pass to notification class
+     * for wrapping and sending.
+     * @param  text $name name of email_slug from database
+     * @param  array $data notification specific variables to decorate in notification
+     * @return none
+     */
+    public function notify($name, $data) {
+        /**
+         * Let's check for our order_id in $data and send it to the notifier.
+         */
+        
+        $order_id = (isset($data['order_id'])) ? $data['order_id'] : 0;
+        $this->app['notify']->setOrderId($order_id);
+
+        /**
+         * ALL notifications require either a customer_id, 
+         * affiliate_id or user_id (admin) in order to 
+         * create all the parts required to send an email 
+         * notification.
+         */
+        
+        $type     = $this->app['notify']->getNotificationType($name);
+        $receiver = 0;
+
+        if (array_key_exists('customer_id', $data)):
+            $receiver = $data['customer_id'];
+            unset($data['customer_id']);
+        elseif (array_key_exists('affiliate_id', $data)):
+            $receiver = $data['affiliate_id'];
+            unset($data['affiliate_id']);
+        elseif (array_key_exists('user_id', $data)):
+            $receiver = $data['user_id'];
+            unset($data['user_id']);
+        else:
+            return;
+        endif;
+
+        // Process receiver and get variables such as notification preferences.
+        switch ($type['recipient']):
+            case 1: // customer
+                $this->app['notify']->setCustomer($type['email_id'], $receiver);
+                break;
+            case 2: // affiliate
+                $this->app['notify']->setAffiliate($type['email_id'], $receiver);
+                break;
+            case 3: // admin user
+                $this->app['notify']->setUser($receiver);
+                break;
+        endswitch;
+        
+
+        // create email object
+        $email   = new Email($this->app);
+
+        // fetch our text/html email message
+        $message = $email->fetch($name);
+        
+        /**
+         * Only system notifications are built into the email
+         * class as methods. If you're creating non-system
+         * notifications, you'll need to create an override 
+         * version of the Email class that includes your build
+         * method, and drop it into the overrides/Oculus/Library
+         * directory. 
+         * 
+         * Alternately you can pass in a callback method as
+         * an array so we know where to build the notification.
+         * If you wanted the callback in the same class that's 
+         * calling it, and you've created a method named:
+         * 'myEmailCallback', you can use something like the 
+         * below to build your notification.
+         *
+         * Keep in mind that the callback array MUST be
+         * named 'callback' or it will not be found.
+         *     
+         *     $callback = array(
+         *         'class'  => __CLASS__,
+         *         'method' => 'myEmailCallback'
+         *     );
+         *     
+         *     $notify = array(
+         *         'customer_id' => 123,
+         *         'order_id'    => 345,
+         *         'callback'    => $callback //include your $callback array from above
+         *     );
+         *
+         *     $this->theme->notify('my_email_name', $notify);
+         * 
+         */
+        
+        if (is_callable(array($email, $name))):
+            /**
+             * We're not using call_user_func_array to call
+             * the method because we need to retain names
+             * inside our $data and $message arrays.
+             */
+            $message = $email->{$name}($data, $message);
+        else:
+            if (array_key_exists('callback', $data)):
+                // set up our class and method
+                $class  = $data['callback']['class'];
+                $method = $data['callback']['method'];
+                // unset the callback from our data array
+                unset($data['callback']);
+
+                // create a new object
+                $class = new $class($this->app);
+
+                if (is_callable(array($class, $method))):
+                    /**
+                     * We're not using call_user_func_array to call
+                     * the method because we need to retain names
+                     * inside our $data and $message arrays.
+                     */
+                    $message = $class->{$method}($data, $message); 
+                endif;
+                
+            endif;
+        endif;
+
+        $preference = $this->app['notify']->getPreference();
+
+        /**
+         * Our next actions depend entirely on the $preference array.
+         * If the user has requested an internal notification, we'll process
+         * that first as it has no wrapper, then move on to email formatting.
+         */
+        
+        if ($preference['internal']):
+            switch ($type['recipient']):
+                case 1:
+                    $this->app['notify']->customerInternal($message);
+                    break;
+                case 2:
+                    $this->app['notify']->affiliateInternal($message);
+                    break;
+                case 3:
+                    break;
+            endswitch;
+        endif;
+
+        /**
+         * Now that we've handled internal messaging, let's handle
+         * the email portion.
+         */
+        
+        if ($preference['email']):
+            // Let's wrap and format the email message. 
+            $message = $this->app['notify']->formatEmail($message, $type['recipient']);
+            // Send it baby!!
+            $this->app['notify']->send($message);
+        endif;
     }
     
     public function trigger($event, $data = array()) {

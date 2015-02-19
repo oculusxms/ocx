@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-picture-o"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-picture-o"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_name; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="name" value="<?= $name; ?>" class="form-control" autofocus>
 					<?php if ($error_name) { ?>
@@ -33,15 +33,15 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="status" class="form-control">
 						<?php if ($status) { ?>
-						<option value="1" selected><?= $text_enabled; ?></option>
-						<option value="0"><?= $text_disabled; ?></option>
+						<option value="1" selected><?= $lang_text_enabled; ?></option>
+						<option value="0"><?= $lang_text_disabled; ?></option>
 						<?php } else { ?>
-						<option value="1"><?= $text_enabled; ?></option>
-						<option value="0" selected><?= $text_disabled; ?></option>
+						<option value="1"><?= $lang_text_enabled; ?></option>
+						<option value="0" selected><?= $lang_text_disabled; ?></option>
 						<?php } ?>
 					</select>
 				</div>
@@ -49,9 +49,9 @@
 			<table id="images" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th class="col-sm-4"><?= $entry_title; ?></th>
-						<th><?= $entry_link; ?></th>
-						<th><?= $entry_image; ?></th>
+						<th class="col-sm-4"><?= $lang_entry_title; ?></th>
+						<th><?= $lang_entry_link; ?></th>
+						<th><?= $lang_entry_image; ?></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -71,11 +71,11 @@
 							<a class="pull-left" onclick="image_upload('image<?= $image_row; ?>','thumb<?= $image_row; ?>');"><img class="img-thumbnail" src="<?= $banner_image['thumb']; ?>" width="100" height="100" alt="" id="thumb<?= $image_row; ?>"></a>
 							<input type="hidden" name="banner_image[<?= $image_row; ?>][image]" value="<?= $banner_image['image']; ?>" id="image<?= $image_row; ?>">
 							<div class="media-body hidden-xs">
-								<a class="btn btn-default" onclick="image_upload('image<?= $image_row; ?>','thumb<?= $image_row; ?>');"><?= $text_browse; ?></a>
-								<a class="btn btn-default" onclick="$('#thumb<?= $image_row; ?>').attr('src', '<?= $no_image; ?>'); $('#image<?= $image_row; ?>').val('');"><?= $text_clear; ?></a>
+								<a class="btn btn-default" onclick="image_upload('image<?= $image_row; ?>','thumb<?= $image_row; ?>');"><?= $lang_text_browse; ?></a>
+								<a class="btn btn-default" onclick="$('#thumb<?= $image_row; ?>').attr('src', '<?= $no_image; ?>'); $('#image<?= $image_row; ?>').val('');"><?= $lang_text_clear; ?></a>
 							</div>
 						</div></td>
-						<td><a onclick="$('#image-row<?= $image_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+						<td><a onclick="$('#image-row<?= $image_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 					</tr>
 				<?php $image_row++; ?>
 				<?php } ?>
@@ -83,7 +83,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="3"></td>
-						<td><a onclick="addImage();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_add_banner; ?></span></a></td>
+						<td><a onclick="addImage();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_add_banner; ?></span></a></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -95,11 +95,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title"><?= $text_image_manager; ?></h4>
+				<h4 class="modal-title"><?= $lang_text_image_manager; ?></h4>
 			</div>
 			<div class="modal-body"></div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><?= $button_cancel; ?></button>
+				<button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><?= $lang_button_cancel; ?></button>
 			</div>
 		</div>
 	</div>

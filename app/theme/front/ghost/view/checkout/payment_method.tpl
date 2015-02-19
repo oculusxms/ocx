@@ -4,7 +4,7 @@
 		<div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a><?= $error_warning; ?></div>
 		<?php } ?>
 		<?php if ($payment_methods) { ?>
-		<h4><?= $text_payment_method; ?></h4>
+		<h4><?= $lang_text_payment_method; ?></h4>
 		<?php foreach ($payment_methods as $payment_method) { ?>
 			<div class="radio"><label><?php if ($payment_method['code'] == $code || !$code) { ?>
 				<?php $code = $payment_method['code']; ?>
@@ -17,8 +17,8 @@
 		<hr>
 		<?php } ?>
 		<div class="form-group">
-			<h5><?= $text_comments; ?></h5>
-			<textarea name="comment" rows="4" class="form-control" placeholder="<?= $text_comments; ?>" ><?= $comment; ?></textarea>
+			<h5><?= $lang_text_comments; ?></h5>
+			<textarea name="comment" rows="4" class="form-control" placeholder="<?= $lang_text_comments; ?>" ><?= $comment; ?></textarea>
 		</div>
 		<?php if ($text_agree) { ?>
 		<div class="alert alert-warning">
@@ -32,5 +32,5 @@
 	</form>
 </div>
 <div class="panel-footer text-right">
-	<button type="button" id="button-payment-method" class="btn btn-primary load-left"><?= $button_continue; ?></button>
+	<button type="button" id="button-payment-method" class="btn btn-primary load-left"><?= $lang_button_continue; ?></button>
 </div>

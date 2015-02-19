@@ -1,5 +1,5 @@
 <script>
-$('#post-comments').load('content/post/comment&post_id=<?php echo $post_id; ?>');
+$('#post-comments').load('content/post/comment&post_id=<?= $post_id; ?>');
 
 $(document).on('click', '#post-comments .pagination a', function(e) {
 	e.preventDefault();
@@ -12,7 +12,7 @@ $(document).on('click', '#post-comments .pagination a', function(e) {
 $(document).on('click', '#comment-send', function(e) {
 	e.preventDefault();
 	$.ajax({
-		url:'content/post/write&post_id=<?php echo $post_id; ?>',
+		url:'content/post/write&post_id=<?= $post_id; ?>',
 		type:'post',
 		dataType:'json',
 		data:$('#comment-form').serialize(),
@@ -26,7 +26,7 @@ $(document).on('click', '#comment-send', function(e) {
 				$('input[name="name"],input[name="email"],input[name="website"],textarea[name="text"],input[name="captcha"]').val('');
 				
 				$('#post-comments').fadeOut('slow', function() {
-					$('#post-comments').load('content/post/comment&post_id=<?php echo $post_id; ?>');
+					$('#post-comments').load('content/post/comment&post_id=<?= $post_id; ?>');
 					$('#post-comments').fadeIn('slow');
 				});
 			}

@@ -32,7 +32,7 @@ class Template extends LibraryService {
         endif;
     }
     
-    public function fetch($filename, $mail = true) {
+    public function fetch($filename) {
         $file = $this->path . $filename . '.tpl';
         
         if (is_readable($file)):
@@ -41,27 +41,9 @@ class Template extends LibraryService {
             require $file;
             $content = ob_get_clean();
             
-            if ($mail) return $this->wrap($content);
-            else return $content;
-        else:
-            trigger_error('Error: Could not load template ' . $file . '!');
-        endif;
-    }
-    
-    public function wrap($template) {
-        $file = parent::$app['theme']->path . 'view/mail/template.tpl';
-        
-        $data = parent::$app['language']->load('mail/template');
-        $data['content'] = $template;
-        
-        if (is_readable($file)):
-            extract($data);
-            ob_start();
-            require $file;
-            $content = ob_get_clean();
             return $content;
         else:
-            trigger_error('Error: Could not load main mail template ' . $file . '!');
+            trigger_error('Error: Could not load template ' . $file . '!');
         endif;
     }
 }

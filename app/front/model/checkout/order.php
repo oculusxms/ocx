@@ -158,7 +158,7 @@ class Order extends Model {
 			");
         }
         
-        $this->theme->trigger('order_add', array('order_id' => $order_id));
+        $this->theme->trigger('front_order_add', array('order_id' => $order_id));
         
         return $order_id;
     }
@@ -806,7 +806,7 @@ class Order extends Model {
                 }
             }
             
-            $this->theme->trigger('order_confirm', array('order_id' => $order_id));
+            $this->theme->trigger('front_order_confirm', array('order_id' => $order_id));
         }
     }
     
@@ -928,7 +928,7 @@ class Order extends Model {
     //             $mail->send();
             }
             
-            $this->theme->trigger('order_update', array('order_id' => $order_id));
+            $this->theme->trigger('front_order_update', array('order_id' => $order_id));
         }
     }
 }

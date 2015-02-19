@@ -90,9 +90,9 @@ class Search extends Controller {
         }
         
         if (isset($this->request->get['filter_name'])) {
-            $this->theme->setTitle($this->language->get('heading_title') . ' - ' . $this->request->get['filter_name']);
+            $this->theme->setTitle($this->language->get('lang_heading_title') . ' - ' . $this->request->get['filter_name']);
         } else {
-            $this->theme->setTitle($this->language->get('heading_title'));
+            $this->theme->setTitle($this->language->get('lang_heading_title'));
         }
         
         $url = '';
@@ -137,12 +137,12 @@ class Search extends Controller {
             $url.= '&limit=' . $this->request->get['limit'];
         }
         
-        $this->breadcrumb->add('heading_title', 'content/search', $url);
+        $this->breadcrumb->add('lang_heading_title', 'content/search', $url);
         
         if (isset($this->request->get['filter_name'])) {
-            $data['heading_title'] = $this->language->get('heading_title') . ' - ' . $this->request->get['filter_name'];
+            $data['heading_title'] = $this->language->get('lang_heading_title') . ' - ' . $this->request->get['filter_name'];
         } else {
-            $data['heading_title'] = $this->language->get('heading_title');
+            $data['heading_title'] = $this->language->get('lang_heading_title');
         }
         
         $this->theme->model('content/category');
@@ -189,7 +189,7 @@ class Search extends Controller {
                 
                 if ($categories) {
                     foreach ($categories as $category) {
-                        $posted_in[] = sprintf($this->language->get('text_posted_categories'), $category['href'], $category['name']);
+                        $posted_in[] = sprintf($this->language->get('lang_text_posted_categories'), $category['href'], $category['name']);
                     }
                 }
                 
@@ -197,9 +197,9 @@ class Search extends Controller {
                     $posted_in_categories = implode(", ", $posted_in);
                 endif;
                 
-                $comment_text = ($result['comments'] == 1) ? rtrim($this->language->get('text_comments'), 's') : $this->language->get('text_comments');
+                $comment_text = ($result['comments'] == 1) ? rtrim($this->language->get('lang_text_comments'), 's') : $this->language->get('lang_text_comments');
                 
-                $data['posts'][] = array('post_id' => $result['post_id'], 'author_name' => $result['author_name'], 'name' => $result['name'], 'blurb' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..', 'views' => sprintf($this->language->get('text_views'), (int)$result['viewed']), 'comments' => sprintf($comment_text, (int)$result['comments']), 'href' => $this->url->link('content/post', 'post_id=' . $result['post_id']), 'author_href' => $this->url->link('content/search', '&filter_author_id=' . $result['author_id']), 'date_added' => date($this->language->get('post_date'), strtotime($result['date_added'])), 'categories' => $posted_in_categories);
+                $data['posts'][] = array('post_id' => $result['post_id'], 'author_name' => $result['author_name'], 'name' => $result['name'], 'blurb' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..', 'views' => sprintf($this->language->get('lang_text_views'), (int)$result['viewed']), 'comments' => sprintf($comment_text, (int)$result['comments']), 'href' => $this->url->link('content/post', 'post_id=' . $result['post_id']), 'author_href' => $this->url->link('content/search', '&filter_author_id=' . $result['author_id']), 'date_added' => date($this->language->get('lang_post_date'), strtotime($result['date_added'])), 'categories' => $posted_in_categories);
             }
             
             $url = '';
@@ -232,7 +232,7 @@ class Search extends Controller {
                 $url.= '&limit=' . $this->request->get['limit'];
             }
             
-            $data['pagination'] = $this->theme->paginate($post_total, $page, $limit, $this->language->get('text_pagination'), $this->url->link('content/search', $url . '&page={page}'));
+            $data['pagination'] = $this->theme->paginate($post_total, $page, $limit, $this->language->get('lang_text_pagination'), $this->url->link('content/search', $url . '&page={page}'));
         }
         
         $data['filter_name'] = $filter_name;

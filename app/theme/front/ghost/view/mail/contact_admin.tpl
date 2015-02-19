@@ -11,17 +11,17 @@
 </table>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<?= $text_admin_message; ?><br><br>
+	<?= $lang_text_admin_message; ?><br><br>
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_name; ?></strong> <?= $name; ?>
+	<strong><?= $lang_text_name; ?></strong> <?= $name; ?>
 </p>
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_email; ?></strong> <?= $email; ?>
+	<strong><?= $lang_text_email; ?></strong> <?= $email; ?>
 </p>
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_enquiry; ?></strong><br /> <?= $enquiry; ?>
+	<strong><?= $lang_text_enquiry; ?></strong><br /> <?= $enquiry; ?>
 </p>
 
 <table class="emailSpacer" cellpadding="0" cellspacing="0" width="100%" style="width:100%; table-layout:fixed; border-collapse:separate;">

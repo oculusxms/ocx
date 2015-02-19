@@ -15,5 +15,5 @@
 */
 
 // Text
-$_['text_reward']   = 'Reward Points(%s)';
-$_['text_order_id'] = 'Order ID: #%s';
+$_['lang_text_reward']   = 'Reward Points(%s)';
+$_['lang_text_order_id'] = 'Order ID: #%s';

@@ -1,5 +1,5 @@
 <?php if ($testmode) { ?>
-<div class="alert alert-danger"><?= $text_testmode; ?></div>
+<div class="alert alert-danger"><?= $lang_text_testmode; ?></div>
 <?php } ?>
 <form action="<?= $action; ?>" method="post" id="paypal-standard">
 	<input type="hidden" name="cmd" value="_cart">

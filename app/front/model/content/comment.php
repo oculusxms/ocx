@@ -41,9 +41,9 @@ class Comment extends Model {
         $comment_id = $this->db->getLastId();
         
         if (!$this->config->get('blog_comment_require_approve')):
-            $this->theme->trigger('comment_add_approved', array('comment_id' => $comment_id));
+            $this->theme->trigger('front_comment_add_approved', array('comment_id' => $comment_id));
         else:
-            $this->theme->trigger('comment_add_unapproved', array('comment_id' => $comment_id));
+            $this->theme->trigger('front_comment_add_unapproved', array('comment_id' => $comment_id));
         endif;
     }
     

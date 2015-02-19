@@ -29,22 +29,22 @@ class Edit extends Controller {
         
         $data = $this->theme->language('account/edit');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('account/customer');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_account_customer->editCustomer($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->session->data['profile_complete'] = true;
             
             $this->response->redirect($this->url->link('account/dashboard', '', 'SSL'));
         }
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('text_edit', 'account/edit', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_edit', 'account/edit', null, true, 'SSL');
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -134,23 +134,23 @@ class Edit extends Controller {
     
     protected function validate() {
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if (($this->customer->getEmail() != $this->request->post['email']) && $this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_exists');
+            $this->error['warning'] = $this->language->get('lang_error_exists');
         }
         
         if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
+            $this->error['telephone'] = $this->language->get('lang_error_telephone');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

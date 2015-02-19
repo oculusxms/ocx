@@ -23,7 +23,7 @@ class Recurring extends Controller {
     
     public function index() {
         $this->theme->language('catalog/recurring');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/recurring');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -33,12 +33,12 @@ class Recurring extends Controller {
     
     public function add() {
         $this->theme->language('catalog/recurring');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/recurring');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_recurring->addRecurring($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -64,12 +64,12 @@ class Recurring extends Controller {
     
     public function edit() {
         $this->theme->language('catalog/recurring');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/recurring');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_recurring->editRecurring($this->request->get['recurring_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -95,7 +95,7 @@ class Recurring extends Controller {
     
     public function delete() {
         $this->theme->language('catalog/recurring');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/recurring');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -103,7 +103,7 @@ class Recurring extends Controller {
                 $this->model_catalog_recurring->deleteRecurring($recurring_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -129,7 +129,7 @@ class Recurring extends Controller {
     
     public function copy() {
         $this->theme->language('catalog/recurring');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/recurring');
         
         if (isset($this->request->post['selected']) && $this->validateCopy()) {
@@ -137,7 +137,7 @@ class Recurring extends Controller {
                 $this->model_catalog_recurring->copyRecurring($recurring_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -196,7 +196,7 @@ class Recurring extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/recurring');
+        $this->breadcrumb->add('lang_heading_title', 'catalog/recurring');
         
         $data['insert'] = $this->url->link('catalog/recurring/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['copy'] = $this->url->link('catalog/recurring/copy', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -259,7 +259,7 @@ class Recurring extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($recurring_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('catalog/recurring', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($recurring_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('catalog/recurring', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -300,7 +300,7 @@ class Recurring extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/recurring');
+        $this->breadcrumb->add('lang_heading_title', 'catalog/recurring');
         
         if (!isset($this->request->get['recurring_id'])) {
             $data['action'] = $this->url->link('catalog/recurring/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -338,15 +338,15 @@ class Recurring extends Controller {
         
         $data['frequencies'] = array();
         
-        $data['frequencies'][] = array('text' => $this->language->get('text_day'), 'value' => 'day');
+        $data['frequencies'][] = array('text' => $this->language->get('lang_text_day'), 'value' => 'day');
         
-        $data['frequencies'][] = array('text' => $this->language->get('text_week'), 'value' => 'week');
+        $data['frequencies'][] = array('text' => $this->language->get('lang_text_week'), 'value' => 'week');
         
-        $data['frequencies'][] = array('text' => $this->language->get('text_semi_month'), 'value' => 'semi_month');
+        $data['frequencies'][] = array('text' => $this->language->get('lang_text_semi_month'), 'value' => 'semi_month');
         
-        $data['frequencies'][] = array('text' => $this->language->get('text_month'), 'value' => 'month');
+        $data['frequencies'][] = array('text' => $this->language->get('lang_text_month'), 'value' => 'month');
         
-        $data['frequencies'][] = array('text' => $this->language->get('text_year'), 'value' => 'year');
+        $data['frequencies'][] = array('text' => $this->language->get('lang_text_year'), 'value' => 'year');
         
         if (isset($this->request->post['frequency'])) {
             $data['frequency'] = $this->request->post['frequency'];
@@ -438,17 +438,17 @@ class Recurring extends Controller {
         $this->theme->language('catalog/recurring');
         
         if (!$this->user->hasPermission('modify', 'catalog/recurring')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['recurring_description'] as $language_id => $value) {
             if (($this->encode->strlen($value['name']) < 3) || ($this->encode->strlen($value['name']) > 255)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
+                $this->error['name'][$language_id] = $this->language->get('lang_error_name');
             }
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -460,7 +460,7 @@ class Recurring extends Controller {
         $this->theme->language('catalog/recurring');
         
         if (!$this->user->hasPermission('modify', 'catalog/recurring')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('catalog/product');
@@ -469,7 +469,7 @@ class Recurring extends Controller {
             $product_total = $this->model_catalog_product->getTotalProductsByRcurringId($recurring_id);
             
             if ($product_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_product'), $product_total);
             }
         }
         
@@ -482,7 +482,7 @@ class Recurring extends Controller {
         $this->theme->language('catalog/recurring');
         
         if (!$this->user->hasPermission('modify', 'catalog/recurring')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

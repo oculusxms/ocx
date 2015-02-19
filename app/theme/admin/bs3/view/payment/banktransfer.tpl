@@ -12,12 +12,12 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-credit-card"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-credit-card"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
@@ -25,7 +25,7 @@
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<?php foreach ($languages as $language) { ?>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_bank; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_bank; ?></label>
 					<div class="control-field col-sm-4">
 						<div class="input-group">
 							<span class="input-group-addon"><span class="input-group-addon"><i class="lang-<?= str_replace('.png','', $language['image']); ?>" title="<?= $language['name']; ?>"></i></span></span>
@@ -38,13 +38,13 @@
 				</div>
 			<?php } ?>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="banktransfer_total"><?= $entry_total; ?></label>
+				<label class="control-label col-sm-2" for="banktransfer_total"><?= $lang_entry_total; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="banktransfer_total" value="<?= $banktransfer_total; ?>" id="banktransfer_total" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_order_status; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_order_status; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="banktransfer_order_status_id" class="form-control">
 						<?php foreach ($order_statuses as $order_status) { ?>
@@ -58,10 +58,10 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_geo_zone; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_geo_zone; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="banktransfer_geo_zone_id" class="form-control">
-						<option value="0"><?= $text_all_zones; ?></option>
+						<option value="0"><?= $lang_text_all_zones; ?></option>
 						<?php foreach ($geo_zones as $geo_zone) { ?>
 						<?php if ($geo_zone['geo_zone_id'] == $banktransfer_geo_zone_id) { ?>
 						<option value="<?= $geo_zone['geo_zone_id']; ?>" selected><?= $geo_zone['name']; ?></option>
@@ -73,21 +73,21 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="banktransfer_status" class="form-control">
 						<?php if ($banktransfer_status) { ?>
-						<option value="1" selected><?= $text_enabled; ?></option>
-						<option value="0"><?= $text_disabled; ?></option>
+						<option value="1" selected><?= $lang_text_enabled; ?></option>
+						<option value="0"><?= $lang_text_disabled; ?></option>
 						<?php } else { ?>
-						<option value="1"><?= $text_enabled; ?></option>
-						<option value="0" selected><?= $text_disabled; ?></option>
+						<option value="1"><?= $lang_text_enabled; ?></option>
+						<option value="0" selected><?= $lang_text_disabled; ?></option>
 						<?php } ?>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="banktransfer_sort_order"><?= $entry_sort_order; ?></label>
+				<label class="control-label col-sm-2" for="banktransfer_sort_order"><?= $lang_entry_sort_order; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="banktransfer_sort_order" value="<?= $banktransfer_sort_order; ?>" id="banktransfer_sort_order" class="form-control">
 				</div>

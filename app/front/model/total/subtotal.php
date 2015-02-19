@@ -29,7 +29,7 @@ class Subtotal extends Model {
             }
         }
         
-        $total_data[] = array('code' => 'subtotal', 'title' => $this->language->get('text_subtotal'), 'text' => $this->currency->format($sub_total), 'value' => $sub_total, 'sort_order' => $this->config->get('subtotal_sort_order'));
+        $total_data[] = array('code' => 'subtotal', 'title' => $this->language->get('lang_text_subtotal'), 'text' => $this->currency->format($sub_total), 'value' => $sub_total, 'sort_order' => $this->config->get('subtotal_sort_order'));
         
         $total+= $sub_total;
     }

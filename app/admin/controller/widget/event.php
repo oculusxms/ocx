@@ -23,12 +23,12 @@ class Event extends Controller {
     
     public function index() {
         $data = $this->theme->language('widget/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('event', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             $this->response->redirect($this->url->link('module/widget', 'token=' . $this->session->data['token'], 'SSL'));
         }
         
@@ -38,8 +38,8 @@ class Event extends Controller {
             $data['error_warning'] = '';
         }
         
-        $this->breadcrumb->add('text_widget', 'module/widget');
-        $this->breadcrumb->add('heading_title', 'widget/event');
+        $this->breadcrumb->add('lang_text_widget', 'module/widget');
+        $this->breadcrumb->add('lang_heading_title', 'widget/event');
         
         $data['action'] = $this->url->link('widget/event', 'token=' . $this->session->data['token'], 'SSL');
         $data['cancel'] = $this->url->link('module/widget', 'token=' . $this->session->data['token'], 'SSL');
@@ -67,7 +67,7 @@ class Event extends Controller {
     
     private function validate() {
         if (!$this->user->hasPermission('modify', 'widget/event')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         return !$this->error;

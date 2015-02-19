@@ -21,8 +21,6 @@ class Bloglatest extends Controller {
     public function index($setting) {
         $data = $this->theme->language('widget/bloglatest');
         
-        $data['heading_title'] = $this->language->get('heading_title');
-        
         $this->theme->model('content/post');
         $this->theme->model('tool/image');
         

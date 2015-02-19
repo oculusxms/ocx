@@ -9,12 +9,12 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-users"></i><?= $text_roster; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-users"></i><?= $lang_text_roster; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger">
-				<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_delete; ?></span></button>
+				<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_delete; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
@@ -22,21 +22,21 @@
 		<div class="row clearfix">
 			<div class="col-sm-6 col-sm-offset-3">
 				<div class="alert alert-info text-center">
-					<strong><?= $text_event_name; ?></strong> <?= $event_name; ?> 
-					<strong><?= $text_seats; ?></strong> <?= $seats; ?> 
-					<strong><?= $text_available; ?></strong> <span id="available"><?= $available; ?></span>
+					<strong><?= $lang_text_event_name; ?></strong> <?= $event_name; ?> 
+					<strong><?= $lang_text_seats; ?></strong> <?= $seats; ?> 
+					<strong><?= $lang_text_available; ?></strong> <span id="available"><?= $available; ?></span>
 				</div>
 				<div id="response-warning" class="alert alert-danger" style="display:none;"></div>
 				<div id="response-success" class="alert alert-success" style="display:none;"></div>
 				<div class="form-group">
-					<label class="control-label col-sm-3"><b class="required">*</b> <?= $entry_customers; ?></label>
+					<label class="control-label col-sm-3"><b class="required">*</b> <?= $lang_entry_customers; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="customer" value="" class="form-control">
 						<input type="hidden" name="attendee_id" value="">
 					</div>
 					<div class="col-sm-5">
-						<a id="add_attendee" class="btn btn-primary"><?= $button_add_attendee; ?></a>
-						<a id="add_waitlist" class="btn btn-info"><?= $button_add_waitlist; ?></a>
+						<a id="add_attendee" class="btn btn-primary"><?= $lang_button_add_attendee; ?></a>
+						<a id="add_waitlist" class="btn btn-info"><?= $lang_button_add_waitlist; ?></a>
 					</div>
 				</div>
 			</div>
@@ -47,8 +47,8 @@
 				<thead>
 					<tr>
 						<th width="40" class="text-center"><input type="checkbox" data-toggle="selected"></th>
-						<th><?= $column_attendee; ?></th>
-						<th class="text-right"><?= $column_date_added; ?></th>
+						<th><?= $lang_column_attendee; ?></th>
+						<th class="text-right"><?= $lang_column_date_added; ?></th>
 					</tr>
 				</thead>
 				<tbody id="roster">
@@ -64,7 +64,7 @@
 					<?php endforeach; ?>
 					<?php else: ?>
 					<tr>
-						<td class="text-center" colspan="3"><?= $text_no_attendees; ?></td>
+						<td class="text-center" colspan="3"><?= $lang_text_no_attendees; ?></td>
 					</tr>
 					<?php endif; ?>
 				</tbody>

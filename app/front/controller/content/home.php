@@ -64,9 +64,7 @@ class Home extends Controller {
             $this->theme->setOgType('article');
             $this->theme->setOgDescription(html_entity_decode($this->config->get('blog_meta_description'), ENT_QUOTES, 'UTF-8'));
             
-            $data['heading_title'] = $this->config->get('blog_title');
-            
-            $this->breadcrumb->add(sprintf($this->language->get('heading_title'), $this->config->get('config_name')), 'content/home');
+            $this->breadcrumb->add(sprintf($this->language->get('lang_heading_title'), $this->config->get('config_name')), 'content/home');
             
             $this->theme->model('content/post');
             $this->theme->model('content/category');
@@ -121,7 +119,7 @@ class Home extends Controller {
                 
                 if ($categories):
                     foreach ($categories as $category):
-                        $posted_in[] = sprintf($this->language->get('text_posted_categories'), $category['href'], $category['name']);
+                        $posted_in[] = sprintf($this->language->get('lang_text_posted_categories'), $category['href'], $category['name']);
                     endforeach;
                 endif;
                 
@@ -129,9 +127,9 @@ class Home extends Controller {
                     $posted_in_categories = implode(", ", $posted_in);
                 endif;
                 
-                $comment_text = ($post['comments'] == 1) ? rtrim($this->language->get('text_comments'), 's') : $this->language->get('text_comments');
+                $comment_text = ($post['comments'] == 1) ? rtrim($this->language->get('lang_text_comments'), 's') : $this->language->get('lang_text_comments');
                 
-                $data['posts'][] = array('post_id' => $post['post_id'], 'author_name' => $post['author_name'], 'thumb' => $image, 'name' => $post['name'], 'short' => $this->encode->substr(strip_tags(html_entity_decode($post['description'], ENT_QUOTES, 'UTF-8')), 0, 450) . '..', 'blurb' => $this->encode->substr(strip_tags(html_entity_decode($post['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..', 'rating' => $rating, 'views' => sprintf($this->language->get('text_views'), (int)$post['viewed']), 'comments' => sprintf($comment_text, (int)$post['comments']), 'href' => $this->url->link('content/post', 'post_id=' . $post['post_id']), 'comments_href' => $this->url->link('content/post', 'post_id=' . $post['post_id'] . '&to_comments=1'), 'author_href' => $this->url->link('content/search', '&filter_author_id=' . $post['author_id']), 'date_added' => date($this->language->get('post_date'), strtotime($post['date_added'])), 'categories' => $posted_in_categories);
+                $data['posts'][] = array('post_id' => $post['post_id'], 'author_name' => $post['author_name'], 'thumb' => $image, 'name' => $post['name'], 'short' => $this->encode->substr(strip_tags(html_entity_decode($post['description'], ENT_QUOTES, 'UTF-8')), 0, 450) . '..', 'blurb' => $this->encode->substr(strip_tags(html_entity_decode($post['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..', 'rating' => $rating, 'views' => sprintf($this->language->get('lang_text_views'), (int)$post['viewed']), 'comments' => sprintf($comment_text, (int)$post['comments']), 'href' => $this->url->link('content/post', 'post_id=' . $post['post_id']), 'comments_href' => $this->url->link('content/post', 'post_id=' . $post['post_id'] . '&to_comments=1'), 'author_href' => $this->url->link('content/search', '&filter_author_id=' . $post['author_id']), 'date_added' => date($this->language->get('lang_post_date'), strtotime($post['date_added'])), 'categories' => $posted_in_categories);
             endforeach;
                 
             $url = '';
@@ -148,7 +146,7 @@ class Home extends Controller {
                 $url.= '&limit=' . $this->request->get['limit'];
             endif;
             
-            $data['pagination'] = $this->theme->paginate($post_total, $page, $limit, $this->language->get('text_pagination'), $this->url->link('content/home', $url . '&page={page}'));
+            $data['pagination'] = $this->theme->paginate($post_total, $page, $limit, $this->language->get('lang_text_pagination'), $this->url->link('content/home', $url . '&page={page}'));
             
             $data['sort'] = $sort;
             $data['order'] = $order;

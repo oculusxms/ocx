@@ -15,7 +15,7 @@
 */
 
 // Heading
-$_['heading_title'] = 'Featured';
+$_['lang_heading_title'] = 'Featured';
 
 // Text
-$_['text_reviews']  = 'Based on %s reviews.';
+$_['lang_text_reviews']  = 'Based on %s reviews.';

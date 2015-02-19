@@ -35,15 +35,19 @@ class Header extends Controller {
             $data['error'] = '';
         }
         
-        $this->css->register('ocx')->register('plugin', 'ocx')->register('blog', 'plugin')->register('calendar', 'blog')->register('video', 'calendar', true);
+        $this->css->register('ocx')
+            ->register('plugin', 'ocx')
+            ->register('blog', 'plugin')
+            ->register('calendar', 'blog')
+            ->register('video', 'calendar', true);
         
-        $data['base'] = $server;
+        $data['base']        = $server;
         $data['description'] = $this->theme->getDescription();
-        $data['keywords'] = $this->theme->getKeywords();
-        $data['links'] = $this->theme->getLinks();
-        $data['lang'] = $this->language->get('code');
-        $data['direction'] = $this->language->get('direction');
-        $data['name'] = $this->config->get('config_name');
+        $data['keywords']    = $this->theme->getKeywords();
+        $data['links']       = $this->theme->getLinks();
+        $data['lang']        = $this->language->get('lang_code');
+        $data['direction']   = $this->language->get('lang_direction');
+        $data['name']        = $this->config->get('config_name');
         
         if ($this->config->get('config_icon') && file_exists($this->app['path.image'] . $this->config->get('config_icon'))) {
             $data['icon'] = $server . 'image/' . $this->config->get('config_icon');
@@ -98,20 +102,20 @@ class Header extends Controller {
         
         $data = $this->theme->language('content/header', $data);
         
-        $data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
-        $data['text_welcome'] = sprintf($this->language->get('text_welcome'), $this->url->link('account/login', '', 'SSL'), $this->url->link('account/register', '', 'SSL'));
-        $data['text_logged'] = sprintf($this->language->get('text_logged'), $this->url->link('account/dashboard', '', 'SSL'), $this->customer->getFirstName(), $this->url->link('account/logout', '', 'SSL'));
+        $data['text_wishlist'] = sprintf($this->language->get('lang_text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
+        $data['text_welcome'] = sprintf($this->language->get('lang_text_welcome'), $this->url->link('account/login', '', 'SSL'), $this->url->link('account/register', '', 'SSL'));
+        $data['text_logged'] = sprintf($this->language->get('lang_text_logged'), $this->url->link('account/dashboard', '', 'SSL'), $this->customer->getFirstName(), $this->url->link('account/logout', '', 'SSL'));
         
         if ($this->theme->style === 'shop'):
             $data['home'] = $this->url->link('shop/home');
             $data['alternate'] = $this->url->link('content/home');
-            $data['text_alternate'] = $this->language->get('text_blog');
-            $data['text_nav'] = $this->language->get('nav_blog');
+            $data['text_alternate'] = $this->language->get('lang_text_blog');
+            $data['text_nav'] = $this->language->get('lang_nav_blog');
         else:
             $data['home'] = $this->url->link('content/home');
             $data['alternate'] = $this->url->link('shop/home');
-            $data['text_alternate'] = $this->language->get('text_shop');
-            $data['text_nav'] = $this->language->get('nav_shop');
+            $data['text_alternate'] = $this->language->get('lang_text_shop');
+            $data['text_nav'] = $this->language->get('lang_nav_shop');
         endif;
         
         $data['blog_link'] = false;

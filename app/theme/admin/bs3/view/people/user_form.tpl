@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-user"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-user"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_username; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_username; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="username" value="<?= $username; ?>" class="form-control" autofocus>
 					<?php if ($error_username) { ?>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_firstname; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_firstname; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="firstname" value="<?= $firstname; ?>" class="form-control">
 					<?php if ($error_firstname) { ?>
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_lastname; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_lastname; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="lastname" value="<?= $lastname; ?>" class="form-control">
 					<?php if ($error_lastname) { ?>
@@ -51,13 +51,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_email; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_email; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="email" value="<?= $email; ?>" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_user_group; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_user_group; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="user_group_id" class="form-control">
 						<?php foreach ($user_groups as $user_group) { ?>
@@ -71,7 +71,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_password; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_password; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="password" name="password" value="<?= $password; ?>" class="form-control">
 					<?php if ($error_password) { ?>
@@ -80,7 +80,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_confirm; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_confirm; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="password" name="confirm" value="<?= $confirm; ?>" class="form-control">
 					<?php if ($error_confirm) { ?>
@@ -89,15 +89,15 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="status" class="form-control">
 						<?php if ($status) { ?>
-						<option value="0"><?= $text_disabled; ?></option>
-						<option value="1" selected><?= $text_enabled; ?></option>
+						<option value="0"><?= $lang_text_disabled; ?></option>
+						<option value="1" selected><?= $lang_text_enabled; ?></option>
 						<?php } else { ?>
-						<option value="0" selected><?= $text_disabled; ?></option>
-						<option value="1"><?= $text_enabled; ?></option>
+						<option value="0" selected><?= $lang_text_disabled; ?></option>
+						<option value="1"><?= $lang_text_enabled; ?></option>
 						<?php } ?>
 					</select>
 				</div>

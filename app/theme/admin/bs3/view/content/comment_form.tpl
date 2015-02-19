@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-leaf"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-leaf"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_author; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_author; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="author" value="<?= $author; ?>" class="form-control">
 					<?php if ($error_author): ?>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_post; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_post; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="post" value="<?= $post; ?>" class="form-control" data-target="name" autocomplete="off">
 					<input type="hidden" name="post_id" value="<?= $post_id; ?>">
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_text; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_text; ?></label>
 				<div class="control-field col-sm-8">
 					<textarea name="text" class="form-control summernote" rows="6"><?= $text; ?></textarea>
 					<?php if ($error_text): ?>
@@ -53,9 +53,9 @@
 			</div>
 			
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_rating; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_rating; ?></label>
 				<div class="control-field col-sm-4">
-					<label class="label label-danger" style="margin-right: 10px;"><?= $entry_bad; ?></label>
+					<label class="label label-danger" style="margin-right: 10px;"><?= $lang_entry_bad; ?></label>
 					<?php for ($i = 1; $i < 6; $i++): ?>
 						<label class="radio-inline" style="margin-bottom:12px;">
 							<?php if ($rating == $i): ?>
@@ -65,20 +65,20 @@
 							<?php endif; ?>
 						</label>
 					<?php endfor; ?>
-					<label class="label label-success"><?= $entry_good; ?></label>
+					<label class="label label-success"><?= $lang_entry_good; ?></label>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="status" class="form-control">
 						<?php if ($status): ?>
-						<option value="1" selected="selected"><?= $text_enabled; ?></option>
-						<option value="0"><?= $text_disabled; ?></option>
+						<option value="1" selected="selected"><?= $lang_text_enabled; ?></option>
+						<option value="0"><?= $lang_text_disabled; ?></option>
 						<?php else: ?>
-						<option value="1"><?= $text_enabled; ?></option>
-						<option value="0" selected="selected"><?= $text_disabled; ?></option>
+						<option value="1"><?= $lang_text_enabled; ?></option>
+						<option value="0" selected="selected"><?= $lang_text_disabled; ?></option>
 						<?php endif; ?>
 					</select>
 				</div>

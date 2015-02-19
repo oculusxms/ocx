@@ -22,12 +22,12 @@ class Propf extends Controller {
     
     public function index() {
         $data = $this->theme->language('payment/propf');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('propf', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/payment', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -62,8 +62,8 @@ class Propf extends Controller {
             $data['error_partner'] = '';
         }
         
-        $this->breadcrumb->add('text_payment', 'module/payment');
-        $this->breadcrumb->add('heading_title', 'payment/pppropf');
+        $this->breadcrumb->add('lang_text_payment', 'module/payment');
+        $this->breadcrumb->add('lang_heading_title', 'payment/pppropf');
         
         $data['action'] = $this->url->link('payment/pppropf', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -154,23 +154,23 @@ class Propf extends Controller {
     
     private function validate() {
         if (!$this->user->hasPermission('modify', 'payment/pppropf')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['propf_vendor']) {
-            $this->error['vendor'] = $this->language->get('error_vendor');
+            $this->error['vendor'] = $this->language->get('lang_error_vendor');
         }
         
         if (!$this->request->post['propf_user']) {
-            $this->error['user'] = $this->language->get('error_user');
+            $this->error['user'] = $this->language->get('lang_error_user');
         }
         
         if (!$this->request->post['propf_password']) {
-            $this->error['password'] = $this->language->get('error_password');
+            $this->error['password'] = $this->language->get('lang_error_password');
         }
         
         if (!$this->request->post['propf_partner']) {
-            $this->error['partner'] = $this->language->get('error_partner');
+            $this->error['partner'] = $this->language->get('lang_error_partner');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

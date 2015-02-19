@@ -24,24 +24,24 @@ class Voucher extends Controller {
     public function index() {
         $data = $this->theme->language('account/voucher');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (!isset($this->session->data['vouchers'])) {
             $this->session->data['vouchers'] = array();
         }
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->session->data['vouchers'][mt_rand() ] = array('description' => sprintf($this->language->get('text_for'), $this->currency->format($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency'))), $this->request->post['to_name']), 'to_name' => $this->request->post['to_name'], 'to_email' => $this->request->post['to_email'], 'from_name' => $this->request->post['from_name'], 'from_email' => $this->request->post['from_email'], 'voucher_theme_id' => $this->request->post['voucher_theme_id'], 'message' => $this->request->post['message'], 'amount' => $this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')));
+            $this->session->data['vouchers'][mt_rand() ] = array('description' => sprintf($this->language->get('lang_text_for'), $this->currency->format($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency'))), $this->request->post['to_name']), 'to_name' => $this->request->post['to_name'], 'to_email' => $this->request->post['to_email'], 'from_name' => $this->request->post['from_name'], 'from_email' => $this->request->post['from_email'], 'voucher_theme_id' => $this->request->post['voucher_theme_id'], 'message' => $this->request->post['message'], 'amount' => $this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')));
             
             $this->response->redirect($this->url->link('account/voucher/success'));
         }
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('text_voucher', 'account/voucher', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_voucher', 'account/voucher', null, true, 'SSL');
         
-        $data['entry_amount'] = sprintf($this->language->get('entry_amount'), $this->currency->format($this->config->get('config_voucher_min')), $this->currency->format($this->config->get('config_voucher_max')));
+        $data['entry_amount'] = sprintf($this->language->get('lang_entry_amount'), $this->currency->format($this->config->get('config_voucher_min')), $this->currency->format($this->config->get('config_voucher_max')));
         
-        $data['button_continue'] = $this->language->get('button_continue');
+        $data['button_continue'] = $this->language->get('lang_button_continue');
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -156,9 +156,9 @@ class Voucher extends Controller {
     public function success() {
         $data = $this->theme->language('account/voucher');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('heading_title', 'account/voucher', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/voucher', null, true, 'SSL');
         
         $data['continue'] = $this->url->link('checkout/cart');
         
@@ -174,31 +174,31 @@ class Voucher extends Controller {
     
     protected function validate() {
         if (($this->encode->strlen($this->request->post['to_name']) < 1) || ($this->encode->strlen($this->request->post['to_name']) > 64)) {
-            $this->error['to_name'] = $this->language->get('error_to_name');
+            $this->error['to_name'] = $this->language->get('lang_error_to_name');
         }
         
         if (($this->encode->strlen($this->request->post['to_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['to_email'])) {
-            $this->error['to_email'] = $this->language->get('error_email');
+            $this->error['to_email'] = $this->language->get('lang_error_email');
         }
         
         if (($this->encode->strlen($this->request->post['from_name']) < 1) || ($this->encode->strlen($this->request->post['from_name']) > 64)) {
-            $this->error['from_name'] = $this->language->get('error_from_name');
+            $this->error['from_name'] = $this->language->get('lang_error_from_name');
         }
         
         if (($this->encode->strlen($this->request->post['from_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['from_email'])) {
-            $this->error['from_email'] = $this->language->get('error_email');
+            $this->error['from_email'] = $this->language->get('lang_error_email');
         }
         
         if (!isset($this->request->post['voucher_theme_id'])) {
-            $this->error['theme'] = $this->language->get('error_theme');
+            $this->error['theme'] = $this->language->get('lang_error_theme');
         }
         
         if (($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')) < $this->config->get('config_voucher_min')) || ($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')) > $this->config->get('config_voucher_max'))) {
-            $this->error['amount'] = sprintf($this->language->get('error_amount'), $this->currency->format($this->config->get('config_voucher_min')), $this->currency->format($this->config->get('config_voucher_max')) . ' ' . $this->currency->getCode());
+            $this->error['amount'] = sprintf($this->language->get('lang_error_amount'), $this->currency->format($this->config->get('config_voucher_min')), $this->currency->format($this->config->get('config_voucher_max')) . ' ' . $this->currency->getCode());
         }
         
         if (!isset($this->request->post['agree'])) {
-            $this->error['warning'] = $this->language->get('error_agree');
+            $this->error['warning'] = $this->language->get('lang_error_agree');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

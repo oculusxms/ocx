@@ -376,30 +376,30 @@ class Paypalexpress extends Controller {
         // Coupon
         if (isset($this->request->post['coupon']) && $this->validateCoupon()) {
             $this->session->data['coupon'] = $this->request->post['coupon'];
-            $this->session->data['success'] = $this->language->get('text_coupon');
+            $this->session->data['success'] = $this->language->get('lang_text_coupon');
             $this->response->redirect($this->url->link('payment/paypalexpress/expressConfirm', '', 'SSL'));
         }
         
         // Voucher
         if (isset($this->request->post['voucher']) && $this->validateVoucher()) {
             $this->session->data['voucher'] = $this->request->post['voucher'];
-            $this->session->data['success'] = $this->language->get('text_voucher');
+            $this->session->data['success'] = $this->language->get('lang_text_voucher');
             $this->response->redirect($this->url->link('payment/paypalexpress/expressConfirm', '', 'SSL'));
         }
         
         // Reward
         if (isset($this->request->post['reward']) && $this->validateReward()) {
             $this->session->data['reward'] = abs($this->request->post['reward']);
-            $this->session->data['success'] = $this->language->get('text_reward');
+            $this->session->data['success'] = $this->language->get('lang_text_reward');
             $this->response->redirect($this->url->link('payment/paypalexpress/expressConfirm', '', 'SSL'));
         }
         
-        $this->theme->setTitle($this->language->get('express_text_title'));
+        $this->theme->setTitle($this->language->get('lang_express_text_title'));
         
-        $data['heading_title'] = $this->language->get('express_text_title');
+        $data['heading_title'] = $this->language->get('lang_express_text_title');
         
-        $this->breadcrumb->add('text_title', 'payment/paypalexpress/express', '', true, 'SSL');
-        $this->breadcrumb->add('express_text_title', 'payment/paypalexpress/expressConfirm', '', true, 'SSL');
+        $this->breadcrumb->add('lang_text_title', 'payment/paypalexpress/express', '', true, 'SSL');
+        $this->breadcrumb->add('lang_express_text_title', 'payment/paypalexpress/expressConfirm', '', true, 'SSL');
         
         $points_total = 0;
         
@@ -409,8 +409,8 @@ class Paypalexpress extends Controller {
             }
         }
         
-        $data['button_shipping'] = $this->language->get('express_button_shipping');
-        $data['button_confirm'] = $this->language->get('express_button_confirm');
+        $data['button_shipping'] = $this->language->get('lang_express_button_shipping');
+        $data['button_confirm'] = $this->language->get('lang_express_button_confirm');
         
         if (isset($this->request->post['next'])) {
             $data['next'] = $this->request->post['next'];
@@ -432,7 +432,7 @@ class Paypalexpress extends Controller {
             }
             
             if ($product['minimum'] > $product_total) {
-                $data['error_warning'] = sprintf($this->language->get('error_minimum'), $product['name'], $product['minimum']);
+                $data['error_warning'] = sprintf($this->language->get('lang_error_minimum'), $product['name'], $product['minimum']);
             }
             
             if ($product['image']) {
@@ -472,23 +472,23 @@ class Paypalexpress extends Controller {
             $recurring_description = '';
             
             if ($product['recurring']) {
-                $frequencies = array('day' => $this->language->get('text_day'), 'week' => $this->language->get('text_week'), 'semi_month' => $this->language->get('text_semi_month'), 'month' => $this->language->get('text_month'), 'year' => $this->language->get('text_year'),);
+                $frequencies = array('day' => $this->language->get('lang_text_day'), 'week' => $this->language->get('lang_text_week'), 'semi_month' => $this->language->get('lang_text_semi_month'), 'month' => $this->language->get('lang_text_month'), 'year' => $this->language->get('lang_text_year'),);
                 
                 if ($product['recurring']['trial']) {
                     $recurring_price = $this->currency->format($this->tax->calculate($product['recurring']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')));
-                    $recurring_description = sprintf($this->language->get('text_trial_description'), $recurring_price, $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
+                    $recurring_description = sprintf($this->language->get('lang_text_trial_description'), $recurring_price, $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
                 }
                 
                 $recurring_price = $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')));
                 
                 if ($product['recurring']['duration']) {
-                    $recurring_description.= sprintf($this->language->get('text_payment_description'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+                    $recurring_description.= sprintf($this->language->get('lang_text_payment_description'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
                 } else {
-                    $recurring_description.= sprintf($this->language->get('text_payment_until_canceled_description'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+                    $recurring_description.= sprintf($this->language->get('lang_text_payment_until_canceled_description'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
                 }
             }
             
-            $data['products'][] = array('key' => $product['key'], 'thumb' => $image, 'name' => $product['name'], 'model' => $product['model'], 'option' => $option_data, 'quantity' => $product['quantity'], 'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')), 'reward' => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''), 'price' => $price, 'total' => $total, 'href' => $this->url->link('product/product', 'product_id=' . $product['product_id']), 'remove' => $this->url->link('checkout/cart', 'remove=' . $product['key']), 'recurring' => $product['recurring'], 'recurring_name' => (isset($product['recurring']['recurring_name']) ? $product['recurring']['recurring_name'] : ''), 'recurring_description' => $recurring_description);
+            $data['products'][] = array('key' => $product['key'], 'thumb' => $image, 'name' => $product['name'], 'model' => $product['model'], 'option' => $option_data, 'quantity' => $product['quantity'], 'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')), 'reward' => ($product['reward'] ? sprintf($this->language->get('lang_text_points'), $product['reward']) : ''), 'price' => $price, 'total' => $total, 'href' => $this->url->link('product/product', 'product_id=' . $product['product_id']), 'remove' => $this->url->link('checkout/cart', 'remove=' . $product['key']), 'recurring' => $product['recurring'], 'recurring_name' => (isset($product['recurring']['recurring_name']) ? $product['recurring']['recurring_name'] : ''), 'recurring_description' => $recurring_description);
         }
         
         $data['vouchers'] = array();
@@ -554,12 +554,12 @@ class Paypalexpress extends Controller {
                     } else {
                         unset($this->session->data['shipping_methods']);
                         unset($this->session->data['shipping_method']);
-                        $data['error_no_shipping'] = $this->language->get('error_no_shipping');
+                        $data['error_no_shipping'] = $this->language->get('lang_error_no_shipping');
                     }
                 } else {
                     unset($this->session->data['shipping_methods']);
                     unset($this->session->data['shipping_method']);
-                    $data['error_no_shipping'] = $this->language->get('error_no_shipping');
+                    $data['error_no_shipping'] = $this->language->get('lang_error_no_shipping');
                 }
             }
         } else {
@@ -1059,7 +1059,7 @@ class Paypalexpress extends Controller {
                             $data_trial = array('TRIALBILLINGPERIOD' => $billing_period[$item['recurring']['trial_frequency']], 'TRIALBILLINGFREQUENCY' => $item['recurring']['trial_cycle'], 'TRIALTOTALBILLINGCYCLES' => $item['recurring']['trial_duration'], 'TRIALAMT' => $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity']);
                             
                             $trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'] . ' ' . $this->currency->getCode();
-                            $trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
+                            $trial_text = sprintf($this->language->get('lang_text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
                             
                             $data = array_merge($data, $data_trial);
                         } else {
@@ -1067,10 +1067,10 @@ class Paypalexpress extends Controller {
                         }
                         
                         $recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'] . ' ' . $this->currency->getCode();
-                        $recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
+                        $recurring_description = $trial_text . sprintf($this->language->get('lang_text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
                         
                         if ($item['recurring']['duration'] > 0) {
-                            $recurring_description.= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
+                            $recurring_description.= sprintf($this->language->get('lang_text_length'), $item['recurring']['duration']);
                         }
                         
                         //create new recurring and set to pending status as no payment has been made yet.
@@ -1105,7 +1105,7 @@ class Paypalexpress extends Controller {
                         
                         if ($this->session->data['paypal_redirect_count'] == 2) {
                             $this->session->data['paypal_redirect_count'] = 0;
-                            $this->session->data['error'] = $this->language->get('error_too_many_failures');
+                            $this->session->data['error'] = $this->language->get('lang_error_too_many_failures');
                             $this->response->redirect($this->url->link('checkout/checkout', '', 'SSL'));
                         } else {
                             $this->session->data['paypal_redirect_count']++;
@@ -1277,7 +1277,7 @@ class Paypalexpress extends Controller {
                         $data_trial = array('TRIALBILLINGPERIOD' => $billing_period[$item['recurring']['trial_frequency']], 'TRIALBILLINGFREQUENCY' => $item['recurring']['trial_cycle'], 'TRIALTOTALBILLINGCYCLES' => $item['recurring']['trial_duration'], 'TRIALAMT' => $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity']);
                         
                         $trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'] . ' ' . $this->currency->getCode();
-                        $trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
+                        $trial_text = sprintf($this->language->get('lang_text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
                         
                         $data = array_merge($data, $data_trial);
                     } else {
@@ -1285,10 +1285,10 @@ class Paypalexpress extends Controller {
                     }
                     
                     $recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'] . ' ' . $this->currency->getCode();
-                    $recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
+                    $recurring_description = $trial_text . sprintf($this->language->get('lang_text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
                     
                     if ($item['recurring']['duration'] > 0) {
-                        $recurring_description.= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
+                        $recurring_description.= sprintf($this->language->get('lang_text_length'), $item['recurring']['duration']);
                     }
                     
                     //create new recurring and set to pending status as no payment has been made yet.
@@ -1324,7 +1324,7 @@ class Paypalexpress extends Controller {
                     
                     if ($this->session->data['paypal_redirect_count'] == 2) {
                         $this->session->data['paypal_redirect_count'] = 0;
-                        $this->session->data['error'] = $this->language->get('error_too_many_failures');
+                        $this->session->data['error'] = $this->language->get('lang_error_too_many_failures');
                         
                         $this->response->redirect($this->url->link('checkout/checkout', '', 'SSL'));
                     } else {
@@ -1341,9 +1341,9 @@ class Paypalexpress extends Controller {
                 }
             }
             
-            $this->breadcrumb->add('text_cart', 'checkout/cart', '', true, 'SSL');
+            $this->breadcrumb->add('lang_text_cart', 'checkout/cart', '', true, 'SSL');
             
-            $data['heading_title'] = $this->language->get('error_heading_title');
+            $data['heading_title'] = $this->language->get('lang_error_heading_title');
             
             $data['text_error'] = '<div class="alert alert-danger">' . $result['L_ERRORCODE0'] . ' : ' . $result['L_LONGMESSAGE0'] . '</div>';
             
@@ -1593,17 +1593,17 @@ class Paypalexpress extends Controller {
         $this->theme->language('payment/paypalexpress');
         
         if (empty($code)) {
-            $this->session->data['error_warning'] = $this->language->get('error_shipping');
+            $this->session->data['error_warning'] = $this->language->get('lang_error_shipping');
             return false;
         } else {
             $shipping = explode('.', $code);
             
             if (!isset($shipping[0]) || !isset($shipping[1]) || !isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
-                $this->session->data['error_warning'] = $this->language->get('error_shipping');
+                $this->session->data['error_warning'] = $this->language->get('lang_error_shipping');
                 return false;
             } else {
                 $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
-                $this->session->data['success'] = $this->language->get('text_shipping_updated');
+                $this->session->data['success'] = $this->language->get('lang_text_shipping_updated');
                 return true;
             }
         }
@@ -1638,12 +1638,12 @@ class Paypalexpress extends Controller {
 					WHERE `order_recurring_id` = '" . (int)$recur['order_recurring_id'] . "' 
 					LIMIT 1");
                 
-                $this->session->data['success'] = $this->language->get('text_cancelled');
+                $this->session->data['success'] = $this->language->get('lang_text_cancelled');
             } else {
-                $this->session->data['error'] = sprintf($this->language->get('error_not_cancelled'), $result['L_LONGMESSAGE0']);
+                $this->session->data['error'] = sprintf($this->language->get('lang_error_not_cancelled'), $result['L_LONGMESSAGE0']);
             }
         } else {
-            $this->session->data['error'] = $this->language->get('error_not_found');
+            $this->session->data['error'] = $this->language->get('lang_error_not_found');
         }
         
         $this->response->redirect($this->url->link('account/recurring/info', 'recurring_id=' . $this->request->get['recurring_id'], 'SSL'));
@@ -1657,7 +1657,7 @@ class Paypalexpress extends Controller {
         $error = '';
         
         if (!$coupon_info) {
-            $error = $this->language->get('error_coupon');
+            $error = $this->language->get('lang_error_coupon');
         }
         
         if (!$error) {
@@ -1676,13 +1676,13 @@ class Paypalexpress extends Controller {
         $error = '';
         
         if (!$voucher_info) {
-            $error = $this->language->get('error_voucher');
+            $error = $this->language->get('lang_error_voucher');
         }
         
         if (!$error) {
             return true;
         } else {
-            $this->session->data['error_warning'] = $this->language->get('error_voucher');;
+            $this->session->data['error_warning'] = $this->language->get('lang_error_voucher');;
             return false;
         }
     }
@@ -1701,15 +1701,15 @@ class Paypalexpress extends Controller {
         $error = '';
         
         if (empty($this->request->post['reward'])) {
-            $error = $this->language->get('error_reward');
+            $error = $this->language->get('lang_error_reward');
         }
         
         if ($this->request->post['reward'] > $points) {
-            $error = sprintf($this->language->get('error_points'), $this->request->post['reward']);
+            $error = sprintf($this->language->get('lang_error_points'), $this->request->post['reward']);
         }
         
         if ($this->request->post['reward'] > $points_total) {
-            $error = sprintf($this->language->get('error_maximum'), $points_total);
+            $error = sprintf($this->language->get('lang_error_maximum'), $points_total);
         }
         
         if (!$error) {
@@ -1728,10 +1728,10 @@ class Paypalexpress extends Controller {
         $data['buttons'] = array();
         
         if ($recur['status'] == 2 || $recur['status'] == 3) {
-            $data['buttons'][] = array('text' => $this->language->get('button_cancel_recurring'), 'link' => $this->url->link('payment/paypalexpress/recurringCancel', 'recurring_id=' . $this->request->get['recurring_id'], 'SSL'));
+            $data['buttons'][] = array('text' => $this->language->get('lang_button_cancel_recurring'), 'link' => $this->url->link('payment/paypalexpress/recurringCancel', 'recurring_id=' . $this->request->get['recurring_id'], 'SSL'));
         }
         
-        $data['buttons'][] = array('text' => $this->language->get('button_continue'), 'link' => $this->url->link('account/recurring', '', 'SSL'));
+        $data['buttons'][] = array('text' => $this->language->get('lang_button_continue'), 'link' => $this->url->link('account/recurring', '', 'SSL'));
         
         return $this->theme->view('common/buttons', $data);
     }

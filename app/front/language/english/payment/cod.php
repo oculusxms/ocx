@@ -15,4 +15,4 @@
 */
 
 // Text
-$_['text_title'] = 'Cash On Delivery';
+$_['lang_text_title'] = 'Cash On Delivery';

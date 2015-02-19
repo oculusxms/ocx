@@ -23,7 +23,7 @@ class Profile extends Controller {
     public function index() {
         $this->language->load('catalog/profile');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/profile');
         
@@ -36,12 +36,12 @@ class Profile extends Controller {
         $this->language->load('catalog/profile');
         $this->theme->model('catalog/profile');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_profile->addProfile($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('catalog/profile', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -55,12 +55,12 @@ class Profile extends Controller {
         $this->language->load('catalog/profile');
         $this->theme->model('catalog/profile');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_profile->updateProfile($this->request->get['profile_id'], $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('catalog/profile', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -73,7 +73,7 @@ class Profile extends Controller {
     public function delete() {
         $this->language->load('catalog/profile');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/profile');
         
@@ -82,7 +82,7 @@ class Profile extends Controller {
                 $this->model_catalog_profile->deleteProfile($profile_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('catalog/profile', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -95,7 +95,7 @@ class Profile extends Controller {
     public function copy() {
         $this->language->load('catalog/profile');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/profile');
         
@@ -104,7 +104,7 @@ class Profile extends Controller {
                 $this->model_catalog_profile->copyProfile($profile_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('catalog/profile', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -117,7 +117,7 @@ class Profile extends Controller {
     protected function getList() {
         $data = $this->theme->language('catalog/profile');
         
-        $this->breadcrumb->add('heading_title', 'catalog/profile');
+        $this->breadcrumb->add('lang_heading_title', 'catalog/profile');
         
         $data['profiles'] = array();
         
@@ -126,7 +126,7 @@ class Profile extends Controller {
         foreach ($profiles as $profile) {
             $action = array();
             
-            $action[] = array('href' => $this->url->link('catalog/profile/update', 'token=' . $this->session->data['token'] . '&profile_id=' . $profile['profile_id'], 'SSL'), 'name' => $this->language->get('text_edit'),);
+            $action[] = array('href' => $this->url->link('catalog/profile/update', 'token=' . $this->session->data['token'] . '&profile_id=' . $profile['profile_id'], 'SSL'), 'name' => $this->language->get('lang_text_edit'),);
             
             $data['profiles'][] = array('profile_id' => $profile['profile_id'], 'name' => $profile['name'], 'sort_order' => $profile['sort_order'], 'action' => $action,);
         }
@@ -163,9 +163,7 @@ class Profile extends Controller {
         
         $this->theme->model('localization/language');
         
-        $data['heading_title'] = $this->language->get('heading_title');
-        
-        $this->breadcrumb->add('heading_title', 'catalog/profile');
+        $this->breadcrumb->add('lang_heading_title', 'catalog/profile');
         
         if (!isset($this->request->get['profile_id'])) {
             $data['action'] = $this->url->link('catalog/profile/insert', 'token=' . $this->session->data['token'], 'SSL');
@@ -303,17 +301,17 @@ class Profile extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/profile')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['profile_description'] as $language_id => $value) {
             if (($this->encode->strlen($value['name']) < 3) || ($this->encode->strlen($value['name']) > 255)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
+                $this->error['name'][$language_id] = $this->language->get('lang_error_name');
             }
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -323,7 +321,7 @@ class Profile extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'catalog/profile')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -333,7 +331,7 @@ class Profile extends Controller {
     
     protected function validateCopy() {
         if (!$this->user->hasPermission('modify', 'catalog/profile')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

@@ -1,10 +1,10 @@
 <table class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th><?= $column_date_added; ?></th>
-			<th class="col-sm-9"><?= $column_comment; ?></th>
-			<th><?= $column_status; ?></th>
-			<th><?= $column_notify; ?></th>
+			<th><?= $lang_column_date_added; ?></th>
+			<th class="col-sm-9"><?= $lang_column_comment; ?></th>
+			<th><?= $lang_column_status; ?></th>
+			<th><?= $lang_column_notify; ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,7 +19,7 @@
 		<?php } ?>
 		<?php } else { ?>
 		<tr>
-			<td class="text-center" colspan="4"><?= $text_no_results; ?></td>
+			<td class="text-center" colspan="4"><?= $lang_text_no_results; ?></td>
 		</tr>
 		<?php } ?>
 	</tbody>

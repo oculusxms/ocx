@@ -1,5 +1,5 @@
 <script>
 $('#cancel-profile').click(function(){
-	return confirm("<?= $text_cancel_confirm ?>");
+	return confirm("<?= $lang_text_cancel_confirm ?>");
 });
 </script>

@@ -10,18 +10,18 @@
 			<?php } ?>
 			<form action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="well well-lg">
-				<p class="lead"><?= $text_login; ?></p>
+				<p class="lead"><?= $lang_text_login; ?></p>
 				<div class="form-group">
-					<label><?= $entry_username; ?></label>
-					<input type="text" name="username" value="<?= $username; ?>" class="form-control" autofocus="">
+					<label><?= $lang_entry_username; ?></label>
+					<input type="text" name="username" value="<?= $username; ?>" class="form-control" autofocus>
 				</div>
 				<div class="form-group">
-					<label><?= $entry_password; ?></label>
+					<label><?= $lang_entry_password; ?></label>
 					<input type="password" name="password" value="<?= $password; ?>" class="form-control">
 				</div>
-				<div class="help-block"><a href="<?= $forgotten; ?>"><?= $text_forgotten; ?></a></div>
+				<div class="help-block"><a href="<?= $forgotten; ?>"><?= $lang_text_forgotten; ?></a></div>
 				<hr>
-				<button type="submit" class="btn btn-primary btn-block"><?= $button_login; ?></button>
+				<button type="submit" class="btn btn-primary btn-block"><?= $lang_button_login; ?></button>
 				<?php if ($redirect) { ?>
 				<input type="hidden" name="redirect" value="<?= $redirect; ?>">
 				<?php } ?>

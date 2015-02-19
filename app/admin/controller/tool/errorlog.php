@@ -22,7 +22,7 @@ class Errorlog extends Controller {
     public function index() {
         $data = $this->theme->language('tool/error_log');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -32,7 +32,7 @@ class Errorlog extends Controller {
             $data['success'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'tool/errorlog');
+        $this->breadcrumb->add('lang_heading_title', 'tool/errorlog');
         
         $data['clear'] = $this->url->link('tool/errorlog/clear', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -60,7 +60,7 @@ class Errorlog extends Controller {
         
         fclose($handle);
         
-        $this->session->data['success'] = $this->language->get('text_success');
+        $this->session->data['success'] = $this->language->get('lang_text_success');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
         

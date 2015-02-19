@@ -127,7 +127,7 @@ class Guest extends Controller {
             $data['zone_id'] = '';
         }
         
-        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('text_select') . '","none":"' . $this->language->get('text_none') . '"}');
+        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('lang_text_select') . '","none":"' . $this->language->get('lang_text_none') . '"}');
         
         $this->theme->model('localization/country');
         
@@ -172,19 +172,19 @@ class Guest extends Controller {
         
         if (!$json) {
             if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-                $json['error']['firstname'] = $this->language->get('error_firstname');
+                $json['error']['firstname'] = $this->language->get('lang_error_firstname');
             }
             
             if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-                $json['error']['lastname'] = $this->language->get('error_lastname');
+                $json['error']['lastname'] = $this->language->get('lang_error_lastname');
             }
             
             if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-                $json['error']['email'] = $this->language->get('error_email');
+                $json['error']['email'] = $this->language->get('lang_error_email');
             }
             
             if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-                $json['error']['telephone'] = $this->language->get('error_telephone');
+                $json['error']['telephone'] = $this->language->get('lang_error_telephone');
             }
             
             // Customer Group
@@ -202,21 +202,21 @@ class Guest extends Controller {
                 
                 // Company ID
                 if ($customer_group['company_id_display'] && $customer_group['company_id_required'] && empty($this->request->post['company_id'])) {
-                    $json['error']['company_id'] = $this->language->get('error_company_id');
+                    $json['error']['company_id'] = $this->language->get('lang_error_company_id');
                 }
                 
                 // Tax ID
                 if ($customer_group['tax_id_display'] && $customer_group['tax_id_required'] && empty($this->request->post['tax_id'])) {
-                    $json['error']['tax_id'] = $this->language->get('error_tax_id');
+                    $json['error']['tax_id'] = $this->language->get('lang_error_tax_id');
                 }
             }
             
             if (($this->encode->strlen($this->request->post['address_1']) < 3) || ($this->encode->strlen($this->request->post['address_1']) > 128)) {
-                $json['error']['address_1'] = $this->language->get('error_address_1');
+                $json['error']['address_1'] = $this->language->get('lang_error_address_1');
             }
             
             if (($this->encode->strlen($this->request->post['city']) < 2) || ($this->encode->strlen($this->request->post['city']) > 128)) {
-                $json['error']['city'] = $this->language->get('error_city');
+                $json['error']['city'] = $this->language->get('lang_error_city');
             }
             
             $this->theme->model('localization/country');
@@ -225,20 +225,20 @@ class Guest extends Controller {
             
             if ($country_info) {
                 if ($country_info['postcode_required'] && ($this->encode->strlen($this->request->post['postcode']) < 2) || ($this->encode->strlen($this->request->post['postcode']) > 10)) {
-                    $json['error']['postcode'] = $this->language->get('error_postcode');
+                    $json['error']['postcode'] = $this->language->get('lang_error_postcode');
                 }
                 
                 if ($this->config->get('config_vat') && $this->request->post['tax_id'] && ($this->vat->validate($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
-                    $json['error']['tax_id'] = $this->language->get('error_vat');
+                    $json['error']['tax_id'] = $this->language->get('lang_error_vat');
                 }
             }
             
             if ($this->request->post['country_id'] == '') {
-                $json['error']['country'] = $this->language->get('error_country');
+                $json['error']['country'] = $this->language->get('lang_error_country');
             }
             
             if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-                $json['error']['zone'] = $this->language->get('error_zone');
+                $json['error']['zone'] = $this->language->get('lang_error_zone');
             }
         }
         
@@ -350,7 +350,7 @@ class Guest extends Controller {
     }
     
     public function zone() {
-        $output = '<option value="">' . $this->language->get('text_select') . '</option>';
+        $output = '<option value="">' . $this->language->get('lang_text_select') . '</option>';
         
         $this->theme->model('localization/zone');
         
@@ -367,7 +367,7 @@ class Guest extends Controller {
         }
         
         if (!$results) {
-            $output.= '<option value="0">' . $this->language->get('text_none') . '</option>';
+            $output.= '<option value="0">' . $this->language->get('lang_text_none') . '</option>';
         }
         
         $this->response->setOutput($output);

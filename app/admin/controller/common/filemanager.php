@@ -29,7 +29,7 @@ class Filemanager extends Controller {
         $this->css->reset();
         $this->css->register('filemanager.min', null, true);
         
-        $data['title'] = $this->language->get('heading_title');
+        $data['title'] = $this->language->get('lang_heading_title');
         
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
             $data['base'] = $this->app['https.server'];
@@ -155,27 +155,27 @@ class Filemanager extends Controller {
                 $directory = rtrim($this->app['path.image'] . 'data/' . str_replace('../', '', $this->request->post['directory']), '/');
                 
                 if (!is_dir($directory)) {
-                    $json['error'] = $this->language->get('error_directory');
+                    $json['error'] = $this->language->get('lang_error_directory');
                 }
                 
                 if (file_exists($directory . '/' . str_replace('../', '', $this->request->post['name']))) {
-                    $json['error'] = $this->language->get('error_exists');
+                    $json['error'] = $this->language->get('lang_error_exists');
                 }
             } else {
-                $json['error'] = $this->language->get('error_name');
+                $json['error'] = $this->language->get('lang_error_name');
             }
         } else {
-            $json['error'] = $this->language->get('error_directory');
+            $json['error'] = $this->language->get('lang_error_directory');
         }
         
         if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         }
         
         if (!isset($json['error'])) {
             mkdir($directory . '/' . str_replace('../', '', $this->request->post['name']), 0777);
             
-            $json['success'] = $this->language->get('text_create');
+            $json['success'] = $this->language->get('lang_text_create');
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
@@ -192,18 +192,18 @@ class Filemanager extends Controller {
             $path = rtrim($this->app['path.image'] . 'data/' . str_replace('../', '', html_entity_decode($this->request->post['path'], ENT_QUOTES, 'UTF-8')), '/');
             
             if (!file_exists($path)) {
-                $json['error'] = $this->language->get('error_select');
+                $json['error'] = $this->language->get('lang_error_select');
             }
             
             if ($path == rtrim($this->app['path.image'] . 'data/', '/')) {
-                $json['error'] = $this->language->get('error_delete');
+                $json['error'] = $this->language->get('lang_error_delete');
             }
         } else {
-            $json['error'] = $this->language->get('error_select');
+            $json['error'] = $this->language->get('lang_error_select');
         }
         
         if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         }
         
         if (!isset($json['error'])) {
@@ -237,7 +237,7 @@ class Filemanager extends Controller {
                 }
             }
             
-            $json['success'] = $this->language->get('text_delete');
+            $json['success'] = $this->language->get('lang_text_delete');
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
@@ -254,34 +254,34 @@ class Filemanager extends Controller {
             $from = rtrim($this->app['path.image'] . 'data/' . str_replace('../', '', html_entity_decode($this->request->post['from'], ENT_QUOTES, 'UTF-8')), '/');
             
             if (!file_exists($from)) {
-                $json['error'] = $this->language->get('error_missing');
+                $json['error'] = $this->language->get('lang_error_missing');
             }
             
             if ($from == $this->app['path.image'] . 'data') {
-                $json['error'] = $this->language->get('error_default');
+                $json['error'] = $this->language->get('lang_error_default');
             }
             
             $to = rtrim($this->app['path.image'] . 'data/' . str_replace('../', '', html_entity_decode($this->request->post['to'], ENT_QUOTES, 'UTF-8')), '/');
             
             if (!file_exists($to)) {
-                $json['error'] = $this->language->get('error_move');
+                $json['error'] = $this->language->get('lang_error_move');
             }
             
             if (file_exists($to . '/' . basename($from))) {
-                $json['error'] = $this->language->get('error_exists');
+                $json['error'] = $this->language->get('lang_error_exists');
             }
         } else {
-            $json['error'] = $this->language->get('error_directory');
+            $json['error'] = $this->language->get('lang_error_directory');
         }
         
         if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         }
         
         if (!isset($json['error'])) {
             rename($from, $to . '/' . basename($from));
             
-            $json['success'] = $this->language->get('text_move');
+            $json['success'] = $this->language->get('lang_text_move');
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
@@ -296,13 +296,13 @@ class Filemanager extends Controller {
         
         if (isset($this->request->post['path']) && isset($this->request->post['name'])) {
             if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 255)) {
-                $json['error'] = $this->language->get('error_filename');
+                $json['error'] = $this->language->get('lang_error_filename');
             }
             
             $old_name = rtrim($this->app['path.image'] . 'data/' . str_replace('../', '', html_entity_decode($this->request->post['path'], ENT_QUOTES, 'UTF-8')), '/');
             
             if (!file_exists($old_name) || $old_name == $this->app['path.image'] . 'data') {
-                $json['error'] = $this->language->get('error_copy');
+                $json['error'] = $this->language->get('lang_error_copy');
             }
             
             if (is_file($old_name)) {
@@ -314,14 +314,14 @@ class Filemanager extends Controller {
             $new_name = dirname($old_name) . '/' . str_replace('../', '', html_entity_decode($this->request->post['name'], ENT_QUOTES, 'UTF-8') . $ext);
             
             if (file_exists($new_name)) {
-                $json['error'] = $this->language->get('error_exists');
+                $json['error'] = $this->language->get('lang_error_exists');
             }
         } else {
-            $json['error'] = $this->language->get('error_select');
+            $json['error'] = $this->language->get('lang_error_select');
         }
         
         if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         }
         
         if (!isset($json['error'])) {
@@ -331,7 +331,7 @@ class Filemanager extends Controller {
                 $this->recursiveCopy($old_name, $new_name);
             }
             
-            $json['success'] = $this->language->get('text_copy');
+            $json['success'] = $this->language->get('lang_text_copy');
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
@@ -382,13 +382,13 @@ class Filemanager extends Controller {
         
         if (isset($this->request->post['path']) && isset($this->request->post['name'])) {
             if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 255)) {
-                $json['error'] = $this->language->get('error_filename');
+                $json['error'] = $this->language->get('lang_error_filename');
             }
             
             $old_name = rtrim($this->app['path.image'] . 'data/' . str_replace('../', '', html_entity_decode($this->request->post['path'], ENT_QUOTES, 'UTF-8')), '/');
             
             if (!file_exists($old_name) || $old_name == $this->app['path.image'] . 'data') {
-                $json['error'] = $this->language->get('error_rename');
+                $json['error'] = $this->language->get('lang_error_rename');
             }
             
             if (is_file($old_name)) {
@@ -400,18 +400,18 @@ class Filemanager extends Controller {
             $new_name = dirname($old_name) . '/' . str_replace('../', '', html_entity_decode($this->request->post['name'], ENT_QUOTES, 'UTF-8') . $ext);
             
             if (file_exists($new_name)) {
-                $json['error'] = $this->language->get('error_exists');
+                $json['error'] = $this->language->get('lang_error_exists');
             }
         }
         
         if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         }
         
         if (!isset($json['error'])) {
             rename($old_name, $new_name);
             
-            $json['success'] = $this->language->get('text_rename');
+            $json['success'] = $this->language->get('lang_text_rename');
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
@@ -429,57 +429,57 @@ class Filemanager extends Controller {
                 $filename = basename(html_entity_decode($this->request->files['image']['name'], ENT_QUOTES, 'UTF-8'));
                 
                 if ((strlen($filename) < 3) || (strlen($filename) > 255)) {
-                    $json['error'] = $this->language->get('error_filename');
+                    $json['error'] = $this->language->get('lang_error_filename');
                 }
                 
                 $directory = rtrim($this->app['path.image'] . 'data/' . str_replace('../', '', $this->request->post['directory']), '/');
                 
                 if (!is_dir($directory)) {
-                    $json['error'] = $this->language->get('error_directory');
+                    $json['error'] = $this->language->get('lang_error_directory');
                 }
                 
                 if ($this->request->files['image']['size'] > 300000000) {
-                    $json['error'] = $this->language->get('error_file_size');
+                    $json['error'] = $this->language->get('lang_error_file_size');
                 }
                 
                 $allowed = array('image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/gif', 'application/x-shockwave-flash');
                 
                 if (!in_array($this->request->files['image']['type'], $allowed)) {
-                    $json['error'] = $this->language->get('error_file_type');
+                    $json['error'] = $this->language->get('lang_error_file_type');
                 }
                 
                 $allowed = array('.jpg', '.jpeg', '.gif', '.png', '.flv');
                 
                 if (!in_array(strtolower(strrchr($filename, '.')), $allowed)) {
-                    $json['error'] = $this->language->get('error_file_type');
+                    $json['error'] = $this->language->get('lang_error_file_type');
                 }
                 
                 // Check to see if any PHP files are trying to be uploaded
                 $content = file_get_contents($this->request->files['image']['tmp_name']);
                 
                 if (preg_match('/\<\?php/i', $content)) {
-                    $json['error'] = $this->language->get('error_file_type');
+                    $json['error'] = $this->language->get('lang_error_file_type');
                 }
                 
                 if ($this->request->files['image']['error'] != UPLOAD_ERR_OK) {
                     $json['error'] = 'error_upload_' . $this->request->files['image']['error'];
                 }
             } else {
-                $json['error'] = $this->language->get('error_file');
+                $json['error'] = $this->language->get('lang_error_file');
             }
         } else {
-            $json['error'] = $this->language->get('error_directory');
+            $json['error'] = $this->language->get('lang_error_directory');
         }
         
         if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         }
         
         if (!isset($json['error'])) {
             if (@move_uploaded_file($this->request->files['image']['tmp_name'], $directory . '/' . $filename)) {
-                $json['success'] = $this->language->get('text_uploaded');
+                $json['success'] = $this->language->get('lang_text_uploaded');
             } else {
-                $json['error'] = $this->language->get('error_uploaded');
+                $json['error'] = $this->language->get('lang_error_uploaded');
             }
         }
         
@@ -498,57 +498,57 @@ class Filemanager extends Controller {
                 $filename = basename(html_entity_decode($this->request->files['image']['name'], ENT_QUOTES, 'UTF-8'));
                 
                 if ((strlen($filename) < 3) || (strlen($filename) > 255)) {
-                    $json['error'] = $this->language->get('error_filename');
+                    $json['error'] = $this->language->get('lang_error_filename');
                 }
                 
                 $directory = rtrim($this->app['path.image'] . 'data/' . str_replace('../', '', $this->request->post['directory']), '/');
                 
                 if (!is_dir($directory)) {
-                    $json['error'] = $this->language->get('error_directory');
+                    $json['error'] = $this->language->get('lang_error_directory');
                 }
                 
                 if ($this->request->files['image']['size'] > 300000) {
-                    $json['error'] = $this->language->get('error_file_size');
+                    $json['error'] = $this->language->get('lang_error_file_size');
                 }
                 
                 $allowed = array('image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/gif', 'application/x-shockwave-flash');
                 
                 if (!in_array($this->request->files['image']['type'], $allowed)) {
-                    $json['error'] = $this->language->get('error_file_type');
+                    $json['error'] = $this->language->get('lang_error_file_type');
                 }
                 
                 $allowed = array('.jpg', '.jpeg', '.gif', '.png', '.flv');
                 
                 if (!in_array(strtolower(strrchr($filename, '.')), $allowed)) {
-                    $json['error'] = $this->language->get('error_file_type');
+                    $json['error'] = $this->language->get('lang_error_file_type');
                 }
                 
                 // Check to see if any PHP files are trying to be uploaded
                 $content = file_get_contents($this->request->files['image']['tmp_name']);
                 
                 if (preg_match('/\<\?php/i', $content)) {
-                    $json['error'] = $this->language->get('error_file_type');
+                    $json['error'] = $this->language->get('lang_error_file_type');
                 }
                 
                 if ($this->request->files['image']['error'] != UPLOAD_ERR_OK) {
                     $json['error'] = 'error_upload_' . $this->request->files['image']['error'];
                 }
             } else {
-                $json['error'] = $this->language->get('error_file');
+                $json['error'] = $this->language->get('lang_error_file');
             }
         } else {
-            $json['error'] = $this->language->get('error_directory');
+            $json['error'] = $this->language->get('lang_error_directory');
         }
         
         if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         }
         
         if (!isset($json['error'])) {
             if (@move_uploaded_file($this->request->files['image']['tmp_name'], $directory . '/' . $filename)) {
                 $json['success'] = PUBLIC_IMAGE . $this->request->post['directory'] . '/' . $filename;
             } else {
-                $json['error'] = $this->language->get('error_uploaded');
+                $json['error'] = $this->language->get('lang_error_uploaded');
             }
         }
         

@@ -38,16 +38,16 @@ class Success extends Controller {
         
         $data = $this->theme->language('checkout/success');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_basket', 'checkout/cart');
-        $this->breadcrumb->add('text_checkout', 'checkout/checkout', null, true, 'SSL');
-        $this->breadcrumb->add('text_success', 'checkout/success');
+        $this->breadcrumb->add('lang_text_basket', 'checkout/cart');
+        $this->breadcrumb->add('lang_text_checkout', 'checkout/checkout', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_success', 'checkout/success');
         
         if ($this->customer->isLogged()) {
-            $data['text_message'] = sprintf($this->language->get('text_customer'), $this->url->link('account/dashboard', '', 'SSL'), $this->url->link('account/order', '', 'SSL'), $this->url->link('account/download', '', 'SSL'), $this->url->link('content/contact'));
+            $data['text_message'] = sprintf($this->language->get('lang_text_customer'), $this->url->link('account/dashboard', '', 'SSL'), $this->url->link('account/order', '', 'SSL'), $this->url->link('account/download', '', 'SSL'), $this->url->link('content/contact'));
         } else {
-            $data['text_message'] = sprintf($this->language->get('text_guest'), $this->url->link('content/contact'));
+            $data['text_message'] = sprintf($this->language->get('lang_text_guest'), $this->url->link('content/contact'));
         }
         
         $data['continue'] = $this->url->link('shop/home');

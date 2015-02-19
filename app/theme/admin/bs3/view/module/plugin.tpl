@@ -11,14 +11,14 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="h2"><i class="fa fa-puzzle-piece"></i><?= $heading_plugin; ?></div>
+		<div class="h2"><i class="fa fa-puzzle-piece"></i><?= $lang_heading_plugin; ?></div>
 	</div>
 	<div class="panel-body">
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
-					<th><?= $column_name; ?></th>
-					<th class="text-right"><span class="hidden-xs"><?= $column_action; ?></span></th>
+					<th><?= $lang_column_name; ?></th>
+					<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 				</tr>
 			</thead>
 			<tbody data-link="row" class="rowlink">
@@ -35,7 +35,7 @@
 				<?php } ?>
 				<?php } else { ?>
 				<tr>
-					<td class="text-center" colspan="8"><?= $text_no_results; ?></td>
+					<td class="text-center" colspan="8"><?= $lang_text_no_results; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

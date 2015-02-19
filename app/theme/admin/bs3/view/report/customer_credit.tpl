@@ -11,19 +11,19 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="h2"><i class="fa fa-bar-chart-o"></i><?= $heading_title; ?></div>
+		<div class="h2"><i class="fa fa-bar-chart-o"></i><?= $lang_heading_title; ?></div>
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive">
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th><?= $column_customer; ?></th>
-					<th class="hidden-xs"><?= $column_email; ?></th>
-					<th><?= $column_customer_group; ?></th>
-					<th class="hidden-xs"><?= $column_status; ?></th>
-					<th class="text-right"><?= $column_total; ?></th>
-					<th class="text-right"><span class="hidden-xs"><?= $column_action; ?></span></th>
+					<th><?= $lang_column_customer; ?></th>
+					<th class="hidden-xs"><?= $lang_column_email; ?></th>
+					<th><?= $lang_column_customer_group; ?></th>
+					<th class="hidden-xs"><?= $lang_column_status; ?></th>
+					<th class="text-right"><?= $lang_column_total; ?></th>
+					<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 				</tr>
 			</thead>
 			<tbody data-link="row" class="rowlink">
@@ -44,7 +44,7 @@
 				<?php } ?>
 				<?php } else { ?>
 				<tr>
-					<td class="text-center" colspan="6"><?= $text_no_results; ?></td>
+					<td class="text-center" colspan="6"><?= $lang_text_no_results; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

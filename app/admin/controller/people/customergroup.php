@@ -22,7 +22,7 @@ class Customergroup extends Controller {
     
     public function index() {
         $this->language->load('people/customer_group');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/customergroup');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Customergroup extends Controller {
     
     public function insert() {
         $this->language->load('people/customer_group');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/customergroup');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_people_customergroup->addCustomerGroup($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -63,12 +63,12 @@ class Customergroup extends Controller {
     
     public function update() {
         $this->language->load('people/customer_group');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/customergroup');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_people_customergroup->editCustomerGroup($this->request->get['customer_group_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -94,7 +94,7 @@ class Customergroup extends Controller {
     
     public function delete() {
         $this->language->load('people/customer_group');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/customergroup');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -102,7 +102,7 @@ class Customergroup extends Controller {
                 $this->model_people_customergroup->deleteCustomerGroup($customer_group_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -161,7 +161,7 @@ class Customergroup extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'people/customergroup', $url);
+        $this->breadcrumb->add('lang_heading_title', 'people/customergroup', $url);
         
         $data['insert'] = $this->url->link('people/customergroup/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('people/customergroup/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -177,9 +177,9 @@ class Customergroup extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('people/customergroup/update', 'token=' . $this->session->data['token'] . '&customer_group_id=' . $result['customer_group_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('people/customergroup/update', 'token=' . $this->session->data['token'] . '&customer_group_id=' . $result['customer_group_id'] . $url, 'SSL'));
             
-            $data['customer_groups'][] = array('customer_group_id' => $result['customer_group_id'], 'name' => $result['name'] . (($result['customer_group_id'] == $this->config->get('config_customer_group_id')) ? $this->language->get('text_default') : null), 'sort_order' => $result['sort_order'], 'selected' => isset($this->request->post['selected']) && in_array($result['customer_group_id'], $this->request->post['selected']), 'action' => $action);
+            $data['customer_groups'][] = array('customer_group_id' => $result['customer_group_id'], 'name' => $result['name'] . (($result['customer_group_id'] == $this->config->get('config_customer_group_id')) ? $this->language->get('lang_text_default') : null), 'sort_order' => $result['sort_order'], 'selected' => isset($this->request->post['selected']) && in_array($result['customer_group_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         if (isset($this->error['warning'])) {
@@ -221,7 +221,7 @@ class Customergroup extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($customer_group_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('people/customergroup', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($customer_group_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('people/customergroup', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -262,7 +262,7 @@ class Customergroup extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'people/customergroup', $url);
+        $this->breadcrumb->add('lang_heading_title', 'people/customergroup', $url);
         
         if (!isset($this->request->get['customer_group_id'])) {
             $data['action'] = $this->url->link('people/customergroup/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -345,12 +345,12 @@ class Customergroup extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'people/customergroup')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['customer_group_description'] as $language_id => $value) {
             if (($this->encode->strlen($value['name']) < 3) || ($this->encode->strlen($value['name']) > 32)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
+                $this->error['name'][$language_id] = $this->language->get('lang_error_name');
             }
         }
         
@@ -361,7 +361,7 @@ class Customergroup extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'people/customergroup')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('setting/store');
@@ -369,19 +369,19 @@ class Customergroup extends Controller {
         
         foreach ($this->request->post['selected'] as $customer_group_id) {
             if ($this->config->get('config_customer_group_id') == $customer_group_id) {
-                $this->error['warning'] = $this->language->get('error_default');
+                $this->error['warning'] = $this->language->get('lang_error_default');
             }
             
             $store_total = $this->model_setting_store->getTotalStoresByCustomerGroupId($customer_group_id);
             
             if ($store_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_store'), $store_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_store'), $store_total);
             }
             
             $customer_total = $this->model_people_customer->getTotalCustomersByCustomerGroupId($customer_group_id);
             
             if ($customer_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_customer'), $customer_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_customer'), $customer_total);
             }
         }
         

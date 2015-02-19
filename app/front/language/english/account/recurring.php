@@ -15,58 +15,58 @@
 */
 
 // heading
-$_['heading_title']                        = 'Recurring Payments';
+$_['lang_heading_title']                        = 'Recurring Payments';
 
 // text
-$_['text_empty']                           = 'No recurring payment profiles found.';
-$_['text_product']                         = 'Product: ';
-$_['text_order']                           = 'Order: ';
-$_['text_quantity']                        = 'Quantity: ';
-$_['text_account']                         = 'Account';
-$_['text_action']                          = 'Action';
-$_['text_recurring']                       = 'Recurring Payment';
-$_['text_transactions']                    = 'Transactions';
-$_['text_empty_transactions']              = 'No transactions for this recurring payment profile.';
-$_['text_recurring_detail']                = 'Recurring Payment Details';
-$_['text_recurring_id']                    = 'Profile ID: ';
-$_['text_payment_method']                  = 'Payment Method: ';
-$_['text_date_added']                      = 'Created: ';
-$_['text_recurring_description']           = 'Description: ';
-$_['text_status']                          = 'Status: ';
-$_['text_ref']                             = 'Reference: ';
-$_['text_status_active']                   = 'Active';
-$_['text_status_inactive']                 = 'Inactive';
-$_['text_status_cancelled']                = 'Cancelled';
-$_['text_status_suspended']                = 'Suspended';
-$_['text_status_expired']                  = 'Expired';
-$_['text_status_pending']                  = 'Pending';
-$_['text_transaction_date_added']          = 'Created';
-$_['text_transaction_payment']             = 'Payment';
-$_['text_transaction_outstanding_payment'] = 'Outstanding Payment';
-$_['text_transaction_skipped']             = 'Payment Skipped';
-$_['text_transaction_failed']              = 'Payment Failed';
-$_['text_transaction_cancelled']           = 'Cancelled';
-$_['text_transaction_suspended']           = 'Suspended';
-$_['text_transaction_suspended_failed']    = 'Suspended from Failed Payment';
-$_['text_transaction_outstanding_failed']  = 'Outstanding Payment Failed';
-$_['text_transaction_expired']             = 'Expired';
-$_['text_cancelled']                       = 'Recurring payment has been cancelled.';
-$_['text_confirm_cancel']                  = 'Are you sure you want to cancel this payment, this cannot be undone?';
+$_['lang_text_empty']                           = 'No recurring payment profiles found.';
+$_['lang_text_product']                         = 'Product: ';
+$_['lang_text_order']                           = 'Order: ';
+$_['lang_text_quantity']                        = 'Quantity: ';
+$_['lang_text_account']                         = 'Account';
+$_['lang_text_action']                          = 'Action';
+$_['lang_text_recurring']                       = 'Recurring Payment';
+$_['lang_text_transactions']                    = 'Transactions';
+$_['lang_text_empty_transactions']              = 'No transactions for this recurring payment profile.';
+$_['lang_text_recurring_detail']                = 'Recurring Payment Details';
+$_['lang_text_recurring_id']                    = 'Profile ID: ';
+$_['lang_text_payment_method']                  = 'Payment Method: ';
+$_['lang_text_date_added']                      = 'Created: ';
+$_['lang_text_recurring_description']           = 'Description: ';
+$_['lang_text_status']                          = 'Status: ';
+$_['lang_text_ref']                             = 'Reference: ';
+$_['lang_text_status_active']                   = 'Active';
+$_['lang_text_status_inactive']                 = 'Inactive';
+$_['lang_text_status_cancelled']                = 'Cancelled';
+$_['lang_text_status_suspended']                = 'Suspended';
+$_['lang_text_status_expired']                  = 'Expired';
+$_['lang_text_status_pending']                  = 'Pending';
+$_['lang_text_transaction_date_added']          = 'Created';
+$_['lang_text_transaction_payment']             = 'Payment';
+$_['lang_text_transaction_outstanding_payment'] = 'Outstanding Payment';
+$_['lang_text_transaction_skipped']             = 'Payment Skipped';
+$_['lang_text_transaction_failed']              = 'Payment Failed';
+$_['lang_text_transaction_cancelled']           = 'Cancelled';
+$_['lang_text_transaction_suspended']           = 'Suspended';
+$_['lang_text_transaction_suspended_failed']    = 'Suspended from Failed Payment';
+$_['lang_text_transaction_outstanding_failed']  = 'Outstanding Payment Failed';
+$_['lang_text_transaction_expired']             = 'Expired';
+$_['lang_text_cancelled']                       = 'Recurring payment has been cancelled.';
+$_['lang_text_confirm_cancel']                  = 'Are you sure you want to cancel this payment, this cannot be undone?';
 
 // button
-$_['button_continue']                      = 'Continue';
-$_['button_view']                          = 'View';
-$_['button_return']                        = 'Return';
+$_['lang_button_continue']                      = 'Continue';
+$_['lang_button_view']                          = 'View';
+$_['lang_button_return']                        = 'Return';
 
 // column
-$_['column_date_added']                    = 'Created';
-$_['column_type']                          = 'Type';
-$_['column_amount']                        = 'Amount';
-$_['column_status']                        = 'Status';
-$_['column_product']                       = 'Product';
-$_['column_action']                        = 'Action';
-$_['column_recurring_id']                  = 'Profile ID';
+$_['lang_column_date_added']                    = 'Created';
+$_['lang_column_type']                          = 'Type';
+$_['lang_column_amount']                        = 'Amount';
+$_['lang_column_status']                        = 'Status';
+$_['lang_column_product']                       = 'Product';
+$_['lang_column_action']                        = 'Action';
+$_['lang_column_recurring_id']                  = 'Profile ID';
 
 // error
-$_['error_not_cancelled']                  = 'Error: %s';
-$_['error_not_found']                      = 'Could not cancel recurring payment.';
+$_['lang_error_not_cancelled']                  = 'Error: %s';
+$_['lang_error_not_found']                      = 'Could not cancel recurring payment.';

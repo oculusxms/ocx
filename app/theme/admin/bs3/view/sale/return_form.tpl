@@ -12,22 +12,22 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-undo"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-undo"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
-		<ul class="nav nav-tabs"><li><a href="#tab-return" data-toggle="tab"><?= $tab_return; ?></a></li><li><a href="#tab-product" data-toggle="tab"><?= $tab_product; ?></a></li></ul>
+		<ul class="nav nav-tabs"><li><a href="#tab-return" data-toggle="tab"><?= $lang_tab_return; ?></a></li><li><a href="#tab-product" data-toggle="tab"><?= $lang_tab_product; ?></a></li></ul>
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="tab-content">
 				<div class="tab-pane" id="tab-return">
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_order_id; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_order_id; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="order_id" value="<?= $order_id; ?>" class="form-control">
 							<?php if ($error_order_id) { ?>
@@ -36,7 +36,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_date_ordered; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_date_ordered; ?></label>
 						<div class="control-field col-sm-4">
 							<label class="input-group">
 								<input type="text" name="date_ordered" value="<?= $date_ordered; ?>" class="form-control date">
@@ -45,14 +45,14 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_customer; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_customer; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="customer" value="<?= $customer; ?>" id="return-customer" autocomplete="off" class="form-control">
 							<input type="hidden" name="customer_id" value="<?= $customer_id; ?>">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_firstname; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_firstname; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="firstname" value="<?= $firstname; ?>" class="form-control">
 							<?php if ($error_firstname) { ?>
@@ -61,7 +61,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_lastname; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_lastname; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="lastname" value="<?= $lastname; ?>" class="form-control">
 							<?php if ($error_lastname) { ?>
@@ -70,7 +70,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_email; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_email; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="email" value="<?= $email; ?>" class="form-control">
 							<?php if ($error_email) { ?>
@@ -79,7 +79,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_telephone; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_telephone; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="telephone" value="<?= $telephone; ?>" class="form-control">
 							<?php if ($error_telephone) { ?>
@@ -90,7 +90,7 @@
 				</div>
 				<div class="tab-pane" id="tab-product">
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_product; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_product; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="product" value="<?= $product; ?>" id="return-product" autocomplete="off" class="form-control">
 							<input type="hidden" name="product_id" value="<?= $product_id; ?>">
@@ -100,19 +100,19 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_model; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_model; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="model" value="<?= $model; ?>" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_quantity; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_quantity; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="quantity" value="<?= $quantity; ?>" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_reason; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_reason; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="return_reason_id" class="form-control">
 								<?php foreach ($return_reasons as $return_reason) { ?>
@@ -126,27 +126,27 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_opened; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_opened; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="opened" class="form-control">
 								<?php if ($opened) { ?>
-									<option value="1" selected><?= $text_opened; ?></option>
-									<option value="0"><?= $text_unopened; ?></option>
+									<option value="1" selected><?= $lang_text_opened; ?></option>
+									<option value="0"><?= $lang_text_unopened; ?></option>
 								<?php } else { ?>
-									<option value="1"><?= $text_opened; ?></option>
-									<option value="0" selected><?= $text_unopened; ?></option>
+									<option value="1"><?= $lang_text_opened; ?></option>
+									<option value="0" selected><?= $lang_text_unopened; ?></option>
 								<?php } ?>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_comment; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_comment; ?></label>
 						<div class="control-field col-sm-4">
 							<textarea name="comment" class="form-control" rows="3"><?= $comment; ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_action; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_action; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="return_action_id" class="form-control">
 								<option value="0">&ndash;</option>
@@ -161,7 +161,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_return_status; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_return_status; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="return_status_id" class="form-control">
 								<?php foreach ($return_statuses as $return_status) { ?>

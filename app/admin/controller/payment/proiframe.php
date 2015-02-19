@@ -22,12 +22,12 @@ class Proiframe extends Controller {
     
     public function index() {
         $data = $this->theme->language('payment/proiframe');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('proiframe', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/payment', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -56,8 +56,8 @@ class Proiframe extends Controller {
             $data['error_password'] = '';
         }
         
-        $this->breadcrumb->add('text_payment', 'module/payment');
-        $this->breadcrumb->add('heading_title', 'payment/proiframe');
+        $this->breadcrumb->add('lang_text_payment', 'module/payment');
+        $this->breadcrumb->add('lang_heading_title', 'payment/proiframe');
         
         $data['action'] = $this->url->link('payment/proiframe', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -223,10 +223,10 @@ class Proiframe extends Controller {
         $data = $this->theme->language('payment/proiframe');
         $this->theme->model('payment/proiframe');
         
-        $this->theme->setTitle($this->language->get('text_refund'));
+        $this->theme->setTitle($this->language->get('lang_text_refund'));
         
-        $this->breadcrumb->add('heading_title', 'payment/proiframe');
-        $this->breadcrumb->add('text_refund', 'payment/proiframe/refund');
+        $this->breadcrumb->add('lang_heading_title', 'payment/proiframe');
+        $this->breadcrumb->add('lang_text_refund', 'payment/proiframe/refund');
         
         //button actions
         $data['action'] = $this->url->link('payment/proiframe/doRefund', 'token=' . $this->session->data['token'], 'SSL');
@@ -248,7 +248,7 @@ class Proiframe extends Controller {
         
         if ($refunded != 0.00) {
             $data['refund_available'] = number_format($data['amount_original'] + $refunded, 2);
-            $data['attention'] = $this->language->get('text_current_refunds') . ': ' . $data['refund_available'];
+            $data['attention'] = $this->language->get('lang_text_current_refunds') . ': ' . $data['refund_available'];
         } else {
             $data['refund_available'] = '';
             $data['attention'] = '';
@@ -285,7 +285,7 @@ class Proiframe extends Controller {
             $this->language->load('payment/proiframe');
             
             if ($this->request->post['refund_full'] == 0 && $this->request->post['amount'] == 0) {
-                $this->session->data['error'] = $this->language->get('error_partial_amt');
+                $this->session->data['error'] = $this->language->get('lang_error_partial_amt');
             } else {
                 $order_id = $this->model_payment_proiframe->getOrderId($this->request->post['transaction_id']);
                 $paypal_order = $this->model_payment_proiframe->getOrder($order_id);
@@ -346,7 +346,7 @@ class Proiframe extends Controller {
                         $this->response->redirect($this->url->link('payment/proiframe/refund', 'token=' . $this->session->data['token'] . '&transaction_id=' . $this->request->post['transaction_id'], 'SSL'));
                     }
                 } else {
-                    $this->session->data['error'] = $this->language->get('error_data_missing');
+                    $this->session->data['error'] = $this->language->get('lang_error_data_missing');
                     
                     $this->theme->listen(__CLASS__, __FUNCTION__);
                     
@@ -354,7 +354,7 @@ class Proiframe extends Controller {
                 }
             }
         } else {
-            $this->session->data['error'] = $this->language->get('error_data');
+            $this->session->data['error'] = $this->language->get('lang_error_data');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             
@@ -393,11 +393,11 @@ class Proiframe extends Controller {
                 $json['msg'] = 'Ok';
             } else {
                 $json['error'] = true;
-                $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general'));
+                $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('lang_error_general'));
             }
         } else {
             $json['error'] = true;
-            $json['msg'] = $this->language->get('error_missing_data');
+            $json['msg'] = $this->language->get('lang_error_missing_data');
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
@@ -409,8 +409,8 @@ class Proiframe extends Controller {
         $this->theme->model('payment/proiframe');
         $data = $this->theme->language('payment/proiframe');
         
-        $this->breadcrumb->add('heading_title', 'proiframe');
-        $this->breadcrumb->add('text_transaction', 'payment/proiframe/viewTransaction', 'transaction_id=' . $this->request->get['transaction_id']);
+        $this->breadcrumb->add('lang_heading_title', 'proiframe');
+        $this->breadcrumb->add('lang_text_transaction', 'payment/proiframe/viewTransaction', 'transaction_id=' . $this->request->get['transaction_id']);
         
         $transaction = $this->model_payment_proiframe->getTransaction($this->request->get['transaction_id']);
         $transaction = array_map('urldecode', $transaction);
@@ -419,7 +419,7 @@ class Proiframe extends Controller {
         $data['view_link'] = $this->url->link('payment/proiframe/viewTransaction', 'token=' . $this->session->data['token'], 'SSL');
         $data['token'] = $this->session->data['token'];
         
-        $this->theme->setTitle($this->language->get('text_transaction'));
+        $this->theme->setTitle($this->language->get('lang_text_transaction'));
         
         if (isset($this->request->get['order_id'])) {
             $data['back'] = $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'], 'SSL');
@@ -479,7 +479,7 @@ class Proiframe extends Controller {
                 $json['failed_transaction']['amount'] = $transaction['amount'];
                 $json['failed_transaction']['created'] = date("Y-m-d H:i:s");
                 
-                $json['msg'] = $this->language->get('error_timeout');
+                $json['msg'] = $this->language->get('lang_error_timeout');
             } else if (isset($result['ACK']) && $result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
                 $transaction['transaction_id'] = $result['TRANSACTIONID'];
                 $transaction['payment_type'] = $result['PAYMENTTYPE'];
@@ -563,11 +563,11 @@ class Proiframe extends Controller {
                 $json['msg'] = 'Transaction void';
             } else {
                 $json['error'] = true;
-                $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general'));
+                $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('lang_error_general'));
             }
         } else {
             $json['error'] = true;
-            $json['msg'] = $this->language->get('error_missing_data');
+            $json['msg'] = $this->language->get('lang_error_missing_data');
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
@@ -679,15 +679,15 @@ class Proiframe extends Controller {
                     
                     $this->model_payment_proiframe->updateTransaction($transaction);
                     
-                    $json['success'] = $this->language->get('success_transaction_resent');
+                    $json['success'] = $this->language->get('lang_success_transaction_resent');
                 } else {
-                    $json['error'] = $this->language->get('error_timeout');
+                    $json['error'] = $this->language->get('lang_error_timeout');
                 }
             } else {
-                $json['error'] = $this->language->get('error_transaction_missing');
+                $json['error'] = $this->language->get('lang_error_transaction_missing');
             }
         } else {
-            $json['error'] = $this->language->get('error_missing_data');
+            $json['error'] = $this->language->get('lang_error_missing_data');
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
@@ -697,19 +697,19 @@ class Proiframe extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'payment/proiframe')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['proiframe_sig']) {
-            $this->error['sig'] = $this->language->get('error_sig');
+            $this->error['sig'] = $this->language->get('lang_error_sig');
         }
         
         if (!$this->request->post['proiframe_user']) {
-            $this->error['user'] = $this->language->get('error_user');
+            $this->error['user'] = $this->language->get('lang_error_user');
         }
         
         if (!$this->request->post['proiframe_password']) {
-            $this->error['password'] = $this->language->get('error_password');
+            $this->error['password'] = $this->language->get('lang_error_password');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

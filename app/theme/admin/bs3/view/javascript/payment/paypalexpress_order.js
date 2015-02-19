@@ -2,7 +2,7 @@
 	function capture(){
 		var amt = $('#paypal_capture_amount').val();
 		if(amt == '' || amt == 0){
-			alert('<?= $error_capture_amt; ?>');
+			alert('<?= $lang_error_capture_amt; ?>');
 			return false;
 		}else{
 			var captureComplete;
@@ -32,8 +32,8 @@
 							html += '<td>'+data.data.pending_reason+'</td>';
 							html += '<td>'+data.data.created+'</td>';
 							html += '<td>';
-								html += '<a href="<?= $view_link; ?>&transaction_id='+data.data.transaction_id+'"><?= $text_view; ?></a>';
-								html += '&nbsp;<a href="<?= $refund_link; ?>&transaction_id='+data.data.transaction_id+'"><?= $text_refund; ?></a>';
+								html += '<a href="<?= $view_link; ?>&transaction_id='+data.data.transaction_id+'"><?= $lang_text_view; ?></a>';
+								html += '&nbsp;<a href="<?= $refund_link; ?>&transaction_id='+data.data.transaction_id+'"><?= $lang_text_refund; ?></a>';
 							html += '</td>';
 						html += '</tr>';
 						$('#paypal_captured').text(data.data.captured);
@@ -52,7 +52,7 @@
 							$('#paypal_transactions').append(html);
 						}
 						if(data.data.status == 1){
-							$('#capture_status').text('<?= $text_complete; ?>');
+							$('#capture_status').text('<?= $lang_text_complete; ?>');
 							$('.paypal_capture').hide();
 						}
 					}
@@ -67,7 +67,7 @@
 							html += '<td></td>';
 							html += '<td></td>';
 							html += '<td>'+data.failed_transaction.created +'</td>';
-							html += '<td><a onclick="resendTransaction(this); return false;" href="<?= $resend_link ?>&paypal_order_transaction_id='+data.failed_transaction.paypal_order_transaction_id +'"><?= $text_resend ?></a></td>';
+							html += '<td><a onclick="resendTransaction(this); return false;" href="<?= $resend_link ?>&paypal_order_transaction_id='+data.failed_transaction.paypal_order_transaction_id +'"><?= $lang_text_resend ?></a></td>';
 							html += '/<tr>';
 							$('#paypal_transactions').append(html);
 						}
@@ -79,7 +79,7 @@
 		}
 	}
 	function doVoid(){
-		if (confirm('<?= $text_confirm_void; ?>')) {
+		if (confirm('<?= $lang_text_confirm_void; ?>')) {
 			$.ajax({
 				type:'POST',
 				dataType:'json',
@@ -102,7 +102,7 @@
 							html += '<td></td>';
 						html += '</tr>';
 						$('#paypal_transactions').append(html);
-						$('#capture_status').text('<?= $text_complete; ?>');
+						$('#capture_status').text('<?= $lang_text_complete; ?>');
 						$('.paypal_capture_live').hide();
 					}
 					if(data.error==true){

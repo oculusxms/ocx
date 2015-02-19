@@ -42,7 +42,7 @@ class Returns extends Model {
         
         $return_id = $this->db->getLastId();
         
-        $this->theme->trigger('return_add', array('return_id' => $return_id));
+        $this->theme->trigger('front_return_add', array('return_id' => $return_id));
     }
     
     public function getReturn($return_id) {

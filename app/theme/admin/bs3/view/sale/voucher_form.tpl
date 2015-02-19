@@ -12,26 +12,26 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-credit-card"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-credit-card"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
-		<ul class="nav nav-tabs"><li><a href="#tab-general" data-toggle="tab"><?= $tab_general; ?></a></li>
+		<ul class="nav nav-tabs"><li><a href="#tab-general" data-toggle="tab"><?= $lang_tab_general; ?></a></li>
 			<?php if ($voucher_id) { ?>
-			<li><a href="#tab-history" data-toggle="tab"><?= $tab_voucher_history; ?></a></li>
+			<li><a href="#tab-history" data-toggle="tab"><?= $lang_tab_voucher_history; ?></a></li>
 			<?php } ?>
 		</ul>
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="tab-content">
 				<div class="tab-pane" id="tab-general">
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_code; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_code; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="code" value="<?= $code; ?>" class="form-control">
 							<?php if ($error_code) { ?>
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_from_name; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_from_name; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="from_name" value="<?= $from_name; ?>" class="form-control">
 							<?php if ($error_from_name) { ?>
@@ -49,7 +49,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_from_email; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_from_email; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="from_email" value="<?= $from_email; ?>" class="form-control">
 							<?php if ($error_from_email) { ?>
@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_to_name; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_to_name; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="to_name" value="<?= $to_name; ?>" class="form-control">
 							<?php if ($error_to_name) { ?>
@@ -67,7 +67,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_to_email; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_to_email; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="to_email" value="<?= $to_email; ?>" class="form-control">
 							<?php if ($error_to_email) { ?>
@@ -76,7 +76,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_theme; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_theme; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="voucher_theme_id" class="form-control">
 								<?php foreach ($voucher_themes as $voucher_theme) { ?>
@@ -90,13 +90,13 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_message; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_message; ?></label>
 						<div class="control-field col-sm-4">
 							<textarea name="message" class="form-control" rows="3"><?= $message; ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_amount; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_amount; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="amount" value="<?= $amount; ?>" class="form-control">
 							<?php if ($error_amount) { ?>
@@ -105,15 +105,15 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="status" class="form-control">
 								<?php if ($status) { ?>
-								<option value="1" selected><?= $text_enabled; ?></option>
-								<option value="0"><?= $text_disabled; ?></option>
+								<option value="1" selected><?= $lang_text_enabled; ?></option>
+								<option value="0"><?= $lang_text_disabled; ?></option>
 								<?php } else { ?>
-									<option value="1"><?= $text_enabled; ?></option>
-									<option value="0" selected><?= $text_disabled; ?></option>
+									<option value="1"><?= $lang_text_enabled; ?></option>
+									<option value="0" selected><?= $lang_text_disabled; ?></option>
 								<?php } ?>
 							</select>
 						</div>

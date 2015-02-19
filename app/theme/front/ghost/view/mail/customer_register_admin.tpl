@@ -12,7 +12,7 @@
 
 <?php if(!empty($account_approve)){ ?>
 <p class="link" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:5px; margin-bottom:15px;">
-	<?= $text_approve; ?><br />
+	<?= $lang_text_approve; ?><br />
 	<span style="line-height:100%; font-size:120%;">&raquo;</span>
 	<a href="<?= $account_approve; ?>" style="text-decoration:none;" target="_blank">
 		<b><?= $account_approve; ?></b>
@@ -21,11 +21,11 @@
 <?php } ?>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_name; ?></strong> <?= $username; ?>
+	<strong><?= $lang_text_name; ?></strong> <?= $username; ?>
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_email; ?></strong> <a href="mailto:<?= $email; ?>" style="text-decoration:none; word-wrap:break-word;"><?= $email; ?></a>
+	<strong><?= $lang_text_email; ?></strong> <a href="mailto:<?= $email; ?>" style="text-decoration:none; word-wrap:break-word;"><?= $email; ?></a>
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:0;">

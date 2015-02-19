@@ -23,7 +23,7 @@ class Option extends Controller {
     public function index() {
         $this->language->load('catalog/option');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/option');
         
@@ -35,14 +35,14 @@ class Option extends Controller {
     public function insert() {
         $this->language->load('catalog/option');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/option');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_option->addOption($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -69,14 +69,14 @@ class Option extends Controller {
     public function update() {
         $this->language->load('catalog/option');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/option');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_option->editOption($this->request->get['option_id'], $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -103,7 +103,7 @@ class Option extends Controller {
     public function delete() {
         $this->language->load('catalog/option');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/option');
         
@@ -112,7 +112,7 @@ class Option extends Controller {
                 $this->model_catalog_option->deleteOption($option_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -171,7 +171,7 @@ class Option extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/option', $url);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/option', $url);
         
         $data['insert'] = $this->url->link('catalog/option/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('catalog/option/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -187,7 +187,7 @@ class Option extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('catalog/option/update', 'token=' . $this->session->data['token'] . '&option_id=' . $result['option_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('catalog/option/update', 'token=' . $this->session->data['token'] . '&option_id=' . $result['option_id'] . $url, 'SSL'));
             
             $data['options'][] = array('option_id' => $result['option_id'], 'name' => $result['name'], 'sort_order' => $result['sort_order'], 'selected' => isset($this->request->post['selected']) && in_array($result['option_id'], $this->request->post['selected']), 'action' => $action);
         }
@@ -231,7 +231,7 @@ class Option extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($option_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('catalog/option', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($option_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('catalog/option', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -278,7 +278,7 @@ class Option extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/option', $url);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/option', $url);
         
         if (!isset($this->request->get['option_id'])) {
             $data['action'] = $this->url->link('catalog/option/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -357,24 +357,24 @@ class Option extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/option')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['option_description'] as $language_id => $value) {
             if (($this->encode->strlen($value['name']) < 1) || ($this->encode->strlen($value['name']) > 128)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
+                $this->error['name'][$language_id] = $this->language->get('lang_error_name');
             }
         }
         
         if (($this->request->post['type'] == 'select' || $this->request->post['type'] == 'radio' || $this->request->post['type'] == 'checkbox') && !isset($this->request->post['option_value'])) {
-            $this->error['warning'] = $this->language->get('error_type');
+            $this->error['warning'] = $this->language->get('lang_error_type');
         }
         
         if (isset($this->request->post['option_value'])) {
             foreach ($this->request->post['option_value'] as $option_value_id => $option_value) {
                 foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
                     if (($this->encode->strlen($option_value_description['name']) < 1) || ($this->encode->strlen($option_value_description['name']) > 128)) {
-                        $this->error['option_value'][$option_value_id][$language_id] = $this->language->get('error_option_value');
+                        $this->error['option_value'][$option_value_id][$language_id] = $this->language->get('lang_error_option_value');
                     }
                 }
             }
@@ -387,7 +387,7 @@ class Option extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'catalog/option')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('catalog/product');
@@ -396,7 +396,7 @@ class Option extends Controller {
             $product_total = $this->model_catalog_product->getTotalProductsByOptionId($option_id);
             
             if ($product_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_product'), $product_total);
             }
         }
         
@@ -447,19 +447,19 @@ class Option extends Controller {
                 $type = '';
                 
                 if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
-                    $type = $this->language->get('text_choose');
+                    $type = $this->language->get('lang_text_choose');
                 }
                 
                 if ($option['type'] == 'text' || $option['type'] == 'textarea') {
-                    $type = $this->language->get('text_input');
+                    $type = $this->language->get('lang_text_input');
                 }
                 
                 if ($option['type'] == 'file') {
-                    $type = $this->language->get('text_file');
+                    $type = $this->language->get('lang_text_file');
                 }
                 
                 if ($option['type'] == 'date' || $option['type'] == 'datetime' || $option['type'] == 'time') {
-                    $type = $this->language->get('text_date');
+                    $type = $this->language->get('lang_text_date');
                 }
                 
                 $json[] = array('option_id' => $option['option_id'], 'name' => strip_tags(html_entity_decode($option['name'], ENT_QUOTES, 'UTF-8')), 'category' => $type, 'type' => $option['type'], 'option_value' => $option_value_data);

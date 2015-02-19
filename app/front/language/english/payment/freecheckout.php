@@ -15,4 +15,4 @@
 */
 
 // Text
-$_['text_title'] = 'Free Checkout';
+$_['lang_text_title'] = 'Free Checkout';

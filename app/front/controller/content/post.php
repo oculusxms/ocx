@@ -76,7 +76,7 @@ class Post extends Controller {
                 $url.= '&filter_category_id=' . $this->request->get['filter_category_id'];
             }
             
-            $this->breadcrumb->add('text_search', 'content/search', $url);
+            $this->breadcrumb->add('lang_text_search', 'content/search', $url);
         }
         
         if (isset($this->request->get['post_id'])) {
@@ -139,7 +139,7 @@ class Post extends Controller {
             
             $this->theme->model('content/comment');
             
-            $data['tab_comment'] = sprintf($this->language->get('tab_comment'), $this->model_content_comment->getTotalCommentsByPostId($this->request->get['post_id']));
+            $data['tab_comment'] = sprintf($this->language->get('lang_tab_comment'), $this->model_content_comment->getTotalCommentsByPostId($this->request->get['post_id']));
             
             $data['post_id'] = $this->request->get['post_id'];
             $data['author_id'] = $post_info['author_id'];
@@ -174,7 +174,7 @@ class Post extends Controller {
             endif;
             
             $data['comment_status'] = $this->config->get('blog_comment_status');
-            $data['comments'] = sprintf($this->language->get('text_comments'), (int)$post_info['comments']);
+            $data['comments'] = sprintf($this->language->get('lang_text_comments'), (int)$post_info['comments']);
             $data['rating'] = (int)$post_info['rating'];
             $data['description'] = html_entity_decode($post_info['description'], ENT_QUOTES, 'UTF-8');
             
@@ -195,7 +195,7 @@ class Post extends Controller {
                     $rating = false;
                 }
                 
-                $data['posts'][] = array('post_id' => $result['post_id'], 'thumb' => $image, 'name' => $result['name'], 'short_description' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 80) . '..', 'rating' => $rating, 'reviews' => sprintf($this->language->get('text_reviews'), (int)$result['reviews']), 'href' => $this->url->link('content/post', 'post_id=' . $result['post_id']),);
+                $data['posts'][] = array('post_id' => $result['post_id'], 'thumb' => $image, 'name' => $result['name'], 'short_description' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 80) . '..', 'rating' => $rating, 'reviews' => sprintf($this->language->get('lang_text_reviews'), (int)$result['reviews']), 'href' => $this->url->link('content/post', 'post_id=' . $result['post_id']),);
             }
             
             $data['tags'] = array();
@@ -244,24 +244,24 @@ class Post extends Controller {
             
             if ($categories) {
                 foreach ($categories as $category) {
-                    $posted_in[] = sprintf($this->language->get('text_posted_categories'), $category['href'], $category['name']);
+                    $posted_in[] = sprintf($this->language->get('lang_text_posted_categories'), $category['href'], $category['name']);
                 }
             }
             
             $data['posted_in_categories'] = implode(", ", $posted_in);
             $data['author_href'] = $this->url->link('content/search', 'filter_author_id=' . $post_info['author_id'], 'SSL');
             $data['author_name'] = $post_info['author_name'];
-            $data['date_added'] = date($this->language->get('post_date'), strtotime($post_info['date_added']));
+            $data['date_added'] = date($this->language->get('lang_post_date'), strtotime($post_info['date_added']));
             
-            $comment_text = ($post_info['comments'] == 1) ? rtrim($this->language->get('text_comments'), 's') : $this->language->get('text_comments');
+            $comment_text = ($post_info['comments'] == 1) ? rtrim($this->language->get('lang_text_comments'), 's') : $this->language->get('lang_text_comments');
             
             if ($post_info['comments'] > 0) {
                 $data['text_comments'] = sprintf($comment_text, $post_info['comments']);
             } else {
-                $data['text_comments'] = $this->language->get('text_no_comments');
+                $data['text_comments'] = $this->language->get('lang_text_no_comments');
             }
             
-            $data['text_views'] = sprintf($this->language->get('text_views'), $post_info['viewed']);
+            $data['text_views'] = sprintf($this->language->get('lang_text_views'), $post_info['viewed']);
             
             // Search
             
@@ -305,11 +305,11 @@ class Post extends Controller {
                 $url.= '&filter_category_id=' . $this->request->get['filter_category_id'];
             }
             
-            $this->breadcrumb->add('text_error', 'content/post', $url . '&post_id=' . $post_id);
+            $this->breadcrumb->add('lang_text_error', 'content/post', $url . '&post_id=' . $post_id);
             
-            $this->theme->setTitle($this->language->get('text_error'));
+            $this->theme->setTitle($this->language->get('lang_text_error'));
             
-            $data['heading_title'] = $this->language->get('text_error');
+            $data['heading_title'] = $this->language->get('lang_text_error');
             
             $data['continue'] = $this->url->link('content/home');
             
@@ -326,8 +326,8 @@ class Post extends Controller {
         
         $this->theme->model('content/comment');
         
-        $data['text_on'] = $this->language->get('text_on');
-        $data['text_no_comments'] = $this->language->get('text_no_comments');
+        $data['text_on'] = $this->language->get('lang_text_on');
+        $data['text_no_comments'] = $this->language->get('lang_text_no_comments');
         
         if (isset($this->request->get['page'])) {
             $page = $this->request->get['page'];
@@ -350,10 +350,23 @@ class Post extends Controller {
             
             $image = $http . 'www.gravatar.com/avatar/' . md5(strtolower($result['email'])) . '?s=50';
             
-            $data['comments'][] = array('author' => $result['author'], 'image' => $image, 'href' => $result['website'] ? $result['website'] : false, 'text' => strip_tags(html_entity_decode($result['text'], ENT_QUOTES, 'UTF-8')), 'rating' => (int)$result['rating'], 'comments' => sprintf($this->language->get('text_comments'), (int)$comment_total), 'date_added' => date($this->language->get('post_date'), strtotime($result['date_added'])));
+            $data['comments'][] = array(
+                'author'     => $result['author'], 
+                'image'      => $image, 
+                'href'       => $result['website'] ? $result['website'] : false, 
+                'text'       => strip_tags(html_entity_decode($result['text'], ENT_QUOTES, 'UTF-8')), 
+                'rating'     => (int)$result['rating'], 
+                'comments'   => sprintf($this->language->get('lang_text_comments'), (int)$comment_total), 
+                'date_added' => date($this->language->get('lang_post_date'), strtotime($result['date_added']))
+            );
         }
         
-        $data['pagination'] = $this->theme->paginate($comment_total, $page, 5, $this->language->get('text_pagination'), $this->url->link('content/post/comment', 'post_id=' . $this->request->get['post_id'] . '&page={page}'));
+        $data['pagination'] = $this->theme->paginate(
+            $comment_total, 
+            $page, 5, 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('content/post/comment', 'post_id=' . $this->request->get['post_id'] . '&page={page}')
+        );
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -368,32 +381,32 @@ class Post extends Controller {
         
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
             if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 25)) {
-                $json['error'] = $this->language->get('error_name');
+                $json['error'] = $this->language->get('lang_error_name');
             }
             
             if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-                $json['error'] = $this->language->get('error_email');
+                $json['error'] = $this->language->get('lang_error_email');
             }
             
             if (($this->encode->strlen($this->request->post['text']) < 25) || ($this->encode->strlen($this->request->post['text']) > 1000)) {
-                $json['error'] = $this->language->get('error_text');
+                $json['error'] = $this->language->get('lang_error_text');
             }
             
             if (empty($this->request->post['rating'])) {
-                $json['error'] = $this->language->get('error_rating');
+                $json['error'] = $this->language->get('lang_error_rating');
             }
             
             if (empty($this->session->data['captcha']) || ($this->session->data['captcha'] != $this->request->post['captcha'])) {
-                $json['error'] = $this->language->get('error_captcha');
+                $json['error'] = $this->language->get('lang_error_captcha');
             }
             
             if (!isset($json['error'])) {
                 $this->model_content_comment->addComment($this->request->get['post_id'], $this->request->post);
                 
                 if ($this->config->get('blog_comment_require_approve')) {
-                    $json['success'] = $this->language->get('text_success_approve_required');
+                    $json['success'] = $this->language->get('lang_text_success_approve_required');
                 } else {
-                    $json['success'] = $this->language->get('text_success_no_approve_required');
+                    $json['success'] = $this->language->get('lang_text_success_no_approve_required');
                 }
                 
                 $json['require_approve'] = $this->config->get('blog_comment_require_approve');

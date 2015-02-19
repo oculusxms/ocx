@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="panel-title"><?= $heading_title; ?></div>
+		<div class="panel-title"><?= $lang_heading_title; ?></div>
 	</div>
 	<div class="panel-body">
 		<div class="input-group input-icon">
@@ -8,7 +8,7 @@
 				value="<?= $filter_name; ?>" 
 				class="form-control search" 
 				data-url="content/search" 
-				placeholder="<?= $search_form_placeholder; ?>" >
+				placeholder="<?= $lang_text_search_placeholder; ?>" >
 			<span class="input-group-addon"><em class="fa fa-search fa-fw"></em></span>
 		</div>
 	</div>

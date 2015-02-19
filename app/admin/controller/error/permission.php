@@ -21,9 +21,9 @@ class Permission extends Controller {
     public function index() {
         $data = $this->theme->language('error/permission');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('heading_title', 'error/permission');
+        $this->breadcrumb->add('lang_heading_title', 'error/permission');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

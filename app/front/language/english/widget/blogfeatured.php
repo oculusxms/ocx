@@ -15,4 +15,4 @@
 */
 
 // Heading
-$_['heading_title'] = 'Featured Articles';
+$_['lang_heading_title'] = 'Featured Articles';

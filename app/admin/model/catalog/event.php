@@ -136,6 +136,8 @@ class Event extends Model {
 						category_id = '" . (int)$category_id . "'");
             }
         }
+
+        $this->theme->trigger('admin_add_event', array('event_id' => $event_id));
         
         return;
     }
@@ -218,7 +220,9 @@ class Event extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'product_id:" . (int)$data['product_id'] . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}route 
+        	WHERE query = 'product_id:" . (int)$data['product_id'] . "'");
         
         $this->db->query("
 			INSERT INTO {$this->db->prefix}route 
@@ -241,6 +245,8 @@ class Event extends Model {
 				WHERE product_id = '" . (int)$data['product_id'] . "' 
 				AND language_id = '" . (int)$language['language_id'] . "'");
         }
+
+        $this->theme->trigger('admin_edit_event', array('event_id' => $event_id));
         
         return;
     }
@@ -261,6 +267,8 @@ class Event extends Model {
         
         $this->theme->model('catalog/product');
         $this->model_catalog_product->deleteProduct($product_id->row['product_id']);
+
+         $this->theme->trigger('admin_delete_event', array('event_id' => $event_id));
         
         return;
     }
@@ -418,34 +426,34 @@ class Event extends Model {
         // admin_event_add
             
         // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-        //     $subject = sprintf($this->language->get('text_add_event_subject'), $event_info->row['event_name']);
+        //     $subject = sprintf($this->language->get('lang_text_add_event_subject'), $event_info->row['event_name']);
         //     $image = IMAGE_URL . $this->config->get('config_logo');
         //     $logo = str_replace(' ', '%20', $image);
         //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
         //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-        //     $html.= sprintf($this->language->get('text_add_event_message'), $event_info->row['event_name']);
+        //     $html.= sprintf($this->language->get('lang_text_add_event_message'), $event_info->row['event_name']);
         //     $html.= '</div>';
         //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
         //     $html.= '<table>';
         //     $html.= '<tr>';
-        //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_event_name') . ':</td>';
+        //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_event_name') . ':</td>';
         //     $html.= '<td>' . $event_info->row['event_name'] . '</td>';
         //     $html.= '</tr>';
         //     $html.= '<tr>';
-        //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_date_time') . ':</td>';
-        //     $html.= '<td>' . date($this->language->get('date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('time_format'), strtotime($event_info->row['date_time'])) . '</td>';
+        //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_date_time') . ':</td>';
+        //     $html.= '<td>' . date($this->language->get('lang_date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('lang_time_format'), strtotime($event_info->row['date_time'])) . '</td>';
         //     $html.= '</tr>';
             
         //     if ($event_info->row['location'] != "") {
         //         $html.= '<tr>';
-        //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_location') . ':</td>';
+        //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_location') . ':</td>';
         //         $html.= '<td>' . $event_info->row['location'] . '</td>';
         //         $html.= '</tr>';
         //     }
             
         //     if ($event_info->row['telephone'] != "") {
         //         $html.= '<tr>';
-        //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_telephone') . ':</td>';
+        //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_telephone') . ':</td>';
         //         $html.= '<td>' . $event_info->row['telephone'] . '</td>';
         //         $html.= '</tr>';
         //     }
@@ -507,34 +515,34 @@ class Event extends Model {
             // admin_event_waitlist
             
             // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-            //     $subject = sprintf($this->language->get('text_add_wait_subject'), $event_info->row['event_name']);
+            //     $subject = sprintf($this->language->get('lang_text_add_wait_subject'), $event_info->row['event_name']);
             //     $image = IMAGE_URL . $this->config->get('config_logo');
             //     $logo = str_replace(' ', '%20', $image);
             //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
             //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-            //     $html.= sprintf($this->language->get('text_add_wait_message'), $event_info->row['event_name']);
+            //     $html.= sprintf($this->language->get('lang_text_add_wait_message'), $event_info->row['event_name']);
             //     $html.= '</div>';
             //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
             //     $html.= '<table>';
             //     $html.= '<tr>';
-            //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_event_name') . ':</td>';
+            //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_event_name') . ':</td>';
             //     $html.= '<td>' . $event_info->row['event_name'] . '</td>';
             //     $html.= '</tr>';
             //     $html.= '<tr>';
-            //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_date_time') . ':</td>';
-            //     $html.= '<td>' . date($this->language->get('date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('time_format'), strtotime($event_info->row['date_time'])) . '</td>';
+            //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_date_time') . ':</td>';
+            //     $html.= '<td>' . date($this->language->get('lang_date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('lang_time_format'), strtotime($event_info->row['date_time'])) . '</td>';
             //     $html.= '</tr>';
                 
             //     if ($event_info->row['location'] != "") {
             //         $html.= '<tr>';
-            //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_location') . ':</td>';
+            //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_location') . ':</td>';
             //         $html.= '<td>' . $event_info->row['location'] . '</td>';
             //         $html.= '</tr>';
             //     }
                 
             //     if ($event_info->row['telephone'] != "") {
             //         $html.= '<tr>';
-            //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('column_telephone') . ':</td>';
+            //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_telephone') . ':</td>';
             //         $html.= '<td>' . $event_info->row['telephone'] . '</td>';
             //         $html.= '</tr>';
             //     }

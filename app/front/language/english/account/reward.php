@@ -15,15 +15,15 @@
 */
 
 // Heading
-$_['heading_title']      = 'Your Reward Points';
+$_['lang_heading_title']      = 'Your Reward Points';
 
 // Column
-$_['column_date_added']  = 'Date Added';
-$_['column_description'] = 'Description';
-$_['column_points']      = 'Points';
+$_['lang_column_date_added']  = 'Date Added';
+$_['lang_column_description'] = 'Description';
+$_['lang_column_points']      = 'Points';
 
 // Text
-$_['text_account']       = 'Dashboard';
-$_['text_reward']        = 'Reward Points';
-$_['text_total']         = 'Your total number of reward points is:';
-$_['text_empty']         = 'You do not have any reward points.';
+$_['lang_text_account']       = 'Dashboard';
+$_['lang_text_reward']        = 'Reward Points';
+$_['lang_text_total']         = 'Your total number of reward points is:';
+$_['lang_text_empty']         = 'You do not have any reward points.';

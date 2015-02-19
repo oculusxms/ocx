@@ -27,7 +27,7 @@
 			<label class="col-sm-2 control-label" for="input-git-provider"><b class="required">*</b> <?= $entry_git_provider; ?></label>
 			<div class="control-field col-sm-4">
 				<select name="git_provider" id="input-git-provider" class="form-control" required>
-					<option value="0"><?= $text_select; ?></option>
+					<option value="0"><?= $lang_text_select; ?></option>
 					<?php foreach ($git_providers as $provider): ?>
 					<?php if ($provider['id'] == $git_provider): ?>
 					<option value="<?= $provider['id']; ?>" selected="selected"><?= $provider['name']; ?></option>
@@ -56,7 +56,7 @@
 			<label class="col-sm-2 control-label" for="input-git-branch"><b class="required">*</b> <?= $entry_git_branch; ?></label>
 			<div class="control-field col-sm-4">
 				<select id="input-git-branch" class="form-control" required>
-					<option value="0"><?= $text_select; ?></option>
+					<option value="0"><?= $lang_text_select; ?></option>
 					<?php foreach ($git_branches as $branch): ?>
 					<?php if ($branch['name'] == $git_branch): ?>
 					<option value="<?= $branch['name']; ?>" selected="selected"><?= $branch['name']; ?></option>

@@ -94,7 +94,9 @@ class Page extends Model {
 				WHERE page_id = '" . (int)$page_id . "'
 			");
         
-        $this->db->query("DELETE FROM {$this->db->prefix}page_description WHERE page_id = '" . (int)$page_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}page_description 
+            WHERE page_id = '" . (int)$page_id . "'");
         
         foreach ($data['page_description'] as $language_id => $value) {
             $this->db->query("
@@ -109,7 +111,9 @@ class Page extends Model {
 			");
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}page_to_store WHERE page_id = '" . (int)$page_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}page_to_store 
+            WHERE page_id = '" . (int)$page_id . "'");
         
         if (isset($data['page_store'])) {
             foreach ($data['page_store'] as $store_id) {
@@ -122,7 +126,9 @@ class Page extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}page_to_layout WHERE page_id = '" . (int)$page_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}page_to_layout 
+            WHERE page_id = '" . (int)$page_id . "'");
         
         if (isset($data['page_layout'])) {
             foreach ($data['page_layout'] as $store_id => $layout) {
@@ -138,7 +144,9 @@ class Page extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'page_id:" . (int)$page_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}route 
+            WHERE query = 'page_id:" . (int)$page_id . "'");
         
         if ($data['slug']) {
             $this->db->query("
@@ -156,11 +164,25 @@ class Page extends Model {
     }
     
     public function deletePage($page_id) {
-        $this->db->query("DELETE FROM {$this->db->prefix}page WHERE page_id = '" . (int)$page_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}page_description WHERE page_id = '" . (int)$page_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}page_to_store WHERE page_id = '" . (int)$page_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}page_to_layout WHERE page_id = '" . (int)$page_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'page_id:" . (int)$page_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}page 
+            WHERE page_id = '" . (int)$page_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}page_description 
+            WHERE page_id = '" . (int)$page_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}page_to_store 
+            WHERE page_id = '" . (int)$page_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}page_to_layout 
+            WHERE page_id = '" . (int)$page_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}route 
+            WHERE query = 'page_id:" . (int)$page_id . "'");
         
         $this->cache->delete('page');
         
@@ -250,7 +272,12 @@ class Page extends Model {
 		");
         
         foreach ($query->rows as $result) {
-            $page_description_data[$result['language_id']] = array('title' => $result['title'], 'description' => $result['description'], 'meta_description' => $result['meta_description'], 'meta_keywords' => $result['meta_keywords']);
+            $page_description_data[$result['language_id']] = array(
+                'title'            => $result['title'], 
+                'description'      => $result['description'], 
+                'meta_description' => $result['meta_description'], 
+                'meta_keywords'    => $result['meta_keywords']
+            );
         }
         
         return $page_description_data;

@@ -15,20 +15,20 @@
 */
 
 // Heading
-$_['heading_title']      = 'Check / Money Order';
+$_['lang_heading_title']      = 'Check / Money Order';
 
 // Text
-$_['text_payment']       = 'Payment';
-$_['text_success']       = 'Success: You have modified check / money order account details.';
+$_['lang_text_payment']       = 'Payment';
+$_['lang_text_success']       = 'Success: You have modified check / money order account details.';
 
 // Entry
-$_['entry_payable']      = 'Payable To:';
-$_['entry_total']        = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
-$_['entry_order_status'] = 'Order Status:';
-$_['entry_geo_zone']     = 'Geo Zone:';
-$_['entry_status']       = 'Status:';
-$_['entry_sort_order']   = 'Sort Order:';
+$_['lang_entry_payable']      = 'Payable To:';
+$_['lang_entry_total']        = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
+$_['lang_entry_order_status'] = 'Order Status:';
+$_['lang_entry_geo_zone']     = 'Geo Zone:';
+$_['lang_entry_status']       = 'Status:';
+$_['lang_entry_sort_order']   = 'Sort Order:';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify payment check / money order.';
-$_['error_payable']      = 'Payable To Required.';
+$_['lang_error_permission']   = 'Warning: You do not have permission to modify payment check / money order.';
+$_['lang_error_payable']      = 'Payable To Required.';

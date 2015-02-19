@@ -15,4 +15,4 @@
 */
 
 // Text
-$_['text_currency'] = 'Currency';
+$_['lang_text_currency'] = 'Currency';

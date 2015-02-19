@@ -22,7 +22,7 @@ class Taxrate extends Controller {
     
     public function index() {
         $this->language->load('localization/tax_rate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/taxrate');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Taxrate extends Controller {
     
     public function insert() {
         $this->language->load('localization/tax_rate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/taxrate');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_localization_taxrate->addTaxRate($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -63,12 +63,12 @@ class Taxrate extends Controller {
     
     public function update() {
         $this->language->load('localization/tax_rate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/taxrate');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_localization_taxrate->editTaxRate($this->request->get['tax_rate_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -94,7 +94,7 @@ class Taxrate extends Controller {
     
     public function delete() {
         $this->language->load('localization/tax_rate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/taxrate');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -102,7 +102,7 @@ class Taxrate extends Controller {
                 $this->model_localization_taxrate->deleteTaxRate($tax_rate_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -161,7 +161,7 @@ class Taxrate extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'localization/taxrate', $url);
+        $this->breadcrumb->add('lang_heading_title', 'localization/taxrate', $url);
         
         $data['insert'] = $this->url->link('localization/taxrate/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('localization/taxrate/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -177,9 +177,9 @@ class Taxrate extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('localization/taxrate/update', 'token=' . $this->session->data['token'] . '&tax_rate_id=' . $result['tax_rate_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('localization/taxrate/update', 'token=' . $this->session->data['token'] . '&tax_rate_id=' . $result['tax_rate_id'] . $url, 'SSL'));
             
-            $data['tax_rates'][] = array('tax_rate_id' => $result['tax_rate_id'], 'name' => $result['name'], 'rate' => $result['rate'], 'type' => ($result['type'] == 'F' ? $this->language->get('text_amount') : $this->language->get('text_percent')), 'geo_zone' => $result['geo_zone'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])), 'selected' => isset($this->request->post['selected']) && in_array($result['tax_rate_id'], $this->request->post['selected']), 'action' => $action);
+            $data['tax_rates'][] = array('tax_rate_id' => $result['tax_rate_id'], 'name' => $result['name'], 'rate' => $result['rate'], 'type' => ($result['type'] == 'F' ? $this->language->get('lang_text_amount') : $this->language->get('lang_text_percent')), 'geo_zone' => $result['geo_zone'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'date_modified' => date($this->language->get('lang_date_format_short'), strtotime($result['date_modified'])), 'selected' => isset($this->request->post['selected']) && in_array($result['tax_rate_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         if (isset($this->error['warning'])) {
@@ -225,7 +225,7 @@ class Taxrate extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($tax_rate_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('localization/taxrate', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($tax_rate_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('localization/taxrate', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -272,7 +272,7 @@ class Taxrate extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'localization/taxrate', $url);
+        $this->breadcrumb->add('lang_heading_title', 'localization/taxrate', $url);
         
         if (!isset($this->request->get['tax_rate_id'])) {
             $data['action'] = $this->url->link('localization/taxrate/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -343,15 +343,15 @@ class Taxrate extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'localization/taxrate')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 32)) {
-            $this->error['name'] = $this->language->get('error_name');
+            $this->error['name'] = $this->language->get('lang_error_name');
         }
         
         if (!$this->request->post['rate']) {
-            $this->error['rate'] = $this->language->get('error_rate');
+            $this->error['rate'] = $this->language->get('lang_error_rate');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -361,7 +361,7 @@ class Taxrate extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'localization/taxrate')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('localization/taxclass');
@@ -370,7 +370,7 @@ class Taxrate extends Controller {
             $tax_rule_total = $this->model_localization_taxclass->getTotalTaxRulesByTaxRateId($tax_rate_id);
             
             if ($tax_rule_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_tax_rule'), $tax_rule_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_tax_rule'), $tax_rule_total);
             }
         }
         

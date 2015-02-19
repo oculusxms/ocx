@@ -1193,13 +1193,13 @@ class Product extends Model {
         // public_waitlist_join
         
         // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-        //     $subject = sprintf($this->language->get('text_waitlist_subject'), $event_name->row['event_name']);
+        //     $subject = sprintf($this->language->get('lang_text_waitlist_subject'), $event_name->row['event_name']);
         //     $this->theme->model('tool/image');
         //     $image = IMAGE_URL . $this->config->get('config_logo');
         //     $logo = str_replace(' ', '%20', $image);
         //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
         //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-        //     $html.= sprintf($this->language->get('text_waitlist_message'), $event_name->row['event_name']);
+        //     $html.= sprintf($this->language->get('lang_text_waitlist_message'), $event_name->row['event_name']);
         //     $html.= '</div>';
         //     $html.= '<div style="width: 100%;">';
         //     $html.= $this->config->get('config_name');

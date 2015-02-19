@@ -15,33 +15,33 @@
 */
 
 // Heading
-$_['heading_title']        = 'Products';
+$_['lang_heading_title']        = 'Products';
 
 // Text
-$_['text_auto']            = 'Auto';
-$_['text_latest']          = 'Latest';
-$_['text_featured']        = 'Featured';
-$_['text_special']         = 'Specials';
-$_['text_bestseller']      = 'Best Sellers';
-$_['text_widget']          = 'Widgets';
-$_['text_success']         = 'Success: You have modified masonry products.';
+$_['lang_text_auto']            = 'Auto';
+$_['lang_text_latest']          = 'Latest';
+$_['lang_text_featured']        = 'Featured';
+$_['lang_text_special']         = 'Specials';
+$_['lang_text_bestseller']      = 'Best Sellers';
+$_['lang_text_widget']          = 'Widgets';
+$_['lang_text_success']         = 'Success: You have modified masonry products.';
 
 // Entry
-$_['entry_button']         = 'Button:';
-$_['entry_description']    = 'Description:';
-$_['entry_limit']          = 'Limit:';
-$_['entry_span']           = 'Span:';
-$_['entry_height']         = 'Height (Auto):';
-$_['entry_product']        = 'Product Type:';
-$_['entry_layout']         = 'Layout:';
-$_['entry_position']       = 'Position:';
-$_['entry_status']         = 'Status:';
-$_['entry_sort_order']     = 'Sort Order:';
+$_['lang_entry_button']         = 'Button:';
+$_['lang_entry_description']    = 'Description:';
+$_['lang_entry_limit']          = 'Limit:';
+$_['lang_entry_span']           = 'Span:';
+$_['lang_entry_height']         = 'Height (Auto):';
+$_['lang_entry_product']        = 'Product Type:';
+$_['lang_entry_layout']         = 'Layout:';
+$_['lang_entry_position']       = 'Position:';
+$_['lang_entry_status']         = 'Status:';
+$_['lang_entry_sort_order']     = 'Sort Order:';
 
 // Button
-$_['button_save_continue'] = 'Save & Continue';
+$_['lang_button_save_continue'] = 'Save & Continue';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to modify Masonry Product Widget.';
-$_['error_span']           = 'Warning: The minimum span required for <span class="error" style="display:inline-block;">***</span> is 2.';
-$_['error_asterisk']       = '***';
+$_['lang_error_permission']     = 'Warning: You do not have permission to modify Masonry Product Widget.';
+$_['lang_error_span']           = 'Warning: The minimum span required for <span class="error" style="display:inline-block;">***</span> is 2.';
+$_['lang_error_asterisk']       = '***';

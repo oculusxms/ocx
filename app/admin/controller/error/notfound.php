@@ -21,9 +21,9 @@ class Notfound extends Controller {
     public function index() {
         $data = $this->theme->language('error/not_found');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('heading_title', 'error/notfound');
+        $this->breadcrumb->add('lang_heading_title', 'error/notfound');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

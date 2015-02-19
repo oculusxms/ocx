@@ -26,10 +26,10 @@ class Reward extends Controller {
         }
         
         $data = $this->theme->language('account/reward');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('text_reward', 'account/reward', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_reward', 'account/reward', null, true, 'SSL');
         
         $this->theme->model('account/reward');
         
@@ -48,10 +48,10 @@ class Reward extends Controller {
         $results = $this->model_account_reward->getRewards($filter);
         
         foreach ($results as $result) {
-            $data['rewards'][] = array('order_id' => $result['order_id'], 'points' => $result['points'], 'description' => $result['description'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'href' => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], 'SSL'));
+            $data['rewards'][] = array('order_id' => $result['order_id'], 'points' => $result['points'], 'description' => $result['description'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'href' => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], 'SSL'));
         }
         
-        $data['pagination'] = $this->theme->paginate($reward_total, $page, 10, $this->language->get('text_pagination'), $this->url->link('account/reward', 'page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($reward_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('account/reward', 'page={page}', 'SSL'));
         
         $data['total'] = (int)$this->customer->getRewardPoints();
         

@@ -22,7 +22,7 @@ class Userpermission extends Controller {
     
     public function index() {
         $this->language->load('people/user_group');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/user_group');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Userpermission extends Controller {
     
     public function insert() {
         $this->language->load('people/user_group');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/user_group');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_people_user_group->addUserGroup($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -63,12 +63,12 @@ class Userpermission extends Controller {
     
     public function update() {
         $this->language->load('people/user_group');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/user_group');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_people_user_group->editUserGroup($this->request->get['user_group_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -94,7 +94,7 @@ class Userpermission extends Controller {
     
     public function delete() {
         $this->language->load('people/user_group');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/user_group');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -102,7 +102,7 @@ class Userpermission extends Controller {
                 $this->model_people_user_group->deleteUserGroup($user_group_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -161,7 +161,7 @@ class Userpermission extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'people/userpermission', $url);
+        $this->breadcrumb->add('lang_heading_title', 'people/userpermission', $url);
         
         $data['insert'] = $this->url->link('people/userpermission/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('people/userpermission/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -177,7 +177,7 @@ class Userpermission extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('people/userpermission/update', 'token=' . $this->session->data['token'] . '&user_group_id=' . $result['user_group_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('people/userpermission/update', 'token=' . $this->session->data['token'] . '&user_group_id=' . $result['user_group_id'] . $url, 'SSL'));
             
             $data['user_groups'][] = array('user_group_id' => $result['user_group_id'], 'name' => $result['name'], 'selected' => isset($this->request->post['selected']) && in_array($result['user_group_id'], $this->request->post['selected']), 'action' => $action);
         }
@@ -220,7 +220,7 @@ class Userpermission extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($user_group_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('people/userpermission', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($user_group_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('people/userpermission', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -261,7 +261,7 @@ class Userpermission extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'people/userpermission', $url);
+        $this->breadcrumb->add('lang_heading_title', 'people/userpermission', $url);
         
         if (!isset($this->request->get['user_group_id'])) {
             $data['action'] = $this->url->link('people/userpermission/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -333,11 +333,11 @@ class Userpermission extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'people/userpermission')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 64)) {
-            $this->error['name'] = $this->language->get('error_name');
+            $this->error['name'] = $this->language->get('lang_error_name');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -347,7 +347,7 @@ class Userpermission extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'people/userpermission')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('people/user');
@@ -356,7 +356,7 @@ class Userpermission extends Controller {
             $user_total = $this->model_people_user->getTotalUsersByGroupId($user_group_id);
             
             if ($user_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_user'), $user_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_user'), $user_total);
             }
         }
         

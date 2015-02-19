@@ -11,15 +11,15 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="h2"><i class="fa fa-rss"></i><?= $heading_feed; ?></div>
+		<div class="h2"><i class="fa fa-rss"></i><?= $lang_heading_feed; ?></div>
 	</div>
 	<div class="panel-body">
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
-					<th><?= $column_name; ?></th>
-					<th class="hidden-xs"><?= $column_status; ?></th>
-					<th class="text-right"><span class="hidden-xs"><?= $column_action; ?></span></th>
+					<th><?= $lang_column_name; ?></th>
+					<th class="hidden-xs"><?= $lang_column_status; ?></th>
+					<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 				</tr>
 			</thead>
 			<tbody data-link="row" class="rowlink">
@@ -37,7 +37,7 @@
 				<?php } ?>
 				<?php } else { ?>
 				<tr>
-					<td class="text-center" colspan="3"><?= $text_no_results; ?></td>
+					<td class="text-center" colspan="3"><?= $lang_text_no_results; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

@@ -49,7 +49,7 @@ class Shippingaddress extends Controller {
             $data['zone_id'] = '';
         }
         
-        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('text_select') . '","none":"' . $this->language->get('text_none') . '"}');
+        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('lang_text_select') . '","none":"' . $this->language->get('lang_text_none') . '"}');
         
         $this->theme->model('localization/country');
         
@@ -108,9 +108,9 @@ class Shippingaddress extends Controller {
                 $this->theme->model('account/address');
                 
                 if (empty($this->request->post['address_id'])) {
-                    $json['error']['warning'] = $this->language->get('error_address');
+                    $json['error']['warning'] = $this->language->get('lang_error_address');
                 } elseif (!in_array($this->request->post['address_id'], array_keys($this->model_account_address->getAddresses()))) {
-                    $json['error']['warning'] = $this->language->get('error_address');
+                    $json['error']['warning'] = $this->language->get('lang_error_address');
                 }
                 
                 if (!$json) {
@@ -135,19 +135,19 @@ class Shippingaddress extends Controller {
             
             if ($this->request->post['shipping_address'] == 'new') {
                 if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-                    $json['error']['firstname'] = $this->language->get('error_firstname');
+                    $json['error']['firstname'] = $this->language->get('lang_error_firstname');
                 }
                 
                 if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-                    $json['error']['lastname'] = $this->language->get('error_lastname');
+                    $json['error']['lastname'] = $this->language->get('lang_error_lastname');
                 }
                 
                 if (($this->encode->strlen($this->request->post['address_1']) < 3) || ($this->encode->strlen($this->request->post['address_1']) > 128)) {
-                    $json['error']['address_1'] = $this->language->get('error_address_1');
+                    $json['error']['address_1'] = $this->language->get('lang_error_address_1');
                 }
                 
                 if (($this->encode->strlen($this->request->post['city']) < 2) || ($this->encode->strlen($this->request->post['city']) > 128)) {
-                    $json['error']['city'] = $this->language->get('error_city');
+                    $json['error']['city'] = $this->language->get('lang_error_city');
                 }
                 
                 $this->theme->model('localization/country');
@@ -155,15 +155,15 @@ class Shippingaddress extends Controller {
                 $country_info = $this->model_localization_country->getCountry($this->request->post['country_id']);
                 
                 if ($country_info && $country_info['postcode_required'] && ($this->encode->strlen($this->request->post['postcode']) < 2) || ($this->encode->strlen($this->request->post['postcode']) > 10)) {
-                    $json['error']['postcode'] = $this->language->get('error_postcode');
+                    $json['error']['postcode'] = $this->language->get('lang_error_postcode');
                 }
                 
                 if ($this->request->post['country_id'] == '') {
-                    $json['error']['country'] = $this->language->get('error_country');
+                    $json['error']['country'] = $this->language->get('lang_error_country');
                 }
                 
                 if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-                    $json['error']['zone'] = $this->language->get('error_zone');
+                    $json['error']['zone'] = $this->language->get('lang_error_zone');
                 }
                 
                 if (!$json) {

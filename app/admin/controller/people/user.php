@@ -22,7 +22,7 @@ class User extends Controller {
     
     public function index() {
         $this->language->load('people/user');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/user');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class User extends Controller {
     
     public function insert() {
         $this->language->load('people/user');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/user');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_people_user->addUser($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -63,12 +63,12 @@ class User extends Controller {
     
     public function update() {
         $this->language->load('people/user');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/user');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_people_user->editUser($this->request->get['user_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -94,7 +94,7 @@ class User extends Controller {
     
     public function delete() {
         $this->language->load('people/user');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/user');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -102,7 +102,7 @@ class User extends Controller {
                 $this->model_people_user->deleteUser($user_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -161,7 +161,7 @@ class User extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'people/user', $url);
+        $this->breadcrumb->add('lang_heading_title', 'people/user', $url);
         
         $data['insert'] = $this->url->link('people/user/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('people/user/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -177,9 +177,9 @@ class User extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('people/user/update', 'token=' . $this->session->data['token'] . '&user_id=' . $result['user_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('people/user/update', 'token=' . $this->session->data['token'] . '&user_id=' . $result['user_id'] . $url, 'SSL'));
             
-            $data['users'][] = array('user_id' => $result['user_id'], 'username' => $result['username'], 'status' => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')), 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['user_id'], $this->request->post['selected']), 'action' => $action);
+            $data['users'][] = array('user_id' => $result['user_id'], 'username' => $result['username'], 'status' => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['user_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         if (isset($this->error['warning'])) {
@@ -222,7 +222,7 @@ class User extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($user_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('people/user', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($user_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('people/user', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -287,7 +287,7 @@ class User extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'people/user', $url);
+        $this->breadcrumb->add('lang_heading_title', 'people/user', $url);
         
         if (!isset($this->request->get['user_id'])) {
             $data['action'] = $this->url->link('people/user/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -374,40 +374,40 @@ class User extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'people/user')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['username']) < 3) || ($this->encode->strlen($this->request->post['username']) > 20)) {
-            $this->error['username'] = $this->language->get('error_username');
+            $this->error['username'] = $this->language->get('lang_error_username');
         }
         
         $user_info = $this->model_people_user->getUserByUsername($this->request->post['username']);
         
         if (!isset($this->request->get['user_id'])) {
             if ($user_info) {
-                $this->error['warning'] = $this->language->get('error_exists');
+                $this->error['warning'] = $this->language->get('lang_error_exists');
             }
         } else {
             if ($user_info && ($this->request->get['user_id'] != $user_info['user_id'])) {
-                $this->error['warning'] = $this->language->get('error_exists');
+                $this->error['warning'] = $this->language->get('lang_error_exists');
             }
         }
         
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if ($this->request->post['password'] || (!isset($this->request->get['user_id']))) {
             if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {
-                $this->error['password'] = $this->language->get('error_password');
+                $this->error['password'] = $this->language->get('lang_error_password');
             }
             
             if ($this->request->post['password'] != $this->request->post['confirm']) {
-                $this->error['confirm'] = $this->language->get('error_confirm');
+                $this->error['confirm'] = $this->language->get('lang_error_confirm');
             }
         }
         
@@ -418,12 +418,12 @@ class User extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'people/user')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['selected'] as $user_id) {
             if ($this->user->getId() == $user_id) {
-                $this->error['warning'] = $this->language->get('error_account');
+                $this->error['warning'] = $this->language->get('lang_error_account');
             }
         }
         

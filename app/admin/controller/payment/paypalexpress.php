@@ -22,7 +22,7 @@ class Paypalexpress extends Controller {
     
     public function index() {
         $data = $this->theme->language('payment/paypalexpress');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('setting/setting');
         $this->theme->model('setting/module');
@@ -32,7 +32,7 @@ class Paypalexpress extends Controller {
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('paypalexpress', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/payment', 'token=' . $this->session->data['token'], 'SSL'));
         } else {
@@ -41,8 +41,8 @@ class Paypalexpress extends Controller {
         
         $data['text_ipn_url'] = $this->app['https.public'] . 'payment/paypalexpress/ipn';
         
-        $this->breadcrumb->add('text_payment', 'module/payment');
-        $this->breadcrumb->add('heading_title', 'payment/paypalexpress');
+        $this->breadcrumb->add('lang_text_payment', 'module/payment');
+        $this->breadcrumb->add('lang_heading_title', 'payment/paypalexpress');
         
         //button actions
         $data['action'] = $this->url->link('payment/paypalexpress', 'token=' . $this->session->data['token'], 'SSL');
@@ -244,19 +244,19 @@ class Paypalexpress extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'payment/paypalexpress')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (empty($this->request->post['paypalexpress_username'])) {
-            $this->error['username'] = $this->language->get('error_username');
+            $this->error['username'] = $this->language->get('lang_error_username');
         }
         
         if (empty($this->request->post['paypalexpress_password'])) {
-            $this->error['password'] = $this->language->get('error_password');
+            $this->error['password'] = $this->language->get('lang_error_password');
         }
         
         if (empty($this->request->post['paypalexpress_signature'])) {
-            $this->error['signature'] = $this->language->get('error_signature');
+            $this->error['signature'] = $this->language->get('lang_error_signature');
         }
         
         if (!$this->error) {
@@ -328,15 +328,15 @@ class Paypalexpress extends Controller {
                     
                     $this->model_payment_paypalexpress->updateTransaction($transaction);
                     
-                    $json['success'] = $this->language->get('success_transaction_resent');
+                    $json['success'] = $this->language->get('lang_success_transaction_resent');
                 } else {
-                    $json['error'] = $this->language->get('error_timeout');
+                    $json['error'] = $this->language->get('lang_error_timeout');
                 }
             } else {
-                $json['error'] = $this->language->get('error_transaction_missing');
+                $json['error'] = $this->language->get('lang_error_transaction_missing');
             }
         } else {
-            $json['error'] = $this->language->get('error_data');
+            $json['error'] = $this->language->get('lang_error_data');
         }
         
         $this->response->addHeader('Content-Type: application/json');
@@ -385,7 +385,7 @@ class Paypalexpress extends Controller {
                 $json['failed_transaction']['amount'] = $transaction['amount'];
                 $json['failed_transaction']['column_date_added'] = date("Y-m-d H:i:s");
                 
-                $json['msg'] = $this->language->get('error_timeout');
+                $json['msg'] = $this->language->get('lang_error_timeout');
             } else if (isset($result['ACK']) && $result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
                 $transaction['transaction_id'] = $result['TRANSACTIONID'];
                 $transaction['payment_type'] = $result['PAYMENTTYPE'];
@@ -482,10 +482,10 @@ class Paypalexpress extends Controller {
     public function refund() {
         $data = $this->theme->language('payment/paypalexpress_refund');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_paypalexpress', 'payment/paypalexpress');
-        $this->breadcrumb->add('heading_title', 'payment/paypalexpress/refund');
+        $this->breadcrumb->add('lang_text_paypalexpress', 'payment/paypalexpress');
+        $this->breadcrumb->add('lang_heading_title', 'payment/paypalexpress/refund');
         
         //button actions
         $data['action'] = $this->url->link('payment/paypalexpress/doRefund', 'token=' . $this->session->data['token'], 'SSL');
@@ -503,7 +503,7 @@ class Paypalexpress extends Controller {
         
         if ($refunded != 0.00) {
             $data['refund_available'] = number_format($data['amount_original'] + $refunded, 2);
-            $data['attention'] = $this->language->get('text_current_refunds') . ': ' . $data['refund_available'];
+            $data['attention'] = $this->language->get('lang_text_current_refunds') . ': ' . $data['refund_available'];
         } else {
             $data['refund_available'] = '';
             $data['attention'] = '';
@@ -538,7 +538,7 @@ class Paypalexpress extends Controller {
             $this->theme->language('payment/paypalexpress_refund');
             
             if ($this->request->post['refund_full'] == 0 && $this->request->post['amount'] == 0) {
-                $this->session->data['error'] = $this->language->get('error_partial_amt');
+                $this->session->data['error'] = $this->language->get('lang_error_partial_amt');
             } else {
                 $order_id = $this->model_payment_paypalexpress->getOrderId($this->request->post['transaction_id']);
                 $paypal_order = $this->model_payment_paypalexpress->getOrder($order_id);
@@ -602,12 +602,12 @@ class Paypalexpress extends Controller {
                         $this->response->redirect($this->url->link('payment/paypalexpress/refund', 'token=' . $this->session->data['token'] . '&transaction_id=' . $this->request->post['transaction_id'], 'SSL'));
                     }
                 } else {
-                    $this->session->data['error'] = $this->language->get('error_data_missing');
+                    $this->session->data['error'] = $this->language->get('lang_error_data_missing');
                     $this->response->redirect($this->url->link('payment/paypalexpress/refund', 'token=' . $this->session->data['token'] . '&transaction_id=' . $this->request->post['transaction_id'], 'SSL'));
                 }
             }
         } else {
-            $this->session->data['error'] = $this->language->get('error_data');
+            $this->session->data['error'] = $this->language->get('lang_error_data');
             $this->response->redirect($this->url->link('payment/paypalexpress/refund', 'token=' . $this->session->data['token'] . '&transaction_id=' . $this->request->post['transaction_id'], 'SSL'));
         }
     }
@@ -665,13 +665,13 @@ class Paypalexpress extends Controller {
         $data = $this->theme->language('payment/paypalexpress_search');
         $this->theme->model('payment/paypalexpress');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $data['currency_codes'] = $this->model_payment_paypalexpress->currencyCodes();
         $data['default_currency'] = $this->config->get('paypalexpress_currency');
         
-        $this->breadcrumb->add('text_paypalexpress', 'payment/paypalexpress');
-        $this->breadcrumb->add('heading_title', 'payment/paypalexpress/search');
+        $this->breadcrumb->add('lang_text_paypalexpress', 'payment/paypalexpress');
+        $this->breadcrumb->add('lang_heading_title', 'payment/paypalexpress/search');
         
         $data['token'] = $this->session->data['token'];
         $data['date_start'] = date("Y-m-d", strtotime('-30 days'));
@@ -797,10 +797,10 @@ class Paypalexpress extends Controller {
         $data['cancel'] = $this->url->link('payment/paypalexpress/search', 'token=' . $this->session->data['token'], 'SSL');
         $data['token'] = $this->session->data['token'];
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_paypalexpress', 'payment/paypalexpress');
-        $this->breadcrumb->add('heading_title', 'payment/paypalexpress/viewTransaction');
+        $this->breadcrumb->add('lang_text_paypalexpress', 'payment/paypalexpress');
+        $this->breadcrumb->add('lang_heading_title', 'payment/paypalexpress/viewTransaction');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -855,12 +855,12 @@ class Paypalexpress extends Controller {
 					WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' 
 					LIMIT 1");
                 
-                $this->session->data['success'] = $this->language->get('text_cancelled');
+                $this->session->data['success'] = $this->language->get('lang_text_cancelled');
             } else {
-                $this->session->data['error'] = sprintf($this->language->get('error_not_cancelled'), $result['L_LONGMESSAGE0']);
+                $this->session->data['error'] = sprintf($this->language->get('lang_error_not_cancelled'), $result['L_LONGMESSAGE0']);
             }
         } else {
-            $this->session->data['error'] = $this->language->get('error_not_found');
+            $this->session->data['error'] = $this->language->get('lang_error_not_found');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -876,7 +876,7 @@ class Paypalexpress extends Controller {
         $data['buttons'] = array();
         
         if ($recurring['status_id'] == 2 || $recurring['status_id'] == 3) {
-            $data['buttons'][] = array('text' => $this->language->get('button_cancel_recurring'), 'link' => $this->url->link('payment/paypalexpress/recurringCancel', 'order_recurring_id=' . $this->request->get['order_recurring_id'] . '&token=' . $this->request->get['token'], 'SSL'));
+            $data['buttons'][] = array('text' => $this->language->get('lang_button_cancel_recurring'), 'link' => $this->url->link('payment/paypalexpress/recurringCancel', 'order_recurring_id=' . $this->request->get['order_recurring_id'] . '&token=' . $this->request->get['token'], 'SSL'));
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

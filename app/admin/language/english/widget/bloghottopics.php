@@ -15,19 +15,18 @@
 */
 
 // Heading
-$_['heading_title']    = 'Hot Topics';
-$_['doc_title']        = 'Hot Topics';
+$_['lang_heading_title']    = 'Hot Topics';
 
 // Text
-$_['text_widget']      = 'Widgets';
-$_['text_success']     = 'Success: You have modified hot topics.';
+$_['lang_text_widget']      = 'Widgets';
+$_['lang_text_success']     = 'Success: You have modified hot topics.';
 
 // Entry
-$_['entry_limit']      = 'Limit:';
-$_['entry_layout']     = 'Layout:';
-$_['entry_position']   = 'Position:';
-$_['entry_status']     = 'Status:';
-$_['entry_sort_order'] = 'Sort Order:';
+$_['lang_entry_limit']      = 'Limit:';
+$_['lang_entry_layout']     = 'Layout:';
+$_['lang_entry_position']   = 'Position:';
+$_['lang_entry_status']     = 'Status:';
+$_['lang_entry_sort_order'] = 'Sort Order:';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify hot topics.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify hot topics.';

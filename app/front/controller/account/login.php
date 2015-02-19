@@ -76,7 +76,7 @@ class Login extends Controller {
                     unset($this->session->data['payment_zone_id']);
                 }
                 
-                $this->theme->trigger('customer_login', array('customer_id' => $this->customer->getId()));
+                $this->theme->trigger('front_customer_login', array('customer_id' => $this->customer->getId()));
                 
                 $this->response->redirect($this->url->link('account/dashboard', '', 'SSL'));
             }
@@ -88,7 +88,7 @@ class Login extends Controller {
         
         $data = $this->theme->language('account/login');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             unset($this->session->data['guest']);
@@ -125,10 +125,10 @@ class Login extends Controller {
         }
         
         if ($this->customer->isLogged()):
-            $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
+            $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
         endif;
         
-        $this->breadcrumb->add('text_login', 'account/login', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_login', 'account/login', null, true, 'SSL');
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -179,13 +179,13 @@ class Login extends Controller {
     
     protected function validate() {
         if (!$this->customer->login($this->request->post['email'], $this->request->post['password'])) {
-            $this->error['warning'] = $this->language->get('error_login');
+            $this->error['warning'] = $this->language->get('lang_error_login');
         }
         
         $customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
         
         if ($customer_info && !$customer_info['approved']) {
-            $this->error['warning'] = $this->language->get('error_approved');
+            $this->error['warning'] = $this->language->get('lang_error_approved');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

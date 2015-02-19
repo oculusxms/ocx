@@ -15,15 +15,15 @@
 */
 
 // Heading
-$_['heading_title']        = 'Affiliate Account';
+$_['lang_heading_title']        = 'Affiliate Account';
 
 // Text
-$_['text_account']         = 'Affiliate';
-$_['text_my_account']      = 'Account';
-$_['text_my_tracking']     = 'Tracking Information';
-$_['text_my_transactions'] = 'Transactions';
-$_['text_edit']            = 'Edit your account information';
-$_['text_password']        = 'Change your password';
-$_['text_payment']         = 'Change your payment preferences';
-$_['text_tracking']        = 'Custom affiliate tracking code';
-$_['text_transaction']     = 'View your transaction history';
+$_['lang_text_account']         = 'Affiliate';
+$_['lang_text_my_account']      = 'Account';
+$_['lang_text_my_tracking']     = 'Tracking Information';
+$_['lang_text_my_transactions'] = 'Transactions';
+$_['lang_text_edit']            = 'Edit your account information';
+$_['lang_text_password']        = 'Change your password';
+$_['lang_text_payment']         = 'Change your payment preferences';
+$_['lang_text_tracking']        = 'Custom affiliate tracking code';
+$_['lang_text_transaction']     = 'View your transaction history';

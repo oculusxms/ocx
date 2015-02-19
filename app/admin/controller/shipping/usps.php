@@ -22,12 +22,12 @@ class Usps extends Controller {
     
     public function index() {
         $data = $this->theme->language('shipping/usps');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('usps', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/shipping', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -68,8 +68,8 @@ class Usps extends Controller {
             $data['error_height'] = '';
         }
         
-        $this->breadcrumb->add('text_shipping', 'module/shipping');
-        $this->breadcrumb->add('heading_title', 'shipping/usps');
+        $this->breadcrumb->add('lang_text_shipping', 'module/shipping');
+        $this->breadcrumb->add('lang_heading_title', 'shipping/usps');
         
         $data['action'] = $this->url->link('shipping/usps', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -323,9 +323,9 @@ class Usps extends Controller {
         
         $data['sizes'] = array();
         
-        $data['sizes'][] = array('text' => $this->language->get('text_regular'), 'value' => 'REGULAR');
+        $data['sizes'][] = array('text' => $this->language->get('lang_text_regular'), 'value' => 'REGULAR');
         
-        $data['sizes'][] = array('text' => $this->language->get('text_large'), 'value' => 'LARGE');
+        $data['sizes'][] = array('text' => $this->language->get('lang_text_large'), 'value' => 'LARGE');
         
         if (isset($this->request->post['usps_container'])) {
             $data['usps_container'] = $this->request->post['usps_container'];
@@ -335,11 +335,11 @@ class Usps extends Controller {
         
         $data['containers'] = array();
         
-        $data['containers'][] = array('text' => $this->language->get('text_rectangular'), 'value' => 'RECTANGULAR');
+        $data['containers'][] = array('text' => $this->language->get('lang_text_rectangular'), 'value' => 'RECTANGULAR');
         
-        $data['containers'][] = array('text' => $this->language->get('text_non_rectangular'), 'value' => 'NONRECTANGULAR');
+        $data['containers'][] = array('text' => $this->language->get('lang_text_non_rectangular'), 'value' => 'NONRECTANGULAR');
         
-        $data['containers'][] = array('text' => $this->language->get('text_variable'), 'value' => 'VARIABLE');
+        $data['containers'][] = array('text' => $this->language->get('lang_text_variable'), 'value' => 'VARIABLE');
         
         if (isset($this->request->post['usps_machinable'])) {
             $data['usps_machinable'] = $this->request->post['usps_machinable'];
@@ -440,27 +440,27 @@ class Usps extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'shipping/usps')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['usps_user_id']) {
-            $this->error['user_id'] = $this->language->get('error_user_id');
+            $this->error['user_id'] = $this->language->get('lang_error_user_id');
         }
         
         if (!$this->request->post['usps_postcode']) {
-            $this->error['postcode'] = $this->language->get('error_postcode');
+            $this->error['postcode'] = $this->language->get('lang_error_postcode');
         }
         
         if (!$this->request->post['usps_width']) {
-            $this->error['width'] = $this->language->get('error_width');
+            $this->error['width'] = $this->language->get('lang_error_width');
         }
         
         if (!$this->request->post['usps_height']) {
-            $this->error['height'] = $this->language->get('error_height');
+            $this->error['height'] = $this->language->get('lang_error_height');
         }
         
         if (!$this->request->post['usps_length']) {
-            $this->error['length'] = $this->language->get('error_length');
+            $this->error['length'] = $this->language->get('lang_error_length');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

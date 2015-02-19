@@ -27,9 +27,9 @@ class Account extends Controller {
         
         $data = $this->theme->language('affiliate/account');
         
-        $this->breadcrumb->add('text_account', 'affiliate/account', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'affiliate/account', null, true, 'SSL');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];

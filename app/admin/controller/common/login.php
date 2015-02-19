@@ -23,7 +23,7 @@ class Login extends Controller {
     public function index() {
         $data = $this->theme->language('common/login');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if ($this->user->isLogged() && isset($this->request->get['token']) && ($this->request->get['token'] == $this->session->data['token'])) {
             $this->response->redirect($this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL'));
@@ -40,7 +40,7 @@ class Login extends Controller {
         }
         
         if ((isset($this->session->data['token']) && !isset($this->request->get['token'])) || ((isset($this->request->get['token']) && (isset($this->session->data['token']) && ($this->request->get['token'] != $this->session->data['token']))))) {
-            $this->error['warning'] = $this->language->get('error_token');
+            $this->error['warning'] = $this->language->get('lang_error_token');
         }
         
         if (isset($this->error['warning'])) {
@@ -108,7 +108,7 @@ class Login extends Controller {
     
     protected function validate() {
         if (!isset($this->request->post['username']) || !isset($this->request->post['password']) || !$this->user->login($this->request->post['username'], $this->request->post['password'])) {
-            $this->error['warning'] = $this->language->get('error_login');
+            $this->error['warning'] = $this->language->get('lang_error_login');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

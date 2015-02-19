@@ -1,4 +1,4 @@
-<div class="btn-group" title="<?= $heading_title; ?>">
+<div class="btn-group" title="<?= $lang_heading_title; ?>">
 	<a class="btn btn-info" href="<?= $cart; ?>"><i class="fa fa-shopping-cart fa-fw"></i> <span id="cart-total" class="hidden-xs"><?= $text_items; ?></span></a>
 	<a class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
 	<ul id="cart" class="dropdown-menu dropdown-menu-right">
@@ -44,15 +44,15 @@
 			<li class="media-cart">
 				<div class="btn-group btn-group-justified">
 					<div class="btn-group">
-						<button type="button" onclick="location='<?= $cart; ?>'" class="btn btn-default"><i class="fa fa-shopping-cart"></i> <?= $text_cart; ?></button>
+						<button type="button" onclick="location='<?= $cart; ?>'" class="btn btn-default"><i class="fa fa-shopping-cart"></i> <?= $lang_text_cart; ?></button>
 					</div>
 					<div class="btn-group">
-						<button type="button" onclick="location='<?= $checkout; ?>'" class="btn btn-default"><?= $text_checkout; ?></button>
+						<button type="button" onclick="location='<?= $checkout; ?>'" class="btn btn-default"><?= $lang_text_checkout; ?></button>
 					</div>
 				</div>
 			</li>
 		<?php } else { ?>
-			<li class="media-cart"><span class="text-muted"><?= $text_empty; ?></span></li>
+			<li class="media-cart"><span class="text-muted"><?= $lang_text_empty; ?></span></li>
 		<?php } ?>
 	</ul>
 </div>

@@ -30,9 +30,9 @@ class Dashboard extends Controller {
         $data = $this->theme->language('account/dashboard');
         $this->theme->model('account/customer');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
         
         // let's find out if our member has their profile
         // and address filled in, if not, lets nag them.
@@ -92,12 +92,12 @@ class Dashboard extends Controller {
         
         $warning = '';
         
-        if (!$this->session->data['profile_complete']) $warning.= sprintf($this->language->get('complete_profile'), $this->url->link('account/edit', '', 'SSL'));
+        if (!isset($this->session->data['profile_complete'])) $warning.= sprintf($this->language->get('lang_complete_profile'), $this->url->link('account/edit', '', 'SSL'));
         
-        if (!$this->session->data['address_complete']):
+        if (!isset($this->session->data['address_complete'])):
             if ($warning !== '') $warning.= '<br>';
             
-            $warning.= sprintf($this->language->get('complete_address'), $this->url->link('account/address/update', 'address_id=' . $this->customer->getAddressId(), 'SSL'));
+            $warning.= sprintf($this->language->get('lang_complete_address'), $this->url->link('account/address/update', 'address_id=' . $this->customer->getAddressId(), 'SSL'));
         endif;
         
         if ($warning !== '') $this->error['warning'] = $warning;

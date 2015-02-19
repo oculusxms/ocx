@@ -15,32 +15,32 @@
 */
 
 // Heading
-$_['heading_title']      = 'Banners';
+$_['lang_heading_title']      = 'Banners';
 
 // Text
-$_['text_success']       = 'Success: You have modified banners.';
-$_['text_default']       = 'Default';
-$_['text_image_manager'] = 'Image Manager';
-$_['text_browse']        = 'Browse';
-$_['text_clear']         = 'Clear';
+$_['lang_text_success']       = 'Success: You have modified banners.';
+$_['lang_text_default']       = 'Default';
+$_['lang_text_image_manager'] = 'Image Manager';
+$_['lang_text_browse']        = 'Browse';
+$_['lang_text_clear']         = 'Clear';
 
 // Column
-$_['column_name']        = 'Banner Name';
-$_['column_status']      = 'Status';
-$_['column_action']      = 'Action';
+$_['lang_column_name']        = 'Banner Name';
+$_['lang_column_status']      = 'Status';
+$_['lang_column_action']      = 'Action';
 
 // Entry
-$_['entry_name']         = 'Banner Name:';
-$_['entry_title']        = 'Title:';
-$_['entry_link']         = 'Link:';
-$_['entry_image']        = 'Image:';
-$_['entry_status']       = 'Status:';
+$_['lang_entry_name']         = 'Banner Name:';
+$_['lang_entry_title']        = 'Title:';
+$_['lang_entry_link']         = 'Link:';
+$_['lang_entry_image']        = 'Image:';
+$_['lang_entry_status']       = 'Status:';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify banners.';
-$_['error_name']         = 'Banner Name must be between 3 and 64 characters.';
-$_['error_title']        = 'Banner Title must be between 2 and 64 characters.';
-$_['error_default']      = 'Warning: This layout cannot be deleted as it is currently assigned as the default store layout.';
-$_['error_product']      = 'Warning: This layout cannot be deleted as it is currently assigned to %s products.';
-$_['error_category']     = 'Warning: This layout cannot be deleted as it is currently assigned to %s categories.';
-$_['error_page']         = 'Warning: This layout cannot be deleted as it is currently assigned to %s pages.';
+$_['lang_error_permission']   = 'Warning: You do not have permission to modify banners.';
+$_['lang_error_name']         = 'Banner Name must be between 3 and 64 characters.';
+$_['lang_error_title']        = 'Banner Title must be between 2 and 64 characters.';
+$_['lang_error_default']      = 'Warning: This layout cannot be deleted as it is currently assigned as the default store layout.';
+$_['lang_error_product']      = 'Warning: This layout cannot be deleted as it is currently assigned to %s products.';
+$_['lang_error_category']     = 'Warning: This layout cannot be deleted as it is currently assigned to %s categories.';
+$_['lang_error_page']         = 'Warning: This layout cannot be deleted as it is currently assigned to %s pages.';

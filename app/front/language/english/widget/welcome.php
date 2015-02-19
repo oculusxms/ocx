@@ -13,4 +13,4 @@
 |	file that was distributed with this source code.
 |	
 */
-$_['heading_title'] = 'Welcome to %s';
+$_['lang_heading_title'] = 'Welcome to %s';

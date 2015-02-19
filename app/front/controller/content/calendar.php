@@ -21,9 +21,9 @@ class Calendar extends Controller {
     public function index() {
         $data = $this->theme->language('content/calendar');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('heading_title', 'content/calendar', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'content/calendar', null, true, 'SSL');
         
         $this->theme->model('catalog/product');
         
@@ -91,7 +91,7 @@ class Calendar extends Controller {
                 $this->theme->model('tool/image');
                 $image = $this->model_tool_image->resize($image, 100, 100, 'h');
                 
-                $finished = (strtotime($event['date_end']) < time()) ? $this->language->get('text_finished') : false;
+                $finished = (strtotime($event['date_end']) < time()) ? $this->language->get('lang_text_finished') : false;
                 
                 $days = unserialize($event['event_days']);
                 

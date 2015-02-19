@@ -23,7 +23,7 @@ class Review extends Controller {
     public function index() {
         $this->language->load('catalog/review');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/review');
         
@@ -35,14 +35,14 @@ class Review extends Controller {
     public function insert() {
         $this->language->load('catalog/review');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/review');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_review->addReview($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -73,14 +73,14 @@ class Review extends Controller {
     public function update() {
         $this->language->load('catalog/review');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/review');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_review->editReview($this->request->get['review_id'], $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -111,7 +111,7 @@ class Review extends Controller {
     public function delete() {
         $this->language->load('catalog/review');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/review');
         
@@ -120,7 +120,7 @@ class Review extends Controller {
                 $this->model_catalog_review->deleteReview($review_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -193,7 +193,7 @@ class Review extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/review', $url);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/review', $url);
         
         $data['insert'] = $this->url->link('catalog/review/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('catalog/review/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -209,9 +209,9 @@ class Review extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('catalog/review/update', 'token=' . $this->session->data['token'] . '&review_id=' . $result['review_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('catalog/review/update', 'token=' . $this->session->data['token'] . '&review_id=' . $result['review_id'] . $url, 'SSL'));
             
-            $data['reviews'][] = array('review_id' => $result['review_id'], 'name' => $result['name'], 'author' => $result['author'], 'rating' => $result['rating'], 'status' => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')), 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['review_id'], $this->request->post['selected']), 'action' => $action);
+            $data['reviews'][] = array('review_id' => $result['review_id'], 'name' => $result['name'], 'author' => $result['author'], 'rating' => $result['rating'], 'status' => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['review_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         if (isset($this->error['warning'])) {
@@ -264,7 +264,7 @@ class Review extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($review_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('catalog/review', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($review_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('catalog/review', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -328,7 +328,7 @@ class Review extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/review', $url);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/review', $url);
         
         if (!isset($this->request->get['review_id'])) {
             $data['action'] = $this->url->link('catalog/review/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -403,23 +403,23 @@ class Review extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/review')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['product_id']) {
-            $this->error['product'] = $this->language->get('error_product');
+            $this->error['product'] = $this->language->get('lang_error_product');
         }
         
         if (($this->encode->strlen($this->request->post['author']) < 3) || ($this->encode->strlen($this->request->post['author']) > 64)) {
-            $this->error['author'] = $this->language->get('error_author');
+            $this->error['author'] = $this->language->get('lang_error_author');
         }
         
         if ($this->encode->strlen($this->request->post['text']) < 1) {
-            $this->error['text'] = $this->language->get('error_text');
+            $this->error['text'] = $this->language->get('lang_error_text');
         }
         
         if (!isset($this->request->post['rating'])) {
-            $this->error['rating'] = $this->language->get('error_rating');
+            $this->error['rating'] = $this->language->get('lang_error_rating');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -429,7 +429,7 @@ class Review extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'catalog/review')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

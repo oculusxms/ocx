@@ -45,6 +45,7 @@ use Oculus\Library\Language;
 use Oculus\Library\Length;
 use Oculus\Library\Log;
 use Oculus\Library\Mail;
+use Oculus\Library\Notification;
 use Oculus\Library\Pagination;
 use Oculus\Library\Request;
 use Oculus\Library\Response;
@@ -309,17 +310,17 @@ class Application {
         $this->baseClasses();
         
         switch ($fascade):
-        case INSTALL_FASCADE:
-            $this->installClasses();
-            break;
+            case INSTALL_FASCADE:
+                $this->installClasses();
+                break;
 
-        case ADMIN_FASCADE:
-            $this->adminClasses();
-            break;
+            case ADMIN_FASCADE:
+                $this->adminClasses();
+                break;
 
-        case FRONT_FASCADE:
-            $this->frontClasses();
-            break;
+            case FRONT_FASCADE:
+                $this->frontClasses();
+                break;
         endswitch;
         
         /**
@@ -334,19 +335,19 @@ class Application {
         // cache
         $this->data['cache'] = function ($data) {
             switch ($data['config_cache_type_id']):
-            case 'apc':
-                $driver = new Apc($data['cache.time'], $data);
-                break;
+                case 'apc':
+                    $driver = new Apc($data['cache.time'], $data);
+                    break;
 
-            case 'mem':
-                $driver = new Mem($data['cache.time'], $data);
-                $driver->connect();
-                break;
+                case 'mem':
+                    $driver = new Mem($data['cache.time'], $data);
+                    $driver->connect();
+                    break;
 
-            case 'file':
-            default:
-                $driver = new File($data['cache.time'], $data);
-                break;
+                case 'file':
+                default:
+                    $driver = new File($data['cache.time'], $data);
+                    break;
             endswitch;
             
             return new Cache($driver, $data);
@@ -496,9 +497,15 @@ class Application {
             
             // 1 year in seconds to match htaccess rules
         };
-
+        
+        // mailer
         $this->data['mailer'] = function ($data) {
             return new Mail($data);
+        };
+
+        // notifications
+        $this->data['notify'] = function ($data) {
+            return new Notification($data);
         };
     }
     
@@ -595,17 +602,15 @@ class Application {
          * Grab our theme name by active.fascade
          */
         switch ($this->data['active.fascade']):
-        case FRONT_FASCADE:
-            $theme_name = $this->data['config_theme'];
-            break;
-
-        case ADMIN_FASCADE:
-            $theme_name = $this->data['config_admin_theme'];
-            break;
-
-        case INSTALL_FASCADE:
-            $theme_name = 'install';
-            break;
+            case FRONT_FASCADE:
+                $theme_name = $this->data['config_theme'];
+                break;
+            case ADMIN_FASCADE:
+                $theme_name = $this->data['config_admin_theme'];
+                break;
+            case INSTALL_FASCADE:
+                $theme_name = 'install';
+                break;
         endswitch;
         
         // Set to container
@@ -667,16 +672,15 @@ class Application {
         $controller = new Front($this->data);
         
         switch ($this->data['active.fascade']):
-        case FRONT_FASCADE:
-            $error = new Action(new ActionService($this->data, 'error/notfound'));
-            $type = $this->data['config_site_style'] . '/home';
-            $default_action = new Action(new ActionService($this->data, $type));
-            break;
-
-        case ADMIN_FASCADE:
-            $error = new Action(new ActionService($this->data, 'error/notfound'));
-            $default_action = new Action(new ActionService($this->data, 'common/dashboard'));
-            break;
+            case FRONT_FASCADE:
+                $error          = new Action(new ActionService($this->data, 'error/notfound'));
+                $type           = $this->data['config_site_style'] . '/home';
+                $default_action = new Action(new ActionService($this->data, $type));
+                break;
+            case ADMIN_FASCADE:
+                $error          = new Action(new ActionService($this->data, 'error/notfound'));
+                $default_action = new Action(new ActionService($this->data, 'common/dashboard'));
+                break;
         endswitch;
         
         if (isset($this->data['request']->get['route'])):

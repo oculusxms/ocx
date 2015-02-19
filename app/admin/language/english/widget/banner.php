@@ -15,20 +15,20 @@
 */
 
 // Heading
-$_['heading_title']    = 'Banner';
+$_['lang_heading_title']    = 'Banner';
 
 // Text
-$_['text_widget']      = 'Widgets';
-$_['text_success']     = 'Success: You have modified widget banner.';
+$_['lang_text_widget']      = 'Widgets';
+$_['lang_text_success']     = 'Success: You have modified widget banner.';
 
 // Entry
-$_['entry_banner']     = 'Banner:';
-$_['entry_dimension']  = 'Dimension (W x H) and Resize Type:';
-$_['entry_layout']     = 'Layout:';
-$_['entry_position']   = 'Position:';
-$_['entry_status']     = 'Status:';
-$_['entry_sort_order'] = 'Sort Order:';
+$_['lang_entry_banner']     = 'Banner:';
+$_['lang_entry_dimension']  = 'Dimension (W x H) and Resize Type:';
+$_['lang_entry_layout']     = 'Layout:';
+$_['lang_entry_position']   = 'Position:';
+$_['lang_entry_status']     = 'Status:';
+$_['lang_entry_sort_order'] = 'Sort Order:';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify widget banner.';
-$_['error_dimension']  = 'Width &amp; Height dimensions required.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify widget banner.';
+$_['lang_error_dimension']  = 'Width &amp; Height dimensions required.';

@@ -15,17 +15,17 @@
 */
 
 // Heading
-$_['heading_title']     = 'Affiliate Commission Report';
+$_['lang_heading_title']     = 'Affiliate Commission Report';
 
 // Column
-$_['column_affiliate']  = 'Affiliate Name';
-$_['column_email']      = 'E-Mail';
-$_['column_status']     = 'Status';
-$_['column_commission'] = 'Commission';
-$_['column_orders']     = 'No. Orders';
-$_['column_total']      = 'Total';
-$_['column_action']     = 'Action';
+$_['lang_column_affiliate']  = 'Affiliate Name';
+$_['lang_column_email']      = 'E-Mail';
+$_['lang_column_status']     = 'Status';
+$_['lang_column_commission'] = 'Commission';
+$_['lang_column_orders']     = 'No. Orders';
+$_['lang_column_total']      = 'Total';
+$_['lang_column_action']     = 'Action';
 
 // Entry
-$_['entry_date_start']  = 'Date Start:';
-$_['entry_date_end']    = 'Date End:';
+$_['lang_entry_date_start']  = 'Date Start:';
+$_['lang_entry_date_end']    = 'Date End:';

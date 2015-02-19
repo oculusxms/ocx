@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-user"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-user"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_name; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 				<div class="control-field col-sm-4">
 					<?php foreach ($languages as $language) { ?>
 						<div class="input-group"><input type="text" name="customer_group_description[<?= $language['language_id']; ?>][name]" value="<?= isset($customer_group_description[$language['language_id']]) ? $customer_group_description[$language['language_id']]['name'] :''; ?>" class="form-control">
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_description; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_description; ?></label>
 				<div class="control-field col-sm-4">
 				<?php foreach ($languages as $language) { ?>
 					<div class="input-group"><textarea name="customer_group_description[<?= $language['language_id']; ?>][description]" class="form-control" rows="3"><?= isset($customer_group_description[$language['language_id']]) ? $customer_group_description[$language['language_id']]['description'] :''; ?></textarea>
@@ -45,67 +45,67 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_approval; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_approval; ?></label>
 				<div class="control-field col-sm-4">
 					<?php if ($approval) { ?>
-					<label class="radio-inline"><input type="radio" name="approval" value="1" checked=""><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="approval" value="0"><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="approval" value="1" checked=""><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="approval" value="0"><?= $lang_text_no; ?></label>
 					<?php } else { ?>
-					<label class="radio-inline"><input type="radio" name="approval" value="1"><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="approval" value="0" checked=""><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="approval" value="1"><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="approval" value="0" checked=""><?= $lang_text_no; ?></label>
 					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_company_id_display; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_company_id_display; ?></label>
 				<div class="control-field col-sm-4">
 					<?php if ($company_id_display) { ?>
-					<label class="radio-inline"><input type="radio" name="company_id_display" value="1" checked=""><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="company_id_display" value="0"><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="company_id_display" value="1" checked=""><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="company_id_display" value="0"><?= $lang_text_no; ?></label>
 					<?php } else { ?>
-					<label class="radio-inline"><input type="radio" name="company_id_display" value="1"><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="company_id_display" value="0" checked=""><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="company_id_display" value="1"><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="company_id_display" value="0" checked=""><?= $lang_text_no; ?></label>
 					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_company_id_required; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_company_id_required; ?></label>
 				<div class="control-field col-sm-4">
 					<?php if ($company_id_required) { ?>
-					<label class="radio-inline"><input type="radio" name="company_id_required" value="1" checked=""><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="company_id_required" value="0"><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="company_id_required" value="1" checked=""><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="company_id_required" value="0"><?= $lang_text_no; ?></label>
 					<?php } else { ?>
-					<label class="radio-inline"><input type="radio" name="company_id_required" value="1"><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="company_id_required" value="0" checked=""><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="company_id_required" value="1"><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="company_id_required" value="0" checked=""><?= $lang_text_no; ?></label>
 					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_tax_id_display; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_tax_id_display; ?></label>
 				<div class="control-field col-sm-4">
 					<?php if ($tax_id_display) { ?>
-					<label class="radio-inline"><input type="radio" name="tax_id_display" value="1" checked=""><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="tax_id_display" value="0"><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="tax_id_display" value="1" checked=""><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="tax_id_display" value="0"><?= $lang_text_no; ?></label>
 					<?php } else { ?>
-					<label class="radio-inline"><input type="radio" name="tax_id_display" value="1"><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="tax_id_display" value="0" checked=""><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="tax_id_display" value="1"><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="tax_id_display" value="0" checked=""><?= $lang_text_no; ?></label>
 					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_tax_id_required; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_tax_id_required; ?></label>
 				<div class="control-field col-sm-4">
 					<?php if ($tax_id_required) { ?>
-					<label class="radio-inline"><input type="radio" name="tax_id_required" value="1" checked=""><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="tax_id_required" value="0"><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="tax_id_required" value="1" checked=""><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="tax_id_required" value="0"><?= $lang_text_no; ?></label>
 					<?php } else { ?>
-					<label class="radio-inline"><input type="radio" name="tax_id_required" value="1"><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="tax_id_required" value="0" checked=""><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="tax_id_required" value="1"><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="tax_id_required" value="0" checked=""><?= $lang_text_no; ?></label>
 					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_sort_order; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_sort_order; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="sort_order" value="<?= $sort_order; ?>" class="form-control">
 				</div>

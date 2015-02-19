@@ -11,25 +11,25 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="h2"><i class="fa fa-bar-chart-o"></i><?= $heading_title; ?></div>
+		<div class="h2"><i class="fa fa-bar-chart-o"></i><?= $lang_heading_title; ?></div>
 	</div>
 	<div class="panel-body">
 		<div id="filter" class="well">
 			<div class="row">
 				<div class="col-sm-3">
-					<label class="input-group" title="<?= $entry_date_start; ?>">
-						<input type="text" name="filter_date_start" value="<?= $filter_date_start; ?>" id="date-start" placeholder="<?= $entry_date_start; ?>" class="form-control date">
+					<label class="input-group" title="<?= $lang_entry_date_start; ?>">
+						<input type="text" name="filter_date_start" value="<?= $filter_date_start; ?>" id="date-start" placeholder="<?= $lang_entry_date_start; ?>" class="form-control date">
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 					</label>
 				</div>
 				<div class="col-sm-3">
-					<label class="input-group" title="<?= $entry_date_end; ?>">
-						<input type="text" name="filter_date_end" value="<?= $filter_date_end; ?>" id="date-end" placeholder="<?= $entry_date_end; ?>" class="form-control date">
+					<label class="input-group" title="<?= $lang_entry_date_end; ?>">
+						<input type="text" name="filter_date_end" value="<?= $filter_date_end; ?>" id="date-end" placeholder="<?= $lang_entry_date_end; ?>" class="form-control date">
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 					</label>
 				</div>
 				<div class="col-sm-2">
-					<select name="filter_group" title="<?= $entry_group; ?>" class="form-control">
+					<select name="filter_group" title="<?= $lang_entry_group; ?>" class="form-control">
 						<?php foreach ($groups as $groups) { ?>
 						<?php if ($groups['value'] == $filter_group) { ?>
 						<option value="<?= $groups['value']; ?>" selected><?= $groups['text']; ?></option>
@@ -40,8 +40,8 @@
 					</select>
 				</div>
 				<div class="col-sm-2">
-					<select name="filter_order_status_id" title="<?= $entry_status; ?>" class="form-control">
-						<option value="0"><?= $text_all_status; ?></option>
+					<select name="filter_order_status_id" title="<?= $lang_entry_status; ?>" class="form-control">
+						<option value="0"><?= $lang_text_all_status; ?></option>
 						<?php foreach ($order_statuses as $order_status) { ?>
 						<?php if ($order_status['order_status_id'] == $filter_order_status_id) { ?>
 						<option value="<?= $order_status['order_status_id']; ?>" selected><?= $order_status['name']; ?></option>
@@ -52,7 +52,7 @@
 					</select>
 				</div>
 				<div class="col-sm-2 text-right">
-					<button type="button" onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i> <?= $button_filter; ?></button>
+					<button type="button" onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i> <?= $lang_button_filter; ?></button>
 				</div>
 			</div>
 		</div>
@@ -60,11 +60,11 @@
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th><?= $column_date_start; ?></th>
-					<th><?= $column_date_end; ?></th>
-					<th><?= $column_title; ?></th>
-					<th class="hidden-xs right"><?= $column_orders; ?></th>
-					<th class="text-right"><?= $column_total; ?></th>
+					<th><?= $lang_column_date_start; ?></th>
+					<th><?= $lang_column_date_end; ?></th>
+					<th><?= $lang_column_title; ?></th>
+					<th class="hidden-xs right"><?= $lang_column_orders; ?></th>
+					<th class="text-right"><?= $lang_column_total; ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -80,7 +80,7 @@
 				<?php } ?>
 				<?php } else { ?>
 				<tr>
-					<td class="text-center" colspan="5"><?= $text_no_results; ?></td>
+					<td class="text-center" colspan="5"><?= $lang_text_no_results; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

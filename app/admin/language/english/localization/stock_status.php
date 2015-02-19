@@ -15,19 +15,19 @@
 */
 
 // Heading
-$_['heading_title']    = 'Stock Status';
+$_['lang_heading_title']    = 'Stock Status';
 
 // Text
-$_['text_success']     = 'Success: You have modified stock status.';
+$_['lang_text_success']     = 'Success: You have modified stock status.';
 
 // Column
-$_['column_name']      = 'Stock Status Name';
-$_['column_action']    = 'Action';
+$_['lang_column_name']      = 'Stock Status Name';
+$_['lang_column_action']    = 'Action';
 
 // Entry
-$_['entry_name']       = 'Stock Status Name:';
+$_['lang_entry_name']       = 'Stock Status Name:';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify stock status.';
-$_['error_name']       = 'Stock status name must be between 3 and 32 characters.';
-$_['error_product']    = 'Warning: This stock status cannot be deleted as it is currently assigned to %s products.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify stock status.';
+$_['lang_error_name']       = 'Stock status name must be between 3 and 32 characters.';
+$_['lang_error_product']    = 'Warning: This stock status cannot be deleted as it is currently assigned to %s products.';

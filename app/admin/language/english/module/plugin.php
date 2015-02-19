@@ -15,15 +15,15 @@
 */
 
 // Heading
-$_['heading_plugin']   = 'Plugins';
+$_['lang_heading_plugin']   = 'Plugins';
 
 // Text
-$_['text_install']     = 'Install';
-$_['text_uninstall']   = 'Uninstall';
+$_['lang_text_install']     = 'Install';
+$_['lang_text_uninstall']   = 'Uninstall';
 
 // Column
-$_['column_name']      = 'Plugin Name';
-$_['column_action']    = 'Action';
+$_['lang_column_name']      = 'Plugin Name';
+$_['lang_column_action']    = 'Action';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify plugins.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify plugins.';

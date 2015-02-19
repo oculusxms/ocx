@@ -15,7 +15,7 @@
 */
 
 // Heading
-$_['heading_title'] = 'Testing Suite';
+$_['lang_heading_title'] = 'Testing Suite';
 
 // Text
-$_['text_success']  = 'Success: %s.';
+$_['lang_text_success']  = 'Success: %s.';

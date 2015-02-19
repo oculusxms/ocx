@@ -15,5 +15,5 @@
 */
 
 // Text
-$_['text_title']       = 'Pickup';
-$_['text_description'] = 'Pickup From Store';
+$_['lang_text_title']       = 'Pickup';
+$_['lang_text_description'] = 'Pickup From Store';

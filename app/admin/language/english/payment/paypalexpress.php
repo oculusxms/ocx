@@ -15,63 +15,59 @@
 */
 
 // Heading
-$_['heading_title']                  = 'PayPal Express Checkout';
+$_['lang_heading_title']                  = 'PayPal Express Checkout';
 
 // Text
-$_['text_payment']                   = 'Payment';
-$_['text_success']                   = 'Success: You have modified PayPal Express Checkout account details.';
-$_['text_authorization']             = 'Authorization';
-$_['text_sale']                      = 'Sale';
-$_['text_clear']                     = 'Clear';
-$_['text_browse']                    = 'Browse';
-$_['text_image_manager']             = 'Image manager';
-$_['text_ipn']                       = 'IPN URL<span class="help">Required for subscriptions</span>';
+$_['lang_text_payment']                   = 'Payment';
+$_['lang_text_success']                   = 'Success: You have modified PayPal Express Checkout account details.';
+$_['lang_text_authorization']             = 'Authorization';
+$_['lang_text_sale']                      = 'Sale';
+$_['lang_text_clear']                     = 'Clear';
+$_['lang_text_browse']                    = 'Browse';
+$_['lang_text_image_manager']             = 'Image manager';
+$_['lang_text_ipn']                       = 'IPN URL<span class="help">Required for subscriptions</span>';
 
 // Entry
-$_['entry_username']                 = 'API Username:';
-$_['entry_password']                 = 'API Password:';
-$_['entry_signature']                = 'API Signature:';
-$_['entry_test']                     = 'Test (Sandbox) Mode:';
-$_['entry_method']                   = 'Transaction Method:';
-$_['entry_geo_zone']                 = 'Geo Zone:';
-$_['entry_status']                   = 'Status:';
-$_['entry_sort_order']               = 'Sort Order:';
-$_['entry_icon_sort_order']          = 'Icon Sort Order:';
-$_['entry_debug']                    = 'Debug logging:';
-$_['entry_total']                    = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
-$_['entry_currency']                 = 'Default currency<span class="help">Used for transaction searches</span>';
-$_['entry_recurring_cancellation']   = 'Allow customers to cancel recurring payments.';
-
-// Order Status
-$_['entry_canceled_reversal_status'] = 'Cancelled Reversal Status:';
-$_['entry_completed_status']         = 'Completed Status:';
-$_['entry_denied_status']            = 'Denied Status:';
-$_['entry_expired_status']           = 'Expired Status:';
-$_['entry_failed_status']            = 'Failed Status:';
-$_['entry_pending_status']           = 'Pending Status:';
-$_['entry_processed_status']         = 'Processed Status:';
-$_['entry_refunded_status']          = 'Refunded Status:';
-$_['entry_reversed_status']          = 'Reversed Status:';
-$_['entry_voided_status']            = 'Voided Status:';
-
-// Customise area
-$_['entry_display_checkout']         = 'Display quick checkout icon:';
-$_['entry_allow_notes']              = 'Allow notes:';
-$_['entry_logo']                     = 'Logo<span class="help">Max 750px(w) x 90px(h)<br />You should only use a logo if you have SSL set up.</span>';
-$_['entry_border_colour']            = 'Header border colour:<span class="help">6 character HTML colour code</span>';
-$_['entry_header_colour']            = 'Header background colour:<span class="help">6 character HTML colour code</span>';
-$_['entry_page_colour']              = 'Page background colour:<span class="help">6 character HTML colour code</span>';
+$_['lang_entry_username']                 = 'API Username:';
+$_['lang_entry_password']                 = 'API Password:';
+$_['lang_entry_signature']                = 'API Signature:';
+$_['lang_entry_test']                     = 'Test (Sandbox) Mode:';
+$_['lang_entry_method']                   = 'Transaction Method:';
+$_['lang_entry_geo_zone']                 = 'Geo Zone:';
+$_['lang_entry_status']                   = 'Status:';
+$_['lang_entry_sort_order']               = 'Sort Order:';
+$_['lang_entry_icon_sort_order']          = 'Icon Sort Order:';
+$_['lang_entry_debug']                    = 'Debug logging:';
+$_['lang_entry_total']                    = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
+$_['lang_entry_currency']                 = 'Default currency<span class="help">Used for transaction searches</span>';
+$_['lang_entry_recurring_cancellation']   = 'Allow customers to cancel recurring payments.';
+$_['lang_entry_canceled_reversal_status'] = 'Cancelled Reversal Status:';
+$_['lang_entry_completed_status']         = 'Completed Status:';
+$_['lang_entry_denied_status']            = 'Denied Status:';
+$_['lang_entry_expired_status']           = 'Expired Status:';
+$_['lang_entry_failed_status']            = 'Failed Status:';
+$_['lang_entry_pending_status']           = 'Pending Status:';
+$_['lang_entry_processed_status']         = 'Processed Status:';
+$_['lang_entry_refunded_status']          = 'Refunded Status:';
+$_['lang_entry_reversed_status']          = 'Reversed Status:';
+$_['lang_entry_voided_status']            = 'Voided Status:';
+$_['lang_entry_display_checkout']         = 'Display quick checkout icon:';
+$_['lang_entry_allow_notes']              = 'Allow notes:';
+$_['lang_entry_logo']                     = 'Logo<span class="help">Max 750px(w) x 90px(h)<br />You should only use a logo if you have SSL set up.</span>';
+$_['lang_entry_border_colour']            = 'Header border colour:<span class="help">6 character HTML colour code</span>';
+$_['lang_entry_header_colour']            = 'Header background colour:<span class="help">6 character HTML colour code</span>';
+$_['lang_entry_page_colour']              = 'Page background colour:<span class="help">6 character HTML colour code</span>';
 
 // Error
-$_['error_permission']               = 'Warning: You do not have permission to modify payment PayPal Express Checkout.';
-$_['error_username']                 = 'API Username Required.';
-$_['error_password']                 = 'API Password Required.';
-$_['error_signature']                = 'API Signature Required.';
-$_['error_data']                     = 'Data missing from request';
-$_['error_timeout']                  = 'Request timed out';
+$_['lang_error_permission']               = 'Warning: You do not have permission to modify payment PayPal Express Checkout.';
+$_['lang_error_username']                 = 'API Username Required.';
+$_['lang_error_password']                 = 'API Password Required.';
+$_['lang_error_signature']                = 'API Signature Required.';
+$_['lang_error_data']                     = 'Data missing from request';
+$_['lang_error_timeout']                  = 'Request timed out';
 
 // Tab headings
-$_['tab_general']                    = 'General';
-$_['tab_api_details']                = 'API Details';
-$_['tab_order_status']               = 'Order Status';
-$_['tab_customise']                  = 'Customise Checkout';
+$_['lang_tab_general']                    = 'General';
+$_['lang_tab_api_details']                = 'API Details';
+$_['lang_tab_order_status']               = 'Order Status';
+$_['lang_tab_customise']                  = 'Customise Checkout';

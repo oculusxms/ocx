@@ -32,7 +32,7 @@ class Decorator extends LibraryService {
 		parent::__construct($app);
 	}
 
-	public function decorate($data, $customer_id, $order_id = 0) {
+	public function decorateCustomerNotification($message, $customer, $order_id = 0) {
 		$search = array(
 			'!fname!',
 			'!lname!',
@@ -49,19 +49,14 @@ class Decorator extends LibraryService {
 			'!store_admin_email!',
 			'!store_url!'
 		);
-
-		// Customer variables
-		// Store variables are already set in our app container
-		
-		$customer = $this->getCustomer($customer_id);
 		
 		$replace = array(
-			$customer['fname'],
-			$customer['lname'],
+			$customer['firstname'] ? $customer['firstname'] : $customer['username'],
+			$customer['lastname'],
 			$customer['username'],
 			$customer['email'],
-			$customer['telephone'],
-			$customer['ip_address'],
+			isset($customer['telephone']) ? $customer['telephone'] : '',
+			$customer['ip'],
 			$customer['points'],
 			parent::$app['config_name'],
 			parent::$app['config_owner'],
@@ -69,7 +64,7 @@ class Decorator extends LibraryService {
 			parent::$app['config_telephone'],
 			parent::$app['config_email'],
 			parent::$app['config_admin_email'],
-			parent::$app['config_url']
+			trim(parent::$app['config_url'], '/')
 		);
 
 		/**
@@ -83,37 +78,23 @@ class Decorator extends LibraryService {
 
 		endif;
 
-		return str_replace($search, $replace, $data);
+		if (is_array($message)):
+			foreach($message as $key => $value):
+				$message[$key] = str_replace($search, $replace, $value);
+			endforeach;
+		else:
+			$message = str_replace($search, $replace, $message);
+		endif;
+		
+		return $message;
 	}
 
-	protected function getCustomer($customer_id) {
-		$db = parent::$app['db'];
+	public function decorateAffiliateNotification() {
 
-		$customer = array();
+	}
 
-		$query = $db->query("
-			SELECT DISTINCT * 
-			FROM {$db->prefix}customer 
-			WHERE customer_id = '" . (int)$customer_id . "'
-		");
+	public function decorateUserNotification() {
 
-		$customer['fname']      = $query->row['firstname'];
-		$customer['lname']      = $query->row['lastname'];
-		$customer['username']   = $query->row['username'];
-		$customer['email']      = $query->row['email'];
-		$customer['telephone']  = $query->row['telephone'];
-		$customer['ip_address'] = $query->row['ip'];
-
-		// points
-		$query = $db->query("
-            SELECT SUM(points) AS total 
-            FROM {$db->prefix}customer_reward 
-            WHERE customer_id = '" . (int)$customer_id . "'
-        ");
-        
-        $customer['points'] = $query->row['total'] ? $query->row['total'] : 0;
-
-        return $customer;
 	}
 
 	protected function getOrder($order_id) {

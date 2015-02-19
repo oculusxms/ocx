@@ -15,18 +15,18 @@
 */
 
 // Heading
-$_['heading_title']         = 'Customer Reward Points Report';
+$_['lang_heading_title']         = 'Customer Reward Points Report';
 
 // Column
-$_['column_customer']       = 'Customer Name';
-$_['column_email']          = 'E-Mail';
-$_['column_customer_group'] = 'Customer Group';
-$_['column_status']         = 'Status';
-$_['column_points']         = 'Reward Points';
-$_['column_orders']         = 'No. Orders';
-$_['column_total']          = 'Total';
-$_['column_action']         = 'Action';
+$_['lang_column_customer']       = 'Customer Name';
+$_['lang_column_email']          = 'E-Mail';
+$_['lang_column_customer_group'] = 'Customer Group';
+$_['lang_column_status']         = 'Status';
+$_['lang_column_points']         = 'Reward Points';
+$_['lang_column_orders']         = 'No. Orders';
+$_['lang_column_total']          = 'Total';
+$_['lang_column_action']         = 'Action';
 
 // Entry
-$_['entry_date_start']      = 'Date Start:';
-$_['entry_date_end']        = 'Date End:';
+$_['lang_entry_date_start']      = 'Date Start:';
+$_['lang_entry_date_end']        = 'Date End:';

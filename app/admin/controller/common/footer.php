@@ -24,7 +24,7 @@ class Footer extends Controller {
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
         $data['javascript'] = $this->theme->controller('common/javascript');
-        $data['text_footer'] = sprintf($this->language->get('text_footer'), VERSION);
+        $data['text_footer'] = sprintf($this->language->get('lang_text_footer'), VERSION);
         
         $data['js_link'] = $this->url->link('common/javascript/render', '&js=' . $this->javascript->compile(), 'SSL');
         

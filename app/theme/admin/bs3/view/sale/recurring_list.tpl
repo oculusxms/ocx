@@ -11,7 +11,7 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="h2"><i class="fa fa-shopping-cart"></i><?= $heading_title; ?></div>
+		<div class="h2"><i class="fa fa-shopping-cart"></i><?= $lang_heading_title; ?></div>
 	</div>
 	<div class="panel-body">
 		<form class="form-inline" action="" method="post" enctype="multipart/form-data" id="form">
@@ -20,35 +20,35 @@
 				<tr>
 					<th>
 						<a href="<?= $sort_order_recurring; ?>">
-							<?= $entry_order_recurring; ?><?= ($sort == 'or.order_recurring_id') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
+							<?= $lang_entry_order_recurring; ?><?= ($sort == 'or.order_recurring_id') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
 						</a>
 					</th>
 					<th>
 						<a href="<?= $sort_order; ?>">
-							<?= $entry_order_id; ?><?= ($sort == 'or.order_id') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
+							<?= $lang_entry_order_id; ?><?= ($sort == 'or.order_id') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
 						</a>
 					</th>
 					<th>
 						<a href="<?= $sort_reference; ?>">
-							<?= $entry_reference; ?><?= ($sort == 'or.reference') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
+							<?= $lang_entry_reference; ?><?= ($sort == 'or.reference') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
 						</a>
 					</th>
 					<th>
 						<a href="<?= $sort_customer; ?>">
-							<?= $entry_customer; ?><?= ($sort == 'customer') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
+							<?= $lang_entry_customer; ?><?= ($sort == 'customer') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
 						</a>
 					</th>
 					<th class="hidden-xs">
 						<a href="<?= $sort_date_added; ?>">
-							<?= $entry_date_added; ?><?= ($sort == 'or.added') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
+							<?= $lang_entry_date_added; ?><?= ($sort == 'or.added') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
 						</a>
 					</th>
 					<th class="hidden-xs">
 						<a href="<?= $sort_status; ?>">
-							<?= $entry_status; ?><?= ($sort == 'or.status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
+							<?= $lang_entry_status; ?><?= ($sort == 'or.status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?>
 						</a>
 					</th>
-					<th class="text-right"><?= $entry_action; ?></th>
+					<th class="text-right"><?= $lang_entry_action; ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -70,7 +70,7 @@
 						<?php } ?>
 					<?php } ?>
 					</select></td>
-					<td class="text-right"><a onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i><span class="hidden-xs"> <?= $text_filter; ?></span></a></td>
+					<td class="text-right"><a onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i><span class="hidden-xs"> <?= $lang_text_filter; ?></span></a></td>
 				</tr>
 			<?php if ($recurrings) { ?>
 			<?php foreach ($recurrings as $recurring) { ?>
@@ -82,13 +82,13 @@
 				<td class="hidden-xs"><?= $recurring['date_added'] ?></td>
 				<td class="hidden-xs"><?= $recurring['status'] ?></td>
 				<td class="text-right">
-					<a class="btn btn-default" href="<?= $recurring['view']; ?>"><i class="fa fa-pencil-square-o"></i><span class="hidden-xs"> <?= $text_view; ?></span></a>
+					<a class="btn btn-default" href="<?= $recurring['view']; ?>"><i class="fa fa-pencil-square-o"></i><span class="hidden-xs"> <?= $lang_text_view; ?></span></a>
 				</td>
 			</tr>
 			<?php } ?>
 			<?php } else { ?>
 			<tr>
-				<td class="text-center" colspan="8"><?= $text_no_results; ?></td>
+				<td class="text-center" colspan="8"><?= $lang_text_no_results; ?></td>
 			</tr>
 			<?php } ?>
 			</tbody>

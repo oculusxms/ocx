@@ -22,7 +22,7 @@ class Comment extends Controller {
     
     public function index() {
         $this->theme->language('content/comment');
-        $this->theme->setTitle($this->language->get('doc_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('content/comment');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Comment extends Controller {
     
     public function insert() {
         $this->theme->language('content/comment');
-        $this->theme->setTitle($this->language->get('doc_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('content/comment');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_content_comment->addComment($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -63,12 +63,12 @@ class Comment extends Controller {
     
     public function update() {
         $this->theme->language('content/comment');
-        $this->theme->setTitle($this->language->get('doc_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('content/comment');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_content_comment->editComment($this->request->get['comment_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -94,7 +94,7 @@ class Comment extends Controller {
     
     public function delete() {
         $this->theme->language('content/comment');
-        $this->theme->setTitle($this->language->get('doc_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('content/comment');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -102,7 +102,7 @@ class Comment extends Controller {
                 $this->model_content_comment->deleteComment($comment_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -161,7 +161,7 @@ class Comment extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'content/comment');
+        $this->breadcrumb->add('lang_heading_title', 'content/comment');
         
         $data['insert'] = $this->url->link('content/comment/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('content/comment/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -176,9 +176,9 @@ class Comment extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('content/comment/update', 'token=' . $this->session->data['token'] . '&comment_id=' . $result['comment_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('content/comment/update', 'token=' . $this->session->data['token'] . '&comment_id=' . $result['comment_id'] . $url, 'SSL'));
             
-            $data['comments'][] = array('comment_id' => $result['comment_id'], 'name' => $result['name'], 'author' => $result['author'], 'rating' => $result['rating'], 'status' => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')), 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['comment_id'], $this->request->post['selected']), 'action' => $action);
+            $data['comments'][] = array('comment_id' => $result['comment_id'], 'name' => $result['name'], 'author' => $result['author'], 'rating' => $result['rating'], 'status' => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['comment_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         if (isset($this->error['warning'])) {
@@ -223,7 +223,7 @@ class Comment extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($comment_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('content/comment', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($comment_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('content/comment', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -282,7 +282,7 @@ class Comment extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'content/comment');
+        $this->breadcrumb->add('lang_heading_title', 'content/comment');
         
         if (!isset($this->request->get['comment_id'])) {
             $data['action'] = $this->url->link('content/comment/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -357,23 +357,23 @@ class Comment extends Controller {
     
     private function validateForm() {
         if (!$this->user->hasPermission('modify', 'content/comment')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['post_id']) {
-            $this->error['post'] = $this->language->get('error_post');
+            $this->error['post'] = $this->language->get('lang_error_post');
         }
         
         if (($this->encode->strlen($this->request->post['author']) < 3) || ($this->encode->strlen($this->request->post['author']) > 64)) {
-            $this->error['author'] = $this->language->get('error_author');
+            $this->error['author'] = $this->language->get('lang_error_author');
         }
         
         if ($this->encode->strlen($this->request->post['text']) < 1) {
-            $this->error['text'] = $this->language->get('error_text');
+            $this->error['text'] = $this->language->get('lang_error_text');
         }
         
         if (!isset($this->request->post['rating'])) {
-            $this->error['rating'] = $this->language->get('error_rating');
+            $this->error['rating'] = $this->language->get('lang_error_rating');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -383,7 +383,7 @@ class Comment extends Controller {
     
     private function validateDelete() {
         if (!$this->user->hasPermission('modify', 'content/comment')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

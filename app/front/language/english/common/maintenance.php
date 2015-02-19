@@ -15,8 +15,8 @@
 */
 
 // Heading
-$_['heading_title']    = 'Maintenance';
+$_['lang_heading_title']    = 'Maintenance';
 
 // Text
-$_['text_maintenance'] = 'Maintenance';
-$_['text_message']     = '<h1 style="text-align:center;">We are currently performing some scheduled maintenance. <br/>We will be back as soon as possible. Please check back soon.</h1>';
+$_['lang_text_maintenance'] = 'Maintenance';
+$_['lang_text_message']     = '<h1 style="text-align:center;">We are currently performing some scheduled maintenance. <br/>We will be back as soon as possible. Please check back soon.</h1>';

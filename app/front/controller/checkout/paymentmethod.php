@@ -97,7 +97,7 @@ class Paymentmethod extends Controller {
         }
         
         if (empty($this->session->data['payment_methods'])) {
-            $data['error_warning'] = sprintf($this->language->get('error_no_payment'), $this->url->link('content/contact'));
+            $data['error_warning'] = sprintf($this->language->get('lang_error_no_payment'), $this->url->link('content/contact'));
         } else {
             $data['error_warning'] = '';
         }
@@ -126,7 +126,7 @@ class Paymentmethod extends Controller {
             $page_info = $this->model_content_page->getPage($this->config->get('config_checkout_id'));
             
             if ($page_info) {
-                $data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_checkout_id'), 'SSL'), $page_info['title'], $page_info['title']);
+                $data['text_agree'] = sprintf($this->language->get('lang_text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_checkout_id'), 'SSL'), $page_info['title'], $page_info['title']);
             } else {
                 $data['text_agree'] = '';
             }
@@ -189,9 +189,9 @@ class Paymentmethod extends Controller {
         
         if (!$json) {
             if (!isset($this->request->post['payment_method'])) {
-                $json['error']['warning'] = $this->language->get('error_payment');
+                $json['error']['warning'] = $this->language->get('lang_error_payment');
             } elseif (!isset($this->session->data['payment_methods'][$this->request->post['payment_method']])) {
-                $json['error']['warning'] = $this->language->get('error_payment');
+                $json['error']['warning'] = $this->language->get('lang_error_payment');
             }
             
             if ($this->config->get('config_checkout_id')) {
@@ -200,7 +200,7 @@ class Paymentmethod extends Controller {
                 $page_info = $this->model_content_page->getPage($this->config->get('config_checkout_id'));
                 
                 if ($page_info && !isset($this->request->post['agree'])) {
-                    $json['error']['warning'] = sprintf($this->language->get('error_agree'), $page_info['title']);
+                    $json['error']['warning'] = sprintf($this->language->get('lang_error_agree'), $page_info['title']);
                 }
             }
             

@@ -28,8 +28,8 @@ class Header extends Controller {
         endif;
         
         $data['links'] = $this->theme->getLinks();
-        $data['lang'] = $this->language->get('code');
-        $data['direction'] = $this->language->get('direction');
+        $data['lang'] = $this->language->get('lang_code');
+        $data['direction'] = $this->language->get('lang_direction');
         
         $this->css->register('ocx.min')->register('editor.min', 'ocx.min');
         

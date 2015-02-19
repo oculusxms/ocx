@@ -23,7 +23,7 @@ class Attributegroup extends Controller {
     public function index() {
         $this->language->load('catalog/attribute_group');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/attributegroup');
         
@@ -35,14 +35,14 @@ class Attributegroup extends Controller {
     public function insert() {
         $this->language->load('catalog/attribute_group');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/attributegroup');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_attributegroup->addAttributeGroup($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -69,14 +69,14 @@ class Attributegroup extends Controller {
     public function update() {
         $this->language->load('catalog/attribute_group');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/attributegroup');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_attributegroup->editAttributeGroup($this->request->get['attribute_group_id'], $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -103,7 +103,7 @@ class Attributegroup extends Controller {
     public function delete() {
         $this->language->load('catalog/attribute_group');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('catalog/attributegroup');
         
@@ -112,7 +112,7 @@ class Attributegroup extends Controller {
                 $this->model_catalog_attributegroup->deleteAttributeGroup($attribute_group_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -171,7 +171,7 @@ class Attributegroup extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/attributegroup', $url);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/attributegroup', $url);
         
         $data['insert'] = $this->url->link('catalog/attributegroup/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('catalog/attributegroup/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -187,7 +187,7 @@ class Attributegroup extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('catalog/attributegroup/update', 'token=' . $this->session->data['token'] . '&attribute_group_id=' . $result['attribute_group_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('catalog/attributegroup/update', 'token=' . $this->session->data['token'] . '&attribute_group_id=' . $result['attribute_group_id'] . $url, 'SSL'));
             
             $data['attribute_groups'][] = array('attribute_group_id' => $result['attribute_group_id'], 'name' => $result['name'], 'sort_order' => $result['sort_order'], 'selected' => isset($this->request->post['selected']) && in_array($result['attribute_group_id'], $this->request->post['selected']), 'action' => $action);
         }
@@ -231,7 +231,7 @@ class Attributegroup extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($attribute_group_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('catalog/attributegroup', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($attribute_group_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('catalog/attributegroup', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -272,7 +272,7 @@ class Attributegroup extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/attributegroup', $url);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/attributegroup', $url);
         
         if (!isset($this->request->get['attribute_group_id'])) {
             $data['action'] = $this->url->link('catalog/attributegroup/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -315,12 +315,12 @@ class Attributegroup extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/attributegroup')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['attribute_group_description'] as $language_id => $value) {
             if (($this->encode->strlen($value['name']) < 3) || ($this->encode->strlen($value['name']) > 64)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
+                $this->error['name'][$language_id] = $this->language->get('lang_error_name');
             }
         }
         
@@ -331,7 +331,7 @@ class Attributegroup extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'catalog/attributegroup')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('catalog/attribute');
@@ -340,7 +340,7 @@ class Attributegroup extends Controller {
             $attribute_total = $this->model_catalog_attribute->getTotalAttributesByAttributeGroupId($attribute_group_id);
             
             if ($attribute_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_attribute'), $attribute_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_attribute'), $attribute_total);
             }
         }
         

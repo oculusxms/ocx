@@ -33,13 +33,13 @@ class Git extends Plugin {
     public function index() {
         $data = $this->language('git');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()):
             $this->model_setting_setting->editSetting('git', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             $this->response->redirect($this->url->link('module/plugin', 'token=' . $this->session->data['token'], 'SSL'));
         endif;
         
@@ -70,8 +70,8 @@ class Git extends Plugin {
             $data['error_git_branch'] = '';
         endif;
         
-        $this->breadcrumb->add('text_plugin', 'module/plugin');
-        $this->breadcrumb->add('heading_title', 'plugin/git');
+        $this->breadcrumb->add('lang_text_plugin', 'module/plugin');
+        $this->breadcrumb->add('lang_heading_title', 'plugin/git');
         
         $data['action'] = $this->url->link('plugin/git', 'token=' . $this->session->data['token'], 'SSL');
         $data['cancel'] = $this->url->link('module/plugin', 'token=' . $this->session->data['token'], 'SSL');
@@ -159,19 +159,19 @@ class Git extends Plugin {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'plugin/git')):
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         endif;
         
         if (!$this->request->post['git_provider']):
-            $this->error['git_provider'] = $this->language->get('error_git_provider');
+            $this->error['git_provider'] = $this->language->get('lang_error_git_provider');
         endif;
         
         if (!$this->request->post['git_url']):
-            $this->error['git_url'] = $this->language->get('error_git_url');
+            $this->error['git_url'] = $this->language->get('lang_error_git_url');
         endif;
         
         if (!$this->request->post['git_branch']):
-            $this->error['git_branch'] = $this->language->get('error_git_branch');
+            $this->error['git_branch'] = $this->language->get('lang_error_git_branch');
         endif;
         
         return !$this->error;
@@ -204,7 +204,7 @@ class Git extends Plugin {
         if (!empty($paths)):
             return $paths;
         else:
-            $this->error['warning'] = $this->language->get('error_git_folder');
+            $this->error['warning'] = $this->language->get('lang_error_git_folder');
         endif;
     }
 }

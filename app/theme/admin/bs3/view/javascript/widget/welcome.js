@@ -10,7 +10,7 @@ function addWidget(){
 	<?php foreach ($languages as $language) { ?>
 	html += '<div class="tab-pane" id="tab-language-'+widget_row+'-<?= $language['language_id']; ?>">';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><?= $entry_description; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_description; ?></label>';
 	html += '<div class="control-field col-sm-8">';
 	html += '<textarea name="welcome_widget['+widget_row+'][description][<?= $language['language_id']; ?>]" class="summernote form-control" rows="10" id="description-'+widget_row+'-<?= $language['language_id']; ?>" spellcheck="false"></textarea>';
 	html += '</div>';
@@ -18,7 +18,7 @@ function addWidget(){
 	html += '</div>';
 	<?php } ?>
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><?= $entry_layout; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_layout; ?></label>';
 	html += '<div class="control-field col-sm-4">';
 	html += '<select name="welcome_widget['+widget_row+'][layout_id]" class="form-control">';
 	<?php foreach ($layouts as $layout) { ?>
@@ -28,29 +28,29 @@ function addWidget(){
 	html += '</div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><?= $entry_position; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_position; ?></label>';
 	html += '<div class="control-field col-sm-4">';
 	html += '<select name="welcome_widget['+widget_row+'][position]" class="form-control">';
-	html += '<option value="content_top"><?= $text_content_top; ?></option>';
-	html += '<option value="content_bottom"><?= $text_content_bottom; ?></option>';
-	html += '<option value="post_header"><?= $text_post_header; ?></option>';
-	html += '<option value="pre_footer"><?= $text_pre_footer; ?></option>';
-	html += '<option value="column_left"><?= $text_column_left; ?></option>';
-	html += '<option value="column_right"><?= $text_column_right; ?></option>';
+	html += '<option value="content_top"><?= $lang_text_content_top; ?></option>';
+	html += '<option value="content_bottom"><?= $lang_text_content_bottom; ?></option>';
+	html += '<option value="post_header"><?= $lang_text_post_header; ?></option>';
+	html += '<option value="pre_footer"><?= $lang_text_pre_footer; ?></option>';
+	html += '<option value="column_left"><?= $lang_text_column_left; ?></option>';
+	html += '<option value="column_right"><?= $lang_text_column_right; ?></option>';
 	html += '</select>';
 	html += '</div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><?= $entry_status; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>';
 	html += '<div class="control-field col-sm-4">';
 	html += '<div class="btn-group" data-toggle="buttons">';
-	html += '<label class="btn btn-default active" title="<?= $text_enabled; ?>"><input type="radio" name="welcome_widget['+widget_row+'][status]" value="1" checked=""><i class="fa fa-play"></i></label>';
-	html += '<label class="btn btn-default" title="<?= $text_disabled; ?>"><input type="radio" name="welcome_widget['+widget_row+'][status]" value="0"><i class="fa fa-pause"></i></label>';
+	html += '<label class="btn btn-default active" title="<?= $lang_text_enabled; ?>"><input type="radio" name="welcome_widget['+widget_row+'][status]" value="1" checked=""><i class="fa fa-play"></i></label>';
+	html += '<label class="btn btn-default" title="<?= $lang_text_disabled; ?>"><input type="radio" name="welcome_widget['+widget_row+'][status]" value="0"><i class="fa fa-pause"></i></label>';
 	html += '</div>';
 	html += '</div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><?= $entry_sort_order; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_sort_order; ?></label>';
 	html += '<div class="control-field col-sm-4">';
 	html += '<input type="text" name="welcome_widget['+widget_row+'][sort_order]" value="" class="form-control">';
 	html += '</div>';
@@ -66,7 +66,7 @@ function addWidget(){
 
 	$('#language-'+widget_row).find('a:first').click();
 
-	$('#widget-add').before('<li><a href="#tab-widget-'+widget_row+'" id="widget-'+widget_row+'" data-toggle="tab"><span class="label label-danger" onclick="removeWidget('+widget_row+');"><i class="fa fa-trash-o fa-lg"></i></span>&nbsp;&nbsp;<?= $tab_widget; ?> '+widget_row+'</a></li>');
+	$('#widget-add').before('<li><a href="#tab-widget-'+widget_row+'" id="widget-'+widget_row+'" data-toggle="tab"><span class="label label-danger" onclick="removeWidget('+widget_row+');"><i class="fa fa-trash-o fa-lg"></i></span>&nbsp;&nbsp;<?= $lang_tab_widget; ?> '+widget_row+'</a></li>');
 	
 	$('#widget-'+widget_row).click();
 	

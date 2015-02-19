@@ -21,13 +21,13 @@ class Register extends Controller {
     private $error = array();
     
     public function index() {
-        if ($this->affiliate->isLogged()) {
+        if ($this->affiliate->isLogged()):
             $this->response->redirect($this->url->link('affiliate/account', '', 'SSL'));
-        }
+        endif;
         
         $data = $this->theme->language('affiliate/register');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('affiliate/affiliate');
         
@@ -38,10 +38,13 @@ class Register extends Controller {
             $this->response->redirect($this->url->link('affiliate/success'));
         }
         
-        $this->breadcrumb->add('text_account', 'affiliate/account', null, true, 'SSL');
-        $this->breadcrumb->add('text_register', 'affiliate/register', null, true, 'SSL');
+        if ($this->affiliate->isLogged()):
+            $this->breadcrumb->add('lang_text_account', 'affiliate/account', null, true, 'SSL');
+        endif;
         
-        $data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('affiliate/login', '', 'SSL'));
+        $this->breadcrumb->add('lang_text_register', 'affiliate/register', null, true, 'SSL');
+        
+        $data['text_account_already'] = sprintf($this->language->get('lang_text_account_already'), $this->url->link('affiliate/login', '', 'SSL'));
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -189,7 +192,7 @@ class Register extends Controller {
             $data['zone_id'] = '';
         }
         
-        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('text_select') . '","none":"' . $this->language->get('text_none') . '"}');
+        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('lang_text_select') . '","none":"' . $this->language->get('lang_text_none') . '"}');
         
         $this->theme->model('localization/country');
         
@@ -267,7 +270,7 @@ class Register extends Controller {
             $page_info = $this->model_content_page->getPage($this->config->get('config_affiliate_id'));
             
             if ($page_info) {
-                $data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_affiliate_id'), 'SSL'), $page_info['title'], $page_info['title']);
+                $data['text_agree'] = sprintf($this->language->get('lang_text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_affiliate_id'), 'SSL'), $page_info['title'], $page_info['title']);
             } else {
                 $data['text_agree'] = '';
             }
@@ -280,6 +283,8 @@ class Register extends Controller {
         } else {
             $data['agree'] = false;
         }
+
+        $this->theme->loadjs('javascript/affiliate/register', $data);
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -293,31 +298,31 @@ class Register extends Controller {
     
     protected function validate() {
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if ($this->model_affiliate_affiliate->getTotalAffiliatesByEmail($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_exists');
+            $this->error['warning'] = $this->language->get('lang_error_exists');
         }
         
         if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
+            $this->error['telephone'] = $this->language->get('lang_error_telephone');
         }
         
         if (($this->encode->strlen($this->request->post['address_1']) < 3) || ($this->encode->strlen($this->request->post['address_1']) > 128)) {
-            $this->error['address_1'] = $this->language->get('error_address_1');
+            $this->error['address_1'] = $this->language->get('lang_error_address_1');
         }
         
         if (($this->encode->strlen($this->request->post['city']) < 2) || ($this->encode->strlen($this->request->post['city']) > 128)) {
-            $this->error['city'] = $this->language->get('error_city');
+            $this->error['city'] = $this->language->get('lang_error_city');
         }
         
         $this->theme->model('localization/country');
@@ -325,23 +330,23 @@ class Register extends Controller {
         $country_info = $this->model_localization_country->getCountry($this->request->post['country_id']);
         
         if ($country_info && $country_info['postcode_required'] && ($this->encode->strlen($this->request->post['postcode']) < 2) || ($this->encode->strlen($this->request->post['postcode']) > 10)) {
-            $this->error['postcode'] = $this->language->get('error_postcode');
+            $this->error['postcode'] = $this->language->get('lang_error_postcode');
         }
         
         if ($this->request->post['country_id'] == '') {
-            $this->error['country'] = $this->language->get('error_country');
+            $this->error['country'] = $this->language->get('lang_error_country');
         }
         
         if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-            $this->error['zone'] = $this->language->get('error_zone');
+            $this->error['zone'] = $this->language->get('lang_error_zone');
         }
         
         if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {
-            $this->error['password'] = $this->language->get('error_password');
+            $this->error['password'] = $this->language->get('lang_error_password');
         }
         
         if ($this->request->post['confirm'] != $this->request->post['password']) {
-            $this->error['confirm'] = $this->language->get('error_confirm');
+            $this->error['confirm'] = $this->language->get('lang_error_confirm');
         }
         
         if ($this->config->get('config_affiliate_id')) {
@@ -350,13 +355,42 @@ class Register extends Controller {
             $page_info = $this->model_content_page->getPage($this->config->get('config_affiliate_id'));
             
             if ($page_info && !isset($this->request->post['agree'])) {
-                $this->error['warning'] = sprintf($this->language->get('error_agree'), $page_info['title']);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_agree'), $page_info['title']);
             }
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
         
         return !$this->error;
+    }
+
+    public function email() {
+        $json = array();
+        
+        $this->theme->language('affiliate/register');
+        $this->theme->model('affiliate/affiliate');
+        
+        if (($this->encode->strlen($this->request->get['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->get['email'])):
+            $json['error'] = $this->language->get('lang_error_email');
+        endif;
+        
+        if ($this->model_affiliate_affiliate->getTotalAffiliatesByEmail($this->request->get['email'])):
+            $json['error'] = $this->language->get('lang_error_exists');
+        endif;
+        
+        $this->response->setOutput(json_encode($json));
+    }
+    
+    public function password() {
+        $json = array();
+        
+        $this->theme->language('affiliate/register');
+        
+        if (($this->encode->strlen($this->request->get['password']) < 4) || ($this->encode->strlen($this->request->get['password']) > 20)):
+            $json['error'] = $this->language->get('lang_error_password');
+        endif;
+        
+        $this->response->setOutput(json_encode($json));
     }
     
     public function country() {
@@ -369,7 +403,16 @@ class Register extends Controller {
         if ($country_info) {
             $this->theme->model('localization/zone');
             
-            $json = array('country_id' => $country_info['country_id'], 'name' => $country_info['name'], 'iso_code_2' => $country_info['iso_code_2'], 'iso_code_3' => $country_info['iso_code_3'], 'address_format' => $country_info['address_format'], 'postcode_required' => $country_info['postcode_required'], 'zone' => $this->model_localization_zone->getZonesByCountryId($this->request->get['country_id']), 'status' => $country_info['status']);
+            $json = array(
+                'country_id'        => $country_info['country_id'], 
+                'name'              => $country_info['name'], 
+                'iso_code_2'        => $country_info['iso_code_2'], 
+                'iso_code_3'        => $country_info['iso_code_3'], 
+                'address_format'    => $country_info['address_format'], 
+                'postcode_required' => $country_info['postcode_required'], 
+                'zone'              => $this->model_localization_zone->getZonesByCountryId($this->request->get['country_id']), 
+                'status'            => $country_info['status']
+            );
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);

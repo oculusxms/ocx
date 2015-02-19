@@ -19,15 +19,15 @@
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_name; ?>:</strong> <?= $username; ?>
+	<strong><?= $lang_text_name; ?>:</strong> <?= $username; ?>
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_email; ?>:</strong> <?= $email; ?>
+	<strong><?= $lang_text_email; ?>:</strong> <?= $email; ?>
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<?= $text_services; ?>
+	<?= $lang_text_services; ?>
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:0;">

@@ -23,14 +23,14 @@ class Googlesitemap extends Controller {
     public function index() {
         $data = $this->theme->language('feed/googlesitemap');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('googlesitemap', $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/feed', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -41,8 +41,8 @@ class Googlesitemap extends Controller {
             $data['error_warning'] = '';
         }
         
-        $this->breadcrumb->add('text_feed', 'module/feed');
-        $this->breadcrumb->add('heading_title', 'feed/googlesitemap');
+        $this->breadcrumb->add('lang_text_feed', 'module/feed');
+        $this->breadcrumb->add('lang_heading_title', 'feed/googlesitemap');
         
         $data['action'] = $this->url->link('feed/googlesitemap', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -65,7 +65,7 @@ class Googlesitemap extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'feed/googlesitemap')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

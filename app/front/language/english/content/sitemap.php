@@ -15,18 +15,18 @@
 */
 
 // Heading
-$_['heading_title'] = 'Site Map';
+$_['lang_heading_title'] = 'Site Map';
 
 // Text
-$_['text_special']  = 'Special Offers';
-$_['text_account']  = 'Dashboard';
-$_['text_edit']     = 'Account Information';
-$_['text_password'] = 'Password';
-$_['text_address']  = 'Address Book';
-$_['text_history']  = 'Order History';
-$_['text_download'] = 'Downloads';
-$_['text_cart']     = 'Shopping Cart';
-$_['text_checkout'] = 'Checkout';
-$_['text_search']   = 'Search';
-$_['text_page']     = 'Pages';
-$_['text_contact']  = 'Contact Us';
+$_['lang_text_special']  = 'Special Offers';
+$_['lang_text_account']  = 'Dashboard';
+$_['lang_text_edit']     = 'Account Information';
+$_['lang_text_password'] = 'Password';
+$_['lang_text_address']  = 'Address Book';
+$_['lang_text_history']  = 'Order History';
+$_['lang_text_download'] = 'Downloads';
+$_['lang_text_cart']     = 'Shopping Cart';
+$_['lang_text_checkout'] = 'Checkout';
+$_['lang_text_search']   = 'Search';
+$_['lang_text_page']     = 'Pages';
+$_['lang_text_contact']  = 'Contact Us';

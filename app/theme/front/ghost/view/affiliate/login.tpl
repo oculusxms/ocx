@@ -11,10 +11,10 @@
 	<div class="col-sm-<?php $span = trim($column_left) ? 9 : 12; $span = trim($column_right) ? $span - 3 : $span; echo $span; ?>">
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
-		<div class="page-header"><h1><?= $heading_title; ?></h1></div>
+		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#"><?= $text_returning_affiliate; ?></a></li>
-			<li><a href="<?= $register; ?>"><?= $text_new_affiliate; ?></a></li>
+			<li class="active"><a href="#"><?= $lang_text_returning_affiliate; ?></a></li>
+			<li><a href="<?= $register; ?>"><?= $lang_text_new_affiliate; ?></a></li>
 		</ul>
 		<div class="tab-content">
 			<div class="row">
@@ -22,25 +22,25 @@
 					<br>
 					<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data">
 						<div class="form-group">
-							<label class="control-label col-sm-4" for="email"><?= $entry_email; ?></label>
+							<label class="control-label col-sm-4" for="email"><?= $lang_entry_email; ?></label>
 							<div class="col-sm-8">
-								<input type="email" name="email" value="<?= $email; ?>" class="form-control" placeholder="<?= $entry_email; ?>"  id="email" autofocus>
+								<input type="email" name="email" value="<?= $email; ?>" class="form-control" placeholder="<?= $lang_entry_email; ?>"  id="email" autofocus>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-sm-4" for="password"><?= $entry_password; ?></label>
+							<label class="control-label col-sm-4" for="password"><?= $lang_entry_password; ?></label>
 							<div class="col-sm-8">
-								<input type="password" name="password" value="<?= $password; ?>" class="form-control" placeholder="<?= $entry_password; ?>"  id="password">
+								<input type="password" name="password" value="<?= $password; ?>" class="form-control" placeholder="<?= $lang_entry_password; ?>"  id="password">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-8 col-sm-offset-4">
-								<a href="<?= $forgotten; ?>"><?= $text_forgotten; ?></a>
+								<a href="<?= $forgotten; ?>"><?= $lang_text_forgotten; ?></a>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-8 col-sm-offset-4">
-								<button type="submit" class="btn btn-primary"><?= $button_login; ?></button>
+								<button type="submit" class="btn btn-primary"><?= $lang_button_login; ?></button>
 							</div>
 						</div>
 						<?php if ($redirect) { ?>
@@ -49,13 +49,13 @@
 					</form>
 				</div>
 				<div class="col-sm-6">
-					<h4><?= $text_new_affiliate; ?></h4>
+					<h4><?= $lang_text_new_affiliate; ?></h4>
 					<p><?= $text_description; ?></p>
 					<hr>
-					<p><?= $text_register_account; ?></p>
+					<p><?= $lang_text_register_account; ?></p>
 					<div class="form-actions">
 						<div class="form-actions-inner text-right">
-							<a href="<?= $register; ?>" class="btn btn-default"><?= $button_continue; ?></a>
+							<a href="<?= $register; ?>" class="btn btn-default"><?= $lang_button_continue; ?></a>
 						</div>
 					</div>
 				</div>

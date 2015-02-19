@@ -15,4 +15,4 @@
 */
 
 // Text
-$_['text_voucher'] = 'Voucher(%s)';
+$_['lang_text_voucher'] = 'Voucher(%s)';

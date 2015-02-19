@@ -21,8 +21,6 @@ class Blogsearch extends Controller {
     public function index($setting) {
         $data = $this->theme->language('widget/blogsearch');
         
-        $data['heading_title'] = $this->language->get('heading_title');
-        
         // Search
         if (isset($this->request->get['filter_name'])) {
             $data['filter_name'] = $this->request->get['filter_name'];

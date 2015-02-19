@@ -23,18 +23,18 @@ class Event extends Controller {
     
     public function index() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         $this->getList();
     }
     
     public function insert() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_event->addEvent($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_add_success');
+            $this->session->data['success'] = $this->language->get('lang_text_add_success');
             $this->response->redirect($this->url->link('catalog/event', 'token=' . $this->session->data['token'], 'SSL'));
         }
         $this->getForm();
@@ -42,11 +42,11 @@ class Event extends Controller {
     
     public function update() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_event->editEvent($this->request->get['event_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_edit_success');
+            $this->session->data['success'] = $this->language->get('lang_text_edit_success');
             $this->response->redirect($this->url->link('catalog/event', 'token=' . $this->session->data['token'], 'SSL'));
         }
         $this->getForm();
@@ -54,13 +54,13 @@ class Event extends Controller {
     
     public function delete() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
             foreach ($this->request->post['selected'] as $event_id) {
                 $this->model_catalog_event->deleteEvent($event_id);
             }
-            $this->session->data['success'] = $this->language->get('text_delete_success');
+            $this->session->data['success'] = $this->language->get('lang_text_delete_success');
             $this->response->redirect($this->url->link('catalog/event', 'token=' . $this->session->data['token'], 'SSL'));
         }
         $this->getList();
@@ -68,11 +68,11 @@ class Event extends Controller {
     
     public function insert_presenter() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateFormPresenter()) {
             $this->model_catalog_event->addPresenter($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_add_i_success');
+            $this->session->data['success'] = $this->language->get('lang_text_add_i_success');
             $this->response->redirect($this->url->link('catalog/event/presenter_list', 'token=' . $this->session->data['token'], 'SSL'));
         }
         $this->presenter_form();
@@ -80,11 +80,11 @@ class Event extends Controller {
     
     public function update_presenter() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateFormPresenter()) {
             $this->model_catalog_event->editPresenter($this->request->get['presenter_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_edit_i_success');
+            $this->session->data['success'] = $this->language->get('lang_text_edit_i_success');
             $this->response->redirect($this->url->link('catalog/event/presenter_list', 'token=' . $this->session->data['token'], 'SSL'));
         }
         $this->presenter_form();
@@ -92,13 +92,13 @@ class Event extends Controller {
     
     public function delete_presenter() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         if (isset($this->request->post['selected']) && $this->validateDeletePresenter()) {
             foreach ($this->request->post['selected'] as $presenter_id) {
                 $this->model_catalog_event->deletePresenter($presenter_id);
             }
-            $this->session->data['success'] = $this->language->get('text_delete_i_success');
+            $this->session->data['success'] = $this->language->get('lang_text_delete_i_success');
             $this->response->redirect($this->url->link('catalog/event/presenter_list', 'token=' . $this->session->data['token'], 'SSL'));
         }
         $this->presenter_list();
@@ -111,13 +111,13 @@ class Event extends Controller {
         $results = $this->model_catalog_event->addToWaitList($this->request->post);
         if ($results == 1) {
             $success = 1;
-            $message = $this->language->get('text_add_waitlist_success');
+            $message = $this->language->get('lang_text_add_waitlist_success');
         } elseif ($results == 0) {
             $success = 0;
-            $message = $this->language->get('text_duplicate_attendee');
+            $message = $this->language->get('lang_text_duplicate_attendee');
         } else {
             $success = 0;
-            $message = $this->language->get('error_attendee_exists');
+            $message = $this->language->get('lang_error_attendee_exists');
         }
         $json = array('success' => $success, 'message' => $message);
         $this->response->setOutput(json_encode($json));
@@ -125,7 +125,7 @@ class Event extends Controller {
     
     public function insert_attendee() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         $json = array();
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateRoster()) {
@@ -141,18 +141,18 @@ class Event extends Controller {
                         $roster_html.= '<input type="checkbox" name="selected[]" value="' . $result['attendee_id'] . '" />';
                         $roster_html.= '</td>';
                         $roster_html.= '<td>' . $result['name'] . '</td>';
-                        $roster_html.= '<td class="text-right">' . date($this->language->get('date_format_short'), $result['date_added']) . '</td>';
+                        $roster_html.= '<td class="text-right">' . date($this->language->get('lang_date_format_short'), $result['date_added']) . '</td>';
                         $roster_html.= '</tr>';
                     }
                 } else {
                     $roster_html.= '<tr>';
-                    $roster_html.= '<td class="text-center" colspan="3">' . $this->language->get('text_no_attendees') . '</td>';
+                    $roster_html.= '<td class="text-center" colspan="3">' . $this->language->get('lang_text_no_attendees') . '</td>';
                     $roster_html.= '</tr>';
                 }
                 $available = $this->model_catalog_event->getAvailable($this->request->post['event_id']);
-                $json = array('success' => 1, 'message' => $this->language->get('text_add_s_success'), 'roster' => $roster_html, 'available' => $available);
+                $json = array('success' => 1, 'message' => $this->language->get('lang_text_add_s_success'), 'roster' => $roster_html, 'available' => $available);
             } else {
-                $json = array('success' => 0, 'message' => $this->language->get('error_attendee_exists'));
+                $json = array('success' => 0, 'message' => $this->language->get('lang_error_attendee_exists'));
             }
         }
         $this->response->setOutput(json_encode($json));
@@ -160,7 +160,7 @@ class Event extends Controller {
     
     public function delete_attendee() {
         $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         
         if (isset($this->request->post['selected']) && $this->validateRoster()) {
@@ -170,7 +170,7 @@ class Event extends Controller {
                 $a++;
             }
             $this->model_catalog_event->updateSeats($this->request->get['event_id'], $a);
-            $this->session->data['success'] = $this->language->get('text_delete_s_success');
+            $this->session->data['success'] = $this->language->get('lang_text_delete_s_success');
             $this->response->redirect($this->url->link('catalog/event/roster', 'token=' . $this->session->data['token'] . '&event_id=' . $this->request->get['event_id'], 'SSL'));
         }
         $this->roster();
@@ -178,7 +178,7 @@ class Event extends Controller {
     
     public function get_wait_list() {
         $data = $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('column_waitlist'));
+        $this->theme->setTitle($this->language->get('lang_column_waitlist'));
         $this->theme->model('catalog/event');
         
         if (isset($this->error['warning'])) {
@@ -197,8 +197,8 @@ class Event extends Controller {
             $data['success'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/event');
-        $this->breadcrumb->add('column_waitlist', 'catalog/event/get_wait_list', '&event_id=' . $this->request->get['event_id']);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/event');
+        $this->breadcrumb->add('lang_column_waitlist', 'catalog/event/get_wait_list', '&event_id=' . $this->request->get['event_id']);
         
         $results = $this->model_catalog_event->getWaitListAttendees($this->request->get['event_id']);
         
@@ -207,8 +207,8 @@ class Event extends Controller {
         if ($results) {
             foreach ($results as $result) {
                 $actions = array();
-                $actions[] = array('text' => $this->language->get('text_add'), 'href' => $this->url->link('catalog/event/add_to_event', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'] . '&customer_id=' . $result['customer_id'], 'SSL'));
-                $actions[] = array('text' => $this->language->get('text_remove'), 'href' => $this->url->link('catalog/event/remove_from_list', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'] . '&event_wait_list_id=' . $result['event_wait_list_id'], 'SSL'));
+                $actions[] = array('text' => $this->language->get('lang_text_add'), 'href' => $this->url->link('catalog/event/add_to_event', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'] . '&customer_id=' . $result['customer_id'], 'SSL'));
+                $actions[] = array('text' => $this->language->get('lang_text_remove'), 'href' => $this->url->link('catalog/event/remove_from_list', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'] . '&event_wait_list_id=' . $result['event_wait_list_id'], 'SSL'));
                 
                 $this->theme->model('people/customer');
                 
@@ -233,7 +233,7 @@ class Event extends Controller {
         $this->theme->language('catalog/event');
         $this->theme->model('catalog/event');
         $this->model_catalog_event->addToEvent($this->request->get);
-        $this->session->data['success'] = $this->language->get('text_add_to_event');
+        $this->session->data['success'] = $this->language->get('lang_text_add_to_event');
         $this->response->redirect($this->url->link('catalog/event/get_wait_list', 'token=' . $this->session->data['token'] . '&event_id=' . $this->request->get['event_id'], 'SSL'));
     }
     
@@ -241,7 +241,7 @@ class Event extends Controller {
         $this->theme->language('catalog/event');
         $this->theme->model('catalog/event');
         $this->model_catalog_event->removeFromList($this->request->get['event_wait_list_id']);
-        $this->session->data['success'] = $this->language->get('text_remove_from_list');
+        $this->session->data['success'] = $this->language->get('lang_text_remove_from_list');
         $this->response->redirect($this->url->link('catalog/event/get_wait_list', 'token=' . $this->session->data['token'] . '&event_id=' . $this->request->get['event_id'], 'SSL'));
     }
     
@@ -270,7 +270,7 @@ class Event extends Controller {
             $data['success'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/event');
+        $this->breadcrumb->add('lang_heading_title', 'catalog/event');
         
         $filter = array();
         $results = $this->model_catalog_event->getEvents($filter);
@@ -283,17 +283,17 @@ class Event extends Controller {
             foreach ($results as $result) {
                 $actions = array();
                 
-                $actions[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('catalog/event/update', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], 'SSL'));
+                $actions[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('catalog/event/update', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], 'SSL'));
                 
-                $actions[] = array('text' => $this->language->get('text_roster'), 'href' => $this->url->link('catalog/event/roster', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], 'SSL'));
+                $actions[] = array('text' => $this->language->get('lang_text_roster'), 'href' => $this->url->link('catalog/event/roster', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], 'SSL'));
                 
                 if ($result['hangout']):
-                    $location = $this->language->get('text_hangout');
+                    $location = $this->language->get('lang_text_hangout');
                 else:
                     $location = nl2br($result['location']);
                 endif;
                 
-                $data['events'][] = array('event_id' => $result['event_id'], 'event_name' => html_entity_decode($result['event_name']), 'visibility' => $this->model_people_customergroup->getCustomerGroupName($result['visibility']), 'date_time' => date($this->language->get('date_format_short') . ' ' . $this->language->get('time_format'), strtotime($result['date_time'])), 'location' => $location, 'cost' => $this->currency->format($result['cost']), 'seats' => $result['seats'], 'filled' => $result['seats'] - $result['filled'], 'waitlist' => $this->model_catalog_event->getWaitListCount($result['event_id']), 'waitlist_href' => $this->url->link('catalog/event/get_wait_list', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], 'SSL'), 'presenter' => $this->model_catalog_event->getPresenterName($result['presenter_id']), 'selected' => isset($this->request->post['selected']) && in_array($result['result_id'], $this->request->post['selected']), 'action' => $actions);
+                $data['events'][] = array('event_id' => $result['event_id'], 'event_name' => html_entity_decode($result['event_name']), 'visibility' => $this->model_people_customergroup->getCustomerGroupName($result['visibility']), 'date_time' => date($this->language->get('lang_date_format_short') . ' ' . $this->language->get('lang_time_format'), strtotime($result['date_time'])), 'location' => $location, 'cost' => $this->currency->format($result['cost']), 'seats' => $result['seats'], 'filled' => $result['seats'] - $result['filled'], 'waitlist' => $this->model_catalog_event->getWaitListCount($result['event_id']), 'waitlist_href' => $this->url->link('catalog/event/get_wait_list', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], 'SSL'), 'presenter' => $this->model_catalog_event->getPresenterName($result['presenter_id']), 'selected' => isset($this->request->post['selected']) && in_array($result['result_id'], $this->request->post['selected']), 'action' => $actions);
             }
         }
         
@@ -396,7 +396,7 @@ class Event extends Controller {
             $data['error_slug'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/event');
+        $this->breadcrumb->add('lang_heading_title', 'catalog/event');
         
         if (!isset($this->request->get['event_id'])) {
             $data['action'] = $this->url->link('catalog/event/insert', 'token=' . $this->session->data['token'], 'SSL');
@@ -411,7 +411,7 @@ class Event extends Controller {
         }
         
         $data['token'] = $this->session->data['token'];
-        $data['days'] = array($this->language->get('text_monday'), $this->language->get('text_tuesday'), $this->language->get('text_wednesday'), $this->language->get('text_thursday'), $this->language->get('text_friday'), $this->language->get('text_saturday'), $this->language->get('text_sunday'));
+        $data['days'] = array($this->language->get('lang_text_monday'), $this->language->get('lang_text_tuesday'), $this->language->get('lang_text_wednesday'), $this->language->get('lang_text_thursday'), $this->language->get('lang_text_friday'), $this->language->get('lang_text_saturday'), $this->language->get('lang_text_sunday'));
         
         if (!empty($event_info)) {
             if ($event_info['product_id'] == 0) {
@@ -644,7 +644,7 @@ class Event extends Controller {
     
     public function presenter_list() {
         $data = $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('catalog/event');
         
         if (isset($this->error['warning'])) {
@@ -663,8 +663,8 @@ class Event extends Controller {
             $data['success'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/event');
-        $this->breadcrumb->add('text_presenter_tab', 'catalog/event/presenter_list');
+        $this->breadcrumb->add('lang_heading_title', 'catalog/event');
+        $this->breadcrumb->add('lang_text_presenter_tab', 'catalog/event/presenter_list');
         
         $filter = array();
         
@@ -676,7 +676,7 @@ class Event extends Controller {
             foreach ($results as $result) {
                 $action = array();
                 
-                $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('catalog/event/update_presenter', 'token=' . $this->session->data['token'] . '&presenter_id=' . $result['presenter_id'], 'SSL'));
+                $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('catalog/event/update_presenter', 'token=' . $this->session->data['token'] . '&presenter_id=' . $result['presenter_id'], 'SSL'));
                 
                 $data['presenters'][] = array('presenter_id' => $result['presenter_id'], 'presenter_name' => $result['presenter_name'], 'bio' => html_entity_decode($result['bio']), 'action' => $action);
             }
@@ -716,8 +716,8 @@ class Event extends Controller {
             $data['error_bio'] = array();
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/event');
-        $this->breadcrumb->add('text_presenter_tab', 'catalog/event/presenter_list');
+        $this->breadcrumb->add('lang_heading_title', 'catalog/event');
+        $this->breadcrumb->add('lang_text_presenter_tab', 'catalog/event/presenter_list');
         
         if (!isset($this->request->get['presenter_id'])) {
             $data['action'] = $this->url->link('catalog/event/insert_presenter', 'token=' . $this->session->data['token'], 'SSL');
@@ -758,7 +758,7 @@ class Event extends Controller {
     
     public function roster() {
         $data = $this->theme->language('catalog/event');
-        $this->theme->setTitle($this->language->get('text_roster'));
+        $this->theme->setTitle($this->language->get('lang_text_roster'));
         $this->theme->model('catalog/event');
         
         if (isset($this->request->post['event_id'])) {
@@ -782,8 +782,8 @@ class Event extends Controller {
             $data['success'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'catalog/event');
-        $this->breadcrumb->add('text_roster', 'catalog/event/roster', '&event_id=' . $this->request->get['event_id']);
+        $this->breadcrumb->add('lang_heading_title', 'catalog/event');
+        $this->breadcrumb->add('lang_text_roster', 'catalog/event/roster', '&event_id=' . $this->request->get['event_id']);
         
         $this->theme->model('people/customer');
         
@@ -795,7 +795,7 @@ class Event extends Controller {
         
         if ($results) {
             foreach ($results as $result) {
-                $data['attendees'][] = array('attendee_id' => $result['attendee_id'], 'name' => $this->model_catalog_event->getAttendeeName($result['attendee_id']), 'date_added' => date($this->language->get('date_format_short'), $result['date_added']));
+                $data['attendees'][] = array('attendee_id' => $result['attendee_id'], 'name' => $this->model_catalog_event->getAttendeeName($result['attendee_id']), 'date_added' => date($this->language->get('lang_date_format_short'), $result['date_added']));
             }
         }
         
@@ -848,61 +848,61 @@ class Event extends Controller {
         $this->theme->language('catalog/event');
         
         if (!$this->user->hasPermission('modify', 'catalog/event')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['name']) < 1) || ($this->encode->strlen($this->request->post['name']) > 150)) {
-            $this->error['name'] = $this->language->get('error_name');
+            $this->error['name'] = $this->language->get('lang_error_name');
         }
         
         if ($this->request->post['slug'] == "") {
-            $this->error['slug'] = $this->language->get('error_slug');
+            $this->error['slug'] = $this->language->get('lang_error_slug');
         }
         
         if (($this->encode->strlen($this->request->post['model']) < 1) || ($this->encode->strlen($this->request->post['model']) > 50)) {
-            $this->error['model'] = $this->language->get('error_model');
+            $this->error['model'] = $this->language->get('lang_error_model');
         }
         
         if (($this->encode->strlen($this->request->post['event_length']) < 1) || ($this->encode->strlen($this->request->post['event_length']) > 40)) {
-            $this->error['event_length'] = $this->language->get('error_event_length');
+            $this->error['event_length'] = $this->language->get('lang_error_event_length');
         }
         
         if ($this->request->post['event_date'] == "" || date('Y-m-d', time()) >= date('Y-m-d', strtotime($this->request->post['event_date']))) {
-            $this->error['event_date'] = $this->language->get('error_event_date');
+            $this->error['event_date'] = $this->language->get('lang_error_event_date');
         }
         
         if ($this->request->post['event_time'] == "") {
-            $this->error['event_time'] = $this->language->get('error_event_time');
+            $this->error['event_time'] = $this->language->get('lang_error_event_time');
         }
         
         if ($this->request->post['online']):
             if ($this->encode->strlen($this->request->post['hangout']) < 1):
-                $this->error['hangout'] = $this->language->get('error_hangout');
+                $this->error['hangout'] = $this->language->get('lang_error_hangout');
             endif;
         else:
             if (($this->encode->strlen($this->request->post['location']) < 1) || ($this->encode->strlen($this->request->post['location']) > 200)) {
-                $this->error['location'] = $this->language->get('error_location');
+                $this->error['location'] = $this->language->get('lang_error_location');
             }
         endif;
         
         if (!isset($this->request->post['event_days'])) {
-            $this->error['event_days'] = $this->language->get('error_event_days');
+            $this->error['event_days'] = $this->language->get('lang_error_event_days');
         }
         
         if ($this->request->post['cost'] == "") {
-            $this->error['cost'] = $this->language->get('error_cost');
+            $this->error['cost'] = $this->language->get('lang_error_cost');
         }
         
         if ($this->request->post['seats'] == "") {
-            $this->error['seats'] = $this->language->get('error_seats');
+            $this->error['seats'] = $this->language->get('lang_error_seats');
         }
         
         if ($this->encode->strlen($this->request->post['description']) < 25) {
-            $this->error['description'] = $this->language->get('error_description');
+            $this->error['description'] = $this->language->get('lang_error_description');
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         }
         
         return !$this->error;
@@ -910,7 +910,7 @@ class Event extends Controller {
     
     private function validateDelete() {
         if (!$this->user->hasPermission('modify', 'catalog/event')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         return !$this->error;
@@ -918,14 +918,14 @@ class Event extends Controller {
     
     private function validateFormPresenter() {
         if (!$this->user->hasPermission('modify', 'catalog/event')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         if (($this->encode->strlen($this->request->post['presenter_name']) < 1) || ($this->encode->strlen($this->request->post['presenter_name']) > 150)) {
-            $this->error['presenter_name'] = $this->language->get('error_presenter_name');
+            $this->error['presenter_name'] = $this->language->get('lang_error_presenter_name');
         }
         
         if ($this->encode->strlen($this->request->post['bio']) < 25) {
-            $this->error['bio'] = $this->language->get('error_bio');
+            $this->error['bio'] = $this->language->get('lang_error_bio');
         }
         
         return !$this->error;
@@ -933,7 +933,7 @@ class Event extends Controller {
     
     private function validateDeletePresenter() {
         if (!$this->user->hasPermission('modify', 'catalog/event')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         return !$this->error;
@@ -941,7 +941,7 @@ class Event extends Controller {
     
     private function validateRoster() {
         if (!$this->user->hasPermission('modify', 'catalog/event')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         return !$this->error;
@@ -954,7 +954,7 @@ class Event extends Controller {
         $json = array();
         
         if (!isset($this->request->get['name']) || $this->encode->strlen($this->request->get['name']) < 1):
-            $json['error'] = $this->language->get('error_name_first');
+            $json['error'] = $this->language->get('lang_error_name_first');
         else:
             
             // build slug
@@ -966,12 +966,12 @@ class Event extends Controller {
             if (isset($query)):
                 if (isset($this->request->get['event_id'])):
                     if ($query != 'product_id:' . $this->request->get['event_id']):
-                        $json['error'] = sprintf($this->language->get('error_slug_found'), $slug);
+                        $json['error'] = sprintf($this->language->get('lang_error_slug_found'), $slug);
                     else:
                         $json['slug'] = $slug;
                     endif;
                 else:
-                    $json['error'] = sprintf($this->language->get('error_slug_found'), $slug);
+                    $json['error'] = sprintf($this->language->get('lang_error_slug_found'), $slug);
                 endif;
             else:
                 $json['slug'] = $slug;

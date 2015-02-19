@@ -47,11 +47,11 @@ class Maintenance extends Controller {
     public function info() {
         $data = $this->theme->language('common/maintenance');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_maintenance', 'common/maintenance');
+        $this->breadcrumb->add('lang_text_maintenance', 'common/maintenance');
         
-        $data['message'] = $this->language->get('text_message');
+        $data['message'] = $this->language->get('lang_text_message');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

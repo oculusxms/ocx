@@ -29,12 +29,12 @@ class Tracking extends Controller {
         
         $this->javascript->register('typeahead.min', 'bootstrap.min');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'affiliate/account', null, true, 'SSL');
-        $this->breadcrumb->add('heading_title', 'affiliate/tracking', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'affiliate/account', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'affiliate/tracking', null, true, 'SSL');
         
-        $data['text_description'] = sprintf($this->language->get('text_description'), $this->config->get('config_name'));
+        $data['text_description'] = sprintf($this->language->get('lang_text_description'), $this->config->get('config_name'));
         
         $data['code'] = $this->affiliate->getCode();
         

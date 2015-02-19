@@ -62,7 +62,7 @@ class Shippingmethod extends Controller {
         }
         
         if (empty($this->session->data['shipping_methods'])) {
-            $data['error_warning'] = sprintf($this->language->get('error_no_shipping'), $this->url->link('content/contact'));
+            $data['error_warning'] = sprintf($this->language->get('lang_error_no_shipping'), $this->url->link('content/contact'));
         } else {
             $data['error_warning'] = '';
         }
@@ -139,12 +139,12 @@ class Shippingmethod extends Controller {
         
         if (!$json) {
             if (!isset($this->request->post['shipping_method'])) {
-                $json['error']['warning'] = $this->language->get('error_shipping');
+                $json['error']['warning'] = $this->language->get('lang_error_shipping');
             } else {
                 $shipping = explode('.', $this->request->post['shipping_method']);
                 
                 if (!isset($shipping[0]) || !isset($shipping[1]) || !isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
-                    $json['error']['warning'] = $this->language->get('error_shipping');
+                    $json['error']['warning'] = $this->language->get('lang_error_shipping');
                 }
             }
             

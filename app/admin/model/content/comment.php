@@ -68,7 +68,9 @@ class Comment extends Model {
     }
     
     public function deleteComment($comment_id) {
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_comment WHERE comment_id = '" . (int)$comment_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_comment 
+            WHERE comment_id = '" . (int)$comment_id . "'");
         
         $this->cache->delete('post.comment');
         $this->cache->delete('posts.comment');

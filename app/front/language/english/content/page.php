@@ -15,4 +15,4 @@
 */
 
 // Text
-$_['text_error'] = 'Page Not Found.';
+$_['lang_text_error'] = 'Page Not Found.';

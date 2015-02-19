@@ -22,7 +22,7 @@ class Contact extends Controller {
     
     public function index() {
         $data = $this->theme->language('people/contact');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $data['token'] = $this->session->data['token'];
         
@@ -31,7 +31,7 @@ class Contact extends Controller {
             unset($this->session->data['success']);
         endif;
         
-        $this->breadcrumb->add('heading_title', 'people/contact');
+        $this->breadcrumb->add('lang_heading_title', 'people/contact');
         
         $data['cancel'] = $this->url->link('people/contact', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -57,15 +57,15 @@ class Contact extends Controller {
         
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
             if (!$this->user->hasPermission('modify', 'people/contact')) {
-                $json['error']['warning'] = $this->language->get('error_permission');
+                $json['error']['warning'] = $this->language->get('lang_error_permission');
             }
             
             if (!$this->request->post['subject']) {
-                $json['error']['subject'] = $this->language->get('error_subject');
+                $json['error']['subject'] = $this->language->get('lang_error_subject');
             }
             
             if (!$this->request->post['message']) {
-                $json['error']['message'] = $this->language->get('error_message');
+                $json['error']['message'] = $this->language->get('lang_error_message');
             }
             
             if (!$json) {
@@ -188,9 +188,9 @@ class Contact extends Controller {
                     $end = $start + 10;
                     
                     if ($end < $email_total) {
-                        $json['success'] = sprintf($this->language->get('text_sent'), $start, $email_total);
+                        $json['success'] = sprintf($this->language->get('lang_text_sent'), $start, $email_total);
                     } else {
-                        $json['success'] = $this->language->get('text_success');
+                        $json['success'] = $this->language->get('lang_text_success');
                     }
                     
                     if ($end < $email_total) {
@@ -203,7 +203,7 @@ class Contact extends Controller {
                         $json['redirect'] = '';
                     } else {
                         $json['redirect'] = str_replace('&amp;', '&', $this->url->link('people/contact', 'token=' . $this->session->data['token'], 'SSL'));
-                        $this->session->data['success'] = $this->language->get('text_success');
+                        $this->session->data['success'] = $this->language->get('lang_text_success');
                     }
 
                     // NEW MAILER

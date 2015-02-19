@@ -31,40 +31,40 @@
 	<div class="col-sm-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="h2"><i class="fa fa-home"></i><?= $text_overview; ?></div>
+				<div class="h2"><i class="fa fa-home"></i><?= $lang_text_overview; ?></div>
 			</div>
 			<div class="panel-body">
 				<table class="form">
 					<tr>
-						<td><?= $text_total_sale; ?></td>
+						<td><?= $lang_text_total_sale; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_sale; ?></span></td>
 					</tr>
 					<tr>
-						<td><?= $text_total_sale_year; ?></td>
+						<td><?= $lang_text_total_sale_year; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_sale_year; ?></span></td>
 					</tr>
 					<tr>
-						<td><?= $text_total_order; ?></td>
+						<td><?= $lang_text_total_order; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_order; ?></span></td>
 					</tr>
 					<tr>
-						<td><?= $text_total_customer; ?></td>
+						<td><?= $lang_text_total_customer; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_customer; ?></span></td>
 					</tr>
 					<tr>
-						<td><?= $text_total_customer_approval; ?></td>
+						<td><?= $lang_text_total_customer_approval; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_customer_approval; ?></span></td>
 					</tr>
 					<tr>
-						<td><?= $text_total_review_approval; ?></td>
+						<td><?= $lang_text_total_review_approval; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_review_approval; ?></span></td>
 					</tr>
 					<tr>
-						<td><?= $text_total_affiliate; ?></td>
+						<td><?= $lang_text_total_affiliate; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_affiliate; ?></span></td>
 					</tr>
 					<tr>
-						<td><?= $text_total_affiliate_approval; ?></td>
+						<td><?= $lang_text_total_affiliate_approval; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_affiliate_approval; ?></span></td>
 					</tr>
 				</table>
@@ -74,14 +74,14 @@
 	<div class="col-sm-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="h2"><i class="fa fa-bar-chart-o"></i><?= $text_statistics; ?></div>
+				<div class="h2"><i class="fa fa-bar-chart-o"></i><?= $lang_text_statistics; ?></div>
 			</div>
 			<div class="panel-body">
-				<ul class="nav nav-tabs" id="tabs-chart" title="<?= $entry_range; ?>">
-					<li><a href="day" data-toggle="tab"><?= $text_day; ?></a></li>
-					<li><a href="week" data-toggle="tab"><?= $text_week; ?></a></li>
-					<li><a href="month" data-toggle="tab"><?= $text_month; ?></a></li>
-					<li><a href="year" data-toggle="tab"><?= $text_year; ?></a></li>
+				<ul class="nav nav-tabs" id="tabs-chart" title="<?= $lang_entry_range; ?>">
+					<li><a href="day" data-toggle="tab"><?= $lang_text_day; ?></a></li>
+					<li><a href="week" data-toggle="tab"><?= $lang_text_week; ?></a></li>
+					<li><a href="month" data-toggle="tab"><?= $lang_text_month; ?></a></li>
+					<li><a href="year" data-toggle="tab"><?= $lang_text_year; ?></a></li>
 				</ul>
 				<div class="tab-content">
 					<div id="report"></div>
@@ -92,18 +92,18 @@
 </div>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="h2"><i class="fa fa-shopping-cart"></i><?= $text_latest_10_orders; ?></div>
+		<div class="h2"><i class="fa fa-shopping-cart"></i><?= $lang_text_latest_10_orders; ?></div>
 	</div>
 	<div class="panel-body">
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
-					<th class="text-right hidden-xs"><?= $column_order; ?></th>
-					<th><?= $column_customer; ?></th>
-					<th class="hidden-xs"><?= $column_status; ?></th>
-					<th class="hidden-xs"><?= $column_date_added; ?></th>
-					<th class="text-right hidden-xs"><?= $column_total; ?></th>
-					<th class="text-right"><span class="hidden-xs"><?= $column_action; ?></span></th>
+					<th class="text-right hidden-xs"><?= $lang_column_order; ?></th>
+					<th><?= $lang_column_customer; ?></th>
+					<th class="hidden-xs"><?= $lang_column_status; ?></th>
+					<th class="hidden-xs"><?= $lang_column_date_added; ?></th>
+					<th class="text-right hidden-xs"><?= $lang_column_total; ?></th>
+					<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 				</tr>
 			</thead>
 			<tbody data-link="row" class="rowlink">
@@ -124,7 +124,7 @@
 				<?php } ?>
 				<?php } else { ?>
 				<tr>
-					<td class="text-center" colspan="6"><?= $text_no_results; ?></td>
+					<td class="text-center" colspan="6"><?= $lang_text_no_results; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

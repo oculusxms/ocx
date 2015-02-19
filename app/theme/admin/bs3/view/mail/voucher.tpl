@@ -17,15 +17,15 @@ a img{border:none}
 <div id="container">
 	<div style="float:right;margin-left:20px;"><a href="<?= $store_url; ?>" title="<?= $store_name; ?>"><img src="<?= $image; ?>" alt="<?= $store_name; ?>"></a></div>
 	<div>
-		<p><?= $text_greeting; ?></p>
-		<p><?= $text_from; ?></p>
+		<p><?= $lang_text_greeting; ?></p>
+		<p><?= $lang_text_from; ?></p>
 		<?php if ($message) { ?>
-		<p><?= $text_message; ?></p>
+		<p><?= $lang_text_message; ?></p>
 		<p><?= $message; ?></p>
 		<?php } ?>
-		<p><?= $text_redeem; ?></p>
+		<p><?= $lang_text_redeem; ?></p>
 		<p><a href="<?= $store_url; ?>" title="<?= $store_name; ?>"><?= $store_url; ?></a></p>
-		<p><?= $text_footer; ?></p>
+		<p><?= $lang_text_footer; ?></p>
 	</div>
 </div>
 </body>

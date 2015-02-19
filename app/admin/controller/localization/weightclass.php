@@ -22,7 +22,7 @@ class Weightclass extends Controller {
     
     public function index() {
         $this->language->load('localization/weight_class');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/weightclass');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Weightclass extends Controller {
     
     public function insert() {
         $this->language->load('localization/weight_class');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/weightclass');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_localization_weightclass->addWeightClass($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -63,12 +63,12 @@ class Weightclass extends Controller {
     
     public function update() {
         $this->language->load('localization/weight_class');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/weightclass');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_localization_weightclass->editWeightClass($this->request->get['weight_class_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -94,7 +94,7 @@ class Weightclass extends Controller {
     
     public function delete() {
         $this->language->load('localization/weight_class');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/weightclass');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -102,7 +102,7 @@ class Weightclass extends Controller {
                 $this->model_localization_weightclass->deleteWeightClass($weight_class_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -161,7 +161,7 @@ class Weightclass extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'localization/weightclass', $url);
+        $this->breadcrumb->add('lang_heading_title', 'localization/weightclass', $url);
         
         $data['insert'] = $this->url->link('localization/weightclass/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('localization/weightclass/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -177,9 +177,9 @@ class Weightclass extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('localization/weightclass/update', 'token=' . $this->session->data['token'] . '&weight_class_id=' . $result['weight_class_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('localization/weightclass/update', 'token=' . $this->session->data['token'] . '&weight_class_id=' . $result['weight_class_id'] . $url, 'SSL'));
             
-            $data['weight_classes'][] = array('weight_class_id' => $result['weight_class_id'], 'title' => $result['title'] . (($result['unit'] == $this->config->get('config_weight_class')) ? $this->language->get('text_default') : null), 'unit' => $result['unit'], 'value' => $result['value'], 'selected' => isset($this->request->post['selected']) && in_array($result['weight_class_id'], $this->request->post['selected']), 'action' => $action);
+            $data['weight_classes'][] = array('weight_class_id' => $result['weight_class_id'], 'title' => $result['title'] . (($result['unit'] == $this->config->get('config_weight_class')) ? $this->language->get('lang_text_default') : null), 'unit' => $result['unit'], 'value' => $result['value'], 'selected' => isset($this->request->post['selected']) && in_array($result['weight_class_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         if (isset($this->error['warning'])) {
@@ -222,7 +222,7 @@ class Weightclass extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($weight_class_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('localization/weightclass', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($weight_class_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('localization/weightclass', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -269,7 +269,7 @@ class Weightclass extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'localization/weightclass', $url);
+        $this->breadcrumb->add('lang_heading_title', 'localization/weightclass', $url);
         
         if (!isset($this->request->get['weight_class_id'])) {
             $data['action'] = $this->url->link('localization/weightclass/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -312,16 +312,16 @@ class Weightclass extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'localization/weightclass')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['weight_class_description'] as $language_id => $value) {
             if (($this->encode->strlen($value['title']) < 3) || ($this->encode->strlen($value['title']) > 32)) {
-                $this->error['title'][$language_id] = $this->language->get('error_title');
+                $this->error['title'][$language_id] = $this->language->get('lang_error_title');
             }
             
             if (!$value['unit'] || ($this->encode->strlen($value['unit']) > 4)) {
-                $this->error['unit'][$language_id] = $this->language->get('error_unit');
+                $this->error['unit'][$language_id] = $this->language->get('lang_error_unit');
             }
         }
         
@@ -332,20 +332,20 @@ class Weightclass extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'localization/weightclass')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('catalog/product');
         
         foreach ($this->request->post['selected'] as $weight_class_id) {
             if ($this->config->get('config_weight_class_id') == $weight_class_id) {
-                $this->error['warning'] = $this->language->get('error_default');
+                $this->error['warning'] = $this->language->get('lang_error_default');
             }
             
             $product_total = $this->model_catalog_product->getTotalProductsByWeightClassId($weight_class_id);
             
             if ($product_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_product'), $product_total);
             }
         }
         

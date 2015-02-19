@@ -29,20 +29,20 @@ class Edit extends Controller {
         
         $data = $this->theme->language('affiliate/edit');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('affiliate/affiliate');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_affiliate_affiliate->editAffiliate($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('affiliate/account', '', 'SSL'));
         }
         
-        $this->breadcrumb->add('text_account', 'affiliate/account', null, true, 'SSL');
-        $this->breadcrumb->add('text_edit', 'affiliate/edit', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'affiliate/account', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_edit', 'affiliate/edit', null, true, 'SSL');
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -205,7 +205,7 @@ class Edit extends Controller {
             $data['zone_id'] = '';
         }
         
-        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('text_select') . '","none":"' . $this->language->get('text_none') . '"}');
+        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('lang_text_select') . '","none":"' . $this->language->get('lang_text_none') . '"}');
         
         $this->theme->model('localization/country');
         
@@ -225,30 +225,30 @@ class Edit extends Controller {
     
     protected function validate() {
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if (($this->affiliate->getEmail() != $this->request->post['email']) && $this->model_affiliate_affiliate->getTotalAffiliatesByEmail($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_exists');
+            $this->error['warning'] = $this->language->get('lang_error_exists');
         }
         
         if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
+            $this->error['telephone'] = $this->language->get('lang_error_telephone');
         }
         if (($this->encode->strlen($this->request->post['address_1']) < 3) || ($this->encode->strlen($this->request->post['address_1']) > 128)) {
-            $this->error['address_1'] = $this->language->get('error_address_1');
+            $this->error['address_1'] = $this->language->get('lang_error_address_1');
         }
         
         if (($this->encode->strlen($this->request->post['city']) < 2) || ($this->encode->strlen($this->request->post['city']) > 128)) {
-            $this->error['city'] = $this->language->get('error_city');
+            $this->error['city'] = $this->language->get('lang_error_city');
         }
         
         $this->theme->model('localization/country');
@@ -256,15 +256,15 @@ class Edit extends Controller {
         $country_info = $this->model_localization_country->getCountry($this->request->post['country_id']);
         
         if ($country_info && $country_info['postcode_required'] && ($this->encode->strlen($this->request->post['postcode']) < 2) || ($this->encode->strlen($this->request->post['postcode']) > 10)) {
-            $this->error['postcode'] = $this->language->get('error_postcode');
+            $this->error['postcode'] = $this->language->get('lang_error_postcode');
         }
         
         if ($this->request->post['country_id'] == '') {
-            $this->error['country'] = $this->language->get('error_country');
+            $this->error['country'] = $this->language->get('lang_error_country');
         }
         
         if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-            $this->error['zone'] = $this->language->get('error_zone');
+            $this->error['zone'] = $this->language->get('lang_error_zone');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

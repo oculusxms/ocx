@@ -3,11 +3,11 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th><?= $column_name; ?></th>
-				<th><?= $column_model; ?></th>
-				<th class="text-right"><?= $column_quantity; ?></th>
-				<th class="text-right"><?= $column_price; ?></th>
-				<th class="text-right"><?= $column_total; ?></th>
+				<th><?= $lang_column_name; ?></th>
+				<th><?= $lang_column_model; ?></th>
+				<th class="text-right"><?= $lang_column_quantity; ?></th>
+				<th class="text-right"><?= $lang_column_price; ?></th>
+				<th class="text-right"><?= $lang_column_total; ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,7 +20,7 @@
 					<?php } ?>
 					<?php if ($product['recurring']) { ?>
 					<br />
-					<div class="help">- <?= $text_recurring_item; ?>: <?= $product['recurring']; ?></div>
+					<div class="help">- <?= $lang_text_recurring_item; ?>: <?= $product['recurring']; ?></div>
 					<?php } ?>
 				</td>
 				<td><?= $product['model']; ?></td>
@@ -52,7 +52,7 @@
 </div>
 <div class="panel-footer clearfix">
 	<div class="pull-right">
-		<button id="button-confirm" class="btn btn-warning btn-lg"><?= $button_confirm; ?></button>
+		<button id="button-confirm" class="btn btn-warning btn-lg"><?= $lang_button_confirm; ?></button>
 	</div>
 </div>
 <?php } else { ?>

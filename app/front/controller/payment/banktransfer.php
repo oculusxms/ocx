@@ -39,9 +39,9 @@ class Banktransfer extends Controller {
         
         $this->theme->model('checkout/order');
         
-        $comment = $this->language->get('text_instruction') . "\n\n";
+        $comment = $this->language->get('lang_text_instruction') . "\n\n";
         $comment.= $this->config->get('banktransfer_bank_' . $this->config->get('config_language_id')) . "\n\n";
-        $comment.= $this->language->get('text_payment');
+        $comment.= $this->language->get('lang_text_payment');
         
         $data['comment'] = $comment;
         

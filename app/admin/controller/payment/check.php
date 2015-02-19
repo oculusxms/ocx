@@ -22,12 +22,12 @@ class Check extends Controller {
     
     public function index() {
         $data = $this->theme->language('payment/check');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('check', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/payment', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -44,8 +44,8 @@ class Check extends Controller {
             $data['error_payable'] = '';
         }
         
-        $this->breadcrumb->add('text_payment', 'module/payment');
-        $this->breadcrumb->add('heading_title', 'payment/check');
+        $this->breadcrumb->add('lang_text_payment', 'module/payment');
+        $this->breadcrumb->add('lang_heading_title', 'payment/check');
         
         $data['action'] = $this->url->link('payment/check', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -104,11 +104,11 @@ class Check extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'payment/check')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['check_payable']) {
-            $this->error['payable'] = $this->language->get('error_payable');
+            $this->error['payable'] = $this->language->get('lang_error_payable');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

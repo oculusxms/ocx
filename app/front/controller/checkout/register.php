@@ -21,7 +21,7 @@ class Register extends Controller {
     public function index() {
         $data = $this->theme->language('checkout/checkout');
         
-        $data['entry_newsletter'] = sprintf($this->language->get('entry_newsletter'), $this->config->get('config_name'));
+        $data['entry_newsletter'] = sprintf($this->language->get('lang_entry_newsletter'), $this->config->get('config_name'));
         
         $data['customer_groups'] = array();
         
@@ -57,7 +57,7 @@ class Register extends Controller {
             $data['zone_id'] = '';
         }
         
-        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('text_select') . '","none":"' . $this->language->get('text_none') . '"}');
+        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('lang_text_select') . '","none":"' . $this->language->get('lang_text_none') . '"}');
         
         $this->theme->model('localization/country');
         
@@ -69,7 +69,7 @@ class Register extends Controller {
             $page_info = $this->model_content_page->getPage($this->config->get('config_account_id'));
             
             if ($page_info) {
-                $data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_account_id'), 'SSL'), $page_info['title'], $page_info['title']);
+                $data['text_agree'] = sprintf($this->language->get('lang_text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_account_id'), 'SSL'), $page_info['title'], $page_info['title']);
             } else {
                 $data['text_agree'] = '';
             }
@@ -125,31 +125,31 @@ class Register extends Controller {
         
         if (!$json) {
             if (($this->encode->strlen($this->request->post['username']) < 3) || ($this->encode->strlen($this->request->post['username']) > 16)) {
-                $json['error']['username'] = $this->language->get('error_username');
+                $json['error']['username'] = $this->language->get('lang_error_username');
             }
             
             if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-                $json['error']['firstname'] = $this->language->get('error_firstname');
+                $json['error']['firstname'] = $this->language->get('lang_error_firstname');
             }
             
             if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-                $json['error']['lastname'] = $this->language->get('error_lastname');
+                $json['error']['lastname'] = $this->language->get('lang_error_lastname');
             }
             
             if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-                $json['error']['email'] = $this->language->get('error_email');
+                $json['error']['email'] = $this->language->get('lang_error_email');
             }
             
             if ($this->model_account_customer->getTotalCustomersByUsername($this->request->post['username'])) {
-                $json['error']['warning'] = $this->language->get('error_uexists');
+                $json['error']['warning'] = $this->language->get('lang_error_uexists');
             }
             
             if ($this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
-                $json['error']['warning'] = $this->language->get('error_exists');
+                $json['error']['warning'] = $this->language->get('lang_error_exists');
             }
             
             if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-                $json['error']['telephone'] = $this->language->get('error_telephone');
+                $json['error']['telephone'] = $this->language->get('lang_error_telephone');
             }
             
             // Customer Group
@@ -167,21 +167,21 @@ class Register extends Controller {
                 
                 // Company ID
                 if ($customer_group['company_id_display'] && $customer_group['company_id_required'] && empty($this->request->post['company_id'])) {
-                    $json['error']['company_id'] = $this->language->get('error_company_id');
+                    $json['error']['company_id'] = $this->language->get('lang_error_company_id');
                 }
                 
                 // Tax ID
                 if ($customer_group['tax_id_display'] && $customer_group['tax_id_required'] && empty($this->request->post['tax_id'])) {
-                    $json['error']['tax_id'] = $this->language->get('error_tax_id');
+                    $json['error']['tax_id'] = $this->language->get('lang_error_tax_id');
                 }
             }
             
             if (($this->encode->strlen($this->request->post['address_1']) < 3) || ($this->encode->strlen($this->request->post['address_1']) > 128)) {
-                $json['error']['address_1'] = $this->language->get('error_address_1');
+                $json['error']['address_1'] = $this->language->get('lang_error_address_1');
             }
             
             if (($this->encode->strlen($this->request->post['city']) < 2) || ($this->encode->strlen($this->request->post['city']) > 128)) {
-                $json['error']['city'] = $this->language->get('error_city');
+                $json['error']['city'] = $this->language->get('lang_error_city');
             }
             
             $this->theme->model('localization/country');
@@ -190,28 +190,28 @@ class Register extends Controller {
             
             if ($country_info) {
                 if ($country_info['postcode_required'] && ($this->encode->strlen($this->request->post['postcode']) < 2) || ($this->encode->strlen($this->request->post['postcode']) > 10)) {
-                    $json['error']['postcode'] = $this->language->get('error_postcode');
+                    $json['error']['postcode'] = $this->language->get('lang_error_postcode');
                 }
                 
                 if ($this->config->get('config_vat') && $this->request->post['tax_id'] && ($this->vat->validate($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
-                    $json['error']['tax_id'] = $this->language->get('error_vat');
+                    $json['error']['tax_id'] = $this->language->get('lang_error_vat');
                 }
             }
             
             if ($this->request->post['country_id'] == '') {
-                $json['error']['country'] = $this->language->get('error_country');
+                $json['error']['country'] = $this->language->get('lang_error_country');
             }
             
             if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-                $json['error']['zone'] = $this->language->get('error_zone');
+                $json['error']['zone'] = $this->language->get('lang_error_zone');
             }
             
             if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {
-                $json['error']['password'] = $this->language->get('error_password');
+                $json['error']['password'] = $this->language->get('lang_error_password');
             }
             
             if ($this->request->post['confirm'] != $this->request->post['password']) {
-                $json['error']['confirm'] = $this->language->get('error_confirm');
+                $json['error']['confirm'] = $this->language->get('lang_error_confirm');
             }
             
             if ($this->config->get('config_account_id')) {
@@ -220,7 +220,7 @@ class Register extends Controller {
                 $page_info = $this->model_content_page->getPage($this->config->get('config_account_id'));
                 
                 if ($page_info && !isset($this->request->post['agree'])) {
-                    $json['error']['warning'] = sprintf($this->language->get('error_agree'), $page_info['title']);
+                    $json['error']['warning'] = sprintf($this->language->get('lang_error_agree'), $page_info['title']);
                 }
             }
         }

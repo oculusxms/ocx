@@ -59,7 +59,9 @@ class Customergroup extends Model {
 			WHERE customer_group_id = '" . (int)$customer_group_id . "'
 		");
         
-        $this->db->query("DELETE FROM {$this->db->prefix}customer_group_description WHERE customer_group_id = '" . (int)$customer_group_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}customer_group_description 
+            WHERE customer_group_id = '" . (int)$customer_group_id . "'");
         
         foreach ($data['customer_group_description'] as $language_id => $value) {
             $this->db->query("
@@ -76,11 +78,25 @@ class Customergroup extends Model {
     }
     
     public function deleteCustomerGroup($customer_group_id) {
-        $this->db->query("DELETE FROM {$this->db->prefix}customer_group WHERE customer_group_id = '" . (int)$customer_group_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}customer_group_description WHERE customer_group_id = '" . (int)$customer_group_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_discount WHERE customer_group_id = '" . (int)$customer_group_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_special WHERE customer_group_id = '" . (int)$customer_group_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_reward WHERE customer_group_id = '" . (int)$customer_group_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}customer_group 
+            WHERE customer_group_id = '" . (int)$customer_group_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}customer_group_description 
+            WHERE customer_group_id = '" . (int)$customer_group_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}product_discount 
+            WHERE customer_group_id = '" . (int)$customer_group_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}product_special 
+            WHERE customer_group_id = '" . (int)$customer_group_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}product_reward 
+            WHERE customer_group_id = '" . (int)$customer_group_id . "'");
         
         $this->cache->delete('customergroup');
     }

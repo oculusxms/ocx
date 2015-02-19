@@ -15,20 +15,20 @@
 */
 
 // Text
-$_['text_page']         = 'Info';
-$_['text_service']      = 'Customer Service';
-$_['text_extra']        = 'Extras';
-$_['text_contact']      = 'Contact Us';
-$_['text_return']       = 'Returns';
-$_['text_sitemap']      = 'Site Map';
-$_['text_manufacturer'] = 'Brands';
-$_['text_voucher']      = 'Gift Vouchers';
-$_['text_affiliate']    = 'Affiliates';
-$_['text_special']      = 'Specials';
-$_['text_account']      = 'Account';
-$_['text_dashboard']    = 'Dashboard';
-$_['text_login']        = 'Login';
-$_['text_order']        = 'Order History';
-$_['text_wishlist']     = 'Wish List';
-$_['text_newsletter']   = 'Newsletter';
-$_['text_powered']      = '&copy; %s. %s. All Rights Reserved. &nbsp;&nbsp; || &nbsp;&nbsp; Powered by <a href="http://ocx.io">OCX</a>';
+$_['lang_text_page']         = 'Info';
+$_['lang_text_service']      = 'Customer Service';
+$_['lang_text_extra']        = 'Extras';
+$_['lang_text_contact']      = 'Contact Us';
+$_['lang_text_return']       = 'Returns';
+$_['lang_text_sitemap']      = 'Site Map';
+$_['lang_text_manufacturer'] = 'Brands';
+$_['lang_text_voucher']      = 'Gift Vouchers';
+$_['lang_text_affiliate']    = 'Affiliates';
+$_['lang_text_special']      = 'Specials';
+$_['lang_text_account']      = 'Account';
+$_['lang_text_dashboard']    = 'Dashboard';
+$_['lang_text_login']        = 'Login';
+$_['lang_text_order']        = 'Order History';
+$_['lang_text_wishlist']     = 'Wish List';
+$_['lang_text_newsletter']   = 'Newsletter';
+$_['lang_text_powered']      = '&copy; %s. %s. All Rights Reserved. &nbsp;&nbsp; || &nbsp;&nbsp; Powered by <a href="http://ocx.io">OCX</a>';

@@ -54,7 +54,7 @@ class Order extends Controller {
                         }
                     }
                     
-                    $this->session->data['success'] = sprintf($this->language->get('text_success'), $this->request->get['order_id']);
+                    $this->session->data['success'] = sprintf($this->language->get('lang_text_success'), $this->request->get['order_id']);
                     
                     $this->cart->add($order_product['product_id'], $order_product['quantity'], $option_data);
                 }
@@ -63,9 +63,9 @@ class Order extends Controller {
             }
         }
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
         
         $url = '';
         
@@ -73,7 +73,7 @@ class Order extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'account/order', $url, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/order', $url, true, 'SSL');
         
         if (isset($this->request->get['page'])) {
             $page = $this->request->get['page'];
@@ -91,10 +91,10 @@ class Order extends Controller {
             $product_total = $this->model_account_order->getTotalOrderProductsByOrderId($result['order_id']);
             $voucher_total = $this->model_account_order->getTotalOrderVouchersByOrderId($result['order_id']);
             
-            $data['orders'][] = array('order_id' => $result['order_id'], 'name' => $result['firstname'] . ' ' . $result['lastname'], 'status' => $result['status'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'products' => ($product_total + $voucher_total), 'total' => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']), 'href' => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], 'SSL'), 'reorder' => $this->url->link('account/order', 'order_id=' . $result['order_id'], 'SSL'));
+            $data['orders'][] = array('order_id' => $result['order_id'], 'name' => $result['firstname'] . ' ' . $result['lastname'], 'status' => $result['status'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'products' => ($product_total + $voucher_total), 'total' => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']), 'href' => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], 'SSL'), 'reorder' => $this->url->link('account/order', 'order_id=' . $result['order_id'], 'SSL'));
         }
         
-        $data['pagination'] = $this->theme->paginate($order_total, $page, 10, $this->language->get('text_pagination'), $this->url->link('account/order', 'page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($order_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('account/order', 'page={page}', 'SSL'));
         
         $data['continue'] = $this->url->link('account/dashboard', '', 'SSL');
         
@@ -128,9 +128,9 @@ class Order extends Controller {
         $order_info = $this->model_account_order->getOrder($order_id);
         
         if ($order_info) {
-            $this->theme->setTitle($this->language->get('text_order'));
+            $this->theme->setTitle($this->language->get('lang_text_order'));
             
-            $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
+            $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
             
             $url = '';
             
@@ -138,8 +138,8 @@ class Order extends Controller {
                 $url.= '&page=' . $this->request->get['page'];
             }
             
-            $this->breadcrumb->add('heading_title', 'account/order', $url, true, 'SSL');
-            $this->breadcrumb->add('text_order', 'account/order/info', 'order_id=' . $this->request->get['order_id'] . $url, true, 'SSL');
+            $this->breadcrumb->add('lang_heading_title', 'account/order', $url, true, 'SSL');
+            $this->breadcrumb->add('lang_text_order', 'account/order/info', 'order_id=' . $this->request->get['order_id'] . $url, true, 'SSL');
             
             if ($order_info['invoice_no']) {
                 $data['invoice_no'] = $order_info['invoice_prefix'] . $order_info['invoice_no'];
@@ -148,7 +148,7 @@ class Order extends Controller {
             }
             
             $data['order_id'] = $this->request->get['order_id'];
-            $data['date_added'] = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
+            $data['date_added'] = date($this->language->get('lang_date_format_short'), strtotime($order_info['date_added']));
             
             if ($order_info['payment_address_format']) {
                 $format = $order_info['payment_address_format'];
@@ -218,7 +218,7 @@ class Order extends Controller {
             $results = $this->model_account_order->getOrderHistories($this->request->get['order_id']);
             
             foreach ($results as $result) {
-                $data['histories'][] = array('date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'status' => $result['status'], 'comment' => nl2br($result['comment']));
+                $data['histories'][] = array('date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'status' => $result['status'], 'comment' => nl2br($result['comment']));
             }
             
             $data['continue'] = $this->url->link('account/order', '', 'SSL');
@@ -232,13 +232,13 @@ class Order extends Controller {
             
             $this->response->setOutput($this->theme->view('account/order_info', $data));
         } else {
-            $this->theme->setTitle($this->language->get('text_order'));
+            $this->theme->setTitle($this->language->get('lang_text_order'));
             
-            $data['heading_title'] = $this->language->get('text_order');
+            $data['heading_title'] = $this->language->get('lang_text_order');
             
-            $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-            $this->breadcrumb->add('heading_title', 'account/order', null, true, 'SSL');
-            $this->breadcrumb->add('text_order', 'account/order/info', 'order_id=' . $order_id, true, 'SSL');
+            $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+            $this->breadcrumb->add('lang_heading_title', 'account/order', null, true, 'SSL');
+            $this->breadcrumb->add('lang_text_order', 'account/order/info', 'order_id=' . $order_id, true, 'SSL');
             
             $data['continue'] = $this->url->link('account/order', '', 'SSL');
             

@@ -12,26 +12,26 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-tablet"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-tablet"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
-		<ul class="nav nav-tabs"><li><a href="#tab-general" data-toggle="tab"><?= $tab_general; ?></a></li>
+		<ul class="nav nav-tabs"><li><a href="#tab-general" data-toggle="tab"><?= $lang_tab_general; ?></a></li>
 			<?php if ($coupon_id) { ?>
-			<li><a href="#tab-history" data-toggle="tab"><?= $tab_history; ?></a></li>
+			<li><a href="#tab-history" data-toggle="tab"><?= $lang_tab_history; ?></a></li>
 			<?php } ?>
 		</ul>
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="tab-content">
 				<div class="tab-pane" id="tab-general">
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_name; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="name" value="<?= $name; ?>" class="form-control">
 							<?php if ($error_name) { ?>
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_code; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_code; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="code" value="<?= $code; ?>" class="form-control">
 							<?php if ($error_code) { ?>
@@ -49,60 +49,60 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_type; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_type; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="type" class="form-control">
 								<?php if ($type == 'P') { ?>
-								<option value="P" selected><?= $text_percent; ?></option>
+								<option value="P" selected><?= $lang_text_percent; ?></option>
 							<?php } else { ?>
-								<option value="P"><?= $text_percent; ?></option>
+								<option value="P"><?= $lang_text_percent; ?></option>
 							<?php } ?>
 								<?php if ($type == 'F') { ?>
-								<option value="F" selected><?= $text_amount; ?></option>
+								<option value="F" selected><?= $lang_text_amount; ?></option>
 							<?php } else { ?>
-								<option value="F"><?= $text_amount; ?></option>
+								<option value="F"><?= $lang_text_amount; ?></option>
 							<?php } ?>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_discount; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_discount; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="discount" value="<?= $discount; ?>" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_total; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_total; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="total" value="<?= $total; ?>" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_logged; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_logged; ?></label>
 						<div class="control-field col-sm-4">
 							<?php if ($logged) { ?>
-								<label class="radio-inline"><input type="radio" name="logged" value="1" checked=""><?= $text_yes; ?></label>
-								<label class="radio-inline"><input type="radio" name="logged" value="0"><?= $text_no; ?></label>
+								<label class="radio-inline"><input type="radio" name="logged" value="1" checked=""><?= $lang_text_yes; ?></label>
+								<label class="radio-inline"><input type="radio" name="logged" value="0"><?= $lang_text_no; ?></label>
 							<?php } else { ?>
-								<label class="radio-inline"><input type="radio" name="logged" value="1"><?= $text_yes; ?></label>
-								<label class="radio-inline"><input type="radio" name="logged" value="0" checked=""><?= $text_no; ?></label>
+								<label class="radio-inline"><input type="radio" name="logged" value="1"><?= $lang_text_yes; ?></label>
+								<label class="radio-inline"><input type="radio" name="logged" value="0" checked=""><?= $lang_text_no; ?></label>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_shipping; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_shipping; ?></label>
 						<div class="control-field col-sm-4">
 							<?php if ($shipping) { ?>
-								<label class="radio-inline"><input type="radio" name="shipping" value="1" checked=""><?= $text_yes; ?></label>
-								<label class="radio-inline"><input type="radio" name="shipping" value="0"><?= $text_no; ?></label>
+								<label class="radio-inline"><input type="radio" name="shipping" value="1" checked=""><?= $lang_text_yes; ?></label>
+								<label class="radio-inline"><input type="radio" name="shipping" value="0"><?= $lang_text_no; ?></label>
 							<?php } else { ?>
-								<label class="radio-inline"><input type="radio" name="shipping" value="1"><?= $text_yes; ?></label>
-								<label class="radio-inline"><input type="radio" name="shipping" value="0" checked=""><?= $text_no; ?></label>
+								<label class="radio-inline"><input type="radio" name="shipping" value="1"><?= $lang_text_yes; ?></label>
+								<label class="radio-inline"><input type="radio" name="shipping" value="0" checked=""><?= $lang_text_no; ?></label>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_product; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_product; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="coupon_products" value="" class="form-control" autocomplete="off">
 							<div id="coupon-product" class="panel panel-default panel-scrollable">
@@ -117,7 +117,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_category; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_category; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="category" value="" class="form-control" data-target="coupon" autocomplete="off" class="form-control">
 							<div id="coupon-category" class="panel panel-default panel-scrollable">
@@ -132,7 +132,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_date_start; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_date_start; ?></label>
 						<div class="control-field col-sm-4">
 							<label class="input-group">
 								<input type="text" name="date_start" value="<?= $date_start; ?>" id="date-start" class="form-control date">
@@ -141,7 +141,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_date_end; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_date_end; ?></label>
 						<div class="control-field col-sm-4">
 							<label class="input-group">
 								<input type="text" name="date_end" value="<?= $date_end; ?>" id="date-end" class="form-control date">
@@ -150,27 +150,27 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_uses_total; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_uses_total; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="uses_total" value="<?= $uses_total; ?>" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_uses_customer; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_uses_customer; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="uses_customer" value="<?= $uses_customer; ?>" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="status" class="form-control">
 								<?php if ($status) { ?>
-									<option value="1" selected><?= $text_enabled; ?></option>
-									<option value="0"><?= $text_disabled; ?></option>
+									<option value="1" selected><?= $lang_text_enabled; ?></option>
+									<option value="0"><?= $lang_text_disabled; ?></option>
 								<?php } else { ?>
-									<option value="1"><?= $text_enabled; ?></option>
-									<option value="0" selected><?= $text_disabled; ?></option>
+									<option value="1"><?= $lang_text_enabled; ?></option>
+									<option value="0" selected><?= $lang_text_disabled; ?></option>
 								<?php } ?>
 							</select>
 						</div>

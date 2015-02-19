@@ -20,9 +20,9 @@ use Oculus\Engine\Controller;
 class Feed extends Controller {
     public function index() {
         $data = $this->theme->language('module/feed');
-        $this->theme->setTitle($this->language->get('heading_feed'));
+        $this->theme->setTitle($this->language->get('lang_heading_feed'));
         
-        $this->breadcrumb->add('heading_feed', 'module/feed');
+        $this->breadcrumb->add('lang_heading_feed', 'module/feed');
         
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -68,14 +68,14 @@ class Feed extends Controller {
                 $action = array();
                 
                 if (!in_array($module, $modules)) {
-                    $action[] = array('text' => $this->language->get('text_install'), 'href' => $this->url->link('module/feed/install', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_install'), 'href' => $this->url->link('module/feed/install', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
                 } else {
-                    $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('feed/' . $module . '', 'token=' . $this->session->data['token'], 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('feed/' . $module . '', 'token=' . $this->session->data['token'], 'SSL'));
                     
-                    $action[] = array('text' => $this->language->get('text_uninstall'), 'href' => $this->url->link('module/feed/uninstall', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_uninstall'), 'href' => $this->url->link('module/feed/uninstall', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
                 }
                 
-                $data['modules'][] = array('name' => $this->language->get('heading_title'), 'status' => $this->config->get($module . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'), 'action' => $action);
+                $data['modules'][] = array('name' => $this->language->get('lang_heading_title'), 'status' => $this->config->get($module . '_status') ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled'), 'action' => $action);
             }
         }
         
@@ -90,7 +90,7 @@ class Feed extends Controller {
         $this->theme->language('module/feed');
         
         if (!$this->user->hasPermission('modify', 'module/feed')) {
-            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->session->data['error'] = $this->language->get('lang_error_permission');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             
@@ -127,7 +127,7 @@ class Feed extends Controller {
         $this->theme->language('module/feed');
         
         if (!$this->user->hasPermission('modify', 'module/feed')) {
-            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->session->data['error'] = $this->language->get('lang_error_permission');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             

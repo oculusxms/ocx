@@ -15,5 +15,5 @@
 */
 
 // Text
-$_['text_title']       = 'Per Item';
-$_['text_description'] = 'Per Item Shipping Rate';
+$_['lang_text_title']       = 'Per Item';
+$_['lang_text_description'] = 'Per Item Shipping Rate';

@@ -29,8 +29,8 @@
 					<div class="cart">
 						<button type="button" 
 							data-toggle="tooltip" 
-							title="<?= $text_read_more; ?>" 
-							class="btn btn-warning"><?= $button_view_post; ?>
+							title="<?= $lang_text_read_more; ?>" 
+							class="btn btn-warning"><?= $lang_button_view_post; ?>
 						</button>
 					</div>
 				<?php endif; ?>

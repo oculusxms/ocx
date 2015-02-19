@@ -109,13 +109,13 @@ class Currency extends LibraryService {
         endif;
         
         if ($format):
-            $decimal_point = $language->get('decimal_point');
+            $decimal_point = $language->get('lang_decimal_point');
         else:
             $decimal_point = '.';
         endif;
         
         if ($format):
-            $thousand_point = $language->get('thousand_point');
+            $thousand_point = $language->get('lang_thousand_point');
         else:
             $thousand_point = '';
         endif;

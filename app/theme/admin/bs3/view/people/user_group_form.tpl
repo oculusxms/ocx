@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-user"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-user"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_name; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="name" value="<?= $name; ?>" class="form-control" autofocus>
 					<?php if ($error_name) { ?>
@@ -33,10 +33,10 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><p><?= $entry_access; ?></p>
+				<label class="control-label col-sm-2"><p><?= $lang_entry_access; ?></p>
 					<div class="btn-group-vertical">
-						<a class="btn btn-default btn-sm" onclick="$('[name*=\'permission[access]\']').prop('checked',true);"><?= $text_select_all; ?></a>
-						<a class="btn btn-default btn-sm" onclick="$('[name*=\'permission[access]\']').prop('checked',false);"><?= $text_unselect_all; ?></a>
+						<a class="btn btn-default btn-sm" onclick="$('[name*=\'permission[access]\']').prop('checked',true);"><?= $lang_text_select_all; ?></a>
+						<a class="btn btn-default btn-sm" onclick="$('[name*=\'permission[access]\']').prop('checked',false);"><?= $lang_text_unselect_all; ?></a>
 					</div>
 				</label>
 				<div class="control-field col-sm-4">
@@ -56,10 +56,10 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><p><?= $entry_modify; ?></p>
+				<label class="control-label col-sm-2"><p><?= $lang_entry_modify; ?></p>
 					<div class="btn-group-vertical">
-						<a class="btn btn-default btn-sm" onclick="$('[name*=\'permission[modify]\']').prop('checked',true);"><?= $text_select_all; ?></a>
-						<a class="btn btn-default btn-sm" onclick="$('[name*=\'permission[modify]\']').prop('checked',false);"><?= $text_unselect_all; ?></a>
+						<a class="btn btn-default btn-sm" onclick="$('[name*=\'permission[modify]\']').prop('checked',true);"><?= $lang_text_select_all; ?></a>
+						<a class="btn btn-default btn-sm" onclick="$('[name*=\'permission[modify]\']').prop('checked',false);"><?= $lang_text_unselect_all; ?></a>
 					</div>
 				</label>
 				<div class="control-field col-sm-4">

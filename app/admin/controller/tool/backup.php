@@ -22,7 +22,7 @@ class Backup extends Controller {
     
     public function index() {
         $data = $this->theme->language('tool/backup');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('tool/backup');
         
         if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->user->hasPermission('modify', 'tool/backup')) {
@@ -34,11 +34,11 @@ class Backup extends Controller {
             
             if ($content) {
                 $this->model_tool_backup->restore($content);
-                $this->session->data['success'] = $this->language->get('text_success');
+                $this->session->data['success'] = $this->language->get('lang_text_success');
                 
                 $this->response->redirect($this->url->link('tool/backup', 'token=' . $this->session->data['token'], 'SSL'));
             } else {
-                $this->error['warning'] = $this->language->get('error_empty');
+                $this->error['warning'] = $this->language->get('lang_error_empty');
             }
         }
         
@@ -60,7 +60,7 @@ class Backup extends Controller {
             $data['success'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'tool/backup');
+        $this->breadcrumb->add('lang_heading_title', 'tool/backup');
         
         $data['restore'] = $this->url->link('tool/backup', 'token=' . $this->session->data['token'], 'SSL');
         $data['backup'] = $this->url->link('tool/backup/backup', 'token=' . $this->session->data['token'], 'SSL');
@@ -77,7 +77,7 @@ class Backup extends Controller {
         $this->language->load('tool/backup');
         
         if (!isset($this->request->post['backup'])) {
-            $this->session->data['error'] = $this->language->get('error_backup');
+            $this->session->data['error'] = $this->language->get('lang_error_backup');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             
@@ -96,7 +96,7 @@ class Backup extends Controller {
             
             $this->response->setOutput($this->model_tool_backup->backup($this->request->post['backup']));
         } else {
-            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->session->data['error'] = $this->language->get('lang_error_permission');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             

@@ -1,10 +1,10 @@
 <table class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th class="text-right"><b><?= $column_order_id; ?></b></th>
-			<th><?= $column_customer; ?></b></th>
-			<th class="text-right"><b><?= $column_amount; ?></b></th>
-			<th><?= $column_date_added; ?></b></th>
+			<th class="text-right"><b><?= $lang_column_order_id; ?></b></th>
+			<th><?= $lang_column_customer; ?></b></th>
+			<th class="text-right"><b><?= $lang_column_amount; ?></b></th>
+			<th><?= $lang_column_date_added; ?></b></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,7 +19,7 @@
 		<?php } ?>
 		<?php } else { ?>
 		<tr>
-			<td class="text-center" colspan="4"><?= $text_no_results; ?></td>
+			<td class="text-center" colspan="4"><?= $lang_text_no_results; ?></td>
 		</tr>
 		<?php } ?>
 	</tbody>

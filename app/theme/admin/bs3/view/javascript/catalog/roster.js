@@ -29,7 +29,7 @@ $(document).on('click', '#add_waitlist', function() {
 			}
 		});
 	} else {
-		alert('<?= $error_attendee_required; ?>');
+		alert('<?= $lang_error_attendee_required; ?>');
 		return false;
 	}
 });
@@ -69,7 +69,7 @@ $(document).on('click', '#add_attendee', function() {
 			}
 		});
 	} else {
-		alert('<?= $error_attendee_required; ?>');
+		alert('<?= $lang_error_attendee_required; ?>');
 		return false;
 	}
 });

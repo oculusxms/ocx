@@ -25,7 +25,7 @@ class Post extends Model {
 			WHERE post_id = '" . (int)$post_id . "'
 		");
         
-        $this->theme->trigger('post_update_viewed', array('post_id' => $post_id));
+        $this->theme->trigger('front_post_update_viewed', array('post_id' => $post_id));
     }
     
     public function getPost($post_id) {
@@ -479,12 +479,13 @@ class Post extends Model {
         $cachefile = $this->cache->get($key);
         
         if (is_bool($cachefile)) {
-            $sql = "SELECT COUNT(DISTINCT p.post_id) AS total 
-					FROM {$this->db->prefix}blog_post p 
-					LEFT JOIN {$this->db->prefix}blog_post_description pd 
-						ON (p.post_id = pd.post_id) 
-					LEFT JOIN {$this->db->prefix}blog_post_to_store p2s 
-						ON (p.post_id = p2s.post_id)";
+            $sql = "
+                SELECT COUNT(DISTINCT p.post_id) AS total 
+    			FROM {$this->db->prefix}blog_post p 
+    			LEFT JOIN {$this->db->prefix}blog_post_description pd 
+    				ON (p.post_id = pd.post_id) 
+    			LEFT JOIN {$this->db->prefix}blog_post_to_store p2s 
+    				ON (p.post_id = p2s.post_id)";
             
             if (!empty($data['filter_category_id'])) {
                 $sql.= " LEFT JOIN {$this->db->prefix}blog_post_to_category p2c 

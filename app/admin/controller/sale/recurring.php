@@ -22,7 +22,7 @@ class Recurring extends Controller {
     
     public function index() {
         $this->theme->language('sale/recurring');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('sale/recurring');
         
         $this->getList();
@@ -123,7 +123,7 @@ class Recurring extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'sale/recurring', $url);
+        $this->breadcrumb->add('lang_heading_title', 'sale/recurring', $url);
         
         $filter_data = array('filter_order_recurring_id' => $filter_order_recurring_id, 'filter_order_id' => $filter_order_id, 'filter_reference' => $filter_reference, 'filter_customer' => $filter_customer, 'filter_status' => $filter_status, 'filter_date_added' => $filter_date_added, 'order' => $order, 'sort' => $sort, 'start' => ($page - 1) * $this->config->get('config_admin_limit'), 'limit' => $this->config->get('config_admin_limit'),);
         
@@ -133,7 +133,7 @@ class Recurring extends Controller {
         $data['recurrings'] = array();
         
         foreach ($results as $result) {
-            $date_added = date($this->language->get('date_format_short'), strtotime($result['date_added']));
+            $date_added = date($this->language->get('lang_date_format_short'), strtotime($result['date_added']));
             
             $data['recurrings'][] = array('order_recurring_id' => $result['order_recurring_id'], 'order_id' => $result['order_id'], 'order_link' => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'], 'SSL'), 'reference' => $result['reference'], 'customer' => $result['customer'], 'status' => $result['status'], 'date_added' => $date_added, 'view' => $this->url->link('sale/recurring/info', 'token=' . $this->session->data['token'] . '&order_recurring_id=' . $result['order_recurring_id'] . $url, 'SSL'));
         }
@@ -231,7 +231,7 @@ class Recurring extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($recurrings_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('sale/recurring', 'token=' . $this->session->data['token'] . '&page={page}' . $url, 'SSL'));
+        $data['pagination'] = $this->theme->paginate($recurrings_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('sale/recurring', 'token=' . $this->session->data['token'] . '&page={page}' . $url, 'SSL'));
         
         $data['filter_order_recurring_id'] = $filter_order_recurring_id;
         $data['filter_order_id'] = $filter_order_id;
@@ -240,7 +240,7 @@ class Recurring extends Controller {
         $data['filter_status'] = $filter_status;
         $data['filter_date_added'] = $filter_date_added;
         
-        $data['statuses'] = array('0' => '', '1' => $this->language->get('text_status_inactive'), '2' => $this->language->get('text_status_active'), '3' => $this->language->get('text_status_suspended'), '4' => $this->language->get('text_status_cancelled'), '5' => $this->language->get('text_status_expired'), '6' => $this->language->get('text_status_pending'),);
+        $data['statuses'] = array('0' => '', '1' => $this->language->get('lang_text_status_inactive'), '2' => $this->language->get('lang_text_status_active'), '3' => $this->language->get('lang_text_status_suspended'), '4' => $this->language->get('lang_text_status_cancelled'), '5' => $this->language->get('lang_text_status_expired'), '6' => $this->language->get('lang_text_status_pending'),);
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -264,7 +264,7 @@ class Recurring extends Controller {
         if ($order_recurring) {
             $order = $this->model_sale_order->getOrder($order_recurring['order_id']);
             
-            $this->theme->setTitle($this->language->get('heading_title'));
+            $this->theme->setTitle($this->language->get('lang_heading_title'));
             
             $url = '';
             
@@ -304,7 +304,7 @@ class Recurring extends Controller {
                 $url.= '&page=' . $this->request->get['page'];
             }
             
-            $this->breadcrumb->add('heading_title', 'sale/recurring', $url);
+            $this->breadcrumb->add('lang_heading_title', 'sale/recurring', $url);
             
             if (isset($this->error['warning'])) {
                 $data['error_warning'] = $this->error['warning'];
@@ -334,7 +334,7 @@ class Recurring extends Controller {
             $data['customer'] = $order['customer'];
             $data['email'] = $order['email'];
             $data['payment_method'] = $order['payment_method'];
-            $data['date_added'] = date($this->language->get('date_format_short'), strtotime($order['date_added']));
+            $data['date_added'] = date($this->language->get('lang_date_format_short'), strtotime($order['date_added']));
             
             $data['options'] = array();
             

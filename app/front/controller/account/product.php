@@ -26,10 +26,10 @@ class Product extends Controller {
         }
         
         $data = $this->theme->language('account/product');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_dashboard', 'account/dashboard', '', true, 'SSL');
-        $this->breadcrumb->add('heading_title', 'account/product', '', true, 'SSL');
+        $this->breadcrumb->add('lang_text_dashboard', 'account/dashboard', '', true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/product', '', true, 'SSL');
         
         $products = $this->customer->getCustomerProducts();
         
@@ -79,7 +79,7 @@ class Product extends Controller {
                 $rating = false;
             }
             
-            $data['products'][] = array('product_id' => $result['product_id'], 'event_id' => $result['event_id'], 'thumb' => $image, 'name' => $result['name'], 'description' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 100) . '..', 'price' => $price, 'special' => $special, 'tax' => $tax, 'rating' => $rating, 'reviews' => sprintf($this->language->get('text_reviews'), (int)$result['reviews']), 'href' => $this->url->link('catalog/product', 'product_id=' . $result['product_id']));
+            $data['products'][] = array('product_id' => $result['product_id'], 'event_id' => $result['event_id'], 'thumb' => $image, 'name' => $result['name'], 'description' => $this->encode->substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 100) . '..', 'price' => $price, 'special' => $special, 'tax' => $tax, 'rating' => $rating, 'reviews' => sprintf($this->language->get('lang_text_reviews'), (int)$result['reviews']), 'href' => $this->url->link('catalog/product', 'product_id=' . $result['product_id']));
         }
         
         $data['continue'] = $this->url->link('account/dashboard', '', 'SSL');

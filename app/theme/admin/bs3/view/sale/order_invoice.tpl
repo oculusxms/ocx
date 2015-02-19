@@ -9,31 +9,31 @@
 <body>
 <?php foreach ($orders as $order) { ?>
 <div style="page-break-after:always;">
-	<h1><?= $text_invoice; ?></h1>
+	<h1><?= $lang_text_invoice; ?></h1>
 	<table class="store">
 		<tr>
 			<td width="50%"><?= $order['store_name']; ?><br>
 				<?= $order['store_address']; ?><br>
-				<?= $text_telephone; ?> <?= $order['store_telephone']; ?><br>
+				<?= $lang_text_telephone; ?> <?= $order['store_telephone']; ?><br>
 				<?= $order['store_email']; ?><br>
 				<?= $order['store_url']; ?></td>
 			<td>
-				<b><?= $text_date_added; ?></b> <?= $order['date_added']; ?><br>
+				<b><?= $lang_text_date_added; ?></b> <?= $order['date_added']; ?><br>
 				<?php if ($order['invoice_no']) { ?>
-					<b><?= $text_invoice_no; ?></b> <?= $order['invoice_no']; ?><br>
+					<b><?= $lang_text_invoice_no; ?></b> <?= $order['invoice_no']; ?><br>
 				<?php } ?>
-				<b><?= $text_order_id; ?></b> <?= $order['order_id']; ?><br>
-				<b><?= $text_payment_method; ?></b> <?= $order['payment_method']; ?><br>
+				<b><?= $lang_text_order_id; ?></b> <?= $order['order_id']; ?><br>
+				<b><?= $lang_text_payment_method; ?></b> <?= $order['payment_method']; ?><br>
 				<?php if ($order['shipping_method']) { ?>
-				<b><?= $text_shipping_method; ?></b> <?= $order['shipping_method']; ?><br>
+				<b><?= $lang_text_shipping_method; ?></b> <?= $order['shipping_method']; ?><br>
 				<?php } ?>
 			</td>
 		</tr>
 	</table>
 	<table>
 		<tr>
-			<th width="50%"><?= $text_to; ?></th>
-			<th><?= $text_ship_to; ?></th>
+			<th width="50%"><?= $lang_text_to; ?></th>
+			<th><?= $lang_text_ship_to; ?></th>
 		</tr>
 		<tr>
 			<td><?= $order['payment_address']; ?><br/>
@@ -42,22 +42,22 @@
 				<?php if ($order['payment_company_id']) { ?>
 				<br/>
 				<br/>
-				<?= $text_company_id; ?> <?= $order['payment_company_id']; ?>
+				<?= $lang_text_company_id; ?> <?= $order['payment_company_id']; ?>
 				<?php } ?>
 				<?php if ($order['payment_tax_id']) { ?>
 				<br/>
-				<?= $text_tax_id; ?> <?= $order['payment_tax_id']; ?>
+				<?= $lang_text_tax_id; ?> <?= $order['payment_tax_id']; ?>
 				<?php } ?></td>
 			<td><?= $order['shipping_address']; ?></td>
 		</tr>
 	</table>
 	<table class="product">
 		<tr>
-			<th><?= $column_product; ?></th>
-			<th><?= $column_model; ?></th>
-			<th class="text-right"><?= $column_quantity; ?></th>
-			<th class="text-right"><?= $column_price; ?></th>
-			<th class="text-right"><?= $column_total; ?></th>
+			<th><?= $lang_column_product; ?></th>
+			<th><?= $lang_column_model; ?></th>
+			<th class="text-right"><?= $lang_column_quantity; ?></th>
+			<th class="text-right"><?= $lang_column_price; ?></th>
+			<th class="text-right"><?= $lang_column_total; ?></th>
 		</tr>
 		<?php foreach ($order['product'] as $product) { ?>
 		<tr>
@@ -91,7 +91,7 @@
 	<?php if ($order['comment']) { ?>
 	<table class="comment">
 		<tr>
-			<th><?= $column_comment; ?></th>
+			<th><?= $lang_column_comment; ?></th>
 		</tr>
 		<tr>
 			<td><?= $order['comment']; ?></td>

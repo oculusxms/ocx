@@ -15,12 +15,12 @@
 */
 
 // Heading
-$_['heading_title']    = 'Newsletter Subscription';
+$_['lang_heading_title']    = 'Newsletter Subscription';
 
 // Text
-$_['text_account']     = 'Dashboard';
-$_['text_newsletter']  = 'Newsletter';
-$_['text_success']     = 'Success: Your newsletter subscription has been successfully updated.';
+$_['lang_text_account']     = 'Dashboard';
+$_['lang_text_newsletter']  = 'Newsletter';
+$_['lang_text_success']     = 'Success: Your newsletter subscription has been successfully updated.';
 
 // Entry
-$_['entry_newsletter'] = 'Subscribe';
+$_['lang_entry_newsletter'] = 'Subscribe';

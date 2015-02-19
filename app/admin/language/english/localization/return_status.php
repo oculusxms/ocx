@@ -15,20 +15,20 @@
 */
 
 // Heading
-$_['heading_title']    = 'Return Status';
+$_['lang_heading_title']    = 'Return Status';
 
 // Text
-$_['text_success']     = 'Success: You have modified return status.';
+$_['lang_text_success']     = 'Success: You have modified return status.';
 
 // Column
-$_['column_name']      = 'Return Status Name';
-$_['column_action']    = 'Action';
+$_['lang_column_name']      = 'Return Status Name';
+$_['lang_column_action']    = 'Action';
 
 // Entry
-$_['entry_name']       = 'Return Status Name:';
+$_['lang_entry_name']       = 'Return Status Name:';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify return status.';
-$_['error_name']       = 'Return status name must be between 3 and 32 characters.';
-$_['error_default']    = 'Warning: This return status cannot be deleted as it is currently assigned as the default return status.';
-$_['error_return']     = 'Warning: This return status cannot be deleted as it is currently assigned to %s returns.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify return status.';
+$_['lang_error_name']       = 'Return status name must be between 3 and 32 characters.';
+$_['lang_error_default']    = 'Warning: This return status cannot be deleted as it is currently assigned as the default return status.';
+$_['lang_error_return']     = 'Warning: This return status cannot be deleted as it is currently assigned to %s returns.';

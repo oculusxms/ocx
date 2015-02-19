@@ -13,4 +13,4 @@
 |	file that was distributed with this source code.
 |	
 */
-$_['text_loworderfee'] = 'Low Order Fee';
+$_['lang_text_loworderfee'] = 'Low Order Fee';

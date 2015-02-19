@@ -12,28 +12,28 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-tablet"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-tablet"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<ul class="nav nav-tabs">
-			<li><a href="#tab-general" data-toggle="tab"><?= $tab_general; ?></a></li>
-			<li><a href="#tab-data" data-toggle="tab"><?= $tab_data; ?></a></li>
-			<li><a href="#tab-links" data-toggle="tab"><?= $tab_links; ?></a></li>
-			<li><a href="#tab-attribute" data-toggle="tab"><?= $tab_attribute; ?></a></li>
-			<li><a href="#tab-option" data-toggle="tab"><?= $tab_option; ?></a></li>
-			<li><a href="#tab-recurring" data-toggle="tab"><?= $tab_recurring; ?></a></li>
-			<li><a href="#tab-discount" data-toggle="tab"><?= $tab_discount; ?></a></li>
-			<li><a href="#tab-special" data-toggle="tab"><?= $tab_special; ?></a></li>
-			<li><a href="#tab-image" data-toggle="tab"><?= $tab_image; ?></a></li>
-			<li><a href="#tab-reward" data-toggle="tab"><?= $tab_reward; ?></a></li>
-			<li><a href="#tab-design" data-toggle="tab"><?= $tab_design; ?></a></li>
+			<li><a href="#tab-general" data-toggle="tab"><?= $lang_tab_general; ?></a></li>
+			<li><a href="#tab-data" data-toggle="tab"><?= $lang_tab_data; ?></a></li>
+			<li><a href="#tab-links" data-toggle="tab"><?= $lang_tab_links; ?></a></li>
+			<li><a href="#tab-attribute" data-toggle="tab"><?= $lang_tab_attribute; ?></a></li>
+			<li><a href="#tab-option" data-toggle="tab"><?= $lang_tab_option; ?></a></li>
+			<li><a href="#tab-recurring" data-toggle="tab"><?= $lang_tab_recurring; ?></a></li>
+			<li><a href="#tab-discount" data-toggle="tab"><?= $lang_tab_discount; ?></a></li>
+			<li><a href="#tab-special" data-toggle="tab"><?= $lang_tab_special; ?></a></li>
+			<li><a href="#tab-image" data-toggle="tab"><?= $lang_tab_image; ?></a></li>
+			<li><a href="#tab-reward" data-toggle="tab"><?= $lang_tab_reward; ?></a></li>
+			<li><a href="#tab-design" data-toggle="tab"><?= $lang_tab_design; ?></a></li>
 		</ul>
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="tab-content">
@@ -51,7 +51,7 @@
 								<?php foreach ($languages as $language) { ?>
 									<div class="tab-pane" id="language<?= $language['language_id']; ?>">
 										<div class="form-group">
-											<label class="control-label col-sm-2" for="name<?= $language['language_id']; ?>"><b class="required">*</b> <?= $entry_name; ?></label>
+											<label class="control-label col-sm-2" for="name<?= $language['language_id']; ?>"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 											<div class="col-sm-6">
 												<input type="text" name="product_description[<?= $language['language_id']; ?>][name]" value="<?= isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['name'] : ''; ?>" class="form-control" id="name<?= $language['language_id']; ?>" class="form-control">
 												<?php if (isset($error_name[$language['language_id']])) { ?>
@@ -60,25 +60,25 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label col-sm-2" for="meta_description<?= $language['language_id']; ?>"><?= $entry_meta_description; ?></label>
+											<label class="control-label col-sm-2" for="meta_description<?= $language['language_id']; ?>"><?= $lang_entry_meta_description; ?></label>
 											<div class="col-sm-6">
 												<textarea name="product_description[<?= $language['language_id']; ?>][meta_description]" class="form-control" rows="3" spellcheck="false" id="meta_description<?= $language['language_id']; ?>"><?= isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['meta_description'] : ''; ?></textarea>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label col-sm-2" for="meta_keyword<?= $language['language_id']; ?>"><?= $entry_meta_keyword; ?></label>
+											<label class="control-label col-sm-2" for="meta_keyword<?= $language['language_id']; ?>"><?= $lang_entry_meta_keyword; ?></label>
 											<div class="col-sm-6">
 												<textarea name="product_description[<?= $language['language_id']; ?>][meta_keyword]" class="form-control" rows="3" spellcheck="false" id="meta_keyword<?= $language['language_id']; ?>"><?= isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['meta_keyword'] : ''; ?></textarea>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label col-sm-2" for="description<?= $language['language_id']; ?>"><?= $entry_description; ?></label>
+											<label class="control-label col-sm-2" for="description<?= $language['language_id']; ?>"><?= $lang_entry_description; ?></label>
 											<div class="col-sm-10">
 												<textarea name="product_description[<?= $language['language_id']; ?>][description]" class="summernote form-control" rows="10" spellcheck="false"><?= isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['description'] :''; ?></textarea>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label col-sm-2" for="description<?= $language['language_id']; ?>"><?= $entry_tag; ?></label>
+											<label class="control-label col-sm-2" for="description<?= $language['language_id']; ?>"><?= $lang_entry_tag; ?></label>
 											<div class="col-sm-6">
 												<?php if (isset($product_tag)) { ?>
 													<input type="text" name="product_tag[<?= $language['language_id']; ?>]" value="<?= isset($product_tag[$language['language_id']]) ? $product_tag[$language['language_id']] : ''; ?>" class="form-control">
@@ -97,7 +97,7 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="control-label col-sm-4"><b class="required">*</b> <?= $entry_model; ?></label>
+								<label class="control-label col-sm-4"><b class="required">*</b> <?= $lang_entry_model; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="model" value="<?= $model; ?>" class="form-control">
 									<?php if ($error_model) { ?>
@@ -106,58 +106,58 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_sku; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_sku; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="sku" value="<?= $sku; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_upc; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_upc; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="upc" value="<?= $upc; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_ean; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_ean; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="ean" value="<?= $ean; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_jan; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_jan; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="jan" value="<?= $jan; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_isbn; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_isbn; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="isbn" value="<?= $isbn; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_mpn; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_mpn; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="mpn" value="<?= $mpn; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_location; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_location; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="location" value="<?= $location; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_price; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_price; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="price" value="<?= $price; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_tax_class; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_tax_class; ?></label>
 								<div class="col-sm-6">
 									<select name="tax_class_id" class="form-control">
-										<option value="0"><?= $text_none; ?></option>
+										<option value="0"><?= $lang_text_none; ?></option>
 										<?php foreach ($tax_classes as $tax_class) { ?>
 										<?php if ($tax_class['tax_class_id'] == $tax_class_id) { ?>
 										<option value="<?= $tax_class['tax_class_id']; ?>" selected><?= $tax_class['title']; ?></option>
@@ -169,33 +169,33 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_quantity; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_quantity; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="quantity" value="<?= $quantity; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_minimum; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_minimum; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="minimum" value="<?= $minimum; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_subtract; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_subtract; ?></label>
 								<div class="col-sm-6">
 									<select name="subtract" class="form-control">
 										<?php if ($subtract) { ?>
-										<option value="1" selected><?= $text_yes; ?></option>
-										<option value="0"><?= $text_no; ?></option>
+										<option value="1" selected><?= $lang_text_yes; ?></option>
+										<option value="0"><?= $lang_text_no; ?></option>
 										<?php } else { ?>
-										<option value="1"><?= $text_yes; ?></option>
-										<option value="0" selected><?= $text_no; ?></option>
+										<option value="1"><?= $lang_text_yes; ?></option>
+										<option value="0" selected><?= $lang_text_no; ?></option>
 										<?php } ?>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_stock_status; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_stock_status; ?></label>
 								<div class="col-sm-6">
 									<select name="stock_status_id" class="form-control">
 										<?php foreach ($stock_statuses as $stock_status) { ?>
@@ -209,26 +209,26 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_shipping; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_shipping; ?></label>
 								<div class="col-sm-6">
 									<div class="btn-group" data-toggle="buttons">
 										<?php if ($shipping) { ?>
-										<label class="btn btn-default active"><input type="radio" name="shipping" value="1" checked=""><?= $text_yes; ?></label>
-										<label class="btn btn-default"><input type="radio" name="shipping" value="0"><?= $text_no; ?></label>
+										<label class="btn btn-default active"><input type="radio" name="shipping" value="1" checked=""><?= $lang_text_yes; ?></label>
+										<label class="btn btn-default"><input type="radio" name="shipping" value="0"><?= $lang_text_no; ?></label>
 										<?php } else { ?>
-										<label class="btn btn-default"><input type="radio" name="shipping" value="1"><?= $text_yes; ?></label>
-										<label class="btn btn-default active"><input type="radio" name="shipping" value="0" checked=""><?= $text_no; ?></label>
+										<label class="btn btn-default"><input type="radio" name="shipping" value="1"><?= $lang_text_yes; ?></label>
+										<label class="btn btn-default active"><input type="radio" name="shipping" value="0" checked=""><?= $lang_text_no; ?></label>
 										<?php } ?>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_slug; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_slug; ?></label>
 								<div class="col-sm-6">
 									<div class="input-group">	
 										<input type="text" name="slug" value="<?= $slug; ?>" id="slug" class="form-control">
 										<span class="input-group-btn">
-											<button class="btn btn-default" id="product-slug-btn" type="button"><?= $text_build; ?></button>
+											<button class="btn btn-default" id="product-slug-btn" type="button"><?= $lang_text_build; ?></button>
 										</span>
 									</div>
 									<?php if ($error_slug): ?>
@@ -239,7 +239,7 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_date_available; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_date_available; ?></label>
 								<div class="col-sm-6">
 									<label class="input-group">
 										<input type="text" name="date_available" value="<?= $date_available; ?>" autocomplete="off" class="form-control date">
@@ -248,7 +248,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_dimension; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_dimension; ?></label>
 								<div class="col-sm-6">
 									<div class="slim-row">
 										<div class="slim-col-sm-4">
@@ -264,7 +264,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_length; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_length; ?></label>
 								<div class="col-sm-6">
 									<select name="length_class_id" class="form-control">
 										<?php foreach ($length_classes as $length_class) { ?>
@@ -278,13 +278,13 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_weight; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_weight; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="weight" value="<?= $weight; ?>" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_weight_class; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_weight_class; ?></label>
 								<div class="col-sm-6">
 									<select name="weight_class_id" class="form-control">
 										<?php foreach ($weight_classes as $weight_class) { ?>
@@ -298,24 +298,24 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_status; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_status; ?></label>
 								<div class="col-sm-6">
 									<select name="status" class="form-control">
 										<?php if ($status) { ?>
-										<option value="1" selected><?= $text_enabled; ?></option>
-										<option value="0"><?= $text_disabled; ?></option>
+										<option value="1" selected><?= $lang_text_enabled; ?></option>
+										<option value="0"><?= $lang_text_disabled; ?></option>
 										<?php } else { ?>
-										<option value="1"><?= $text_enabled; ?></option>
-										<option value="0" selected><?= $text_disabled; ?></option>
+										<option value="1"><?= $lang_text_enabled; ?></option>
+										<option value="0" selected><?= $lang_text_disabled; ?></option>
 										<?php } ?>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><b class="required">*</b> <?= $entry_visibility; ?></label>
+								<label class="control-label col-sm-4"><b class="required">*</b> <?= $lang_entry_visibility; ?></label>
 								<div class="control-field col-sm-6">
 									<select name="visibility" class="form-control">
-										<option value="*"><?= $text_select; ?></option>
+										<option value="*"><?= $lang_text_select; ?></option>
 										<?php foreach ($customer_groups as $customer_group): ?>
 										<?php if ($customer_group['customer_group_id'] == $visibility): ?>
 										<option value="<?= $customer_group['customer_group_id']; ?>" selected><?= $customer_group['name']; ?></option>
@@ -327,19 +327,19 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_one_customer; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_one_customer; ?></label>
 								<div class="control-field col-sm-6">
 									<div class="input-group">	
 										<input type="text" name="customer" value="<?= $customer; ?>" class="form-control">
 										<input type="hidden" name="customer_id" value="<?= $customer_id; ?>">
 										<span class="input-group-btn">
-											<button class="btn btn-default" id="clear-customer-btn" type="button"><?= $text_clear; ?></button>
+											<button class="btn btn-default" id="clear-customer-btn" type="button"><?= $lang_text_clear; ?></button>
 										</span>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-4"><?= $entry_sort_order; ?></label>
+								<label class="control-label col-sm-4"><?= $lang_entry_sort_order; ?></label>
 								<div class="col-sm-6">
 									<input type="text" name="sort_order" value="<?= $sort_order; ?>" class="form-control">
 								</div>
@@ -349,13 +349,13 @@
 				</div>
 				<div class="tab-pane" id="tab-links">
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_manufacturer; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_manufacturer; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="manufacturer" value="<?= $manufacturer ?>" class="form-control" autocomplete="off"><input type="hidden" name="manufacturer_id" value="<?= $manufacturer_id; ?>">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_category; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_category; ?></label>
 						<div class="control-field col-sm-4">
 							<p><input type="text" name="category" value="" class="form-control" data-target="product" autocomplete="off"></p>
 							<div class="panel panel-default panel-scrollable">
@@ -371,7 +371,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_filter; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_filter; ?></label>
 						<div class="control-field col-sm-4">
 							<p><input type="text" name="filter" value="" class="form-control" data-target="product" autocomplete="off"></p>
 							<div class="panel panel-default panel-scrollable">
@@ -387,15 +387,15 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_store; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_store; ?></label>
 						<div class="control-field col-sm-4">
 							<div class="panel panel-default panel-scrollable">
 								<div class="list-group list-group-hover">
 									<label class="list-group-item">
 										<?php if (in_array(0, $product_store)) { ?>
-										<input type="checkbox" name="product_store[]" value="0" checked=""><?= $text_default; ?>
+										<input type="checkbox" name="product_store[]" value="0" checked=""><?= $lang_text_default; ?>
 										<?php } else { ?>
-										<input type="checkbox" name="product_store[]" value="0"><?= $text_default; ?>
+										<input type="checkbox" name="product_store[]" value="0"><?= $lang_text_default; ?>
 										<?php } ?>
 									</label>
 									<?php foreach ($stores as $store) { ?>
@@ -412,7 +412,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_download; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_download; ?></label>
 						<div class="control-field col-sm-4">
 							<p><input type="text" name="download" value="" class="form-control" autocomplete="off"></p>
 							<div class="panel panel-default panel-scrollable">
@@ -428,7 +428,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_related; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_related; ?></label>
 						<div class="control-field col-sm-4">
 							<p><input type="text" name="related" value="" class="form-control" autocomplete="off"></p>
 							<div class="panel panel-default panel-scrollable">
@@ -448,8 +448,8 @@
 					<table id="attribute" class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th class="col-sm-4"><?= $entry_attribute; ?></th>
-								<th><?= $entry_text; ?></th>
+								<th class="col-sm-4"><?= $lang_entry_attribute; ?></th>
+								<th><?= $lang_entry_text; ?></th>
 								<th></th>
 							</tr>
 						</thead>
@@ -465,7 +465,7 @@
 											<span class="input-group-addon"><i class="lang-<?= str_replace('.png','', $language['image']); ?>" title="<?= $language['name']; ?>"></i></span>
 										</div>
 										<?php } ?></td>
-									<td><a onclick="$('#attribute-row<?= $attribute_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+									<td><a onclick="$('#attribute-row<?= $attribute_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 								</tr>
 							<?php $attribute_row++; ?>
 							<?php } ?>
@@ -473,7 +473,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="2"></td>
-								<td><a onclick="addAttribute();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_add_attribute; ?></span></a></td>
+								<td><a onclick="addAttribute();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_add_attribute; ?></span></a></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -493,7 +493,7 @@
 									<?php } ?>
 									<li class="action" id="option-add"><label class="input-group">
 										<input type="text" name="option" value="" class="form-control">
-										<span class="input-group-addon"><i class="fa fa-plus-circle fa-lg" title="<?= $button_add_option; ?>"></i></span>
+										<span class="input-group-addon"><i class="fa fa-plus-circle fa-lg" title="<?= $lang_button_add_option; ?>"></i></span>
 									</label></li>
 								</ul>
 							</div>
@@ -509,43 +509,43 @@
 									<input type="hidden" name="product_option[<?= $option_row; ?>][option_id]" value="<?= $product_option['option_id']; ?>">
 									<input type="hidden" name="product_option[<?= $option_row; ?>][type]" value="<?= $product_option['type']; ?>">
 									<div class="form-group">
-										<label class="control-label col-sm-2"><?= $entry_required; ?></label>
+										<label class="control-label col-sm-2"><?= $lang_entry_required; ?></label>
 										<div class="control-field col-sm-4">
 											<select name="product_option[<?= $option_row; ?>][required]" class="form-control">
 												<?php if ($product_option['required']) { ?>
-												<option value="1" selected><?= $text_yes; ?></option>
-												<option value="0"><?= $text_no; ?></option>
+												<option value="1" selected><?= $lang_text_yes; ?></option>
+												<option value="0"><?= $lang_text_no; ?></option>
 												<?php } else { ?>
-												<option value="1"><?= $text_yes; ?></option>
-												<option value="0" selected><?= $text_no; ?></option>
+												<option value="1"><?= $lang_text_yes; ?></option>
+												<option value="0" selected><?= $lang_text_no; ?></option>
 												<?php } ?>
 											</select>
 										</div>
 									</div>
 									<?php if ($product_option['type'] == 'text') { ?>
 										<div class="form-group">
-											<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>
+											<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>
 											<div class="control-field col-sm-4">
 												<input type="text" name="product_option[<?= $option_row; ?>][option_value]" value="<?= $product_option['option_value']; ?>" class="form-control">
 											</div>
 										</div>
 									<?php } elseif ($product_option['type'] == 'textarea') { ?>
 										<div class="form-group">
-											<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>
+											<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>
 											<div class="col-sm-8">
 												<textarea name="product_option[<?= $option_row; ?>][option_value]" class="form-control" rows="3"><?= $product_option['option_value']; ?></textarea>
 											</div>
 										</div>
 									<?php } elseif ($product_option['type'] == 'file') { ?>
 										<div class="form-group" style="display:none;">
-											<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>
+											<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>
 											<div class="control-field col-sm-4">
 												<input type="text" name="product_option[<?= $option_row; ?>][option_value]" value="<?= $product_option['option_value']; ?>" class="form-control">
 											</div>
 										</div>
 									<?php } elseif ($product_option['type'] == 'date') { ?>
 										<div class="form-group">
-											<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>
+											<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>
 											<div class="control-field col-sm-4">
 												<label class="input-group">
 													<input type="text" class="form-control date" name="product_option[<?= $option_row; ?>][option_value]" value="<?= $product_option['option_value']; ?>">
@@ -555,7 +555,7 @@
 										</div>
 									<?php } elseif ($product_option['type'] == 'datetime') { ?>
 										<div class="form-group">
-											<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>
+											<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>
 											<div class="control-field col-sm-4">
 												<label class="input-group">
 													<input type="text" class="form-control datetime" name="product_option[<?= $option_row; ?>][option_value]" value="<?= $product_option['option_value']; ?>" autocomplete="off">
@@ -565,7 +565,7 @@
 										</div>
 									<?php } elseif ($product_option['type'] == 'time') { ?>
 										<div class="form-group">
-											<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>
+											<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>
 											<div class="control-field col-sm-4">
 												<label class="input-group">
 													<input type="text" class="form-control time" name="product_option[<?= $option_row; ?>][option_value]" value="<?= $product_option['option_value']; ?>" autocomplete="off">
@@ -578,12 +578,12 @@
 									<table id="option-value<?= $option_row; ?>" class="table table-bordered table-striped form-inline">
 										<thead>
 											<tr>
-												<th><?= $entry_option_value; ?></th>
-												<th class="text-right"><?= $entry_quantity; ?></th>
-												<th><?= $entry_subtract; ?></th>
-												<th class="text-right"><?= $entry_price; ?></th>
-												<th class="text-right"><?= $entry_option_points; ?></th>
-												<th class="text-right"><?= $entry_weight; ?></th>
+												<th><?= $lang_entry_option_value; ?></th>
+												<th class="text-right"><?= $lang_entry_quantity; ?></th>
+												<th><?= $lang_entry_subtract; ?></th>
+												<th class="text-right"><?= $lang_entry_price; ?></th>
+												<th class="text-right"><?= $lang_entry_option_points; ?></th>
+												<th class="text-right"><?= $lang_entry_weight; ?></th>
 												<th></th>
 											</tr>
 										</thead>
@@ -605,11 +605,11 @@
 												<td class="text-right"><input type="text" name="product_option[<?= $option_row; ?>][product_option_value][<?= $option_value_row; ?>][quantity]" value="<?= $product_option_value['quantity']; ?>" class="form-control"></td>
 												<td><select name="product_option[<?= $option_row; ?>][product_option_value][<?= $option_value_row; ?>][subtract]" class="form-control">
 													<?php if ($product_option_value['subtract']) { ?>
-													<option value="1" selected><?= $text_yes; ?></option>
-													<option value="0"><?= $text_no; ?></option>
+													<option value="1" selected><?= $lang_text_yes; ?></option>
+													<option value="0"><?= $lang_text_no; ?></option>
 													<?php } else { ?>
-													<option value="1"><?= $text_yes; ?></option>
-													<option value="0" selected><?= $text_no; ?></option>
+													<option value="1"><?= $lang_text_yes; ?></option>
+													<option value="0" selected><?= $lang_text_no; ?></option>
 													<?php } ?>
 												</select></td>
 												<td class="text-right"><div class="input-group">
@@ -657,14 +657,14 @@
 													</span>
 													<input type="text" name="product_option[<?= $option_row; ?>][product_option_value][<?= $option_value_row; ?>][weight]" value="<?= $product_option_value['weight']; ?>" class="form-control">
 												</div></td>
-												<td><a onclick="$('#option-value-row<?= $option_value_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+												<td><a onclick="$('#option-value-row<?= $option_value_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 											</tr>
 										<?php $option_value_row++; ?>
 										<?php } ?>
 										</tbody>
 										<tfoot>
 											<tr>
-												<td colspan="7" class="text-right"><a onclick="addOptionValue('<?= $option_row; ?>');" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_add_option_value; ?></span></a></td>
+												<td colspan="7" class="text-right"><a onclick="addOptionValue('<?= $option_row; ?>');" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_add_option_value; ?></span></a></td>
 											</tr>
 										</tfoot>
 									</table>
@@ -689,8 +689,8 @@
 						<table id="recurring" class="table table-striped table-bordered table-hover">
 							<thead>
 								<tr>
-									<td class="text-left"><strong><?= $entry_recurring; ?></strong></td>
-									<td class="text-left"><strong><?= $entry_customer_group; ?></strong></td>
+									<td class="text-left"><strong><?= $lang_entry_recurring; ?></strong></td>
+									<td class="text-left"><strong><?= $lang_entry_customer_group; ?></strong></td>
 									<td class="text-left"></td>
 								</tr>
 							</thead>
@@ -722,7 +722,7 @@
 								</td>
 								<td class="text-left">
 									<button type="button" onclick="$('#recurring-row<?= $recurring_row; ?>').remove()" class="btn btn-danger">
-										<i class="fa fa-trash-o fa-lg"><span class="hidden-xs"> <?= $button_remove; ?></span></i>
+										<i class="fa fa-trash-o fa-lg"><span class="hidden-xs"> <?= $lang_button_remove; ?></span></i>
 									</button>
 								</td>
 							</tr>
@@ -733,8 +733,8 @@
 							<tr>
 								<td colspan="2"></td>
 								<td class="text-left">
-									<button type="button" onclick="addRecurring()" data-toggle="tooltip" title="<?= $button_add_recurring; ?>" class="btn btn-info">
-										<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_add_recurring; ?></span></button>
+									<button type="button" onclick="addRecurring()" data-toggle="tooltip" title="<?= $lang_button_add_recurring; ?>" class="btn btn-info">
+										<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_add_recurring; ?></span></button>
 								</td>
 							</tr>
 						</tfoot>
@@ -746,12 +746,12 @@
 					<table id="discount" class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><?= $entry_customer_group; ?></th>
-								<th class="text-right"><?= $entry_quantity; ?></th>
-								<th class="text-right"><?= $entry_priority; ?></th>
-								<th class="text-right"><?= $entry_price; ?></th>
-								<th class="col-sm-2"><?= $entry_date_start; ?></th>
-								<th class="col-sm-2"><?= $entry_date_end; ?></th>
+								<th><?= $lang_entry_customer_group; ?></th>
+								<th class="text-right"><?= $lang_entry_quantity; ?></th>
+								<th class="text-right"><?= $lang_entry_priority; ?></th>
+								<th class="text-right"><?= $lang_entry_price; ?></th>
+								<th class="col-sm-2"><?= $lang_entry_date_start; ?></th>
+								<th class="col-sm-2"><?= $lang_entry_date_end; ?></th>
 								<th></th>
 							</tr>
 						</thead>
@@ -773,7 +773,7 @@
 								<td class="text-right"><input type="text" name="product_discount[<?= $discount_row; ?>][price]" value="<?= $product_discount['price']; ?>" class="form-control"></td>
 								<td><label class="input-group"><input type="text" name="product_discount[<?= $discount_row; ?>][date_start]" value="<?= strtotime($product_discount['date_start']) ? $product_discount['date_start'] : ''; ?>" class="form-control date" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></label></td>
 								<td><label class="input-group"><input type="text" name="product_discount[<?= $discount_row; ?>][date_end]" value="<?= strtotime($product_discount['date_end']) ? $product_discount['date_end'] : ''; ?>" class="form-control date" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></label></td>
-								<td><a onclick="$('#discount-row<?= $discount_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+								<td><a onclick="$('#discount-row<?= $discount_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 							</tr>
 						<?php $discount_row++; ?>
 						<?php } ?>
@@ -781,7 +781,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="6"></td>
-								<td><a onclick="addDiscount();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_add_discount; ?></span></a></td>
+								<td><a onclick="addDiscount();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_add_discount; ?></span></a></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -792,11 +792,11 @@
 					<table id="special" class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><?= $entry_customer_group; ?></th>
-								<th class="text-right"><?= $entry_priority; ?></th>
-								<th class="text-right"><?= $entry_price; ?></th>
-								<th class="col-sm-3"><?= $entry_date_start; ?></th>
-								<th class="col-sm-3"><?= $entry_date_end; ?></th>
+								<th><?= $lang_entry_customer_group; ?></th>
+								<th class="text-right"><?= $lang_entry_priority; ?></th>
+								<th class="text-right"><?= $lang_entry_price; ?></th>
+								<th class="col-sm-3"><?= $lang_entry_date_start; ?></th>
+								<th class="col-sm-3"><?= $lang_entry_date_end; ?></th>
 								<th></th>
 							</tr>
 						</thead>
@@ -817,7 +817,7 @@
 								<td class="text-right"><input type="text" name="product_special[<?= $special_row; ?>][price]" value="<?= $product_special['price']; ?>" class="form-control"></td>
 								<td><label class="input-group"><input type="text" name="product_special[<?= $special_row; ?>][date_start]" value="<?= strtotime($product_special['date_start']) ? $product_special['date_start'] : ''; ?>" class="form-control date" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></label></td>
 								<td><label class="input-group"><input type="text" name="product_special[<?= $special_row; ?>][date_end]" value="<?= strtotime($product_special['date_end']) ? $product_special['date_end'] : ''; ?>" class="form-control date" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></label></td>
-								<td><a onclick="$('#special-row<?= $special_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+								<td><a onclick="$('#special-row<?= $special_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 							</tr>
 						<?php $special_row++; ?>
 						<?php } ?>
@@ -825,7 +825,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="5"></td>
-								<td><a onclick="addSpecial();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="visible-desktop"> <?= $button_add_special; ?></span></a></td>
+								<td><a onclick="addSpecial();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="visible-desktop"> <?= $lang_button_add_special; ?></span></a></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -835,8 +835,8 @@
 					<table id="images" class="table table-bordered">
 						<thead>
 							<tr>
-								<th><?= $entry_image; ?></th>
-								<th class="text-right"><?= $entry_sort_order; ?></th>
+								<th><?= $lang_entry_image; ?></th>
+								<th class="text-right"><?= $lang_entry_sort_order; ?></th>
 								<th></th>
 							</tr>
 						</thead>
@@ -846,11 +846,11 @@
 								<a class="pull-left" onclick="image_upload('image','thumb');"><img class="img-thumbnail" src="<?= $thumb; ?>" width="100" height="100" alt="" id="thumb"></a>
 								<input type="hidden" name="image" value="<?= $image; ?>" id="image">
 								<div class="media-body hidden-xs">
-									<a class="btn btn-default" onclick="image_upload('image','thumb');"><?= $text_browse; ?></a>
-									<a class="btn btn-default" onclick="$('#thumb').attr('src','<?= $no_image; ?>'); $('#image').val('');"><?= $text_clear; ?></a>
+									<a class="btn btn-default" onclick="image_upload('image','thumb');"><?= $lang_text_browse; ?></a>
+									<a class="btn btn-default" onclick="$('#thumb').attr('src','<?= $no_image; ?>'); $('#image').val('');"><?= $lang_text_clear; ?></a>
 								</div>
 							</div></td>
-							<td class="text-right"><i class="muted"><?= $text_default; ?></i></td>
+							<td class="text-right"><i class="muted"><?= $lang_text_default; ?></i></td>
 							<td></td>
 						</tr>
 						<?php $image_row = 0; ?>
@@ -861,12 +861,12 @@
 									<a class="pull-left" onclick="image_upload('image<?= $image_row; ?>','thumb<?= $image_row; ?>');"><img class="img-thumbnail" src="<?= $product_image['thumb']; ?>" width="100" height="100" alt="" id="thumb<?= $image_row; ?>"></a>
 									<input type="hidden" name="product_image[<?= $image_row; ?>][image]" value="<?= $product_image['image']; ?>" id="image<?= $image_row; ?>">
 									<div class="media-body hidden-xs">
-										<a class="btn btn-default" onclick="image_upload('image<?= $image_row; ?>','thumb<?= $image_row; ?>');"><?= $text_browse; ?></a>&nbsp;
-										<a class="btn btn-default" onclick="$('#thumb<?= $image_row; ?>').attr('src', '<?= $no_image; ?>'); $('#image<?= $image_row; ?>').val('');"><?= $text_clear; ?></a>
+										<a class="btn btn-default" onclick="image_upload('image<?= $image_row; ?>','thumb<?= $image_row; ?>');"><?= $lang_text_browse; ?></a>&nbsp;
+										<a class="btn btn-default" onclick="$('#thumb<?= $image_row; ?>').attr('src', '<?= $no_image; ?>'); $('#image<?= $image_row; ?>').val('');"><?= $lang_text_clear; ?></a>
 									</div>
 								</div></td>
 								<td class="text-right"><input type="text" name="product_image[<?= $image_row; ?>][sort_order]" value="<?= $product_image['sort_order']; ?>" class="form-control"></td>
-								<td><a onclick="$('#image-row<?= $image_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+								<td><a onclick="$('#image-row<?= $image_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 							</tr>
 						<?php $image_row++; ?>
 						<?php } ?>
@@ -874,14 +874,14 @@
 						<tfoot>
 							<tr>
 								<td colspan="2"></td>
-								<td><a onclick="addImage();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_add_image; ?></span></a></td>
+								<td><a onclick="addImage();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_add_image; ?></span></a></td>
 							</tr>
 						</tfoot>
 					</table>
 				</div>
 				<div class="tab-pane" id="tab-reward">
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_points; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_points; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="points" value="<?= $points; ?>" class="form-control">
 						</div>
@@ -889,8 +889,8 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><?= $entry_customer_group; ?></th>
-								<th><?= $entry_reward; ?></th>
+								<th><?= $lang_entry_customer_group; ?></th>
+								<th><?= $lang_entry_reward; ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -907,13 +907,13 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><?= $entry_store; ?></th>
-								<th><?= $entry_layout; ?></th>
+								<th><?= $lang_entry_store; ?></th>
+								<th><?= $lang_entry_layout; ?></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><?= $text_default; ?></td>
+								<td><?= $lang_text_default; ?></td>
 								<td><select name="product_layout[0][layout_id]" class="form-control">
 									<option value="">&ndash;</option>
 									<?php foreach ($layouts as $layout) { ?>
@@ -952,11 +952,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title"><?= $text_image_manager; ?></h4>
+				<h4 class="modal-title"><?= $lang_text_image_manager; ?></h4>
 			</div>
 			<div class="modal-body"></div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><?= $button_cancel; ?></button>
+				<button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><?= $lang_button_cancel; ?></button>
 			</div>
 		</div>
 	</div>

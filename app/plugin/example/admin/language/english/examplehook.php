@@ -15,4 +15,4 @@
 */
 
 // Heading
-$_['heading_title'] = 'Hook Overwritten Heading Title';
+$_['lang_heading_title'] = 'Hook Overwritten Heading Title';

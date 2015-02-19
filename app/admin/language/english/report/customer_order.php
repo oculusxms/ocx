@@ -15,22 +15,22 @@
 */
 
 // Heading
-$_['heading_title']         = 'Customer Orders Report';
+$_['lang_heading_title']         = 'Customer Orders Report';
 
 // Text
-$_['text_all_status']       = 'Status (All)';
+$_['lang_text_all_status']       = 'Status (All)';
 
 // Column
-$_['column_customer']       = 'Customer Name';
-$_['column_email']          = 'E-Mail';
-$_['column_customer_group'] = 'Customer Group';
-$_['column_status']         = 'Status';
-$_['column_orders']         = 'No. Orders';
-$_['column_products']       = 'No. Products';
-$_['column_total']          = 'Total';
-$_['column_action']         = 'Action';
+$_['lang_column_customer']       = 'Customer Name';
+$_['lang_column_email']          = 'E-Mail';
+$_['lang_column_customer_group'] = 'Customer Group';
+$_['lang_column_status']         = 'Status';
+$_['lang_column_orders']         = 'No. Orders';
+$_['lang_column_products']       = 'No. Products';
+$_['lang_column_total']          = 'Total';
+$_['lang_column_action']         = 'Action';
 
 // Entry
-$_['entry_date_start']      = 'Date Start:';
-$_['entry_date_end']        = 'Date End:';
-$_['entry_status']          = 'Order Status:';
+$_['lang_entry_date_start']      = 'Date Start:';
+$_['lang_entry_date_end']        = 'Date End:';
+$_['lang_entry_status']          = 'Order Status:';

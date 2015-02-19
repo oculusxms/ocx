@@ -15,25 +15,25 @@
 */
 
 // Heading
-$_['heading_title']      = 'Voucher Themes';
+$_['lang_heading_title']      = 'Voucher Themes';
 
 // Text
-$_['text_success']       = 'Success: You have modified voucher themes.';
-$_['text_image_manager'] = 'Image Manager';
-$_['text_browse']        = 'Browse';
-$_['text_clear']         = 'Clear';
+$_['lang_text_success']       = 'Success: You have modified voucher themes.';
+$_['lang_text_image_manager'] = 'Image Manager';
+$_['lang_text_browse']        = 'Browse';
+$_['lang_text_clear']         = 'Clear';
 
 // Column
-$_['column_name']        = 'Voucher Theme Name';
-$_['column_action']      = 'Action';
+$_['lang_column_name']        = 'Voucher Theme Name';
+$_['lang_column_action']      = 'Action';
 
 // Entry
-$_['entry_name']         = 'Voucher Theme Name:';
-$_['entry_description']  = 'Voucher Theme Description:';
-$_['entry_image']        = 'Image:';
+$_['lang_entry_name']         = 'Voucher Theme Name:';
+$_['lang_entry_description']  = 'Voucher Theme Description:';
+$_['lang_entry_image']        = 'Image:';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify voucher themes.';
-$_['error_name']         = 'Voucher theme name must be between 3 and 32 characters.';
-$_['error_image']        = 'Image Required.';
-$_['error_voucher']      = 'Warning: This voucher theme cannot be deleted as it is currently assigned to %s vouchers.';
+$_['lang_error_permission']   = 'Warning: You do not have permission to modify voucher themes.';
+$_['lang_error_name']         = 'Voucher theme name must be between 3 and 32 characters.';
+$_['lang_error_image']        = 'Image Required.';
+$_['lang_error_voucher']      = 'Warning: This voucher theme cannot be deleted as it is currently assigned to %s vouchers.';

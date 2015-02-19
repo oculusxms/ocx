@@ -15,4 +15,4 @@
 */
 
 // Heading
-$_['heading_title'] = 'Administration';
+$_['lang_heading_title'] = 'Administration';

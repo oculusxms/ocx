@@ -22,7 +22,7 @@ class Taxclass extends Controller {
     
     public function index() {
         $this->language->load('localization/tax_class');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/taxclass');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Taxclass extends Controller {
     
     public function insert() {
         $this->language->load('localization/tax_class');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/taxclass');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_localization_taxclass->addTaxClass($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -63,12 +63,12 @@ class Taxclass extends Controller {
     
     public function update() {
         $this->language->load('localization/tax_class');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/taxclass');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_localization_taxclass->editTaxClass($this->request->get['tax_class_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -94,7 +94,7 @@ class Taxclass extends Controller {
     
     public function delete() {
         $this->language->load('localization/tax_class');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('localization/taxclass');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -102,7 +102,7 @@ class Taxclass extends Controller {
                 $this->model_localization_taxclass->deleteTaxClass($tax_class_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -161,7 +161,7 @@ class Taxclass extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'localization/taxclass', $url);
+        $this->breadcrumb->add('lang_heading_title', 'localization/taxclass', $url);
         
         $data['insert'] = $this->url->link('localization/taxclass/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('localization/taxclass/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -177,7 +177,7 @@ class Taxclass extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('localization/taxclass/update', 'token=' . $this->session->data['token'] . '&tax_class_id=' . $result['tax_class_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('localization/taxclass/update', 'token=' . $this->session->data['token'] . '&tax_class_id=' . $result['tax_class_id'] . $url, 'SSL'));
             
             $data['tax_classes'][] = array('tax_class_id' => $result['tax_class_id'], 'title' => $result['title'], 'selected' => isset($this->request->post['selected']) && in_array($result['tax_class_id'], $this->request->post['selected']), 'action' => $action);
         }
@@ -220,7 +220,7 @@ class Taxclass extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($tax_class_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('localization/taxclass', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($tax_class_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('localization/taxclass', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -267,7 +267,7 @@ class Taxclass extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'localization/taxclass', $url);
+        $this->breadcrumb->add('lang_heading_title', 'localization/taxclass', $url);
         
         if (!isset($this->request->get['tax_class_id'])) {
             $data['action'] = $this->url->link('localization/taxclass/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -320,15 +320,15 @@ class Taxclass extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'localization/taxclass')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['title']) < 3) || ($this->encode->strlen($this->request->post['title']) > 32)) {
-            $this->error['title'] = $this->language->get('error_title');
+            $this->error['title'] = $this->language->get('lang_error_title');
         }
         
         if (($this->encode->strlen($this->request->post['description']) < 3) || ($this->encode->strlen($this->request->post['description']) > 255)) {
-            $this->error['description'] = $this->language->get('error_description');
+            $this->error['description'] = $this->language->get('lang_error_description');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -338,7 +338,7 @@ class Taxclass extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'localization/taxclass')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('catalog/product');
@@ -347,7 +347,7 @@ class Taxclass extends Controller {
             $product_total = $this->model_catalog_product->getTotalProductsByTaxClassId($tax_class_id);
             
             if ($product_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_product'), $product_total);
             }
         }
         

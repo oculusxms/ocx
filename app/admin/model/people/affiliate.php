@@ -87,33 +87,56 @@ class Affiliate extends Model {
 		");
         
         if ($data['password']) {
-            $this->db->query("UPDATE {$this->db->prefix}affiliate SET salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "' WHERE affiliate_id = '" . (int)$affiliate_id . "'");
+            $this->db->query("
+                UPDATE {$this->db->prefix}affiliate 
+                SET 
+                    salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
+                    password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "' 
+                WHERE affiliate_id = '" . (int)$affiliate_id . "'");
         }
         
         $this->theme->trigger('admin_edit_affiliate', array('affiliate_id' => $affiliate_id));
     }
     
     public function deleteAffiliate($affiliate_id) {
-        $this->db->query("DELETE FROM {$this->db->prefix}affiliate WHERE affiliate_id = '" . (int)$affiliate_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}affiliate_transaction WHERE affiliate_id = '" . (int)$affiliate_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}affiliate 
+            WHERE affiliate_id = '" . (int)$affiliate_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}affiliate_transaction 
+            WHERE affiliate_id = '" . (int)$affiliate_id . "'");
         
         $this->theme->trigger('admin_delete_affiliate', array('affiliate_id' => $affiliate_id));
     }
     
     public function getAffiliate($affiliate_id) {
-        $query = $this->db->query("SELECT DISTINCT * FROM {$this->db->prefix}affiliate WHERE affiliate_id = '" . (int)$affiliate_id . "'");
+        $query = $this->db->query("
+            SELECT DISTINCT * 
+            FROM {$this->db->prefix}affiliate 
+            WHERE affiliate_id = '" . (int)$affiliate_id . "'");
         
         return $query->row;
     }
     
     public function getAffiliateByEmail($email) {
-        $query = $this->db->query("SELECT DISTINCT * FROM {$this->db->prefix}affiliate WHERE LCASE(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'");
+        $query = $this->db->query("
+            SELECT DISTINCT * 
+            FROM {$this->db->prefix}affiliate 
+            WHERE LCASE(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'");
         
         return $query->row;
     }
     
     public function getAffiliates($data = array()) {
-        $sql = "SELECT *, CONCAT(a.firstname, ' ', a.lastname) AS name, (SELECT SUM(at.amount) FROM {$this->db->prefix}affiliate_transaction at WHERE at.affiliate_id = a.affiliate_id GROUP BY at.affiliate_id) AS balance FROM {$this->db->prefix}affiliate a";
+        $sql = "
+            SELECT *, 
+            CONCAT(a.firstname, ' ', a.lastname) AS name, 
+            (SELECT SUM(at.amount) 
+                FROM {$this->db->prefix}affiliate_transaction at 
+                WHERE at.affiliate_id = a.affiliate_id 
+                GROUP BY at.affiliate_id) AS balance 
+            FROM {$this->db->prefix}affiliate a";
         
         $implode = array();
         
@@ -146,7 +169,14 @@ class Affiliate extends Model {
             $sql.= " WHERE {$imp}";
         }
         
-        $sort_data = array('name', 'a.email', 'a.code', 'a.status', 'a.approved', 'a.date_added');
+        $sort_data = array(
+            'name', 
+            'a.email', 
+            'a.code', 
+            'a.status', 
+            'a.approved', 
+            'a.date_added'
+        );
         
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql.= " ORDER BY {$data['sort']}";
@@ -181,18 +211,22 @@ class Affiliate extends Model {
         $affiliate_info = $this->getAffiliate($affiliate_id);
         
         if ($affiliate_info) {
-            $this->db->query("UPDATE {$this->db->prefix}affiliate SET approved = '1' WHERE affiliate_id = '" . (int)$affiliate_id . "'");
+            $this->db->query("
+                UPDATE {$this->db->prefix}affiliate 
+                SET 
+                    approved = '1' 
+                WHERE affiliate_id = '" . (int)$affiliate_id . "'");
             
             $this->language->load('mail/affiliate');
 
             // NEW MAILER
             // admin_affiliate_approve
             
-            // $message = sprintf($this->language->get('text_approve_welcome'), $this->config->get('config_name')) . "\n\n";
-            // $message.= $this->language->get('text_approve_login') . "\n";
+            // $message = sprintf($this->language->get('lang_text_approve_welcome'), $this->config->get('config_name')) . "\n\n";
+            // $message.= $this->language->get('lang_text_approve_login') . "\n";
             // $message.= $this->app['http.public'] . 'affiliate/login' . "\n\n";
-            // $message.= $this->language->get('text_approve_services') . "\n\n";
-            // $message.= $this->language->get('text_approve_thanks') . "\n";
+            // $message.= $this->language->get('lang_text_approve_services') . "\n\n";
+            // $message.= $this->language->get('lang_text_approve_thanks') . "\n";
             // $message.= $this->config->get('config_name');
             
             // $mail = new Mail();
@@ -205,7 +239,7 @@ class Affiliate extends Model {
             // $mail->setTo($affiliate_info['email']);
             // $mail->setFrom($this->config->get('config_email'));
             // $mail->setSender($this->config->get('config_name'));
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_approve_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_approve_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
             // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
             // $mail->send();
             
@@ -214,13 +248,19 @@ class Affiliate extends Model {
     }
     
     public function getAffiliatesByNewsletter() {
-        $query = $this->db->query("SELECT * FROM {$this->db->prefix}affiliate WHERE newsletter = '1' ORDER BY firstname, lastname, email");
+        $query = $this->db->query("
+            SELECT * 
+            FROM {$this->db->prefix}affiliate 
+            WHERE newsletter = '1' 
+            ORDER BY firstname, lastname, email");
         
         return $query->rows;
     }
     
     public function getTotalAffiliates($data = array()) {
-        $sql = "SELECT COUNT(*) AS total FROM {$this->db->prefix}affiliate";
+        $sql = "
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}affiliate";
         
         $implode = array();
         
@@ -255,19 +295,29 @@ class Affiliate extends Model {
     }
     
     public function getTotalAffiliatesAwaitingApproval() {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM {$this->db->prefix}affiliate WHERE status = '0' OR approved = '0'");
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}affiliate 
+            WHERE status = '0' 
+            OR approved = '0'");
         
         return $query->row['total'];
     }
     
     public function getTotalAffiliatesByCountryId($country_id) {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM {$this->db->prefix}affiliate WHERE country_id = '" . (int)$country_id . "'");
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}affiliate 
+            WHERE country_id = '" . (int)$country_id . "'");
         
         return $query->row['total'];
     }
     
     public function getTotalAffiliatesByZoneId($zone_id) {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM {$this->db->prefix}affiliate WHERE zone_id = '" . (int)$zone_id . "'");
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}affiliate 
+            WHERE zone_id = '" . (int)$zone_id . "'");
         
         return $query->row['total'];
     }
@@ -276,7 +326,15 @@ class Affiliate extends Model {
         $affiliate_info = $this->getAffiliate($affiliate_id);
         
         if ($affiliate_info) {
-            $this->db->query("INSERT INTO {$this->db->prefix}affiliate_transaction SET affiliate_id = '" . (int)$affiliate_id . "', order_id = '" . (float)$order_id . "', description = '" . $this->db->escape($description) . "', amount = '" . (float)$amount . "', date_added = NOW()");
+            $this->db->query("
+                INSERT INTO {$this->db->prefix}affiliate_transaction 
+                SET 
+                    affiliate_id = '" . (int)$affiliate_id . "', 
+                    order_id = '" . (float)$order_id . "', 
+                    description = '" . $this->db->escape($description) . "', 
+                    amount = '" . (float)$amount . "', 
+                    date_added = NOW()
+            ");
             
             $affiliate_transaction_id = $this->db->getLastId();
             
@@ -285,8 +343,8 @@ class Affiliate extends Model {
             // NEW MAILER
             // admin_affiliate_add_transaction
             
-            // $message = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
-            // $message.= sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($affiliate_id), $this->config->get('config_currency')));
+            // $message = sprintf($this->language->get('lang_text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
+            // $message.= sprintf($this->language->get('lang_text_transaction_total'), $this->currency->format($this->getTransactionTotal($affiliate_id), $this->config->get('config_currency')));
             
             // $mail = new Mail();
             // $mail->protocol = $this->config->get('config_mail_protocol');
@@ -299,7 +357,7 @@ class Affiliate extends Model {
             // $mail->setTo($affiliate_info['email']);
             // $mail->setFrom($this->config->get('config_email'));
             // $mail->setSender($this->config->get('config_name'));
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
             // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
             // $mail->send();
             
@@ -310,7 +368,9 @@ class Affiliate extends Model {
     public function deleteTransaction($order_id) {
         $affiliate_transaction_id = $this->getTransactionByOrderId($order_id);
         
-        $this->db->query("DELETE FROM {$this->db->prefix}affiliate_transaction WHERE order_id = '" . (int)$order_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}affiliate_transaction 
+            WHERE order_id = '" . (int)$order_id . "'");
         
         $this->theme->trigger('admin_delete_affiliate_transaction', array('affiliate_transaction_id' => $affiliate_transaction_id));
     }
@@ -324,25 +384,39 @@ class Affiliate extends Model {
             $limit = 10;
         }
         
-        $query = $this->db->query("SELECT * FROM {$this->db->prefix}affiliate_transaction WHERE affiliate_id = '" . (int)$affiliate_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . "," . (int)$limit);
+        $query = $this->db->query("
+            SELECT * 
+            FROM {$this->db->prefix}affiliate_transaction 
+            WHERE affiliate_id = '" . (int)$affiliate_id . "' 
+            ORDER BY date_added DESC 
+            LIMIT " . (int)$start . "," . (int)$limit);
         
         return $query->rows;
     }
     
     public function getTotalTransactions($affiliate_id) {
-        $query = $this->db->query("SELECT COUNT(*) AS total  FROM {$this->db->prefix}affiliate_transaction WHERE affiliate_id = '" . (int)$affiliate_id . "'");
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}affiliate_transaction 
+            WHERE affiliate_id = '" . (int)$affiliate_id . "'");
         
         return $query->row['total'];
     }
     
     public function getTransactionTotal($affiliate_id) {
-        $query = $this->db->query("SELECT SUM(amount) AS total FROM {$this->db->prefix}affiliate_transaction WHERE affiliate_id = '" . (int)$affiliate_id . "'");
+        $query = $this->db->query("
+            SELECT SUM(amount) AS total 
+            FROM {$this->db->prefix}affiliate_transaction 
+            WHERE affiliate_id = '" . (int)$affiliate_id . "'");
         
         return $query->row['total'];
     }
     
     public function getTotalTransactionsByOrderId($order_id) {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM {$this->db->prefix}affiliate_transaction WHERE order_id = '" . (int)$order_id . "'");
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}affiliate_transaction 
+            WHERE order_id = '" . (int)$order_id . "'");
         
         return $query->row['total'];
     }

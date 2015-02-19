@@ -15,16 +15,17 @@
 */
 
 // Heading
-$_['heading_title']    = 'Affiliate';
+$_['lang_heading_title']     = 'Affiliate';
 
 // Text
-$_['text_register']    = 'Register';
-$_['text_login']       = 'Login';
-$_['text_logout']      = 'Logout';
-$_['text_forgotten']   = 'Forgotten Password';
-$_['text_account']     = 'Dashboard';
-$_['text_edit']        = 'Edit Account';
-$_['text_password']    = 'Password';
-$_['text_payment']     = 'Payment Options';
-$_['text_tracking']    = 'Affiliate Tracking';
-$_['text_transaction'] = 'Transactions';
+$_['lang_text_register']     = 'Register';
+$_['lang_text_login']        = 'Login';
+$_['lang_text_logout']       = 'Logout';
+$_['lang_text_forgotten']    = 'Forgotten Password';
+$_['lang_text_account']      = 'Dashboard';
+$_['lang_text_edit']         = 'Edit Account';
+$_['lang_text_password']     = 'Password';
+$_['lang_text_payment']      = 'Payment Options';
+$_['lang_text_tracking']     = 'Affiliate Tracking';
+$_['lang_text_transaction']  = 'Transactions';
+$_['lang_text_notification'] = 'Notifications';

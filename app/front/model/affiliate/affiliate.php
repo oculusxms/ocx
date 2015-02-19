@@ -60,18 +60,18 @@ class Affiliate extends Model {
         // public_affiliate_register
         // public_affiliate_admin
         
-        // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
+        // $subject = sprintf($this->language->get('lang_text_subject'), $this->config->get('config_name'));
         
-        // $message = sprintf($this->language->get('text_welcome'), $this->config->get('config_name')) . "\n\n";
-        // $message.= $this->language->get('text_approval') . "\n";
+        // $message = sprintf($this->language->get('lang_text_welcome'), $this->config->get('config_name')) . "\n\n";
+        // $message.= $this->language->get('lang_text_approval') . "\n";
         // $message.= $this->url->link('affiliate/login', '', 'SSL') . "\n\n";
-        // $message.= $this->language->get('text_services') . "\n";
+        // $message.= $this->language->get('lang_text_services') . "\n";
         
-        // $text = sprintf($this->language->get('email_template'), $message);
+        // $text = sprintf($this->language->get('lang_email_template'), $message);
 
         // $template = new Template($this->app);
         // $template->data = $this->theme->language('mail/affiliate');
-        // $template->data['title'] = sprintf($this->language->get('text_welcome'), $this->config->get('config_name'));
+        // $template->data['title'] = sprintf($this->language->get('lang_text_welcome'), $this->config->get('config_name'));
         // $template->data['url_affiliate_login'] = $this->url->link('affiliate/login', '', 'SSL');
 
         // $html = $template->fetch('mail/affiliate_register');
@@ -89,16 +89,16 @@ class Affiliate extends Model {
         // unset($text);
         // unset($html);
 
-        // $subject = sprintf($this->language->get('text_admin_subject'), $this->config->get('config_name'));
+        // $subject = sprintf($this->language->get('lang_text_admin_subject'), $this->config->get('config_name'));
 
-        // $message  = sprintf($this->language->get('text_admin_welcome'), $data['firstname'] . ' ' . $data['lastname']) . "\n\n";
-        // $message .= $this->language->get('text_admin_services') . "\n";
+        // $message  = sprintf($this->language->get('lang_text_admin_welcome'), $data['firstname'] . ' ' . $data['lastname']) . "\n\n";
+        // $message .= $this->language->get('lang_text_admin_services') . "\n";
         // $message .= $this->app['https.server'] . ADMIN_FASCADE . "\n";
 
-        // $text = sprintf($this->language->get('email_template'), $message);
+        // $text = sprintf($this->language->get('lang_email_template'), $message);
 
-        // $template->data['title'] = sprintf($this->language->get('text_admin_welcome'), $data['firstname'] . ' ' . $data['lastname']);
-        // $template->data['text_services'] = $this->language->get('text_admin_services');
+        // $template->data['title'] = sprintf($this->language->get('lang_text_admin_welcome'), $data['firstname'] . ' ' . $data['lastname']);
+        // $template->data['text_services'] = $this->language->get('lang_text_admin_services');
         // $template->data['admin_login'] = $this->app['https.server'] . ADMIN_FASCADE;
 
         // $html = $template->fetch('mail/affiliate_register_admin');
@@ -112,7 +112,7 @@ class Affiliate extends Model {
         // 	true
         // );
         
-        $this->theme->trigger('affiliate_add', array('affiliate_id' => $affiliate_id));
+        $this->theme->trigger('front_affiliate_add', array('affiliate_id' => $affiliate_id));
     }
     
     public function editAffiliate($data) {
@@ -133,7 +133,7 @@ class Affiliate extends Model {
 				WHERE affiliate_id = '" . (int)$this->affiliate->getId() . "'
 		");
         
-        $this->theme->trigger('affiliate_edit', array('affiliate_id' => $this->affiliate->getId()));
+        $this->theme->trigger('front_affiliate_edit', array('affiliate_id' => $this->affiliate->getId()));
     }
     
     public function editPayment($data) {
@@ -152,7 +152,7 @@ class Affiliate extends Model {
 			WHERE affiliate_id = '" . (int)$this->affiliate->getId() . "'
 		");
         
-        $this->theme->trigger('affiliate_edit_payment', array('affiliate_id' => $this->affiliate->getId()));
+        $this->theme->trigger('front_affiliate_edit_payment', array('affiliate_id' => $this->affiliate->getId()));
     }
     
     public function editPassword($email, $password) {
@@ -164,7 +164,7 @@ class Affiliate extends Model {
 			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         
-        $this->theme->trigger('affiliate_edit_password', array('affiliate_id' => $this->affiliate->getId()));
+        $this->theme->trigger('front_affiliate_edit_password', array('affiliate_id' => $this->affiliate->getId()));
     }
     
     public function getAffiliate($affiliate_id) {

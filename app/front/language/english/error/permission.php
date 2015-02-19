@@ -13,8 +13,8 @@
 |	file that was distributed with this source code.
 |	
 */
-$_['heading_title'] = 'Permission Denied';
+$_['lang_heading_title'] = 'Permission Denied';
 
-$_['page_title']    = 'Whoops!';
+$_['lang_page_title']    = 'Whoops!';
 
-$_['text_denied']   = 'Sorry, your current membership level doesn\'t allow you to view this content.';
+$_['lang_text_denied']   = 'Sorry, your current membership level doesn\'t allow you to view this content.';

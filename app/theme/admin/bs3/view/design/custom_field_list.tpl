@@ -12,10 +12,10 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-picture-o"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-picture-o"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
-				<a href="<?= $insert; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_insert; ?></span></a>
-				<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_delete; ?></span></button>
+				<a href="<?= $insert; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_insert; ?></span></a>
+				<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_delete; ?></span></button>
 			</div>
 		</div>
 	</div>
@@ -25,11 +25,11 @@
 			<thead>
 			<tr>
 				<th width="40" class="text-center"><input type="checkbox" data-toggle="selected"></th>
-				<th><a href="<?= $sort_name; ?>"><?= $column_name; echo ($sort == 'cfd.name') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-				<th><a href="<?= $sort_type; ?>"><?= $column_type; echo ($sort == 'cf.type') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-				<th><a href="<?= $sort_location; ?>"><?= $column_location; echo ($sort == 'cf.location') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-				<th class="text-right"><a href="<?= $sort_sort_order; ?>"><?= $column_sort_order; echo ($sort == 'cf.sort_order') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-				<th class="text-right"><?= $column_action; ?></th>
+				<th><a href="<?= $sort_name; ?>"><?= $lang_column_name; echo ($sort == 'cfd.name') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+				<th><a href="<?= $sort_type; ?>"><?= $lang_column_type; echo ($sort == 'cf.type') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+				<th><a href="<?= $sort_location; ?>"><?= $lang_column_location; echo ($sort == 'cf.location') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+				<th class="text-right"><a href="<?= $sort_sort_order; ?>"><?= $lang_column_sort_order; echo ($sort == 'cf.sort_order') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+				<th class="text-right"><?= $lang_column_action; ?></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -54,7 +54,7 @@
 			<?php } ?>
 			<?php } else { ?>
 			<tr>
-				<td class="text-center" colspan="6"><?= $text_no_results; ?></td>
+				<td class="text-center" colspan="6"><?= $lang_text_no_results; ?></td>
 			</tr>
 			<?php } ?>
 			</tbody>

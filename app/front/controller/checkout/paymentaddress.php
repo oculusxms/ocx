@@ -73,7 +73,7 @@ class Paymentaddress extends Controller {
             $data['zone_id'] = '';
         }
         
-        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('text_select') . '","none":"' . $this->language->get('text_none') . '"}');
+        $data['params'] = htmlentities('{"zone_id":"' . $data['zone_id'] . '","select":"' . $this->language->get('lang_text_select') . '","none":"' . $this->language->get('lang_text_none') . '"}');
         
         $this->theme->model('localization/country');
         
@@ -128,9 +128,9 @@ class Paymentaddress extends Controller {
                 $this->theme->model('account/customergroup');
                 
                 if (empty($this->request->post['address_id'])) {
-                    $json['error']['warning'] = $this->language->get('error_address');
+                    $json['error']['warning'] = $this->language->get('lang_error_address');
                 } elseif (!in_array($this->request->post['address_id'], array_keys($this->model_account_address->getAddresses()))) {
-                    $json['error']['warning'] = $this->language->get('error_address');
+                    $json['error']['warning'] = $this->language->get('lang_error_address');
                 } else {
                     
                     // Default Payment Address
@@ -145,12 +145,12 @@ class Paymentaddress extends Controller {
                         
                         // Company ID
                         if ($customer_group_info['company_id_display'] && $customer_group_info['company_id_required'] && !$address_info['company_id']) {
-                            $json['error']['warning'] = $this->language->get('error_company_id');
+                            $json['error']['warning'] = $this->language->get('lang_error_company_id');
                         }
                         
                         // Tax ID
                         if ($customer_group_info['tax_id_display'] && $customer_group_info['tax_id_required'] && !$address_info['tax_id']) {
-                            $json['error']['warning'] = $this->language->get('error_tax_id');
+                            $json['error']['warning'] = $this->language->get('lang_error_tax_id');
                         }
                     }
                 }
@@ -168,11 +168,11 @@ class Paymentaddress extends Controller {
                 }
             } else {
                 if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-                    $json['error']['firstname'] = $this->language->get('error_firstname');
+                    $json['error']['firstname'] = $this->language->get('lang_error_firstname');
                 }
                 
                 if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-                    $json['error']['lastname'] = $this->language->get('error_lastname');
+                    $json['error']['lastname'] = $this->language->get('lang_error_lastname');
                 }
                 
                 // Customer Group
@@ -183,21 +183,21 @@ class Paymentaddress extends Controller {
                     
                     // Company ID
                     if ($customer_group_info['company_id_display'] && $customer_group_info['company_id_required'] && empty($this->request->post['company_id'])) {
-                        $json['error']['company_id'] = $this->language->get('error_company_id');
+                        $json['error']['company_id'] = $this->language->get('lang_error_company_id');
                     }
                     
                     // Tax ID
                     if ($customer_group_info['tax_id_display'] && $customer_group_info['tax_id_required'] && empty($this->request->post['tax_id'])) {
-                        $json['error']['tax_id'] = $this->language->get('error_tax_id');
+                        $json['error']['tax_id'] = $this->language->get('lang_error_tax_id');
                     }
                 }
                 
                 if (($this->encode->strlen($this->request->post['address_1']) < 3) || ($this->encode->strlen($this->request->post['address_1']) > 128)) {
-                    $json['error']['address_1'] = $this->language->get('error_address_1');
+                    $json['error']['address_1'] = $this->language->get('lang_error_address_1');
                 }
                 
                 if (($this->encode->strlen($this->request->post['city']) < 2) || ($this->encode->strlen($this->request->post['city']) > 32)) {
-                    $json['error']['city'] = $this->language->get('error_city');
+                    $json['error']['city'] = $this->language->get('lang_error_city');
                 }
                 
                 $this->theme->model('localization/country');
@@ -206,20 +206,20 @@ class Paymentaddress extends Controller {
                 
                 if ($country_info) {
                     if ($country_info['postcode_required'] && ($this->encode->strlen($this->request->post['postcode']) < 2) || ($this->encode->strlen($this->request->post['postcode']) > 10)) {
-                        $json['error']['postcode'] = $this->language->get('error_postcode');
+                        $json['error']['postcode'] = $this->language->get('lang_error_postcode');
                     }
                     
                     if ($this->config->get('config_vat') && !empty($this->request->post['tax_id']) && ($this->vat->validate($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
-                        $json['error']['tax_id'] = $this->language->get('error_vat');
+                        $json['error']['tax_id'] = $this->language->get('lang_error_vat');
                     }
                 }
                 
                 if ($this->request->post['country_id'] == '') {
-                    $json['error']['country'] = $this->language->get('error_country');
+                    $json['error']['country'] = $this->language->get('lang_error_country');
                 }
                 
                 if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-                    $json['error']['zone'] = $this->language->get('error_zone');
+                    $json['error']['zone'] = $this->language->get('lang_error_zone');
                 }
                 
                 if (!$json) {

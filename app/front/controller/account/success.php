@@ -21,18 +21,18 @@ use Oculus\Engine\Controller;
 class Success extends Controller {
     public function index() {
         $data = $this->theme->language('account/success');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('account/customergroup');
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('text_success', 'account/success', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_success', 'account/success', null, true, 'SSL');
         
         $customer_group = $this->model_account_customergroup->getCustomerGroup($this->customer->getGroupId());
         
         if ($customer_group && !$customer_group['approval']) {
-            $data['text_message'] = sprintf($this->language->get('text_message'), $this->url->link('content/contact'));
+            $data['text_message'] = sprintf($this->language->get('lang_text_message'), $this->url->link('content/contact'));
         } else {
-            $data['text_message'] = sprintf($this->language->get('text_approval'), $this->config->get('config_name'), $this->url->link('content/contact'));
+            $data['text_message'] = sprintf($this->language->get('lang_text_approval'), $this->config->get('config_name'), $this->url->link('content/contact'));
         }
         
         if ($this->cart->hasProducts()) {

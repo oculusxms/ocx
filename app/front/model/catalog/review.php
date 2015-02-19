@@ -30,7 +30,7 @@ class Review extends Model {
 				date_added = NOW()
 		");
         
-        $this->theme->trigger('review_add', array('review_id' => $this->db->getLastId()));
+        $this->theme->trigger('front_review_add', array('review_id' => $this->db->getLastId()));
     }
     
     public function getReviewsByProductId($product_id, $start = 0, $limit = 20) {

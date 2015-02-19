@@ -12,12 +12,12 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-puzzle-piece"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-puzzle-piece"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
@@ -26,11 +26,11 @@
 			<table id="widget" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th><?= $entry_menu; ?></th>
-						<th><?= $entry_layout; ?></th>
-						<th><?= $entry_position; ?></th>
-						<th><?= $entry_status; ?></th>
-						<th class="text-right"><?= $entry_sort_order; ?></th>
+						<th><?= $lang_entry_menu; ?></th>
+						<th><?= $lang_entry_layout; ?></th>
+						<th><?= $lang_entry_position; ?></th>
+						<th><?= $lang_entry_status; ?></th>
+						<th class="text-right"><?= $lang_entry_sort_order; ?></th>
 						<th class="col-md-3"></th>
 					</tr>
 				</thead>
@@ -58,29 +58,29 @@
 						</select></td>
 						<td><select name="headermenu_widget[<?= $widget_row; ?>][position]" class="form-control">
 							<?php if ($widget['position'] == 'shop_header'): ?>
-							<option value="shop_header" selected><?= $text_shop_header; ?></option>
+							<option value="shop_header" selected><?= $lang_text_shop_header; ?></option>
 							<?php else: ?>
-							<option value="shop_header"><?= $text_shop_header; ?></option>
+							<option value="shop_header"><?= $lang_text_shop_header; ?></option>
 							<?php endif; ?>
 							<?php if ($widget['position'] == 'content_header'): ?>
-							<option value="content_header" selected><?= $text_content_header; ?></option>
+							<option value="content_header" selected><?= $lang_text_content_header; ?></option>
 							<?php else: ?>
-							<option value="content_header"><?= $text_content_header; ?></option>
+							<option value="content_header"><?= $lang_text_content_header; ?></option>
 							<?php endif; ?>
 						</select></td>
 						<td><div class="btn-group" data-toggle="buttons">
 							<?php if ($widget['status']): ?>
-							<label class="btn btn-default active" title="<?= $text_enabled; ?>">
+							<label class="btn btn-default active" title="<?= $lang_text_enabled; ?>">
 								<input type="radio" name="headermenu_widget[<?= $widget_row; ?>][status]" value="1" checked=""><i class="fa fa-play"></i>
 							</label>
-							<label class="btn btn-default" title="<?= $text_disabled; ?>">
+							<label class="btn btn-default" title="<?= $lang_text_disabled; ?>">
 								<input type="radio" name="headermenu_widget[<?= $widget_row; ?>][status]" value="0"><i class="fa fa-pause"></i>
 							</label>
 							<?php else: ?>
-							<label class="btn btn-default" title="<?= $text_enabled; ?>">
+							<label class="btn btn-default" title="<?= $lang_text_enabled; ?>">
 								<input type="radio" name="headermenu_widget[<?= $widget_row; ?>][status]" value="1"><i class="fa fa-play"></i>
 							</label>
-							<label class="btn btn-default active" title="<?= $text_disabled; ?>">
+							<label class="btn btn-default active" title="<?= $lang_text_disabled; ?>">
 								<input type="radio" name="headermenu_widget[<?= $widget_row; ?>][status]" value="0" checked=""><i class="fa fa-pause"></i>
 							</label>
 							<?php endif; ?>
@@ -90,7 +90,7 @@
 						</td>
 						<td>
 							<a onclick="$('#widget-row<?= $widget_row; ?>').remove();" class="btn btn-danger">
-								<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span>
+								<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span>
 							</a>
 						</td>
 					</tr>
@@ -102,7 +102,7 @@
 						<td colspan="5"></td>
 						<td>
 							<a onclick="addWidget();" class="btn btn-info">
-								<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_add_widget; ?></span>
+								<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_add_widget; ?></span>
 							</a>
 						</td>
 					</tr>

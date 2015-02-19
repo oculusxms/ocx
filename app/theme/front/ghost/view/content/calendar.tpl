@@ -5,19 +5,19 @@
 	<div class="col-sm-<?php $span = trim($column_left) ? 9 : 12; $span = trim($column_right) ? $span - 3 : $span; echo $span; ?>">
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
-		<div class="page-header"><h1><?= $heading_title; ?></h1></div>
+		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
 		<div id="calendar-nav" class="clearfix">
 			<div class="pull-right form-inline">
 				<div class="btn-group navigator">
-					<button class="btn btn-info" data-calendar-nav="prev"><i class="fa fa-angle-double-left fa-lg"></i> &nbsp; <?= $text_prev; ?></button>
-					<button class="btn btn-info" data-calendar-nav="today"><?= $text_today; ?></button>
-					<button class="btn btn-info" data-calendar-nav="next"><?= $text_next; ?> &nbsp; <i class="fa fa-angle-double-right fa-lg"></i></button>
+					<button class="btn btn-info" data-calendar-nav="prev"><i class="fa fa-angle-double-left fa-lg"></i> &nbsp; <?= $lang_text_prev; ?></button>
+					<button class="btn btn-info" data-calendar-nav="today"><?= $lang_text_today; ?></button>
+					<button class="btn btn-info" data-calendar-nav="next"><?= $lang_text_next; ?> &nbsp; <i class="fa fa-angle-double-right fa-lg"></i></button>
 				</div>
 				<div class="btn-group">
-					<button class="btn btn-warning" data-calendar-view="year"><?= $text_year; ?></button>
-					<button class="btn btn-warning active" data-calendar-view="month"><?= $text_month; ?></button>
-					<button class="btn btn-warning" data-calendar-view="week"><?= $text_week; ?></button>
-					<button class="btn btn-warning" data-calendar-view="day"><?= $text_day; ?></button>
+					<button class="btn btn-warning" data-calendar-view="year"><?= $lang_text_year; ?></button>
+					<button class="btn btn-warning active" data-calendar-view="month"><?= $lang_text_month; ?></button>
+					<button class="btn btn-warning" data-calendar-view="week"><?= $lang_text_week; ?></button>
+					<button class="btn btn-warning" data-calendar-view="day"><?= $lang_text_day; ?></button>
 				</div>
 			</div>
 			<h3></h3>
@@ -30,7 +30,7 @@
 		
 		<div class="form-actions">
 			<div class="form-actions-inner text-right">
-				<a href="<?= $continue; ?>" class="btn btn-primary"><?= $button_continue; ?></a>
+				<a href="<?= $continue; ?>" class="btn btn-primary"><?= $lang_button_continue; ?></a>
 			</div>
 		</div>
 

@@ -8,58 +8,58 @@
 	<div class="col-sm-<?php $span = trim($column_left) ? 9 : 12; $span = trim($column_right) ? $span - 3 : $span; echo $span; ?>">
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
-		<div class="page-header"><h1><?= $heading_title; ?></h1></div>
+		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data">
-			<div class="alert alert-warning"><?= $text_description; ?></div>
+			<div class="alert alert-warning"><?= $lang_text_description; ?></div>
 			<fieldset>
-				<legend><?= $text_order; ?></legend>
+				<legend><?= $lang_text_order; ?></legend>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="firstname"><b class="required">*</b> <?= $entry_firstname; ?></label>
+					<label class="control-label col-sm-3" for="firstname"><b class="required">*</b> <?= $lang_entry_firstname; ?></label>
 					<div class="col-sm-6">
-						<input type="text" name="firstname" value="<?= $firstname; ?>" class="form-control" placeholder="<?= $entry_firstname; ?>"  autofocus id="firstname" required>
+						<input type="text" name="firstname" value="<?= $firstname; ?>" class="form-control" placeholder="<?= $lang_entry_firstname; ?>"  autofocus id="firstname" required>
 						<?php if ($error_firstname) { ?>
 						<span class="help-block error"><?= $error_firstname; ?></span>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="lastname"><b class="required">*</b> <?= $entry_lastname; ?></label>
+					<label class="control-label col-sm-3" for="lastname"><b class="required">*</b> <?= $lang_entry_lastname; ?></label>
 					<div class="col-sm-6">
-						<input type="text" name="lastname" value="<?= $lastname; ?>" class="form-control" placeholder="<?= $entry_lastname; ?>"  id="lastname" required>
+						<input type="text" name="lastname" value="<?= $lastname; ?>" class="form-control" placeholder="<?= $lang_entry_lastname; ?>"  id="lastname" required>
 						<?php if ($error_lastname) { ?>
 						<span class="help-block error"><?= $error_lastname; ?></span>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="email"><b class="required">*</b> <?= $entry_email; ?></label>
+					<label class="control-label col-sm-3" for="email"><b class="required">*</b> <?= $lang_entry_email; ?></label>
 					<div class="col-sm-6">
-						<input type="text" name="email" value="<?= $email; ?>" class="form-control" placeholder="<?= $entry_email; ?>"  id="email" required>
+						<input type="text" name="email" value="<?= $email; ?>" class="form-control" placeholder="<?= $lang_entry_email; ?>"  id="email" required>
 						<?php if ($error_email) { ?>
 						<span class="help-block error"><?= $error_email; ?></span>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="telephone"><b class="required">*</b> <?= $entry_telephone; ?></label>
+					<label class="control-label col-sm-3" for="telephone"><b class="required">*</b> <?= $lang_entry_telephone; ?></label>
 					<div class="col-sm-6">
-						<input type="text" name="telephone" value="<?= $telephone; ?>" class="form-control" placeholder="<?= $entry_telephone; ?>"  id="telephone" required>
+						<input type="text" name="telephone" value="<?= $telephone; ?>" class="form-control" placeholder="<?= $lang_entry_telephone; ?>"  id="telephone" required>
 						<?php if ($error_telephone) { ?>
 						<span class="help-block error"><?= $error_telephone; ?></span>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="order_id"><b class="required">*</b> <?= $entry_order_id; ?></label>
+					<label class="control-label col-sm-3" for="order_id"><b class="required">*</b> <?= $lang_entry_order_id; ?></label>
 					<div class="col-sm-6">
-						<input type="text" name="order_id" value="<?= $order_id; ?>" class="form-control" placeholder="<?= $entry_order_id; ?>"  id="order_id" required>
+						<input type="text" name="order_id" value="<?= $order_id; ?>" class="form-control" placeholder="<?= $lang_entry_order_id; ?>"  id="order_id" required>
 						<?php if ($error_order_id) { ?>
 						<span class="help-block error"><?= $error_order_id; ?></span>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="date_ordered"><?= $entry_date_ordered; ?></label>
+					<label class="control-label col-sm-3" for="date_ordered"><?= $lang_entry_date_ordered; ?></label>
 					<div class="col-sm-6">
 						<label class="input-group">
 							<input type="text" name="date_ordered" value="<?= $date_ordered; ?>" class="form-control date" id="date_ordered">
@@ -69,33 +69,33 @@
 				</div>
 			</fieldset>
 			<fieldset>
-				<legend><?= $text_product; ?></legend>
+				<legend><?= $lang_text_product; ?></legend>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="product"><b class="required">*</b> <?= $entry_product; ?></label>
+					<label class="control-label col-sm-3" for="product"><b class="required">*</b> <?= $lang_entry_product; ?></label>
 					<div class="col-sm-6">
-						<input type="text" name="product" value="<?= $product; ?>" class="form-control" placeholder="<?= $entry_product; ?>"  id="product" required>
+						<input type="text" name="product" value="<?= $product; ?>" class="form-control" placeholder="<?= $lang_entry_product; ?>"  id="product" required>
 						<?php if ($error_product) { ?>
 						<span class="help-block error"><?= $error_product; ?></span>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="model"><b class="required">*</b> <?= $entry_model; ?></label>
+					<label class="control-label col-sm-3" for="model"><b class="required">*</b> <?= $lang_entry_model; ?></label>
 					<div class="col-sm-6">
-						<input type="text" name="model" value="<?= $model; ?>" class="form-control" placeholder="<?= $entry_model; ?>"  id="model" required>
+						<input type="text" name="model" value="<?= $model; ?>" class="form-control" placeholder="<?= $lang_entry_model; ?>"  id="model" required>
 						<?php if ($error_model) { ?>
 						<span class="help-block error"><?= $error_model; ?></span>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="quantity"><?= $entry_quantity; ?></label>
+					<label class="control-label col-sm-3" for="quantity"><?= $lang_entry_quantity; ?></label>
 					<div class="col-sm-6">
-						<input type="text" name="quantity" value="<?= $quantity; ?>" class="form-control" placeholder="<?= $entry_quantity; ?>"  id="quantity">
+						<input type="text" name="quantity" value="<?= $quantity; ?>" class="form-control" placeholder="<?= $lang_entry_quantity; ?>"  id="quantity">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3"><b class="required">*</b> <?= $entry_reason; ?></label>
+					<label class="control-label col-sm-3"><b class="required">*</b> <?= $lang_entry_reason; ?></label>
 					<div class="col-sm-6">
 						<?php foreach ($return_reasons as $return_reason) { ?>
 							<div class="radio"><label>
@@ -112,28 +112,28 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3"><?= $entry_opened; ?></label>
+					<label class="control-label col-sm-3"><?= $lang_entry_opened; ?></label>
 					<div class="col-sm-6">
 						<?php if ($opened) { ?>
-							<div class="radio radio-inline"><label><input type="radio" name="opened" value="1" checked=""> <?= $text_yes; ?></label></div>
+							<div class="radio radio-inline"><label><input type="radio" name="opened" value="1" checked=""> <?= $lang_text_yes; ?></label></div>
 						<?php } else { ?>
-							<div class="radio radio-inline"><label><input type="radio" name="opened" value="1"> <?= $text_yes; ?></label></div>
+							<div class="radio radio-inline"><label><input type="radio" name="opened" value="1"> <?= $lang_text_yes; ?></label></div>
 						<?php } ?>
 						<?php if (!$opened) { ?>
-							<div class="radio radio-inline"><label><input type="radio" name="opened" value="0" checked=""> <?= $text_no; ?></label></div>
+							<div class="radio radio-inline"><label><input type="radio" name="opened" value="0" checked=""> <?= $lang_text_no; ?></label></div>
 						<?php } else { ?>
-							<div class="radio radio-inline"><label><input type="radio" name="opened" value="0"> <?= $text_no; ?></label></div>
+							<div class="radio radio-inline"><label><input type="radio" name="opened" value="0"> <?= $lang_text_no; ?></label></div>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="comment"><?= $entry_fault_detail; ?></label>
+					<label class="control-label col-sm-3" for="comment"><?= $lang_entry_fault_detail; ?></label>
 					<div class="col-sm-6">
-						<textarea name="comment" rows="4" class="form-control" placeholder="<?= $entry_fault_detail; ?>"  id="comment"><?= $comment; ?></textarea>
+						<textarea name="comment" rows="4" class="form-control" placeholder="<?= $lang_entry_fault_detail; ?>"  id="comment"><?= $comment; ?></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3"><?= $entry_captcha; ?></label>
+					<label class="control-label col-sm-3"><?= $lang_entry_captcha; ?></label>
 					<div class="col-sm-6">
 						<input type="text" name="captcha" value="<?= $captcha; ?>" class="form-control">
 						<div class="help-block">
@@ -147,9 +147,9 @@
 			<div class="form-actions">
 				<div class="form-actions-inner text-right">
 					<?php if($back): ?>
-					<a href="<?= $back; ?>" class="btn btn-default pull-left"><?= $button_back; ?></a>
+					<a href="<?= $back; ?>" class="btn btn-default pull-left"><?= $lang_button_back; ?></a>
 					<?php endif; ?>
-					<button type="submit" class="btn btn-primary"><?= $button_continue; ?></button>
+					<button type="submit" class="btn btn-primary"><?= $lang_button_continue; ?></button>
 				</div>
 			</div>
 		</form>

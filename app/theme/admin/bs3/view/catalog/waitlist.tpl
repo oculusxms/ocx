@@ -9,12 +9,12 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-users"></i><?= $column_waitlist; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-users"></i><?= $lang_column_waitlist; ?></div>
 			<div class="pull-right">
 				<a class="btn btn-danger" href="<?= $clear_list; ?>">
-				<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_clear_list; ?></span></a>
+				<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_clear_list; ?></span></a>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
@@ -22,8 +22,8 @@
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
-					<th><?= $column_attendee; ?></th>
-					<th class="text-right"><?= $column_action; ?></th>
+					<th><?= $lang_column_attendee; ?></th>
+					<th class="text-right"><?= $lang_column_action; ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -41,7 +41,7 @@
 				<?php endforeach; ?>
 				<?php else: ?>
 				<tr>
-					<td class="text-center" colspan="2"><?= $text_no_results2; ?></td>
+					<td class="text-center" colspan="2"><?= $lang_text_no_results2; ?></td>
 				</tr>
 			<?php endif; ?>
 			</tbody>

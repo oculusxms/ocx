@@ -11,23 +11,23 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h1><img src="asset/bs3/img/payment.png" alt=""> <?= $heading_refund; ?></h1>
-		<div class="pull-right"><a href="<?= $cancel; ?>" class="btn btn-default"><?= $button_cancel; ?></a></div>
+		<h1><img src="asset/bs3/img/payment.png" alt=""> <?= $lang_heading_refund; ?></h1>
+		<div class="pull-right"><a href="<?= $cancel; ?>" class="btn btn-default"><?= $lang_button_cancel; ?></a></div>
 	</div>
 	<div class="panel-body"> 
 		<table class="form">
 			<tr>
-				<td><?= $entry_transaction_reference ?></td>
+				<td><?= $lang_entry_transaction_reference ?></td>
 				<td><?= $transaction_reference ?></td>
 			</tr>
 			<tr>
-				<td><?= $entry_transaction_amount ?></td>
+				<td><?= $lang_entry_transaction_amount ?></td>
 				<td><?= $transaction_amount ?></td>
 			</tr>
 			<tr>
-				<td><?= $entry_refund_amount ?></td>
+				<td><?= $lang_entry_refund_amount ?></td>
 				<td><input type="test" value="0.00" name="amount">
-					<a class="btn btn-default" onclick="refund()" id="button-refund"><?= $button_refund ?></a></td>
+					<a class="btn btn-default" onclick="refund()" id="button-refund"><?= $lang_button_refund ?></a></td>
 			</tr>
 		</table>
 	</div>

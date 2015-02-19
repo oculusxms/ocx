@@ -11,7 +11,7 @@
 </table>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; margin-top:0px; margin-bottom:8px;">
-	<?= $text_services; ?>
+	<?= $lang_text_services; ?>
 </p>
 
 <p class="link" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; margin-top:5px; margin-bottom:15px;">

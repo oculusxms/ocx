@@ -20,9 +20,9 @@ use Oculus\Engine\Controller;
 class Widget extends Controller {
     public function index() {
         $data = $this->theme->language('module/widget');
-        $this->theme->setTitle($this->language->get('heading_widget'));
+        $this->theme->setTitle($this->language->get('lang_heading_widget'));
         
-        $this->breadcrumb->add('heading_widget', 'module/widget');
+        $this->breadcrumb->add('lang_heading_widget', 'module/widget');
         
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -68,14 +68,14 @@ class Widget extends Controller {
                 $action = array();
                 
                 if (!in_array($module, $modules)) {
-                    $action[] = array('text' => $this->language->get('text_install'), 'href' => $this->url->link('module/widget/install', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_install'), 'href' => $this->url->link('module/widget/install', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
                 } else {
-                    $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('widget/' . $module . '', 'token=' . $this->session->data['token'], 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('widget/' . $module . '', 'token=' . $this->session->data['token'], 'SSL'));
                     
-                    $action[] = array('text' => $this->language->get('text_uninstall'), 'href' => $this->url->link('module/widget/uninstall', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
+                    $action[] = array('text' => $this->language->get('lang_text_uninstall'), 'href' => $this->url->link('module/widget/uninstall', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
                 }
                 
-                $data['modules'][] = array('name' => $this->language->get('heading_title'), 'action' => $action);
+                $data['modules'][] = array('name' => $this->language->get('lang_heading_title'), 'action' => $action);
             }
         }
         
@@ -90,7 +90,7 @@ class Widget extends Controller {
         $this->language->load('module/widget');
         
         if (!$this->user->hasPermission('modify', 'module/widget')) {
-            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->session->data['error'] = $this->language->get('lang_error_permission');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             
@@ -126,7 +126,7 @@ class Widget extends Controller {
         $this->language->load('module/widget');
         
         if (!$this->user->hasPermission('modify', 'module/widget')) {
-            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->session->data['error'] = $this->language->get('lang_error_permission');
             
             $this->theme->listen(__CLASS__, __FUNCTION__);
             

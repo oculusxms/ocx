@@ -15,15 +15,15 @@
 */
 
 // Heading
-$_['heading_title']     = 'Customers Online Report';
+$_['lang_heading_title']     = 'Customers Online Report';
 
 // Text
-$_['text_guest']        = 'Guest';
+$_['lang_text_guest']        = 'Guest';
 
 // Column
-$_['column_ip']         = 'IP';
-$_['column_customer']   = 'Customer';
-$_['column_url']        = 'Last Page Visited';
-$_['column_referer']    = 'Referrer';
-$_['column_date_added'] = 'Last Click';
-$_['column_action']     = 'Action';
+$_['lang_column_ip']         = 'IP';
+$_['lang_column_customer']   = 'Customer';
+$_['lang_column_url']        = 'Last Page Visited';
+$_['lang_column_referer']    = 'Referrer';
+$_['lang_column_date_added'] = 'Last Click';
+$_['lang_column_action']     = 'Action';

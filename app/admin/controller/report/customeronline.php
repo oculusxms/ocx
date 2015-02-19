@@ -20,7 +20,7 @@ use Oculus\Engine\Controller;
 class Customeronline extends Controller {
     public function index() {
         $data = $this->theme->language('report/customer_online');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (isset($this->request->get['filter_ip'])) {
             $filter_ip = $this->request->get['filter_ip'];
@@ -54,7 +54,7 @@ class Customeronline extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'report/customeronline', $url);
+        $this->breadcrumb->add('lang_heading_title', 'report/customeronline', $url);
         
         $this->theme->model('report/online');
         $this->theme->model('people/customer');
@@ -79,7 +79,7 @@ class Customeronline extends Controller {
             if ($customer_info) {
                 $customer = $customer_info['firstname'] . ' ' . $customer_info['lastname'];
             } else {
-                $customer = $this->language->get('text_guest');
+                $customer = $this->language->get('lang_text_guest');
             }
             
             $data['customers'][] = array('ip' => $result['ip'], 'customer' => $customer, 'url' => $result['url'], 'referer' => $result['referer'], 'date_added' => date('d/m/Y H:i:s', strtotime($result['date_added'])), 'action' => $action);
@@ -97,7 +97,7 @@ class Customeronline extends Controller {
             $url.= '&filter_ip=' . $this->request->get['filter_ip'];
         }
         
-        $data['pagination'] = $this->theme->paginate($customer_total, $page, 20, $this->language->get('text_pagination'), $this->url->link('report/customeronline', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($customer_total, $page, 20, $this->language->get('lang_text_pagination'), $this->url->link('report/customeronline', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['filter_customer'] = $filter_customer;
         $data['filter_ip'] = $filter_ip;

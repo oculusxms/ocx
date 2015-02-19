@@ -28,7 +28,7 @@ class Forgotten extends Controller {
         
         $data = $this->theme->language('affiliate/forgotten');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('affiliate/affiliate');
         
@@ -46,13 +46,13 @@ class Forgotten extends Controller {
             // NEW MAILER
             // public_affiliate_forgotten
             
-            // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
+            // $subject = sprintf($this->language->get('lang_text_subject'), $this->config->get('config_name'));
             
-            // $message = sprintf($this->language->get('text_greeting'), $this->config->get('config_name')) . "\n\n";
-            // $message.= $this->language->get('text_password') . "\n\n";
+            // $message = sprintf($this->language->get('lang_text_greeting'), $this->config->get('config_name')) . "\n\n";
+            // $message.= $this->language->get('lang_text_password') . "\n\n";
             // $message.= $password;
             
-            // $text = sprintf($this->language->get('email_template'), $message);
+            // $text = sprintf($this->language->get('lang_email_template'), $message);
 
             // $this->mailer->build(
             //     html_entity_decode($subject, ENT_QUOTES, 'UTF-8'),
@@ -63,13 +63,13 @@ class Forgotten extends Controller {
             //     true
             // );
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('affiliate/login', '', 'SSL'));
         }
         
-        $this->breadcrumb->add('text_account', 'affiliate/account', null, true, 'SSL');
-        $this->breadcrumb->add('text_forgotten', 'affiliate/forgotten', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'affiliate/account', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_forgotten', 'affiliate/forgotten', null, true, 'SSL');
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -93,9 +93,9 @@ class Forgotten extends Controller {
     
     protected function validate() {
         if (!isset($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_email');
+            $this->error['warning'] = $this->language->get('lang_error_email');
         } elseif (!$this->model_affiliate_affiliate->getTotalAffiliatesByEmail($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_email');
+            $this->error['warning'] = $this->language->get('lang_error_email');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

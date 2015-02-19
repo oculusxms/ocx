@@ -71,31 +71,31 @@ class Customer extends Model {
         // $template->data = $lang;
         
         // $template->data['username'] = $data['username'];
-        // $template->data['title'] = sprintf($this->language->get('text_welcome'), $this->config->get('config_name'));
+        // $template->data['title'] = sprintf($this->language->get('lang_text_welcome'), $this->config->get('config_name'));
         // $template->data['account_login'] = $this->url->link('account/login', '', 'SSL');
         // $template->data['email'] = $data['email'];
         
         // if (!$customer_group_info['approval']) {
-        //     $template->data['customer_text'] = $this->language->get('text_login');
+        //     $template->data['customer_text'] = $this->language->get('lang_text_login');
         // } else {
-        //     $template->data['customer_text'] = $this->language->get('text_approval');
+        //     $template->data['customer_text'] = $this->language->get('lang_text_approval');
         // }
         
         // $html = $template->fetch('mail/customer_register');
         
-        // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
+        // $subject = sprintf($this->language->get('lang_text_subject'), $this->config->get('config_name'));
         
-        // $message = sprintf($this->language->get('text_welcome'), $this->config->get('config_name')) . "\n\n";
+        // $message = sprintf($this->language->get('lang_text_welcome'), $this->config->get('config_name')) . "\n\n";
         
         // if (!$customer_group_info['approval']) {
-        //     $message.= $this->language->get('text_login') . "\n";
+        //     $message.= $this->language->get('lang_text_login') . "\n";
         // } else {
-        //     $message.= $this->language->get('text_approval') . "\n";
+        //     $message.= $this->language->get('lang_text_approval') . "\n";
         // }
         
         // $message.= $this->url->link('account/login', '', 'SSL') . "\n\n";
-        // $message.= $this->language->get('text_services') . "\n\n";
-        // $message.= $this->language->get('text_thanks') . "\n";
+        // $message.= $this->language->get('lang_text_services') . "\n\n";
+        // $message.= $this->language->get('lang_text_thanks') . "\n";
         // $message.= $this->config->get('config_name');
         
         
@@ -114,21 +114,21 @@ class Customer extends Model {
             // NEW MAILER
             // public_register_admin
 
-            // $message = $this->language->get('text_signup') . "\n\n";
-            // $message.= $this->language->get('text_website') . ' ' . $this->config->get('config_name') . "\n";
-            // $message.= $this->language->get('text_username') . ' ' . $data['username'] . "\n";
-            // $message.= $this->language->get('text_customer_group') . ' ' . $customer_group_info['name'] . "\n";
+            // $message = $this->language->get('lang_text_signup') . "\n\n";
+            // $message.= $this->language->get('lang_text_website') . ' ' . $this->config->get('config_name') . "\n";
+            // $message.= $this->language->get('lang_text_username') . ' ' . $data['username'] . "\n";
+            // $message.= $this->language->get('lang_text_customer_group') . ' ' . $customer_group_info['name'] . "\n";
             
-            // $message.= $this->language->get('text_email') . ' ' . $data['email'] . "\n";
+            // $message.= $this->language->get('lang_text_email') . ' ' . $data['email'] . "\n";
             
-            // $template->data['title'] = $this->language->get('text_signup');
+            // $template->data['title'] = $this->language->get('lang_text_signup');
             
             // if ($customer_group_info['approval']) {
-            //     $template->data['text_approve'] = $this->language->get('text_approve');
+            //     $template->data['text_approve'] = $this->language->get('lang_text_approve');
             //     $template->data['account_approve'] = $this->app['https.server'] . ADMIN_FASCADE . '/index.php?route=sale/customer&filter_approved=0';
-            //     $subject = "ADMIN APPROVAL - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
+            //     $subject = "ADMIN APPROVAL - " . html_entity_decode($this->language->get('lang_text_new_customer'), ENT_QUOTES, 'UTF-8');
             // } else {
-            //     $subject = "ADMIN - " . html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
+            //     $subject = "ADMIN - " . html_entity_decode($this->language->get('lang_text_new_customer'), ENT_QUOTES, 'UTF-8');
             // }
             
             // $html = $template->fetch('mail/customer_register_admin');
@@ -161,7 +161,7 @@ class Customer extends Model {
             }
         }
         
-        $this->theme->trigger('customer_add', array('customer_id' => $customer_id));
+        $this->theme->trigger('front_add_customer', array('customer_id' => $customer_id));
     }
     
     public function editCustomer($data) {
@@ -175,7 +175,7 @@ class Customer extends Model {
 			WHERE customer_id = '" . (int)$this->customer->getId() . "'
 		");
         
-        $this->theme->trigger('customer_edit', array('customer_id' => $customer_id));
+        $this->theme->trigger('front_edit_customer', array('customer_id' => $customer_id));
     }
     
     public function editPassword($email, $password) {
@@ -187,7 +187,7 @@ class Customer extends Model {
 			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         
-        $this->theme->trigger('customer_edit_password', array('customer_id' => $this->customer->getId()));
+        $this->theme->trigger('front_customer_edit_password', array('customer_id' => $this->customer->getId()));
     }
     
     public function editNewsletter($newsletter) {
@@ -197,7 +197,7 @@ class Customer extends Model {
 			WHERE customer_id = '" . (int)$this->customer->getId() . "'
 		");
         
-        $this->theme->trigger('customer_edit_newsletter', array('customer_id' => $this->customer->getId()));
+        $this->theme->trigger('front_customer_edit_newsletter', array('customer_id' => $this->customer->getId()));
     }
     
     public function getCustomer($customer_id) {

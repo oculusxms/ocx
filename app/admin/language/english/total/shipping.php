@@ -15,16 +15,16 @@
 */
 
 // Heading
-$_['heading_title']    = 'Shipping';
+$_['lang_heading_title']    = 'Shipping';
 
 // Text
-$_['text_total']       = 'Order Totals';
-$_['text_success']     = 'Success: You have modified shipping total.';
+$_['lang_text_total']       = 'Order Totals';
+$_['lang_text_success']     = 'Success: You have modified shipping total.';
 
 // Entry
-$_['entry_estimator']  = 'Shipping Estimator:';
-$_['entry_status']     = 'Status:';
-$_['entry_sort_order'] = 'Sort Order:';
+$_['lang_entry_estimator']  = 'Shipping Estimator:';
+$_['lang_entry_status']     = 'Status:';
+$_['lang_entry_sort_order'] = 'Sort Order:';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify shipping total.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify shipping total.';

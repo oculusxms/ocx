@@ -15,4 +15,4 @@
 */
 
 // Text
-$_['text_language'] = 'Language';
+$_['lang_text_language'] = 'Language';

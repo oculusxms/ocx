@@ -15,7 +15,7 @@
 */
 
 // Heading
-$_['heading_title'] = 'Error Log';
+$_['lang_heading_title'] = 'Error Log';
 
 // Text
-$_['text_success']  = 'Success: You have successfully cleared your error log.';
+$_['lang_text_success']  = 'Success: You have successfully cleared your error log.';

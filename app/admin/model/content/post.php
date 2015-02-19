@@ -90,7 +90,10 @@ class Post extends Model {
         
         if (isset($data['post_related'])) {
             foreach ($data['post_related'] as $related_id) {
-                $this->db->query("DELETE FROM {$this->db->prefix}blog_post_related WHERE post_id = '" . (int)$post_id . "' AND related_id = '" . (int)$related_id . "'");
+                $this->db->query("
+                    DELETE FROM {$this->db->prefix}blog_post_related 
+                    WHERE post_id = '" . (int)$post_id . "' 
+                    AND related_id = '" . (int)$related_id . "'");
                 
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}blog_post_related 
@@ -99,7 +102,10 @@ class Post extends Model {
 						related_id = '" . (int)$related_id . "'
 				");
                 
-                $this->db->query("DELETE FROM {$this->db->prefix}blog_post_related WHERE post_id = '" . (int)$related_id . "' AND related_id = '" . (int)$post_id . "'");
+                $this->db->query("
+                    DELETE FROM {$this->db->prefix}blog_post_related 
+                    WHERE post_id = '" . (int)$related_id . "' 
+                    AND related_id = '" . (int)$post_id . "'");
                 
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}blog_post_related 
@@ -162,7 +168,9 @@ class Post extends Model {
 			");
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_description WHERE post_id = '" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_description 
+            WHERE post_id = '" . (int)$post_id . "'");
         
         foreach ($data['post_description'] as $language_id => $value) {
             $this->db->query("
@@ -178,7 +186,9 @@ class Post extends Model {
 			");
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_to_store WHERE post_id = '" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_to_store 
+            WHERE post_id = '" . (int)$post_id . "'");
         
         if (isset($data['post_store'])) {
             foreach ($data['post_store'] as $store_id) {
@@ -191,7 +201,9 @@ class Post extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_image WHERE post_id = '" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_image 
+            WHERE post_id = '" . (int)$post_id . "'");
         
         if (isset($data['post_image'])) {
             foreach ($data['post_image'] as $post_image) {
@@ -205,7 +217,9 @@ class Post extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_to_category WHERE post_id = '" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_to_category 
+            WHERE post_id = '" . (int)$post_id . "'");
         
         if (isset($data['post_category'])) {
             foreach ($data['post_category'] as $category_id) {
@@ -218,12 +232,20 @@ class Post extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_related WHERE post_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_related WHERE related_id = '" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_related 
+            WHERE post_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_related 
+            WHERE related_id = '" . (int)$post_id . "'");
         
         if (isset($data['post_related'])) {
             foreach ($data['post_related'] as $related_id) {
-                $this->db->query("DELETE FROM {$this->db->prefix}blog_post_related WHERE post_id = '" . (int)$post_id . "' AND related_id = '" . (int)$related_id . "'");
+                $this->db->query("
+                    DELETE FROM {$this->db->prefix}blog_post_related 
+                    WHERE post_id = '" . (int)$post_id . "' 
+                    AND related_id = '" . (int)$related_id . "'");
                 
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}blog_post_related 
@@ -232,7 +254,10 @@ class Post extends Model {
 						related_id = '" . (int)$related_id . "'
 				");
                 
-                $this->db->query("DELETE FROM {$this->db->prefix}blog_post_related WHERE post_id = '" . (int)$related_id . "' AND related_id = '" . (int)$post_id . "'");
+                $this->db->query("
+                    DELETE FROM {$this->db->prefix}blog_post_related 
+                    WHERE post_id = '" . (int)$related_id . "' 
+                    AND related_id = '" . (int)$post_id . "'");
                 
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}blog_post_related 
@@ -243,7 +268,9 @@ class Post extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_to_layout WHERE post_id = '" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_to_layout 
+            WHERE post_id = '" . (int)$post_id . "'");
         
         if (isset($data['post_layout'])) {
             foreach ($data['post_layout'] as $store_id => $layout) {
@@ -259,7 +286,9 @@ class Post extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'post_id:" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}route 
+            WHERE query = 'post_id:" . (int)$post_id . "'");
         
         if ($data['slug']) {
             $this->db->query("
@@ -279,17 +308,45 @@ class Post extends Model {
     }
     
     public function deletePost($post_id) {
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post WHERE post_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_description WHERE post_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_image WHERE post_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_related WHERE post_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_related WHERE related_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_to_category WHERE post_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_to_layout WHERE post_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_to_store WHERE post_id = '" . (int)$post_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_comment WHERE post_id = '" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post 
+            WHERE post_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_description 
+            WHERE post_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_image 
+            WHERE post_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_related 
+            WHERE post_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_related 
+            WHERE related_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_to_category 
+            WHERE post_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_to_layout 
+            WHERE post_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_to_store 
+            WHERE post_id = '" . (int)$post_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_comment 
+            WHERE post_id = '" . (int)$post_id . "'");
         
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'post_id:" . (int)$post_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}route 
+            WHERE query = 'post_id:" . (int)$post_id . "'");
         
         $this->cache->delete('post');
         $this->cache->delete('posts');
@@ -454,7 +511,13 @@ class Post extends Model {
 		");
         
         foreach ($query->rows as $result) {
-            $post_description_data[$result['language_id']] = array('name' => $result['name'], 'description' => $result['description'], 'meta_keyword' => $result['meta_keyword'], 'meta_description' => $result['meta_description'], 'tag' => $result['tag']);
+            $post_description_data[$result['language_id']] = array(
+                'name'             => $result['name'], 
+                'description'      => $result['description'], 
+                'meta_keyword'     => $result['meta_keyword'], 
+                'meta_description' => $result['meta_description'], 
+                'tag'              => $result['tag']
+            );
         }
         
         return $post_description_data;
@@ -477,7 +540,13 @@ class Post extends Model {
         
         if ($authors) {
             foreach ($authors as $author) {
-                $authors_data[] = array('author_id' => $author['user_id'], 'name' => $this->getAuthorNameRelatedToPostedBy($author), 'firstname' => $author['firstname'], 'lastname' => $author['lastname'], 'username' => $author['username']);
+                $authors_data[] = array(
+                    'author_id' => $author['user_id'], 
+                    'name'      => $this->getAuthorNameRelatedToPostedBy($author), 
+                    'firstname' => $author['firstname'], 
+                    'lastname'  => $author['lastname'], 
+                    'username'  => $author['username']
+                );
             }
         }
         
@@ -594,10 +663,11 @@ class Post extends Model {
     
     public function getTotalPosts($data = array()) {
         
-        $sql = "SELECT COUNT(DISTINCT p.post_id) AS total 
-					FROM {$this->db->prefix}blog_post p 
-					LEFT JOIN {$this->db->prefix}blog_post_description pd 
-					ON (p.post_id = pd.post_id)";
+        $sql = "
+            SELECT COUNT(DISTINCT p.post_id) AS total 
+			FROM {$this->db->prefix}blog_post p 
+			LEFT JOIN {$this->db->prefix}blog_post_description pd 
+			ON (p.post_id = pd.post_id)";
         
         if (!empty($data['filter_category_id'])) {
             $sql.= " LEFT JOIN {$this->db->prefix}blog_post_to_category p2c ON (p.post_id = p2c.post_id)";

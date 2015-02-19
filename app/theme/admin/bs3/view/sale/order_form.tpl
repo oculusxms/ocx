@@ -12,25 +12,25 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-shopping-cart"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-shopping-cart"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
-		<ul class="nav nav-tabs"><li><a href="#tab-customer" data-toggle="tab"><?= $tab_customer; ?></a></li><li><a href="#tab-payment" data-toggle="tab"><?= $tab_payment; ?></a></li><li><a href="#tab-shipping" data-toggle="tab"><?= $tab_shipping; ?></a></li><li><a href="#tab-product" data-toggle="tab"><?= $tab_product; ?></a></li><li><a href="#tab-voucher" data-toggle="tab"><?= $tab_voucher; ?></a></li><li><a href="#tab-total" data-toggle="tab"><?= $tab_total; ?></a></li></ul>
+		<ul class="nav nav-tabs"><li><a href="#tab-customer" data-toggle="tab"><?= $lang_tab_customer; ?></a></li><li><a href="#tab-payment" data-toggle="tab"><?= $lang_tab_payment; ?></a></li><li><a href="#tab-shipping" data-toggle="tab"><?= $lang_tab_shipping; ?></a></li><li><a href="#tab-product" data-toggle="tab"><?= $lang_tab_product; ?></a></li><li><a href="#tab-voucher" data-toggle="tab"><?= $lang_tab_voucher; ?></a></li><li><a href="#tab-total" data-toggle="tab"><?= $lang_tab_total; ?></a></li></ul>
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 		<div class="tab-content">
 			<div id="tab-customer" class="tab-pane">
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_store; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_store; ?></label>
 					<div class="control-field col-sm-4">
 						<select name="store_id" class="form-control">
-							<option value="0"><?= $text_default; ?></option>
+							<option value="0"><?= $lang_text_default; ?></option>
 							<?php foreach ($stores as $store) { ?>
 								<?php if ($store['store_id'] == $store_id) { ?>
 								<option value="<?= $store['store_id']; ?>" selected><?= $store['name']; ?></option>
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_customer; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_customer; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="customer" value="<?= $customer; ?>" id="order-customer" autocomplete="off" class="form-control">
 						<input type="hidden" name="customer_id" value="<?= $customer_id; ?>">
@@ -50,7 +50,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_customer_group; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_customer_group; ?></label>
 					<div class="control-field col-sm-4">
 						<select id="customer_group_id" class="form-control"<?= $customer_id ? ' disabled=""' :''; ?>>
 							<?php foreach ($customer_groups as $customer_group) { ?>
@@ -64,7 +64,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_firstname; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_firstname; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="firstname" value="<?= $firstname; ?>" class="form-control">
 						<?php if ($error_firstname) { ?>
@@ -73,7 +73,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_lastname; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_lastname; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="lastname" value="<?= $lastname; ?>" class="form-control">
 						<?php if ($error_lastname) { ?>
@@ -82,7 +82,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_email; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_email; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="email" value="<?= $email; ?>" class="form-control">
 						<?php if ($error_email) { ?>
@@ -91,7 +91,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_telephone; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_telephone; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="telephone" value="<?= $telephone; ?>" class="form-control">
 						<?php if ($error_telephone) { ?>
@@ -102,10 +102,10 @@
 			</div>
 			<div id="tab-payment" class="tab-pane">
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_address; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_address; ?></label>
 					<div class="control-field col-sm-4">
 						<select name="payment_address" class="form-control">
-							<option value="0" selected><?= $text_none; ?></option>
+							<option value="0" selected><?= $lang_text_none; ?></option>
 							<?php foreach ($addresses as $address) { ?>
 								<option value="<?= $address['address_id']; ?>"><?= $address['firstname'] . ' ' . $address['lastname'] . ', ' . $address['address_1'] . ', ' . $address['city'] . ', ' . $address['country']; ?></option>
 							<?php } ?>
@@ -113,7 +113,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_firstname; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_firstname; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_firstname" value="<?= $payment_firstname; ?>" class="form-control">
 						<?php if ($error_payment_firstname) { ?>
@@ -122,7 +122,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_lastname; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_lastname; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_lastname" value="<?= $payment_lastname; ?>" class="form-control">
 						<?php if ($error_payment_lastname) { ?>
@@ -131,19 +131,19 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_company; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_company; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_company" value="<?= $payment_company; ?>" class="form-control">
 					</div>
 				</div>
 				<div class="form-group" id="company-id-display">
-					<label class="control-label col-sm-2"><span id="company-id-required" class="required">*</span> <?= $entry_company_id; ?></label>
+					<label class="control-label col-sm-2"><span id="company-id-required" class="required">*</span> <?= $lang_entry_company_id; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_company_id" value="<?= $payment_company_id; ?>" class="form-control">
 					</div>
 				</div>
 				<div class="form-group" id="tax-id-display">
-					<label class="control-label col-sm-2"><span id="tax-id-required" class="required">*</span> <?= $entry_tax_id; ?></label>
+					<label class="control-label col-sm-2"><span id="tax-id-required" class="required">*</span> <?= $lang_entry_tax_id; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_tax_id" value="<?= $payment_tax_id; ?>" class="form-control">
 						<?php if ($error_payment_tax_id) { ?>
@@ -152,7 +152,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_address_1; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_address_1; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_address_1" value="<?= $payment_address_1; ?>" class="form-control">
 						<?php if ($error_payment_address_1) { ?>
@@ -161,13 +161,13 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_address_2; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_address_2; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_address_2" value="<?= $payment_address_2; ?>" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_city; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_city; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_city" value="<?= $payment_city; ?>" class="form-control">
 						<?php if ($error_payment_city) { ?>
@@ -176,7 +176,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><span id="payment-postcode-required" class="required">*</span> <?= $entry_postcode; ?></label>
+					<label class="control-label col-sm-2"><span id="payment-postcode-required" class="required">*</span> <?= $lang_entry_postcode; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="payment_postcode" value="<?= $payment_postcode; ?>" class="form-control">
 						<?php if ($error_payment_postcode) { ?>
@@ -185,10 +185,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_country; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_country; ?></label>
 					<div class="control-field col-sm-4">
 						<select name="payment_country_id" data-provide="countries" data-target="payment" data-selected="<?= $payment_zone_id; ?>" class="form-control">
-							<option value=""><?= $text_select; ?></option>
+							<option value=""><?= $lang_text_select; ?></option>
 							<?php foreach ($countries as $country) { ?>
 								<?php if ($country['country_id'] == $payment_country_id) { ?>
 								<option value="<?= $country['country_id']; ?>" selected><?= $country['name']; ?></option>
@@ -203,7 +203,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_zone; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_zone; ?></label>
 					<div class="control-field col-sm-4">
 						<select name="payment_zone_id" class="form-control"></select>
 						<?php if ($error_payment_zone) { ?>
@@ -214,10 +214,10 @@
 			</div>
 			<div id="tab-shipping" class="tab-pane">
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_address; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_address; ?></label>
 					<div class="control-field col-sm-4">
 						<select name="shipping_address" class="form-control">
-							<option value="0" selected><?= $text_none; ?></option>
+							<option value="0" selected><?= $lang_text_none; ?></option>
 							<?php foreach ($addresses as $address) { ?>
 								<option value="<?= $address['address_id']; ?>"><?= $address['firstname'] . ' ' . $address['lastname'] . ', ' . $address['address_1'] . ', ' . $address['city'] . ', ' . $address['country']; ?></option>
 							<?php } ?>
@@ -225,7 +225,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_firstname; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_firstname; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="shipping_firstname" value="<?= $shipping_firstname; ?>" class="form-control">
 						<?php if ($error_shipping_firstname) { ?>
@@ -234,7 +234,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_lastname; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_lastname; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="shipping_lastname" value="<?= $shipping_lastname; ?>" class="form-control">
 						<?php if ($error_shipping_lastname) { ?>
@@ -243,13 +243,13 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_company; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_company; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="shipping_company" value="<?= $shipping_company; ?>" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_address_1; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_address_1; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="shipping_address_1" value="<?= $shipping_address_1; ?>" class="form-control">
 						<?php if ($error_shipping_address_1) { ?>
@@ -258,19 +258,19 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><?= $entry_address_2; ?></label>
+					<label class="control-label col-sm-2"><?= $lang_entry_address_2; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="shipping_address_2" value="<?= $shipping_address_2; ?>" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_city; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_city; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="shipping_city" value="<?= $shipping_city; ?>" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><span id="shipping-postcode-required" class="required">*</span> <?= $entry_postcode; ?></label>
+					<label class="control-label col-sm-2"><span id="shipping-postcode-required" class="required">*</span> <?= $lang_entry_postcode; ?></label>
 					<div class="control-field col-sm-4">
 						<input type="text" name="shipping_postcode" value="<?= $shipping_postcode; ?>" class="form-control">
 						<?php if ($error_shipping_postcode) { ?>
@@ -279,10 +279,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_country; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_country; ?></label>
 					<div class="control-field col-sm-4">
 						<select name="shipping_country_id" data-provide="countries" data-target="shipping" data-selected="<?= $shipping_zone_id; ?>" class="form-control">
-							<option value=""><?= $text_select; ?></option>
+							<option value=""><?= $lang_text_select; ?></option>
 							<?php foreach ($countries as $country) { ?>
 								<?php if ($country['country_id'] == $shipping_country_id) { ?>
 								<option value="<?= $country['country_id']; ?>" selected><?= $country['name']; ?></option>
@@ -297,7 +297,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_zone; ?></label>
+					<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_zone; ?></label>
 					<div class="control-field col-sm-4">
 						<select name="shipping_zone_id" class="form-control"></select>
 						<?php if ($error_shipping_zone) { ?>
@@ -311,11 +311,11 @@
 					<thead>
 						<tr>
 							<th width="40"></th>
-							<th><?= $column_product; ?></th>
-							<th><?= $column_model; ?></th>
-							<th class="text-right"><?= $column_quantity; ?></th>
-							<th class="text-right"><?= $column_price; ?></th>
-							<th class="text-right"><?= $column_total; ?></th>
+							<th><?= $lang_column_product; ?></th>
+							<th><?= $lang_column_model; ?></th>
+							<th class="text-right"><?= $lang_column_quantity; ?></th>
+							<th class="text-right"><?= $lang_column_price; ?></th>
+							<th class="text-right"><?= $lang_column_total; ?></th>
 						</tr>
 					</thead>
 					<?php $product_row = 0; ?>
@@ -325,7 +325,7 @@
 						<?php if ($order_products) { ?>
 						<?php foreach ($order_products as $order_product) { ?>
 						<tr id="product-row<?= $product_row; ?>">
-							<td class="text-center"><a class="label label-danger" title="<?= $button_remove; ?>" onclick="$('#product-row<?= $product_row; ?>').remove();$('#button-update').trigger('click');"><i class="fa fa-trash-o fa-lg"></i></a></td>
+							<td class="text-center"><a class="label label-danger" title="<?= $lang_button_remove; ?>" onclick="$('#product-row<?= $product_row; ?>').remove();$('#button-update').trigger('click');"><i class="fa fa-trash-o fa-lg"></i></a></td>
 							<td><?= $order_product['name']; ?><br>
 								<input type="hidden" name="order_product[<?= $product_row; ?>][order_product_id]" value="<?= $order_product['order_product_id']; ?>">
 								<input type="hidden" name="order_product[<?= $product_row; ?>][product_id]" value="<?= $order_product['product_id']; ?>">
@@ -363,29 +363,29 @@
 						<?php } ?>
 						<?php } else { ?>
 						<tr>
-							<td class="text-center" colspan="6"><?= $text_no_results; ?></td>
+							<td class="text-center" colspan="6"><?= $lang_text_no_results; ?></td>
 						</tr>
 						<?php } ?>
 					</tbody>
 				</table>
 				<fieldset>
-					<legend><?= $text_product; ?></legend>
+					<legend><?= $lang_text_product; ?></legend>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_product; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_product; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="product" value="" id="order-product" class="form-control" autocomplete="off"><input type="hidden" name="product_id" value="" class="form-control">
 						</div>
 					</div>
 					<div id="option"></div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_quantity; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_quantity; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="quantity" value="1" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="control-field col-sm-4 col-sm-offset-2">
-							<button type="button" id="button-product" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $button_add_product; ?></button>
+							<button type="button" id="button-product" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_product; ?></button>
 						</div>
 					</div>
 				</fieldset>
@@ -395,11 +395,11 @@
 					<thead>
 						<tr>
 							<th></th>
-							<th><?= $column_product; ?></th>
-							<th><?= $column_model; ?></th>
-							<th class="text-right"><?= $column_quantity; ?></th>
-							<th class="text-right"><?= $column_price; ?></th>
-							<th class="text-right"><?= $column_total; ?></th>
+							<th><?= $lang_column_product; ?></th>
+							<th><?= $lang_column_model; ?></th>
+							<th class="text-right"><?= $lang_column_quantity; ?></th>
+							<th class="text-right"><?= $lang_column_price; ?></th>
+							<th class="text-right"><?= $lang_column_total; ?></th>
 						</tr>
 					</thead>
 					<tbody id="voucher">
@@ -407,7 +407,7 @@
 						<?php if ($order_vouchers) { ?>
 						<?php foreach ($order_vouchers as $order_voucher) { ?>
 						<tr id="voucher-row<?= $voucher_row; ?>">
-							<td class="text-center"><a title="<?= $button_remove; ?>" onclick="$('#voucher-row<?= $voucher_row; ?>').remove();$('#button-update').trigger('click');"><i class="fa fa-trash-o fa-lg"></i></a></td>
+							<td class="text-center"><a title="<?= $lang_button_remove; ?>" onclick="$('#voucher-row<?= $voucher_row; ?>').remove();$('#button-update').trigger('click');"><i class="fa fa-trash-o fa-lg"></i></a></td>
 							<td><?= $order_voucher['description']; ?>
 								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][order_voucher_id]" value="<?= $order_voucher['order_voucher_id']; ?>">
 								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][voucher_id]" value="<?= $order_voucher['voucher_id']; ?>">
@@ -429,31 +429,31 @@
 						<?php } ?>
 						<?php } else { ?>
 						<tr>
-							<td class="text-center" colspan="6"><?= $text_no_results; ?></td>
+							<td class="text-center" colspan="6"><?= $lang_text_no_results; ?></td>
 						</tr>
 						<?php } ?>
 					</tbody>
 				</table>
 				<fieldset>
-					<legend><?= $text_voucher; ?></legend>
+					<legend><?= $lang_text_voucher; ?></legend>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_to_name; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_to_name; ?></label>
 						<div class="control-field col-sm-4"><input type="text" name="to_name" value="" class="form-control" class="form-control"></div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_to_email; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_to_email; ?></label>
 						<div class="control-field col-sm-4"><input type="text" name="to_email" value="" class="form-control" class="form-control"></div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_from_name; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_from_name; ?></label>
 						<div class="control-field col-sm-4"><input type="text" name="from_name" value="" class="form-control" class="form-control"></div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_from_email; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_from_email; ?></label>
 						<div class="control-field col-sm-4"><input type="text" name="from_email" value="" class="form-control" class="form-control"></div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_theme; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_theme; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="voucher_theme_id" class="form-control">
 								<?php foreach ($voucher_themes as $voucher_theme) { ?>
@@ -463,16 +463,16 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_message; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_message; ?></label>
 						<div class="control-field col-sm-4"><textarea name="message" class="form-control" rows="3"></textarea></div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_amount; ?></label>
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_amount; ?></label>
 						<div class="control-field col-sm-4"><input type="text" name="amount" value="25.00" class="form-control"></div>
 					</div>
 					<div class="form-group">
 						<div class="control-field col-sm-4 col-sm-offset-2">
-							<button type="button" id="button-voucher" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $button_add_voucher; ?></button>
+							<button type="button" id="button-voucher" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_voucher; ?></button>
 						</div>
 					</div>
 				</fieldset>
@@ -481,11 +481,11 @@
 				<table class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
-							<th><?= $column_product; ?></th>
-							<th><?= $column_model; ?></th>
-							<th class="text-right"><?= $column_quantity; ?></th>
-							<th class="text-right"><?= $column_price; ?></th>
-							<th class="text-right"><?= $column_total; ?></th>
+							<th><?= $lang_column_product; ?></th>
+							<th><?= $lang_column_model; ?></th>
+							<th class="text-right"><?= $lang_column_quantity; ?></th>
+							<th class="text-right"><?= $lang_column_price; ?></th>
+							<th class="text-right"><?= $lang_column_total; ?></th>
 						</tr>
 					</thead>
 					<tbody id="total">
@@ -527,18 +527,18 @@
 						<?php } ?>
 						<?php } else { ?>
 						<tr>
-							<td class="text-center" colspan="5"><?= $text_no_results; ?></td>
+							<td class="text-center" colspan="5"><?= $lang_text_no_results; ?></td>
 						</tr>
 						<?php } ?>
 					</tbody>
 				</table>
 				<fieldset>
-					<legend><?= $text_order; ?></legend>
+					<legend><?= $lang_text_order; ?></legend>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_shipping; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_shipping; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="shipping" class="form-control">
-								<option value=""><?= $text_select; ?></option>
+								<option value=""><?= $lang_text_select; ?></option>
 								<?php if ($shipping_code) { ?>
 								<option value="<?= $shipping_code; ?>" selected><?= $shipping_method; ?></option>
 								<?php } ?>
@@ -551,10 +551,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_payment; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_payment; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="payment" class="form-control">
-								<option value=""><?= $text_select; ?></option>
+								<option value=""><?= $lang_text_select; ?></option>
 								<?php if ($payment_code) { ?>
 								<option value="<?= $payment_code; ?>" selected><?= $payment_method; ?></option>
 								<?php } ?>
@@ -567,25 +567,25 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_coupon; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_coupon; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="coupon" value="" class="form-control" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_voucher; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_voucher; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="voucher" value="" class="form-control" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_reward; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_reward; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="reward" value="" class="form-control" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_order_status; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_order_status; ?></label>
 						<div class="control-field col-sm-4">
 							<select name="order_status_id" class="form-control">
 								<?php foreach ($order_statuses as $order_status) { ?>
@@ -599,20 +599,20 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_comment; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_comment; ?></label>
 						<div class="control-field col-sm-4">
 							<textarea name="comment" class="form-control" rows="3"><?= $comment; ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $entry_affiliate; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_affiliate; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="affiliate" value="<?= $affiliate; ?>" class="form-control" autocomplete="off"><input type="hidden" name="affiliate_id" value="<?= $affiliate_id; ?>" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="control-field col-sm-4 col-sm-offset-2">
-							<button type="button" id="button-update" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $button_update_total; ?></button>
+							<button type="button" id="button-update" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_update_total; ?></button>
 						</div>
 					</div>
 				</fieldset>
@@ -621,10 +621,10 @@
 		</form>
 	</div>
 </div>
-<input type="hidden" id="text_none" value="<?= $text_none; ?>">
-<input type="hidden" id="text_select" value="<?= $text_select; ?>">
-<input type="hidden" id="button_upload" value="<?= $button_upload; ?>">
+<input type="hidden" id="text_none" value="<?= $lang_text_none; ?>">
+<input type="hidden" id="text_select" value="<?= $lang_text_select; ?>">
+<input type="hidden" id="button_upload" value="<?= $lang_button_upload; ?>">
 <input type="hidden" id="store_url" value="<?= $store_url; ?>">
-<input type="hidden" id="button_remove" value="<?= $button_remove; ?>">
-<input type="hidden" id="text_no_results" value="<?= $text_no_results; ?>">
+<input type="hidden" id="button_remove" value="<?= $lang_button_remove; ?>">
+<input type="hidden" id="text_no_results" value="<?= $lang_text_no_results; ?>">
 <?= $footer; ?>

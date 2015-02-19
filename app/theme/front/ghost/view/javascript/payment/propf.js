@@ -7,7 +7,7 @@ $('#button-confirm').click(function(){
 		dataType:'json',		
 		beforeSend:function(){
 			$('#button-confirm').prop('disabled',true);
-			$('#payment').before('<div class="alert alert-warning"><i class="icon-loading"></i> <?= $text_wait; ?></div>');
+			$('#payment').before('<div class="alert alert-warning"><i class="icon-loading"></i> <?= $lang_text_wait; ?></div>');
 		},
 		complete:function(){
 			$('#button-confirm').prop('disabled',false);

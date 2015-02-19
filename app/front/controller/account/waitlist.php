@@ -21,7 +21,7 @@ class Waitlist extends Controller {
     
     public function index() {
         $data = $this->theme->language('account/waitlist');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('account/waitlist');
         
         if (isset($this->request->get['event_id']) && $this->customer->isLogged()) {
@@ -29,8 +29,8 @@ class Waitlist extends Controller {
             $this->response->redirect($this->url->link('account/waitlist', '', 'SSL'));
         }
         
-        $this->breadcrumb->add('text_dashboard', 'account/dashboard', '', true, 'SSL');
-        $this->breadcrumb->add('text_waitlists', 'account/waitlist', '', true, 'SSL');
+        $this->breadcrumb->add('lang_text_dashboard', 'account/dashboard', '', true, 'SSL');
+        $this->breadcrumb->add('lang_text_waitlists', 'account/waitlist', '', true, 'SSL');
         
         $data['waitlists'] = array();
         
@@ -40,7 +40,7 @@ class Waitlist extends Controller {
             foreach ($results as $result) {
                 $event_info = $this->model_account_waitlist->getEventInfo($result['event_id']);
                 
-                $data['waitlists'][] = array('event_id' => $event_info['event_id'], 'name' => html_entity_decode($event_info['name'], ENT_QUOTES, 'UTF-8'), 'start_date' => date($this->language->get('date_format_short'), strtotime($event_info['date_time'])), 'location' => nl2br($event_info['location']), 'telephone' => $event_info['telephone'] ? $event_info['telephone'] : 'N/A', 'remove' => $this->url->link('account/waitlist', 'event_id=' . $result['event_id'], 'SSL'));
+                $data['waitlists'][] = array('event_id' => $event_info['event_id'], 'name' => html_entity_decode($event_info['name'], ENT_QUOTES, 'UTF-8'), 'start_date' => date($this->language->get('lang_date_format_short'), strtotime($event_info['date_time'])), 'location' => nl2br($event_info['location']), 'telephone' => $event_info['telephone'] ? $event_info['telephone'] : 'N/A', 'remove' => $this->url->link('account/waitlist', 'event_id=' . $result['event_id'], 'SSL'));
             }
         }
         

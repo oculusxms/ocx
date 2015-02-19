@@ -17,8 +17,8 @@
 <?php } ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="pull-left h2"><i class="hidden-xs fa fa-credit-card"></i><?= $heading_title; ?></div>
-		<div class="pull-right"><a href="<?= $cancel; ?>" class="btn btn-default"><?= $btn_cancel; ?></a></div>
+		<div class="pull-left h2"><i class="hidden-xs fa fa-credit-card"></i><?= $lang_heading_title; ?></div>
+		<div class="pull-right"><a href="<?= $cancel; ?>" class="btn btn-default"><?= $lang_button_cancel; ?></a></div>
 	</div>
 	<div class="panel-body">
 		<form class="form-inline" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
@@ -26,24 +26,24 @@
 				<input type="hidden" name="amount_original" value="<?= $amount_original; ?>">
 				<input type="hidden" name="currency_code" value="<?= $currency_code; ?>">
 				<tr>
-					<td><?= $entry_transaction_id; ?>:</td>
+					<td><?= $lang_entry_transaction_id; ?>:</td>
 					<td><input type="text" name="transaction_id" value="<?= $transaction_id; ?>" class="form-control"></td>
 				</tr>
 				<tr>
-					<td><?= $entry_full_refund; ?>:</td>
+					<td><?= $lang_entry_full_refund; ?>:</td>
 					<td><input type="hidden" name="refund_full" value="0">
 						<input type="checkbox" name="refund_full" id="refund_full" value="1" <?= ($refund_available == '' ? 'checked=""' : ''); ?> onchange="refundAmount();"></td>
 				</tr>
 				<tr <?= ($refund_available == '' ? 'style="display:none;"' : ''); ?> id="partial_amount_row">
-					<td><?= $entry_amount; ?>:</td>
+					<td><?= $lang_entry_amount; ?>:</td>
 					<td><input type="text" name="amount" value="<?= ($refund_available != '' ? $refund_available : ''); ?>" class="form-control"></td>
 				</tr>
 				<tr>
-					<td><?= $entry_message; ?>:</td>
+					<td><?= $lang_entry_message; ?>:</td>
 					<td><textarea name="refund_message" id="paypal_refund_message" cols="40" rows="5"></textarea></td>
 				</tr>
 			</table>
-			<a style="float:right;" onclick="$('#form').submit();" class="btn btn-default"><?= $btn_refund; ?></a>
+			<a style="float:right;" onclick="$('#form').submit();" class="btn btn-default"><?= $lang_button_refund; ?></a>
 		</form>
 	</div>
 </div>

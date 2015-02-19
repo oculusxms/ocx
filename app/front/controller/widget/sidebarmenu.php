@@ -188,8 +188,8 @@ class Sidebarmenu extends Controller {
              * custom hack for changing Dashboard/Login text
              * safe to remove.
              */
-            if ($item['name'] === $this->language->get('text_dashboard')):
-                $item['name'] = ($this->customer->isLogged()) ? $this->language->get('text_dashboard') : $this->language->get('text_login');
+            if ($item['name'] === $this->language->get('lang_text_dashboard')):
+                $item['name'] = ($this->customer->isLogged()) ? $this->language->get('lang_text_dashboard') : $this->language->get('lang_text_login');
             endif;
             
             if (strpos($item['href'], 'http') === false && strpos($item['href'], 'https') === false):

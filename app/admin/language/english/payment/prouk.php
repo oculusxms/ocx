@@ -15,28 +15,28 @@
 */
 
 // Heading
-$_['heading_title']      = 'PayPal Payments Pro (UK)';
+$_['lang_heading_title']      = 'PayPal Payments Pro (UK)';
 
 // Text
-$_['text_payment']       = 'Payment';
-$_['text_success']       = 'Success: You have modified PayPal Website Payment Pro Checkout account details.';
-$_['text_authorization'] = 'Authorization';
-$_['text_sale']          = 'Sale';
+$_['lang_text_payment']       = 'Payment';
+$_['lang_text_success']       = 'Success: You have modified PayPal Website Payment Pro Checkout account details.';
+$_['lang_text_authorization'] = 'Authorization';
+$_['lang_text_sale']          = 'Sale';
 
 // Entry
-$_['entry_username']     = 'API Username:';
-$_['entry_password']     = 'API Password:';
-$_['entry_signature']    = 'API Signature:';
-$_['entry_test']         = 'Test Mode:<br /><span class="help">Use the live or testing (sandbox) gateway server to process transactions?</span>';
-$_['entry_transaction']  = 'Transaction Method:';
-$_['entry_total']        = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
-$_['entry_order_status'] = 'Order Status:';
-$_['entry_geo_zone']     = 'Geo Zone:';
-$_['entry_status']       = 'Status:';
-$_['entry_sort_order']   = 'Sort Order:';
+$_['lang_entry_username']     = 'API Username:';
+$_['lang_entry_password']     = 'API Password:';
+$_['lang_entry_signature']    = 'API Signature:';
+$_['lang_entry_test']         = 'Test Mode:<br /><span class="help">Use the live or testing (sandbox) gateway server to process transactions?</span>';
+$_['lang_entry_transaction']  = 'Transaction Method:';
+$_['lang_entry_total']        = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
+$_['lang_entry_order_status'] = 'Order Status:';
+$_['lang_entry_geo_zone']     = 'Geo Zone:';
+$_['lang_entry_status']       = 'Status:';
+$_['lang_entry_sort_order']   = 'Sort Order:';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify payment PayPal Website Payment Pro Checkout.';
-$_['error_username']     = 'API Username Required.';
-$_['error_password']     = 'API Password Required.';
-$_['error_signature']    = 'API Signature Required.';
+$_['lang_error_permission']   = 'Warning: You do not have permission to modify payment PayPal Website Payment Pro Checkout.';
+$_['lang_error_username']     = 'API Username Required.';
+$_['lang_error_password']     = 'API Password Required.';
+$_['lang_error_signature']    = 'API Signature Required.';

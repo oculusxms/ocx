@@ -15,27 +15,27 @@
 */
 
 // Heading
-$_['heading_title']  = 'Contact Us';
+$_['lang_heading_title']  = 'Contact Us';
 
 // Text
-$_['text_location']  = 'Our Location';
-$_['text_contact']   = 'Contact Form';
-$_['text_address']   = 'Address:';
-$_['text_email']     = 'E-Mail:';
-$_['text_telephone'] = 'Telephone:';
-$_['text_message']   = '<p>Your inquiry has been successfully sent to the website administrator.</p>';
+$_['lang_text_location']  = 'Our Location';
+$_['lang_text_contact']   = 'Contact Form';
+$_['lang_text_address']   = 'Address:';
+$_['lang_text_email']     = 'E-Mail:';
+$_['lang_text_telephone'] = 'Telephone:';
+$_['lang_text_message']   = '<p>Your inquiry has been successfully sent to the website administrator.</p>';
 
 // Entry Fields
-$_['entry_name']     = 'Full Name';
-$_['entry_email']    = 'E-Mail Address';
-$_['entry_enquiry']  = 'Inquiry';
-$_['entry_captcha']  = 'Enter the code in the box below';
+$_['lang_entry_name']     = 'Full Name';
+$_['lang_entry_email']    = 'E-Mail Address';
+$_['lang_entry_enquiry']  = 'Inquiry';
+$_['lang_entry_captcha']  = 'Enter the code in the box below';
 
 // Email
-$_['email_subject']  = 'Inquiry %s';
+$_['lang_email_subject']  = 'Inquiry %s';
 
 // Errors
-$_['error_name']     = 'Name must be between 3 and 32 characters.';
-$_['error_email']    = 'E-Mail Address does not appear to be valid.';
-$_['error_enquiry']  = 'Inquiry must be between 10 and 3000 characters.';
-$_['error_captcha']  = 'Verification code does not match the image.';
+$_['lang_error_name']     = 'Name must be between 3 and 32 characters.';
+$_['lang_error_email']    = 'E-Mail Address does not appear to be valid.';
+$_['lang_error_enquiry']  = 'Inquiry must be between 10 and 3000 characters.';
+$_['lang_error_captcha']  = 'Verification code does not match the image.';

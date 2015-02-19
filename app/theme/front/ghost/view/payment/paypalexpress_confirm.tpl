@@ -13,11 +13,11 @@
 <?= $column_right; ?>
 <div id="content">
 	<?= $content_top; ?>
-	<h1><?= $text_title; ?></h1>
+	<h1><?= $heading_title; ?></h1>
 	<?php if ($coupon_status || $voucher_status || $reward_status) { ?>
-		<h2><?= $text_next; ?></h2>
+		<h2><?= $lang_text_next; ?></h2>
 		<div class="content">
-			<p><?= $text_next_choice; ?></p>
+			<p><?= $lang_text_next_choice; ?></p>
 			<table class="radio">
 				<?php if ($coupon_status) { ?>
 					<tr class="highlight">
@@ -30,7 +30,7 @@
 							<?php } ?>
 							</div>	
 						</td>
-						<td><label for="use_coupon"><?= $text_use_coupon; ?></label></td>
+						<td><label for="use_coupon"><?= $lang_text_use_coupon; ?></label></td>
 					</tr>
 				<?php } ?>
 				<?php if ($voucher_status) { ?>
@@ -44,7 +44,7 @@
 							<?php } ?>
 							</div>
 						</td>
-						<td><label for="use_voucher"><?= $text_use_voucher; ?></label></td>
+						<td><label for="use_voucher"><?= $lang_text_use_voucher; ?></label></td>
 					</tr>
 				<?php } ?>
 				<?php if ($reward_status) { ?>
@@ -58,7 +58,7 @@
 							<?php } ?>
 							</div>
 						</td>
-						<td><label for="use_reward"><?= $text_use_reward; ?></label></td>
+						<td><label for="use_reward"><?= $lang_text_use_reward; ?></label></td>
 					</tr>
 				<?php } ?>
 			</table>
@@ -66,29 +66,29 @@
 		<div class="cart-discounts">
 			<div id="coupon" class="content" style="display: <?= ($next == 'coupon' ? 'block' : 'none'); ?>;">
 				<form action="<?= $action; ?>" method="post" enctype="multipart/form-data">
-					<?= $entry_coupon; ?>&nbsp;
+					<?= $lang_entry_coupon; ?>&nbsp;
 					<input type="text" name="coupon" value="<?= $coupon; ?>">
 					<input type="hidden" name="next" value="coupon">
 					&nbsp;
-					<input type="submit" value="<?= $button_coupon; ?>" class="btn btn-default">
+					<input type="submit" value="<?= $lang_button_coupon; ?>" class="btn btn-default">
 				</form>
 			</div>
 			<div id="voucher" class="content" style="display: <?= ($next == 'voucher' ? 'block' : 'none'); ?>;">
 				<form action="<?= $action; ?>" method="post" enctype="multipart/form-data">
-					<?= $entry_voucher; ?>&nbsp;
+					<?= $lang_entry_voucher; ?>&nbsp;
 					<input type="text" name="voucher" value="<?= $voucher; ?>">
 					<input type="hidden" name="next" value="voucher">
 					&nbsp;
-					<input type="submit" value="<?= $button_voucher; ?>" class="btn btn-default">
+					<input type="submit" value="<?= $lang_button_voucher; ?>" class="btn btn-default">
 				</form>
 			</div>
 			<div id="reward" class="content" style="display: <?= ($next == 'reward' ? 'block' : 'none'); ?>;">
 				<form action="<?= $action; ?>" method="post" enctype="multipart/form-data">
-					<?= $entry_reward; ?>&nbsp;
+					<?= $lang_entry_reward; ?>&nbsp;
 					<input type="text" name="reward" value="<?= $reward; ?>">
 					<input type="hidden" name="next" value="reward">
 					&nbsp;
-					<input type="submit" value="<?= $button_reward; ?>" class="btn btn-default">
+					<input type="submit" value="<?= $lang_button_reward; ?>" class="btn btn-default">
 				</form>
 			</div>
 		</div>
@@ -139,11 +139,11 @@
 		<table>
 			<thead>
 			<tr>
-				<td class="name"><?= $column_name; ?></td>
-				<td class="model"><?= $column_model; ?></td>
-				<td class="quantity"><?= $column_quantity; ?></td>
-				<td class="price"><?= $column_price; ?></td>
-				<td class="total"><?= $column_total; ?></td>
+				<td class="name"><?= $lang_column_name; ?></td>
+				<td class="model"><?= $lang_column_model; ?></td>
+				<td class="quantity"><?= $lang_column_quantity; ?></td>
+				<td class="price"><?= $lang_column_price; ?></td>
+				<td class="total"><?= $lang_column_total; ?></td>
 			</tr>
 			</thead>
 			<tbody>
@@ -152,7 +152,7 @@
 					<tr>
 						<td colspan="5" style="border:none;">
 							<image src="catalog/view/theme/default/image/reorder.png" alt="" title="" style="float:left;"><span style="float:left;line-height:18px; margin-left:10px;">
-							<strong><?= $text_recurring_item ?></strong>
+							<strong><?= $lang_text_recurring_item ?></strong>
 							<?= $product['profile_description'] ?>
 						</td>
 					</tr>
@@ -165,7 +165,7 @@
 					<?php } ?>
 					<?php if ($product['recurring']): ?>
 					<br>
-					<small> - <?= $text_payment_profile ?>: <?= $product['profile_name'] ?></small>
+					<small> - <?= $lang_text_payment_profile ?>: <?= $product['profile_name'] ?></small>
 					<?php endif; ?>
 				</td>
 				<td class="model"><?= $product['model']; ?></td>
@@ -195,7 +195,7 @@
 		</table>
 	</div>
 	<div class="well">
-		<div class="text-right"><a href="<?= $action_confirm; ?>" class="btn btn-default"><?= $button_confirm; ?></a></div>
+		<div class="text-right"><a href="<?= $action_confirm; ?>" class="btn btn-default"><?= $lang_button_confirm; ?></a></div>
 	</div>
 	<?= $content_bottom; ?>
 </div>

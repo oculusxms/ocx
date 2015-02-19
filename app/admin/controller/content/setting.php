@@ -23,12 +23,12 @@ class Setting extends Controller {
     public function index() {
         $data = $this->theme->language('content/setting');
         
-        $this->theme->setTitle($this->language->get('doc_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('blog', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -111,7 +111,7 @@ class Setting extends Controller {
             $data['error_blog_author_group_id'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'content/setting');
+        $this->breadcrumb->add('lang_heading_title', 'content/setting');
         
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -297,59 +297,59 @@ class Setting extends Controller {
     
     private function validate() {
         if (!$this->user->hasPermission('modify', 'content/setting')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['blog_name']) {
-            $this->error['name'] = $this->language->get('error_name');
+            $this->error['name'] = $this->language->get('lang_error_name');
         }
         
         if (!$this->request->post['blog_title']) {
-            $this->error['title'] = $this->language->get('error_title');
+            $this->error['title'] = $this->language->get('lang_error_title');
         }
         
         if (($this->encode->strlen($this->request->post['blog_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['blog_email'])) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if (!$this->request->post['blog_image_thumb_width'] || !$this->request->post['blog_image_thumb_height']) {
-            $this->error['image_thumb'] = $this->language->get('error_image_thumb');
+            $this->error['image_thumb'] = $this->language->get('lang_error_image_thumb');
         }
         
         if (!$this->request->post['blog_image_popup_width'] || !$this->request->post['blog_image_popup_height']) {
-            $this->error['image_popup'] = $this->language->get('error_image_popup');
+            $this->error['image_popup'] = $this->language->get('lang_error_image_popup');
         }
         
         if (!$this->request->post['blog_image_post_width'] || !$this->request->post['blog_image_post_height']) {
-            $this->error['image_post'] = $this->language->get('error_image_post');
+            $this->error['image_post'] = $this->language->get('lang_error_image_post');
         }
         
         if (!$this->request->post['blog_image_additional_width'] || !$this->request->post['blog_image_additional_height']) {
-            $this->error['image_additional'] = $this->language->get('error_image_additional');
+            $this->error['image_additional'] = $this->language->get('lang_error_image_additional');
         }
         
         if (!$this->request->post['blog_image_related_width'] || !$this->request->post['blog_image_related_height']) {
-            $this->error['image_related'] = $this->language->get('error_image_related');
+            $this->error['image_related'] = $this->language->get('lang_error_image_related');
         }
         
         if (!$this->request->post['blog_limit']) {
-            $this->error['blog_limit'] = $this->language->get('error_limit');
+            $this->error['blog_limit'] = $this->language->get('lang_error_limit');
         }
         
         if ($this->encode->strlen($this->request->post['blog_posted_by']) == 0) {
-            $this->error['blog_posted_by'] = $this->language->get('error_posted_by');
+            $this->error['blog_posted_by'] = $this->language->get('lang_error_posted_by');
         }
         
         if ($this->encode->strlen($this->request->post['blog_admin_group_id']) == 0) {
-            $this->error['blog_admin_group_id'] = $this->language->get('error_admin_group_id');
+            $this->error['blog_admin_group_id'] = $this->language->get('lang_error_admin_group_id');
         }
         
         if ($this->encode->strlen($this->request->post['blog_author_group_id']) == 0) {
-            $this->error['blog_author_group_id'] = $this->language->get('error_author_group_id');
+            $this->error['blog_author_group_id'] = $this->language->get('lang_error_author_group_id');
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

@@ -21,9 +21,9 @@ class Sitemap extends Controller {
     public function index() {
         $data = $this->theme->language('content/sitemap');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('heading_title', 'content/sitemap');
+        $this->breadcrumb->add('lang_heading_title', 'content/sitemap');
         
         $this->theme->model('catalog/category');
         $this->theme->model('catalog/product');

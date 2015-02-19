@@ -11,10 +11,10 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="h2"><i class="fa fa-exclamation-circle"></i><?= $heading_title; ?></div>
+		<div class="h2"><i class="fa fa-exclamation-circle"></i><?= $lang_heading_title; ?></div>
 	</div>
 	<div class="panel-body">
-		<div class="alert alert-danger alert-block center"><?= $text_not_found; ?></div>
+		<div class="alert alert-danger alert-block center"><?= $lang_text_not_found; ?></div>
 	</div>
 </div>
 <?= $footer; ?>

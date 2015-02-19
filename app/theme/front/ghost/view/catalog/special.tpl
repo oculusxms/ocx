@@ -5,12 +5,12 @@
 	<div class="col-sm-<?php $span = trim($column_left) ? 9 : 12; $span = trim($column_right) ? $span - 3 : $span; echo $span; ?>">
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
-		<div class="page-header"><h1><?= $heading_title; ?></h1></div>
+		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
 		<?php if ($products) { ?>
 			<div class="btn-toolbar">
 				<a href="<?= $compare; ?>" class="btn btn-default hidden-xs" id="compare-total"><?= $text_compare; ?></a>
 				<div class="btn-group pull-right">
-					<button type="button" class="btn btn-default" data-toggle="dropdown"><?= $text_limit; ?></button>
+					<button type="button" class="btn btn-default" data-toggle="dropdown"><?= $lang_text_limit; ?></button>
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
 					<ul class="dropdown-menu" id="limit">
 						<?php foreach ($limits as $limits) { ?>
@@ -23,7 +23,7 @@
 					</ul>
 				</div>
 				<div class="btn-group pull-right">
-					<button type="button" class="btn btn-default" data-toggle="dropdown"><?= $text_sort; ?></button>
+					<button type="button" class="btn btn-default" data-toggle="dropdown"><?= $lang_text_sort; ?></button>
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
 					<ul class="dropdown-menu dropdown-menu-right" id="sort">
 						<?php foreach ($sorts as $sorts) { ?>
@@ -36,8 +36,8 @@
 					</ul>
 				</div>
 				<div class="btn-group pull-right hidden-xs" data-toggle="buttons">
-					<label class="btn btn-default" id="display-list" title="<?= $text_list; ?>"><input type="radio" name="display" value="list"><i class="fa fa-list"></i></label>
-					<label class="btn btn-default" id="display-grid" title="<?= $text_grid; ?>"><input type="radio" name="display" value="grid"><i class="fa fa-th"></i></label>
+					<label class="btn btn-default" id="display-list" title="<?= $lang_text_list; ?>"><input type="radio" name="display" value="list"><i class="fa fa-list"></i></label>
+					<label class="btn btn-default" id="display-grid" title="<?= $lang_text_grid; ?>"><input type="radio" name="display" value="grid"><i class="fa fa-th"></i></label>
 				</div>
 			</div>
 			<hr>
@@ -47,7 +47,7 @@
 				$btn_view 		= false;
 				$wishlist 		= false;
 				
-				if (!empty($button_wishlist) && !empty($button_compare)):
+				if (!empty($lang_button_wishlist) && !empty($lang_button_compare)):
 					$wishlist = true;
 				endif;
 				
@@ -96,32 +96,32 @@
 								<?php if ($product['event_id'] == 0): ?>
 									<button type="button" 
 										data-cart="<?= $product['product_id']; ?>" 
-										data-toggle="tooltip" title="<?= $button_cart; ?>" class="<?= $btn_class; ?>">
+										data-toggle="tooltip" title="<?= $lang_button_cart; ?>" class="<?= $btn_class; ?>">
 										<i class="fa fa-shopping-cart"></i>
 									</button>
 								<?php else: ?>
 									<button type="button" 
 										data-cart="<?= $product['product_id']; ?>" 
 										data-event="<?= $product['event_id']; ?>" 
-										data-toggle="tooltip" title="<?= $button_view_event; ?>" class="<?= $btn_class; ?>">
+										data-toggle="tooltip" title="<?= $lang_button_view_event; ?>" class="<?= $btn_class; ?>">
 										<i class="fa fa-users"></i>
 									</button>
 								<?php endif; ?>
 							<?php else: ?>
 								<?php if ($product['event_id'] == 0): ?>
 									<button type="button" data-cart="<?= $product['product_id']; ?>" class="<?= $btn_class; ?>">
-										<?= str_replace('Cart', '<i title="Cart" class="fa fa-shopping-cart"></i>', $button_cart); ?>
+										<?= str_replace('Cart', '<i title="Cart" class="fa fa-shopping-cart"></i>', $lang_button_cart); ?>
 									</button>
 								<?php else: ?>
 									<button type="button" data-cart="<?= $product['product_id']; ?>" data-event="<?= $product['event_id']; ?>" class="<?= $btn_class; ?>">
-										<?= str_replace('Event', '<i title="View Event" class="fa fa-users"></i>', $button_view_event); ?>
+										<?= str_replace('Event', '<i title="View Event" class="fa fa-users"></i>', $lang_button_view_event); ?>
 									</button>
 								<?php endif; ?>
 							<?php endif; ?>
-								<a class="btn btn-danger" data-toggle="tooltip" title="<?= $button_wishlist; ?>" onclick="addToWishList('<?= $product['product_id']; ?>');">
+								<a class="btn btn-danger" data-toggle="tooltip" title="<?= $lang_button_wishlist; ?>" onclick="addToWishList('<?= $product['product_id']; ?>');">
 									<i class="fa fa-heart"></i>
 								</a>
-								<a class="btn btn-info" data-toggle="tooltip" title="<?= $button_compare; ?>" onclick="addToCompare('<?= $product['product_id']; ?>');">
+								<a class="btn btn-info" data-toggle="tooltip" title="<?= $lang_button_compare; ?>" onclick="addToCompare('<?= $product['product_id']; ?>');">
 									<i class="fa fa-exchange"></i>
 								</a>
 							</div>
@@ -144,19 +144,19 @@
 							<div class="cart">
 								<?php if ($product['event_id'] == 0): ?>
 									<button type="button" data-cart="<?= $product['product_id']; ?>" class="btn btn-warning load-left pull-right">
-										<?= str_replace('Cart', '<i title="Cart" class="fa fa-shopping-cart"></i>', $button_cart); ?>
+										<?= str_replace('Cart', '<i title="Cart" class="fa fa-shopping-cart"></i>', $lang_button_cart); ?>
 									</button>
 								<?php else: ?>
 									<button type="button" data-cart="<?= $product['product_id']; ?>" data-event="<?= $product['event_id']; ?>" class="btn btn-warning load-left pull-right">
-										<?= str_replace('Event', '<i title="View Event" class="fa fa-users"></i>', $button_view_event); ?>
+										<?= str_replace('Event', '<i title="View Event" class="fa fa-users"></i>', $lang_button_view_event); ?>
 									</button>
 								<?php endif; ?>
 							</div>
 							<div class="pull-right" style="margin-top:5px;">
-								<a class="btn btn-danger" data-toggle="tooltip" title="<?= $button_wishlist; ?>" onclick="addToWishList('<?= $product['product_id']; ?>');">
+								<a class="btn btn-danger" data-toggle="tooltip" title="<?= $lang_button_wishlist; ?>" onclick="addToWishList('<?= $product['product_id']; ?>');">
 									<i class="fa fa-heart"></i>
 								</a>
-								<a class="btn btn-info" data-toggle="tooltip" title="<?= $button_compare; ?>" onclick="addToCompare('<?= $product['product_id']; ?>');">
+								<a class="btn btn-info" data-toggle="tooltip" title="<?= $lang_button_compare; ?>" onclick="addToCompare('<?= $product['product_id']; ?>');">
 									<i class="fa fa-exchange"></i>
 								</a>
 							</div>
@@ -182,7 +182,7 @@
 			<?php endif; ?>
 			<div class="pagination"><?= str_replace('....','',$pagination); ?></div>
 		<?php } else { ?>
-			<div class="alert alert-warning"><?= $text_empty; ?></div>
+			<div class="alert alert-warning"><?= $lang_text_empty; ?></div>
 		<?php }?>
 		<?= $content_bottom; ?>
 	</div>

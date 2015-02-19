@@ -22,12 +22,12 @@ class Banktransfer extends Controller {
     
     public function index() {
         $data = $this->theme->language('payment/banktransfer');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('banktransfer', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/payment', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -50,8 +50,8 @@ class Banktransfer extends Controller {
             }
         }
         
-        $this->breadcrumb->add('text_payment', 'module/payment');
-        $this->breadcrumb->add('heading_title', 'payment/banktransfer');
+        $this->breadcrumb->add('lang_text_payment', 'module/payment');
+        $this->breadcrumb->add('lang_heading_title', 'payment/banktransfer');
         
         $data['action'] = $this->url->link('payment/banktransfer', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -116,7 +116,7 @@ class Banktransfer extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'payment/banktransfer')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('localization/language');
@@ -125,7 +125,7 @@ class Banktransfer extends Controller {
         
         foreach ($languages as $language) {
             if (!$this->request->post['banktransfer_bank_' . $language['language_id']]) {
-                $this->error['bank_' . $language['language_id']] = $this->language->get('error_bank');
+                $this->error['bank_' . $language['language_id']] = $this->language->get('lang_error_bank');
             }
         }
         

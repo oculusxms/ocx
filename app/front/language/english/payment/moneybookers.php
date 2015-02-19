@@ -15,4 +15,4 @@
 */
 
 // Text
-$_['text_title'] = 'Credit Card / Debit Card (Moneybookers)';
+$_['lang_text_title'] = 'Credit Card / Debit Card (Moneybookers)';

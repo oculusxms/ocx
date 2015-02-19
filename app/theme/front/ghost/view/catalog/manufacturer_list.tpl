@@ -5,9 +5,9 @@
 	<div class="col-sm-<?php $span = trim($column_left) ? 9 : 12; $span = trim($column_right) ? $span - 3 : $span; echo $span; ?>">
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
-		<div class="page-header"><h1><?= $heading_title; ?></h1></div>
+		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
 		<?php if ($categories) { ?>
-			<p><?= $text_index; ?>
+			<p><?= $lang_text_index; ?>
 			<?php foreach ($categories as $category) { ?>
 				<a class="btn btn-primary btn-xs" href="catalog/manufacturer#<?= $category['name']; ?>"><strong><?= $category['name']; ?></strong></a>
 			<?php } ?></p>
@@ -27,10 +27,10 @@
 				</div>
 			<?php } ?>
 		<?php } else { ?>
-			<div class="alert alert-warning"><?= $text_empty; ?></div>
+			<div class="alert alert-warning"><?= $lang_text_empty; ?></div>
 			<div class="form-actions">
 				<div class="form-actions-inner text-right">
-					<a href="<?= $continue; ?>" class="btn btn-primary"><?= $button_continue; ?></a>
+					<a href="<?= $continue; ?>" class="btn btn-primary"><?= $lang_button_continue; ?></a>
 				</div>
 			</div>
 		<?php } ?>

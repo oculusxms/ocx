@@ -25,9 +25,9 @@ class Masonry extends Controller {
         
         $this->javascript->register('masonry.min', 'bootstrap.min')->register('imagesloaded.min', 'masonry.min');
         
-        $data['heading_title'] = $this->language->get('heading_' . $setting['product_type']);
+        $data['heading_title'] = $this->language->get('lang_heading_' . $setting['product_type']);
         
-        $data['text_empty'] = sprintf($this->language->get('text_empty') , $setting['product_type']);
+        $data['text_empty'] = sprintf($this->language->get('lang_text_empty') , $setting['product_type']);
         
         $this->theme->model('catalog/product');
         $this->theme->model('tool/image');
@@ -128,7 +128,7 @@ class Masonry extends Controller {
                 }
                 
                 if ($display_price && !number_format($result['price'])) {
-                    $price = $this->language->get('text_free');
+                    $price = $this->language->get('lang_text_free');
                 } elseif ($display_price) {
                     $price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')));
                 } else {
@@ -156,7 +156,7 @@ class Masonry extends Controller {
                     'price'       => $price,
                     'special'     => $special,
                     'rating'      => $rating,
-                    'reviews'     => sprintf($this->language->get('text_reviews') , (int)$result['reviews']) ,
+                    'reviews'     => sprintf($this->language->get('lang_text_reviews') , (int)$result['reviews']) ,
                     'href'        => $this->url->link('catalog/product', 'product_id=' . $result['product_id']) ,
                 );
             }

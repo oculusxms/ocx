@@ -7,7 +7,7 @@ function addGeoZone(){
 	<?php } ?>	
 	html += '</select></td>';
 	html += '<td><select name="zone_to_geo_zone['+zone_to_geo_zone_row+'][zone_id]" id="zone'+zone_to_geo_zone_row+'" class="form-control"></select></td>';
-	html += '<td><a onclick="$(\'#zone-to-geo-zone-row'+zone_to_geo_zone_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>';
+	html += '<td><a onclick="$(\'#zone-to-geo-zone-row'+zone_to_geo_zone_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>';
 	html += '</tr>';
 	
 	$('#zone-to-geo-zone > tbody').append(html);

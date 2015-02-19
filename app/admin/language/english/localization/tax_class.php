@@ -15,28 +15,28 @@
 */
 
 // Heading
-$_['heading_title']     = 'Tax Class';
+$_['lang_heading_title']     = 'Tax Class';
 
 // Text
-$_['text_shipping']     = 'Shipping Address';
-$_['text_payment']      = 'Payment Address';
-$_['text_store']        = 'Store Address';
-$_['text_success']      = 'Success: You have modified tax classes.';
+$_['lang_text_shipping']     = 'Shipping Address';
+$_['lang_text_payment']      = 'Payment Address';
+$_['lang_text_store']        = 'Store Address';
+$_['lang_text_success']      = 'Success: You have modified tax classes.';
 
 // Column
-$_['column_title']      = 'Tax Class Title';
-$_['column_action']     = 'Action';
+$_['lang_column_title']      = 'Tax Class Title';
+$_['lang_column_action']     = 'Action';
 
 // Entry
-$_['entry_title']       = 'Tax Class Title:';
-$_['entry_description'] = 'Description:';
-$_['entry_rate']        = 'Tax Rate:';
-$_['entry_based']       = 'Based On:';
-$_['entry_geo_zone']    = 'Geo Zone:';
-$_['entry_priority']    = 'Priority:';
+$_['lang_entry_title']       = 'Tax Class Title:';
+$_['lang_entry_description'] = 'Description:';
+$_['lang_entry_rate']        = 'Tax Rate:';
+$_['lang_entry_based']       = 'Based On:';
+$_['lang_entry_geo_zone']    = 'Geo Zone:';
+$_['lang_entry_priority']    = 'Priority:';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify tax classes.';
-$_['error_title']       = 'Tax class title must be between 3 and 32 characters.';
-$_['error_description'] = 'Description must be between 3 and 255 characters.';
-$_['error_product']     = 'Warning: This tax class cannot be deleted as it is currently assigned to %s products.';
+$_['lang_error_permission']  = 'Warning: You do not have permission to modify tax classes.';
+$_['lang_error_title']       = 'Tax class title must be between 3 and 32 characters.';
+$_['lang_error_description'] = 'Description must be between 3 and 255 characters.';
+$_['lang_error_product']     = 'Warning: This tax class cannot be deleted as it is currently assigned to %s products.';

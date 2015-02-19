@@ -13,4 +13,4 @@
 |	file that was distributed with this source code.
 |	
 */
-$_['text_total'] = 'Total';
+$_['lang_text_total'] = 'Total';

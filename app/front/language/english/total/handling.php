@@ -13,4 +13,4 @@
 |	file that was distributed with this source code.
 |	
 */
-$_['text_handling'] = 'Handling Fee';
+$_['lang_text_handling'] = 'Handling Fee';

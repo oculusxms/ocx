@@ -15,9 +15,9 @@
 */
 
 // Heading
-$_['heading_title'] = 'Account Logout';
+$_['lang_heading_title'] = 'Account Logout';
 
 // Text
-$_['text_message']  = '<p>You have been logged off your Affiliate Account.</p>';
-$_['text_account']  = 'Affiliate';
-$_['text_logout']   = 'Logout';
+$_['lang_text_message']  = '<p>You have been logged off your Affiliate Account.</p>';
+$_['lang_text_account']  = 'Affiliate';
+$_['lang_text_logout']   = 'Logout';

@@ -81,7 +81,9 @@ class Manufacturer extends Model {
 			");
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}manufacturer_to_store WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}manufacturer_to_store 
+            WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
         
         if (isset($data['manufacturer_store'])) {
             foreach ($data['manufacturer_store'] as $store_id) {
@@ -94,7 +96,9 @@ class Manufacturer extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'manufacturer_id:" . (int)$manufacturer_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}route 
+            WHERE query = 'manufacturer_id:" . (int)$manufacturer_id . "'");
         
         if ($data['slug']) {
             $this->db->query("
@@ -112,9 +116,17 @@ class Manufacturer extends Model {
     }
     
     public function deleteManufacturer($manufacturer_id) {
-        $this->db->query("DELETE FROM {$this->db->prefix}manufacturer WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}manufacturer_to_store WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'manufacturer_id:" . (int)$manufacturer_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}manufacturer 
+            WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}manufacturer_to_store 
+            WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}route 
+            WHERE query = 'manufacturer_id:" . (int)$manufacturer_id . "'");
         
         $this->cache->delete('manufacturer');
         
@@ -135,7 +147,9 @@ class Manufacturer extends Model {
     }
     
     public function getManufacturers($data = array()) {
-        $sql = "SELECT * FROM {$this->db->prefix}manufacturer";
+        $sql = "
+            SELECT * 
+            FROM {$this->db->prefix}manufacturer";
         
         if (!empty($data['filter_name'])) {
             $sql.= " WHERE name LIKE {$this->db->escape($data['filter_name']) }%";

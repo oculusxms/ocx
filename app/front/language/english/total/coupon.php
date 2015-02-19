@@ -15,4 +15,4 @@
 */
 
 // Text
-$_['text_coupon'] = 'Coupon(%s)';
+$_['lang_text_coupon'] = 'Coupon(%s)';

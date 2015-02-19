@@ -15,22 +15,22 @@
 */
 
 // Heading
-$_['heading_title']                = 'Account Login';
+$_['lang_heading_title']                = 'Account Login';
 
 // Text
-$_['text_account']                 = 'Dashboard';
-$_['text_login']                   = 'Login';
-$_['text_new_customer']            = 'New Customer';
-$_['text_register']                = 'Register Account';
-$_['text_register_account']        = 'By creating an account you can shop faster, stay up to date on an order\'s status, and keep track of your previous orders.';
-$_['text_returning_customer']      = 'Returning Customer';
-$_['text_i_am_returning_customer'] = 'I am a returning customer';
-$_['text_forgotten']               = 'Forgotten Password';
+$_['lang_text_account']                 = 'Dashboard';
+$_['lang_text_login']                   = 'Login';
+$_['lang_text_new_customer']            = 'New Customer';
+$_['lang_text_register']                = 'Register Account';
+$_['lang_text_register_account']        = 'By creating an account you can shop faster, stay up to date on an order\'s status, and keep track of your previous orders.';
+$_['lang_text_returning_customer']      = 'Returning Customer';
+$_['lang_text_i_am_returning_customer'] = 'I am a returning customer';
+$_['lang_text_forgotten']               = 'Forgotten Password';
 
 // Entry
-$_['entry_email']                  = 'Username/E-Mail';
-$_['entry_password']               = 'Password';
+$_['lang_entry_email']                  = 'Username/E-Mail';
+$_['lang_entry_password']               = 'Password';
 
 // Error
-$_['error_login']                  = 'Warning: No match for Username/E-Mail and/or Password.';
-$_['error_approved']               = 'Warning: Your account requires approval before you can login.';
+$_['lang_error_login']                  = 'Warning: No match for Username/E-Mail and/or Password.';
+$_['lang_error_approved']               = 'Warning: Your account requires approval before you can login.';

@@ -4,8 +4,8 @@
 <table class="table table-bordered table-striped table-hover">
 	<thead>
 	<tr>
-		<td><?= $column_date_added; ?></td>
-		<td><?= $column_comment; ?></td>
+		<td><?= $lang_column_date_added; ?></td>
+		<td><?= $lang_column_comment; ?></td>
 	</tr>
 	</thead>
 	<tbody>
@@ -18,7 +18,7 @@
 	<?php } ?>
 	<?php } else { ?>
 	<tr>
-		<td class="text-center" colspan="2"><?= $text_no_results; ?></td>
+		<td class="text-center" colspan="2"><?= $lang_text_no_results; ?></td>
 	</tr>
 	<?php } ?>
 	</tbody>

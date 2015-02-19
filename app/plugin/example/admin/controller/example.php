@@ -27,10 +27,10 @@ class Example extends Plugin {
     public function index() {
         $data = $this->language('example');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_plugin', 'module/plugin');
-        $this->breadcrumb->add('heading_title', 'plugin/example');
+        $this->breadcrumb->add('lang_text_plugin', 'module/plugin');
+        $this->breadcrumb->add('lang_heading_title', 'plugin/example');
         
         $data['header']     = $this->theme->controller('common/header');
         $data['breadcrumb'] = $this->theme->controller('common/breadcrumb');

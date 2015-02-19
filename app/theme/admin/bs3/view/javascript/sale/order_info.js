@@ -19,9 +19,9 @@ $('#credit').on('click',function(){
 			if(json['success']){
 				alertMessage('success',json['success']);
 				if(b=='add'){
-					a.data('action','remove').find('span').html('<?= $text_credit_remove; ?>');
+					a.data('action','remove').find('span').html('<?= $lang_text_credit_remove; ?>');
 				}else{
-					a.data('action','add').find('span').html('<?= $text_credit_add; ?>');
+					a.data('action','add').find('span').html('<?= $lang_text_credit_add; ?>');
 				}
 			}
 		}
@@ -48,9 +48,9 @@ $('#reward').on('click',function(){
 			if(json['success']){
 				alertMessage('success',json['success']);
 				if(b=='add'){
-					a.data('action','remove').find('span').html('<?= $text_reward_remove; ?>');
+					a.data('action','remove').find('span').html('<?= $lang_text_reward_remove; ?>');
 				}else{
-					a.data('action','add').find('span').html('<?= $text_reward_add; ?>');
+					a.data('action','add').find('span').html('<?= $lang_text_reward_add; ?>');
 				}
 			}
 		}
@@ -76,9 +76,9 @@ $('#commission').on('click',function(){
 			if(json['success']){
 				alertMessage('success',json['success']);
 				if(b=='add'){
-					a.data('action','remove').find('span').html('<?= $text_commission_remove; ?>');
+					a.data('action','remove').find('span').html('<?= $lang_text_commission_remove; ?>');
 				}else{
-					a.data('action','add').find('span').html('<?= $text_commission_add; ?>');
+					a.data('action','add').find('span').html('<?= $lang_text_commission_add; ?>');
 				}
 			}
 		}

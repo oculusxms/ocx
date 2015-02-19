@@ -31,7 +31,7 @@ class Forgotten extends Controller {
         
         $data = $this->theme->language('common/forgotten');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('people/user');
         
@@ -45,12 +45,12 @@ class Forgotten extends Controller {
             // NEW MAILER
             // admin_forgotten_email
             
-            // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
+            // $subject = sprintf($this->language->get('lang_text_subject'), $this->config->get('config_name'));
             
-            // $message = sprintf($this->language->get('text_greeting'), $this->config->get('config_name')) . "\n\n";
-            // $message.= sprintf($this->language->get('text_change'), $this->config->get('config_name')) . "\n\n";
+            // $message = sprintf($this->language->get('lang_text_greeting'), $this->config->get('config_name')) . "\n\n";
+            // $message.= sprintf($this->language->get('lang_text_change'), $this->config->get('config_name')) . "\n\n";
             // $message.= $this->url->link('common/reset', 'code=' . $code, 'SSL') . "\n\n";
-            // $message.= sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']) . "\n\n";
+            // $message.= sprintf($this->language->get('lang_text_ip'), $this->request->server['REMOTE_ADDR']) . "\n\n";
             
             // $mail = new Mail();
             // $mail->protocol = $this->config->get('config_mail_protocol');
@@ -67,12 +67,12 @@ class Forgotten extends Controller {
             // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
             // $mail->send();
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('common/login', '', 'SSL'));
         }
         
-        $this->breadcrumb->add('text_forgotten', 'common/forgotten');
+        $this->breadcrumb->add('lang_text_forgotten', 'common/forgotten');
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -99,9 +99,9 @@ class Forgotten extends Controller {
     
     protected function validate() {
         if (!isset($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_email');
+            $this->error['warning'] = $this->language->get('lang_error_email');
         } elseif (!$this->model_people_user->getTotalUsersByEmail($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_email');
+            $this->error['warning'] = $this->language->get('lang_error_email');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

@@ -19,20 +19,28 @@ use Oculus\Engine\Controller;
 
 class Logout extends Controller {
     public function index() {
-        if ($this->affiliate->isLogged()) {
+        if ($this->affiliate->isLogged()):
             $this->affiliate->logout();
-            
-            $this->response->redirect($this->url->link('affiliate/logout', '', 'SSL'));
-        }
+        endif;
         
         $data = $this->theme->language('affiliate/logout');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'affiliate/account', null, true, 'SSL');
-        $this->breadcrumb->add('text_logout', 'affiliate/logout', null, true, 'SSL');
+        if ($this->affiliate->isLogged()):
+            $this->breadcrumb->add('lang_text_account', 'affiliate/account', null, true, 'SSL');
+        endif;
         
-        $data['continue'] = $this->url->link('shop/home');
+        $this->breadcrumb->add('lang_text_logout', 'affiliate/logout', null, true, 'SSL');
+        
+        if ($this->theme->style = 'content'):
+            $route = 'content/home';
+        else:
+            $route = 'shop/home';
+        endif;
+
+        $data['continue']     = $this->url->link($route);
+        $data['text_message'] = $this->language->get('lang_text_message');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

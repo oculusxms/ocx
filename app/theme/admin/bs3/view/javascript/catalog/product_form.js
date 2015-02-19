@@ -7,7 +7,7 @@ function addAttribute(){
 	html += '<div class="input-group"><textarea name="product_attribute['+attribute_row+'][product_attribute_description][<?= $language['language_id']; ?>][text]" class="form-control" rows="3"></textarea><span class="input-group-addon"><i class="lang-<?= str_replace('.png','', $language['image']); ?>" title="<?= $language['name']; ?>"></i></span></div>';
 	<?php } ?>
 	html += '</td>';
-	html += '<td><a onclick="$(\'#attribute-row'+attribute_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>';
+	html += '<td><a onclick="$(\'#attribute-row'+attribute_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>';
 	html += '</tr>';
 	
 	$('#attribute tbody').append(html);
@@ -38,47 +38,47 @@ a.typeahead({
 		html += '<input type="hidden" name="product_option['+option_row+'][option_id]" value="'+mapped[item].option_id+'">';
 		html += '<input type="hidden" name="product_option['+option_row+'][type]" value="'+mapped[item].type+'">';
 		html += '<div class="form-group">';
-		html += '<label class="control-label col-sm-2"><?= $entry_required; ?></label>';
+		html += '<label class="control-label col-sm-2"><?= $lang_entry_required; ?></label>';
 		html += '<div class="control-field col-sm-4">';
 		html += '<select name="product_option['+option_row+'][required]" class="form-control">';
-		html += '<option value="1"><?= $text_yes; ?></option>';
-		html += '<option value="0"><?= $text_no; ?></option>';
+		html += '<option value="1"><?= $lang_text_yes; ?></option>';
+		html += '<option value="0"><?= $lang_text_no; ?></option>';
 		html += '</select>';
 		html += '</div>';
 		html += '</div>';
 			
 		if(mapped[item].type=='text'){
 			html += '<div class="form-group">';
-			html += '<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>';
+			html += '<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>';
 			html += '<div class="control-field col-sm-4"><input type="text" name="product_option['+option_row+'][option_value]" value="" class="form-control" class="form-control"></div>';
 			html += '</div>';
 		}else if(mapped[item].type=='textarea'){
 			html += '<div class="form-group">';
-			html += '<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>';
+			html += '<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>';
 			html += '<div class="control-field col-sm-4"><textarea name="product_option['+option_row+'][option_value]" class="form-control" rows="3"></textarea></div>';
 			html += '</div>';	
 		}else if(mapped[item].type=='file'){
 			html += '<div class="form-group" style="display:none;">';
-			html += '<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>';
+			html += '<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>';
 			html += '<div class="control-field col-sm-4"><input type="text" name="product_option['+option_row+'][option_value]" value="" class="form-control" class="form-control"></div>';
 			html += '</div>';
 		}else if(mapped[item].type=='date'){
 			html += '<div class="form-group">';
-			html += '<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>';
+			html += '<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>';
 			html += '<div class="control-field col-sm-4"><label class="input-group">';
 			html += '<input type="text" class="form-control date" name="product_option['+option_row+'][option_value]" value="">';
 			html += '<span class="input-group-addon"><i class="fa fa-calendar"></i></span>';
 			html += '</label></div>';
 		}else if(mapped[item].type=='datetime'){
 			html += '<div class="form-group">';
-			html += '<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>';
+			html += '<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>';
 			html += '<div class="control-field col-sm-4"><label class="input-group">';
 			html += '<input type="text" class="form-control datetime" name="product_option['+option_row+'][option_value]" value="" autocomplete="off">';
 			html += '<span class="input-group-addon"><i class="fa fa-calendar"></i></span>';
 			html += '</label></div>';
 		}else if(mapped[item].type=='time'){
 			html += '<div class="form-group">';
-			html += '<label class="control-label col-sm-2"><?= $entry_option_value; ?></label>';
+			html += '<label class="control-label col-sm-2"><?= $lang_entry_option_value; ?></label>';
 			html += '<div class="control-field col-sm-4"><label class="input-group">';
 			html += '<input type="text" class="form-control time" name="product_option['+option_row+'][option_value]" value="" autocomplete="off">';
 			html += '<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>';
@@ -88,12 +88,12 @@ a.typeahead({
 			html += '<table id="option-value'+option_row+'" class="table table-bordered table-striped">';
 			html += '<thead>'; 
 			html += '<tr>';
-			html += '<th><?= $entry_option_value; ?></th>';
-			html += '<th class="text-right"><?= $entry_quantity; ?></th>';
-			html += '<th><?= $entry_subtract; ?></th>';
-			html += '<th class="text-right"><?= $entry_price; ?></th>';
-			html += '<th class="text-right"><?= $entry_option_points; ?></th>';
-			html += '<th class="text-right"><?= $entry_weight; ?></th>';
+			html += '<th><?= $lang_entry_option_value; ?></th>';
+			html += '<th class="text-right"><?= $lang_entry_quantity; ?></th>';
+			html += '<th><?= $lang_entry_subtract; ?></th>';
+			html += '<th class="text-right"><?= $lang_entry_price; ?></th>';
+			html += '<th class="text-right"><?= $lang_entry_option_points; ?></th>';
+			html += '<th class="text-right"><?= $lang_entry_weight; ?></th>';
 			html += '<th></th>';
 			html += '</tr>';
 			html += '</thead>';
@@ -101,7 +101,7 @@ a.typeahead({
 			html += '<tfoot>';
 			html += '<tr>';
 			html += '<td colspan="6"></td>';
-			html += '<td><a onclick="addOptionValue(\''+option_row+'\');" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $button_add_option_value; ?></a></td>';
+			html += '<td><a onclick="addOptionValue(\''+option_row+'\');" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_option_value; ?></a></td>';
 			html += '</tr>';
 			html += '</tfoot>';
 			html += '</table>';
@@ -161,11 +161,11 @@ function addOptionValue(option_row){
 	html += $('#option-values'+option_row).html();
 	html += '</select><input type="hidden" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][product_option_value_id]" value=""></td>';
 	html += '<td class="text-right"><input type="text" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][quantity]" value="" class="form-control"></td>'; 
-	html += '<td><select name="product_option['+option_row+'][product_option_value]['+option_value_row+'][subtract]" class="form-control"><option value="1"><?= $text_yes; ?></option><option value="0"><?= $text_no; ?></option></select></td>';
+	html += '<td><select name="product_option['+option_row+'][product_option_value]['+option_value_row+'][subtract]" class="form-control"><option value="1"><?= $lang_text_yes; ?></option><option value="0"><?= $lang_text_no; ?></option></select></td>';
 	html += '<td class="text-right"><div class="input-group"><span class="input-group-btn" data-toggle="buttons"><label class="btn btn-default active"><input type="radio" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][price_prefix]" value="+" checked=""><i class="glyphicon glyphicon-plus"></i></label><label class="btn btn-default"><input type="radio" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][price_prefix]" value="-"><i class="glyphicon glyphicon-minus"></i></label></span><input type="text" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][price]" value="" class="form-control"></div></td>';
 	html += '<td class="text-right"><div class="input-group"><span class="input-group-btn" data-toggle="buttons"><label class="btn btn-default active"><input type="radio" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][points_prefix]" value="+" checked=""><i class="glyphicon glyphicon-plus"></i></label><label class="btn btn-default"><input type="radio" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][points_prefix]" value="-"><i class="glyphicon glyphicon-minus"></i></label></span><input type="text" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][points]" value="" class="form-control"></div></td>';
 	html += '<td class="text-right"><div class="input-group"><span class="input-group-btn" data-toggle="buttons"><label class="btn btn-default active"><input type="radio" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][weight_prefix]" value="+" checked=""><i class="glyphicon glyphicon-plus"></i></label><label class="btn btn-default"><input type="radio" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][weight_prefix]" value="-"><i class="glyphicon glyphicon-minus"></i></label></span><input type="text" name="product_option['+option_row+'][product_option_value]['+option_value_row+'][weight]" value="" class="form-control"></div></td>';
-	html += '<td><a onclick="$(\'#option-value-row'+option_value_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>';
+	html += '<td><a onclick="$(\'#option-value-row'+option_value_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>';
 	html += '</tr>';
 	
 	$('#option-value'+option_row+' tbody').append(html);
@@ -185,7 +185,7 @@ function addDiscount(){
 	html += '<td class="text-right"><input type="text" name="product_discount['+discount_row+'][price]" value="" class="form-control"></td>';
 	html += '<td><label class="input-group"><input type="text" name="product_discount['+discount_row+'][date_start]" value="" class="form-control date" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></label></td>';
 	html += '<td><label class="input-group"><input type="text" name="product_discount['+discount_row+'][date_end]" value="" class="form-control date" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></label></td>';
-	html += '<td><a onclick="$(\'#discount-row'+discount_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>';
+	html += '<td><a onclick="$(\'#discount-row'+discount_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>';
 	html += '</tr>';
 	
 	$('#discount tbody').append(html);
@@ -204,7 +204,7 @@ function addSpecial(){
 	html += '<td class="text-right"><input type="text" name="product_special['+special_row+'][price]" value="" class="form-control"></td>';
 	html += '<td><label class="input-group"><input type="text" name="product_special['+special_row+'][date_start]" value="" class="form-control date" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></label></td>';
 	html += '<td><label class="input-group"><input type="text" name="product_special['+special_row+'][date_end]" value="" class="form-control date" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></label></td>';
-	html += '<td><a onclick="$(\'#special-row'+special_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>';
+	html += '<td><a onclick="$(\'#special-row'+special_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>';
 	html += '</tr>';
 	
 	$('#special tbody').append(html);
@@ -217,11 +217,11 @@ function addImage(){
 	html += '<td><div class="media"><a class="pull-left" onclick="image_upload(\'image'+image_row+'\',\'thumb'+image_row+'\');"><img class="img-thumbnail" src="<?= $no_image; ?>" width="100" height="100" alt="" id="thumb'+image_row+'"></a>';
 	html += '<input type="hidden" name="product_image['+image_row+'][image]" value="" id="image'+image_row+'">';
 	html += '<div class="media-body hidden-xs">';
-	html += '<a class="btn btn-default" onclick="image_upload(\'image'+image_row+'\',\'thumb'+image_row+'\');"><?= $text_browse; ?></a>&nbsp;';
-	html += '<a class="btn btn-default" onclick="$(\'#thumb'+image_row+'\').attr(\'src\',\'<?= $no_image; ?>\'); $(\'#image'+image_row+'\').attr(\'value\',\'\');"><?= $text_clear; ?></a>';
+	html += '<a class="btn btn-default" onclick="image_upload(\'image'+image_row+'\',\'thumb'+image_row+'\');"><?= $lang_text_browse; ?></a>&nbsp;';
+	html += '<a class="btn btn-default" onclick="$(\'#thumb'+image_row+'\').attr(\'src\',\'<?= $no_image; ?>\'); $(\'#image'+image_row+'\').attr(\'value\',\'\');"><?= $lang_text_clear; ?></a>';
 	html += '</div></div></td>';
 	html += '<td class="text-right"><input type="text" name="product_image['+image_row+'][sort_order]" value="" class="form-control"></td>';
-	html += '<td><a onclick="$(\'#image-row'+image_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>';
+	html += '<td><a onclick="$(\'#image-row'+image_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>';
 	html += '</tr>';
 	
 	$('#images tbody').append(html);
@@ -246,7 +246,7 @@ function addRecurring() {
 	html += '<select>';
 	html += '</td>';
 	html += '<td class="text-left">';
-	html += '<a onclick="$(\'#recurring-row' + recurring_row + '\').remove()" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a>';
+	html += '<a onclick="$(\'#recurring-row' + recurring_row + '\').remove()" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a>';
 	html += '</td>';
 	html += '</tr>';
 	

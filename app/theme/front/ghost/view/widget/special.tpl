@@ -1,12 +1,12 @@
 <?php if ($products) { ?>
-<h3 class="text-muted"><?= $heading_title; ?></h3>
+<h3 class="text-muted"><?= $lang_heading_title; ?></h3>
 <?php 
 	$class_prefix 	= '';
 	$btn_class 		= 'btn btn-warning';
 	$btn_view 		= false;
 	$wishlist 		= false;
 	
-	if (!empty($button_wishlist) && !empty($button_compare)):
+	if (!empty($lang_button_wishlist) && !empty($lang_button_compare)):
 		$wishlist = true;
 	endif;
 	
@@ -56,32 +56,32 @@
 					<?php if ($product['event_id'] == 0): ?>
 						<button type="button" 
 							data-cart="<?= $product['product_id']; ?>" 
-							data-toggle="tooltip" title="<?= $button_cart; ?>" class="<?= $btn_class; ?>">
+							data-toggle="tooltip" title="<?= $lang_button_cart; ?>" class="<?= $btn_class; ?>">
 							<i class="fa fa-shopping-cart"></i>
 						</button>
 					<?php else: ?>
 						<button type="button" 
 							data-cart="<?= $product['product_id']; ?>" 
 							data-event="<?= $product['event_id']; ?>" 
-							data-toggle="tooltip" title="<?= $button_view_event; ?>" class="<?= $btn_class; ?>">
+							data-toggle="tooltip" title="<?= $lang_button_view_event; ?>" class="<?= $btn_class; ?>">
 							<i class="fa fa-users"></i>
 						</button>
 					<?php endif; ?>
 				<?php else: ?>
 					<?php if ($product['event_id'] == 0): ?>
 						<button type="button" data-cart="<?= $product['product_id']; ?>" class="<?= $btn_class; ?>">
-							<?= str_replace('Cart', '<i title="Cart" class="fa fa-shopping-cart"></i>', $button_cart); ?>
+							<?= str_replace('Cart', '<i title="Cart" class="fa fa-shopping-cart"></i>', $lang_button_cart); ?>
 						</button>
 					<?php else: ?>
 						<button type="button" data-cart="<?= $product['product_id']; ?>" data-event="<?= $product['event_id']; ?>" class="<?= $btn_class; ?>">
-							<?= str_replace('Event', '<i title="View Event" class="fa fa-users"></i>', $button_view_event); ?>
+							<?= str_replace('Event', '<i title="View Event" class="fa fa-users"></i>', $lang_button_view_event); ?>
 						</button>
 					<?php endif; ?>
 				<?php endif; ?>
-					<a class="btn btn-danger" data-toggle="tooltip" title="<?= $button_wishlist; ?>" onclick="addToWishList('<?= $product['product_id']; ?>');">
+					<a class="btn btn-danger" data-toggle="tooltip" title="<?= $lang_button_wishlist; ?>" onclick="addToWishList('<?= $product['product_id']; ?>');">
 						<i class="fa fa-heart"></i>
 					</a>
-					<a class="btn btn-info" data-toggle="tooltip" title="<?= $button_compare; ?>" onclick="addToCompare('<?= $product['product_id']; ?>');">
+					<a class="btn btn-info" data-toggle="tooltip" title="<?= $lang_button_compare; ?>" onclick="addToCompare('<?= $product['product_id']; ?>');">
 						<i class="fa fa-exchange"></i>
 					</a>
 				</div>

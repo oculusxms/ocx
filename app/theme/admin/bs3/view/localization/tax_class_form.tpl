@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-money"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-money"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_title; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_title; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="title" value="<?= $title; ?>" class="form-control" autofocus>
 					<?php if ($error_title) { ?>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_description; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_description; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="description" value="<?= $description; ?>" class="form-control">
 					<?php if ($error_description) { ?>
@@ -44,9 +44,9 @@
 			<table id="tax-rule" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th><?= $entry_rate; ?></th>
-						<th><?= $entry_based; ?></th>
-						<th><?= $entry_priority; ?></th>
+						<th><?= $lang_entry_rate; ?></th>
+						<th><?= $lang_entry_based; ?></th>
+						<th><?= $lang_entry_priority; ?></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -65,23 +65,23 @@
 						</select></td>
 						<td><select name="tax_rule[<?= $tax_rule_row; ?>][based]" class="form-control">
 							<?php	if ($tax_rule['based'] == 'shipping') { ?>
-							<option value="shipping" selected><?= $text_shipping; ?></option>
+							<option value="shipping" selected><?= $lang_text_shipping; ?></option>
 							<?php } else { ?>
-							<option value="shipping"><?= $text_shipping; ?></option>
+							<option value="shipping"><?= $lang_text_shipping; ?></option>
 							<?php } ?>
 							<?php	if ($tax_rule['based'] == 'payment') { ?>
-							<option value="payment" selected><?= $text_payment; ?></option>
+							<option value="payment" selected><?= $lang_text_payment; ?></option>
 							<?php } else { ?>
-							<option value="payment"><?= $text_payment; ?></option>
+							<option value="payment"><?= $lang_text_payment; ?></option>
 							<?php } ?>	
 							<?php	if ($tax_rule['based'] == 'store'){ ?>
-							<option value="store" selected><?= $text_store; ?></option>
+							<option value="store" selected><?= $lang_text_store; ?></option>
 							<?php } else { ?>
-							<option value="store"><?= $text_store; ?></option>
+							<option value="store"><?= $lang_text_store; ?></option>
 							<?php } ?>												
 						</select></td>
 						<td><input type="text" name="tax_rule[<?= $tax_rule_row; ?>][priority]" value="<?= $tax_rule['priority']; ?>" class="form-control"></td>
-						<td><a onclick="$('#tax-rule-row<?= $tax_rule_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+						<td><a onclick="$('#tax-rule-row<?= $tax_rule_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 					</tr>
 				<?php $tax_rule_row++; ?>
 				<?php } ?>
@@ -89,7 +89,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="3"></td>
-						<td><a onclick="addRule();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs">	<?= $button_add_rule; ?></span></a></td>
+						<td><a onclick="addRule();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs">	<?= $lang_button_add_rule; ?></span></a></td>
 					</tr>
 				</tfoot>
 			</table>

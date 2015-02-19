@@ -14,22 +14,22 @@
 |	
 */
 
-$_['text_subject']        = '%s - Thank you for registering';
-$_['text_welcome']        = 'Welcome and thank you for registering at %s.';
-$_['text_login']          = 'Your account has now been created and you can log in by using your username and password by visiting our website or at the following URL:';
-$_['text_approval']       = '<b>Your account must be approved before you can login. Once approved you can log in by using your username and password by visiting our website or at the following URL:</b>';
-$_['text_services']       = 'Upon logging in, you will be able to access other services including reviewing past orders, printing invoices and editing your account information.';
-$_['text_thanks']         = 'Thanks,';
-$_['text_new_customer']   = 'New customer';
-$_['text_signup']         = 'A new customer has signed up:';
-$_['text_website']        = 'Web Site:';
-$_['text_customer_group'] = 'Customer Group:';
-$_['text_username']       = 'Username:';
-$_['text_firstname']      = 'First Name:';
-$_['text_lastname']       = 'Last Name:';
-$_['text_company']        = 'Company:';
-$_['text_telephone']      = 'Telephone:';
+$_['lang_text_subject']        = '%s - Thank you for registering';
+$_['lang_text_welcome']        = 'Welcome and thank you for registering at %s.';
+$_['lang_text_login']          = 'Your account has now been created and you can log in by using your username and password by visiting our website or at the following URL:';
+$_['lang_text_approval']       = '<b>Your account must be approved before you can login. Once approved you can log in by using your username and password by visiting our website or at the following URL:</b>';
+$_['lang_text_services']       = 'Upon logging in, you will be able to access other services including reviewing past orders, printing invoices and editing your account information.';
+$_['lang_text_thanks']         = 'Thanks,';
+$_['lang_text_new_customer']   = 'New customer';
+$_['lang_text_signup']         = 'A new customer has signed up:';
+$_['lang_text_website']        = 'Web Site:';
+$_['lang_text_customer_group'] = 'Customer Group:';
+$_['lang_text_username']       = 'Username:';
+$_['lang_text_firstname']      = 'First Name:';
+$_['lang_text_lastname']       = 'Last Name:';
+$_['lang_text_company']        = 'Company:';
+$_['lang_text_telephone']      = 'Telephone:';
 
-$_['text_email']          = 'Email:';
-$_['text_name']           = 'Username:';
-$_['text_password']       = 'Password:';
+$_['lang_text_email']          = 'Email:';
+$_['lang_text_name']           = 'Username:';
+$_['lang_text_password']       = 'Password:';

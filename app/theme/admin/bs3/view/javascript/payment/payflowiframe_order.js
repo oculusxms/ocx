@@ -1,11 +1,11 @@
 <script>
 function markAsComplete() {
 	$('#complete-entry, #reauthorise-entry, #reauthorise-entry').html('-');
-	$('#capture-status').html('<?= $text_complete ?>');
+	$('#capture-status').html('<?= $lang_text_complete ?>');
 }
 	
 function doVoid(){
-	if (confirm('<?= $text_confirm_void; ?>')) {
+	if (confirm('<?= $lang_text_confirm_void; ?>')) {
 		$.ajax({
 			type:'POST',
 			dataType:'json',
@@ -17,7 +17,7 @@ function doVoid(){
 			},
 			success:function(data){
 				if(!data.error){
-					$('#capture-status').text('<?= $text_complete; ?>');
+					$('#capture-status').text('<?= $lang_text_complete; ?>');
 					var html = '';
 					html += '<tr>';
 					html += '<td>'+data.success.transaction_reference +'</td>';

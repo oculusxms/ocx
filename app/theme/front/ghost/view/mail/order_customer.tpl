@@ -11,12 +11,12 @@
 </table>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<?= $text_greeting; ?>
+	<?= $lang_text_greeting; ?>
 </p>
 
 <?php if ($customer_id) { ?>
 <p class="link" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:5px; margin-bottom:15px;">
-	<b><?= $text_link; ?></b><br />
+	<b><?= $lang_text_link; ?></b><br />
 	<span style="line-height:100%; font-size:120%;">&raquo;</span>
 	<a href="<?= $link; ?>" style="text-decoration:none;" target="_blank">
 		<b><?= $link; ?></b>
@@ -26,7 +26,7 @@
 
 <?php if ($download) { ?>
 <p class="link" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:5px; margin-bottom:15px;">
-	<b><?= $text_download; ?></b><br />
+	<b><?= $lang_text_download; ?></b><br />
 	<span style="line-height:100%; font-size:120%;">&raquo;</span>
 	<a href="<?= $download; ?>" style="text-decoration:none;" target="_blank">
 		<b><?= $download; ?></b>
@@ -36,7 +36,7 @@
 
 <?php if($instruction){ ?>
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<b><?= $text_new_instruction; ?></b><br />
+	<b><?= $lang_text_new_instruction; ?></b><br />
 	<?= $instruction; ?>
 </p>
 <?php } ?>
@@ -44,7 +44,7 @@
 <table cellpadding="5" cellspacing="0" width="100%" style="table-layout:fixed; margin:0; color:#666; border-collapse:separate; -moz-border-radius:3px; -moz-box-shadow:0 1px 2px #d1d1d1; -webkit-border-radius:3px; -webkit-box-shadow:0 1px 2px #d1d1d1; border:1px solid #e0e0e0; border-radius:3px; box-shadow:0 1px 2px #d1d1d1; text-shadow:1px 1px 0px #fff;">
 <thead>
 	<tr>
-    	<th bgcolor="#ededed" align="center" style="text-align:center; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:14px; font-weight:bold"><?= $text_order_detail; ?></th>
+    	<th bgcolor="#ededed" align="center" style="text-align:center; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:14px; font-weight:bold"><?= $lang_text_order_detail; ?></th>
    	</tr>
 </thead>
 <tbody>
@@ -54,16 +54,16 @@
 			<tbody>
 				<tr>
 			    	<td width="50%" bgcolor="#fafafa" style="padding:10px; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; word-wrap:normal;">
-			          	<?php if(isset($order_id)){ ?><b><?= $text_order_id; ?></b> <?= $order_id; ?><br /><?php } ?>
-			    		<?php if(isset($invoice_no)){?><b><?= $text_invoice_no; ?></b> <?= $invoice_no; ?><br /><?php } ?>
-			          	<b><?= $text_date_added; ?></b> <?= $date_added; ?><br />
-			          	<b><?= $text_new_order_status; ?></b> <?= $new_order_status; ?><br />
-						<b><?= $text_payment_method; ?></b> <?= $payment_method; ?><br />
-			          	<?php if ($shipping_method) { ?><b><?= $text_shipping_method; ?></b> <?= $shipping_method; ?><?php } ?>
+			          	<?php if(isset($order_id)){ ?><b><?= $lang_text_order_id; ?></b> <?= $order_id; ?><br /><?php } ?>
+			    		<?php if(isset($invoice_no)){?><b><?= $lang_text_invoice_no; ?></b> <?= $invoice_no; ?><br /><?php } ?>
+			          	<b><?= $lang_text_date_added; ?></b> <?= $date_added; ?><br />
+			          	<b><?= $lang_text_new_order_status; ?></b> <?= $new_order_status; ?><br />
+						<b><?= $lang_text_payment_method; ?></b> <?= $payment_method; ?><br />
+			          	<?php if ($shipping_method) { ?><b><?= $lang_text_shipping_method; ?></b> <?= $shipping_method; ?><?php } ?>
 			        </td>
 			        <td class="last-child" width="50%" bgcolor="#fafafa" style="padding:10px; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; border-left:1px solid #e0e0e0; word-wrap:normal;">
-			        	<b><?= $text_email; ?></b> <a href="mailto:<?= $email; ?>" style="text-decoration:none; word-wrap:normal;"><?= $email; ?></a><br />
-			          	<b><?= $text_telephone; ?></b> <?= $telephone; ?>
+			        	<b><?= $lang_text_email; ?></b> <a href="mailto:<?= $email; ?>" style="text-decoration:none; word-wrap:normal;"><?= $email; ?></a><br />
+			          	<b><?= $lang_text_telephone; ?></b> <?= $telephone; ?>
 			        </td>
 		        </tr>
 	        </tbody>
@@ -76,12 +76,12 @@
 			<tbody>				
 				<tr>
 			    	<td width="50%" bgcolor="#f6f6f6" style="padding:10px; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; word-wrap:normal;">
-			    		<strong><?= $text_payment_address; ?></strong><br />
+			    		<strong><?= $lang_text_payment_address; ?></strong><br />
 			    		<?= $payment_address; ?>
 			    	</td>
 			        <td class="last-child" width="50%" bgcolor="#f6f6f6" style="padding:10px; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; border-left:1px solid #e0e0e0; word-wrap:normal;">
 			        	<?php if ($shipping_address) { ?>
-			        	<strong><?= $text_shipping_address; ?></strong><br />
+			        	<strong><?= $lang_text_shipping_address; ?></strong><br />
 			        	<?= $shipping_address; ?>
 			        	<?php } else { echo "&nbsp;"; }?>
 			        </td>
@@ -102,18 +102,18 @@
 <thead>
 	<tr>
         <th width="50%" bgcolor="#ededed" align="left" style="text-align:left; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:14px; font-weight:bold; word-wrap:normal;">
-        	<?= $text_product; ?>
+        	<?= $lang_text_product; ?>
         </th>
         <?php if($table_quantity){ ?>
         <th width="10%" bgcolor="#ededed" align="left" style="text-align:left; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:14px; word-wrap:normal;">
-        	<?= $text_quantity; ?>
+        	<?= $lang_text_quantity; ?>
         </th>
         <?php } ?>
         <th width="<?php if($table_quantity){ ?>20<?php } else { ?>25<?php } ?>%" bgcolor="#ededed" align="right" style="text-align:right; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:14px; font-weight:bold; word-wrap:normal;">
-        	<?= $text_price; ?>
+        	<?= $lang_text_price; ?>
         </th>
         <th width="<?php if($table_quantity){ ?>20<?php } else { ?>25<?php } ?>%" bgcolor="#ededed" align="right" style="text-align:right; -ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:14px; font-weight:bold; word-wrap:normal;">
-        	<?= $text_total; ?>
+        	<?= $lang_text_total; ?>
         </th>
 	</tr>
 </thead>
@@ -153,11 +153,11 @@
 				<br class="clearMobile" />
 			<?php } ?>
 			
-			<?php if($product['model']){ ?><span style="font-size:11px; line-height: 16px;"><b><?= $text_model; ?>:</b>&nbsp;<?= $product['model']; ?></span><?php } ?>
+			<?php if($product['model']){ ?><span style="font-size:11px; line-height: 16px;"><b><?= $lang_text_model; ?>:</b>&nbsp;<?= $product['model']; ?></span><?php } ?>
 
 			<?php if($product['hangout']){ ?>
 				<br class="clearMobile" />
-				<span style="font-size:11px; line-height: 16px;"><b><?= $text_google; ?>:</b>&nbsp;<?= $product['hangout']; ?></span>
+				<span style="font-size:11px; line-height: 16px;"><b><?= $lang_text_google; ?>:</b>&nbsp;<?= $product['hangout']; ?></span>
 			<?php } ?>
 					
 			<?php if(!empty($product['option'])){ ?>
@@ -223,19 +223,19 @@
 
 <?php if($comment){ ?>
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<b><?= $text_new_comment; ?></b><br />
+	<b><?= $lang_text_new_comment; ?></b><br />
 	<?= $comment; ?>
 </p>
 <?php } ?>
 
 <?php if ($has_hangout) { ?>
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:0px;">
-	<?= $text_hangout_alert; ?><br><br>
+	<?= $lang_text_hangout_alert; ?><br><br>
 </p>
 <?php } ?>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:0px;">
-	<?= $text_footer; ?><br><br>
+	<?= $lang_text_footer; ?><br><br>
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:0;">

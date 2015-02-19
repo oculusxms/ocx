@@ -47,12 +47,12 @@ class Reset extends Controller {
             if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
                 $this->model_people_user->editPassword($user_info['user_id'], $this->request->post['password']);
                 
-                $this->session->data['success'] = $this->language->get('text_success');
+                $this->session->data['success'] = $this->language->get('lang_text_success');
                 
                 $this->response->redirect($this->url->link('common/login', '', 'SSL'));
             }
             
-            $this->breadcrumb->add('text_reset', 'common/reset');
+            $this->breadcrumb->add('lang_text_reset', 'common/reset');
             
             if (isset($this->error['password'])) {
                 $data['error_password'] = $this->error['password'];
@@ -100,11 +100,11 @@ class Reset extends Controller {
     
     protected function validate() {
         if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {
-            $this->error['password'] = $this->language->get('error_password');
+            $this->error['password'] = $this->language->get('lang_error_password');
         }
         
         if ($this->request->post['confirm'] != $this->request->post['password']) {
-            $this->error['confirm'] = $this->language->get('error_confirm');
+            $this->error['confirm'] = $this->language->get('lang_error_confirm');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

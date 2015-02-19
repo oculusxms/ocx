@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-qrcode"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-qrcode"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_key; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_key; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="fedex_key" value="<?= $fedex_key; ?>" class="form-control">
 					<?php if ($error_key) { ?>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_password; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_password; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="fedex_password" value="<?= $fedex_password; ?>" class="form-control">
 					<?php if ($error_password) { ?>
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_account; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_account; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="fedex_account" value="<?= $fedex_account; ?>" class="form-control">
 					<?php if ($error_account) { ?>
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_meter; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_meter; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="fedex_meter" value="<?= $fedex_meter; ?>" class="form-control">
 					<?php if ($error_meter) { ?>
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_postcode; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_postcode; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="fedex_postcode" value="<?= $fedex_postcode; ?>" class="form-control">
 					<?php if ($error_postcode) { ?>
@@ -69,22 +69,22 @@
 				</div>
 			</div>	
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_test; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_test; ?></label>
 				<div class="control-field col-sm-4">
 					<?php if ($fedex_test) { ?>
-						<label class="radio-inline"><input type="radio" name="fedex_test" value="1" checked=""><?= $text_yes; ?></label>
-						<label class="radio-inline"><input type="radio" name="fedex_test" value="0"><?= $text_no; ?></label>
+						<label class="radio-inline"><input type="radio" name="fedex_test" value="1" checked=""><?= $lang_text_yes; ?></label>
+						<label class="radio-inline"><input type="radio" name="fedex_test" value="0"><?= $lang_text_no; ?></label>
 						<?php } else { ?>
-						<label class="radio-inline"><input type="radio" name="fedex_test" value="1"><?= $text_yes; ?></label>
-						<label class="radio-inline"><input type="radio" name="fedex_test" value="0" checked=""><?= $text_no; ?></label>
+						<label class="radio-inline"><input type="radio" name="fedex_test" value="1"><?= $lang_text_yes; ?></label>
+						<label class="radio-inline"><input type="radio" name="fedex_test" value="0" checked=""><?= $lang_text_no; ?></label>
 					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><p><?= $entry_service; ?></p>
+				<label class="control-label col-sm-2"><p><?= $lang_entry_service; ?></p>
 					<div class="btn-group-vertical">
-						<a class="btn btn-default btn-sm" onclick="$('[name*=\'fedex_service\']').prop('checked',true);"><?= $text_select_all; ?></a>
-						<a class="btn btn-default btn-sm" onclick="$('[name*=\'fedex_service\']').prop('checked',false);"><?= $text_unselect_all; ?></a>
+						<a class="btn btn-default btn-sm" onclick="$('[name*=\'fedex_service\']').prop('checked',true);"><?= $lang_text_select_all; ?></a>
+						<a class="btn btn-default btn-sm" onclick="$('[name*=\'fedex_service\']').prop('checked',false);"><?= $lang_text_unselect_all; ?></a>
 					</div>
 				</label>
 				<div class="control-field col-sm-4">
@@ -104,122 +104,122 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_dropoff_type; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_dropoff_type; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="fedex_dropoff_type" class="form-control">
 						<?php if ($fedex_dropoff_type == 'REGULAR_PICKUP') { ?>
-						<option value="REGULAR_PICKUP" selected><?= $text_regular_pickup; ?></option>
+						<option value="REGULAR_PICKUP" selected><?= $lang_text_regular_pickup; ?></option>
 						<?php } else { ?>
-						<option value="REGULAR_PICKUP"><?= $text_regular_pickup; ?></option>
+						<option value="REGULAR_PICKUP"><?= $lang_text_regular_pickup; ?></option>
 						<?php } ?>
 						<?php if ($fedex_dropoff_type == 'REQUEST_COURIER') { ?>
-						<option value="REQUEST_COURIER" selected><?= $text_request_courier; ?></option>
+						<option value="REQUEST_COURIER" selected><?= $lang_text_request_courier; ?></option>
 						<?php } else { ?>
-						<option value="REQUEST_COURIER"><?= $text_request_courier; ?></option>
+						<option value="REQUEST_COURIER"><?= $lang_text_request_courier; ?></option>
 						<?php } ?>
 						<?php if ($fedex_dropoff_type == 'DROP_BOX') { ?>
-						<option value="DROP_BOX" selected><?= $text_drop_box; ?></option>
+						<option value="DROP_BOX" selected><?= $lang_text_drop_box; ?></option>
 						<?php } else { ?>
-						<option value="DROP_BOX"><?= $text_drop_box; ?></option>
+						<option value="DROP_BOX"><?= $lang_text_drop_box; ?></option>
 						<?php } ?>
 						<?php if ($fedex_dropoff_type == 'BUSINESS_SERVICE_CENTER') { ?>
-						<option value="BUSINESS_SERVICE_CENTER" selected><?= $text_business_service_center; ?></option>
+						<option value="BUSINESS_SERVICE_CENTER" selected><?= $lang_text_business_service_center; ?></option>
 						<?php } else { ?>
-						<option value="BUSINESS_SERVICE_CENTER"><?= $text_business_service_center; ?></option>
+						<option value="BUSINESS_SERVICE_CENTER"><?= $lang_text_business_service_center; ?></option>
 						<?php } ?>
 						<?php if ($fedex_dropoff_type == 'STATION') { ?>
-						<option value="STATION" selected><?= $text_station; ?></option>
+						<option value="STATION" selected><?= $lang_text_station; ?></option>
 						<?php } else { ?>
-						<option value="STATION"><?= $text_station; ?></option>
+						<option value="STATION"><?= $lang_text_station; ?></option>
 						<?php } ?>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_packaging_type; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_packaging_type; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="fedex_packaging_type" class="form-control">
 						<?php if ($fedex_packaging_type == 'FEDEX_ENVELOPE') { ?>
-						<option value="FEDEX_ENVELOPE" selected><?= $text_fedex_envelope; ?></option>
+						<option value="FEDEX_ENVELOPE" selected><?= $lang_text_fedex_envelope; ?></option>
 						<?php } else { ?>
-						<option value="FEDEX_ENVELOPE"><?= $text_fedex_envelope; ?></option>
+						<option value="FEDEX_ENVELOPE"><?= $lang_text_fedex_envelope; ?></option>
 						<?php } ?>
 						<?php if ($fedex_packaging_type == 'FEDEX_PAK') { ?>
-						<option value="FEDEX_PAK" selected><?= $text_fedex_pak; ?></option>
+						<option value="FEDEX_PAK" selected><?= $lang_text_fedex_pak; ?></option>
 						<?php } else { ?>
-						<option value="FEDEX_PAK"><?= $text_fedex_pak; ?></option>
+						<option value="FEDEX_PAK"><?= $lang_text_fedex_pak; ?></option>
 						<?php } ?>
 						<?php if ($fedex_packaging_type == 'FEDEX_BOX') { ?>
-						<option value="FEDEX_BOX" selected><?= $text_fedex_box; ?></option>
+						<option value="FEDEX_BOX" selected><?= $lang_text_fedex_box; ?></option>
 						<?php } else { ?>
-						<option value="FEDEX_BOX"><?= $text_fedex_box; ?></option>
+						<option value="FEDEX_BOX"><?= $lang_text_fedex_box; ?></option>
 						<?php } ?>
 						<?php if ($fedex_packaging_type == 'FEDEX_TUBE') { ?>
-						<option value="FEDEX_TUBE" selected><?= $text_fedex_tube; ?></option>
+						<option value="FEDEX_TUBE" selected><?= $lang_text_fedex_tube; ?></option>
 						<?php } else { ?>
-						<option value="FEDEX_TUBE"><?= $text_fedex_tube; ?></option>
+						<option value="FEDEX_TUBE"><?= $lang_text_fedex_tube; ?></option>
 						<?php } ?>
 						<?php if ($fedex_packaging_type == 'FEDEX_10KG_BOX') { ?>
-						<option value="FEDEX_10KG_BOX" selected><?= $text_fedex_10kg_box; ?></option>
+						<option value="FEDEX_10KG_BOX" selected><?= $lang_text_fedex_10kg_box; ?></option>
 						<?php } else { ?>
-						<option value="FEDEX_10KG_BOX"><?= $text_fedex_10kg_box; ?></option>
+						<option value="FEDEX_10KG_BOX"><?= $lang_text_fedex_10kg_box; ?></option>
 						<?php } ?>
 						<?php if ($fedex_packaging_type == 'STATION') { ?>
-						<option value="FEDEX_25KG_BOX" selected><?= $text_fedex_25kg_box; ?></option>
+						<option value="FEDEX_25KG_BOX" selected><?= $lang_text_fedex_25kg_box; ?></option>
 						<?php } else { ?>
-						<option value="FEDEX_25KG_BOX"><?= $text_fedex_25kg_box; ?></option>
+						<option value="FEDEX_25KG_BOX"><?= $lang_text_fedex_25kg_box; ?></option>
 						<?php } ?>
 						<?php if ($fedex_packaging_type == 'STATION') { ?>
-						<option value="YOUR_PACKAGING" selected><?= $text_your_packaging; ?></option>
+						<option value="YOUR_PACKAGING" selected><?= $lang_text_your_packaging; ?></option>
 						<?php } else { ?>
-						<option value="YOUR_PACKAGING"><?= $text_your_packaging; ?></option>
+						<option value="YOUR_PACKAGING"><?= $lang_text_your_packaging; ?></option>
 						<?php } ?>										
 					</select>
 				</div>
 			</div> 
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_rate_type; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_rate_type; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="fedex_rate_type" class="form-control">
 						<?php if ($fedex_rate_type == 'LIST') { ?>
-						<option value="LIST" selected><?= $text_list_rate; ?></option>
+						<option value="LIST" selected><?= $lang_text_list_rate; ?></option>
 						<?php } else { ?>
-						<option value="LIST"><?= $text_list_rate; ?></option>
+						<option value="LIST"><?= $lang_text_list_rate; ?></option>
 						<?php } ?>
 						<?php if ($fedex_rate_type == 'ACCOUNT') { ?>
-						<option value="ACCOUNT" selected><?= $text_account_rate; ?></option>
+						<option value="ACCOUNT" selected><?= $lang_text_account_rate; ?></option>
 						<?php } else { ?>
-						<option value="ACCOUNT"><?= $text_account_rate; ?></option>
+						<option value="ACCOUNT"><?= $lang_text_account_rate; ?></option>
 						<?php } ?>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_display_time; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_display_time; ?></label>
 				<div class="control-field col-sm-4">
 					<?php if ($fedex_display_time) { ?>
-					<label class="radio-inline"><input type="radio" name="fedex_display_time" value="1" checked=""><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="fedex_display_time" value="0"><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="fedex_display_time" value="1" checked=""><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="fedex_display_time" value="0"><?= $lang_text_no; ?></label>
 					<?php } else { ?>
-					<label class="radio-inline"><input type="radio" name="fedex_display_time" value="1"><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="fedex_display_time" value="0" checked=""><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="fedex_display_time" value="1"><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="fedex_display_time" value="0" checked=""><?= $lang_text_no; ?></label>
 					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_display_weight; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_display_weight; ?></label>
 				<div class="control-field col-sm-4">
 					<?php if ($fedex_display_weight) { ?>
-					<label class="radio-inline"><input type="radio" name="fedex_display_weight" value="1" checked=""><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="fedex_display_weight" value="0"><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="fedex_display_weight" value="1" checked=""><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="fedex_display_weight" value="0"><?= $lang_text_no; ?></label>
 					<?php } else { ?>
-					<label class="radio-inline"><input type="radio" name="fedex_display_weight" value="1"><?= $text_yes; ?></label>
-					<label class="radio-inline"><input type="radio" name="fedex_display_weight" value="0" checked=""><?= $text_no; ?></label>
+					<label class="radio-inline"><input type="radio" name="fedex_display_weight" value="1"><?= $lang_text_yes; ?></label>
+					<label class="radio-inline"><input type="radio" name="fedex_display_weight" value="0" checked=""><?= $lang_text_no; ?></label>
 					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_weight_class; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_weight_class; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="fedex_weight_class_id" class="form-control">
 						<?php foreach ($weight_classes as $weight_class) { ?>
@@ -233,10 +233,10 @@
 				</div>
 			</div>							
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_tax_class; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_tax_class; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="fedex_tax_class_id" class="form-control">
-						<option value="0"><?= $text_none; ?></option>
+						<option value="0"><?= $lang_text_none; ?></option>
 						<?php foreach ($tax_classes as $tax_class) { ?>
 						<?php if ($tax_class['tax_class_id'] == $fedex_tax_class_id) { ?>
 						<option value="<?= $tax_class['tax_class_id']; ?>" selected><?= $tax_class['title']; ?></option>
@@ -248,10 +248,10 @@
 				</div>
 			</div>	
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_geo_zone; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_geo_zone; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="fedex_geo_zone_id" class="form-control">
-						<option value="0"><?= $text_all_zones; ?></option>
+						<option value="0"><?= $lang_text_all_zones; ?></option>
 						<?php foreach ($geo_zones as $geo_zone) { ?>
 						<?php if ($geo_zone['geo_zone_id'] == $fedex_geo_zone_id) { ?>
 						<option value="<?= $geo_zone['geo_zone_id']; ?>" selected><?= $geo_zone['name']; ?></option>
@@ -263,21 +263,21 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_status ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_status ?></label>
 				<div class="control-field col-sm-4">
 					<select name="fedex_status" class="form-control">
 						<?php if ($fedex_status) { ?>
-						<option value="1" selected><?= $text_enabled; ?></option>
-						<option value="0"><?= $text_disabled; ?></option>
+						<option value="1" selected><?= $lang_text_enabled; ?></option>
+						<option value="0"><?= $lang_text_disabled; ?></option>
 						<?php } else { ?>
-						<option value="1"><?= $text_enabled; ?></option>
-						<option value="0" selected><?= $text_disabled; ?></option>
+						<option value="1"><?= $lang_text_enabled; ?></option>
+						<option value="0" selected><?= $lang_text_disabled; ?></option>
 						<?php } ?>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_sort_order; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_sort_order; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="fedex_sort_order" value="<?= $fedex_sort_order; ?>" class="form-control">
 				</div>

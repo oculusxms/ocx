@@ -22,7 +22,7 @@ class Permission extends Controller {
     public function index() {
         $data = $this->theme->language('error/permission');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (isset($this->request->get['route'])) {
             $routes = $this->request->get;
@@ -45,7 +45,7 @@ class Permission extends Controller {
                 $connection = 'nonssl';
             }
             
-            $this->breadcrumb->add('heading_title', $route, $url, true, $connection);
+            $this->breadcrumb->add('lang_heading_title', $route, $url, true, $connection);
         }
         
         $data['continue'] = $this->url->link($this->theme->style . '/home');

@@ -11,12 +11,12 @@
 		<div class="meta">
 			<p>
 				<span class="fa fa-user"></span> 
-					<?= $text_by; ?> <a href="<?= $post['author_href']; ?>" 
-						data-toggle="tooltip" title="<?= $text_all_by; ?> <?= $post['author_name']; ?>"><?= $post['author_name']; ?></a> | 
+					<?= $lang_text_by; ?> <a href="<?= $post['author_href']; ?>" 
+						data-toggle="tooltip" title="<?= $lang_text_all_by; ?> <?= $post['author_name']; ?>"><?= $post['author_name']; ?></a> | 
 				<span class="fa fa-clock-o"></span> <?= $post['date_added']; ?> | 
 				<?php if ($post['categories']): ?>
 				<span class="fa fa-folder-open"></span> 
-					<?= $text_in; ?> <?= $post['categories']; ?> | 
+					<?= $lang_text_in; ?> <?= $post['categories']; ?> | 
 				<?php endif; ?>
 				<span class="fa fa-comments-o"></span> <?= $post['comments']; ?> | 
 				<span class="fa fa-eye"></span> <?= $post['views']; ?>
@@ -26,14 +26,14 @@
 		<a href="<?= $post['href']; ?>"><img class="img-responsive" src="<?= $post['thumb']; ?>" title="<?= $post['name']; ?>" alt="<?= $post['name']; ?>"></a>
 		<hr>
 		<p><?= $post['blurb']; ?></p>
-		<a class="btn btn-primary" href="<?= $post['href']; ?>"><?= $text_read_more; ?> <span class="fa fa-chevron-right"></span></a>
+		<a class="btn btn-primary" href="<?= $post['href']; ?>"><?= $lang_text_read_more; ?> <span class="fa fa-chevron-right"></span></a>
 		<hr>
 		<?php endforeach; ?>
 		
 		<div class="pagination"><?= str_replace('....','',$pagination); ?></div>
 		
 		<?php else: ?>
-		<p><?= $text_empty; ?></p>
+		<p><?= $lang_text_empty; ?></p>
 		<?php endif; ?>
 		
 	</div>

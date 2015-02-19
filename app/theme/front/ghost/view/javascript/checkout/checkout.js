@@ -1,9 +1,9 @@
 <script>
 $(document).on('change', '#checkout .panel-collapse input[name="account"]', function(){
 	if($(this).attr('value')=='register'){
-		$('#payment-address .panel-heading span').html('<?= $text_checkout_account; ?>');
+		$('#payment-address .panel-heading span').html('<?= $lang_text_checkout_account; ?>');
 	}else{
-		$('#payment-address .panel-heading span').html('<?= $text_checkout_payment_address; ?>');
+		$('#payment-address .panel-heading span').html('<?= $lang_text_checkout_payment_address; ?>');
 	}
 });
 <?php if (!$logged) { ?> 
@@ -77,8 +77,8 @@ $(document).on('click', '#button-register', function(){
 							$('#shipping-address .panel-heading a').remove();
 							$('#shipping-method .panel-heading a').remove();
 							$('#payment-method .panel-heading a').remove();									
-							$('#shipping-address .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');							
-							$('#payment-address .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
+							$('#shipping-address .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');							
+							$('#payment-address .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
 							PluginInput.init();
 							
 							$.ajax({
@@ -104,7 +104,7 @@ $(document).on('click', '#button-register', function(){
 							$('#shipping-address .panel-heading a').remove();
 							$('#shipping-method .panel-heading a').remove();
 							$('#payment-method .panel-heading a').remove();					
-							$('#payment-address .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
+							$('#payment-address .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
 							PluginInput.init();
 						}
 					});	
@@ -120,7 +120,7 @@ $(document).on('click', '#button-register', function(){
 						$('#checkout .panel-heading a').remove();
 						$('#payment-address .panel-heading a').remove();
 						$('#payment-method .panel-heading a').remove();						
-						$('#payment-address .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
+						$('#payment-address .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
 						PluginInput.init();
 					}
 				});			
@@ -130,7 +130,7 @@ $(document).on('click', '#button-register', function(){
 					dataType:'html',
 					success:function(html){
 						$('#payment-address .panel-collapse').html(html);
-						$('#payment-address .panel-heading span').html('<?= $text_checkout_payment_address; ?>');
+						$('#payment-address .panel-heading span').html('<?= $lang_text_checkout_payment_address; ?>');
 						
 						PluginInput.init();
 					}
@@ -334,15 +334,15 @@ function quickConfirm(module){
 			$('#confirm .panel-collapse').slideDown('fast');
 			$('.panel-heading a').remove();
 			$('#checkout .panel-heading a').remove();
-			$('#checkout .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
+			$('#checkout .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
 			$('#shipping-address .panel-heading a').remove();
-			$('#shipping-address .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
+			$('#shipping-address .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
 			$('#shipping-method .panel-heading a').remove();
-			$('#shipping-method .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
+			$('#shipping-method .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
 			$('#payment-address .panel-heading a').remove();	
-			$('#payment-address .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
+			$('#payment-address .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
 			$('#payment-method .panel-heading a').remove();
-			$('#payment-method .panel-heading').append('<a class="close" title="<?= $text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
+			$('#payment-method .panel-heading').append('<a class="close" title="<?= $lang_text_modify; ?>"><i class="fa fa-angle-down fa-lg"></i></a>');
 			
 			PluginInput.init();
 		}

@@ -1,5 +1,5 @@
 <div class="form-group <?= ($error_items) ? 'has-error' : ''; ?>">
-	<label class="control-label col-sm-2" for="menu_item"><b class="required">*</b> <?= $entry_category; ?></label>
+	<label class="control-label col-sm-2" for="menu_item"><b class="required">*</b> <?= $lang_entry_category; ?></label>
 	<div class="control-field col-sm-6">
 		<div class="panel panel-default panel-scrollable">
 			<div class="list-group list-group-hover">

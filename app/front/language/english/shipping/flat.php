@@ -15,5 +15,5 @@
 */
 
 // Text
-$_['text_title']       = 'Flat Rate';
-$_['text_description'] = 'Flat Shipping Rate';
+$_['lang_text_title']       = 'Flat Rate';
+$_['lang_text_description'] = 'Flat Shipping Rate';

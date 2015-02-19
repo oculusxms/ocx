@@ -15,7 +15,7 @@
 */
 
 // Heading
-$_['heading_title']           = 'Blog Search';
+$_['lang_heading_title']           = 'Blog Search';
 
 // Text
-$_['search_form_placeholder'] = 'Search';
+$_['lang_text_search_placeholder'] = 'Search';

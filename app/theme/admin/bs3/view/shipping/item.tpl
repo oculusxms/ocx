@@ -12,28 +12,28 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-qrcode"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-qrcode"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_cost; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_cost; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="item_cost" value="<?= $item_cost; ?>" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_tax_class; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_tax_class; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="item_tax_class_id" class="form-control">
-						<option value="0"><?= $text_none; ?></option>
+						<option value="0"><?= $lang_text_none; ?></option>
 						<?php foreach ($tax_classes as $tax_class) { ?>
 						<?php if ($tax_class['tax_class_id'] == $item_tax_class_id) { ?>
 						<option value="<?= $tax_class['tax_class_id']; ?>" selected><?= $tax_class['title']; ?></option>
@@ -45,10 +45,10 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_geo_zone; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_geo_zone; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="item_geo_zone_id" class="form-control">
-						<option value="0"><?= $text_all_zones; ?></option>
+						<option value="0"><?= $lang_text_all_zones; ?></option>
 						<?php foreach ($geo_zones as $geo_zone) { ?>
 						<?php if ($geo_zone['geo_zone_id'] == $item_geo_zone_id) { ?>
 						<option value="<?= $geo_zone['geo_zone_id']; ?>" selected><?= $geo_zone['name']; ?></option>
@@ -60,21 +60,21 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="item_status" class="form-control">
 						<?php if ($item_status) { ?>
-						<option value="1" selected><?= $text_enabled; ?></option>
-						<option value="0"><?= $text_disabled; ?></option>
+						<option value="1" selected><?= $lang_text_enabled; ?></option>
+						<option value="0"><?= $lang_text_disabled; ?></option>
 						<?php } else { ?>
-						<option value="1"><?= $text_enabled; ?></option>
-						<option value="0" selected><?= $text_disabled; ?></option>
+						<option value="1"><?= $lang_text_enabled; ?></option>
+						<option value="0" selected><?= $lang_text_disabled; ?></option>
 						<?php } ?>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_sort_order; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_sort_order; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="item_sort_order" value="<?= $item_sort_order; ?>" class="form-control">
 				</div>

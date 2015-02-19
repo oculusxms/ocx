@@ -25,9 +25,9 @@ class Postwall extends Controller {
         
         $this->javascript->register('masonry.min', 'bootstrap.min')->register('imagesloaded.min', 'masonry.min');
         
-        $data['heading_title'] = $this->language->get('heading_' . $setting['post_type']);
+        $data['heading_title'] = $this->language->get('lang_heading_' . $setting['post_type']);
         
-        $data['text_empty'] = sprintf($this->language->get('text_empty'), $setting['post_type']);
+        $data['text_empty'] = sprintf($this->language->get('lang_text_empty'), $setting['post_type']);
         
         $this->theme->model('content/post');
         $this->theme->model('tool/image');
@@ -110,7 +110,7 @@ class Postwall extends Controller {
                     $rating = false;
                 }
                 
-                $masonry_posts[] = array('post_id' => $result['post_id'], 'thumb' => $image, 'name' => $result['name'], 'description' => $description, 'rating' => $rating, 'comments' => sprintf($this->language->get('text_comments'), (int)$result['comments']), 'href' => $this->url->link('content/post', 'post_id=' . $result['post_id']),);
+                $masonry_posts[] = array('post_id' => $result['post_id'], 'thumb' => $image, 'name' => $result['name'], 'description' => $description, 'rating' => $rating, 'comments' => sprintf($this->language->get('lang_text_comments'), (int)$result['comments']), 'href' => $this->url->link('content/post', 'post_id=' . $result['post_id']),);
             }
             
             $cachefile = $masonry_posts;

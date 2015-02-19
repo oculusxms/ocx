@@ -11,18 +11,18 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="pull-left h2"><i class="hidden-xs fa fa-bar-chart-o"></i><?= $heading_title; ?></div>
-		<div class="pull-right"><a href="<?= $reset; ?>" class="btn btn-default"><?= $button_reset; ?></a></div>
+		<div class="pull-left h2"><i class="hidden-xs fa fa-bar-chart-o"></i><?= $lang_heading_title; ?></div>
+		<div class="pull-right"><a href="<?= $reset; ?>" class="btn btn-default"><?= $lang_button_reset; ?></a></div>
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive">
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th><?= $column_name; ?></th>
-					<th class="hidden-xs"><?= $column_model; ?></th>
-					<th class="text-right"><?= $column_viewed; ?></th>
-					<th class="text-right"><?= $column_percent; ?></th>
+					<th><?= $lang_column_name; ?></th>
+					<th class="hidden-xs"><?= $lang_column_model; ?></th>
+					<th class="text-right"><?= $lang_column_viewed; ?></th>
+					<th class="text-right"><?= $lang_column_percent; ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,7 +37,7 @@
 				<?php } ?>
 				<?php } else { ?>
 				<tr>
-					<td class="text-center" colspan="4"><?= $text_no_results; ?></td>
+					<td class="text-center" colspan="4"><?= $lang_text_no_results; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

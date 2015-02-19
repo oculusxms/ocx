@@ -21,7 +21,7 @@ class Saletax extends Controller {
     public function index() {
         $data = $this->theme->language('report/sale_tax');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (isset($this->request->get['filter_date_start'])) {
             $filter_date_start = $this->request->get['filter_date_start'];
@@ -75,7 +75,7 @@ class Saletax extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'report/saletax', $url);
+        $this->breadcrumb->add('lang_heading_title', 'report/saletax', $url);
         
         $this->theme->model('report/sale');
         
@@ -90,7 +90,7 @@ class Saletax extends Controller {
         $results = $this->model_report_sale->getTaxes($filter);
         
         foreach ($results as $result) {
-            $data['orders'][] = array('date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])), 'date_end' => date($this->language->get('date_format_short'), strtotime($result['date_end'])), 'title' => $result['title'], 'orders' => $result['orders'], 'total' => $this->currency->format($result['total'], $this->config->get('config_currency')));
+            $data['orders'][] = array('date_start' => date($this->language->get('lang_date_format_short'), strtotime($result['date_start'])), 'date_end' => date($this->language->get('lang_date_format_short'), strtotime($result['date_end'])), 'title' => $result['title'], 'orders' => $result['orders'], 'total' => $this->currency->format($result['total'], $this->config->get('config_currency')));
         }
         
         $data['token'] = $this->session->data['token'];
@@ -101,13 +101,13 @@ class Saletax extends Controller {
         
         $data['groups'] = array();
         
-        $data['groups'][] = array('text' => $this->language->get('text_year'), 'value' => 'year',);
+        $data['groups'][] = array('text' => $this->language->get('lang_text_year'), 'value' => 'year',);
         
-        $data['groups'][] = array('text' => $this->language->get('text_month'), 'value' => 'month',);
+        $data['groups'][] = array('text' => $this->language->get('lang_text_month'), 'value' => 'month',);
         
-        $data['groups'][] = array('text' => $this->language->get('text_week'), 'value' => 'week',);
+        $data['groups'][] = array('text' => $this->language->get('lang_text_week'), 'value' => 'week',);
         
-        $data['groups'][] = array('text' => $this->language->get('text_day'), 'value' => 'day',);
+        $data['groups'][] = array('text' => $this->language->get('lang_text_day'), 'value' => 'day',);
         
         $url = '';
         
@@ -127,7 +127,7 @@ class Saletax extends Controller {
             $url.= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
         }
         
-        $data['pagination'] = $this->theme->paginate($order_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('report/saletax', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($order_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('report/saletax', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['filter_date_start'] = $filter_date_start;
         $data['filter_date_end'] = $filter_date_end;

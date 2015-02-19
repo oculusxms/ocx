@@ -13,5 +13,5 @@
 |	file that was distributed with this source code.
 |	
 */
-$_['text_credit']   = 'Store Credit';
-$_['text_order_id'] = 'Order ID: #%s';
+$_['lang_text_credit']   = 'Store Credit';
+$_['lang_text_order_id'] = 'Order ID: #%s';

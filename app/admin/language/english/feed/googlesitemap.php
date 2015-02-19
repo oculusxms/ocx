@@ -15,15 +15,15 @@
 */
 
 // Heading
-$_['heading_title']    = 'Google Sitemap';
+$_['lang_heading_title']    = 'Google Sitemap';
 
 // Text
-$_['text_feed']        = 'Product Feeds';
-$_['text_success']     = 'Success: You have modified Google Sitemap feed.';
+$_['lang_text_feed']        = 'Product Feeds';
+$_['lang_text_success']     = 'Success: You have modified Google Sitemap feed.';
 
 // Entry
-$_['entry_status']     = 'Status:';
-$_['entry_data_feed']  = 'Data Feed Url:';
+$_['lang_entry_status']     = 'Status:';
+$_['lang_entry_data_feed']  = 'Data Feed Url:';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify Google Sitemap feed.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify Google Sitemap feed.';

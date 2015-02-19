@@ -23,7 +23,7 @@ class Returns extends Controller {
     public function index() {
         $this->language->load('sale/returns');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('sale/returns');
         
@@ -35,14 +35,14 @@ class Returns extends Controller {
     public function insert() {
         $this->language->load('sale/returns');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('sale/returns');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_sale_returns->addReturn($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -101,14 +101,14 @@ class Returns extends Controller {
     public function update() {
         $this->language->load('sale/returns');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('sale/returns');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_sale_returns->editReturn($this->request->get['return_id'], $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -167,7 +167,7 @@ class Returns extends Controller {
     public function delete() {
         $this->language->load('sale/returns');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('sale/returns');
         
@@ -176,7 +176,7 @@ class Returns extends Controller {
                 $this->model_sale_returns->deleteReturn($return_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -347,7 +347,7 @@ class Returns extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'sale/returns', $url);
+        $this->breadcrumb->add('lang_heading_title', 'sale/returns', $url);
         
         $data['insert'] = $this->url->link('sale/returns/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('sale/returns/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -363,11 +363,11 @@ class Returns extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_view'), 'href' => $this->url->link('sale/returns/info', 'token=' . $this->session->data['token'] . '&return_id=' . $result['return_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_view'), 'href' => $this->url->link('sale/returns/info', 'token=' . $this->session->data['token'] . '&return_id=' . $result['return_id'] . $url, 'SSL'));
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('sale/returns/update', 'token=' . $this->session->data['token'] . '&return_id=' . $result['return_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('sale/returns/update', 'token=' . $this->session->data['token'] . '&return_id=' . $result['return_id'] . $url, 'SSL'));
             
-            $data['returns'][] = array('return_id' => $result['return_id'], 'order_id' => $result['order_id'], 'customer' => $result['customer'], 'product' => $result['product'], 'model' => $result['model'], 'status' => $result['status'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])), 'selected' => isset($this->request->post['selected']) && in_array($result['return_id'], $this->request->post['selected']), 'action' => $action);
+            $data['returns'][] = array('return_id' => $result['return_id'], 'order_id' => $result['order_id'], 'customer' => $result['customer'], 'product' => $result['product'], 'model' => $result['model'], 'status' => $result['status'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'date_modified' => date($this->language->get('lang_date_format_short'), strtotime($result['date_modified'])), 'selected' => isset($this->request->post['selected']) && in_array($result['return_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         $data['token'] = $this->session->data['token'];
@@ -485,7 +485,7 @@ class Returns extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($return_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($return_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['filter_return_id'] = $filter_return_id;
         $data['filter_order_id'] = $filter_order_id;
@@ -609,7 +609,7 @@ class Returns extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'sale/returns', $url);
+        $this->breadcrumb->add('lang_heading_title', 'sale/returns', $url);
         
         if (!isset($this->request->get['return_id'])) {
             $data['action'] = $this->url->link('sale/returns/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -792,7 +792,7 @@ class Returns extends Controller {
         if ($return_info) {
             $data = $this->theme->language('sale/returns');
             
-            $this->theme->setTitle($this->language->get('heading_title'));
+            $this->theme->setTitle($this->language->get('lang_heading_title'));
             
             $url = '';
             
@@ -840,7 +840,7 @@ class Returns extends Controller {
                 $url.= '&page=' . $this->request->get['page'];
             }
             
-            $this->breadcrumb->add('heading_title', 'sale/returns', $url);
+            $this->breadcrumb->add('lang_heading_title', 'sale/returns', $url);
             
             $data['cancel'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . $url, 'SSL');
             
@@ -859,7 +859,7 @@ class Returns extends Controller {
                 $data['order'] = '';
             }
             
-            $data['date_ordered'] = date($this->language->get('date_format_short'), strtotime($return_info['date_ordered']));
+            $data['date_ordered'] = date($this->language->get('lang_date_format_short'), strtotime($return_info['date_ordered']));
             $data['firstname'] = $return_info['firstname'];
             $data['lastname'] = $return_info['lastname'];
             
@@ -882,8 +882,8 @@ class Returns extends Controller {
                 $data['return_status'] = '';
             }
             
-            $data['date_added'] = date($this->language->get('date_format_short'), strtotime($return_info['date_added']));
-            $data['date_modified'] = date($this->language->get('date_format_short'), strtotime($return_info['date_modified']));
+            $data['date_added'] = date($this->language->get('lang_date_format_short'), strtotime($return_info['date_added']));
+            $data['date_modified'] = date($this->language->get('lang_date_format_short'), strtotime($return_info['date_modified']));
             $data['product'] = $return_info['product'];
             $data['model'] = $return_info['model'];
             $data['quantity'] = $return_info['quantity'];
@@ -898,7 +898,7 @@ class Returns extends Controller {
                 $data['return_reason'] = '';
             }
             
-            $data['opened'] = $return_info['opened'] ? $this->language->get('text_yes') : $this->language->get('text_no');
+            $data['opened'] = $return_info['opened'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no');
             $data['comment'] = nl2br($return_info['comment']);
             
             $this->theme->model('localization/returnaction');
@@ -921,9 +921,9 @@ class Returns extends Controller {
         } else {
             $data = $this->theme->language('error/not_found');
             
-            $this->theme->setTitle($this->language->get('heading_title'));
+            $this->theme->setTitle($this->language->get('lang_heading_title'));
             
-            $this->breadcrumb->add('heading_title', 'error/notfound');
+            $this->breadcrumb->add('lang_heading_title', 'error/notfound');
             
             $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
             
@@ -935,39 +935,39 @@ class Returns extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'sale/returns')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
+            $this->error['telephone'] = $this->language->get('lang_error_telephone');
         }
         
         if (($this->encode->strlen($this->request->post['product']) < 1) || ($this->encode->strlen($this->request->post['product']) > 255)) {
-            $this->error['product'] = $this->language->get('error_product');
+            $this->error['product'] = $this->language->get('lang_error_product');
         }
         
         if (($this->encode->strlen($this->request->post['model']) < 1) || ($this->encode->strlen($this->request->post['model']) > 64)) {
-            $this->error['model'] = $this->language->get('error_model');
+            $this->error['model'] = $this->language->get('lang_error_model');
         }
         
         if (empty($this->request->post['return_reason_id'])) {
-            $this->error['reason'] = $this->language->get('error_reason');
+            $this->error['reason'] = $this->language->get('lang_error_reason');
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -977,7 +977,7 @@ class Returns extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'sale/returns')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -992,13 +992,13 @@ class Returns extends Controller {
         
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
             if (!$this->user->hasPermission('modify', 'sale/returns')) {
-                $json['error'] = $this->language->get('error_permission');
+                $json['error'] = $this->language->get('lang_error_permission');
             }
             
             if (!$json) {
                 $this->theme->model('sale/returns');
                 
-                $json['success'] = $this->language->get('text_success');
+                $json['success'] = $this->language->get('lang_text_success');
                 
                 $this->model_sale_returns->editReturnAction($this->request->get['return_id'], $this->request->post['return_action_id']);
             }
@@ -1019,13 +1019,13 @@ class Returns extends Controller {
         
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
             if (!$this->user->hasPermission('modify', 'sale/returns')) {
-                $data['error'] = $this->language->get('error_permission');
+                $data['error'] = $this->language->get('lang_error_permission');
             }
             
             if (!$data['error']) {
                 $this->model_sale_returns->addReturnHistory($this->request->get['return_id'], $this->request->post);
                 
-                $data['success'] = $this->language->get('text_success');
+                $data['success'] = $this->language->get('lang_text_success');
             }
         }
         
@@ -1040,12 +1040,12 @@ class Returns extends Controller {
         $results = $this->model_sale_returns->getReturnHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['histories'][] = array('notify' => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'), 'status' => $result['status'], 'comment' => nl2br($result['comment']), 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])));
+            $data['histories'][] = array('notify' => $result['notify'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no'), 'status' => $result['status'], 'comment' => nl2br($result['comment']), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
         }
         
         $history_total = $this->model_sale_returns->getTotalReturnHistories($this->request->get['return_id']);
         
-        $data['pagination'] = $this->theme->paginate($history_total, $page, 10, $this->language->get('text_pagination'), $this->url->link('sale/returns/history', 'token=' . $this->session->data['token'] . '&return_id=' . $this->request->get['return_id'] . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($history_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('sale/returns/history', 'token=' . $this->session->data['token'] . '&return_id=' . $this->request->get['return_id'] . '&page={page}', 'SSL'));
         
         $this->theme->loadjs('javascript/sale/return_history', $data);
         

@@ -38,16 +38,16 @@ class Register extends Plugin {
         
         // set all hooks handlers
         $model->setHookHandler('admin_controller', array(
-                'class'    => 'tool/test',
-                'method'   => 'index',
-                'type'     => 'post',
-                'plugin'   => 'example',
-                'file'     => 'admin/hooks/controllerhooks',
-                'callback' => 'exampleHook',
-                'args'     => array(
-                    'heading_title' => 'Example Test Page',
-                    'item_title'    => 'Item title'
-                )
+            'class'    => 'tool/test',
+            'method'   => 'index',
+            'type'     => 'post',
+            'plugin'   => 'example',
+            'file'     => 'admin/hooks/controllerhooks',
+            'callback' => 'exampleHook',
+            'args'     => array(
+                'heading_title' => 'Example Test Page',
+                'item_title'    => 'Item title'
+            )
         ));
         
         $model->setHookHandler('admin_controller', array(

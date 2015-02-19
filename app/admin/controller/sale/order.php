@@ -22,7 +22,7 @@ class Order extends Controller {
     
     public function index() {
         $this->language->load('sale/order');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('sale/order');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Order extends Controller {
     
     public function insert() {
         $this->language->load('sale/order');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('sale/order');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_sale_order->addOrder($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -87,12 +87,12 @@ class Order extends Controller {
     
     public function update() {
         $this->language->load('sale/order');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('sale/order');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_sale_order->editOrder($this->request->get['order_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -142,7 +142,7 @@ class Order extends Controller {
     
     public function delete() {
         $this->language->load('sale/order');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('sale/order');
         
         if (isset($this->request->post['selected']) && ($this->validateDelete())) {
@@ -150,7 +150,7 @@ class Order extends Controller {
                 $this->model_sale_order->deleteOrder($order_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -293,7 +293,7 @@ class Order extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'sale/order', $url);
+        $this->breadcrumb->add('lang_heading_title', 'sale/order', $url);
         
         $data['invoice'] = $this->url->link('sale/order/invoice', 'token=' . $this->session->data['token'], 'SSL');
         $data['insert'] = $this->url->link('sale/order/insert', 'token=' . $this->session->data['token'], 'SSL');
@@ -310,13 +310,13 @@ class Order extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_view'), 'href' => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_view'), 'href' => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, 'SSL'));
             
             if (strtotime($result['date_added']) > strtotime('-' . (int)$this->config->get('config_order_edit') . ' day')) {
-                $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('sale/order/update', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, 'SSL'));
+                $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('sale/order/update', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, 'SSL'));
             }
             
-            $data['orders'][] = array('order_id' => $result['order_id'], 'customer' => $result['customer'], 'status' => $result['status'], 'total' => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']), 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])), 'selected' => isset($this->request->post['selected']) && in_array($result['order_id'], $this->request->post['selected']), 'action' => $action);
+            $data['orders'][] = array('order_id' => $result['order_id'], 'customer' => $result['customer'], 'status' => $result['status'], 'total' => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'date_modified' => date($this->language->get('lang_date_format_short'), strtotime($result['date_modified'])), 'selected' => isset($this->request->post['selected']) && in_array($result['order_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         $data['token'] = $this->session->data['token'];
@@ -412,7 +412,7 @@ class Order extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($order_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($order_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['filter_order_id'] = $filter_order_id;
         $data['filter_customer'] = $filter_customer;
@@ -612,7 +612,7 @@ class Order extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'sale/order', $url);
+        $this->breadcrumb->add('lang_heading_title', 'sale/order', $url);
         
         if (!isset($this->request->get['order_id'])) {
             $data['action'] = $this->url->link('sale/order/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -1019,39 +1019,39 @@ class Order extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['email']) > 96) || (!preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email']))) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
+            $this->error['telephone'] = $this->language->get('lang_error_telephone');
         }
         
         if (($this->encode->strlen($this->request->post['payment_firstname']) < 1) || ($this->encode->strlen($this->request->post['payment_firstname']) > 32)) {
-            $this->error['payment_firstname'] = $this->language->get('error_firstname');
+            $this->error['payment_firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['payment_lastname']) < 1) || ($this->encode->strlen($this->request->post['payment_lastname']) > 32)) {
-            $this->error['payment_lastname'] = $this->language->get('error_lastname');
+            $this->error['payment_lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['payment_address_1']) < 3) || ($this->encode->strlen($this->request->post['payment_address_1']) > 128)) {
-            $this->error['payment_address_1'] = $this->language->get('error_address_1');
+            $this->error['payment_address_1'] = $this->language->get('lang_error_address_1');
         }
         
         if (($this->encode->strlen($this->request->post['payment_city']) < 3) || ($this->encode->strlen($this->request->post['payment_city']) > 128)) {
-            $this->error['payment_city'] = $this->language->get('error_city');
+            $this->error['payment_city'] = $this->language->get('lang_error_city');
         }
         
         $this->theme->model('localization/country');
@@ -1060,24 +1060,24 @@ class Order extends Controller {
         
         if ($country_info) {
             if ($country_info['postcode_required'] && ($this->encode->strlen($this->request->post['payment_postcode']) < 2) || ($this->encode->strlen($this->request->post['payment_postcode']) > 10)) {
-                $this->error['payment_postcode'] = $this->language->get('error_postcode');
+                $this->error['payment_postcode'] = $this->language->get('lang_error_postcode');
             }
             
             if ($this->config->get('config_vat') && $this->request->post['payment_tax_id'] && ($this->vat->validate($country_info['iso_code_2'], $this->request->post['payment_tax_id']) == 'invalid')) {
-                $this->error['payment_tax_id'] = $this->language->get('error_vat');
+                $this->error['payment_tax_id'] = $this->language->get('lang_error_vat');
             }
         }
         
         if ($this->request->post['payment_country_id'] == '') {
-            $this->error['payment_country'] = $this->language->get('error_country');
+            $this->error['payment_country'] = $this->language->get('lang_error_country');
         }
         
         if (!isset($this->request->post['payment_zone_id']) || $this->request->post['payment_zone_id'] == '') {
-            $this->error['payment_zone'] = $this->language->get('error_zone');
+            $this->error['payment_zone'] = $this->language->get('lang_error_zone');
         }
         
         if (!isset($this->request->post['payment_method']) || $this->request->post['payment_method'] == '') {
-            $this->error['payment_method'] = $this->language->get('error_payment');
+            $this->error['payment_method'] = $this->language->get('lang_error_payment');
         }
         
         // Check if any products require shipping
@@ -1097,19 +1097,19 @@ class Order extends Controller {
         
         if ($shipping) {
             if (($this->encode->strlen($this->request->post['shipping_firstname']) < 1) || ($this->encode->strlen($this->request->post['shipping_firstname']) > 32)) {
-                $this->error['shipping_firstname'] = $this->language->get('error_firstname');
+                $this->error['shipping_firstname'] = $this->language->get('lang_error_firstname');
             }
             
             if (($this->encode->strlen($this->request->post['shipping_lastname']) < 1) || ($this->encode->strlen($this->request->post['shipping_lastname']) > 32)) {
-                $this->error['shipping_lastname'] = $this->language->get('error_lastname');
+                $this->error['shipping_lastname'] = $this->language->get('lang_error_lastname');
             }
             
             if (($this->encode->strlen($this->request->post['shipping_address_1']) < 3) || ($this->encode->strlen($this->request->post['shipping_address_1']) > 128)) {
-                $this->error['shipping_address_1'] = $this->language->get('error_address_1');
+                $this->error['shipping_address_1'] = $this->language->get('lang_error_address_1');
             }
             
             if (($this->encode->strlen($this->request->post['shipping_city']) < 3) || ($this->encode->strlen($this->request->post['shipping_city']) > 128)) {
-                $this->error['shipping_city'] = $this->language->get('error_city');
+                $this->error['shipping_city'] = $this->language->get('lang_error_city');
             }
             
             $this->theme->model('localization/country');
@@ -1117,24 +1117,24 @@ class Order extends Controller {
             $country_info = $this->model_localization_country->getCountry($this->request->post['shipping_country_id']);
             
             if ($country_info && $country_info['postcode_required'] && ($this->encode->strlen($this->request->post['shipping_postcode']) < 2) || ($this->encode->strlen($this->request->post['shipping_postcode']) > 10)) {
-                $this->error['shipping_postcode'] = $this->language->get('error_postcode');
+                $this->error['shipping_postcode'] = $this->language->get('lang_error_postcode');
             }
             
             if ($this->request->post['shipping_country_id'] == '') {
-                $this->error['shipping_country'] = $this->language->get('error_country');
+                $this->error['shipping_country'] = $this->language->get('lang_error_country');
             }
             
             if (!isset($this->request->post['shipping_zone_id']) || $this->request->post['shipping_zone_id'] == '') {
-                $this->error['shipping_zone'] = $this->language->get('error_zone');
+                $this->error['shipping_zone'] = $this->language->get('lang_error_zone');
             }
             
             if (!$this->request->post['shipping_method']) {
-                $this->error['shipping_method'] = $this->language->get('error_shipping');
+                $this->error['shipping_method'] = $this->language->get('lang_error_shipping');
             }
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -1144,7 +1144,7 @@ class Order extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -1190,7 +1190,7 @@ class Order extends Controller {
                 $data['error_warning'] = '';
             }
             
-            $this->theme->setTitle($this->language->get('heading_title'));
+            $this->theme->setTitle($this->language->get('lang_heading_title'));
             
             $data['token'] = $this->session->data['token'];
             
@@ -1232,7 +1232,7 @@ class Order extends Controller {
                 $url.= '&page=' . $this->request->get['page'];
             }
             
-            $this->breadcrumb->add('heading_title', 'sale/order', $url);
+            $this->breadcrumb->add('lang_heading_title', 'sale/order', $url);
             
             $data['invoice'] = $this->url->link('sale/order/invoice', 'token=' . $this->session->data['token'] . '&order_id=' . (int)$this->request->get['order_id'], 'SSL');
             $data['cancel'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -1316,8 +1316,8 @@ class Order extends Controller {
             $data['forwarded_ip'] = $order_info['forwarded_ip'];
             $data['user_agent'] = $order_info['user_agent'];
             $data['accept_language'] = $order_info['accept_language'];
-            $data['date_added'] = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
-            $data['date_modified'] = date($this->language->get('date_format_short'), strtotime($order_info['date_modified']));
+            $data['date_added'] = date($this->language->get('lang_date_format_short'), strtotime($order_info['date_added']));
+            $data['date_modified'] = date($this->language->get('lang_date_format_short'), strtotime($order_info['date_modified']));
             $data['payment_firstname'] = $order_info['payment_firstname'];
             $data['payment_lastname'] = $order_info['payment_lastname'];
             $data['payment_company'] = $order_info['payment_company'];
@@ -1604,9 +1604,9 @@ class Order extends Controller {
         } else {
             $data = $this->theme->language('error/not_found');
             
-            $this->theme->setTitle($this->language->get('heading_title'));
+            $this->theme->setTitle($this->language->get('lang_heading_title'));
             
-            $this->breadcrumb->add('heading_title', 'error/notfound');
+            $this->breadcrumb->add('lang_heading_title', 'error/notfound');
             
             $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
             
@@ -1622,7 +1622,7 @@ class Order extends Controller {
         $json = array();
         
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         } elseif (isset($this->request->get['order_id'])) {
             $this->theme->model('sale/order');
             
@@ -1631,7 +1631,7 @@ class Order extends Controller {
             if ($invoice_no) {
                 $json['invoice_no'] = $invoice_no;
             } else {
-                $json['error'] = $this->language->get('error_action');
+                $json['error'] = $this->language->get('lang_error_action');
             }
         }
         
@@ -1646,7 +1646,7 @@ class Order extends Controller {
         $json = array();
         
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         } elseif (isset($this->request->get['order_id'])) {
             $this->theme->model('sale/order');
             
@@ -1658,11 +1658,11 @@ class Order extends Controller {
                 $credit_total = $this->model_people_customer->getTotalTransactionsByOrderId($this->request->get['order_id']);
                 
                 if (!$credit_total) {
-                    $this->model_people_customer->addTransaction($order_info['customer_id'], $this->language->get('text_order_id') . ' #' . $this->request->get['order_id'], $order_info['total'], $this->request->get['order_id']);
+                    $this->model_people_customer->addTransaction($order_info['customer_id'], $this->language->get('lang_text_order_id') . ' #' . $this->request->get['order_id'], $order_info['total'], $this->request->get['order_id']);
                     
-                    $json['success'] = $this->language->get('text_credit_added');
+                    $json['success'] = $this->language->get('lang_text_credit_added');
                 } else {
-                    $json['error'] = $this->language->get('error_action');
+                    $json['error'] = $this->language->get('lang_error_action');
                 }
             }
         }
@@ -1678,7 +1678,7 @@ class Order extends Controller {
         $json = array();
         
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         } elseif (isset($this->request->get['order_id'])) {
             $this->theme->model('sale/order');
             
@@ -1689,9 +1689,9 @@ class Order extends Controller {
                 
                 $this->model_people_customer->deleteTransaction($this->request->get['order_id']);
                 
-                $json['success'] = $this->language->get('text_credit_removed');
+                $json['success'] = $this->language->get('lang_text_credit_removed');
             } else {
-                $json['error'] = $this->language->get('error_action');
+                $json['error'] = $this->language->get('lang_error_action');
             }
         }
         
@@ -1706,7 +1706,7 @@ class Order extends Controller {
         $json = array();
         
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         } elseif (isset($this->request->get['order_id'])) {
             $this->theme->model('sale/order');
             
@@ -1718,14 +1718,14 @@ class Order extends Controller {
                 $reward_total = $this->model_people_customer->getTotalCustomerRewardsByOrderId($this->request->get['order_id']);
                 
                 if (!$reward_total) {
-                    $this->model_people_customer->addReward($order_info['customer_id'], $this->language->get('text_order_id') . ' #' . $this->request->get['order_id'], $order_info['reward'], $this->request->get['order_id']);
+                    $this->model_people_customer->addReward($order_info['customer_id'], $this->language->get('lang_text_order_id') . ' #' . $this->request->get['order_id'], $order_info['reward'], $this->request->get['order_id']);
                     
-                    $json['success'] = $this->language->get('text_reward_added');
+                    $json['success'] = $this->language->get('lang_text_reward_added');
                 } else {
-                    $json['error'] = $this->language->get('error_action');
+                    $json['error'] = $this->language->get('lang_error_action');
                 }
             } else {
-                $json['error'] = $this->language->get('error_action');
+                $json['error'] = $this->language->get('lang_error_action');
             }
         }
         
@@ -1740,7 +1740,7 @@ class Order extends Controller {
         $json = array();
         
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         } elseif (isset($this->request->get['order_id'])) {
             $this->theme->model('sale/order');
             
@@ -1751,9 +1751,9 @@ class Order extends Controller {
                 
                 $this->model_people_customer->deleteReward($this->request->get['order_id']);
                 
-                $json['success'] = $this->language->get('text_reward_removed');
+                $json['success'] = $this->language->get('lang_text_reward_removed');
             } else {
-                $json['error'] = $this->language->get('error_action');
+                $json['error'] = $this->language->get('lang_error_action');
             }
         }
         
@@ -1768,7 +1768,7 @@ class Order extends Controller {
         $json = array();
         
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         } elseif (isset($this->request->get['order_id'])) {
             $this->theme->model('sale/order');
             
@@ -1780,14 +1780,14 @@ class Order extends Controller {
                 $affiliate_total = $this->model_people_affiliate->getTotalTransactionsByOrderId($this->request->get['order_id']);
                 
                 if (!$affiliate_total) {
-                    $this->model_people_affiliate->addTransaction($order_info['affiliate_id'], $this->language->get('text_order_id') . ' #' . $this->request->get['order_id'], $order_info['commission'], $this->request->get['order_id']);
+                    $this->model_people_affiliate->addTransaction($order_info['affiliate_id'], $this->language->get('lang_text_order_id') . ' #' . $this->request->get['order_id'], $order_info['commission'], $this->request->get['order_id']);
                     
-                    $json['success'] = $this->language->get('text_commission_added');
+                    $json['success'] = $this->language->get('lang_text_commission_added');
                 } else {
-                    $json['error'] = $this->language->get('error_action');
+                    $json['error'] = $this->language->get('lang_error_action');
                 }
             } else {
-                $json['error'] = $this->language->get('error_action');
+                $json['error'] = $this->language->get('lang_error_action');
             }
         }
         
@@ -1802,7 +1802,7 @@ class Order extends Controller {
         $json = array();
         
         if (!$this->user->hasPermission('modify', 'sale/order')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('lang_error_permission');
         } elseif (isset($this->request->get['order_id'])) {
             $this->theme->model('sale/order');
             
@@ -1813,9 +1813,9 @@ class Order extends Controller {
                 
                 $this->model_people_affiliate->deleteTransaction($this->request->get['order_id']);
                 
-                $json['success'] = $this->language->get('text_commission_removed');
+                $json['success'] = $this->language->get('lang_text_commission_removed');
             } else {
-                $json['error'] = $this->language->get('error_action');
+                $json['error'] = $this->language->get('lang_error_action');
             }
         }
         
@@ -1834,13 +1834,13 @@ class Order extends Controller {
         
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
             if (!$this->user->hasPermission('modify', 'sale/order')) {
-                $data['error'] = $this->language->get('error_permission');
+                $data['error'] = $this->language->get('lang_error_permission');
             }
             
             if (!$data['error']) {
                 $this->model_sale_order->addOrderHistory($this->request->get['order_id'], $this->request->post);
                 
-                $data['success'] = $this->language->get('text_success');
+                $data['success'] = $this->language->get('lang_text_success');
             }
         }
         
@@ -1855,12 +1855,12 @@ class Order extends Controller {
         $results = $this->model_sale_order->getOrderHistories($this->request->get['order_id'], ($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['histories'][] = array('notify' => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'), 'status' => $result['status'], 'comment' => nl2br($result['comment']), 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])));
+            $data['histories'][] = array('notify' => $result['notify'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no'), 'status' => $result['status'], 'comment' => nl2br($result['comment']), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
         }
         
         $history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get['order_id']);
         
-        $data['pagination'] = $this->theme->paginate($history_total, $page, 10, $this->language->get('text_pagination'), $this->url->link('sale/order/history', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($history_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('sale/order/history', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&page={page}', 'SSL'));
         
         $this->theme->loadjs('javascript/sale/order_history', $data);
         
@@ -1907,9 +1907,9 @@ class Order extends Controller {
         } else {
             $data = $this->theme->language('error/not_found');
             
-            $this->theme->setTitle($this->language->get('heading_title'));
+            $this->theme->setTitle($this->language->get('lang_heading_title'));
             
-            $this->breadcrumb->add('heading_title', 'error/notfound');
+            $this->breadcrumb->add('lang_heading_title', 'error/notfound');
             
             $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
             
@@ -1929,7 +1929,7 @@ class Order extends Controller {
                 $filename = html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8');
                 
                 if (($this->encode->strlen($filename) < 3) || ($this->encode->strlen($filename) > 128)) {
-                    $json['error'] = $this->language->get('error_filename');
+                    $json['error'] = $this->language->get('lang_error_filename');
                 }
                 
                 // Allowed file extension types
@@ -1942,7 +1942,7 @@ class Order extends Controller {
                 }
                 
                 if (!in_array(substr(strrchr($filename, '.'), 1), $allowed)) {
-                    $json['error'] = $this->language->get('error_filetype');
+                    $json['error'] = $this->language->get('lang_error_filetype');
                 }
                 
                 // Allowed file mime types
@@ -1954,21 +1954,21 @@ class Order extends Controller {
                 }
                 
                 if (!in_array($this->request->files['file']['type'], $allowed)) {
-                    $json['error'] = $this->language->get('error_filetype');
+                    $json['error'] = $this->language->get('lang_error_filetype');
                 }
                 
                 // Check to see if any PHP files are trying to be uploaded
                 $content = file_get_contents($this->request->files['file']['tmp_name']);
                 
                 if (preg_match('/\<\?php/i', $content)) {
-                    $json['error'] = $this->language->get('error_filetype');
+                    $json['error'] = $this->language->get('lang_error_filetype');
                 }
                 
                 if ($this->request->files['file']['error'] != UPLOAD_ERR_OK) {
-                    $json['error'] = $this->language->get('error_upload_' . $this->request->files['file']['error']);
+                    $json['error'] = $this->language->get('lang_error_upload_' . $this->request->files['file']['error']);
                 }
             } else {
-                $json['error'] = $this->language->get('error_upload');
+                $json['error'] = $this->language->get('lang_error_upload');
             }
             
             if (!isset($json['error'])) {
@@ -1980,7 +1980,7 @@ class Order extends Controller {
                     move_uploaded_file($this->request->files['file']['tmp_name'], $this->app['path.download'] . $file);
                 }
                 
-                $json['success'] = $this->language->get('text_upload');
+                $json['success'] = $this->language->get('lang_text_upload');
             }
         }
         
@@ -1995,7 +1995,7 @@ class Order extends Controller {
         $this->css->reset();
         $this->css->register('invoice.min');
         
-        $data['title'] = $this->language->get('heading_title');
+        $data['title'] = $this->language->get('lang_heading_title');
         
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
             $data['base'] = $this->app['https.server'];
@@ -2003,7 +2003,7 @@ class Order extends Controller {
             $data['base'] = $this->app['http.server'];
         }
         
-        $data['language'] = $this->language->get('code');
+        $data['language'] = $this->language->get('lang_code');
         
         $this->theme->model('sale/order');
         
@@ -2097,7 +2097,7 @@ class Order extends Controller {
                 
                 $total_data = $this->model_sale_order->getOrderTotals($order_id);
                 
-                $data['orders'][] = array('order_id' => $order_id, 'invoice_no' => $invoice_no, 'date_added' => date($this->language->get('date_format_short'), strtotime($order_info['date_added'])), 'store_name' => $order_info['store_name'], 'store_url' => rtrim($order_info['store_url'], '/'), 'store_address' => nl2br($store_address), 'store_email' => $store_email, 'store_telephone' => $store_telephone, 'email' => $order_info['email'], 'telephone' => $order_info['telephone'], 'shipping_address' => $shipping_address, 'shipping_method' => $order_info['shipping_method'], 'payment_address' => $payment_address, 'payment_company_id' => $order_info['payment_company_id'], 'payment_tax_id' => $order_info['payment_tax_id'], 'payment_method' => $order_info['payment_method'], 'product' => $product_data, 'voucher' => $voucher_data, 'total' => $total_data, 'comment' => nl2br($order_info['comment']));
+                $data['orders'][] = array('order_id' => $order_id, 'invoice_no' => $invoice_no, 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($order_info['date_added'])), 'store_name' => $order_info['store_name'], 'store_url' => rtrim($order_info['store_url'], '/'), 'store_address' => nl2br($store_address), 'store_email' => $store_email, 'store_telephone' => $store_telephone, 'email' => $order_info['email'], 'telephone' => $order_info['telephone'], 'shipping_address' => $shipping_address, 'shipping_method' => $order_info['shipping_method'], 'payment_address' => $payment_address, 'payment_company_id' => $order_info['payment_company_id'], 'payment_tax_id' => $order_info['payment_tax_id'], 'payment_method' => $order_info['payment_method'], 'product' => $product_data, 'voucher' => $voucher_data, 'total' => $total_data, 'comment' => nl2br($order_info['comment']));
             }
         }
         

@@ -5,15 +5,15 @@
 	<div class="col-sm-<?php $span = trim($column_left) ? 9 : 12; $span = trim($column_right) ? $span - 3 : $span; echo $span; ?>">
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
-		<div class="page-header"><h1><?= $heading_title; ?></h1></div>
+		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
 		<?php if ($rewards) { ?>
-		<p><?= $text_total; ?> <b><?= $total; ?></b></p>
+		<p><?= $lang_text_total; ?> <b><?= $total; ?></b></p>
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th><?= $column_date_added; ?></th>
-					<th><?= $column_description; ?></th>
-					<th class="text-right"><?= $column_points; ?></th>
+					<th><?= $lang_column_date_added; ?></th>
+					<th><?= $lang_column_description; ?></th>
+					<th class="text-right"><?= $lang_column_points; ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,11 +32,11 @@
 		</table>
 		<div class="pagination"><?= str_replace('....','',$pagination); ?></div>
 		<?php } else { ?>
-			<div class="alert alert-warning"><?= $text_empty; ?></div>
+			<div class="alert alert-warning"><?= $lang_text_empty; ?></div>
 		<?php } ?>
 		<div class="form-actions">
 			<div class="form-actions-inner text-right">
-				<a href="<?= $continue; ?>" class="btn btn-primary"><?= $button_continue; ?></a>
+				<a href="<?= $continue; ?>" class="btn btn-primary"><?= $lang_button_continue; ?></a>
 			</div>
 		</div>
 		<?= $content_bottom; ?>

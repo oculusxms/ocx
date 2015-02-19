@@ -28,7 +28,7 @@ class Menu extends Controller {
             $data['logged'] = false;
         else:
             $data['paypalexpress_status']        = ($this->config->get('paypalexpress_status')) ? : false;
-            $data['logged']                      = sprintf($this->language->get('text_logged'), $this->user->getUsername());
+            $data['logged']                      = sprintf($this->language->get('lang_text_logged'), $this->user->getUsername());
             $data['dashboard']                   = $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL');
             $data['affiliate']                   = $this->url->link('people/affiliate', 'token=' . $this->session->data['token'], 'SSL');
             $data['attribute']                   = $this->url->link('catalog/attribute', 'token=' . $this->session->data['token'], 'SSL');
@@ -54,6 +54,7 @@ class Menu extends Controller {
             $data['feed']                        = $this->url->link('module/feed', 'token=' . $this->session->data['token'], 'SSL');
             $data['filter']                      = $this->url->link('catalog/filter', 'token=' . $this->session->data['token'], 'SSL');
             $data['geo_zone']                    = $this->url->link('localization/geozone', 'token=' . $this->session->data['token'], 'SSL');
+            $data['help']                        = $this->url->link('setting/help', 'token=' . $this->session->data['token'], 'SSL');
             $data['page']                        = $this->url->link('content/page', 'token=' . $this->session->data['token'], 'SSL');
             $data['language']                    = $this->url->link('localization/language', 'token=' . $this->session->data['token'], 'SSL');
             $data['layout']                      = $this->url->link('design/layout', 'token=' . $this->session->data['token'], 'SSL');

@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-globe"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-globe"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_name; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="name" value="<?= $name; ?>" class="form-control" autofocus>
 					<?php if ($error_name) { ?>
@@ -33,13 +33,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_code; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_code; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="code" value="<?= $code; ?>" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_country; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_country; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="country_id" class="form-control">
 						<?php foreach ($countries as $country) { ?>
@@ -53,15 +53,15 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="status" class="form-control">
 						<?php if ($status) { ?>
-						<option value="1" selected><?= $text_enabled; ?></option>
-						<option value="0"><?= $text_disabled; ?></option>
+						<option value="1" selected><?= $lang_text_enabled; ?></option>
+						<option value="0"><?= $lang_text_disabled; ?></option>
 						<?php } else { ?>
-						<option value="1"><?= $text_enabled; ?></option>
-						<option value="0" selected><?= $text_disabled; ?></option>
+						<option value="1"><?= $lang_text_enabled; ?></option>
+						<option value="0" selected><?= $lang_text_disabled; ?></option>
 						<?php } ?>
 					</select>
 				</div>

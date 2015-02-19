@@ -77,6 +77,23 @@ CREATE TABLE IF NOT EXISTS `ocx_affiliate` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ocx_affiliate_inbox`
+--
+
+DROP TABLE IF EXISTS `ocx_affiliate_inbox`;
+CREATE TABLE IF NOT EXISTS `ocx_affiliate_inbox` (
+  `notification_id` int(13) NOT NULL AUTO_INCREMENT,
+  `affiliate_id` int(11) NOT NULL,
+  `subject` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`notification_id`),
+  KEY `affiliate_id` (`affiliate_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ocx_affiliate_transaction`
 --
 
@@ -452,7 +469,9 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_post_description` (
   `meta_keyword` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tag` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`post_id`,`language_id`),
-  KEY `name` (`name`)
+  KEY `name` (`name`),
+  FULLTEXT KEY `description` (`description`),
+  FULLTEXT KEY `tag` (`tag`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
@@ -1325,6 +1344,23 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_history` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ocx_customer_inbox`
+--
+
+DROP TABLE IF EXISTS `ocx_customer_inbox`;
+CREATE TABLE IF NOT EXISTS `ocx_customer_inbox` (
+  `notification_id` int(13) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `subject` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`notification_id`),
+  KEY `customer_id` (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ocx_customer_ip`
 --
 
@@ -1337,6 +1373,19 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_ip` (
   PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_customer_notification`
+--
+
+DROP TABLE IF EXISTS `ocx_customer_notification`;
+CREATE TABLE IF NOT EXISTS `ocx_customer_notification` (
+  `customer_id` int(11) NOT NULL DEFAULT '0',
+  `settings` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1491,6 +1540,105 @@ CREATE TABLE IF NOT EXISTS `ocx_download_description` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`download_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_email`
+--
+
+DROP TABLE IF EXISTS `ocx_email`;
+CREATE TABLE IF NOT EXISTS `ocx_email` (
+  `email_id` int(11) NOT NULL AUTO_INCREMENT,
+  `email_slug` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `configurable` tinyint(1) NOT NULL DEFAULT '0',
+  `config_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `recipient` tinyint(1) NOT NULL DEFAULT '1',
+  `is_system` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`email_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
+
+--
+-- Dumping data for table `ocx_email`
+--
+
+INSERT INTO `ocx_email` (`email_id`, `email_slug`, `configurable`, `config_description`, `recipient`, `is_system`) VALUES
+(1, 'admin_forgotten_email', 0, '', 3, 1),
+(2, 'admin_people_contact', 1, 'Customer Newsletter', 1, 1),
+(3, 'admin_event_add', 1, 'Administrator Adds You to an Event', 1, 1),
+(4, 'admin_event_waitlist', 1, 'Administrator Adds You to an Event Waitlist ', 1, 1),
+(5, 'admin_affiliate_add_transaction', 1, 'Administrator Adds a Commission to Your Affiliate Account', 2, 1),
+(6, 'admin_affiliate_approve', 0, '', 2, 1),
+(7, 'admin_customer_approve', 0, '', 1, 1),
+(8, 'admin_customer_add_transaction', 1, 'Administrator Adds a Store Credit to Your Customer Account', 1, 1),
+(9, 'admin_customer_add_reward', 1, 'Administrator Adds Reward Points to Your Customer Account', 1, 1),
+(10, 'admin_order_add_history', 1, 'Administrator Updates Your Active Orders', 1, 1),
+(11, 'admin_return_add_history', 1, 'Administrator Updates Your Active Returns', 1, 1),
+(12, 'admin_voucher_order_send', 0, '', 1, 1),
+(13, 'admin_voucher_no_order_send', 0, '', 1, 1),
+(14, 'public_waitlist_join', 1, 'You Join an Event Waitlist', 1, 1),
+(15, 'public_customer_order_confirm', 1, 'You Place an Order', 1, 1),
+(16, 'public_admin_order_confirm', 0, '', 3, 1),
+(17, 'public_customer_order_update', 0, '', 1, 1),
+(18, 'public_customer_forgotten', 0, '', 1, 1),
+(19, 'public_affiliate_forgotten', 0, '', 2, 1),
+(20, 'public_contact_admin', 0, '', 3, 1),
+(21, 'public_contact_customer', 0, '', 1, 1),
+(22, 'public_register_customer', 0, '', 1, 1),
+(23, 'public_register_admin', 0, '', 3, 1),
+(24, 'public_affiliate_register', 0, '', 2, 1),
+(25, 'public_affiliate_admin', 0, '', 3, 1),
+(26, 'public_voucher_confirm', 0, '', 1, 1),
+(27, 'email_wrapper', 0, '', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_email_content`
+--
+
+DROP TABLE IF EXISTS `ocx_email_content`;
+CREATE TABLE IF NOT EXISTS `ocx_email_content` (
+  `email_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL DEFAULT '1',
+  `subject` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `text` text COLLATE utf8_unicode_ci NOT NULL,
+  `html` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`email_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `ocx_email_content`
+--
+
+INSERT INTO `ocx_email_content` (`email_id`, `language_id`, `subject`, `text`, `html`) VALUES
+(1, 1, 'Forgotten Admin Email', 'xxx', 'xxx'),
+(2, 1, 'N/A', 'xxx', 'xxx'),
+(3, 1, 'You''ve Been Added to an Event', 'xxx', 'xxx'),
+(4, 1, 'You''ve Been Added to the Waitlist', 'xxx', 'xxx'),
+(5, 1, 'You''ve Earned a Commission', 'xxx', 'xxx'),
+(6, 1, 'Your Affiliate Account Has Been Approved', 'xxx', 'xxx'),
+(7, 1, 'Your Customer Account Has Been Approved', 'xxx', 'xxx'),
+(8, 1, 'Your Account Has Been Credited', 'xxx', 'xxx'),
+(9, 1, 'You''ve Earned Reward Points', 'xxx', 'xxx'),
+(10, 1, 'Your Order Has Been Updated', 'xxx', 'xxx'),
+(11, 1, 'Your Return Has Been Updated', 'xxx', 'xxx'),
+(12, 1, 'You''ve Received a Gift Certificate', 'xxx', 'xxx'),
+(13, 1, 'You''ve Received a Gift Certificate', 'xxx', 'xxx'),
+(14, 1, 'You''ve Been Added to the Waitlist', 'xxx', 'xxx'),
+(15, 1, 'Your Order Details', 'xxx', 'xxx'),
+(16, 1, 'An Order Has Been Placed', 'xxx', 'xxx'),
+(17, 1, 'Your Order Has Been Updated', 'xxx', 'xxx'),
+(18, 1, 'Customer Password Reset', 'Hi !fname!,\r\n\r\nYou, or someone claiming to be you has requested a new password for your customer account at !store_name!.\r\n\r\nYour temporary password is:\r\n\r\n!password!\r\n\r\nPlease ensure you log in and change this password to a permanent one that''s specific to you.', '\r\n\r\n\r\n\r\n&lt;p class=&quot;p1&quot;&gt;&lt;span class=&quot;s1&quot;&gt;Hi !fname!,&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;You, or someone claiming to be you has requested a new password for your customer account at !store_name!.&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;Your temporary password is:&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;!password!&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;Please ensure you log in and change this password to a permanent one that''s specific to you.&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p2&quot;&gt;&lt;span class=&quot;s1&quot;&gt;&lt;/span&gt;&lt;/p&gt;'),
+(19, 1, 'Affiliate Password Reset', 'Hi !fname!,\r\n\r\nYou, or someone claiming to be you has requested a new password for your affiliate account at !store_name!.\r\n\r\nYour temporary password is:\r\n\r\n!password!\r\n\r\nPlease ensure you log in and change this password to a permanent one that''s specific to you.', '&lt;p class=&quot;p1&quot;&gt;&lt;span class=&quot;s1&quot;&gt;Hi !fname!,&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;You, or someone claiming to be you has requested a new password for your affiliate account at !store_name!.&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;Your temporary password is:&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;!password!&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;Please ensure you log in and change this password to a permanent one that''s specific to you.&lt;/span&gt;&lt;/p&gt;'),
+(20, 1, 'A Contact Request Has Been Sent', 'xxx', 'xxx'),
+(21, 1, 'Your Contact Request Has Been Received', 'xxx', 'xxx'),
+(22, 1, 'Your New Customer Account', 'xxx', 'xxx'),
+(23, 1, 'New Customer Account Created', 'xxx', 'xxx'),
+(24, 1, 'Your Affiliate Account Has Been Created', 'xxx', 'xxx'),
+(25, 1, 'New Affiliate Registered', 'xxx', 'xxx'),
+(26, 1, 'Your Gift Certificate', 'xxx', 'xxx'),
+(27, 1, 'N/A', '===========================================\r\n!store_name!\r\n===========================================\r\n\r\n!content!\r\n\r\nThanks.\r\n\r\n!store_name! Administration\r\n\r\n==========================\r\n!store_name!\r\n!store_url!\r\n\r\n!store_address!\r\n!store_phone!\r\n-----------------------------------\r\nYou are receiving this because:\r\n1.) You''re a member of !store_name! (!store_url!) or\r\n2.) You subscribed via our website (!store_url!)\r\n\r\nWant to be removed? No problem, click here:\r\n!store_url!/contact\r\nand let us know you''d like to close your account.\r\n-----------------------------------\r\nhttp://twitter.com/TwitterHandle\r\nhttp://www.facebook.com/FacebookPage', '&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;\r\n&lt;title&gt;\r\n&lt;/title&gt;\r\n&lt;style type=&quot;text/css&quot;&gt;\r\n .ReadMsgBody {\r\n  width: 100%;\r\n  background-color: #ffffff;\r\n  }\r\n .ExternalClass {\r\n  width: 100%;\r\n  background-color: #ffffff;\r\n  }\r\n body {\r\n  width: 100%;\r\n  background-color: #E9E8DD;\r\n  margin:0;\r\n padding:0; -webkit-font-smoothing: antialiased;\r\n font-family: Helvetica, Arial, sans-serif;\r\n  }\r\n table {\r\n border-collapse: collapse;\r\n  }\r\n .boxed {\r\n  border-collapse: separate;\r\n  -webkit-border-radius: 3px;\r\n -moz-border-radius: 3px;\r\n  border-radius: 3px;\r\n border: 1px solid #CDCBC0;\r\n  -webkit-box-shadaw: 0 1px 2px rgba(0, 0, 0, .15);\r\n -moz-box-shadaw: 0 1px 2px rgba(0, 0, 0, .15);\r\n  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);\r\n }\r\n @media only screen and (max-width: 640px) {\r\n body[yahoo] .deviceWidth {\r\n  width:440px!important;\r\n  padding:0;\r\n  } \r\n  body[yahoo] .center {\r\n text-align: center!important;\r\n }  \r\n }\r\n @media only screen and (max-width: 479px) {\r\n body[yahoo] .deviceWidth {\r\n  width:280px!important;\r\n  padding:0;\r\n  } \r\n  body[yahoo] .center {\r\n text-align: center!important;\r\n }  \r\n }\r\n&lt;/style&gt;\r\n\r\n\r\n&lt;table width=&quot;100%&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot;&gt;\r\n &lt;tbody&gt;\r\n   &lt;tr&gt;\r\n      &lt;td width=&quot;100%&quot; valign=&quot;top&quot; bgcolor=&quot;#E9E8DD&quot; style=&quot;padding-top:20px&quot;&gt;\r\n       &lt;table width=&quot;580&quot; class=&quot;deviceWidth boxed&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; bgcolor=&quot;#E9E8DD&quot;&gt;\r\n         &lt;tbody&gt;\r\n           &lt;tr&gt;\r\n              &lt;td valign=&quot;top&quot; align=&quot;center&quot; style=&quot;padding:10px&quot; bgcolor=&quot;#ffffff&quot;&gt;\r\n               &lt;a href=&quot;!store_url!&quot;&gt;\r\n                  &lt;img class=&quot;deviceWidth&quot; src=&quot;!store_url!/image/data/email/logo.png&quot; alt=&quot;&quot; border=&quot;0&quot; style=&quot;display: block;&quot;&gt;\r\n               &lt;/a&gt;\r\n\r\n              &lt;/td&gt;\r\n           &lt;/tr&gt;\r\n           &lt;tr&gt;\r\n              &lt;td style=&quot;font-size: 13px; color: #212425; font-weight: normal; text-align: left; font-family: Helvetica, Arial, sans-serif; line-height: 18px; vertical-align: top; padding:10px 8px 10px 8px&quot; bgcolor=&quot;#ffffff&quot;&gt;\r\n               !content!\r\n             &lt;/td&gt;\r\n           &lt;/tr&gt;\r\n           &lt;tr&gt;\r\n              &lt;td valign=&quot;top&quot; style=&quot;padding:0;height:28px;&quot; height=&quot;28&quot; bgcolor=&quot;#ffffff&quot;&gt;\r\n              &lt;/td&gt;\r\n           &lt;/tr&gt;\r\n\r\n         &lt;/tbody&gt;\r\n        &lt;/table&gt;\r\n        &lt;div style=&quot;height:20px&quot;&gt;\r\n         &amp;nbsp;\r\n        &lt;/div&gt;\r\n        &lt;table width=&quot;100%&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot;&gt;\r\n          &lt;tbody&gt;\r\n           &lt;tr&gt;\r\n              &lt;td bgcolor=&quot;#363636&quot; style=&quot;padding:30px 0&quot;&gt;\r\n               &lt;table width=&quot;580&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; class=&quot;deviceWidth&quot;&gt;\r\n                 &lt;tbody&gt;\r\n                   &lt;tr&gt;\r\n                      &lt;td&gt;\r\n\r\n                        &lt;table width=&quot;45%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; align=&quot;left&quot; class=&quot;deviceWidth&quot;&gt;\r\n                         &lt;tbody&gt;\r\n                           &lt;tr&gt;\r\n                              &lt;td valign=&quot;top&quot; style=&quot;font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:20px&quot; class=&quot;center&quot;&gt;\r\n                               You are receiving this email because\r\n                                &lt;br&gt;\r\n                                1.) You''re a member of !store_name! or\r\n                               &lt;br&gt;\r\n                                2.) You subscribed via \r\n                               &lt;a href=&quot;!store_url!&quot; style=&quot;color:#999;text-decoration:underline;&quot;&gt;\r\n                                  our website\r\n                               &lt;/a&gt;\r\n                                &lt;br&gt;\r\n                                &lt;br&gt;\r\n                                &lt;br&gt;\r\n                                Want to be removed? No problem, \r\n                                &lt;a href=&quot;!store_url!/contact&quot; style=&quot;color:#999;text-decoration:underline;&quot;&gt;\r\n                                  click here\r\n                                &lt;/a&gt;\r\n                                and let us know you''d like to close your account.\r\n                              &lt;/td&gt;\r\n                           &lt;/tr&gt;\r\n                         &lt;/tbody&gt;\r\n                        &lt;/table&gt;\r\n                        &lt;table width=&quot;40%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; align=&quot;right&quot; class=&quot;deviceWidth&quot;&gt;\r\n                          &lt;tbody&gt;\r\n                           &lt;tr&gt;\r\n                              &lt;td valign=&quot;top&quot; style=&quot;font-size: 11px; color: #f1f1f1; font-weight: normal; font-family: Helvetica, Arial, sans-serif; vertical-align: top; text-align:right&quot; class=&quot;center&quot;&gt;\r\n\r\n                               &lt;a href=&quot;https://twitter.com/TwitterHandle&quot;&gt;\r\n                                  &lt;img src=&quot;!store_url!/image/data/email/footer_twitter.gif&quot; width=&quot;42&quot; height=&quot;42&quot; alt=&quot;Twitter&quot; title=&quot;Twitter&quot; border=&quot;0&quot;&gt;\r\n                               &lt;/a&gt;\r\n                                &lt;a href=&quot;http://www.facebook.com/FacebookPage&quot;&gt;\r\n                                 &lt;img src=&quot;!store_url!/image/data/email/footer_fb.gif&quot; width=&quot;42&quot; height=&quot;42&quot; alt=&quot;Facebook&quot; title=&quot;Facebook&quot; border=&quot;0&quot;&gt;\r\n                                &lt;/a&gt;\r\n                                &lt;br&gt;\r\n                                &lt;span style=&quot;color: #848484; font-weight: bold; font-size:14px&quot;&gt;\r\n                                  !store_name!\r\n                                &lt;/span&gt;\r\n                               &lt;br&gt;\r\n                                &lt;span style=&quot;color: #848484; font-weight: normal;&quot;&gt;\r\n                                 !store_address!\r\n                                 !store_phone!\r\n                               &lt;/span&gt;\r\n                               &lt;br&gt;\r\n                              &lt;/td&gt;\r\n                           &lt;/tr&gt;\r\n                         &lt;/tbody&gt;\r\n                        &lt;/table&gt;\r\n                      &lt;/td&gt;\r\n                   &lt;/tr&gt;\r\n                 &lt;/tbody&gt;\r\n                &lt;/table&gt;\r\n              &lt;/td&gt;\r\n           &lt;/tr&gt;\r\n         &lt;/tbody&gt;\r\n        &lt;/table&gt;\r\n      &lt;/td&gt;\r\n   &lt;/tr&gt;\r\n &lt;/tbody&gt;\r\n&lt;/table&gt;\r\n');
 
 -- --------------------------------------------------------
 

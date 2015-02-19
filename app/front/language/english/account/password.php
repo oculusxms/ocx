@@ -15,17 +15,17 @@
 */
 
 // Heading
-$_['heading_title']  = 'Change Password';
+$_['lang_heading_title']  = 'Change Password';
 
 // Text
-$_['text_account']   = 'Dashboard';
-$_['text_password']  = 'Your Password';
-$_['text_success']   = 'Success: Your password has been successfully updated.';
+$_['lang_text_account']   = 'Dashboard';
+$_['lang_text_password']  = 'Your Password';
+$_['lang_text_success']   = 'Success: Your password has been successfully updated.';
 
 // Entry
-$_['entry_password'] = 'Password';
-$_['entry_confirm']  = 'Password Confirm';
+$_['lang_entry_password'] = 'Password';
+$_['lang_entry_confirm']  = 'Password Confirm';
 
 // Error
-$_['error_password'] = 'Password must be between 4 and 20 characters.';
-$_['error_confirm']  = 'Password confirmation does not match password.';
+$_['lang_error_password'] = 'Password must be between 4 and 20 characters.';
+$_['lang_error_confirm']  = 'Password confirmation does not match password.';

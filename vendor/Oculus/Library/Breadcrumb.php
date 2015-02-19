@@ -28,13 +28,13 @@ class Breadcrumb extends LibraryService {
             $query = (isset($app['session']->data['token'])) ? 'token=' . $app['session']->data['token'] : false;
             
             $this->breadcrumbs[] = array(
-                'text'      => $app['language']->get('text_dashboard') ,
+                'text'      => $app['language']->get('lang_text_dashboard') ,
                 'href'      => $app['url']->link('common/dashboard', $query, 'SSL') ,
                 'separator' => false
             );
         else:
             $this->breadcrumbs[] = array(
-                'text'      => $app['language']->get('text_home') ,
+                'text'      => $app['language']->get('lang_text_home') ,
                 'href'      => '/',
                 'separator' => false
             );
@@ -43,7 +43,7 @@ class Breadcrumb extends LibraryService {
     
     public function add($text, $route, $query = '', $sep = true, $ssl = 'NONSSL') {
         if ($sep):
-            $separator = parent::$app['language']->get('text_separator');
+            $separator = parent::$app['language']->get('lang_text_separator');
         else:
             $separator = false;
         endif;
@@ -70,7 +70,7 @@ class Breadcrumb extends LibraryService {
     
     public function last($text, $sep = false) {
         if ($sep):
-            $separator = parent::$app['language']->get('text_separator');
+            $separator = parent::$app['language']->get('lang_text_separator');
         else:
             $separator = false;
         endif;

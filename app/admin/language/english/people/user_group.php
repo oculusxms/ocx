@@ -15,21 +15,21 @@
 */
 
 // Heading
-$_['heading_title']    = 'User Group';
+$_['lang_heading_title']    = 'User Group';
 
 // Text
-$_['text_success']     = 'Success: You have modified user groups.';
+$_['lang_text_success']     = 'Success: You have modified user groups.';
 
 // Column
-$_['column_name']      = 'User Group Name';
-$_['column_action']    = 'Action';
+$_['lang_column_name']      = 'User Group Name';
+$_['lang_column_action']    = 'Action';
 
 // Entry
-$_['entry_name']       = 'User Group Name:';
-$_['entry_access']     = 'Access Permission:';
-$_['entry_modify']     = 'Modify Permission:';
+$_['lang_entry_name']       = 'User Group Name:';
+$_['lang_entry_access']     = 'Access Permission:';
+$_['lang_entry_modify']     = 'Modify Permission:';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify user groups.';
-$_['error_name']       = 'User group name must be between 3 and 64 characters.';
-$_['error_user']       = 'Warning: This user group cannot be deleted as it is currently assigned to %s users.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify user groups.';
+$_['lang_error_name']       = 'User group name must be between 3 and 64 characters.';
+$_['lang_error_user']       = 'Warning: This user group cannot be deleted as it is currently assigned to %s users.';

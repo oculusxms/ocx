@@ -68,13 +68,15 @@ class Customer extends Model {
                 }
             }
         }
+
+        $this->theme->trigger('admin_add_customer', array('customer_id' => $customer_id));
         
         // make an image directory for the new customer
-        $path = $this->app['path.image'] . 'data/' . $this->config->get('config_member_image_dir') . '/' . $data['username'];
+        //$path = $this->app['path.image'] . 'data/' . $this->config->get('config_member_image_dir') . '/' . $data['username'];
         
-        if (!is_dir($path)):
-            mkdir($path, 0777);
-        endif;
+        //if (!is_dir($path)):
+        //    mkdir($path, 0777);
+        //endif;
     }
     
     public function editCustomer($customer_id, $data) {
@@ -194,6 +196,8 @@ class Customer extends Model {
                 }
             }
         }
+
+        $this->theme->trigger('admin_edit_customer', array('customer_id' => $customer_id));
     }
     
     public function editToken($customer_id, $token) {
@@ -212,7 +216,7 @@ class Customer extends Model {
          * which posts belong to which customers.
          */
         
-        $this->reassignPosts($customer_id);
+        //$this->reassignPosts($customer_id);
         
         $this->db->query("
 			DELETE FROM {$this->db->prefix}customer 
@@ -233,6 +237,8 @@ class Customer extends Model {
         $this->db->query("
 			DELETE FROM {$this->db->prefix}address 
 			WHERE customer_id = '" . (int)$customer_id . "'");
+
+        $this->theme->trigger('admin_delete_customer', array('customer_id' => $customer_id));
     }
     
     public function reassignPosts($customer_id) {
@@ -399,7 +405,16 @@ class Customer extends Model {
             $sql.= " && {$imp}";
         }
         
-        $sort_data = array('c.username', 'name', 'c.email', 'customer_group', 'c.status', 'c.approved', 'c.ip', 'c.date_added');
+        $sort_data = array(
+            'c.username', 
+            'name', 
+            'c.email', 
+            'customer_group', 
+            'c.status', 
+            'c.approved', 
+            'c.ip', 
+            'c.date_added'
+        );
         
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql.= " ORDER BY {$data['sort']}";
@@ -456,11 +471,11 @@ class Customer extends Model {
             // NEW MAILER
             // admin_customer_approve
             
-            // $message = sprintf($this->language->get('text_approve_welcome'), $store_name) . "\n\n";
-            // $message.= $this->language->get('text_approve_login') . "\n";
+            // $message = sprintf($this->language->get('lang_text_approve_welcome'), $store_name) . "\n\n";
+            // $message.= $this->language->get('lang_text_approve_login') . "\n";
             // $message.= $store_url . "\n\n";
-            // $message.= $this->language->get('text_approve_services') . "\n\n";
-            // $message.= $this->language->get('text_approve_thanks') . "\n";
+            // $message.= $this->language->get('lang_text_approve_services') . "\n\n";
+            // $message.= $this->language->get('lang_text_approve_thanks') . "\n";
             // $message.= $store_name;
             
             // $mail = new Mail();
@@ -474,9 +489,11 @@ class Customer extends Model {
             // $mail->setTo($customer_info['email']);
             // $mail->setFrom($this->config->get('config_email'));
             // $mail->setSender($store_name);
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_approve_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_approve_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
             // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
             // $mail->send();
+            
+            $this->theme->trigger('admin_approve_customer', array('customer_id' => $customer_id));
         }
     }
     
@@ -517,7 +534,27 @@ class Customer extends Model {
                 $zone_code = '';
             }
             
-            return array('address_id' => $address_query->row['address_id'], 'customer_id' => $address_query->row['customer_id'], 'firstname' => $address_query->row['firstname'], 'lastname' => $address_query->row['lastname'], 'company' => $address_query->row['company'], 'company_id' => $address_query->row['company_id'], 'tax_id' => $address_query->row['tax_id'], 'address_1' => $address_query->row['address_1'], 'address_2' => $address_query->row['address_2'], 'postcode' => $address_query->row['postcode'], 'city' => $address_query->row['city'], 'zone_id' => $address_query->row['zone_id'], 'zone' => $zone, 'zone_code' => $zone_code, 'country_id' => $address_query->row['country_id'], 'country' => $country, 'iso_code_2' => $iso_code_2, 'iso_code_3' => $iso_code_3, 'address_format' => $address_format);
+            return array(
+                'address_id'     => $address_query->row['address_id'], 
+                'customer_id'    => $address_query->row['customer_id'], 
+                'firstname'      => $address_query->row['firstname'], 
+                'lastname'       => $address_query->row['lastname'], 
+                'company'        => $address_query->row['company'], 
+                'company_id'     => $address_query->row['company_id'], 
+                'tax_id'         => $address_query->row['tax_id'], 
+                'address_1'      => $address_query->row['address_1'], 
+                'address_2'      => $address_query->row['address_2'], 
+                'postcode'       => $address_query->row['postcode'], 
+                'city'           => $address_query->row['city'], 
+                'zone_id'        => $address_query->row['zone_id'], 
+                'zone'           => $zone, 
+                'zone_code'      => $zone_code, 
+                'country_id'     => $address_query->row['country_id'], 
+                'country'        => $country, 
+                'iso_code_2'     => $iso_code_2, 
+                'iso_code_3'     => $iso_code_3, 
+                'address_format' => $address_format
+            );
         }
     }
     
@@ -541,7 +578,9 @@ class Customer extends Model {
     }
     
     public function getTotalCustomers($data = array()) {
-        $sql = "SELECT COUNT(*) AS total FROM {$this->db->prefix}customer";
+        $sql = "
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}customer";
         
         $implode = array();
         
@@ -644,6 +683,8 @@ class Customer extends Model {
 				customer_id = '" . (int)$customer_id . "', 
 				comment = '" . $this->db->escape(strip_tags($comment)) . "', 
 				date_added = NOW()");
+
+        $this->theme->trigger('admin_add_history', array('customer_id' => $customer_id));
     }
     
     public function getHistories($customer_id, $start = 0, $limit = 10) {
@@ -705,8 +746,8 @@ class Customer extends Model {
             // NEW MAILER
             // admin_customer_add_transaction
             
-            // $message = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
-            // $message.= sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($customer_id)));
+            // $message = sprintf($this->language->get('lang_text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
+            // $message.= sprintf($this->language->get('lang_text_transaction_total'), $this->currency->format($this->getTransactionTotal($customer_id)));
             
             // $mail = new Mail();
             // $mail->protocol = $this->config->get('config_mail_protocol');
@@ -719,9 +760,11 @@ class Customer extends Model {
             // $mail->setTo($customer_info['email']);
             // $mail->setFrom($this->config->get('config_email'));
             // $mail->setSender($store_name);
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
             // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
             // $mail->send();
+            
+            $this->theme->trigger('admin_add_customer_transaction', array('customer_id' => $customer_id));
         }
     }
     
@@ -729,6 +772,8 @@ class Customer extends Model {
         $this->db->query("
 			DELETE FROM {$this->db->prefix}customer_transaction 
 			WHERE order_id = '" . (int)$order_id . "'");
+
+        $this->theme->trigger('admin_delete_customer_transaction', array('order_id' => $order_id));
     }
     
     public function getTransactions($customer_id, $start = 0, $limit = 10) {
@@ -810,8 +855,8 @@ class Customer extends Model {
             // NEW MAILER
             // admin_customer_add_reward
             
-            // $message = sprintf($this->language->get('text_reward_received'), $points) . "\n\n";
-            // $message.= sprintf($this->language->get('text_reward_total'), $this->getRewardTotal($customer_id));
+            // $message = sprintf($this->language->get('lang_text_reward_received'), $points) . "\n\n";
+            // $message.= sprintf($this->language->get('lang_text_reward_total'), $this->getRewardTotal($customer_id));
             
             // $mail = new Mail();
             // $mail->protocol = $this->config->get('config_mail_protocol');
@@ -824,9 +869,11 @@ class Customer extends Model {
             // $mail->setTo($customer_info['email']);
             // $mail->setFrom($this->config->get('config_email'));
             // $mail->setSender($store_name);
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('text_reward_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_reward_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
             // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
             // $mail->send();
+             
+             $this->theme->trigger('admin_add_reward', array('customer_id' => $customer_id));
         }
     }
     

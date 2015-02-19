@@ -11,23 +11,23 @@
 </table>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_name; ?></strong> <?= $name; ?>
+	<strong><?= $lang_text_name; ?></strong> <?= $name; ?>
 </p>
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<strong><?= $text_email; ?></strong> <?= $email; ?>
+	<strong><?= $lang_text_email; ?></strong> <?= $email; ?>
 </p>
 
 <table cellpadding="10" cellspacing="0" width="100%" style="border-collapse:separate; -moz-border-radius:3px; -moz-box-shadow:0 1px 2px #d1d1d1; -webkit-border-radius:3px; -webkit-box-shadow:0 1px 2px #d1d1d1; border:1px solid #e0e0e0; border-radius:3px; box-shadow:0 1px 2px #d1d1d1; text-shadow:1px 1px 0px #fff;">
 <thead>
 	<tr>
-    	<th bgcolor="#ededed" style="font-size:14px;  font-weight:bold;"><?= $entry_enquiry_customer; ?></th>
+    	<th bgcolor="#ededed" style="font-size:14px;  font-weight:bold;"><?= $lang_entry_enquiry_customer; ?></th>
    	</tr>
 </thead>
 <tbody>
 	<tr>
     	<td bgcolor="#f6f6f6" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; border-bottom:1px solid #e0e0e0;" align="left">
     		<?= $enquiry; ?>
-    		<p><?= $entry_footer; ?></p>
+    		<p><?= $lang_entry_footer; ?></p>
         </td>
 	</tr>
 </tbody>

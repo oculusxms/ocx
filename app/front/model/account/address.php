@@ -47,9 +47,7 @@ class Address extends Model {
             ");
         }
         
-        $this->theme->trigger('customer_add_address', array(
-            'address_id' => $address_id
-        ));
+        $this->theme->trigger('front_customer_add_address', array('address_id' => $address_id));
         
         return $address_id;
     }
@@ -81,9 +79,7 @@ class Address extends Model {
             ");
         }
         
-        $this->theme->trigger('customer_edit_address', array(
-            'address_id' => $address_id
-        ));
+        $this->theme->trigger('front_customer_edit_address', array('address_id' => $address_id));
     }
     
     public function deleteAddress($address_id) {
@@ -93,9 +89,7 @@ class Address extends Model {
             AND customer_id = '" . (int)$this->customer->getId() . "'
         ");
         
-        $this->theme->trigger('customer_delete_address', array(
-            'address_id' => $address_id
-        ));
+        $this->theme->trigger('front_customer_delete_address', array('address_id' => $address_id));
     }
     
     public function getAddress($address_id) {

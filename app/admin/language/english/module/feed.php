@@ -15,16 +15,16 @@
 */
 
 // Heading
-$_['heading_feed']     = 'Product Feeds';
+$_['lang_heading_feed']     = 'Product Feeds';
 
 // Text
-$_['text_install']     = 'Install';
-$_['text_uninstall']   = 'Uninstall';
+$_['lang_text_install']     = 'Install';
+$_['lang_text_uninstall']   = 'Uninstall';
 
 // Column
-$_['column_name']      = 'Product Feed Name';
-$_['column_status']    = 'Status';
-$_['column_action']    = 'Action';
+$_['lang_column_name']      = 'Product Feed Name';
+$_['lang_column_status']    = 'Status';
+$_['lang_column_action']    = 'Action';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify feeds.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify feeds.';

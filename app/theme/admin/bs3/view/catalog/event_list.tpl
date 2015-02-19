@@ -11,14 +11,14 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="pull-left h2"><i class="hidden-xs fa fa-users"></i><?= $heading_title; ?></div>
+		<div class="pull-left h2"><i class="hidden-xs fa fa-users"></i><?= $lang_heading_title; ?></div>
 		<div class="pull-right">
 			<a href="<?= $presenters; ?>" class="btn btn-success">
-				<i class="fa fa-user"></i> <?= $button_presenters; ?></a>
+				<i class="fa fa-user"></i> <?= $lang_button_presenters; ?></a>
 			<a href="<?= $insert; ?>" class="btn btn-primary">
-				<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_insert; ?></span></a>
+				<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_insert; ?></span></a>
 			<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger">
-				<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_delete; ?></span></button>
+				<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_delete; ?></span></button>
 		</div>
 	</div>
 	<div class="panel-body">
@@ -27,16 +27,16 @@
 				<thead>
 					<tr>
 						<th width="40" class="text-center"><input type="checkbox" data-toggle="selected"></th>
-						<th><?= $column_event_name; ?></th>
-						<th><?= $column_presenter; ?></th>
-						<th><?= $column_date_time; ?></th>
-						<th><?= $column_location; ?></th>
-						<th><?= $column_visibility; ?></th>
-						<th><?= $column_cost; ?></th>
-						<th><?= $column_seats; ?></th>
-						<th><?= $column_filled; ?></th>
-						<th><?= $column_waitlist; ?></th>
-						<th class="text-right"><?= $column_action; ?></th>
+						<th><?= $lang_column_event_name; ?></th>
+						<th><?= $lang_column_presenter; ?></th>
+						<th><?= $lang_column_date_time; ?></th>
+						<th><?= $lang_column_location; ?></th>
+						<th><?= $lang_column_visibility; ?></th>
+						<th><?= $lang_column_cost; ?></th>
+						<th><?= $lang_column_seats; ?></th>
+						<th><?= $lang_column_filled; ?></th>
+						<th><?= $lang_column_waitlist; ?></th>
+						<th class="text-right"><?= $lang_column_action; ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,7 +69,7 @@
 				<?php endforeach; ?>
 				<?php else: ?>
 					<tr>
-						<td class="text-center" colspan="11"><?= $text_no_results; ?></td>
+						<td class="text-center" colspan="11"><?= $lang_text_no_results; ?></td>
 					</tr>	
 				<?php endif; ?>
 				</tbody>

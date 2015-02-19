@@ -22,7 +22,7 @@ class Affiliate extends Controller {
     
     public function index() {
         $this->language->load('people/affiliate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/affiliate');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Affiliate extends Controller {
     
     public function insert() {
         $this->language->load('people/affiliate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/affiliate');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_people_affiliate->addAffiliate($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -83,12 +83,12 @@ class Affiliate extends Controller {
     
     public function update() {
         $this->language->load('people/affiliate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/affiliate');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_people_affiliate->editAffiliate($this->request->get['affiliate_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -134,7 +134,7 @@ class Affiliate extends Controller {
     
     public function delete() {
         $this->language->load('people/affiliate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/affiliate');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -142,7 +142,7 @@ class Affiliate extends Controller {
                 $this->model_people_affiliate->deleteAffiliate($affiliate_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -188,11 +188,11 @@ class Affiliate extends Controller {
     
     public function approve() {
         $this->language->load('people/affiliate');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('people/affiliate');
         
         if (!$this->user->hasPermission('modify', 'people/affiliate')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         } elseif (isset($this->request->post['selected'])) {
             $approved = 0;
             
@@ -206,7 +206,7 @@ class Affiliate extends Controller {
                 }
             }
             
-            $this->session->data['success'] = sprintf($this->language->get('text_approved'), $approved);
+            $this->session->data['success'] = sprintf($this->language->get('lang_text_approved'), $approved);
             
             $url = '';
             
@@ -335,7 +335,7 @@ class Affiliate extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'people/affiliate', $url);
+        $this->breadcrumb->add('lang_heading_title', 'people/affiliate', $url);
         
         $data['approve'] = $this->url->link('people/affiliate/approve', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['insert'] = $this->url->link('people/affiliate/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -352,9 +352,9 @@ class Affiliate extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('people/affiliate/update', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $result['affiliate_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('people/affiliate/update', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $result['affiliate_id'] . $url, 'SSL'));
             
-            $data['affiliates'][] = array('affiliate_id' => $result['affiliate_id'], 'name' => $result['name'], 'email' => $result['email'], 'balance' => $this->currency->format($result['balance'], $this->config->get('config_currency')), 'status' => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')), 'approved' => ($result['approved'] ? $this->language->get('text_yes') : $this->language->get('text_no')), 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['affiliate_id'], $this->request->post['selected']), 'action' => $action);
+            $data['affiliates'][] = array('affiliate_id' => $result['affiliate_id'], 'name' => $result['name'], 'email' => $result['email'], 'balance' => $this->currency->format($result['balance'], $this->config->get('config_currency')), 'status' => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 'approved' => ($result['approved'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no')), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['affiliate_id'], $this->request->post['selected']), 'action' => $action);
         }
         
         $data['token'] = $this->session->data['token'];
@@ -441,7 +441,7 @@ class Affiliate extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($affiliate_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('people/affiliate', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($affiliate_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('people/affiliate', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['filter_name'] = $filter_name;
         $data['filter_email'] = $filter_email;
@@ -574,7 +574,7 @@ class Affiliate extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'people/affiliate', $url);
+        $this->breadcrumb->add('lang_heading_title', 'people/affiliate', $url);
         
         if (!isset($this->request->get['affiliate_id'])) {
             $data['action'] = $this->url->link('people/affiliate/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -807,53 +807,53 @@ class Affiliate extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'people/affiliate')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['email']) > 96) || (!preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email']))) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         $affiliate_info = $this->model_people_affiliate->getAffiliateByEmail($this->request->post['email']);
         
         if (!isset($this->request->get['affiliate_id'])) {
             if ($affiliate_info) {
-                $this->error['warning'] = $this->language->get('error_exists');
+                $this->error['warning'] = $this->language->get('lang_error_exists');
             }
         } else {
             if ($affiliate_info && ($this->request->get['affiliate_id'] != $affiliate_info['affiliate_id'])) {
-                $this->error['warning'] = $this->language->get('error_exists');
+                $this->error['warning'] = $this->language->get('lang_error_exists');
             }
         }
         
         if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
+            $this->error['telephone'] = $this->language->get('lang_error_telephone');
         }
         
         if ($this->request->post['password'] || (!isset($this->request->get['affiliate_id']))) {
             if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {
-                $this->error['password'] = $this->language->get('error_password');
+                $this->error['password'] = $this->language->get('lang_error_password');
             }
             
             if ($this->request->post['password'] != $this->request->post['confirm']) {
-                $this->error['confirm'] = $this->language->get('error_confirm');
+                $this->error['confirm'] = $this->language->get('lang_error_confirm');
             }
         }
         
         if (($this->encode->strlen($this->request->post['address_1']) < 3) || ($this->encode->strlen($this->request->post['address_1']) > 128)) {
-            $this->error['address_1'] = $this->language->get('error_address_1');
+            $this->error['address_1'] = $this->language->get('lang_error_address_1');
         }
         
         if (($this->encode->strlen($this->request->post['city']) < 2) || ($this->encode->strlen($this->request->post['city']) > 128)) {
-            $this->error['city'] = $this->language->get('error_city');
+            $this->error['city'] = $this->language->get('lang_error_city');
         }
         
         $this->theme->model('localization/country');
@@ -861,19 +861,19 @@ class Affiliate extends Controller {
         $country_info = $this->model_localization_country->getCountry($this->request->post['country_id']);
         
         if ($country_info && $country_info['postcode_required'] && ($this->encode->strlen($this->request->post['postcode']) < 2) || ($this->encode->strlen($this->request->post['postcode']) > 10)) {
-            $this->error['postcode'] = $this->language->get('error_postcode');
+            $this->error['postcode'] = $this->language->get('lang_error_postcode');
         }
         
         if ($this->request->post['country_id'] == '') {
-            $this->error['country'] = $this->language->get('error_country');
+            $this->error['country'] = $this->language->get('lang_error_country');
         }
         
         if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-            $this->error['zone'] = $this->language->get('error_zone');
+            $this->error['zone'] = $this->language->get('lang_error_zone');
         }
         
         if (!$this->request->post['code']) {
-            $this->error['code'] = $this->language->get('error_code');
+            $this->error['code'] = $this->language->get('lang_error_code');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -883,7 +883,7 @@ class Affiliate extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'people/affiliate')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -917,13 +917,13 @@ class Affiliate extends Controller {
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->user->hasPermission('modify', 'people/affiliate')) {
             $this->model_people_affiliate->addTransaction($this->request->get['affiliate_id'], $this->request->post['description'], $this->request->post['amount']);
             
-            $data['success'] = $this->language->get('text_success');
+            $data['success'] = $this->language->get('lang_text_success');
         } else {
             $data['success'] = '';
         }
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && !$this->user->hasPermission('modify', 'people/affiliate')) {
-            $data['error_warning'] = $this->language->get('error_permission');
+            $data['error_warning'] = $this->language->get('lang_error_permission');
         } else {
             $data['error_warning'] = '';
         }
@@ -939,14 +939,14 @@ class Affiliate extends Controller {
         $results = $this->model_people_affiliate->getTransactions($this->request->get['affiliate_id'], ($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['transactions'][] = array('amount' => $this->currency->format($result['amount'], $this->config->get('config_currency')), 'description' => $result['description'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])));
+            $data['transactions'][] = array('amount' => $this->currency->format($result['amount'], $this->config->get('config_currency')), 'description' => $result['description'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
         }
         
         $data['balance'] = $this->currency->format($this->model_people_affiliate->getTransactionTotal($this->request->get['affiliate_id']), $this->config->get('config_currency'));
         
         $transaction_total = $this->model_people_affiliate->getTotalTransactions($this->request->get['affiliate_id']);
         
-        $data['pagination'] = $this->theme->paginate($transaction_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('people/affiliate/transaction', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $this->request->get['affiliate_id'] . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($transaction_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('people/affiliate/transaction', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $this->request->get['affiliate_id'] . '&page={page}', 'SSL'));
         
         $this->theme->loadjs('javascript/people/affiliate_transaction', $data);
         

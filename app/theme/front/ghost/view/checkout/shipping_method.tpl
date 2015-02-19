@@ -4,7 +4,7 @@
 		<div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a><?= $error_warning; ?></div>
 		<?php } ?>
 		<?php if ($shipping_methods) { ?>
-		<h4><?= $text_shipping_method; ?></h4>
+		<h4><?= $lang_text_shipping_method; ?></h4>
 		<table class="table table-striped form-inline">
 			<?php foreach ($shipping_methods as $shipping_method) { ?>
 				<?php if (!$shipping_method['error']) { ?>
@@ -42,10 +42,10 @@
 		</table>
 		<hr>
 		<?php } ?>
-		<h5><?= $text_comments; ?></h5>
-		<textarea name="comment" rows="4" class="form-control" placeholder="<?= $text_comments; ?>" ><?= $comment; ?></textarea>
+		<h5><?= $lang_text_comments; ?></h5>
+		<textarea name="comment" rows="4" class="form-control" placeholder="<?= $lang_text_comments; ?>" ><?= $comment; ?></textarea>
 	</form>
 </div>
 <div class="panel-footer text-right">
-	<button type="button" id="button-shipping-method" class="btn btn-primary load-left"><?= $button_continue; ?></button>
+	<button type="button" id="button-shipping-method" class="btn btn-primary load-left"><?= $lang_button_continue; ?></button>
 </div>

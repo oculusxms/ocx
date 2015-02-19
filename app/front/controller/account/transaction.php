@@ -26,14 +26,14 @@ class Transaction extends Controller {
         }
         
         $data = $this->theme->language('account/transaction');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('text_transaction', 'account/transaction', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_transaction', 'account/transaction', null, true, 'SSL');
         
         $this->theme->model('account/transaction');
         
-        $data['column_amount'] = sprintf($this->language->get('column_amount'), $this->config->get('config_currency'));
+        $data['column_amount'] = sprintf($this->language->get('lang_column_amount'), $this->config->get('config_currency'));
         
         if (isset($this->request->get['page'])) {
             $page = $this->request->get['page'];
@@ -50,10 +50,10 @@ class Transaction extends Controller {
         $results = $this->model_account_transaction->getTransactions($filter);
         
         foreach ($results as $result) {
-            $data['transactions'][] = array('amount' => $this->currency->format($result['amount'], $this->config->get('config_currency')), 'description' => $result['description'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])));
+            $data['transactions'][] = array('amount' => $this->currency->format($result['amount'], $this->config->get('config_currency')), 'description' => $result['description'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
         }
         
-        $data['pagination'] = $this->theme->paginate($transaction_total, $page, 10, $this->language->get('text_pagination'), $this->url->link('account/transaction', 'page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($transaction_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('account/transaction', 'page={page}', 'SSL'));
         
         $data['total'] = $this->currency->format($this->customer->getBalance());
         

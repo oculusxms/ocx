@@ -22,7 +22,7 @@ class Store extends Controller {
     
     public function index() {
         $this->language->load('setting/store');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/store');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,7 +32,7 @@ class Store extends Controller {
     
     public function insert() {
         $this->language->load('setting/store');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/store');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -40,7 +40,7 @@ class Store extends Controller {
             
             $this->theme->model('setting/setting');
             $this->model_setting_setting->editSetting('config', $this->request->post, $store_id);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('setting/store', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -52,7 +52,7 @@ class Store extends Controller {
     
     public function update() {
         $this->language->load('setting/store');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/store');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -60,7 +60,7 @@ class Store extends Controller {
             
             $this->theme->model('setting/setting');
             $this->model_setting_setting->editSetting('config', $this->request->post, $this->request->get['store_id']);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('setting/store', 'token=' . $this->session->data['token'] . '&store_id=' . $this->request->get['store_id'], 'SSL'));
         }
@@ -72,7 +72,7 @@ class Store extends Controller {
     
     public function delete() {
         $this->language->load('setting/store');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/store');
         $this->theme->model('setting/setting');
         
@@ -82,7 +82,7 @@ class Store extends Controller {
                 $this->model_setting_setting->deleteSetting('config', $store_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('setting/store', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -101,7 +101,7 @@ class Store extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'setting/store');
+        $this->breadcrumb->add('lang_heading_title', 'setting/store');
         
         $data['insert'] = $this->url->link('setting/store/insert', 'token=' . $this->session->data['token'], 'SSL');
         $data['delete'] = $this->url->link('setting/store/delete', 'token=' . $this->session->data['token'], 'SSL');
@@ -110,16 +110,16 @@ class Store extends Controller {
         
         $action = array();
         
-        $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('setting/setting', 'token=' . $this->session->data['token'], 'SSL'));
+        $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('setting/setting', 'token=' . $this->session->data['token'], 'SSL'));
         
-        $data['stores'][] = array('store_id' => 0, 'name' => $this->config->get('config_name') . $this->language->get('text_default'), 'url' => $this->app['http.public'], 'selected' => isset($this->request->post['selected']) && in_array(0, $this->request->post['selected']), 'action' => $action);
+        $data['stores'][] = array('store_id' => 0, 'name' => $this->config->get('config_name') . $this->language->get('lang_text_default'), 'url' => $this->app['http.public'], 'selected' => isset($this->request->post['selected']) && in_array(0, $this->request->post['selected']), 'action' => $action);
         
         $results = $this->model_setting_store->getStores();
         
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('setting/store/update', 'token=' . $this->session->data['token'] . '&store_id=' . $result['store_id'], 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('setting/store/update', 'token=' . $this->session->data['token'] . '&store_id=' . $result['store_id'], 'SSL'));
             
             $data['stores'][] = array('store_id' => $result['store_id'], 'name' => $result['name'], 'url' => $result['url'], 'selected' => isset($this->request->post['selected']) && in_array($result['store_id'], $this->request->post['selected']), 'action' => $action);
         }
@@ -262,7 +262,7 @@ class Store extends Controller {
             $data['error_catalog_limit'] = '';
         }
         
-        $this->breadcrumb->add('heading_title', 'setting/store');
+        $this->breadcrumb->add('lang_heading_title', 'setting/store');
         
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -749,83 +749,83 @@ class Store extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'setting/store')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['config_url']) {
-            $this->error['url'] = $this->language->get('error_url');
+            $this->error['url'] = $this->language->get('lang_error_url');
         }
         
         if (!$this->request->post['config_name']) {
-            $this->error['name'] = $this->language->get('error_name');
+            $this->error['name'] = $this->language->get('lang_error_name');
         }
         
         if (($this->encode->strlen($this->request->post['config_owner']) < 3) || ($this->encode->strlen($this->request->post['config_owner']) > 64)) {
-            $this->error['owner'] = $this->language->get('error_owner');
+            $this->error['owner'] = $this->language->get('lang_error_owner');
         }
         
         if (($this->encode->strlen($this->request->post['config_address']) < 3) || ($this->encode->strlen($this->request->post['config_address']) > 256)) {
-            $this->error['address'] = $this->language->get('error_address');
+            $this->error['address'] = $this->language->get('lang_error_address');
         }
         
         if (($this->encode->strlen($this->request->post['config_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['config_email'])) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if (($this->encode->strlen($this->request->post['config_telephone']) < 3) || ($this->encode->strlen($this->request->post['config_telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
+            $this->error['telephone'] = $this->language->get('lang_error_telephone');
         }
         
         if (!$this->request->post['config_title']) {
-            $this->error['title'] = $this->language->get('error_title');
+            $this->error['title'] = $this->language->get('lang_error_title');
         }
         
         if (!empty($this->request->post['config_customer_group_display']) && !in_array($this->request->post['config_customer_group_id'], $this->request->post['config_customer_group_display'])) {
-            $this->error['customer_group_display'] = $this->language->get('error_customer_group_display');
+            $this->error['customer_group_display'] = $this->language->get('lang_error_customer_group_display');
         }
         
         if (!$this->request->post['config_image_category_width'] || !$this->request->post['config_image_category_height']) {
-            $this->error['image_category'] = $this->language->get('error_image_category');
+            $this->error['image_category'] = $this->language->get('lang_error_image_category');
         }
         
         if (!$this->request->post['config_image_thumb_width'] || !$this->request->post['config_image_thumb_height']) {
-            $this->error['image_thumb'] = $this->language->get('error_image_thumb');
+            $this->error['image_thumb'] = $this->language->get('lang_error_image_thumb');
         }
         
         if (!$this->request->post['config_image_popup_width'] || !$this->request->post['config_image_popup_height']) {
-            $this->error['image_popup'] = $this->language->get('error_image_popup');
+            $this->error['image_popup'] = $this->language->get('lang_error_image_popup');
         }
         
         if (!$this->request->post['config_image_product_width'] || !$this->request->post['config_image_product_height']) {
-            $this->error['image_product'] = $this->language->get('error_image_product');
+            $this->error['image_product'] = $this->language->get('lang_error_image_product');
         }
         
         if (!$this->request->post['config_image_additional_width'] || !$this->request->post['config_image_additional_height']) {
-            $this->error['image_additional'] = $this->language->get('error_image_additional');
+            $this->error['image_additional'] = $this->language->get('lang_error_image_additional');
         }
         
         if (!$this->request->post['config_image_related_width'] || !$this->request->post['config_image_related_height']) {
-            $this->error['image_related'] = $this->language->get('error_image_related');
+            $this->error['image_related'] = $this->language->get('lang_error_image_related');
         }
         
         if (!$this->request->post['config_image_compare_width'] || !$this->request->post['config_image_compare_height']) {
-            $this->error['image_compare'] = $this->language->get('error_image_compare');
+            $this->error['image_compare'] = $this->language->get('lang_error_image_compare');
         }
         
         if (!$this->request->post['config_image_wishlist_width'] || !$this->request->post['config_image_wishlist_height']) {
-            $this->error['image_wishlist'] = $this->language->get('error_image_wishlist');
+            $this->error['image_wishlist'] = $this->language->get('lang_error_image_wishlist');
         }
         
         if (!$this->request->post['config_image_cart_width'] || !$this->request->post['config_image_cart_height']) {
-            $this->error['image_cart'] = $this->language->get('error_image_cart');
+            $this->error['image_cart'] = $this->language->get('lang_error_image_cart');
         }
         
         if (!$this->request->post['config_catalog_limit']) {
-            $this->error['catalog_limit'] = $this->language->get('error_limit');
+            $this->error['catalog_limit'] = $this->language->get('lang_error_limit');
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -835,20 +835,20 @@ class Store extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'setting/store')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('sale/order');
         
         foreach ($this->request->post['selected'] as $store_id) {
             if (!$store_id) {
-                $this->error['warning'] = $this->language->get('error_default');
+                $this->error['warning'] = $this->language->get('lang_error_default');
             }
             
             $store_total = $this->model_sale_order->getTotalOrdersByStoreId($store_id);
             
             if ($store_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_store'), $store_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_store'), $store_total);
             }
         }
         

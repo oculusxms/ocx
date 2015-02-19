@@ -11,19 +11,19 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="h2"><i class="fa fa-bar-chart-o"></i><?= $heading_title; ?></div>
+		<div class="h2"><i class="fa fa-bar-chart-o"></i><?= $lang_heading_title; ?></div>
 	</div>
 	<div class="panel-body">
 		<div id="filter" class="well">
 			<div class="row">
 				<div class="col-sm-3">
-					<input type="text" name="filter_ip" value="<?= $filter_ip; ?>" placeholder="<?= $column_ip; ?>" class="form-control">
+					<input type="text" name="filter_ip" value="<?= $filter_ip; ?>" placeholder="<?= $lang_column_ip; ?>" class="form-control">
 				</div>
 				<div class="col-sm-3">
-					<input type="text" name="filter_customer" value="<?= $filter_customer; ?>" placeholder="<?= $column_customer; ?>" class="form-control">
+					<input type="text" name="filter_customer" value="<?= $filter_customer; ?>" placeholder="<?= $lang_column_customer; ?>" class="form-control">
 				</div>
 				<div class="col-sm-6 text-right">
-					<button type="button" onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i> <?= $button_filter; ?></button>
+					<button type="button" onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i> <?= $lang_button_filter; ?></button>
 				</div>
 			</div>
 		</div>
@@ -31,12 +31,12 @@
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th><?= $column_ip; ?></th>
-					<th><?= $column_customer; ?></th>
-					<th class="hidden-xs"><?= $column_url; ?></th>
-					<th class="hidden-xs"><?= $column_referer; ?></th>
-					<th class="hidden-xs"><?= $column_date_added; ?></th>
-					<th class="text-right"><span class="hidden-xs"><?= $column_action; ?></span></th>
+					<th><?= $lang_column_ip; ?></th>
+					<th><?= $lang_column_customer; ?></th>
+					<th class="hidden-xs"><?= $lang_column_url; ?></th>
+					<th class="hidden-xs"><?= $lang_column_referer; ?></th>
+					<th class="hidden-xs"><?= $lang_column_date_added; ?></th>
+					<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -59,7 +59,7 @@
 				<?php } ?>
 				<?php } else { ?>
 				<tr>
-					<td class="text-center" colspan="6"><?= $text_no_results; ?></td>
+					<td class="text-center" colspan="6"><?= $lang_text_no_results; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

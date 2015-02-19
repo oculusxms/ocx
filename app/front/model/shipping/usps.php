@@ -184,7 +184,7 @@ class Usps extends Model {
                             } else {
                                 $error = $package->getElementsByTagName('Error')->item(0);
                                 
-                                $method_data = array('code' => 'usps', 'title' => $this->language->get('text_title'), 'quote' => $quote_data, 'sort_order' => $this->config->get('usps_sort_order'), 'error' => $error->getElementsByTagName('Description')->item(0)->nodeValue);
+                                $method_data = array('code' => 'usps', 'title' => $this->language->get('lang_text_title'), 'quote' => $quote_data, 'sort_order' => $this->config->get('usps_sort_order'), 'error' => $error->getElementsByTagName('Description')->item(0)->nodeValue);
                             }
                         } else {
                             $allowed = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 21);
@@ -200,7 +200,7 @@ class Usps extends Model {
                                     $title = $service->getElementsByTagName('SvcDescription')->item(0)->nodeValue;
                                     
                                     if ($this->config->get('usps_display_time')) {
-                                        $title.= ' (' . $this->language->get('text_eta') . ' ' . $service->getElementsByTagName('SvcCommitments')->item(0)->nodeValue . ')';
+                                        $title.= ' (' . $this->language->get('lang_text_eta') . ' ' . $service->getElementsByTagName('SvcCommitments')->item(0)->nodeValue . ')';
                                     }
                                     
                                     $cost = $service->getElementsByTagName('Postage')->item(0)->nodeValue;
@@ -210,16 +210,16 @@ class Usps extends Model {
                             }
                         }
                     } elseif ($error) {
-                        $method_data = array('code' => 'usps', 'title' => $this->language->get('text_title'), 'quote' => $quote_data, 'sort_order' => $this->config->get('usps_sort_order'), 'error' => $error->getElementsByTagName('Description')->item(0)->nodeValue);
+                        $method_data = array('code' => 'usps', 'title' => $this->language->get('lang_text_title'), 'quote' => $quote_data, 'sort_order' => $this->config->get('usps_sort_order'), 'error' => $error->getElementsByTagName('Description')->item(0)->nodeValue);
                     }
                 }
             }
             
             if ($quote_data) {
-                $title = $this->language->get('text_title');
+                $title = $this->language->get('lang_text_title');
                 
                 if ($this->config->get('usps_display_weight')) {
-                    $title.= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('usps_weight_class_id')) . ')';
+                    $title.= ' (' . $this->language->get('lang_text_weight') . ' ' . $this->weight->format($weight, $this->config->get('usps_weight_class_id')) . ')';
                 }
                 
                 $method_data = array('code' => 'usps', 'title' => $title, 'quote' => $quote_data, 'sort_order' => $this->config->get('usps_sort_order'), 'error' => false);

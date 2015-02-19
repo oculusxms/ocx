@@ -23,7 +23,7 @@ class Customfield extends Controller {
     public function index() {
         $this->language->load('design/custom_field');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('design/customfield');
         
@@ -35,14 +35,14 @@ class Customfield extends Controller {
     public function insert() {
         $this->language->load('design/custom_field');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('design/customfield');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_design_customfield->addCustomField($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -69,14 +69,14 @@ class Customfield extends Controller {
     public function update() {
         $this->language->load('design/custom_field');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('design/customfield');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_design_customfield->editCustomField($this->request->get['custom_field_id'], $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -103,7 +103,7 @@ class Customfield extends Controller {
     public function delete() {
         $this->language->load('design/custom_field');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('design/customfield');
         
@@ -112,7 +112,7 @@ class Customfield extends Controller {
                 $this->model_design_customfield->deleteCustomField($custom_field_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -171,7 +171,7 @@ class Customfield extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'design/customfield', $url);
+        $this->breadcrumb->add('lang_heading_title', 'design/customfield', $url);
         
         $data['insert'] = $this->url->link('design/customfield/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('design/customfield/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -187,49 +187,49 @@ class Customfield extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('design/customfield/update', 'token=' . $this->session->data['token'] . '&custom_field_id=' . $result['custom_field_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('design/customfield/update', 'token=' . $this->session->data['token'] . '&custom_field_id=' . $result['custom_field_id'] . $url, 'SSL'));
             
             $type = '';
             
             switch ($result['type']) {
                 case 'select':
-                    $type = $this->language->get('text_select');
+                    $type = $this->language->get('lang_text_select');
                     break;
 
                 case 'radio':
-                    $type = $this->language->get('text_radio');
+                    $type = $this->language->get('lang_text_radio');
                     break;
 
                 case 'checkbox':
-                    $type = $this->language->get('text_checkbox');
+                    $type = $this->language->get('lang_text_checkbox');
                     break;
 
                 case 'input':
-                    $type = $this->language->get('text_input');
+                    $type = $this->language->get('lang_text_input');
                     break;
 
                 case 'text':
-                    $type = $this->language->get('text_text');
+                    $type = $this->language->get('lang_text_text');
                     break;
 
                 case 'textarea':
-                    $type = $this->language->get('text_textarea');
+                    $type = $this->language->get('lang_text_textarea');
                     break;
 
                 case 'file':
-                    $type = $this->language->get('text_file');
+                    $type = $this->language->get('lang_text_file');
                     break;
 
                 case 'date':
-                    $type = $this->language->get('text_date');
+                    $type = $this->language->get('lang_text_date');
                     break;
 
                 case 'datetime':
-                    $type = $this->language->get('text_datetime');
+                    $type = $this->language->get('lang_text_datetime');
                     break;
 
                 case 'time':
-                    $type = $this->language->get('text_time');
+                    $type = $this->language->get('lang_text_time');
                     break;
             }
             
@@ -237,19 +237,19 @@ class Customfield extends Controller {
             
             switch ($result['location']) {
                 case 'customer':
-                    $location = $this->language->get('text_customer');
+                    $location = $this->language->get('lang_text_customer');
                     break;
 
                 case 'address':
-                    $location = $this->language->get('text_address');
+                    $location = $this->language->get('lang_text_address');
                     break;
 
                 case 'payment_address':
-                    $location = $this->language->get('text_payment_address');
+                    $location = $this->language->get('lang_text_payment_address');
                     break;
 
                 case 'shipping_address':
-                    $location = $this->language->get('text_shipping_address');
+                    $location = $this->language->get('lang_text_shipping_address');
                     break;
             }
             
@@ -297,7 +297,7 @@ class Customfield extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($custom_field_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('design/customfield', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($custom_field_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('design/customfield', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -344,7 +344,7 @@ class Customfield extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'design/customfield', $url);
+        $this->breadcrumb->add('lang_heading_title', 'design/customfield', $url);
         
         if (!isset($this->request->get['custom_field_id'])) {
             $data['action'] = $this->url->link('design/customfield/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -445,24 +445,24 @@ class Customfield extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'design/customfield')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         foreach ($this->request->post['custom_field_description'] as $language_id => $value) {
             if (($this->encode->strlen($value['name']) < 1) || ($this->encode->strlen($value['name']) > 128)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
+                $this->error['name'][$language_id] = $this->language->get('lang_error_name');
             }
         }
         
         if (($this->request->post['type'] == 'select' || $this->request->post['type'] == 'radio' || $this->request->post['type'] == 'checkbox') && !isset($this->request->post['custom_field_value'])) {
-            $this->error['warning'] = $this->language->get('error_type');
+            $this->error['warning'] = $this->language->get('lang_error_type');
         }
         
         if (isset($this->request->post['custom_field_value'])) {
             foreach ($this->request->post['custom_field_value'] as $custom_field_value_id => $custom_field_value) {
                 foreach ($custom_field_value['custom_field_value_description'] as $language_id => $custom_field_value_description) {
                     if (($this->encode->strlen($custom_field_value_description['name']) < 1) || ($this->encode->strlen($custom_field_value_description['name']) > 128)) {
-                        $this->error['custom_field_value'][$custom_field_value_id][$language_id] = $this->language->get('error_custom_field_value');
+                        $this->error['custom_field_value'][$custom_field_value_id][$language_id] = $this->language->get('lang_error_custom_field_value');
                     }
                 }
             }
@@ -475,7 +475,7 @@ class Customfield extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'design/customfield')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('sale/product');
@@ -484,7 +484,7 @@ class Customfield extends Controller {
             $product_total = $this->model_sale_product->getTotalProductsByCustomFieldId($custom_field_id);
             
             if ($product_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_product'), $product_total);
             }
         }
         

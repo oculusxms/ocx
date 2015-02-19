@@ -29,20 +29,20 @@ class Password extends Controller {
         
         $data = $this->theme->language('account/password');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->theme->model('account/customer');
             
             $this->model_account_customer->editPassword($this->customer->getEmail(), $this->request->post['password']);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('account/dashboard', '', 'SSL'));
         }
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('heading_title', 'account/password', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/password', null, true, 'SSL');
         
         if (isset($this->error['password'])) {
             $data['error_password'] = $this->error['password'];
@@ -84,11 +84,11 @@ class Password extends Controller {
     
     protected function validate() {
         if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {
-            $this->error['password'] = $this->language->get('error_password');
+            $this->error['password'] = $this->language->get('lang_error_password');
         }
         
         if ($this->request->post['confirm'] != $this->request->post['password']) {
-            $this->error['confirm'] = $this->language->get('error_confirm');
+            $this->error['confirm'] = $this->language->get('lang_error_confirm');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

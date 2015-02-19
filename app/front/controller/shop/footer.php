@@ -21,7 +21,7 @@ class Footer extends Controller {
     public function index() {
         $data = $this->theme->language('shop/footer');
         
-        $data['powered'] = sprintf($this->language->get('text_powered'), date('Y', time()), $this->config->get('config_name'));
+        $data['powered'] = sprintf($this->language->get('lang_text_powered'), date('Y', time()), $this->config->get('config_name'));
         $data['google_analytics'] = html_entity_decode($this->config->get('config_google_analytics'), ENT_QUOTES, 'UTF-8');
         
         $route = 'shop/home';

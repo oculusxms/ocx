@@ -113,7 +113,9 @@ class Category extends Model {
 			");
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_category_description WHERE category_id = '" . (int)$category_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_category_description 
+            WHERE category_id = '" . (int)$category_id . "'");
         
         foreach ($data['category_description'] as $language_id => $value) {
             $this->db->query("
@@ -128,7 +130,9 @@ class Category extends Model {
 			");
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_category_to_store WHERE category_id = '" . (int)$category_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_category_to_store 
+            WHERE category_id = '" . (int)$category_id . "'");
         
         if (isset($data['category_store'])) {
             foreach ($data['category_store'] as $store_id) {
@@ -141,7 +145,9 @@ class Category extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_category_to_layout WHERE category_id = '" . (int)$category_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_category_to_layout 
+            WHERE category_id = '" . (int)$category_id . "'");
         
         if (isset($data['category_layout'])) {
             foreach ($data['category_layout'] as $store_id => $layout) {
@@ -157,13 +163,15 @@ class Category extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'blog_category_id:" . (int)$category_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}route 
+            WHERE query = 'blog_category_id:" . (int)$category_id . "'");
         
         if ($data['slug']) {
             $this->db->query("
 				INSERT INTO {$this->db->prefix}route 
 				SET 
-					route='content/category', 
+					route = 'content/category', 
 					query = 'blog_category_id:" . (int)$category_id . "', 
 					slug = '" . $this->db->escape($data['slug']) . "'
 			");
@@ -176,12 +184,29 @@ class Category extends Model {
     }
     
     public function deleteCategory($category_id) {
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_category WHERE category_id = '" . (int)$category_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_category_description WHERE category_id = '" . (int)$category_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_category_to_store WHERE category_id = '" . (int)$category_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_category_to_layout WHERE category_id = '" . (int)$category_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}blog_post_to_category WHERE category_id = '" . (int)$category_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'blog_category_id:" . (int)$category_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_category 
+            WHERE category_id = '" . (int)$category_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_category_description 
+            WHERE category_id = '" . (int)$category_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_category_to_store 
+            WHERE category_id = '" . (int)$category_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_category_to_layout 
+            WHERE category_id = '" . (int)$category_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}blog_post_to_category 
+            WHERE category_id = '" . (int)$category_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}route 
+            WHERE query = 'blog_category_id:" . (int)$category_id . "'");
         
         $query = $this->db->query("
 			SELECT category_id 
@@ -227,7 +252,12 @@ class Category extends Model {
 			");
             
             foreach ($query->rows as $result) {
-                $category_data[] = array('category_id' => $result['category_id'], 'name' => $this->getPath($result['category_id'], $this->config->get('config_language_id')), 'status' => $result['status'], 'sort_order' => $result['sort_order']);
+                $category_data[] = array(
+                    'category_id' => $result['category_id'], 
+                    'name'        => $this->getPath($result['category_id'], $this->config->get('config_language_id')), 
+                    'status'      => $result['status'], 
+                    'sort_order'  => $result['sort_order']
+                );
                 
                 $category_data = array_merge($category_data, $this->getCategories($result['category_id']));
             }
@@ -250,7 +280,7 @@ class Category extends Model {
 		");
         
         if ($query->row['parent_id']) {
-            return $this->getPath($query->row['parent_id'], $this->config->get('config_language_id')) . $this->language->get('text_separator') . $query->row['name'];
+            return $this->getPath($query->row['parent_id'], $this->config->get('config_language_id')) . $this->language->get('lang_text_separator') . $query->row['name'];
         } else {
             return $query->row['name'];
         }
@@ -266,7 +296,12 @@ class Category extends Model {
 		");
         
         foreach ($query->rows as $result) {
-            $category_description_data[$result['language_id']] = array('name' => $result['name'], 'meta_keyword' => $result['meta_keyword'], 'meta_description' => $result['meta_description'], 'description' => $result['description']);
+            $category_description_data[$result['language_id']] = array(
+                'name'             => $result['name'], 
+                'meta_keyword'     => $result['meta_keyword'], 
+                'meta_description' => $result['meta_description'], 
+                'description'      => $result['description']
+            );
         }
         
         return $category_description_data;

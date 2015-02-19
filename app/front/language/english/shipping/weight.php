@@ -15,5 +15,5 @@
 */
 
 // Text
-$_['text_title']  = 'Weight Based Shipping';
-$_['text_weight'] = 'Weight:';
+$_['lang_text_title']  = 'Weight Based Shipping';
+$_['lang_text_weight'] = 'Weight:';

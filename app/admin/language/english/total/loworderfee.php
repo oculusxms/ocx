@@ -15,18 +15,18 @@
 */
 
 // Heading
-$_['heading_title']    = 'Low Order Fee';
+$_['lang_heading_title']    = 'Low Order Fee';
 
 // Text
-$_['text_total']       = 'Order Totals';
-$_['text_success']     = 'Success: You have modified low order fee total.';
+$_['lang_text_total']       = 'Order Totals';
+$_['lang_text_success']     = 'Success: You have modified low order fee total.';
 
 // Entry
-$_['entry_total']      = 'Order Total:';
-$_['entry_fee']        = 'Fee:';
-$_['entry_tax_class']  = 'Tax Class:';
-$_['entry_status']     = 'Status:';
-$_['entry_sort_order'] = 'Sort Order:';
+$_['lang_entry_total']      = 'Order Total:';
+$_['lang_entry_fee']        = 'Fee:';
+$_['lang_entry_tax_class']  = 'Tax Class:';
+$_['lang_entry_status']     = 'Status:';
+$_['lang_entry_sort_order'] = 'Sort Order:';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify low order fee total.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify low order fee total.';

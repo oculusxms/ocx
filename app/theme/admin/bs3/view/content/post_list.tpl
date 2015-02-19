@@ -11,10 +11,10 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="pull-left h2"><i class="hidden-xs fa fa-leaf"></i><?= $heading_title; ?></div>
+		<div class="pull-left h2"><i class="hidden-xs fa fa-leaf"></i><?= $lang_heading_title; ?></div>
 		<div class="pull-right">
-			<a href="<?= $insert; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_insert; ?></span></a>
-			<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_delete; ?></span></button>
+			<a href="<?= $insert; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_insert; ?></span></a>
+			<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_delete; ?></span></button>
 		</div>
 	</div>
 	<div class="panel-body">
@@ -23,14 +23,14 @@
 				<thead>
 					<tr>
 						<th width="40" class="text-center"><input type="checkbox" data-toggle="selected"></th>
-						<th><a href="<?= $sort_name; ?>"><?= $column_name; echo ($sort == 'pd.name') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th><?= $column_author; ?></th>
-						<th><?= $column_category; ?></th>
-						<th><a href="<?= $sort_status; ?>"><?= $column_status; echo ($sort == 'p.status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th><a href="<?= $sort_viewed; ?>"><?= $column_viewed; echo ($sort == 'p.viewed') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="text-right"><a href="<?= $sort_date_added; ?>"><?= $column_date_added; echo ($sort == 'p.date_added') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="text-right"><a href="<?= $sort_date_modified; ?>"><?= $column_date_modified; echo ($sort == 'p.date_modified') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="text-right"><?= $column_action; ?></th>
+						<th><a href="<?= $sort_name; ?>"><?= $lang_column_name; echo ($sort == 'pd.name') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th><?= $lang_column_author; ?></th>
+						<th><?= $lang_column_category; ?></th>
+						<th><a href="<?= $sort_status; ?>"><?= $lang_column_status; echo ($sort == 'p.status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th><a href="<?= $sort_viewed; ?>"><?= $lang_column_viewed; echo ($sort == 'p.viewed') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="text-right"><a href="<?= $sort_date_added; ?>"><?= $lang_column_date_added; echo ($sort == 'p.date_added') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="text-right"><a href="<?= $sort_date_modified; ?>"><?= $lang_column_date_modified; echo ($sort == 'p.date_modified') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="text-right"><?= $lang_column_action; ?></th>
 					</tr>
 				</thead>
 				<tbody data-link="row" class="rowlink">
@@ -66,19 +66,19 @@
 							<select name="filter_status" class="form-control">
 								<option value="*"></option>
 								<?php if ($filter_status === '1'): ?>
-								<option value="1" selected="selected"><?= $text_posted; ?></option>
+								<option value="1" selected="selected"><?= $lang_text_posted; ?></option>
 								<?php else: ?>
-								<option value="1"><?= $text_posted; ?></option>
+								<option value="1"><?= $lang_text_posted; ?></option>
 								<?php endif; ?>
 								<?php if ($filter_status === '2'): ?>
-								<option value="2" selected="selected"><?= $text_draft; ?></option>
+								<option value="2" selected="selected"><?= $lang_text_draft; ?></option>
 								<?php else: ?>
-								<option value="2"><?= $text_draft; ?></option>
+								<option value="2"><?= $lang_text_draft; ?></option>
 								<?php endif; ?>
 								<?php if (!is_null($filter_status) && !$filter_status): ?>
-								<option value="0" selected="selected"><?= $text_disabled; ?></option>
+								<option value="0" selected="selected"><?= $lang_text_disabled; ?></option>
 								<?php else: ?>
-								<option value="0"><?= $text_disabled; ?></option>
+								<option value="0"><?= $lang_text_disabled; ?></option>
 								<?php endif; ?>
 							</select>
 						</td>
@@ -97,7 +97,7 @@
 						</td>
 						<td class="text-right">
 							<button type="button" onclick="filter();" class="btn btn-info">
-								<i class="fa fa-search"></i><span class="hidden-xs"> <?= $button_filter; ?></span></button>
+								<i class="fa fa-search"></i><span class="hidden-xs"> <?= $lang_button_filter; ?></span></button>
 						</td>
 					</tr>
 					
@@ -125,7 +125,7 @@
 					<?php endforeach; ?>
 					<?php else: ?>
 					<tr>
-						<td class="text-center" colspan="9"><?= $text_no_results; ?></td>
+						<td class="text-center" colspan="9"><?= $lang_text_no_results; ?></td>
 					</tr>
 					<?php endif; ?>
 				</tbody>

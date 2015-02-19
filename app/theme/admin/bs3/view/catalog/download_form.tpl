@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-download"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-download"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_name; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 				<div class="control-field col-sm-4">
 				<?php foreach ($languages as $language) { ?>
 					<div class="input-group">
@@ -38,12 +38,12 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="input-filename"><?= $entry_filename; ?></label>
+				<label class="control-label col-sm-2" for="input-filename"><?= $lang_entry_filename; ?></label>
 				<div class="control-field col-sm-4">
 					<div class="input-group">
 						<input type="text" name="filename" value="<?= $filename; ?>" id="input-filename" class="form-control">
 						<span class="input-group-btn">
-							<button type="button" id="button-upload" class="btn btn-default"><i class="fa fa-upload"></i> <?= $button_upload; ?></button>
+							<button type="button" id="button-upload" class="btn btn-default"><i class="fa fa-upload"></i> <?= $lang_button_upload; ?></button>
 						</span>
 					</div>
 					<?php if ($error_filename){ ?>
@@ -52,7 +52,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="mask"><?= $entry_mask; ?></label>
+				<label class="control-label col-sm-2" for="mask"><?= $lang_entry_mask; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="mask" value="<?= $mask; ?>" id="mask" class="form-control">
 					<?php if ($error_mask) { ?>
@@ -61,14 +61,14 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="remaining"><?= $entry_remaining; ?></label>
+				<label class="control-label col-sm-2" for="remaining"><?= $lang_entry_remaining; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="remaining" value="<?= $remaining; ?>" id="remaining" class="form-control">
 				</div>
 			</div>
 			<?php if ($download_id) { ?>
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="update"><?= $entry_update; ?></label>
+					<label class="control-label col-sm-2" for="update"><?= $lang_entry_update; ?></label>
 					<div class="control-field col-sm-4">
 						<label class="checkbox-inline"><?php if ($update) { ?>
 							<input type="checkbox" name="update" value="1" checked="" id="update">

@@ -41,15 +41,15 @@ class Wishlist extends Controller {
                 unset($this->session->data['wishlist'][$key]);
             }
             
-            $this->session->data['success'] = $this->language->get('text_remove');
+            $this->session->data['success'] = $this->language->get('lang_text_remove');
             
             $this->response->redirect($this->url->link('account/wishlist'));
         }
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('heading_title', 'account/wishlist', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/wishlist', null, true, 'SSL');
         
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -76,7 +76,7 @@ class Wishlist extends Controller {
                 } elseif ($this->config->get('config_stock_display')) {
                     $stock = $product_info['quantity'];
                 } else {
-                    $stock = $this->language->get('text_instock');
+                    $stock = $this->language->get('lang_text_instock');
                 }
                 
                 if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
@@ -134,12 +134,12 @@ class Wishlist extends Controller {
             }
             
             if ($this->customer->isLogged()) {
-                $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('catalog/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
+                $json['success'] = sprintf($this->language->get('lang_text_success'), $this->url->link('catalog/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
             } else {
-                $json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', 'SSL'), $this->url->link('account/register', '', 'SSL'), $this->url->link('catalog/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
+                $json['success'] = sprintf($this->language->get('lang_text_login'), $this->url->link('account/login', '', 'SSL'), $this->url->link('account/register', '', 'SSL'), $this->url->link('catalog/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
             }
             
-            $json['total'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
+            $json['total'] = sprintf($this->language->get('lang_text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);

@@ -36,7 +36,7 @@ class Paypalpro extends Model {
         $method_data = array();
         
         if ($status) {
-            $method_data = array('code' => 'paypalpro', 'title' => $this->language->get('text_title'), 'sort_order' => $this->config->get('paypalpro_sort_order'));
+            $method_data = array('code' => 'paypalpro', 'title' => $this->language->get('lang_text_title'), 'sort_order' => $this->config->get('paypalpro_sort_order'));
         }
         
         return $method_data;

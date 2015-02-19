@@ -11,7 +11,7 @@
 </table>
 
 <p class="link" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; margin-top:5px; margin-bottom:15px;">
-	<?= $text_approval; ?><br />
+	<?= $lang_text_approval; ?><br />
 	<span style="line-height:100%; font-size:120%;">&raquo;</span>
 	<a href="<?= $url_affiliate_login; ?>" style="text-decoration:none;" target="_blank">
 		<b><?= $url_affiliate_login; ?></b>
@@ -19,7 +19,7 @@
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; margin-top:0px; margin-bottom:8px;">
-	<?= $text_services; ?>
+	<?= $lang_text_services; ?>
 </p>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; margin-top:0px; margin-bottom:0px;">

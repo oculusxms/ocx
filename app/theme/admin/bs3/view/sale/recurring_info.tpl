@@ -12,92 +12,92 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-user"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-user"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<a class="btn btn-warning" href="<?= $return; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<table class="table table-striped table-bordered">
 			<tr>
-				<td><?php echo $entry_order_recurring; ?></td>
-				<td><?php echo $order_recurring_id; ?></td>
+				<td><?= $lang_entry_order_recurring; ?></td>
+				<td><?= $order_recurring_id; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_order_id; ?></td>
-				<td><a href="<?php echo $order_href; ?>"><?php echo $order_id; ?></a></td>
+				<td><?= $lang_entry_order_id; ?></td>
+				<td><a href="<?= $order_href; ?>"><?= $order_id; ?></a></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_customer; ?></td>
+				<td><?= $lang_entry_customer; ?></td>
 				<td>
 					<?php if ($customer_href) { ?>
-					<a href="<?php echo $customer_href ?>"><?php echo $customer; ?></a>
+					<a href="<?= $customer_href ?>"><?= $customer; ?></a>
 					<?php } else { ?>
-					<?php echo $customer; ?>
+					<?= $customer; ?>
 					<?php } ?>
 				</td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_email; ?></td>
-				<td><?php echo $email; ?></td>
+				<td><?= $lang_entry_email; ?></td>
+				<td><?= $email; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_status; ?></td>
-				<td><?php echo $status; ?></td>
+				<td><?= $lang_entry_status; ?></td>
+				<td><?= $status; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_date_added; ?></td>
-				<td><?php echo $date_added; ?></td>
+				<td><?= $lang_entry_date_added; ?></td>
+				<td><?= $date_added; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_reference; ?></td>
-				<td><?php echo $reference; ?></td>
+				<td><?= $lang_entry_reference; ?></td>
+				<td><?= $reference; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_payment_method; ?></td>
-				<td><?php echo $payment_method; ?></td>
+				<td><?= $lang_entry_payment_method; ?></td>
+				<td><?= $payment_method; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_recurring; ?></td>
+				<td><?= $lang_entry_recurring; ?></td>
 				<td>
 					<?php if ($recurring) { ?>
-					<a href="<?php echo $recurring; ?>"><?php echo $recurring_name; ?></a>
+					<a href="<?= $recurring; ?>"><?= $recurring_name; ?></a>
 					<?php } else { ?>
-					<?php echo $recurring_name; ?>
+					<?= $recurring_name; ?>
 					<?php } ?>
 				</td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_description; ?></td>
-				<td><?php echo $recurring_description; ?></td>
+				<td><?= $lang_entry_description; ?></td>
+				<td><?= $recurring_description; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_product; ?></td>
-				<td><?php echo $product; ?></td>
+				<td><?= $lang_entry_product; ?></td>
+				<td><?= $product; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo $entry_quantity; ?></td>
-				<td><?php echo $quantity; ?></td>
+				<td><?= $lang_entry_quantity; ?></td>
+				<td><?= $quantity; ?></td>
 			</tr>
 		</table>
-		<?php echo $buttons; ?>
-		<h2><?php echo $text_transactions; ?></h2>
+		<?= $buttons; ?>
+		<h2><?= $lang_text_transactions; ?></h2>
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<td class="text-left"><?php echo $entry_date_added; ?></td>
-					<td class="text-left"><?php echo $entry_amount; ?></td>
-					<td class="text-left"><?php echo $entry_type; ?></td>
+					<td class="text-left"><?= $lang_entry_date_added; ?></td>
+					<td class="text-left"><?= $lang_entry_amount; ?></td>
+					<td class="text-left"><?= $lang_entry_type; ?></td>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($transactions as $transaction) { ?>
 				<tr>
-					<td class="text-left"><?php echo $transaction['date_added']; ?></td>
-					<td class="text-left"><?php echo $transaction['amount']; ?></td>
-					<td class="text-left"><?php echo $transaction['type']; ?></td>
+					<td class="text-left"><?= $transaction['date_added']; ?></td>
+					<td class="text-left"><?= $transaction['amount']; ?></td>
+					<td class="text-left"><?= $transaction['type']; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

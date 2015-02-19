@@ -11,10 +11,10 @@
 </table>
 
 <p class="standard" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:0px; margin-bottom:8px;">
-	<?= $text_new_password; ?><br /><strong><?= $password; ?></strong></p>
+	<?= $lang_text_new_password; ?><br /><strong><?= $password; ?></strong></p>
 
 <p class="link" align="left" style="-ms-text-size-adjust:100%; mso-line-height-rule:exactly; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#333333; margin-top:5px; margin-bottom:15px;">
-	<?= $text_login; ?><br />
+	<?= $lang_text_login; ?><br />
 	<span style="line-height:100%; font-size:120%;">&raquo;</span>
 	<a href="<?= $account_login; ?>" style="text-decoration:none;" target="_blank">
 		<b><?= $account_login; ?></b>

@@ -65,7 +65,7 @@ class Cart extends Controller {
         
         $data['totals'] = $total_data;
         
-        $data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total));
+        $data['text_items'] = sprintf($this->language->get('lang_text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total));
         
         $this->theme->model('tool/image');
         

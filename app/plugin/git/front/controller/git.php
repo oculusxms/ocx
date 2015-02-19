@@ -74,7 +74,7 @@ class Git extends Plugin {
                             
                             mail('vkronlein@icloud.com', 'Deployment', 'Fetch seems to have executed successfully.' . "\n\n" . $message);
                         else:
-                            throw new Exception($this->language->get('error_pull_failed'));
+                            throw new Exception($this->language->get('lang_error_pull_failed'));
                         endif;
                     else:
                         
@@ -84,11 +84,11 @@ class Git extends Plugin {
                         return;
                     endif;
                 else:
-                    throw new Exception($this->language->get('error_json_decode'));
+                    throw new Exception($this->language->get('lang_error_json_decode'));
                 endif;
                 return false;
             else:
-                throw new Exception($this->language->get('error_data_not_set'));
+                throw new Exception($this->language->get('lang_error_data_not_set'));
             endif;
         }
         catch(Exception $e) {

@@ -51,19 +51,19 @@
 			</div>
 			<div class="collapse navbar-collapse" id="nav-top">
 				<ul class="nav navbar-nav">
-					<li id="nav-home" class="hidden-md hidden-sm"><a href="<?= $home; ?>"><?= $text_home; ?></a></li>
+					<li id="nav-home" class="hidden-md hidden-sm"><a href="<?= $home; ?>"><?= $lang_text_home; ?></a></li>
 					<li id="<?= $text_nav; ?>"><a href="<?= $alternate; ?>"><?= $text_alternate; ?></a></li>
 					<li id="nav-wishlist"><a href="<?= $wishlist; ?>" id="wishlist-total"><?= $text_wishlist; ?></a></li>
-					<li id="nav-account"><a href="<?= $account; ?>"><?= $text_account; ?></a></li>
-					<li id="nav-cart"><a href="<?= $shopping_cart; ?>"><?= $text_shopping_cart; ?></a></li>
-					<li id="nav-checkout"><a href="<?= $checkout; ?>"><?= $text_checkout; ?></a></li>
+					<li id="nav-account"><a href="<?= $account; ?>"><?= $lang_text_account; ?></a></li>
+					<li id="nav-cart"><a href="<?= $shopping_cart; ?>"><?= $lang_text_shopping_cart; ?></a></li>
+					<li id="nav-checkout"><a href="<?= $checkout; ?>"><?= $lang_text_checkout; ?></a></li>
 				</ul>
 				<form id="search-navbar" class="navbar-form navbar-right">
 					<div class="form-group">
-						<input type="search" name="search" value="<?= $search; ?>" class="form-control search" placeholder="<?= $text_search; ?>">
+						<input type="search" name="search" value="<?= $search; ?>" class="form-control search" placeholder="<?= $lang_text_search; ?>">
 					</div>
 					<button type="submit" form="search-navbar" class="btn btn-sm">
-						<i class="fa fa-search"></i> <?= $text_search; ?>
+						<i class="fa fa-search"></i> <?= $lang_text_search; ?>
 					</button>
 				</form>
 			</div>

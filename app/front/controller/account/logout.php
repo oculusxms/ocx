@@ -46,22 +46,27 @@ class Logout extends Controller {
             unset($this->session->data['voucher']);
             unset($this->session->data['vouchers']);
             
-            $this->theme->trigger('customer_logout', array('customer_id' => $customer_id));
-            
-            $this->response->redirect($this->url->link('account/logout', '', 'SSL'));
+            $this->theme->trigger('front_customer_logout', array('customer_id' => $customer_id));
         }
         
         $data = $this->theme->language('account/logout');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if ($this->customer->isLogged()):
-            $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
+            $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
         endif;
         
-        $this->breadcrumb->add('text_logout', 'account/logout', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_logout', 'account/logout', null, true, 'SSL');
+
+        if ($this->theme->style = 'content'):
+            $route = 'content/home';
+        else:
+            $route = 'shop/home';
+        endif;
         
-        $data['continue'] = $this->url->link('shop/home');
+        $data['continue']     = $this->url->link($route);
+        $data['text_message'] = $this->language->get('lang_text_message');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

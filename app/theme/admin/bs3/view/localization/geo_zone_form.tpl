@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-globe"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-globe"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_name; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="name" value="<?= $name; ?>" class="form-control" autofocus>
 					<?php if ($error_name) { ?>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_description; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_description; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="description" value="<?= $description; ?>" class="form-control">
 					<?php if ($error_description) { ?>
@@ -44,8 +44,8 @@
 			<table id="zone-to-geo-zone" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th><?= $entry_country; ?></th>
-						<th><?= $entry_zone; ?></th>
+						<th><?= $lang_entry_country; ?></th>
+						<th><?= $lang_entry_zone; ?></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -63,7 +63,7 @@
 							<?php } ?>
 						</select></td>
 						<td><select name="zone_to_geo_zone[<?= $zone_to_geo_zone_row; ?>][zone_id]" id="zone<?= $zone_to_geo_zone_row; ?>" class="form-control"></select></td>
-						<td><a onclick="$('#zone-to-geo-zone-row<?= $zone_to_geo_zone_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+						<td><a onclick="$('#zone-to-geo-zone-row<?= $zone_to_geo_zone_row; ?>').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 					</tr>
 				<?php $zone_to_geo_zone_row++; ?>
 				<?php } ?>
@@ -71,7 +71,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2"></td>
-						<td><a onclick="addGeoZone();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs">	<?= $button_add_geo_zone; ?></span></a></td>
+						<td><a onclick="addGeoZone();" class="btn btn-info"><i class="fa fa-plus-circle"></i><span class="hidden-xs">	<?= $lang_button_add_geo_zone; ?></span></a></td>
 					</tr>
 				</tfoot>
 			</table>

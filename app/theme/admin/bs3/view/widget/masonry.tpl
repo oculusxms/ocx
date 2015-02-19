@@ -12,12 +12,12 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-puzzle-piece"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-puzzle-piece"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
@@ -26,16 +26,16 @@
 			<table id="widget" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th><?= $entry_limit; ?></th>
-						<th><?= $entry_span; ?></th>
-						<th><?= $entry_height; ?></th>
-						<th><?= $entry_product; ?></th>
-						<th><?= $entry_description; ?></th>
-						<th><?= $entry_button; ?></th>
-						<th><?= $entry_layout; ?></th>
-						<th><?= $entry_position; ?></th>
-						<th><?= $entry_status; ?></th>
-						<th><?= $entry_sort_order; ?></th>
+						<th><?= $lang_entry_limit; ?></th>
+						<th><?= $lang_entry_span; ?></th>
+						<th><?= $lang_entry_height; ?></th>
+						<th><?= $lang_entry_product; ?></th>
+						<th><?= $lang_entry_description; ?></th>
+						<th><?= $lang_entry_button; ?></th>
+						<th><?= $lang_entry_layout; ?></th>
+						<th><?= $lang_entry_position; ?></th>
+						<th><?= $lang_entry_status; ?></th>
+						<th><?= $lang_entry_sort_order; ?></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -58,13 +58,13 @@
 							<input type="text" class="form-control" name="masonry_widget[<?= $widget_row; ?>][height]" value="<?= $widget['height']; ?>" disabled="" size="1">
 							&nbsp; <label class="checkbox">
 								<input type="checkbox" name="masonry_widget[<?= $widget_row; ?>][height]" value="" class="toggle" checked="">
-								<?= $text_auto; ?>
+								<?= $lang_text_auto; ?>
 							</label>
 							<?php else: ?>
 								<input type="text" class="form-control" name="masonry_widget[<?= $widget_row; ?>][height]" value="<?= $widget['height']; ?>" size="1">
 								&nbsp; <label class="checkbox">
 								<input type="checkbox" name="masonry_widget[<?= $widget_row; ?>][height]" value="" class="toggle"> 
-									<?= $text_auto; ?>
+									<?= $lang_text_auto; ?>
 								</label>
 							<?php endif; ?></td>
 						<td><select name="masonry_widget[<?= $widget_row; ?>][product_type]" class="form-control">
@@ -78,11 +78,11 @@
 							</select></td>
 						<td><select name="masonry_widget[<?= $widget_row; ?>][description]" class="form-control">
 								<?php if ($widget['description']): ?>
-								<option value="1" selected><?= $text_enabled; ?></option>
-								<option value="0"><?= $text_disabled; ?></option>
+								<option value="1" selected><?= $lang_text_enabled; ?></option>
+								<option value="0"><?= $lang_text_disabled; ?></option>
 								<?php else: ?>
-								<option value="1"><?= $text_enabled; ?></option>
-								<option value="0" selected><?= $text_disabled; ?></option>
+								<option value="1"><?= $lang_text_enabled; ?></option>
+								<option value="0" selected><?= $lang_text_disabled; ?></option>
 								<?php endif; ?>
 							</select>
 							<?php if (isset($error_asterisk[$widget_row]['description'])): ?>
@@ -90,11 +90,11 @@
 							<?php endif; ?></td>
 						<td><select name="masonry_widget[<?= $widget_row; ?>][button]" class="form-control">
 								<?php if ($widget['button']): ?>
-								<option value="1" selected><?= $text_enabled; ?></option>
-								<option value="0"><?= $text_disabled; ?></option>
+								<option value="1" selected><?= $lang_text_enabled; ?></option>
+								<option value="0"><?= $lang_text_disabled; ?></option>
 								<?php else: ?>
-								<option value="1"><?= $text_enabled; ?></option>
-								<option value="0" selected><?= $text_disabled; ?></option>
+								<option value="1"><?= $lang_text_enabled; ?></option>
+								<option value="0" selected><?= $lang_text_disabled; ?></option>
 								<?php endif; ?>
 							</select>
 							<?php if (isset($error_asterisk[$widget_row]['button'])): ?>
@@ -111,52 +111,52 @@
 							</select></td>
 						<td><select name="masonry_widget[<?= $widget_row; ?>][position]" class="form-control">
 								<?php if ($widget['position'] == 'content_top'): ?>
-								<option value="content_top" selected><?= $text_content_top; ?></option>
+								<option value="content_top" selected><?= $lang_text_content_top; ?></option>
 								<?php else: ?>
-								<option value="content_top"><?= $text_content_top; ?></option>
+								<option value="content_top"><?= $lang_text_content_top; ?></option>
 								<?php endif; ?>
 								<?php if ($widget['position'] == 'content_bottom'): ?>
-								<option value="content_bottom" selected><?= $text_content_bottom; ?></option>
+								<option value="content_bottom" selected><?= $lang_text_content_bottom; ?></option>
 								<?php else: ?>
-								<option value="content_bottom"><?= $text_content_bottom; ?></option>
+								<option value="content_bottom"><?= $lang_text_content_bottom; ?></option>
 								<?php endif; ?>
 								<?php if ($widget['position'] == 'post_header'): ?>
-								<option value="post_header" selected><?= $text_post_header; ?></option>
+								<option value="post_header" selected><?= $lang_text_post_header; ?></option>
 								<?php else: ?>
-								<option value="post_header"><?= $text_post_header; ?></option>
+								<option value="post_header"><?= $lang_text_post_header; ?></option>
 								<?php endif; ?>
 								<?php if ($widget['position'] == 'pre_footer'): ?>
-								<option value="pre_footer" selected><?= $text_pre_footer; ?></option>
+								<option value="pre_footer" selected><?= $lang_text_pre_footer; ?></option>
 								<?php else: ?>
-								<option value="pre_footer"><?= $text_pre_footer; ?></option>
+								<option value="pre_footer"><?= $lang_text_pre_footer; ?></option>
 								<?php endif; ?>
 								<?php if ($widget['position'] == 'column_left'): ?>
-								<option value="column_left" selected><?= $text_column_left; ?></option>
+								<option value="column_left" selected><?= $lang_text_column_left; ?></option>
 								<?php else: ?>
-								<option value="column_left"><?= $text_column_left; ?></option>
+								<option value="column_left"><?= $lang_text_column_left; ?></option>
 								<?php endif; ?>
 								<?php if ($widget['position'] == 'column_right'): ?>
-								<option value="column_right" selected><?= $text_column_right; ?></option>
+								<option value="column_right" selected><?= $lang_text_column_right; ?></option>
 								<?php else: ?>
-								<option value="column_right"><?= $text_column_right; ?></option>
+								<option value="column_right"><?= $lang_text_column_right; ?></option>
 								<?php endif; ?>
 							</select></td>
 						<td><div class="btn-group" data-toggle="buttons">
 							<?php if ($widget['status']){ ?>
-							<label class="btn btn-default active" title="<?= $text_enabled; ?>">
+							<label class="btn btn-default active" title="<?= $lang_text_enabled; ?>">
 								<input type="radio" name="masonry_widget[<?= $widget_row; ?>][status]" value="1" checked=""><i class="fa fa-play"></i></label>
-							<label class="btn btn-default" title="<?= $text_disabled; ?>">
+							<label class="btn btn-default" title="<?= $lang_text_disabled; ?>">
 								<input type="radio" name="masonry_widget[<?= $widget_row; ?>][status]" value="0"><i class="fa fa-pause"></i></label>
 							<?php } else { ?>
-							<label class="btn btn-default" title="<?= $text_enabled; ?>">
+							<label class="btn btn-default" title="<?= $lang_text_enabled; ?>">
 								<input type="radio" name="masonry_widget[<?= $widget_row; ?>][status]" value="1"><i class="fa fa-play"></i></label>
-							<label class="btn btn-default active" title="<?= $text_disabled; ?>">
+							<label class="btn btn-default active" title="<?= $lang_text_disabled; ?>">
 								<input type="radio" name="masonry_widget[<?= $widget_row; ?>][status]" value="0" checked=""><i class="fa fa-pause"></i></label>
 							<?php } ?>
 							</div></td>
 						<td><input type="text" class="form-control" name="masonry_widget[<?= $widget_row; ?>][sort_order]" value="<?= $widget['sort_order']; ?>" size="3"></td>
 						<td><a onclick="$('#widget-row<?= $widget_row; ?>').remove();" class="btn btn-danger">
-								<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>
+								<i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>
 					</tr>
 					<?php $widget_row++; ?>
 					<?php endforeach; ?>
@@ -165,7 +165,7 @@
 							<td colspan="10"></td>
 							<td>
 								<a onclick="addWidget();" class="btn btn-info">
-									<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_add_widget; ?></span></a>
+									<i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_add_widget; ?></span></a>
 							</td>
 						</tr>
 					</tfoot>

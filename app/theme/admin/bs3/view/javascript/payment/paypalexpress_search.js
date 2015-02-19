@@ -19,17 +19,17 @@
 				}else{
 					if(data.result != ''){
 						html += '<thead><tr>';
-							html += '<td><?= $tbl_column_date; ?></td>';
-							html += '<td><?= $tbl_column_type; ?></td>';
-							html += '<td><?= $tbl_column_email; ?></td>';
-							html += '<td><?= $tbl_column_name; ?></td>';
-							html += '<td><?= $tbl_column_transid; ?></td>';
-							html += '<td><?= $tbl_column_status; ?></td>';
-							html += '<td><?= $tbl_column_currency; ?></td>';
-							html += '<td class="text-right"><?= $tbl_column_amount; ?></td>';
-							html += '<td class="text-right"><?= $tbl_column_fee; ?></td>';
-							html += '<td class="text-right"><?= $tbl_column_netamt; ?></td>';
-							html += '<td class="text-center"><?= $tbl_column_action; ?></td>';
+							html += '<td><?= $lang_column_date; ?></td>';
+							html += '<td><?= $lang_column_type; ?></td>';
+							html += '<td><?= $lang_column_email; ?></td>';
+							html += '<td><?= $lang_column_name; ?></td>';
+							html += '<td><?= $lang_column_transid; ?></td>';
+							html += '<td><?= $lang_column_status; ?></td>';
+							html += '<td><?= $lang_column_currency; ?></td>';
+							html += '<td class="text-right"><?= $lang_column_amount; ?></td>';
+							html += '<td class="text-right"><?= $lang_column_fee; ?></td>';
+							html += '<td class="text-right"><?= $lang_column_netamt; ?></td>';
+							html += '<td class="text-center"><?= $lang_column_action; ?></td>';
 						html += '</tr></thead>';
 						$.each(data.result, function(k,v){
 							if(!("L_EMAIL" in v)){
@@ -47,7 +47,7 @@
 								html += '<td class="text-right">'+v.L_FEEAMT+'</td>';
 								html += '<td class="text-right">'+v.L_NETAMT+'</td>';
 								html += '<td class="text-center">';
-									html += '<a class="btn btn-default" href="<?= $view_link; ?>&transaction_id='+v.L_TRANSACTIONID+'"><i class="fa fa-pencil-square-o"></i><span class="hidden-xs"> <?= $text_view; ?></span></a>';
+									html += '<a class="btn btn-default" href="<?= $view_link; ?>&transaction_id='+v.L_TRANSACTIONID+'"><i class="fa fa-pencil-square-o"></i><span class="hidden-xs"> <?= $lang_text_view; ?></span></a>';
 								html += '</td>';
 							html += '</tr>';
 						});

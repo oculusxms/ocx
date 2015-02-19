@@ -1,29 +1,35 @@
 <div class="list-group">
-	<div class="list-group-item list-group-heading"><?= $heading_title; ?></div>
-	<?php if ($logged): ?>
-	<a class="list-group-item" href="<?= $account; ?>"><?= $text_account; ?></a>
+	<div class="list-group-item list-group-heading"><?= $lang_heading_title; ?></div>
+<?php if ($logged): ?>
+	<a class="list-group-item" href="<?= $account; ?>"><?= $lang_text_account; ?></a>
+	<a class="list-group-item" href="<?= $notification; ?>">
+		<?= $lang_text_notification; ?>
+		<?php if ($unread): ?>
+			<span id="notify-badge" class="badge badge-danger"><?= $unread; ?></span>
+		<?php endif; ?>
+	</a>
 	<?php if ($product): ?>
-	<a class="list-group-item" href="<?= $product; ?>"><?= $text_product; ?></a>
+	<a class="list-group-item" href="<?= $product; ?>"><?= $lang_text_product; ?></a>
 	<?php endif; ?>
 	<?php if ($reward): ?>
-	<a class="list-group-item" href="<?= $reward; ?>"><?= $text_reward; ?></a>
+	<a class="list-group-item" href="<?= $reward; ?>"><?= $lang_text_reward; ?></a>
 	<?php endif; ?>
 	<?php if ($download): ?>
-	<a class="list-group-item" href="<?= $download; ?>"><?= $text_download; ?></a>
+	<a class="list-group-item" href="<?= $download; ?>"><?= $lang_text_download; ?></a>
 	<?php endif; ?>
-	<a class="list-group-item" href="<?= $wishlist; ?>"><?= $text_wishlist; ?></a>
-	<a class="list-group-item" href="<?= $order; ?>"><?= $text_order; ?></a>
-	<a class="list-group-item" href="<?= $return; ?>"><?= $text_return; ?></a>
-	<a class="list-group-item" href="<?= $recurring; ?>"><?= $text_recurring; ?></a>
-	<a class="list-group-item" href="<?= $transaction; ?>"><?= $text_transaction; ?></a>
-	<a class="list-group-item" href="<?= $edit; ?>"><?= $text_edit; ?></a>
-	<a class="list-group-item" href="<?= $password; ?>"><?= $text_password; ?></a>
-	<a class="list-group-item" href="<?= $address; ?>"><?= $text_address; ?></a>
-	<a class="list-group-item" href="<?= $newsletter; ?>"><?= $text_newsletter; ?></a>
-	<a class="list-group-item" href="<?= $logout; ?>"><?= $text_logout; ?></a>
-	<?php else: ?>
-	<a class="list-group-item" href="<?= $login; ?>"><?= $text_login; ?></a>
-	<a class="list-group-item" href="<?= $register; ?>"><?= $text_register; ?></a>
-	<a class="list-group-item" href="<?= $forgotten; ?>"><?= $text_forgotten; ?></a>
-	<?php endif; ?>
+	<a class="list-group-item" href="<?= $wishlist; ?>"><?= $lang_text_wishlist; ?></a>
+	<a class="list-group-item" href="<?= $order; ?>"><?= $lang_text_order; ?></a>
+	<a class="list-group-item" href="<?= $return; ?>"><?= $lang_text_return; ?></a>
+	<a class="list-group-item" href="<?= $recurring; ?>"><?= $lang_text_recurring; ?></a>
+	<a class="list-group-item" href="<?= $transaction; ?>"><?= $lang_text_transaction; ?></a>
+	<a class="list-group-item" href="<?= $edit; ?>"><?= $lang_text_edit; ?></a>
+	<a class="list-group-item" href="<?= $password; ?>"><?= $lang_text_password; ?></a>
+	<a class="list-group-item" href="<?= $address; ?>"><?= $lang_text_address; ?></a>
+	<a class="list-group-item" href="<?= $newsletter; ?>"><?= $lang_text_newsletter; ?></a>
+	<a class="list-group-item" href="<?= $logout; ?>"><?= $lang_text_logout; ?></a>
+<?php else: ?>
+	<a class="list-group-item" href="<?= $login; ?>"><?= $lang_text_login; ?></a>
+	<a class="list-group-item" href="<?= $register; ?>"><?= $lang_text_register; ?></a>
+	<a class="list-group-item" href="<?= $forgotten; ?>"><?= $lang_text_forgotten; ?></a>
+<?php endif; ?>
 </div>

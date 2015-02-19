@@ -57,7 +57,7 @@ class Weight extends Model {
                 }
                 
                 if ((string)$cost != '') {
-                    $quote_data['weight_' . $result['geo_zone_id']] = array('code' => 'weight.weight_' . $result['geo_zone_id'], 'title' => $result['name'] . '  (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')', 'cost' => $cost, 'tax_class_id' => $this->config->get('weight_tax_class_id'), 'text' => $this->currency->format($this->tax->calculate($cost, $this->config->get('weight_tax_class_id'), $this->config->get('config_tax'))));
+                    $quote_data['weight_' . $result['geo_zone_id']] = array('code' => 'weight.weight_' . $result['geo_zone_id'], 'title' => $result['name'] . '  (' . $this->language->get('lang_text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')', 'cost' => $cost, 'tax_class_id' => $this->config->get('weight_tax_class_id'), 'text' => $this->currency->format($this->tax->calculate($cost, $this->config->get('weight_tax_class_id'), $this->config->get('config_tax'))));
                 }
             }
         }
@@ -65,7 +65,7 @@ class Weight extends Model {
         $method_data = array();
         
         if ($quote_data) {
-            $method_data = array('code' => 'weight', 'title' => $this->language->get('text_title'), 'quote' => $quote_data, 'sort_order' => $this->config->get('weight_sort_order'), 'error' => false);
+            $method_data = array('code' => 'weight', 'title' => $this->language->get('lang_text_title'), 'quote' => $quote_data, 'sort_order' => $this->config->get('weight_sort_order'), 'error' => false);
         }
         
         return $method_data;

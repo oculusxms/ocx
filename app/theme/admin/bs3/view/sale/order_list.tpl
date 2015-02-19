@@ -11,11 +11,11 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="pull-left h2"><i class="hidden-xs fa fa-shopping-cart"></i><?= $heading_title; ?></div>
+		<div class="pull-left h2"><i class="hidden-xs fa fa-shopping-cart"></i><?= $lang_heading_title; ?></div>
 		<div class="pull-right">
-			<button type="submit" form="form" formtarget="_blank" class="btn btn-success btn-spacer"><i class="fa fa-print"></i><span class="hidden-xs"> <?= $button_invoice; ?></span></button>
-			<a href="<?= $insert; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_insert; ?></span></a>
-			<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_delete; ?></span></button>
+			<button type="submit" form="form" formtarget="_blank" class="btn btn-success btn-spacer"><i class="fa fa-print"></i><span class="hidden-xs"> <?= $lang_button_invoice; ?></span></button>
+			<a href="<?= $insert; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_insert; ?></span></a>
+			<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_delete; ?></span></button>
 		</div>
 	</div>
 	<div class="panel-body">
@@ -24,13 +24,13 @@
 				<thead>
 					<tr>
 						<th width="40" class="text-center"><input type="checkbox" data-toggle="selected"></th>
-						<th class="text-right"><a href="<?= $sort_order; ?>"><?= $column_order_id; echo ($sort == 'o.order_id') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th><a href="<?= $sort_customer; ?>"><?= $column_customer; echo ($sort == 'customer') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="hidden-xs"><a href="<?= $sort_status; ?>"><?= $column_status; echo ($sort == 'status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="text-right hidden-xs"><a href="<?= $sort_total; ?>"><?= $column_total; echo ($sort == 'o.total') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="hidden-xs"><a href="<?= $sort_date_added; ?>"><?= $column_date_added; echo ($sort == 'o.date_added') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="hidden-xs hidden-sm"><a href="<?= $sort_date_modified; ?>"><?= $column_date_modified; echo ($sort == 'o.date_modified') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="text-right"><span class="hidden-xs"><?= $column_action; ?></span></th>
+						<th class="text-right"><a href="<?= $sort_order; ?>"><?= $lang_column_order_id; echo ($sort == 'o.order_id') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th><a href="<?= $sort_customer; ?>"><?= $lang_column_customer; echo ($sort == 'customer') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="hidden-xs"><a href="<?= $sort_status; ?>"><?= $lang_column_status; echo ($sort == 'status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="text-right hidden-xs"><a href="<?= $sort_total; ?>"><?= $lang_column_total; echo ($sort == 'o.total') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="hidden-xs"><a href="<?= $sort_date_added; ?>"><?= $lang_column_date_added; echo ($sort == 'o.date_added') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="hidden-xs hidden-sm"><a href="<?= $sort_date_modified; ?>"><?= $lang_column_date_modified; echo ($sort == 'o.date_modified') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 					</tr>
 				</thead>
 				<tbody data-link="row" class="rowlink">
@@ -41,9 +41,9 @@
 						<td class="hidden-xs"><select name="filter_order_status_id" class="form-control">
 							<option value="*">&ndash;</option>
 							<?php if ($filter_order_status_id == '0') { ?>
-							<option value="0" selected><?= $text_missing; ?></option>
+							<option value="0" selected><?= $lang_text_missing; ?></option>
 							<?php } else { ?>
-							<option value="0"><?= $text_missing; ?></option>
+							<option value="0"><?= $lang_text_missing; ?></option>
 							<?php } ?>
 							<?php foreach ($order_statuses as $order_status) { ?>
 							<?php if ($order_status['order_status_id'] == $filter_order_status_id) { ?>
@@ -62,7 +62,7 @@
 							<input type="text" name="filter_date_modified" value="<?= $filter_date_modified; ?>" class="form-control date">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 						</label></td>
-						<td class="text-right"><button type="button" onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i><span class="hidden-xs"> <?= $button_filter; ?></span></button></td>
+						<td class="text-right"><button type="button" onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i><span class="hidden-xs"> <?= $lang_button_filter; ?></span></button></td>
 					</tr>
 					<?php if ($orders) { ?>
 					<?php foreach ($orders as $order) { ?>
@@ -87,7 +87,7 @@
 					<?php } ?>
 					<?php } else { ?>
 					<tr>
-						<td class="text-center" colspan="8"><?= $text_no_results; ?></td>
+						<td class="text-center" colspan="8"><?= $lang_text_no_results; ?></td>
 					</tr>
 					<?php } ?>
 				</tbody>

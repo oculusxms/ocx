@@ -1,6 +1,6 @@
 <?php if (count($languages) > 1) { ?>
 <div class="btn-group">
-	<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><?= $text_language; ?> <span class="caret"></span></a>
+	<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><?= $lang_text_language; ?> <span class="caret"></span></a>
 	<ul class="dropdown-menu dropdown-menu-right">
 		<?php foreach ($languages as $language) { ?>
 			<?php if ($language['code'] == $language_code) { ?>

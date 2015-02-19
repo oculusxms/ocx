@@ -15,18 +15,18 @@
 */
 
 // Heading
-$_['heading_title']     = 'Welcome';
+$_['lang_heading_title']     = 'Welcome';
 
 // Text
-$_['text_widget']       = 'Widgets';
-$_['text_success']      = 'Success: You have modified widget welcome.';
+$_['lang_text_widget']       = 'Widgets';
+$_['lang_text_success']      = 'Success: You have modified widget welcome.';
 
 // Entry
-$_['entry_description'] = 'Welcome Message:';
-$_['entry_layout']      = 'Layout:';
-$_['entry_position']    = 'Position:';
-$_['entry_status']      = 'Status:';
-$_['entry_sort_order']  = 'Sort Order:';
+$_['lang_entry_description'] = 'Welcome Message:';
+$_['lang_entry_layout']      = 'Layout:';
+$_['lang_entry_position']    = 'Position:';
+$_['lang_entry_status']      = 'Status:';
+$_['lang_entry_sort_order']  = 'Sort Order:';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify widget welcome.';
+$_['lang_error_permission']  = 'Warning: You do not have permission to modify widget welcome.';

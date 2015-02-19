@@ -12,19 +12,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-credit-card"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-credit-card"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_title; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_title; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="title" value="<?= $title; ?>" class="form-control" autofocus>
 					<?php if ($error_title) { ?>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_code; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_code; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="code" value="<?= $code; ?>" class="form-control">
 					<?php if ($error_code) { ?>
@@ -42,39 +42,39 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_symbol_left; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_symbol_left; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="symbol_left" value="<?= $symbol_left; ?>" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_symbol_right; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_symbol_right; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="symbol_right" value="<?= $symbol_right; ?>" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_decimal_place; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_decimal_place; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="decimal_place" value="<?= $decimal_place; ?>" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_value; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_value; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="value" value="<?= $value; ?>" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $entry_status; ?></label>
+				<label class="control-label col-sm-2"><?= $lang_entry_status; ?></label>
 				<div class="control-field col-sm-4">
 					<select name="status" class="form-control">
 						<?php if ($status) { ?>
-						<option value="1" selected><?= $text_enabled; ?></option>
-						<option value="0"><?= $text_disabled; ?></option>
+						<option value="1" selected><?= $lang_text_enabled; ?></option>
+						<option value="0"><?= $lang_text_disabled; ?></option>
 						<?php } else { ?>
-						<option value="1"><?= $text_enabled; ?></option>
-						<option value="0" selected><?= $text_disabled; ?></option>
+						<option value="1"><?= $lang_text_enabled; ?></option>
+						<option value="0" selected><?= $lang_text_disabled; ?></option>
 						<?php } ?>
 					</select>
 				</div>

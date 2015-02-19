@@ -22,7 +22,7 @@ class Menu extends Controller {
     
     public function index() {
         $this->language->load('module/menu');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('module/menu');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -32,12 +32,12 @@ class Menu extends Controller {
     
     public function insert() {
         $this->language->load('module/menu');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('module/menu');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_module_menu->addMenu($this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -55,12 +55,12 @@ class Menu extends Controller {
     
     public function update() {
         $this->language->load('module/menu');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('module/menu');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_module_menu->editMenu($this->request->get['menu_id'], $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -78,7 +78,7 @@ class Menu extends Controller {
     
     public function delete() {
         $this->language->load('module/menu');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('module/menu');
         
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -86,7 +86,7 @@ class Menu extends Controller {
                 $this->model_module_menu->deleteMenu($menu_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -117,7 +117,7 @@ class Menu extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         endif;
         
-        $this->breadcrumb->add('heading_title', 'module/menu');
+        $this->breadcrumb->add('lang_heading_title', 'module/menu');
         
         $data['insert'] = $this->url->link('module/menu/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('module/menu/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -132,9 +132,9 @@ class Menu extends Controller {
         foreach ($results as $result):
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('module/menu/update', 'token=' . $this->session->data['token'] . '&menu_id=' . $result['menu_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('module/menu/update', 'token=' . $this->session->data['token'] . '&menu_id=' . $result['menu_id'] . $url, 'SSL'));
             
-            $data['menus'][] = array('menu_id' => $result['menu_id'], 'name' => $result['name'], 'type' => $this->language->get('text_' . $result['type']), 'status' => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'), 'selected' => isset($this->request->post['selected']) && in_array($result['menu_id'], $this->request->post['selected']), 'action' => $action);
+            $data['menus'][] = array('menu_id' => $result['menu_id'], 'name' => $result['name'], 'type' => $this->language->get('lang_text_' . $result['type']), 'status' => $result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled'), 'selected' => isset($this->request->post['selected']) && in_array($result['menu_id'], $this->request->post['selected']), 'action' => $action);
         endforeach;
         
         if (isset($this->error['warning'])):
@@ -150,7 +150,7 @@ class Menu extends Controller {
             $data['success'] = '';
         endif;
         
-        $data['pagination'] = $this->theme->paginate($menu_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('module/menu', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($menu_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('module/menu', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -183,7 +183,7 @@ class Menu extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'module/menu', $url);
+        $this->breadcrumb->add('lang_heading_title', 'module/menu', $url);
         
         if (!isset($this->request->get['menu_id'])):
             $data['action'] = $this->url->link('module/menu/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -216,7 +216,7 @@ class Menu extends Controller {
         
         $data['menu_types'] = array();
         
-        $menu_types = array('product_category' => $this->language->get('text_product_category'), 'content_category' => $this->language->get('text_content_category'), 'page' => $this->language->get('text_page'), 'post' => $this->language->get('text_post'), 'custom' => $this->language->get('text_custom'));
+        $menu_types = array('product_category' => $this->language->get('lang_text_product_category'), 'content_category' => $this->language->get('lang_text_content_category'), 'page' => $this->language->get('lang_text_page'), 'post' => $this->language->get('lang_text_post'), 'custom' => $this->language->get('lang_text_custom'));
         
         foreach ($menu_types as $key => $value):
             $data['menu_types'][] = array('type' => $key, 'name' => $value);
@@ -237,23 +237,23 @@ class Menu extends Controller {
     
     private function validateForm() {
         if (!$this->user->hasPermission('modify', 'module/menu')):
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         endif;
         
         if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 32)) {
-            $this->error['name'] = $this->language->get('error_name');
+            $this->error['name'] = $this->language->get('lang_error_name');
         }
         
         if (!$this->request->post['type']):
-            $this->error['type'] = $this->language->get('error_type');
+            $this->error['type'] = $this->language->get('lang_error_type');
         endif;
         
         if (!isset($this->request->post['menu_item'])):
-            $this->error['items'] = $this->language->get('error_items');
+            $this->error['items'] = $this->language->get('lang_error_items');
         endif;
         
         if ($this->error && !isset($this->error['warning'])):
-            $this->error['warning'] = $this->language->get('error_warning');
+            $this->error['warning'] = $this->language->get('lang_error_warning');
         endif;
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -263,7 +263,7 @@ class Menu extends Controller {
     
     private function validateDelete() {
         if (!$this->user->hasPermission('modify', 'module/menu')):
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         endif;
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -295,7 +295,7 @@ class Menu extends Controller {
         
         $data['categories'] = array();
         
-        $data['entry_category'] = $this->language->get('entry_product_category');
+        $data['entry_category'] = $this->language->get('lang_entry_product_category');
         
         $results = $this->model_catalog_category->getCategories();
         
@@ -332,7 +332,7 @@ class Menu extends Controller {
         
         $data['categories'] = array();
         
-        $data['entry_category'] = $this->language->get('entry_content_category');
+        $data['entry_category'] = $this->language->get('lang_entry_content_category');
         
         $results = $this->model_content_category->getCategories(0);
         
@@ -362,7 +362,7 @@ class Menu extends Controller {
         
         $data['singles'] = array();
         
-        $data['entry_single'] = $this->language->get('entry_page');
+        $data['entry_single'] = $this->language->get('lang_entry_page');
         
         $results = $this->model_content_page->getPages();
         
@@ -392,7 +392,7 @@ class Menu extends Controller {
         
         $data['singles'] = array();
         
-        $data['entry_single'] = $this->language->get('entry_post');
+        $data['entry_single'] = $this->language->get('lang_entry_post');
         
         $results = $this->model_content_post->getPosts();
         

@@ -15,8 +15,8 @@
 */
 
 // Text
-$_['text_title']       = 'Check / Money Order';
-$_['text_instruction'] = 'Check / Money Order Instructions';
-$_['text_payable']     = 'Make Payable To: ';
-$_['text_address']     = 'Send To: ';
-$_['text_payment']     = 'Your order will not ship until we receive payment.';
+$_['lang_text_title']       = 'Check / Money Order';
+$_['lang_text_instruction'] = 'Check / Money Order Instructions';
+$_['lang_text_payable']     = 'Make Payable To: ';
+$_['lang_text_address']     = 'Send To: ';
+$_['lang_text_payment']     = 'Your order will not ship until we receive payment.';

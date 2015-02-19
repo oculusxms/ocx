@@ -9,7 +9,7 @@
 		<p><?= $description; ?></p>
 		<div class="form-actions">
 			<div class="form-actions-inner text-right">
-				<a href="<?= $continue; ?>" class="btn btn-primary"><?= $button_continue; ?></a>
+				<a href="<?= $continue; ?>" class="btn btn-primary"><?= $lang_button_continue; ?></a>
 			</div>
 		</div>
 		<?= $content_bottom; ?>

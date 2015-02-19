@@ -1,5 +1,5 @@
 <div class="list-group">
-	<div class="list-group-item list-group-heading"><?= $heading_title; ?></div>
+	<div class="list-group-item list-group-heading"><?= $lang_heading_title; ?></div>
 	<?php foreach ($blog_categories as $blog_category): ?>
 		<a class="list-group-item<?= ($blog_category['category_id'] == $blog_category_id) ? ' active' : ''; ?>" href="<?= $blog_category['href']; ?>"><?= $blog_category['name']; ?>
 			<span class="pull-right"><i class="fa fa-bars"></i></span></a>

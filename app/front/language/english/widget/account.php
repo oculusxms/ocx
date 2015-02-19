@@ -15,23 +15,24 @@
 */
 
 // Heading
-$_['heading_title']    = 'Account';
+$_['lang_heading_title']     = 'Account';
 
 // Text
-$_['text_register']    = 'Register';
-$_['text_login']       = 'Login';
-$_['text_logout']      = 'Logout';
-$_['text_forgotten']   = 'Forgotten Password';
-$_['text_account']     = 'Dashboard';
-$_['text_edit']        = 'Edit Account';
-$_['text_password']    = 'Password';
-$_['text_address']     = 'Address Books';
-$_['text_wishlist']    = 'Wish List';
-$_['text_order']       = 'Order History';
-$_['text_download']    = 'Downloads';
-$_['text_return']      = 'Returns';
-$_['text_reward']      = 'Reward Points';
-$_['text_transaction'] = 'Transactions';
-$_['text_newsletter']  = 'Newsletter';
-$_['text_recurring']   = 'Recurring Payments';
-$_['text_product']     = 'My Products';
+$_['lang_text_register']     = 'Register';
+$_['lang_text_login']        = 'Login';
+$_['lang_text_logout']       = 'Logout';
+$_['lang_text_forgotten']    = 'Forgotten Password';
+$_['lang_text_account']      = 'Dashboard';
+$_['lang_text_edit']         = 'Edit Account';
+$_['lang_text_password']     = 'Password';
+$_['lang_text_address']      = 'Address Books';
+$_['lang_text_wishlist']     = 'Wish List';
+$_['lang_text_order']        = 'Order History';
+$_['lang_text_download']     = 'Downloads';
+$_['lang_text_return']       = 'Returns';
+$_['lang_text_reward']       = 'Reward Points';
+$_['lang_text_transaction']  = 'Transactions';
+$_['lang_text_newsletter']   = 'Newsletter';
+$_['lang_text_recurring']    = 'Recurring Payments';
+$_['lang_text_product']      = 'My Products';
+$_['lang_text_notification'] = 'Notifications';

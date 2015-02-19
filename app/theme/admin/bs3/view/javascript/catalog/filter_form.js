@@ -7,7 +7,7 @@ function addFilter(){
 	<?php } ?>
 	html += '</td>';
 	html += '<td class="text-right"><input type="text" name="filter['+filter_row+'][sort_order]" value="" class="form-control"></td>';
-	html += '<td><a onclick="$(\'#filter-row'+filter_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_remove; ?></span></a></td>';
+	html += '<td><a onclick="$(\'#filter-row'+filter_row+'\').remove();" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_remove; ?></span></a></td>';
 	html += '</tr>';
 	
 	$('#filter tbody').append(html);

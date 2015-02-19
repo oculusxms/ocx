@@ -40,11 +40,11 @@ class Check extends Controller {
         
         $this->theme->model('checkout/order');
         
-        $comment = $this->language->get('text_payable') . "\n";
+        $comment = $this->language->get('lang_text_payable') . "\n";
         $comment.= $this->config->get('check_payable') . "\n\n";
-        $comment.= $this->language->get('text_address') . "\n";
+        $comment.= $this->language->get('lang_text_address') . "\n";
         $comment.= $this->config->get('config_address') . "\n\n";
-        $comment.= $this->language->get('text_payment') . "\n";
+        $comment.= $this->language->get('lang_text_payment') . "\n";
         
         $data['comment'] = $comment;
         

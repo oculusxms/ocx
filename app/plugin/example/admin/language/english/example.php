@@ -15,7 +15,7 @@
 */
 
 // Heading
-$_['heading_title'] = 'Example Plugin';
+$_['lang_heading_title'] = 'Example Plugin';
 
 // Text
-$_['text_plugin']   = 'Plugins';
+$_['lang_text_plugin']   = 'Plugins';

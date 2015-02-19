@@ -23,72 +23,42 @@ class Forgotten extends Controller {
     private $error = array();
     
     public function index() {
-        if ($this->customer->isLogged()) {
+        if ($this->customer->isLogged()):
             $this->response->redirect($this->url->link('account/dashboard', '', 'SSL'));
-        }
+        endif;
         
         $data = $this->theme->language('account/forgotten');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
-        
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('account/customer');
         
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $data = $this->theme->language('mail/forgotten', $data);
-            
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()):
+            $data     = $this->theme->language('mail/forgotten', $data);
             $customer = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
-
-            $to_name  = $customer['firstname'] . ' ' . $customer['lastname'];
-
             $password = substr(sha1(uniqid(mt_rand(), true)), 0, 10);
             
-            $this->model_account_customer->editPassword($this->request->post['email'], $password);
+            //$this->model_account_customer->editPassword($this->request->post['email'], $password);
 
-            // NEW MAILER
-            // public_customer_forgotten
+            $notify = array(
+                'customer_id' => $customer['customer_id'],
+                'password'    => $password
+            );
             
-            // $template = new Template($this->app);
-            // $template->data = $this->theme->language('mail/forgotten', $data);
-            
-            // $template->data['title'] = sprintf($this->language->get('text_greeting'), $this->config->get('config_name'));
-            // $template->data['password'] = $password;
-            // $template->data['account_login'] = $this->url->link('account/login', '', 'SSL');
-            
-            // $html = $template->fetch('mail/customer_forgotten');
-            
-            // $subject = sprintf($this->language->get('text_subject'), $this->config->get('config_name'));
-            
-            // $message = sprintf($this->language->get('text_greeting'), $this->config->get('config_name')) . "\n\n";
-            // $message.= $this->language->get('text_new_password') . "\n\n";
-            // $message.= $password;
-
-            // $text = sprintf($this->language->get('email_template'), $message);
-            
-            // $this->mailer->build(
-            //     html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
-            //     $this->request->post['email'], 
-            //     $to_name,
-            //     $text,
-            //     $html,
-            //     true
-            // );
-            
-            $this->session->data['success'] = $this->language->get('text_success');
-            
+            $this->theme->notify('public_customer_forgotten', $notify);
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             $this->response->redirect($this->url->link('account/login', '', 'SSL'));
-        }
+        endif;
         
-        $this->breadcrumb->add('text_forgotten', 'account/forgotten', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_forgotten', 'account/forgotten', null, true, 'SSL');
         
-        if (isset($this->error['warning'])) {
+        if (isset($this->error['warning'])):
             $data['error_warning'] = $this->error['warning'];
-        } else {
+        else:
             $data['error_warning'] = '';
-        }
+        endif;
         
         $data['action'] = $this->url->link('account/forgotten', '', 'SSL');
-        
-        $data['back'] = $this->url->link('account/login', '', 'SSL');
+        $data['back']   = $this->url->link('account/login', '', 'SSL');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -101,14 +71,32 @@ class Forgotten extends Controller {
     }
     
     protected function validate() {
-        if (!isset($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_email');
-        } elseif (!$this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_email');
-        }
+        if (!isset($this->request->post['email'])):
+            $this->error['warning'] = $this->language->get('lang_error_email');
+        elseif (!$this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])):
+            $this->error['warning'] = $this->language->get('lang_error_email');
+        endif;
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
         
         return !$this->error;
+    }
+
+    public function myEmailCallback($data, $message) {
+        $search = array(
+            '!password!'
+        );
+
+        $replace = array();
+
+        foreach($data as $key => $value):
+            $replace[] = $value;
+        endforeach;
+
+        foreach ($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+
+        return $message;
     }
 }

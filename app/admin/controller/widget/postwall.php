@@ -22,13 +22,13 @@ class Postwall extends Controller {
     
     public function index() {
         $data = $this->theme->language('widget/postwall');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('postwall_widget', $this->request->post);
             $this->cache->delete('posts.masonry');
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             if (!empty($this->request->get['continue'])) {
                 $this->response->redirect($this->url->link('widget/postwall', 'token=' . $this->session->data['token'], 'SSL'));
@@ -59,8 +59,8 @@ class Postwall extends Controller {
         
         $data['breadcrumbs'] = array();
         
-        $this->breadcrumb->add('text_widget', 'module/widget');
-        $this->breadcrumb->add('heading_title', 'widget/postwall');
+        $this->breadcrumb->add('lang_text_widget', 'module/widget');
+        $this->breadcrumb->add('lang_heading_title', 'widget/postwall');
         
         $data['action'] = $this->url->link('widget/postwall', 'token=' . $this->session->data['token'], 'SSL');
         $data['cancel'] = $this->url->link('module/widget', 'token=' . $this->session->data['token'], 'SSL');
@@ -73,7 +73,7 @@ class Postwall extends Controller {
             $data['widgets'] = $this->config->get('postwall_widget');
         }
         
-        $data['post_types'] = array('latest' => $this->language->get('text_latest'), 'featured' => $this->language->get('text_featured'));
+        $data['post_types'] = array('latest' => $this->language->get('lang_text_latest'), 'featured' => $this->language->get('lang_text_featured'));
         
         $this->theme->model('design/layout');
         
@@ -90,23 +90,23 @@ class Postwall extends Controller {
     
     private function validate() {
         if (!$this->user->hasPermission('modify', 'widget/postwall')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (isset($this->request->post['postwall_widget'])) {
             foreach ($this->request->post['postwall_widget'] as $key => $value) {
                 if ($value['span'] == 1 && $value['description']) {
-                    $this->error['asterisk'][$key]['description'] = $this->language->get('error_asterisk');
+                    $this->error['asterisk'][$key]['description'] = $this->language->get('lang_error_asterisk');
                 }
                 
                 if ($value['span'] == 1 && $value['button']) {
-                    $this->error['asterisk'][$key]['button'] = $this->language->get('error_asterisk');
+                    $this->error['asterisk'][$key]['button'] = $this->language->get('lang_error_asterisk');
                 }
             }
         }
         
         if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_span');
+            $this->error['warning'] = $this->language->get('lang_error_span');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

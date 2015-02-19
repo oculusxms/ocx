@@ -10,7 +10,7 @@
 <link href="<?= $link['href']; ?>" rel="<?= $link['rel']; ?>">
 <?php } ?>
 <script>
-var text_confirm='<?= $text_confirm; ?>';
+var text_confirm='<?= $lang_text_confirm; ?>';
 </script>
 <link rel="shortcut icon" href="asset/bs3/img/setting.png">
 </head>

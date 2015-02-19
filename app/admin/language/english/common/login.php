@@ -15,20 +15,20 @@
 */
 
 // header
-$_['heading_title']  = 'Administration';
+$_['lang_heading_title']  = 'Administration';
 
 // Text
-$_['text_heading']   = 'Administration';
-$_['text_login']     = 'Please enter your login details.';
-$_['text_forgotten'] = 'Forgotten Password';
+$_['lang_text_heading']   = 'Administration';
+$_['lang_text_login']     = 'Please enter your login details.';
+$_['lang_text_forgotten'] = 'Forgotten Password';
 
 // Entry
-$_['entry_username'] = 'Username:';
-$_['entry_password'] = 'Password:';
+$_['lang_entry_username'] = 'Username:';
+$_['lang_entry_password'] = 'Password:';
 
 // Button
-$_['button_login']   = 'Login';
+$_['lang_button_login']   = 'Login';
 
 // Error
-$_['error_login']    = 'No match for Username and/or Password.';
-$_['error_token']    = 'Invalid token session. Please login again.';
+$_['lang_error_login']    = 'No match for Username and/or Password.';
+$_['lang_error_token']    = 'Invalid token session. Please login again.';

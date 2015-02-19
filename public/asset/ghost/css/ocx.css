@@ -143,6 +143,10 @@ label.select:before {
     pointer-events: none;
     display: block;
 }
+/* custom hack for product search select */
+#search-complete label.select:after {
+    right: 30px !important;
+}
 select::-ms-expand,
 select::-o-expand {
     display: none;

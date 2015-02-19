@@ -243,10 +243,27 @@ class Product extends Model {
         
         if (isset($data['product_related'])) {
             foreach ($data['product_related'] as $related_id) {
-                $this->db->query("DELETE FROM {$this->db->prefix}product_related WHERE product_id = '" . (int)$product_id . "' AND related_id = '" . (int)$related_id . "'");
-                $this->db->query("INSERT INTO {$this->db->prefix}product_related SET product_id = '" . (int)$product_id . "', related_id = '" . (int)$related_id . "'");
-                $this->db->query("DELETE FROM {$this->db->prefix}product_related WHERE product_id = '" . (int)$related_id . "' AND related_id = '" . (int)$product_id . "'");
-                $this->db->query("INSERT INTO {$this->db->prefix}product_related SET product_id = '" . (int)$related_id . "', related_id = '" . (int)$product_id . "'");
+                $this->db->query("
+                	DELETE FROM {$this->db->prefix}product_related 
+                	WHERE product_id = '" . (int)$product_id . "' 
+                	AND related_id = '" . (int)$related_id . "'");
+
+                $this->db->query("
+                	INSERT INTO {$this->db->prefix}product_related 
+                	SET 
+                		product_id = '" . (int)$product_id . "', 
+                		related_id = '" . (int)$related_id . "'");
+
+                $this->db->query("
+                	DELETE FROM {$this->db->prefix}product_related 
+                	WHERE product_id = '" . (int)$related_id . "' 
+                	AND related_id = '" . (int)$product_id . "'");
+
+                $this->db->query("
+                	INSERT INTO {$this->db->prefix}product_related 
+                	SET 
+                		product_id = '" . (int)$related_id . "', 
+                		related_id = '" . (int)$product_id . "'");
             }
         }
         
@@ -367,7 +384,9 @@ class Product extends Model {
 			");
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_description WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_description 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         foreach ($data['product_description'] as $language_id => $value) {
             if ($event_id->row['event_id'] > 0) {
@@ -392,7 +411,9 @@ class Product extends Model {
 			");
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_to_store WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_to_store 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_store'])) {
             foreach ($data['product_store'] as $store_id) {
@@ -405,7 +426,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_attribute WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_attribute 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (!empty($data['product_attribute'])) {
             foreach ($data['product_attribute'] as $product_attribute) {
@@ -424,8 +447,13 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_option WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_option_value WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_option 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_option_value 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_option'])) {
             foreach ($data['product_option'] as $product_option) {
@@ -462,7 +490,9 @@ class Product extends Model {
 							");
                         }
                     } else {
-                        $this->db->query("DELETE FROM {$this->db->prefix}product_option WHERE product_option_id = '" . $product_option_id . "'");
+                        $this->db->query("
+                        	DELETE FROM {$this->db->prefix}product_option 
+                        	WHERE product_option_id = '" . $product_option_id . "'");
                     }
                 } else {
                     $this->db->query("
@@ -478,7 +508,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_discount WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_discount 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_discount'])) {
             foreach ($data['product_discount'] as $product_discount) {
@@ -496,7 +528,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_special WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_special 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_special'])) {
             foreach ($data['product_special'] as $product_special) {
@@ -513,7 +547,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_image WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_image 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_image'])) {
             foreach ($data['product_image'] as $product_image) {
@@ -527,7 +563,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_to_download WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_to_download 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_download'])) {
             foreach ($data['product_download'] as $download_id) {
@@ -540,7 +578,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_to_category WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_to_category 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_category'])) {
             foreach ($data['product_category'] as $category_id) {
@@ -553,7 +593,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_filter WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_filter 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_filter'])) {
             foreach ($data['product_filter'] as $filter_id) {
@@ -566,19 +608,43 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_related WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_related WHERE related_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_related 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_related 
+        	WHERE related_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_related'])) {
             foreach ($data['product_related'] as $related_id) {
-                $this->db->query("DELETE FROM {$this->db->prefix}product_related WHERE product_id = '" . (int)$product_id . "' AND related_id = '" . (int)$related_id . "'");
-                $this->db->query("INSERT INTO {$this->db->prefix}product_related SET product_id = '" . (int)$product_id . "', related_id = '" . (int)$related_id . "'");
-                $this->db->query("DELETE FROM {$this->db->prefix}product_related WHERE product_id = '" . (int)$related_id . "' AND related_id = '" . (int)$product_id . "'");
-                $this->db->query("INSERT INTO {$this->db->prefix}product_related SET product_id = '" . (int)$related_id . "', related_id = '" . (int)$product_id . "'");
+                $this->db->query("
+                	DELETE FROM {$this->db->prefix}product_related 
+                	WHERE product_id = '" . (int)$product_id . "' 
+                	AND related_id = '" . (int)$related_id . "'");
+
+                $this->db->query("
+                	INSERT INTO {$this->db->prefix}product_related 
+                	SET 
+                		product_id = '" . (int)$product_id . "', 
+                		related_id = '" . (int)$related_id . "'");
+
+                $this->db->query("
+                	DELETE FROM {$this->db->prefix}product_related 
+                	WHERE product_id = '" . (int)$related_id . "' 
+                	AND related_id = '" . (int)$product_id . "'");
+
+                $this->db->query("
+                	INSERT INTO {$this->db->prefix}product_related 
+                	SET 
+                		product_id = '" . (int)$related_id . "', 
+                		related_id = '" . (int)$product_id . "'");
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_reward WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_reward 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_reward'])) {
             foreach ($data['product_reward'] as $customer_group_id => $value) {
@@ -592,7 +658,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product_to_layout WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_to_layout 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
         if (isset($data['product_layout'])) {
             foreach ($data['product_layout'] as $store_id => $layout) {
@@ -608,7 +676,9 @@ class Product extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'product_id:" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}route 
+        	WHERE query = 'product_id:" . (int)$product_id . "'");
         
         if ($data['slug']) {
             $this->db->query("
@@ -694,26 +764,81 @@ class Product extends Model {
 				WHERE event_id = '" . (int)$event_product->row['event_id'] . "'");
         endif;
         
-        $this->db->query("DELETE FROM {$this->db->prefix}product WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_attribute WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_description WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_discount WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_filter WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_image WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_option WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_option_value WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_related WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_related WHERE related_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_reward WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_special WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_to_category WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_to_download WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_to_layout WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_to_store WHERE product_id = '" . (int)$product_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}product_recurring WHERE product_id = " . (int)$product_id);
-        $this->db->query("DELETE FROM {$this->db->prefix}review WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_attribute 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_description 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_discount 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_filter 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_image 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_option 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_option_value 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_related 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_related 
+        	WHERE related_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_reward 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_special 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_to_category 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_to_download 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_to_layout 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_to_store 
+        	WHERE product_id = '" . (int)$product_id . "'");
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}product_recurring 
+        	WHERE product_id = " . (int)$product_id);
+
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}review 
+        	WHERE product_id = '" . (int)$product_id . "'");
         
-        $this->db->query("DELETE FROM {$this->db->prefix}route WHERE query = 'product_id=" . (int)$product_id . "'");
+        $this->db->query("
+        	DELETE FROM {$this->db->prefix}route 
+        	WHERE query = 'product_id=" . (int)$product_id . "'");
         
         $this->cache->delete('product');
         $this->cache->delete('products.total');
@@ -830,7 +955,13 @@ class Product extends Model {
 		");
         
         foreach ($query->rows as $result) {
-            $product_description_data[$result['language_id']] = array('name' => $result['name'], 'description' => $result['description'], 'meta_keyword' => $result['meta_keyword'], 'meta_description' => $result['meta_description'], 'tag' => $result['tag']);
+            $product_description_data[$result['language_id']] = array(
+				'name'             => $result['name'], 
+				'description'      => $result['description'], 
+				'meta_keyword'     => $result['meta_keyword'], 
+				'meta_description' => $result['meta_description'], 
+				'tag'              => $result['tag']
+            );
         }
         
         return $product_description_data;
@@ -892,7 +1023,10 @@ class Product extends Model {
                 $product_attribute_description_data[$product_attribute_description['language_id']] = array('text' => $product_attribute_description['text']);
             }
             
-            $product_attribute_data[] = array('attribute_id' => $product_attribute['attribute_id'], 'product_attribute_description' => $product_attribute_description_data);
+            $product_attribute_data[] = array(
+				'attribute_id'                  => $product_attribute['attribute_id'], 
+				'product_attribute_description' => $product_attribute_description_data
+			);
         }
         
         return $product_attribute_data;
@@ -922,10 +1056,29 @@ class Product extends Model {
 			");
             
             foreach ($product_option_value_query->rows as $product_option_value) {
-                $product_option_value_data[] = array('product_option_value_id' => $product_option_value['product_option_value_id'], 'option_value_id' => $product_option_value['option_value_id'], 'quantity' => $product_option_value['quantity'], 'subtract' => $product_option_value['subtract'], 'price' => $product_option_value['price'], 'price_prefix' => $product_option_value['price_prefix'], 'points' => $product_option_value['points'], 'points_prefix' => $product_option_value['points_prefix'], 'weight' => $product_option_value['weight'], 'weight_prefix' => $product_option_value['weight_prefix']);
+                $product_option_value_data[] = array(
+					'product_option_value_id' => $product_option_value['product_option_value_id'], 
+					'option_value_id'         => $product_option_value['option_value_id'], 
+					'quantity'                => $product_option_value['quantity'], 
+					'subtract'                => $product_option_value['subtract'], 
+					'price'                   => $product_option_value['price'], 
+					'price_prefix'            => $product_option_value['price_prefix'], 
+					'points'                  => $product_option_value['points'], 
+					'points_prefix'           => $product_option_value['points_prefix'], 
+					'weight'                  => $product_option_value['weight'], 
+					'weight_prefix'           => $product_option_value['weight_prefix']
+                );
             }
             
-            $product_option_data[] = array('product_option_id' => $product_option['product_option_id'], 'option_id' => $product_option['option_id'], 'name' => $product_option['name'], 'type' => $product_option['type'], 'product_option_value' => $product_option_value_data, 'option_value' => $product_option['option_value'], 'required' => $product_option['required']);
+            $product_option_data[] = array(
+				'product_option_id'    => $product_option['product_option_id'], 
+				'option_id'            => $product_option['option_id'], 
+				'name'                 => $product_option['name'], 
+				'type'                 => $product_option['type'], 
+				'product_option_value' => $product_option_value_data, 
+				'option_value'         => $product_option['option_value'], 
+				'required'             => $product_option['required']
+            );
         }
         
         return $product_option_data;

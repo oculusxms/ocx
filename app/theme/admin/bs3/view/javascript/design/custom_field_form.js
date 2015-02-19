@@ -36,7 +36,7 @@ function addCustomFieldValue() {
 	<?php } ?>
 	html += '</td>';
 	html += '<td class="text-right"><input type="text" name="custom_field_value['+custom_field_value_row + '][sort_order]" value="" class="form-control"></td>';
-	html += '<td><a onclick="$(\'#custom-field-value-row'+custom_field_value_row + '\').remove();" class="btn btn-default"><?= $button_remove; ?></a></td>';
+	html += '<td><a onclick="$(\'#custom-field-value-row'+custom_field_value_row + '\').remove();" class="btn btn-default"><?= $lang_button_remove; ?></a></td>';
 	html += '</tr>';	
 	html += '</tbody>';
 	

@@ -22,12 +22,12 @@ class Fedex extends Controller {
     
     public function index() {
         $data = $this->theme->language('shipping/fedex');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('fedex', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/shipping', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -68,8 +68,8 @@ class Fedex extends Controller {
             $data['error_postcode'] = '';
         }
         
-        $this->breadcrumb->add('text_shipping', 'module/shipping');
-        $this->breadcrumb->add('heading_title', 'shipping/fedex');
+        $this->breadcrumb->add('lang_text_shipping', 'module/shipping');
+        $this->breadcrumb->add('lang_heading_title', 'shipping/fedex');
         
         $data['action'] = $this->url->link('shipping/fedex', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -121,47 +121,47 @@ class Fedex extends Controller {
         
         $data['services'] = array();
         
-        $data['services'][] = array('text' => $this->language->get('text_europe_first_international_priority'), 'value' => 'EUROPE_FIRST_INTERNATIONAL_PRIORITY');
+        $data['services'][] = array('text' => $this->language->get('lang_text_europe_first_international_priority'), 'value' => 'EUROPE_FIRST_INTERNATIONAL_PRIORITY');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_1_day_freight'), 'value' => 'FEDEX_1_DAY_FREIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_1_day_freight'), 'value' => 'FEDEX_1_DAY_FREIGHT');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_2_day'), 'value' => 'FEDEX_2_DAY');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_2_day'), 'value' => 'FEDEX_2_DAY');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_2_day_am'), 'value' => 'FEDEX_2_DAY_AM');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_2_day_am'), 'value' => 'FEDEX_2_DAY_AM');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_2_day_freight'), 'value' => 'FEDEX_2_DAY_FREIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_2_day_freight'), 'value' => 'FEDEX_2_DAY_FREIGHT');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_3_day_freight'), 'value' => 'FEDEX_3_DAY_FREIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_3_day_freight'), 'value' => 'FEDEX_3_DAY_FREIGHT');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_express_saver'), 'value' => 'FEDEX_EXPRESS_SAVER');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_express_saver'), 'value' => 'FEDEX_EXPRESS_SAVER');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_first_freight'), 'value' => 'FEDEX_FIRST_FREIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_first_freight'), 'value' => 'FEDEX_FIRST_FREIGHT');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_freight_economy'), 'value' => 'FEDEX_FREIGHT_ECONOMY');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_freight_economy'), 'value' => 'FEDEX_FREIGHT_ECONOMY');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_freight_priority'), 'value' => 'FEDEX_FREIGHT_PRIORITY');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_freight_priority'), 'value' => 'FEDEX_FREIGHT_PRIORITY');
         
-        $data['services'][] = array('text' => $this->language->get('text_fedex_ground'), 'value' => 'FEDEX_GROUND');
+        $data['services'][] = array('text' => $this->language->get('lang_text_fedex_ground'), 'value' => 'FEDEX_GROUND');
         
-        $data['services'][] = array('text' => $this->language->get('text_first_overnight'), 'value' => 'FIRST_OVERNIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_first_overnight'), 'value' => 'FIRST_OVERNIGHT');
         
-        $data['services'][] = array('text' => $this->language->get('text_ground_home_delivery'), 'value' => 'GROUND_HOME_DELIVERY');
+        $data['services'][] = array('text' => $this->language->get('lang_text_ground_home_delivery'), 'value' => 'GROUND_HOME_DELIVERY');
         
-        $data['services'][] = array('text' => $this->language->get('text_international_economy'), 'value' => 'INTERNATIONAL_ECONOMY');
+        $data['services'][] = array('text' => $this->language->get('lang_text_international_economy'), 'value' => 'INTERNATIONAL_ECONOMY');
         
-        $data['services'][] = array('text' => $this->language->get('text_international_economy_freight'), 'value' => 'INTERNATIONAL_ECONOMY_FREIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_international_economy_freight'), 'value' => 'INTERNATIONAL_ECONOMY_FREIGHT');
         
-        $data['services'][] = array('text' => $this->language->get('text_international_first'), 'value' => 'INTERNATIONAL_FIRST');
+        $data['services'][] = array('text' => $this->language->get('lang_text_international_first'), 'value' => 'INTERNATIONAL_FIRST');
         
-        $data['services'][] = array('text' => $this->language->get('text_international_priority'), 'value' => 'INTERNATIONAL_PRIORITY');
+        $data['services'][] = array('text' => $this->language->get('lang_text_international_priority'), 'value' => 'INTERNATIONAL_PRIORITY');
         
-        $data['services'][] = array('text' => $this->language->get('text_international_priority_freight'), 'value' => 'INTERNATIONAL_PRIORITY_FREIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_international_priority_freight'), 'value' => 'INTERNATIONAL_PRIORITY_FREIGHT');
         
-        $data['services'][] = array('text' => $this->language->get('text_priority_overnight'), 'value' => 'PRIORITY_OVERNIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_priority_overnight'), 'value' => 'PRIORITY_OVERNIGHT');
         
-        $data['services'][] = array('text' => $this->language->get('text_smart_post'), 'value' => 'SMART_POST');
+        $data['services'][] = array('text' => $this->language->get('lang_text_smart_post'), 'value' => 'SMART_POST');
         
-        $data['services'][] = array('text' => $this->language->get('text_standard_overnight'), 'value' => 'STANDARD_OVERNIGHT');
+        $data['services'][] = array('text' => $this->language->get('lang_text_standard_overnight'), 'value' => 'STANDARD_OVERNIGHT');
         
         if (isset($this->request->post['fedex_dropoff_type'])) {
             $data['fedex_dropoff_type'] = $this->request->post['fedex_dropoff_type'];
@@ -250,27 +250,27 @@ class Fedex extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'shipping/fedex')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['fedex_key']) {
-            $this->error['key'] = $this->language->get('error_key');
+            $this->error['key'] = $this->language->get('lang_error_key');
         }
         
         if (!$this->request->post['fedex_password']) {
-            $this->error['password'] = $this->language->get('error_password');
+            $this->error['password'] = $this->language->get('lang_error_password');
         }
         
         if (!$this->request->post['fedex_account']) {
-            $this->error['account'] = $this->language->get('error_account');
+            $this->error['account'] = $this->language->get('lang_error_account');
         }
         
         if (!$this->request->post['fedex_meter']) {
-            $this->error['meter'] = $this->language->get('error_meter');
+            $this->error['meter'] = $this->language->get('lang_error_meter');
         }
         
         if (!$this->request->post['fedex_postcode']) {
-            $this->error['postcode'] = $this->language->get('error_postcode');
+            $this->error['postcode'] = $this->language->get('lang_error_postcode');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

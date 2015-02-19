@@ -39,7 +39,7 @@ class Proiframe extends Controller {
                 $data['code'] = $hosted_button_id;
                 $data['error_connection'] = '';
             } else {
-                $data['error_connection'] = $this->language->get('error_connection');
+                $data['error_connection'] = $this->language->get('lang_error_connection');
             }
         }
         
@@ -70,7 +70,7 @@ class Proiframe extends Controller {
             
             $data['error_connection'] = '';
         } else {
-            $data['error_connection'] = $this->language->get('error_connection');
+            $data['error_connection'] = $this->language->get('lang_error_connection');
         }
         
         if (file_exists($this->app['path.public'] . 'asset/' . $this->config->get('config_theme') . '/css/stylesheet.css')) {

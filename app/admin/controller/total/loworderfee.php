@@ -22,12 +22,12 @@ class Loworderfee extends Controller {
     
     public function index() {
         $data = $this->theme->language('total/loworderfee');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('loworderfee', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/total', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -38,8 +38,8 @@ class Loworderfee extends Controller {
             $data['error_warning'] = '';
         }
         
-        $this->breadcrumb->add('text_total', 'module/total');
-        $this->breadcrumb->add('heading_title', 'total/loworderfee');
+        $this->breadcrumb->add('lang_text_total', 'module/total');
+        $this->breadcrumb->add('lang_heading_title', 'total/loworderfee');
         
         $data['action'] = $this->url->link('total/loworderfee', 'token=' . $this->session->data['token'], 'SSL');
         $data['cancel'] = $this->url->link('module/total', 'token=' . $this->session->data['token'], 'SSL');
@@ -87,7 +87,7 @@ class Loworderfee extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'total/loworderfee')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

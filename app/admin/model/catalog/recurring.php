@@ -43,7 +43,7 @@ class Recurring extends Model {
 				VALUES ('" . (int)$recurring_id . "', '" . (int)$language_id . "', '" . $this->db->escape($recurring_description['name']) . "')");
         }
         
-        $this->theme->trigger('admin_add_recurring', $recurring_id);
+        $this->theme->trigger('admin_add_recurring', array('recurring_id' => $recurring_id));
         
         return $recurring_id;
     }
@@ -76,7 +76,7 @@ class Recurring extends Model {
 				VALUES ('" . (int)$recurring_id . "', '" . (int)$language_id . "', '" . $this->db->escape($recurring_description['name']) . "')");
         }
         
-        $this->theme->trigger('admin_edit_recurring', $recurring_id);
+        $this->theme->trigger('admin_edit_recurring', array('recurring_id' => $recurring_id));
     }
     
     public function copyProfile($recurring_id) {
@@ -110,7 +110,7 @@ class Recurring extends Model {
 				recurring_id = '0' 
 			WHERE recurring_id = '" . (int)$recurring_id . "'");
         
-        $this->theme->trigger('admin_delete_recurring', $recurring_id);
+        $this->theme->trigger('admin_delete_recurring', array('recurring_id' => $recurring_id));
     }
     
     public function getRecurring($recurring_id) {

@@ -27,14 +27,14 @@ class Transaction extends Controller {
         
         $data = $this->theme->language('affiliate/transaction');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'affiliate/account', null, true, 'SSL');
-        $this->breadcrumb->add('text_transaction', 'affiliate/transaction', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'affiliate/account', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_transaction', 'affiliate/transaction', null, true, 'SSL');
         
         $this->theme->model('affiliate/transaction');
         
-        $data['column_amount'] = sprintf($this->language->get('column_amount'), $this->config->get('config_currency'));
+        $data['column_amount'] = sprintf($this->language->get('lang_column_amount'), $this->config->get('config_currency'));
         
         if (isset($this->request->get['page'])) {
             $page = $this->request->get['page'];
@@ -51,10 +51,10 @@ class Transaction extends Controller {
         $results = $this->model_affiliate_transaction->getTransactions($filter);
         
         foreach ($results as $result) {
-            $data['transactions'][] = array('amount' => $this->currency->format($result['amount'], $this->config->get('config_currency')), 'description' => $result['description'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])));
+            $data['transactions'][] = array('amount' => $this->currency->format($result['amount'], $this->config->get('config_currency')), 'description' => $result['description'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
         }
         
-        $data['pagination'] = $this->theme->paginate($transaction_total, $page, 10, $this->language->get('text_pagination'), $this->url->link('affiliate/transaction', 'page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($transaction_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('affiliate/transaction', 'page={page}', 'SSL'));
         
         $data['balance'] = $this->currency->format($this->model_affiliate_transaction->getBalance());
         

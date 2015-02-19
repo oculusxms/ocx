@@ -15,23 +15,23 @@
 */
 
 // Heading
-$_['heading_title']          = 'Attributes';
+$_['lang_heading_title']          = 'Attributes';
 
 // Text
-$_['text_success']           = 'Success: You have modified attributes.';
+$_['lang_text_success']           = 'Success: You have modified attributes.';
 
 // Column
-$_['column_name']            = 'Attribute Name';
-$_['column_attribute_group'] = 'Attribute Group';
-$_['column_sort_order']      = 'Sort Order';
-$_['column_action']          = 'Action';
+$_['lang_column_name']            = 'Attribute Name';
+$_['lang_column_attribute_group'] = 'Attribute Group';
+$_['lang_column_sort_order']      = 'Sort Order';
+$_['lang_column_action']          = 'Action';
 
 // Entry
-$_['entry_name']             = 'Attribute Name:';
-$_['entry_attribute_group']  = 'Attribute Group:';
-$_['entry_sort_order']       = 'Sort Order:';
+$_['lang_entry_name']             = 'Attribute Name:';
+$_['lang_entry_attribute_group']  = 'Attribute Group:';
+$_['lang_entry_sort_order']       = 'Sort Order:';
 
 // Error
-$_['error_permission']       = 'Warning: You do not have permission to modify attributes.';
-$_['error_name']             = 'Attribute Name must be between 3 and 64 characters.';
-$_['error_product']          = 'Warning: This attribute cannot be deleted as it is currently assigned to %s products.';
+$_['lang_error_permission']       = 'Warning: You do not have permission to modify attributes.';
+$_['lang_error_name']             = 'Attribute Name must be between 3 and 64 characters.';
+$_['lang_error_product']          = 'Warning: This attribute cannot be deleted as it is currently assigned to %s products.';

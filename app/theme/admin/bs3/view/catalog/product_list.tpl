@@ -11,11 +11,11 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="pull-left h2"><i class="hidden-xs fa fa-tablet"></i><?= $heading_title; ?></div>
+		<div class="pull-left h2"><i class="hidden-xs fa fa-tablet"></i><?= $lang_heading_title; ?></div>
 		<div class="pull-right">
-			<button type="submit" form="form" class="btn btn-success btn-spacer"><i class="fa fa-files-o"></i><span class="hidden-xs"> <?= $button_copy; ?></span></button>
-			<a href="<?= $insert; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $button_insert; ?></span></a>
-			<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $button_delete; ?></span></button>
+			<button type="submit" form="form" class="btn btn-success btn-spacer"><i class="fa fa-files-o"></i><span class="hidden-xs"> <?= $lang_button_copy; ?></span></button>
+			<a href="<?= $insert; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i><span class="hidden-xs"> <?= $lang_button_insert; ?></span></a>
+			<button type="submit" form="form" formaction="<?= $delete; ?>" id="btn-delete" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> <?= $lang_button_delete; ?></span></button>
 		</div>
 	</div>
 	<div class="panel-body">
@@ -24,13 +24,13 @@
 				<thead>
 					<tr>
 						<th width="40" class="text-center"><input type="checkbox" data-toggle="selected"></th>
-						<th class="text-center"><?= $column_image; ?></th>
-						<th><a href="<?= $sort_name; ?>"><?= $column_name; echo ($sort == 'pd.name') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="hidden-xs"><a href="<?= $sort_model; ?>"><?= $column_model; echo ($sort == 'p.model') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="text-right hidden-xs"><a href="<?= $sort_price; ?>"><?= $column_price; echo ($sort == 'p.price') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="text-right hidden-xs"><a href="<?= $sort_quantity; ?>"><?= $column_quantity; echo ($sort == 'p.quantity') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="hidden-xs"><a href="<?= $sort_status; ?>"><?= $column_status; echo ($sort == 'p.status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th><span class="hidden-xs"><?= $column_action; ?></span></th>
+						<th class="text-center"><?= $lang_column_image; ?></th>
+						<th><a href="<?= $sort_name; ?>"><?= $lang_column_name; echo ($sort == 'pd.name') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="hidden-xs"><a href="<?= $sort_model; ?>"><?= $lang_column_model; echo ($sort == 'p.model') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="text-right hidden-xs"><a href="<?= $sort_price; ?>"><?= $lang_column_price; echo ($sort == 'p.price') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="text-right hidden-xs"><a href="<?= $sort_quantity; ?>"><?= $lang_column_quantity; echo ($sort == 'p.quantity') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th class="hidden-xs"><a href="<?= $sort_status; ?>"><?= $lang_column_status; echo ($sort == 'p.status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 					</tr>
 				</thead>
 				<tbody data-link="row" class="rowlink">
@@ -44,17 +44,17 @@
 						<td class="hidden-xs"><select name="filter_status" class="form-control">
 							<option value="*">&ndash;</option>
 							<?php if ($filter_status) { ?>
-							<option value="1" selected><?= $text_enabled; ?></option>
+							<option value="1" selected><?= $lang_text_enabled; ?></option>
 							<?php } else { ?>
-							<option value="1"><?= $text_enabled; ?></option>
+							<option value="1"><?= $lang_text_enabled; ?></option>
 							<?php } ?>
 							<?php if (!is_null($filter_status) && !$filter_status) { ?>
-							<option value="0" selected><?= $text_disabled; ?></option>
+							<option value="0" selected><?= $lang_text_disabled; ?></option>
 							<?php } else { ?>
-							<option value="0"><?= $text_disabled; ?></option>
+							<option value="0"><?= $lang_text_disabled; ?></option>
 							<?php } ?>
 						</select></td>
-						<td><button type="button" onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i><span class="hidden-xs"> <?= $button_filter; ?></span></button></td>
+						<td><button type="button" onclick="filter();" class="btn btn-info"><i class="fa fa-search"></i><span class="hidden-xs"> <?= $lang_button_filter; ?></span></button></td>
 					</tr>
 					<?php if ($products) { ?>
 					<?php foreach ($products as $product) { ?>
@@ -87,7 +87,7 @@
 					<?php } ?>
 					<?php } else { ?>
 					<tr>
-						<td class="text-center" colspan="8"><?= $text_no_results; ?></td>
+						<td class="text-center" colspan="8"><?= $lang_text_no_results; ?></td>
 					</tr>
 					<?php } ?>
 				</tbody>

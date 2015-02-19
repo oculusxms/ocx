@@ -22,7 +22,7 @@ class Notfound extends Controller {
     public function index() {
         $data = $this->theme->language('error/notfound');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (isset($this->request->get['route'])) {
             $routes = $this->request->get;
@@ -45,7 +45,7 @@ class Notfound extends Controller {
                 $connection = 'nonssl';
             }
             
-            $this->breadcrumb->add('heading_title', $route, $url, true, $connection);
+            $this->breadcrumb->add('lang_heading_title', $route, $url, true, $connection);
         }
         
         $this->response->addheader($this->request->server['SERVER_PROTOCOL'] . '/1.1 404 not found');

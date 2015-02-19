@@ -15,24 +15,24 @@
 */
 
 // Heading
-$_['heading_title']     = 'Tax Report';
+$_['lang_heading_title']     = 'Tax Report';
 
 // Text
-$_['text_year']         = 'Years';
-$_['text_month']        = 'Months';
-$_['text_week']         = 'Weeks';
-$_['text_day']          = 'Days';
-$_['text_all_status']   = 'Status (All)';
+$_['lang_text_year']         = 'Years';
+$_['lang_text_month']        = 'Months';
+$_['lang_text_week']         = 'Weeks';
+$_['lang_text_day']          = 'Days';
+$_['lang_text_all_status']   = 'Status (All)';
 
 // Column
-$_['column_date_start'] = 'Start Date';
-$_['column_date_end']   = 'End Date';
-$_['column_title']      = 'Tax Title';
-$_['column_orders']     = 'No. Orders';
-$_['column_total']      = 'Total';
+$_['lang_column_date_start'] = 'Start Date';
+$_['lang_column_date_end']   = 'End Date';
+$_['lang_column_title']      = 'Tax Title';
+$_['lang_column_orders']     = 'No. Orders';
+$_['lang_column_total']      = 'Total';
 
 // Entry
-$_['entry_date_start']  = 'Start Date:';
-$_['entry_date_end']    = 'End Date:';
-$_['entry_group']       = 'Group By:';
-$_['entry_status']      = 'Order Status:';
+$_['lang_entry_date_start']  = 'Start Date:';
+$_['lang_entry_date_end']    = 'End Date:';
+$_['lang_entry_group']       = 'Group By:';
+$_['lang_entry_status']      = 'Order Status:';

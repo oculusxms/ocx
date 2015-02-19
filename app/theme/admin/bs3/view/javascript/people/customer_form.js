@@ -17,7 +17,7 @@ function country(a,b,c){
 				$('#postcode-required'+b).hide();
 			}
 			
-			html = '<option value=""><?= $text_select; ?></option>';
+			html = '<option value=""><?= $lang_text_select; ?></option>';
 			if((typeof(json['zone'])!='undefined')&&json['zone']!=''){
 				for(i=0;i<json['zone'].length;i++){
 					html += '<option value="'+json['zone'][i]['zone_id']+'"';
@@ -27,7 +27,7 @@ function country(a,b,c){
 					html += '>'+json['zone'][i]['name']+'</option>';
 				}
 			} else {
-				html += '<option value="0"><?= $text_none; ?></option>';
+				html += '<option value="0"><?= $lang_text_none; ?></option>';
 			}
 			
 			$('select[name="address['+b+'][zone_id]"]').html(html);
@@ -65,56 +65,56 @@ $(document).on('click', '#address-button', function (e) {
 	html = '<div class="tab-pane" id="tab-address-'+address_row+'">';
 	html += '<input type="hidden" name="address['+address_row+'][address_id]" value="">';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_firstname; ?></label>';
+	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_firstname; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][firstname]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_lastname; ?></label>';
+	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_lastname; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][lastname]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><?= $entry_company; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_company; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][company]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';
 	html += '<div class="form-group company-id-display">';
-	html += '<label class="control-label col-sm-2"><?= $entry_company_id; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_company_id; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][company_id]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';
 	html += '<div class="form-group tax-id-display">';
-	html += '<label class="control-label col-sm-2"><?= $entry_tax_id; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_tax_id; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][tax_id]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';		
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_address_1; ?></label>';
+	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_address_1; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][address_1]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><?= $entry_address_2; ?></label>';
+	html += '<label class="control-label col-sm-2"><?= $lang_entry_address_2; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][address_2]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_city; ?></label>';
+	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_city; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][city]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><span id="postcode-required'+address_row+'" class="required">*</span> <?= $entry_postcode; ?></label>';
+	html += '<label class="control-label col-sm-2"><span id="postcode-required'+address_row+'" class="required">*</span> <?= $lang_entry_postcode; ?></label>';
 	html += '<div class="control-field col-sm-4"><input type="text" name="address['+address_row+'][postcode]" value="" class="form-control" class="form-control"></div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_country; ?></label>';
+	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_country; ?></label>';
 	html += '<div class="control-field col-sm-4"><select name="address['+address_row+'][country_id]" onchange="country(this, \''+address_row+'\', \'0\');" class="form-control">';
-	html += '<option value=""><?= $text_select; ?></option>';
+	html += '<option value=""><?= $lang_text_select; ?></option>';
 	<?php foreach ($countries as $country) { ?>
 	html += '<option value="<?= $country['country_id']; ?>"><?= addslashes($country['name']); ?></option>';
 	<?php } ?>
 	html += '</select></div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $entry_zone; ?></label>';
-	html += '<div class="control-field col-sm-4"><select name="address['+address_row+'][zone_id]" class="form-control"><option value="false"><?= $text_none; ?></option></select></div>';
+	html += '<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_zone; ?></label>';
+	html += '<div class="control-field col-sm-4"><select name="address['+address_row+'][zone_id]" class="form-control"><option value="false"><?= $lang_text_none; ?></option></select></div>';
 	html += '</div>';
 	html += '<div class="form-group">';
-	html += '<label class="control-label col-sm-2" for="default'+address_row+'"><?= $entry_default; ?></label>';
+	html += '<label class="control-label col-sm-2" for="default'+address_row+'"><?= $lang_entry_default; ?></label>';
 	html += '<div class="control-field col-sm-4"><label class="radio-inline"><input type="radio" name="address['+address_row+'][default]" value="1" id="default'+address_row+'"></label></div>';
 	html += '</div>';
 	html += '</div>';
@@ -123,7 +123,7 @@ $(document).on('click', '#address-button', function (e) {
 	
 	$('select[name="address['+address_row+'][country_id]"]').change();
 	
-	$('#address-add').before('<li><a href="#tab-address-'+address_row+'" id="address-'+address_row+'" data-toggle="tab"><span class="label label-danger" onclick="$(\'#vtab-address a:first\').trigger(\'click\'); $(\'#address-'+address_row+'\').remove();$(\'#tab-address-'+address_row+'\').remove();return false;"><i class="fa fa-trash-o"></i></span> <?= $tab_address; ?> '+address_row+'</a></li>');
+	$('#address-add').before('<li><a href="#tab-address-'+address_row+'" id="address-'+address_row+'" data-toggle="tab"><span class="label label-danger" onclick="$(\'#vtab-address a:first\').trigger(\'click\'); $(\'#address-'+address_row+'\').remove();$(\'#tab-address-'+address_row+'\').remove();return false;"><i class="fa fa-trash-o"></i></span> <?= $lang_tab_address; ?> '+address_row+'</a></li>');
 	$('#address-'+address_row).trigger('click');
 	
 	groupToggle();
@@ -160,7 +160,7 @@ function addBanIP(ip){
 		dataType:'json',
 		data:'ip='+encodeURIComponent(ip),
 		beforeSend:function(){
-			alertMessage('warning','<?= $text_wait; ?>');
+			alertMessage('warning','<?= $lang_text_wait; ?>');
 		},
 		success:function(json){
 			if(json['error']){
@@ -168,7 +168,7 @@ function addBanIP(ip){
 			}
 			if(json['success']){
 				alertMessage('success',json['success']);
-				$('#'+id).replaceWith('<a id="'+id+'" onclick="removeBanIP(\''+ip+'\');"><?= $text_remove_ban_ip; ?></a>');
+				$('#'+id).replaceWith('<a id="'+id+'" onclick="removeBanIP(\''+ip+'\');"><?= $lang_text_remove_ban_ip; ?></a>');
 			}
 		}
 	});
@@ -183,7 +183,7 @@ function removeBanIP(ip) {
 		dataType:'json',
 		data:'ip='+encodeURIComponent(ip),
 		beforeSend:function(){
-			alertMessage('warning','<?= $text_wait; ?>');		
+			alertMessage('warning','<?= $lang_text_wait; ?>');		
 		},
 		success:function(json){
 			if(json['error']){
@@ -191,7 +191,7 @@ function removeBanIP(ip) {
 			}
 			if(json['success']){
 				alertMessage('success',json['success']);
-				$('#'+id).replaceWith('<a id="'+id+'" onclick="addBanIP(\''+ip+'\');"><?= $text_add_ban_ip; ?></a>');
+				$('#'+id).replaceWith('<a id="'+id+'" onclick="addBanIP(\''+ip+'\');"><?= $lang_text_add_ban_ip; ?></a>');
 			}
 		}
 	});

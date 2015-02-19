@@ -56,7 +56,7 @@ class Login extends Controller {
         
         if (!$json) {
             if (!$this->customer->login($this->request->post['email'], $this->request->post['password'])) {
-                $json['error']['warning'] = $this->language->get('error_login');
+                $json['error']['warning'] = $this->language->get('lang_error_login');
             }
             
             $this->theme->model('account/customer');
@@ -64,7 +64,7 @@ class Login extends Controller {
             $customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
             
             if ($customer_info && !$customer_info['approved']) {
-                $json['error']['warning'] = $this->language->get('error_approved');
+                $json['error']['warning'] = $this->language->get('lang_error_approved');
             }
         }
         

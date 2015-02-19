@@ -23,14 +23,14 @@ class Twocheckout extends Controller {
     public function index() {
         $data = $this->theme->language('payment/twocheckout');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('twocheckout', $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/payment', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -53,8 +53,8 @@ class Twocheckout extends Controller {
             $data['error_secret'] = '';
         }
         
-        $this->breadcrumb->add('text_payment', 'module/payment');
-        $this->breadcrumb->add('heading_title', 'payment/twocheckout');
+        $this->breadcrumb->add('lang_text_payment', 'module/payment');
+        $this->breadcrumb->add('lang_heading_title', 'payment/twocheckout');
         
         $data['action'] = $this->url->link('payment/twocheckout', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -125,15 +125,15 @@ class Twocheckout extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'payment/twocheckout')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (!$this->request->post['twocheckout_account']) {
-            $this->error['account'] = $this->language->get('error_account');
+            $this->error['account'] = $this->language->get('lang_error_account');
         }
         
         if (!$this->request->post['twocheckout_secret']) {
-            $this->error['secret'] = $this->language->get('error_secret');
+            $this->error['secret'] = $this->language->get('lang_error_secret');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

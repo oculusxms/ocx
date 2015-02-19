@@ -23,6 +23,9 @@ class Notification extends Model {
 			INSERT INTO {$this->db->prefix}email 
 			SET 
 				email_slug = '" . $this->db->escape($data['email_slug']) . "', 
+				configurable = '" . (int)$data['configurable'] . "', 
+				config_description = '" . $this->db->escape($data['config_description']) . "', 
+				recipient = '" . (int)$data['recipient'] . "', 
 				is_system = '" . (int)$data['is_system'] . "'
 		");
 
@@ -33,7 +36,8 @@ class Notification extends Model {
 				INSERT INTO {$this->db->prefix}email_content 
 				SET 
 					email_id = '" . (int)$id . "', 
-					language_id = '" . (int)$language_id . "',
+					language_id = '" . (int)$language_id . "', 
+					subject = '" . $this->db->escape($value['subject']) . "', 
 					text = '" . $this->db->escape($value['text']) . "',
 					html = '" . $this->db->escape($value['html']) . "'
 			");
@@ -47,6 +51,9 @@ class Notification extends Model {
 			UPDATE {$this->db->prefix}email 
 			SET 
 				email_slug = '" . $this->db->escape($data['email_slug']) . "', 
+				configurable = '" . (int)$data['configurable'] . "', 
+				config_description = '" . $this->db->escape($data['config_description']) . "', 
+				recipient = '" . (int)$data['recipient'] . "', 
 				is_system = '" . (int)$data['is_system'] . "' 
 			WHERE email_id = '" . (int)$id . "'
 		");
@@ -61,6 +68,7 @@ class Notification extends Model {
 				SET 
 					email_id = '" . (int)$id . "', 
 					language_id = '" . (int)$language_id . "', 
+					subject = '" . $this->db->escape($value['subject']) . "', 
 					text = '" . $this->db->escape($value['text']) . "', 
 					html = '" . $this->db->escape($value['html']) . "'
 			");
@@ -135,8 +143,9 @@ class Notification extends Model {
         
         foreach ($query->rows as $result):
             $data[$result['language_id']] = array(
-            	'text' => $result['text'], 
-            	'html' => $result['html']
+				'subject' => $result['subject'],
+				'text'    => $result['text'], 
+				'html'    => $result['html']
             );
         endforeach;
         

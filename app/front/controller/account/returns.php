@@ -30,9 +30,9 @@ class Returns extends Controller {
         }
         
         $data = $this->theme->language('account/returns');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
         
         $url = '';
         
@@ -40,7 +40,7 @@ class Returns extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'account/returns', $url, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/returns', $url, true, 'SSL');
         
         $this->theme->model('account/returns');
         
@@ -57,10 +57,10 @@ class Returns extends Controller {
         $results = $this->model_account_returns->getReturns(($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['returns'][] = array('return_id' => $result['return_id'], 'order_id' => $result['order_id'], 'name' => $result['firstname'] . ' ' . $result['lastname'], 'status' => $result['status'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'href' => $this->url->link('account/returns/info', 'return_id=' . $result['return_id'] . $url, 'SSL'));
+            $data['returns'][] = array('return_id' => $result['return_id'], 'order_id' => $result['order_id'], 'name' => $result['firstname'] . ' ' . $result['lastname'], 'status' => $result['status'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'href' => $this->url->link('account/returns/info', 'return_id=' . $result['return_id'] . $url, 'SSL'));
         }
         
-        $data['pagination'] = $this->theme->paginate($return_total, $page, $this->config->get('config_catalog_limit'), $this->language->get('text_pagination'), $this->url->link('account/history', 'page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($return_total, $page, $this->config->get('config_catalog_limit'), $this->language->get('lang_text_pagination'), $this->url->link('account/history', 'page={page}', 'SSL'));
         
         $data['continue'] = $this->url->link('account/dashboard', '', 'SSL');
         
@@ -94,9 +94,9 @@ class Returns extends Controller {
         $return_info = $this->model_account_returns->getReturn($return_id);
         
         if ($return_info) {
-            $this->theme->setTitle($this->language->get('text_return'));
+            $this->theme->setTitle($this->language->get('lang_text_return'));
             
-            $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
+            $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
             
             $url = '';
             
@@ -104,13 +104,13 @@ class Returns extends Controller {
                 $url.= '&page=' . $this->request->get['page'];
             }
             
-            $this->breadcrumb->add('heading_title', 'account/returns', $url, true, 'SSL');
-            $this->breadcrumb->add('text_return', 'account/returns/info', 'return_id=' . $this->request->get['return_id'] . $url, true, 'SSL');
+            $this->breadcrumb->add('lang_heading_title', 'account/returns', $url, true, 'SSL');
+            $this->breadcrumb->add('lang_text_return', 'account/returns/info', 'return_id=' . $this->request->get['return_id'] . $url, true, 'SSL');
             
             $data['return_id'] = $return_info['return_id'];
             $data['order_id'] = $return_info['order_id'];
-            $data['date_ordered'] = date($this->language->get('date_format_short'), strtotime($return_info['date_ordered']));
-            $data['date_added'] = date($this->language->get('date_format_short'), strtotime($return_info['date_added']));
+            $data['date_ordered'] = date($this->language->get('lang_date_format_short'), strtotime($return_info['date_ordered']));
+            $data['date_added'] = date($this->language->get('lang_date_format_short'), strtotime($return_info['date_added']));
             $data['firstname'] = $return_info['firstname'];
             $data['lastname'] = $return_info['lastname'];
             $data['email'] = $return_info['email'];
@@ -119,7 +119,7 @@ class Returns extends Controller {
             $data['model'] = $return_info['model'];
             $data['quantity'] = $return_info['quantity'];
             $data['reason'] = $return_info['reason'];
-            $data['opened'] = $return_info['opened'] ? $this->language->get('text_yes') : $this->language->get('text_no');
+            $data['opened'] = $return_info['opened'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no');
             $data['comment'] = nl2br($return_info['comment']);
             $data['action'] = $return_info['action'];
             
@@ -128,7 +128,7 @@ class Returns extends Controller {
             $results = $this->model_account_returns->getReturnHistories($this->request->get['return_id']);
             
             foreach ($results as $result) {
-                $data['histories'][] = array('date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'status' => $result['status'], 'comment' => nl2br($result['comment']));
+                $data['histories'][] = array('date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'status' => $result['status'], 'comment' => nl2br($result['comment']));
             }
             
             $data['continue'] = $this->url->link('account/returns', $url, 'SSL');
@@ -142,10 +142,10 @@ class Returns extends Controller {
             
             $this->response->setOutput($this->theme->view('account/return_info', $data));
         } else {
-            $this->theme->setTitle($this->language->get('text_return'));
+            $this->theme->setTitle($this->language->get('lang_text_return'));
             
-            $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-            $this->breadcrumb->add('heading_title', 'account/returns', null, true, 'SSL');
+            $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+            $this->breadcrumb->add('lang_heading_title', 'account/returns', null, true, 'SSL');
             
             $url = '';
             
@@ -153,9 +153,9 @@ class Returns extends Controller {
                 $url.= '&page=' . $this->request->get['page'];
             }
             
-            $this->breadcrumb->add('text_return', 'account/returns/info', 'return_id=' . $return_id . $url, true, 'SSL');
+            $this->breadcrumb->add('lang_text_return', 'account/returns/info', 'return_id=' . $return_id . $url, true, 'SSL');
             
-            $data['heading_title'] = $this->language->get('text_return');
+            $data['heading_title'] = $this->language->get('lang_text_return');
             $data['continue'] = $this->url->link('account/returns', '', 'SSL');
             
             $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . '/1.1 404 Not Found');
@@ -184,10 +184,10 @@ class Returns extends Controller {
             $this->response->redirect($this->url->link('account/returns/success', '', 'SSL'));
         }
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('heading_title', 'account/returns/insert', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/returns/insert', null, true, 'SSL');
         
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -367,7 +367,7 @@ class Returns extends Controller {
             $page_info = $this->model_content_page->getPage($this->config->get('config_return_id'));
             
             if ($page_info) {
-                $data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_return_id'), 'SSL'), $page_info['title'], $page_info['title']);
+                $data['text_agree'] = sprintf($this->language->get('lang_text_agree'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_return_id'), 'SSL'), $page_info['title'], $page_info['title']);
             } else {
                 $data['text_agree'] = '';
             }
@@ -400,9 +400,9 @@ class Returns extends Controller {
     public function success() {
         $data = $this->theme->language('account/returns');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('heading_title', 'account/returns', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/returns', null, true, 'SSL');
         
         $data['continue'] = $this->url->link('shop/home');
         
@@ -418,39 +418,39 @@ class Returns extends Controller {
     
     protected function validate() {
         if (!$this->request->post['order_id']) {
-            $this->error['order_id'] = $this->language->get('error_order_id');
+            $this->error['order_id'] = $this->language->get('lang_error_order_id');
         }
         
         if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
-            $this->error['firstname'] = $this->language->get('error_firstname');
+            $this->error['firstname'] = $this->language->get('lang_error_firstname');
         }
         
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
+            $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
         
         if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-            $this->error['email'] = $this->language->get('error_email');
+            $this->error['email'] = $this->language->get('lang_error_email');
         }
         
         if (($this->encode->strlen($this->request->post['telephone']) < 3) || ($this->encode->strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
+            $this->error['telephone'] = $this->language->get('lang_error_telephone');
         }
         
         if (($this->encode->strlen($this->request->post['product']) < 1) || ($this->encode->strlen($this->request->post['product']) > 255)) {
-            $this->error['product'] = $this->language->get('error_product');
+            $this->error['product'] = $this->language->get('lang_error_product');
         }
         
         if (($this->encode->strlen($this->request->post['model']) < 1) || ($this->encode->strlen($this->request->post['model']) > 64)) {
-            $this->error['model'] = $this->language->get('error_model');
+            $this->error['model'] = $this->language->get('lang_error_model');
         }
         
         if (empty($this->request->post['return_reason_id'])) {
-            $this->error['reason'] = $this->language->get('error_reason');
+            $this->error['reason'] = $this->language->get('lang_error_reason');
         }
         
         if (empty($this->session->data['captcha']) || ($this->session->data['captcha'] != $this->request->post['captcha'])) {
-            $this->error['captcha'] = $this->language->get('error_captcha');
+            $this->error['captcha'] = $this->language->get('lang_error_captcha');
         }
         
         if ($this->config->get('config_return_id')) {
@@ -459,7 +459,7 @@ class Returns extends Controller {
             $page_info = $this->model_content_page->getPage($this->config->get('config_return_id'));
             
             if ($page_info && !isset($this->request->post['agree'])) {
-                $this->error['warning'] = sprintf($this->language->get('error_agree'), $page_info['title']);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_agree'), $page_info['title']);
             }
         }
         

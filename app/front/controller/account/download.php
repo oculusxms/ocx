@@ -27,10 +27,10 @@ class Download extends Controller {
         
         $data = $this->theme->language('account/download');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('text_downloads', 'account/download', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_downloads', 'account/download', null, true, 'SSL');
         
         $this->theme->model('account/download');
         
@@ -61,11 +61,11 @@ class Download extends Controller {
                         $i++;
                     }
                     
-                    $data['downloads'][] = array('order_id' => $result['order_id'], 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])), 'name' => $result['name'], 'remaining' => $result['remaining'], 'size' => round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i], 'href' => $this->url->link('account/download/download', 'order_download_id=' . $result['order_download_id'], 'SSL'));
+                    $data['downloads'][] = array('order_id' => $result['order_id'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'name' => $result['name'], 'remaining' => $result['remaining'], 'size' => round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i], 'href' => $this->url->link('account/download/download', 'order_download_id=' . $result['order_download_id'], 'SSL'));
                 }
             }
             
-            $data['pagination'] = $this->theme->paginate($download_total, $page, $this->config->get('config_catalog_limit'), $this->language->get('text_pagination'), $this->url->link('account/download', 'page={page}', 'SSL'));
+            $data['pagination'] = $this->theme->paginate($download_total, $page, $this->config->get('config_catalog_limit'), $this->language->get('lang_text_pagination'), $this->url->link('account/download', 'page={page}', 'SSL'));
             
             $data['continue'] = $this->url->link('account/dashboard', '', 'SSL');
             
@@ -78,8 +78,11 @@ class Download extends Controller {
             
             $this->response->setOutput($this->theme->view('account/download', $data));
         } else {
+            $this->theme->setTitle($this->language->get('lang_heading_title'));
             
-            $data['text_error'] = $this->language->get('text_empty');
+			$data['heading_title'] = $this->language->get('lang_heading_title');
+			
+			$data['text_error'] = $this->language->get('lang_text_empty');
             
             $data['continue'] = $this->url->link('account/dashboard', '', 'SSL');
             

@@ -15,7 +15,7 @@
 */
 
 // Heading
-$_['heading_title'] = 'Latest';
+$_['lang_heading_title'] = 'Latest';
 
 // Text
-$_['text_reviews']  = 'Based on %s reviews.';
+$_['lang_text_reviews']  = 'Based on %s reviews.';

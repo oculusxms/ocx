@@ -36,7 +36,7 @@ class Check extends Model {
         $method_data = array();
         
         if ($status) {
-            $method_data = array('code' => 'check', 'title' => $this->language->get('text_title'), 'sort_order' => $this->config->get('check_sort_order'));
+            $method_data = array('code' => 'check', 'title' => $this->language->get('lang_text_title'), 'sort_order' => $this->config->get('check_sort_order'));
         }
         
         return $method_data;

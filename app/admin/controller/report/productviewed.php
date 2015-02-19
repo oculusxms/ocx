@@ -21,7 +21,7 @@ class Productviewed extends Controller {
     public function index() {
         $data = $this->theme->language('report/product_viewed');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         if (isset($this->request->get['page'])) {
             $page = $this->request->get['page'];
@@ -35,7 +35,7 @@ class Productviewed extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'report/productviewed', $url);
+        $this->breadcrumb->add('lang_heading_title', 'report/productviewed', $url);
         
         $this->theme->model('report/product');
         
@@ -75,7 +75,7 @@ class Productviewed extends Controller {
             $data['success'] = '';
         }
         
-        $data['pagination'] = $this->theme->paginate($product_viewed_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('report/productviewed', 'token=' . $this->session->data['token'] . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($product_viewed_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('report/productviewed', 'token=' . $this->session->data['token'] . '&page={page}', 'SSL'));
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -89,7 +89,7 @@ class Productviewed extends Controller {
         $this->theme->model('report/product');
         $this->model_report_product->reset();
         
-        $this->session->data['success'] = $this->language->get('text_success');
+        $this->session->data['success'] = $this->language->get('lang_text_success');
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
         

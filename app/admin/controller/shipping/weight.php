@@ -22,12 +22,12 @@ class Weight extends Controller {
     
     public function index() {
         $data = $this->theme->language('shipping/weight');
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('weight', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/shipping', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -38,8 +38,8 @@ class Weight extends Controller {
             $data['error_warning'] = '';
         }
         
-        $this->breadcrumb->add('text_shipping', 'module/shipping');
-        $this->breadcrumb->add('heading_title', 'shipping/weight');
+        $this->breadcrumb->add('lang_text_shipping', 'module/shipping');
+        $this->breadcrumb->add('lang_heading_title', 'shipping/weight');
         
         $data['action'] = $this->url->link('shipping/weight', 'token=' . $this->session->data['token'], 'SSL');
         
@@ -96,7 +96,7 @@ class Weight extends Controller {
     
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'shipping/weight')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);

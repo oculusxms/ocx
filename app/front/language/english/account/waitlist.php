@@ -15,20 +15,20 @@
 */
 
 // Heading
-$_['heading_title']     = 'Your Wait Lists';
+$_['lang_heading_title']     = 'Your Wait Lists';
 
 // Text
-$_['text_no_waitlists'] = 'You are not on any wait lists.';
-$_['text_waitlists']    = 'Wait Lists';
-$_['text_dashboard']    = 'Dashboard';
-$_['text_remove']       = 'Remove from Wait List';
+$_['lang_text_no_waitlists'] = 'You are not on any wait lists.';
+$_['lang_text_waitlists']    = 'Wait Lists';
+$_['lang_text_dashboard']    = 'Dashboard';
+$_['lang_text_remove']       = 'Remove from Wait List';
 
 // Column
-$_['column_event']      = 'Event Name';
-$_['column_start_date'] = 'Event Date';
-$_['column_location']   = 'Event Location';
-$_['column_telephone']  = 'Telephone';
-$_['column_action']     = 'Action';
+$_['lang_column_event']      = 'Event Name';
+$_['lang_column_start_date'] = 'Event Date';
+$_['lang_column_location']   = 'Event Location';
+$_['lang_column_telephone']  = 'Telephone';
+$_['lang_column_action']     = 'Action';
 
 // Button
-$_['button_remove']     = 'Remove';
+$_['lang_button_remove']     = 'Remove';

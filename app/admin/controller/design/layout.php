@@ -23,7 +23,7 @@ class Layout extends Controller {
     public function index() {
         $this->language->load('design/layout');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('design/layout');
         
@@ -35,14 +35,14 @@ class Layout extends Controller {
     public function insert() {
         $this->language->load('design/layout');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('design/layout');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_design_layout->addLayout($this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -69,14 +69,14 @@ class Layout extends Controller {
     public function update() {
         $this->language->load('design/layout');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('design/layout');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_design_layout->editLayout($this->request->get['layout_id'], $this->request->post);
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -103,7 +103,7 @@ class Layout extends Controller {
     public function delete() {
         $this->language->load('design/layout');
         
-        $this->theme->setTitle($this->language->get('heading_title'));
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
         
         $this->theme->model('design/layout');
         
@@ -112,7 +112,7 @@ class Layout extends Controller {
                 $this->model_design_layout->deleteLayout($layout_id);
             }
             
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $url = '';
             
@@ -171,7 +171,7 @@ class Layout extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'design/layout', $url);
+        $this->breadcrumb->add('lang_heading_title', 'design/layout', $url);
         
         $data['insert'] = $this->url->link('design/layout/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
         $data['delete'] = $this->url->link('design/layout/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -187,7 +187,7 @@ class Layout extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('text_edit'), 'href' => $this->url->link('design/layout/update', 'token=' . $this->session->data['token'] . '&layout_id=' . $result['layout_id'] . $url, 'SSL'));
+            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('design/layout/update', 'token=' . $this->session->data['token'] . '&layout_id=' . $result['layout_id'] . $url, 'SSL'));
             
             $data['layouts'][] = array('layout_id' => $result['layout_id'], 'name' => $result['name'], 'selected' => isset($this->request->post['selected']) && in_array($result['layout_id'], $this->request->post['selected']), 'action' => $action);
         }
@@ -230,7 +230,7 @@ class Layout extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($layout_total, $page, $this->config->get('config_admin_limit'), $this->language->get('text_pagination'), $this->url->link('design/layout', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate($layout_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('design/layout', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -271,7 +271,7 @@ class Layout extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $this->breadcrumb->add('heading_title', 'design/layout', $url);
+        $this->breadcrumb->add('lang_heading_title', 'design/layout', $url);
         
         if (!isset($this->request->get['layout_id'])) {
             $data['action'] = $this->url->link('design/layout/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
@@ -316,11 +316,11 @@ class Layout extends Controller {
     
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'design/layout')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 64)) {
-            $this->error['name'] = $this->language->get('error_name');
+            $this->error['name'] = $this->language->get('lang_error_name');
         }
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
@@ -330,7 +330,7 @@ class Layout extends Controller {
     
     protected function validateDelete() {
         if (!$this->user->hasPermission('modify', 'design/layout')) {
-            $this->error['warning'] = $this->language->get('error_permission');
+            $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
         $this->theme->model('setting/store');
@@ -340,31 +340,31 @@ class Layout extends Controller {
         
         foreach ($this->request->post['selected'] as $layout_id) {
             if ($this->config->get('config_layout_id') == $layout_id) {
-                $this->error['warning'] = $this->language->get('error_default');
+                $this->error['warning'] = $this->language->get('lang_error_default');
             }
             
             $store_total = $this->model_setting_store->getTotalStoresByLayoutId($layout_id);
             
             if ($store_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_store'), $store_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_store'), $store_total);
             }
             
             $product_total = $this->model_catalog_product->getTotalProductsByLayoutId($layout_id);
             
             if ($product_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_product'), $product_total);
             }
             
             $category_total = $this->model_catalog_category->getTotalCategoriesByLayoutId($layout_id);
             
             if ($category_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_category'), $category_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_category'), $category_total);
             }
             
             $page_total = $this->model_content_page->getTotalPagesByLayoutId($layout_id);
             
             if ($page_total) {
-                $this->error['warning'] = sprintf($this->language->get('error_page'), $page_total);
+                $this->error['warning'] = sprintf($this->language->get('lang_error_page'), $page_total);
             }
         }
         
