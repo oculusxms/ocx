@@ -89,11 +89,39 @@ class Decorator extends LibraryService {
 		return $message;
 	}
 
-	public function decorateAffiliateNotification() {
+	public function decorateAffiliateNotification($message, $affiliate) {
+		$search = array(
+			'!store_name!',
+			'!store_owner!',
+			'!store_address!',
+			'!store_phone!',
+			'!store_send_email!',
+			'!store_admin_email!',
+			'!store_url!'
+		);
 
+		$replace = array(
+			parent::$app['config_name'],
+			parent::$app['config_owner'],
+			parent::$app['config_address'],
+			parent::$app['config_telephone'],
+			parent::$app['config_email'],
+			parent::$app['config_admin_email'],
+			trim(parent::$app['config_url'], '/')
+		);
+
+		if (is_array($message)):
+			foreach($message as $key => $value):
+				$message[$key] = str_replace($search, $replace, $value);
+			endforeach;
+		else:
+			$message = str_replace($search, $replace, $message);
+		endif;
+		
+		return $message;
 	}
 
-	public function decorateUserNotification() {
+	public function decorateUserNotification($message, $user) {
 
 	}
 

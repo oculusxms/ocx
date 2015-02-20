@@ -41,9 +41,9 @@ class Email extends LibraryService {
 			AND language_id = '" . (int)parent::$app['config_language_id'] . "'
 		");
 
-		$data['subject'] = $query->row['subject'];
-		$data['text']    = $query->row['text'];
-		$data['html']    = $query->row['html'];
+		$data['subject'] = html_entity_decode($query->row['subject'], ENT_QUOTES, 'UTF-8');
+		$data['text']    = html_entity_decode($query->row['text'], ENT_QUOTES, 'UTF-8');
+		$data['html']    = html_entity_decode($query->row['html'], ENT_QUOTES, 'UTF-8');
 
 		return $data;
 	}

@@ -57,8 +57,8 @@ class Notification extends LibraryService {
             AND language_id = '" . (int)parent::$app['config_language_id'] . "'
         ");
         
-        $this->text = $query->row['text'];
-        $this->html = $query->row['html'];
+        $this->text = html_entity_decode($query->row['text'], ENT_QUOTES, 'UTF-8');
+        $this->html = html_entity_decode($query->row['html'], ENT_QUOTES, 'UTF-8');
     }
 
     public function getNotificationType($name) {
@@ -163,6 +163,7 @@ class Notification extends LibraryService {
         // If the email_id exists in the array then we will use
         // the preferences provided, otherwise this notification
         // isn't configurable and we should send them email only.
+        // This would be the case for a forgotten password etc.
         if (array_key_exists($email_id, $data)):
             $preference = $data[$email_id];
         else:
@@ -179,7 +180,7 @@ class Notification extends LibraryService {
         return $this->preference;
     }
 
-    private function setAffiliatePreference($affiliate_id) {
+    private function setAffiliatePreference($email_id, $affiliate_id) {
         $db = parent::$app['db'];
 
         $query = $db->query("
@@ -192,6 +193,7 @@ class Notification extends LibraryService {
         // If the email_id exists in the array then we will use
         // the preferences provided, otherwise this notification
         // isn't configurable and we should send them email only.
+        // This would be the case for a forgotten password etc.
         if (array_key_exists($email_id, $data)):
             $preference = $data[$email_id];
         else:
@@ -271,11 +273,11 @@ class Notification extends LibraryService {
     public function send($message) {
 
         $mailer = parent::$app['mailer']->build(
-            html_entity_decode($message['subject'], ENT_QUOTES, 'UTF-8'),
+            $message['subject'],
             $this->to_email,
             $this->to_name,
-            html_entity_decode($message['text'], ENT_QUOTES, 'UTF-8'),
-            html_entity_decode($message['html'], ENT_QUOTES, 'UTF-8'),
+            $message['text'],
+            $message['html'],
             true
         );
     }
