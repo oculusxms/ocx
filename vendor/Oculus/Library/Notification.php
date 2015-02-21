@@ -253,6 +253,7 @@ class Notification extends LibraryService {
 
         $message['subject'] = $email['subject'];
         $message['text']    = str_replace('!content!', $email['text'], $this->text);
+        $message['html']    = str_replace('!subject!', $email['subject'], $this->html);
         $message['html']    = str_replace('!content!', $email['html'], $this->html);
 
         switch($type):
