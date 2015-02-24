@@ -67,6 +67,23 @@ class Decorator extends LibraryService {
 			trim(parent::$app['config_url'], '/')
 		);
 
+		$html_replace = array(
+			$customer['firstname'] ? $customer['firstname'] : $customer['username'],
+			$customer['lastname'],
+			$customer['username'],
+			$customer['email'],
+			isset($customer['telephone']) ? $customer['telephone'] : '',
+			$customer['ip'],
+			$customer['points'],
+			parent::$app['config_name'],
+			parent::$app['config_owner'],
+			nl2br(parent::$app['config_address']),
+			parent::$app['config_telephone'],
+			parent::$app['config_email'],
+			parent::$app['config_admin_email'],
+			trim(parent::$app['config_url'], '/')
+		);
+
 		/**
 		 * If we have an order ID, let's process it and push
 		 * our variables to our search and replace arrays.
@@ -80,7 +97,11 @@ class Decorator extends LibraryService {
 
 		if (is_array($message)):
 			foreach($message as $key => $value):
-				$message[$key] = str_replace($search, $replace, $value);
+				if ($key == 'html'):
+					$message[$key] = str_replace($search, $html_replace, $value);
+				else:
+					$message[$key] = str_replace($search, $replace, $value);
+				endif;
 			endforeach;
 		else:
 			$message = str_replace($search, $replace, $message);

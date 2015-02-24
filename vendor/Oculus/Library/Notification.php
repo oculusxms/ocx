@@ -250,10 +250,12 @@ class Notification extends LibraryService {
 
     public function formatEmail($email, $type) {
         $message = array();
-
+        // subject
         $message['subject'] = $email['subject'];
+        // text
         $message['text']    = str_replace('!content!', $email['text'], $this->text);
-        $message['html']    = str_replace('!subject!', $email['subject'], $this->html);
+        // html
+        $this->html         = str_replace('!subject!', $email['subject'], $this->html);
         $message['html']    = str_replace('!content!', $email['html'], $this->html);
 
         switch($type):
@@ -267,7 +269,7 @@ class Notification extends LibraryService {
                 $message = $this->decorator->decorateUserNotification($message, $this->user);
                 break;
         endswitch;
-
+        
         return $message;
     }
 
