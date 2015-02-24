@@ -64,7 +64,7 @@ class Mail extends LibraryService {
 		$message->setBody($text, 'text/plain');
 		
 		if ($html):
-			$message->addPart($html, 'text/html');
+			//$message->addPart($html, 'text/html');
 		endif;
 
 		$this->message = $message;
