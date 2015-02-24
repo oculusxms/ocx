@@ -47,9 +47,11 @@ class Decorator extends LibraryService {
 			'!store_phone!',
 			'!store_send_email!',
 			'!store_admin_email!',
-			'!store_url!'
+			'!store_url!',
+			'!twitter!',
+			'!facebook!'
 		);
-		
+
 		$replace = array(
 			$customer['firstname'] ? $customer['firstname'] : $customer['username'],
 			$customer['lastname'],
@@ -64,7 +66,9 @@ class Decorator extends LibraryService {
 			parent::$app['config_telephone'],
 			parent::$app['config_email'],
 			parent::$app['config_admin_email'],
-			trim(parent::$app['config_url'], '/')
+			trim(parent::$app['config_url'], '/'),
+			'http://twitter.com/' . parent::$app['config_mail_twitter'],
+			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
 
 		$html_replace = array(
@@ -81,7 +85,9 @@ class Decorator extends LibraryService {
 			parent::$app['config_telephone'],
 			parent::$app['config_email'],
 			parent::$app['config_admin_email'],
-			trim(parent::$app['config_url'], '/')
+			trim(parent::$app['config_url'], '/'),
+			'http://twitter.com/' . parent::$app['config_mail_twitter'],
+			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
 
 		/**
@@ -170,5 +176,7 @@ class Decorator extends LibraryService {
  * !store_send_email - config_email
  * !store_admin_email! - config_admin_email
  * !store_url! - config_url 
+ * !twitter_url! - config_mail_twitter
+ * !facebook_url! - config_mail_facebook
  */
 
