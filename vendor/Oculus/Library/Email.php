@@ -64,21 +64,6 @@ class Email extends LibraryService {
 
 	}
 
-	public function public_customer_forgotten($data, $message) {
-		$search  = array('!password!');
-		$replace = array();
-
-		foreach($data as $key => $value):
-            $replace[] = $value;
-        endforeach;
-
-		foreach ($message as $key => $value):
-			$message[$key] = str_replace($search, $replace, $value);
-		endforeach;
-
-		return $message;
-	}
-
 	public function public_affiliate_forgotten() {
 
 	}

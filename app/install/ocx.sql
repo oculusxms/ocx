@@ -2669,6 +2669,86 @@ INSERT INTO `ocx_page_to_store` VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ocx_poll`
+--
+
+DROP TABLE IF EXISTS `ocx_poll`;
+CREATE TABLE IF NOT EXISTS `ocx_poll` (
+  `poll_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `type` tinyint(2) NOT NULL DEFAULT '1',
+  `total` int(13) NOT NULL DEFAULT '0',
+  `image` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`poll_id`),
+  KEY `total` (`total`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_poll_answer`
+--
+
+DROP TABLE IF EXISTS `ocx_poll_answer`;
+CREATE TABLE IF NOT EXISTS `ocx_poll_answer` (
+  `answer_id` int(13) NOT NULL AUTO_INCREMENT,
+  `poll_id` int(13) NOT NULL DEFAULT '0',
+  `votes` int(13) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`answer_id`),
+  KEY `poll_id` (`poll_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_poll_answer_description`
+--
+
+DROP TABLE IF EXISTS `ocx_poll_answer_description`;
+CREATE TABLE IF NOT EXISTS `ocx_poll_answer_description` (
+  `description_id` int(13) NOT NULL AUTO_INCREMENT,
+  `answer_id` int(13) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `poll_id` int(11) NOT NULL,
+  `description` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`description_id`),
+  KEY `answer_id` (`answer_id`,`language_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_poll_question`
+--
+
+DROP TABLE IF EXISTS `ocx_poll_question`;
+CREATE TABLE IF NOT EXISTS `ocx_poll_question` (
+  `question_id` int(13) NOT NULL AUTO_INCREMENT,
+  `language_id` int(11) NOT NULL,
+  `poll_id` int(13) NOT NULL,
+  `question` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`question_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_poll_voted`
+--
+
+DROP TABLE IF EXISTS `ocx_poll_voted`;
+CREATE TABLE IF NOT EXISTS `ocx_poll_voted` (
+  `voted_id` int(13) NOT NULL AUTO_INCREMENT,
+  `poll_id` int(13) NOT NULL,
+  `hash` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`voted_id`),
+  KEY `poll_id` (`poll_id`,`hash`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ocx_presenter`
 --
 

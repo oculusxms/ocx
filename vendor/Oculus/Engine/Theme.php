@@ -211,19 +211,12 @@ final class Theme {
         $message = $email->fetch($name);
         
         /**
-         * Only system notifications are built into the email
-         * class as methods. If you're creating non-system
-         * notifications, you'll need to create an override 
-         * version of the Email class that includes your build
-         * method, and drop it into the overrides/Oculus/Library
-         * directory. 
-         * 
-         * Alternately you can pass in a callback method as
-         * an array so we know where to build the notification.
-         * If you wanted the callback in the same class that's 
-         * calling it, and you've created a method named:
-         * 'myEmailCallback', you can use something like the 
-         * below to build your notification.
+         * Pass in a callback method as an array so we know 
+         * where to build the notification. If you wanted the 
+         * callback in the same class that's calling it, and 
+         * you've created a method named: 'myEmailCallback', 
+         * you can use something like the below to build your 
+         * notification.
          *
          * Keep in mind that the callback array MUST be
          * named 'callback' or it will not be found.
@@ -243,34 +236,28 @@ final class Theme {
          * 
          */
         
-        if (is_callable(array($email, $name))):
-            /**
-             * We're not using call_user_func_array to call
-             * the method because we need to retain names
-             * inside our $data and $message arrays.
-             */
-            $message = $email->{$name}($data, $message);
-        else:
-            if (array_key_exists('callback', $data)):
-                // set up our class and method
-                $class  = $data['callback']['class'];
-                $method = $data['callback']['method'];
-                // unset the callback from our data array
-                unset($data['callback']);
+        if (array_key_exists('callback', $data)):
+            // set up our class and method
+            $class  = $data['callback']['class'];
+            $method = $data['callback']['method'];
+            // unset the callback from our data array
+            unset($data['callback']);
 
-                // create a new object
-                $class = new $class($this->app);
+            // create a new object
+            $class = new $class($this->app);
 
-                if (is_callable(array($class, $method))):
-                    /**
-                     * We're not using call_user_func_array to call
-                     * the method because we need to retain names
-                     * inside our $data and $message arrays.
-                     */
-                    $message = $class->{$method}($data, $message); 
-                endif;
-                
+            if (is_callable(array($class, $method))):
+                /**
+                 * We're not using call_user_func_array to call
+                 * the method because we want to retain key names
+                 * inside our $data and $message arrays.
+                 */
+                $message = $class->{$method}($data, $message); 
             endif;
+        else:
+            // if we don't have a call back to build the message
+            // we need to exit.
+            return false;
         endif;
 
         $preference = $this->app['notify']->getPreference();
@@ -348,24 +335,24 @@ final class Theme {
      */
     public function getFiles($directory = '*') {
         $filenames = array();
-        $files = array();
+        $files     = array();
         
-        $core_files = glob($this->app['path.application'] . 'controller/' . $directory . '/*.php');
+        $core_files  = glob($this->app['path.application'] . 'controller/' . $directory . '/*.php');
         $theme_files = glob($this->path . 'controller/' . $directory . '/*.php');
         
         if (!empty($theme_files)):
             foreach ($theme_files as $file):
-                $file_data = explode('/', dirname($file));
-                $filename = end($file_data) . '/' . basename($file, '.php');
+                $file_data   = explode('/', dirname($file));
+                $filename    = end($file_data) . '/' . basename($file, '.php');
                 $filenames[] = $filename;
-                $files[] = $file;
+                $files[]     = $file;
             endforeach;
         endif;
         
         if (!empty($core_files)):
             foreach ($core_files as $file):
                 $file_data = explode('/', dirname($file));
-                $filename = end($file_data) . '/' . basename($file, '.php');
+                $filename  = end($file_data) . '/' . basename($file, '.php');
                 if (!in_array($filename, $filenames)):
                     $files[] = $file;
                 endif;

@@ -41,7 +41,11 @@ class Forgotten extends Controller {
 
             $notify = array(
                 'customer_id' => $customer['customer_id'],
-                'password'    => $password
+                'password'    => $password,
+                'callback' => array(
+                    'class' => __CLASS__,
+                    'method' => 'customer_forgotten_message'
+                )
             );
             
             $this->theme->notify('public_customer_forgotten', $notify);
@@ -82,11 +86,8 @@ class Forgotten extends Controller {
         return !$this->error;
     }
 
-    public function myEmailCallback($data, $message) {
-        $search = array(
-            '!password!'
-        );
-
+    public function customer_forgotten_message($data, $message) {
+        $search  = array('!password!');
         $replace = array();
 
         foreach($data as $key => $value):

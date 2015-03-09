@@ -22,19 +22,19 @@ class Currency extends Model {
         $this->db->query("
 			INSERT INTO {$this->db->prefix}currency 
 			SET 
-				title = '" . $this->db->escape($data['title']) . "', 
-				code = '" . $this->db->escape($data['code']) . "', 
-				symbol_left = '" . $this->db->escape($data['symbol_left']) . "', 
-				symbol_right = '" . $this->db->escape($data['symbol_right']) . "', 
-				decimal_place = '" . $this->db->escape($data['decimal_place']) . "', 
-				value = '" . $this->db->escape($data['value']) . "', 
-				status = '" . (int)$data['status'] . "', 
-				date_modified = NOW()
+                title         = '" . $this->db->escape($data['title']) . "', 
+                code          = '" . $this->db->escape($data['code']) . "', 
+                symbol_left   = '" . $this->db->escape($data['symbol_left']) . "', 
+                symbol_right  = '" . $this->db->escape($data['symbol_right']) . "', 
+                decimal_place = '" . $this->db->escape($data['decimal_place']) . "', 
+                value         = '" . $this->db->escape($data['value']) . "', 
+                status        = '" . (int)$data['status'] . "', 
+                date_modified = NOW()
 		");
         
-        if ($this->config->get('config_currency_auto')) {
+        if ($this->config->get('config_currency_auto')):
             $this->updateCurrencies(true);
-        }
+        endif;
         
         $this->cache->delete('currency');
         $this->cache->delete('default.store.currency');
@@ -44,14 +44,14 @@ class Currency extends Model {
         $this->db->query("
 			UPDATE {$this->db->prefix}currency 
 			SET 
-				title = '" . $this->db->escape($data['title']) . "', 
-				code = '" . $this->db->escape($data['code']) . "', 
-				symbol_left = '" . $this->db->escape($data['symbol_left']) . "', 
-				symbol_right = '" . $this->db->escape($data['symbol_right']) . "', 
-				decimal_place = '" . $this->db->escape($data['decimal_place']) . "', 
-				value = '" . $this->db->escape($data['value']) . "', 
-				status = '" . (int)$data['status'] . "', 
-				date_modified = NOW() 
+                title         = '" . $this->db->escape($data['title']) . "', 
+                code          = '" . $this->db->escape($data['code']) . "', 
+                symbol_left   = '" . $this->db->escape($data['symbol_left']) . "', 
+                symbol_right  = '" . $this->db->escape($data['symbol_right']) . "', 
+                decimal_place = '" . $this->db->escape($data['decimal_place']) . "', 
+                value         = '" . $this->db->escape($data['value']) . "', 
+                status        = '" . (int)$data['status'] . "', 
+                date_modified = NOW() 
 			WHERE currency_id = '" . (int)$currency_id . "'
 		");
         
@@ -60,7 +60,9 @@ class Currency extends Model {
     }
     
     public function deleteCurrency($currency_id) {
-        $this->db->query("DELETE FROM {$this->db->prefix}currency WHERE currency_id = '" . (int)$currency_id . "'");
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}currency 
+            WHERE currency_id = '" . (int)$currency_id . "'");
         
         $this->cache->delete('currency');
         $this->cache->delete('default.store.currency');
@@ -87,41 +89,41 @@ class Currency extends Model {
     }
     
     public function getCurrencies($data = array()) {
-        if ($data) {
+        if ($data):
             $sql = "
 				SELECT * 
 				FROM {$this->db->prefix}currency";
             
             $sort_data = array('title', 'code', 'value', 'date_modified');
             
-            if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+            if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
                 $sql.= " ORDER BY {$data['sort']}";
-            } else {
+            else:
                 $sql.= " ORDER BY title";
-            }
+            endif;
             
-            if (isset($data['order']) && ($data['order'] == 'DESC')) {
+            if (isset($data['order']) && ($data['order'] == 'DESC')):
                 $sql.= " DESC";
-            } else {
+            else:
                 $sql.= " ASC";
-            }
+            endif;
             
-            if (isset($data['start']) || isset($data['limit'])) {
-                if ($data['start'] < 0) {
+            if (isset($data['start']) || isset($data['limit'])):
+                if ($data['start'] < 0):
                     $data['start'] = 0;
-                }
+                endif;
                 
-                if ($data['limit'] < 1) {
+                if ($data['limit'] < 1):
                     $data['limit'] = 20;
-                }
+                endif;
                 
                 $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-            }
+            endif;
             
             $query = $this->db->query($sql);
             
             return $query->rows;
-        } else {
+        else:
             $currency_data = array();
             
             $query = $this->db->query("
@@ -130,36 +132,45 @@ class Currency extends Model {
 				ORDER BY title ASC
 			");
             
-            foreach ($query->rows as $result) {
-                $currency_data[$result['code']] = array('currency_id' => $result['currency_id'], 'title' => $result['title'], 'code' => $result['code'], 'symbol_left' => $result['symbol_left'], 'symbol_right' => $result['symbol_right'], 'decimal_place' => $result['decimal_place'], 'value' => $result['value'], 'status' => $result['status'], 'date_modified' => $result['date_modified']);
-            }
+            foreach ($query->rows as $result):
+                $currency_data[$result['code']] = array(
+                    'currency_id'   => $result['currency_id'], 
+                    'title'         => $result['title'], 
+                    'code'          => $result['code'], 
+                    'symbol_left'   => $result['symbol_left'], 
+                    'symbol_right'  => $result['symbol_right'], 
+                    'decimal_place' => $result['decimal_place'], 
+                    'value'         => $result['value'], 
+                    'status'        => $result['status'], 
+                    'date_modified' => $result['date_modified']);
+            endforeach;
             
             return $currency_data;
-        }
+        endif;
     }
     
     public function updateCurrencies($force = false) {
-        if (extension_loaded('curl')) {
+        if (extension_loaded('curl')):
             $data = array();
             
-            if ($force) {
+            if ($force):
                 $query = $this->db->query("
 					SELECT * 
 					FROM {$this->db->prefix}currency 
 					WHERE code != '" . $this->db->escape($this->config->get('config_currency')) . "'
 				");
-            } else {
+            else:
                 $query = $this->db->query("
 					SELECT * 
 					FROM {$this->db->prefix}currency 
 					WHERE code != '" . $this->db->escape($this->config->get('config_currency')) . "' 
 					AND date_modified < '" . $this->db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . "'
 				");
-            }
+            endif;
             
-            foreach ($query->rows as $result) {
+            foreach ($query->rows as $result):
                 $data[] = $this->config->get('config_currency') . $result['code'] . '=X';
-            }
+            endforeach;
             
             $curl = curl_init();
             
@@ -175,11 +186,11 @@ class Currency extends Model {
             
             $lines = explode("\n", trim($content));
             
-            foreach ($lines as $line) {
+            foreach ($lines as $line):
                 $currency = $this->encode->substr($line, 4, 3);
                 $value = $this->encode->substr($line, 11, 6);
                 
-                if ((float)$value) {
+                if ((float)$value):
                     $this->db->query("
 						UPDATE {$this->db->prefix}currency 
 						SET 
@@ -187,8 +198,8 @@ class Currency extends Model {
 							date_modified = '" . $this->db->escape(date('Y-m-d H:i:s')) . "' 
 						WHERE code = '" . $this->db->escape($currency) . "'
 					");
-                }
-            }
+                endif;
+            endforeach;
             
             $this->db->query("
 				UPDATE {$this->db->prefix}currency 
@@ -199,7 +210,7 @@ class Currency extends Model {
 			");
             
             $this->cache->delete('currency');
-        }
+        endif;
     }
     
     public function getTotalCurrencies() {
