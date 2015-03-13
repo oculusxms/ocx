@@ -30,7 +30,11 @@ class Menu extends Controller {
             $data['paypalexpress_status']        = ($this->config->get('paypalexpress_status')) ? : false;
             $data['logged']                      = sprintf($this->language->get('lang_text_logged'), $this->user->getUsername());
             $data['dashboard']                   = $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL');
-            $data['affiliate']                   = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&filter_affiliate=1', 'SSL');
+            $data['allowed'] = false;
+            if ($this->config->get('config_affiliate_allowed')):
+                $data['affiliate'] = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&filter_affiliate=1', 'SSL');
+                $data['allowed']   = true;
+            endif;
             $data['attribute']                   = $this->url->link('catalog/attribute', 'token=' . $this->session->data['token'], 'SSL');
             $data['attribute_group']             = $this->url->link('catalog/attributegroup', 'token=' . $this->session->data['token'], 'SSL');
             $data['backup']                      = $this->url->link('tool/backup', 'token=' . $this->session->data['token'], 'SSL');

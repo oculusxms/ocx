@@ -82,7 +82,9 @@
 				</li>
 				<li class="dropdown" id="people"><a class="dropdown-toggle" data-toggle="dropdown"><?= $lang_text_people; ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
+						<?php if ($allowed): ?>
 						<li><a href="<?= $affiliate; ?>"><?= $lang_text_affiliate; ?></a></li>
+						<?php endif; ?>
 						<li class="dropdown-submenu"><a class="dropdown-toggle" data-toggle="dropdown"><?= $lang_text_customer; ?> <b class="fa fa-caret-right"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="<?= $customer; ?>"><?= $lang_text_customer; ?></a></li>
@@ -165,11 +167,13 @@
 								<li><a href="<?= $report_customer_credit; ?>"><?= $lang_text_report_customer_credit; ?></a></li>
 							</ul>
 						</li>
+						<?php if ($allowed): ?>
 						<li class="dropdown-submenu"><a class="dropdown-toggle" data-toggle="dropdown"><?= $lang_text_affiliate; ?> <b class="fa fa-caret-right"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="<?= $report_affiliate_commission; ?>"><?= $lang_text_report_affiliate_commission; ?></a></li>
 							</ul>
 						</li>
+						<?php endif; ?>
 					</ul>
 				</li>
 			</ul>
