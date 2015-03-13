@@ -59,21 +59,27 @@
 				<label class="control-label col-sm-2" for="customers"><?= $lang_entry_customer; ?></label>
 				<div class="control-field col-sm-4">
 					<p><input type="text" name="customers" value="" class="form-control" id="customers" class="form-control"></p>
-					<div id="customer" class="panel panel-default panel-scrollable"></div>
+					<div id="customer" class="panel panel-default panel-scrollable">
+						<div class="list-group"></div>
+					</div>
 				</div>
 			</div>
 			<div class="form-group to" id="to-affiliate">
 				<label class="control-label col-sm-2" for="affiliates"><?= $lang_entry_affiliate; ?></label>
 				<div class="control-field col-sm-4">
 					<p><input type="text" name="affiliates" value="" class="form-control" id="affiliates" class="form-control"></p>
-					<div id="affiliate" class="panel panel-default panel-scrollable"></div>
+					<div id="affiliate" class="panel panel-default panel-scrollable">
+						<div class="list-group"></div>
+					</div>
 				</div>
 			</div>
 			<div class="form-group to" id="to-product">
 				<label class="control-label col-sm-2" for="products"><?= $lang_entry_product; ?></label>
 				<div class="control-field col-sm-4">
 					<p><input type="text" name="products" value="" class="form-control" id="products" class="form-control"></p>
-					<div id="product" class="panel panel-default panel-scrollable"></div>
+					<div id="product" class="panel panel-default panel-scrollable">
+						<div class="list-group"></div>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">

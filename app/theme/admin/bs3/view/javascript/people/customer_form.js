@@ -59,7 +59,15 @@ function groupToggle(){
 		}
 	}
 }
+
 groupToggle();
+
+$('input[name="affiliate[payment_method]"]').change(function(){
+	$('.payment').hide();
+	$('#payment-' + this.value).show();
+});
+
+$('input[name="affiliate[payment_method]"]:checked').change();
 
 $(document).on('click', '#address-button', function (e) {
 	html = '<div class="tab-pane" id="tab-address-'+address_row+'">';

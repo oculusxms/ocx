@@ -341,7 +341,6 @@ class Zone extends Controller {
         
         $this->theme->model('setting/store');
         $this->theme->model('people/customer');
-        $this->theme->model('people/affiliate');
         $this->theme->model('localization/geozone');
         
         foreach ($this->request->post['selected'] as $zone_id) {
@@ -361,7 +360,7 @@ class Zone extends Controller {
                 $this->error['warning'] = sprintf($this->language->get('lang_error_address'), $address_total);
             }
             
-            $affiliate_total = $this->model_people_affiliate->getTotalAffiliatesByZoneId($zone_id);
+            $affiliate_total = $this->model_people_customer->getTotalAffiliatesByZoneId($zone_id);
             
             if ($affiliate_total) {
                 $this->error['warning'] = sprintf($this->language->get('lang_error_affiliate'), $affiliate_total);

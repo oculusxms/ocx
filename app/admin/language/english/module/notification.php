@@ -23,7 +23,6 @@ $_['lang_text_user']                = 'User';
 $_['lang_text_success']             = 'Success: You have modified notifications.';
 $_['lang_text_admin']               = 'Administrator';
 $_['lang_text_customer']            = 'Customer';
-$_['lang_text_affiliate']           = 'Affiliate';
 
 // Column
 $_['lang_column_name']              = 'Name';
@@ -49,4 +48,4 @@ $_['lang_error_text']               = 'Text version is required.';
 $_['lang_error_html']               = 'HTML version is required.';
 $_['lang_error_email_slug']         = 'A function slug is required for your notification.';
 $_['lang_error_system']             = 'System notifications cannot be deleted.';
-$_['lang_error_description'] 	   = 'If Opt-Out is set to true, you must enter a description for the end user.';
+$_['lang_error_description'] 	    = 'If Opt-Out is set to true, you must enter a description for the end user.';

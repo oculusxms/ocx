@@ -19,16 +19,29 @@ use Oculus\Engine\Model;
 
 class Affiliate extends Model {
     public function getCommission($data = array()) {
-        $sql = "SELECT at.affiliate_id, CONCAT(a.firstname, ' ', a.lastname) AS affiliate, a.email, a.status, SUM(at.amount) AS commission, COUNT(o.order_id) AS orders, SUM(o.total) AS total FROM {$this->db->prefix}affiliate_transaction at LEFT JOIN `{$this->db->prefix}affiliate` a ON (at.affiliate_id = a.affiliate_id) LEFT JOIN `{$this->db->prefix}order` o ON (at.order_id = o.order_id)";
+        $sql = "
+            SELECT 
+                cc.customer_id, 
+                CONCAT(c.firstname, ' ', c.lastname) AS affiliate, 
+                c.email, 
+                c.status, 
+                SUM(cc.amount) AS commission, 
+                COUNT(o.order_id) AS orders, 
+                SUM(o.total) AS total 
+            FROM {$this->db->prefix}customer_commission cc 
+            LEFT JOIN {$this->db->prefix}customer c 
+            ON (cc.customer_id = c.customer_id) 
+            LEFT JOIN `{$this->db->prefix}order` o 
+            ON (cc.order_id = o.order_id)";
         
         $implode = array();
         
         if (!empty($data['filter_date_start'])) {
-            $implode[] = "DATE(at.date_added) >= '" . $this->db->escape($data['filter_date_start']) . "'";
+            $implode[] = "DATE(cc.date_added) >= '" . $this->db->escape($data['filter_date_start']) . "'";
         }
         
         if (!empty($data['filter_date_end'])) {
-            $implode[] = "DATE(at.date_added) <= '" . $this->db->escape($data['filter_date_end']) . "'";
+            $implode[] = "DATE(cc.date_added) <= '" . $this->db->escape($data['filter_date_end']) . "'";
         }
         
         if ($implode) {
@@ -36,7 +49,7 @@ class Affiliate extends Model {
             $sql.= " WHERE {$imp}";
         }
         
-        $sql.= " GROUP BY at.affiliate_id ORDER BY commission DESC";
+        $sql.= " GROUP BY cc.customer_id ORDER BY commission DESC";
         
         if (isset($data['start']) || isset($data['limit'])) {
             if ($data['start'] < 0) {
@@ -56,88 +69,18 @@ class Affiliate extends Model {
     }
     
     public function getTotalCommission() {
-        $sql = "SELECT COUNT(DISTINCT affiliate_id) AS total FROM `{$this->db->prefix}affiliate_transaction`";
+        $sql = "
+            SELECT COUNT(DISTINCT customer_id) AS total 
+            FROM `{$this->db->prefix}customer_commission`";
         
         $implode = array();
         
         if (!empty($data['filter_date_start'])) {
-            $implode[] = "DATE(at.date_added) >= '" . $this->db->escape($data['filter_date_start']) . "'";
+            $implode[] = "DATE(date_added) >= '" . $this->db->escape($data['filter_date_start']) . "'";
         }
         
         if (!empty($data['filter_date_end'])) {
-            $implode[] = "DATE(at.date_added) <= '" . $this->db->escape($data['filter_date_end']) . "'";
-        }
-        
-        if ($implode) {
-            $imp = implode(" && ", $implode);
-            $sql.= " WHERE {$imp}";
-        }
-        
-        if (isset($data['start']) || isset($data['limit'])) {
-            if ($data['start'] < 0) {
-                $data['start'] = 0;
-            }
-            
-            if ($data['limit'] < 1) {
-                $data['limit'] = 20;
-            }
-            
-            $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-        }
-        
-        $query = $this->db->query($sql);
-        
-        return $query->row['total'];
-    }
-    
-    public function getProducts($data = array()) {
-        $sql = "SELECT at.product_id, CONCAT(a.firstname, ' ', a.lastname) AS affiliate, a.email, a.status, SUM(at.amount) AS commission, COUNT(o.order_id) AS orders, SUM(o.total) AS total FROM {$this->db->prefix}affiliate_transaction at LEFT JOIN `{$this->db->prefix}affiliate` a ON (at.affiliate_id = a.affiliate_id) LEFT JOIN `{$this->db->prefix}order` o ON (at.order_id = o.order_id) LEFT JOIN {$this->db->prefix}product";
-        
-        $implode = array();
-        
-        if (!empty($data['filter_date_start'])) {
-            $implode[] = "DATE(at.date_added) >= '" . $this->db->escape($data['filter_date_start']) . "'";
-        }
-        
-        if (!empty($data['filter_date_end'])) {
-            $implode[] = "DATE(at.date_added) <= '" . $this->db->escape($data['filter_date_end']) . "'";
-        }
-        
-        if ($implode) {
-            $imp = implode(" && ", $implode);
-            $sql.= " WHERE {$imp}";
-        }
-        
-        $sql.= " GROUP BY at.affiliate_id ORDER BY commission DESC";
-        
-        if (isset($data['start']) || isset($data['limit'])) {
-            if ($data['start'] < 0) {
-                $data['start'] = 0;
-            }
-            
-            if ($data['limit'] < 1) {
-                $data['limit'] = 20;
-            }
-            
-            $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-        }
-        
-        $query = $this->db->query($sql);
-        
-        return $query->rows;
-    }
-    
-    public function getTotalProducts() {
-        $sql = "SELECT COUNT(DISTINCT product_id) AS total FROM `{$this->db->prefix}affiliate_transaction`";
-        
-        $implode = array();
-        
-        if (!empty($data['filter_date_start'])) {
-            $implode[] = "DATE(at.date_added) >= '" . $this->db->escape($data['filter_date_start']) . "'";
-        }
-        
-        if (!empty($data['filter_date_end'])) {
-            $implode[] = "DATE(at.date_added) <= '" . $this->db->escape($data['filter_date_end']) . "'";
+            $implode[] = "DATE(date_added) <= '" . $this->db->escape($data['filter_date_end']) . "'";
         }
         
         if ($implode) {

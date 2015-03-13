@@ -30,7 +30,7 @@ class Menu extends Controller {
             $data['paypalexpress_status']        = ($this->config->get('paypalexpress_status')) ? : false;
             $data['logged']                      = sprintf($this->language->get('lang_text_logged'), $this->user->getUsername());
             $data['dashboard']                   = $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL');
-            $data['affiliate']                   = $this->url->link('people/affiliate', 'token=' . $this->session->data['token'], 'SSL');
+            $data['affiliate']                   = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&filter_affiliate=1', 'SSL');
             $data['attribute']                   = $this->url->link('catalog/attribute', 'token=' . $this->session->data['token'], 'SSL');
             $data['attribute_group']             = $this->url->link('catalog/attributegroup', 'token=' . $this->session->data['token'], 'SSL');
             $data['backup']                      = $this->url->link('tool/backup', 'token=' . $this->session->data['token'], 'SSL');
@@ -172,15 +172,7 @@ class Menu extends Controller {
             
             $data['alert_review'] = $this->url->link('catalog/review', 'token=' . $this->session->data['token'] . '&filter_status=0', 'SSL');
             
-            // Affliate
-            $this->theme->model('people/affiliate');
-            
-            $affiliate_total = $this->model_people_affiliate->getTotalAffiliates(array('filter_approved' => false));
-            
-            $data['affiliate_total'] = $affiliate_total;
-            $data['alert_affiliate_approval'] = $this->url->link('people/affiliate', 'token=' . $this->session->data['token'] . '&filter_approved=0', 'SSL');
-            
-            $data['alerts'] = $order_status_total + $customer_total + $product_total + $review_total + $return_total + $affiliate_total;
+            $data['alerts'] = $order_status_total + $customer_total + $product_total + $review_total + $return_total;
             
             // Online Stores
             $data['stores'] = array();

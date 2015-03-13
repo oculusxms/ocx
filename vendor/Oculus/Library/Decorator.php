@@ -48,6 +48,9 @@ class Decorator extends LibraryService {
 			'!store_send_email!',
 			'!store_admin_email!',
 			'!store_url!',
+			'!preference!',
+			'!unsubscribe!',
+			'!webversion!',
 			'!twitter!',
 			'!facebook!'
 		);
@@ -67,6 +70,9 @@ class Decorator extends LibraryService {
 			parent::$app['config_email'],
 			parent::$app['config_admin_email'],
 			trim(parent::$app['config_url'], '/'),
+			parent::$app['config_url'] . 'account/notification/preferences',
+			parent::$app['config_url'] . 'account/notification/unsubscribe',
+			parent::$app['config_url'] . 'account/notification/webversion',
 			'http://twitter.com/' . parent::$app['config_mail_twitter'],
 			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
@@ -86,6 +92,9 @@ class Decorator extends LibraryService {
 			parent::$app['config_email'],
 			parent::$app['config_admin_email'],
 			trim(parent::$app['config_url'], '/'),
+			parent::$app['config_url'] . 'account/notification/preferences',
+			parent::$app['config_url'] . 'account/notification/unsubscribe',
+			parent::$app['config_url'] . 'account/notification/webversion',
 			'http://twitter.com/' . parent::$app['config_mail_twitter'],
 			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
@@ -118,28 +127,69 @@ class Decorator extends LibraryService {
 
 	public function decorateAffiliateNotification($message, $affiliate) {
 		$search = array(
+			'!fname!',
+			'!lname!',
+			'!email!',
+			'!telephone!',
 			'!store_name!',
 			'!store_owner!',
 			'!store_address!',
 			'!store_phone!',
 			'!store_send_email!',
 			'!store_admin_email!',
-			'!store_url!'
+			'!store_url!',
+			'!preference!',
+			'!unsubscribe!',
+			'!webversion!',
+			'!twitter!',
+			'!facebook!'
 		);
 
 		$replace = array(
+			$affiliate['firstname'],
+			$affiliate['lastname'],
+			$affiliate['email'],
+			$affiliate['telephone'],
 			parent::$app['config_name'],
 			parent::$app['config_owner'],
 			parent::$app['config_address'],
 			parent::$app['config_telephone'],
 			parent::$app['config_email'],
 			parent::$app['config_admin_email'],
-			trim(parent::$app['config_url'], '/')
+			trim(parent::$app['config_url'], '/'),
+			parent::$app['config_url'] . 'affiliate/notification/preferences',
+			parent::$app['config_url'] . 'affiliate/notification/unsubscribe',
+			parent::$app['config_url'] . 'affiliate/notification/webversion',
+			'http://twitter.com/' . parent::$app['config_mail_twitter'],
+			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
+		);
+
+		$html_replace = array(
+			$affiliate['firstname'],
+			$affiliate['lastname'],
+			$affiliate['email'],
+			$affiliate['telephone'],
+			parent::$app['config_name'],
+			parent::$app['config_owner'],
+			nl2br(parent::$app['config_address']),
+			parent::$app['config_telephone'],
+			parent::$app['config_email'],
+			parent::$app['config_admin_email'],
+			trim(parent::$app['config_url'], '/'),
+			parent::$app['config_url'] . 'affiliate/notification/preferences',
+			parent::$app['config_url'] . 'affiliate/notification/unsubscribe',
+			parent::$app['config_url'] . 'affiliate/notification/webversion',
+			'http://twitter.com/' . parent::$app['config_mail_twitter'],
+			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
 
 		if (is_array($message)):
 			foreach($message as $key => $value):
-				$message[$key] = str_replace($search, $replace, $value);
+				if ($key == 'html'):
+					$message[$key] = str_replace($search, $html_replace, $value);
+				else:
+					$message[$key] = str_replace($search, $replace, $value);
+				endif;
 			endforeach;
 		else:
 			$message = str_replace($search, $replace, $message);

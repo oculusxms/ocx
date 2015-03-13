@@ -172,6 +172,22 @@ class Notification extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+    public function unsubscribe() {
+        if ($this->customer->isLogged()):
+            $this->response->redirect($this->url->link('account/notification/#tab-settings', '', 'SSL'));
+        endif;
+
+        $data = $this->theme->language('account/notification');
+    }
+
+    public function webversion() {
+
+    }
+
+    public function preferences() {
+
+    }
+
 	private function validate() {
 		// just return true as we have nothing to validate here
         return true;

@@ -36,7 +36,7 @@ class Account extends Controller {
         $data['download']     = ($this->config->get('config_download')) ? $this->url->link('account/download', '', 'SSL') : false;
         $data['reward']       = ($this->config->get('reward_status')) ? $this->url->link('account/reward', '', 'SSL') : false;
         $data['return']       = $this->url->link('account/returns', '', 'SSL');
-        $data['transaction']  = $this->url->link('account/transaction', '', 'SSL');
+        $data['credit']       = $this->url->link('account/credit', '', 'SSL');
         $data['newsletter']   = $this->url->link('account/newsletter', '', 'SSL');
         $data['recurring']    = $this->url->link('account/recurring', '', 'SSL');
         $data['notification'] = $this->url->link('account/notification', '', 'SSL');

@@ -1266,12 +1266,12 @@ class Order extends Controller {
                 $data['customer_group'] = '';
             }
             
-            $data['email'] = $order_info['email'];
-            $data['telephone'] = $order_info['telephone'];
-            $data['comment'] = nl2br($order_info['comment']);
+            $data['email']           = $order_info['email'];
+            $data['telephone']       = $order_info['telephone'];
+            $data['comment']         = nl2br($order_info['comment']);
             $data['shipping_method'] = $order_info['shipping_method'];
-            $data['payment_method'] = $order_info['payment_method'];
-            $data['total'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value']);
+            $data['payment_method']  = $order_info['payment_method'];
+            $data['total']           = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value']);
             
             if ($order_info['total'] < 0) {
                 $data['credit'] = $order_info['total'];
@@ -1281,26 +1281,20 @@ class Order extends Controller {
             
             $this->theme->model('people/customer');
             
-            $data['credit_total'] = $this->model_people_customer->getTotalTransactionsByOrderId($this->request->get['order_id']);
-            
-            $data['reward'] = $order_info['reward'];
-            
-            $data['reward_total'] = $this->model_people_customer->getTotalCustomerRewardsByOrderId($this->request->get['order_id']);
-            
+            $data['credit_total']        = $this->model_people_customer->getTotalCreditsByOrderId($this->request->get['order_id']);
+            $data['reward']              = $order_info['reward'];
+            $data['reward_total']        = $this->model_people_customer->getTotalCustomerRewardsByOrderId($this->request->get['order_id']);
             $data['affiliate_firstname'] = $order_info['affiliate_firstname'];
-            $data['affiliate_lastname'] = $order_info['affiliate_lastname'];
+            $data['affiliate_lastname']  = $order_info['affiliate_lastname'];
             
             if ($order_info['affiliate_id']) {
-                $data['affiliate'] = $this->url->link('people/affiliate/update', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $order_info['affiliate_id'], 'SSL');
+                $data['affiliate'] = $this->url->link('people/customer/update', 'token=' . $this->session->data['token'] . '&customer_id=' . $order_info['affiliate_id'], 'SSL');
             } else {
                 $data['affiliate'] = '';
             }
             
-            $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
-            
-            $this->theme->model('people/affiliate');
-            
-            $data['commission_total'] = $this->model_people_affiliate->getTotalTransactionsByOrderId($this->request->get['order_id']);
+            $data['commission']       = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+            $data['commission_total'] = $this->model_people_customer->getTotalCommissionsByOrderId($this->request->get['order_id']);
             
             $this->theme->model('localization/orderstatus');
             
@@ -1312,34 +1306,34 @@ class Order extends Controller {
                 $data['order_status'] = '';
             }
             
-            $data['ip'] = $order_info['ip'];
-            $data['forwarded_ip'] = $order_info['forwarded_ip'];
-            $data['user_agent'] = $order_info['user_agent'];
-            $data['accept_language'] = $order_info['accept_language'];
-            $data['date_added'] = date($this->language->get('lang_date_format_short'), strtotime($order_info['date_added']));
-            $data['date_modified'] = date($this->language->get('lang_date_format_short'), strtotime($order_info['date_modified']));
-            $data['payment_firstname'] = $order_info['payment_firstname'];
-            $data['payment_lastname'] = $order_info['payment_lastname'];
-            $data['payment_company'] = $order_info['payment_company'];
+            $data['ip']                 = $order_info['ip'];
+            $data['forwarded_ip']       = $order_info['forwarded_ip'];
+            $data['user_agent']         = $order_info['user_agent'];
+            $data['accept_language']    = $order_info['accept_language'];
+            $data['date_added']         = date($this->language->get('lang_date_format_short'), strtotime($order_info['date_added']));
+            $data['date_modified']      = date($this->language->get('lang_date_format_short'), strtotime($order_info['date_modified']));
+            $data['payment_firstname']  = $order_info['payment_firstname'];
+            $data['payment_lastname']   = $order_info['payment_lastname'];
+            $data['payment_company']    = $order_info['payment_company'];
             $data['payment_company_id'] = $order_info['payment_company_id'];
-            $data['payment_tax_id'] = $order_info['payment_tax_id'];
-            $data['payment_address_1'] = $order_info['payment_address_1'];
-            $data['payment_address_2'] = $order_info['payment_address_2'];
-            $data['payment_city'] = $order_info['payment_city'];
-            $data['payment_postcode'] = $order_info['payment_postcode'];
-            $data['payment_zone'] = $order_info['payment_zone'];
-            $data['payment_zone_code'] = $order_info['payment_zone_code'];
-            $data['payment_country'] = $order_info['payment_country'];
+            $data['payment_tax_id']     = $order_info['payment_tax_id'];
+            $data['payment_address_1']  = $order_info['payment_address_1'];
+            $data['payment_address_2']  = $order_info['payment_address_2'];
+            $data['payment_city']       = $order_info['payment_city'];
+            $data['payment_postcode']   = $order_info['payment_postcode'];
+            $data['payment_zone']       = $order_info['payment_zone'];
+            $data['payment_zone_code']  = $order_info['payment_zone_code'];
+            $data['payment_country']    = $order_info['payment_country'];
             $data['shipping_firstname'] = $order_info['shipping_firstname'];
-            $data['shipping_lastname'] = $order_info['shipping_lastname'];
-            $data['shipping_company'] = $order_info['shipping_company'];
+            $data['shipping_lastname']  = $order_info['shipping_lastname'];
+            $data['shipping_company']   = $order_info['shipping_company'];
             $data['shipping_address_1'] = $order_info['shipping_address_1'];
             $data['shipping_address_2'] = $order_info['shipping_address_2'];
-            $data['shipping_city'] = $order_info['shipping_city'];
-            $data['shipping_postcode'] = $order_info['shipping_postcode'];
-            $data['shipping_zone'] = $order_info['shipping_zone'];
+            $data['shipping_city']      = $order_info['shipping_city'];
+            $data['shipping_postcode']  = $order_info['shipping_postcode'];
+            $data['shipping_zone']      = $order_info['shipping_zone'];
             $data['shipping_zone_code'] = $order_info['shipping_zone_code'];
-            $data['shipping_country'] = $order_info['shipping_country'];
+            $data['shipping_country']   = $order_info['shipping_country'];
             
             $data['products'] = array();
             
@@ -1352,13 +1346,32 @@ class Order extends Controller {
                 
                 foreach ($options as $option) {
                     if ($option['type'] != 'file') {
-                        $option_data[] = array('name' => $option['name'], 'value' => $option['value'], 'type' => $option['type']);
+                        $option_data[] = array(
+                            'name'  => $option['name'], 
+                            'value' => $option['value'], 
+                            'type'  => $option['type']
+                        );
                     } else {
-                        $option_data[] = array('name' => $option['name'], 'value' => $this->encode->substr($option['value'], 0, $this->encode->strrpos($option['value'], '.')), 'type' => $option['type'], 'href' => $this->url->link('sale/order/download', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&order_option_id=' . $option['order_option_id'], 'SSL'));
+                        $option_data[] = array(
+                            'name'  => $option['name'], 
+                            'value' => $this->encode->substr($option['value'], 0, $this->encode->strrpos($option['value'], '.')), 
+                            'type'  => $option['type'], 
+                            'href'  => $this->url->link('sale/order/download', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&order_option_id=' . $option['order_option_id'], 'SSL')
+                        );
                     }
                 }
                 
-                $data['products'][] = array('order_product_id' => $product['order_product_id'], 'product_id' => $product['product_id'], 'name' => $product['name'], 'model' => $product['model'], 'option' => $option_data, 'quantity' => $product['quantity'], 'price' => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']), 'total' => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']), 'href' => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $product['product_id'], 'SSL'));
+                $data['products'][] = array(
+                    'order_product_id' => $product['order_product_id'], 
+                    'product_id'       => $product['product_id'], 
+                    'name'             => $product['name'], 
+                    'model'            => $product['model'], 
+                    'option'           => $option_data, 
+                    'quantity'         => $product['quantity'], 
+                    'price'            => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']), 
+                    'total'            => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']), 
+                    'href'             => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $product['product_id'], 'SSL')
+                );
             }
             
             $data['vouchers'] = array();
@@ -1366,7 +1379,11 @@ class Order extends Controller {
             $vouchers = $this->model_sale_order->getOrderVouchers($this->request->get['order_id']);
             
             foreach ($vouchers as $voucher) {
-                $data['vouchers'][] = array('description' => $voucher['description'], 'amount' => $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']), 'href' => $this->url->link('sale/voucher/update', 'token=' . $this->session->data['token'] . '&voucher_id=' . $voucher['voucher_id'], 'SSL'));
+                $data['vouchers'][] = array(
+                    'description' => $voucher['description'], 
+                    'amount'      => $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']), 
+                    'href'        => $this->url->link('sale/voucher/update', 'token=' . $this->session->data['token'] . '&voucher_id=' . $voucher['voucher_id'], 'SSL')
+                );
             }
             
             $data['totals'] = $this->model_sale_order->getOrderTotals($this->request->get['order_id']);
@@ -1377,12 +1394,15 @@ class Order extends Controller {
                 $results = $this->model_sale_order->getOrderDownloads($this->request->get['order_id'], $product['order_product_id']);
                 
                 foreach ($results as $result) {
-                    $data['downloads'][] = array('name' => $result['name'], 'filename' => $result['mask'], 'remaining' => $result['remaining']);
+                    $data['downloads'][] = array(
+                        'name'      => $result['name'], 
+                        'filename'  => $result['mask'], 
+                        'remaining' => $result['remaining']
+                    );
                 }
             }
             
-            $data['order_statuses'] = $this->model_localization_orderstatus->getOrderStatuses();
-            
+            $data['order_statuses']  = $this->model_localization_orderstatus->getOrderStatuses();
             $data['order_status_id'] = $order_info['order_status_id'];
             
             // Fraud
@@ -1582,12 +1602,12 @@ class Order extends Controller {
                     $data['ship_city_postal_match'] = '';
                 }
                 
-                $data['score'] = $fraud_info['score'];
-                $data['explanation'] = $fraud_info['explanation'];
-                $data['risk_score'] = $fraud_info['risk_score'];
+                $data['score']             = $fraud_info['score'];
+                $data['explanation']       = $fraud_info['explanation'];
+                $data['risk_score']        = $fraud_info['risk_score'];
                 $data['queries_remaining'] = $fraud_info['queries_remaining'];
-                $data['maxmind_id'] = $fraud_info['maxmind_id'];
-                $data['error'] = $fraud_info['error'];
+                $data['maxmind_id']        = $fraud_info['maxmind_id'];
+                $data['error']             = $fraud_info['error'];
             } else {
                 $data['maxmind_id'] = '';
             }
@@ -1655,10 +1675,10 @@ class Order extends Controller {
             if ($order_info && $order_info['customer_id']) {
                 $this->theme->model('people/customer');
                 
-                $credit_total = $this->model_people_customer->getTotalTransactionsByOrderId($this->request->get['order_id']);
+                $credit_total = $this->model_people_customer->getTotalCreditsByOrderId($this->request->get['order_id']);
                 
                 if (!$credit_total) {
-                    $this->model_people_customer->addTransaction($order_info['customer_id'], $this->language->get('lang_text_order_id') . ' #' . $this->request->get['order_id'], $order_info['total'], $this->request->get['order_id']);
+                    $this->model_people_customer->addCredit($order_info['customer_id'], $this->language->get('lang_text_order_id') . ' #' . $this->request->get['order_id'], $order_info['total'], $this->request->get['order_id']);
                     
                     $json['success'] = $this->language->get('lang_text_credit_added');
                 } else {
@@ -1687,7 +1707,7 @@ class Order extends Controller {
             if ($order_info && $order_info['customer_id']) {
                 $this->theme->model('people/customer');
                 
-                $this->model_people_customer->deleteTransaction($this->request->get['order_id']);
+                $this->model_people_customer->deleteCredit($this->request->get['order_id']);
                 
                 $json['success'] = $this->language->get('lang_text_credit_removed');
             } else {
@@ -1775,12 +1795,12 @@ class Order extends Controller {
             $order_info = $this->model_sale_order->getOrder($this->request->get['order_id']);
             
             if ($order_info && $order_info['affiliate_id']) {
-                $this->theme->model('people/affiliate');
+                $this->theme->model('people/customer');
                 
-                $affiliate_total = $this->model_people_affiliate->getTotalTransactionsByOrderId($this->request->get['order_id']);
+                $affiliate_total = $this->model_people_customer->getTotalCommissionsByOrderId($this->request->get['order_id']);
                 
                 if (!$affiliate_total) {
-                    $this->model_people_affiliate->addTransaction($order_info['affiliate_id'], $this->language->get('lang_text_order_id') . ' #' . $this->request->get['order_id'], $order_info['commission'], $this->request->get['order_id']);
+                    $this->model_people_customer->addCommission($order_info['affiliate_id'], $this->language->get('lang_text_order_id') . ' #' . $this->request->get['order_id'], $order_info['commission'], $this->request->get['order_id']);
                     
                     $json['success'] = $this->language->get('lang_text_commission_added');
                 } else {
@@ -1809,9 +1829,9 @@ class Order extends Controller {
             $order_info = $this->model_sale_order->getOrder($this->request->get['order_id']);
             
             if ($order_info && $order_info['affiliate_id']) {
-                $this->theme->model('people/affiliate');
+                $this->theme->model('people/customer');
                 
-                $this->model_people_affiliate->deleteTransaction($this->request->get['order_id']);
+                $this->model_people_customer->deleteCommission($this->request->get['order_id']);
                 
                 $json['success'] = $this->language->get('lang_text_commission_removed');
             } else {
@@ -1855,12 +1875,23 @@ class Order extends Controller {
         $results = $this->model_sale_order->getOrderHistories($this->request->get['order_id'], ($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['histories'][] = array('notify' => $result['notify'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no'), 'status' => $result['status'], 'comment' => nl2br($result['comment']), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
+            $data['histories'][] = array(
+                'notify'     => $result['notify'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no'), 
+                'status'     => $result['status'], 
+                'comment'    => nl2br($result['comment']), 
+                'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added']))
+            );
         }
         
         $history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get['order_id']);
         
-        $data['pagination'] = $this->theme->paginate($history_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('sale/order/history', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $history_total, 
+            $page, 
+            10, 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('sale/order/history', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&page={page}', 'SSL')
+        );
         
         $this->theme->loadjs('javascript/sale/order_history', $data);
         

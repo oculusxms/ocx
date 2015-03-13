@@ -36,81 +36,6 @@ CREATE TABLE IF NOT EXISTS `ocx_address` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_affiliate`
---
-
-DROP TABLE IF EXISTS `ocx_affiliate`;
-CREATE TABLE IF NOT EXISTS `ocx_affiliate` (
-  `affiliate_id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
-  `telephone` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `salt` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
-  `company` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `address_1` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `address_2` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `city` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `postcode` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `country_id` int(11) NOT NULL,
-  `zone_id` int(11) NOT NULL,
-  `code` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `commission` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `tax` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `payment` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
-  `check` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `paypal` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `bank_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `bank_branch_number` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `bank_swift_code` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `bank_account_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `bank_account_number` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `ip` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` tinyint(1) NOT NULL,
-  `approved` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`affiliate_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_affiliate_inbox`
---
-
-DROP TABLE IF EXISTS `ocx_affiliate_inbox`;
-CREATE TABLE IF NOT EXISTS `ocx_affiliate_inbox` (
-  `notification_id` int(13) NOT NULL AUTO_INCREMENT,
-  `affiliate_id` int(11) NOT NULL,
-  `subject` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `message` text COLLATE utf8_unicode_ci NOT NULL,
-  `is_read` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`notification_id`),
-  KEY `affiliate_id` (`affiliate_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_affiliate_transaction`
---
-
-DROP TABLE IF EXISTS `ocx_affiliate_transaction`;
-CREATE TABLE IF NOT EXISTS `ocx_affiliate_transaction` (
-  `affiliate_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `affiliate_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`affiliate_transaction_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `ocx_attribute`
 --
 
@@ -1240,6 +1165,20 @@ CREATE TABLE IF NOT EXISTS `ocx_customer` (
   `newsletter` tinyint(1) NOT NULL,
   `address_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
+  `is_affiliate` tinyint(1) NOT NULL DEFAULT '0',
+  `company` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `code` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `commission` decimal(4,2) NOT NULL DEFAULT '0.00',
+  `tax_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `payment_method` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `cheque` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `paypal` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_branch_number` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_swift_code` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account_number` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `ip` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL,
   `approved` tinyint(1) NOT NULL,
@@ -1260,6 +1199,40 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_ban_ip` (
   `ip` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`customer_ban_ip_id`),
   KEY `ip` (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_customer_commission`
+--
+
+DROP TABLE IF EXISTS `ocx_customer_commission`;
+CREATE TABLE IF NOT EXISTS `ocx_customer_commission` (
+  `customer_commission_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `amount` decimal(15,4) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_commission_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_customer_credit`
+--
+
+DROP TABLE IF EXISTS `ocx_customer_credit`;
+CREATE TABLE IF NOT EXISTS `ocx_customer_credit` (
+  `customer_credit_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `amount` decimal(15,4) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_credit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -1418,23 +1391,6 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_reward` (
   `points` int(8) NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`customer_reward_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_customer_transaction`
---
-
-DROP TABLE IF EXISTS `ocx_customer_transaction`;
-CREATE TABLE IF NOT EXISTS `ocx_customer_transaction` (
-  `customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_transaction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -3789,7 +3745,7 @@ INSERT INTO `ocx_setting` VALUES
 (10091, 0, 'config', 'config_stock_warning', '0', 0),
 (10092, 0, 'config', 'config_stock_checkout', '0', 0),
 (10093, 0, 'config', 'config_stock_status_id', '5', 0),
-(10094, 0, 'config', 'config_affiliate_id', '8', 0),
+(10094, 0, 'config', 'config_affiliate_terms', '8', 0),
 (10095, 0, 'config', 'config_commission', '10', 0),
 (10096, 0, 'config', 'config_return_id', '7', 0),
 (10097, 0, 'config', 'config_return_status_id', '2', 0),
@@ -3854,7 +3810,8 @@ INSERT INTO `ocx_setting` VALUES
 (10156, 0, 'config', 'config_top_customer', '1', 0),
 (10157, 0, 'config', 'config_mail_twitter', 'TwitterHandle', 0),
 (10158, 0, 'config', 'config_mail_facebook', 'FacebookPage', 0),
-(10159, 0, 'config', 'config_cache_status', '0', 0);
+(10159, 0, 'config', 'config_cache_status', '0', 0),
+(10160, 0, 'config', 'config_affiliate_allowed', '0', 0);
 
 -- --------------------------------------------------------
 

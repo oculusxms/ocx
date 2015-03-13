@@ -16,8 +16,6 @@
 
 namespace Front\Controller\Account;
 use Oculus\Engine\Controller;
-use Oculus\Library\Mail;
-use Oculus\Library\Template;
 
 class Forgotten extends Controller {
     private $error = array();
@@ -28,12 +26,10 @@ class Forgotten extends Controller {
         endif;
         
         $data = $this->theme->language('account/forgotten');
-        
         $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('account/customer');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()):
-            $data     = $this->theme->language('mail/forgotten', $data);
             $customer = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
             $password = substr(sha1(uniqid(mt_rand(), true)), 0, 10);
             

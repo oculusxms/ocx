@@ -26,7 +26,6 @@ use Oculus\Driver\Cache\Apc;
 use Oculus\Driver\Cache\Asset;
 use Oculus\Driver\Cache\File;
 use Oculus\Driver\Cache\Mem;
-use Oculus\Library\Affiliate;
 use Oculus\Library\Breadcrumb;
 use Oculus\Library\Cache;
 use Oculus\Library\Cart;
@@ -78,8 +77,8 @@ class Application {
          * to our IoC Request object.
          */
         $request = new Request($this->data);
-        $route = null;
-        $face = FRONT_FASCADE;
+        $route   = null;
+        $face    = FRONT_FASCADE;
         
         if (isset($request->get['_route_'])):
             $paths = explode('/', $request->get['_route_']);
@@ -217,12 +216,12 @@ class Application {
                 
                 if ($store_query->num_rows):
                     $configuration['config_store_id'] = $store_query->row['store_id'];
-                    $configuration['config_url'] = $store_query->row['url'];
-                    $configuration['config_ssl'] = $store_query->row['ssl'];
+                    $configuration['config_url']      = $store_query->row['url'];
+                    $configuration['config_ssl']      = $store_query->row['ssl'];
                 else:
                     $configuration['config_store_id'] = 0;
-                    $configuration['config_url'] = $configuration['http.server'];
-                    $configuration['config_ssl'] = $configuration['https.server'];
+                    $configuration['config_url']      = $configuration['http.server'];
+                    $configuration['config_ssl']      = $configuration['https.server'];
                 endif;
                 
                 $image_url = $configuration['https.server'] . 'image/';
@@ -236,12 +235,12 @@ class Application {
                 
                 if ($store_query->num_rows):
                     $configuration['config_store_id'] = $store_query->row['store_id'];
-                    $configuration['config_url'] = $store_query->row['url'];
-                    $configuration['config_ssl'] = $store_query->row['ssl'];
+                    $configuration['config_url']      = $store_query->row['url'];
+                    $configuration['config_ssl']      = $store_query->row['ssl'];
                 else:
                     $configuration['config_store_id'] = 0;
-                    $configuration['config_url'] = $configuration['http.server'];
-                    $configuration['config_ssl'] = $configuration['https.server'];
+                    $configuration['config_url']      = $configuration['http.server'];
+                    $configuration['config_ssl']      = $configuration['https.server'];
                 endif;
                 
                 $image_url = $configuration['http.server'] . 'image/';
@@ -250,8 +249,8 @@ class Application {
             define('IMAGE_URL', $image_url);
         else:
             $configuration['config_store_id'] = 0;
-            $configuration['config_url'] = $configuration['http.server'];
-            $configuration['config_ssl'] = $configuration['https.server'];
+            $configuration['config_url']      = $configuration['http.server'];
+            $configuration['config_ssl']      = $configuration['https.server'];
             
             define('IMAGE_URL', $configuration['config_url'] . 'image/');
         endif;
@@ -390,13 +389,13 @@ class Application {
         $session = new Session($this->data);
         $this->data['session'] = function ($data) use ($session) {
             switch ($data['active.fascade']):
-            case ADMIN_FASCADE:
-                $session->admin_session();
-                break;
+                case ADMIN_FASCADE:
+                    $session->admin_session();
+                    break;
 
-            case FRONT_FASCADE:
-                $session->front_session();
-                break;
+                case FRONT_FASCADE:
+                    $session->front_session();
+                    break;
             endswitch;
             
             return $session;
@@ -432,7 +431,6 @@ class Application {
                 foreach ($languages as $key => $value):
                     if ($value['status']):
                         $locale = explode(',', $value['locale']);
-                        
                         if (in_array($browser_language, $locale)):
                             $detect = $key;
                         endif;
@@ -550,11 +548,6 @@ class Application {
         // customer
         $this->data['customer'] = function ($data) {
             return new Customer($data);
-        };
-        
-        // affiliate
-        $this->data['affiliate'] = function ($data) {
-            return new Affiliate($data);
         };
         
         // tracking cookie --- this will change

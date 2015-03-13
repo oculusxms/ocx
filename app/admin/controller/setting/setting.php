@@ -98,6 +98,18 @@ class Setting extends Controller {
         } else {
             $data['error_voucher_min'] = '';
         }
+
+        if (isset($this->error['affiliate_terms'])) {
+            $data['error_affiliate_terms'] = $this->error['affiliate_terms'];
+        } else {
+            $data['error_affiliate_terms'] = '';
+        }
+
+        if (isset($this->error['commission'])) {
+            $data['error_commission'] = $this->error['commission'];
+        } else {
+            $data['error_commission'] = '';
+        }
         
         if (isset($this->error['voucher_max'])) {
             $data['error_voucher_max'] = $this->error['voucher_max'];
@@ -627,10 +639,16 @@ class Setting extends Controller {
         
         $data['stock_statuses'] = $this->model_localization_stockstatus->getStockStatuses();
         
-        if (isset($this->request->post['config_affiliate_id'])) {
-            $data['config_affiliate_id'] = $this->request->post['config_affiliate_id'];
+        if (isset($this->request->post['config_affiliate_allowed'])) {
+            $data['config_affiliate_allowed'] = $this->request->post['config_affiliate_allowed'];
         } else {
-            $data['config_affiliate_id'] = $this->config->get('config_affiliate_id');
+            $data['config_affiliate_allowed'] = $this->config->get('config_affiliate_allowed');
+        }
+
+        if (isset($this->request->post['config_affiliate_terms'])) {
+            $data['config_affiliate_terms'] = $this->request->post['config_affiliate_terms'];
+        } else {
+            $data['config_affiliate_terms'] = $this->config->get('config_affiliate_terms');
         }
         
         if (isset($this->request->post['config_commission'])) {
@@ -1103,6 +1121,18 @@ class Setting extends Controller {
         if (!$this->request->post['config_title']) {
             $this->error['title'] = $this->language->get('lang_error_title');
         }
+
+        // Affiliate settings
+        // If allowing affiliates, params for them must be supplied.
+        if ($this->request->post['config_affiliate_allowed']):
+            if (!$this->request->post['config_affiliate_terms']):
+                $this->error['affiliate_terms'] = $this->language->get('lang_error_affiliate_terms');
+            endif;
+
+            if ($this->encode->strlen($this->request->post['config_commission']) < 1):
+                $this->error['commission'] = $this->language->get('lang_error_affiliate_commission');
+            endif;
+        endif;
         
         if (!empty($this->request->post['config_customer_group_display']) && !in_array($this->request->post['config_customer_group_id'], $this->request->post['config_customer_group_display'])) {
             $this->error['customer_group_display'] = $this->language->get('lang_error_customer_group_display');

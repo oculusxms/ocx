@@ -24,7 +24,7 @@ class Notfound extends Controller {
         
         $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        if (isset($this->request->get['route'])) {
+        if (isset($this->request->get['route'])):
             $routes = $this->request->get;
             
             unset($routes['_route_']);
@@ -35,22 +35,23 @@ class Notfound extends Controller {
             
             $url = '';
             
-            if ($routes) {
+            if ($routes):
                 $url = '&' . urldecode(http_build_query($routes, '', '&'));
-            }
+            endif;
             
-            if (isset($this->request->server['https']) && (($this->request->server['https'] == 'on') || ($this->request->server['https'] == '1'))) {
+            if (isset($this->request->server['https']) && (($this->request->server['https'] == 'on') || ($this->request->server['https'] == '1'))):
                 $connection = 'ssl';
-            } else {
+            else:
                 $connection = 'nonssl';
-            }
+            endif;
             
-            $this->breadcrumb->add('lang_heading_title', $route, $url, true, $connection);
-        }
+            $this->breadcrumb->add('lang_breadcrumb_error', $route, $url, true, $connection);
+        endif;
         
         $this->response->addheader($this->request->server['SERVER_PROTOCOL'] . '/1.1 404 not found');
-        
-        $data['continue'] = $this->url->link('shop/home');
+
+        $data['heading_title'] = $this->language->get('lang_page_title');
+        $data['continue']      = $this->url->link('shop/home');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

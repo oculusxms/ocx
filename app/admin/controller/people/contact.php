@@ -83,8 +83,6 @@ class Contact extends Controller {
                 
                 $this->theme->model('people/customergroup');
                 
-                $this->theme->model('people/affiliate');
-                
                 $this->theme->model('sale/order');
                 
                 if (isset($this->request->get['page'])) {
@@ -149,9 +147,9 @@ class Contact extends Controller {
                     case 'affiliate_all':
                         $affiliate_data = array('start' => ($page - 1) * 10, 'limit' => 10);
                         
-                        $email_total = $this->model_people_affiliate->getTotalAffiliates($affiliate_data);
+                        $email_total = $this->model_people_customer->getTotalAffiliates($affiliate_data);
                         
-                        $results = $this->model_people_affiliate->getAffiliates($affiliate_data);
+                        $results = $this->model_people_customer->getAffiliates($affiliate_data);
                         
                         foreach ($results as $result) {
                             $emails[] = $result['email'];
@@ -161,7 +159,7 @@ class Contact extends Controller {
                     case 'affiliate':
                         if (!empty($this->request->post['affiliate'])) {
                             foreach ($this->request->post['affiliate'] as $affiliate_id) {
-                                $affiliate_info = $this->model_people_affiliate->getAffiliate($affiliate_id);
+                                $affiliate_info = $this->model_people_customer->getCustomer($affiliate_id);
                                 
                                 if ($affiliate_info) {
                                     $emails[] = $affiliate_info['email'];

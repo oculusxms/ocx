@@ -6,7 +6,7 @@
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
 		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
-		<?php if ($transactions) { ?>
+		<?php if ($credits) { ?>
 		<div class="alert alert-info"><?= $lang_text_total; ?> <b><?= $total; ?></b></div>
 		<table class="table table-striped">
 			<thead>
@@ -17,11 +17,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($transactions as $transaction) { ?>
+				<?php foreach ($credits as $credit) { ?>
 				<tr>
-					<td><?= $transaction['date_added']; ?></td>
-					<td><?= $transaction['description']; ?></td>
-					<td class="text-right"><?= $transaction['amount']; ?></td>
+					<td><?= $credit['date_added']; ?></td>
+					<td><?= $credit['description']; ?></td>
+					<td class="text-right"><?= $credit['amount']; ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

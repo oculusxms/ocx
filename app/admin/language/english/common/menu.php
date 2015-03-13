@@ -15,7 +15,7 @@
 */
 
 // Text
-$_['lang_text_affiliate']                   = 'Affiliates';
+$_['lang_text_affiliate']					= 'Affiliates';
 $_['lang_text_alerts']                      = 'Alerts';
 $_['lang_text_approval']                    = 'Waiting for approval';
 $_['lang_text_attribute']                   = 'Attributes';

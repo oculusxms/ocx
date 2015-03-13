@@ -330,7 +330,7 @@ class Customer extends LibraryService {
         
         $query = $db->query("
             SELECT SUM(amount) AS total 
-            FROM {$db->prefix}customer_transaction 
+            FROM {$db->prefix}customer_credit 
             WHERE customer_id = '" . (int)$this->customer_id . "'
         ");
         

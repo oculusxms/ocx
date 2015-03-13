@@ -36,7 +36,12 @@ class Credit extends Model {
                 }
                 
                 if ($credit > 0) {
-                    $total_data[] = array('code' => 'credit', 'title' => $this->language->get('lang_text_credit'), 'text' => $this->currency->format(-$credit), 'value' => - $credit, 'sort_order' => $this->config->get('credit_sort_order'));
+                    $total_data[] = array(
+                        'code'       => 'credit', 
+                        'title'      => $this->language->get('lang_text_credit'), 
+                        'text'       => $this->currency->format(-$credit), 
+                        'value'      => - $credit, 
+                        'sort_order' => $this->config->get('credit_sort_order'));
                     
                     $total-= $credit;
                 }
@@ -49,13 +54,13 @@ class Credit extends Model {
         
         if ($order_info['customer_id']) {
             $this->db->query("
-				INSERT INTO {$this->db->prefix}customer_transaction 
+				INSERT INTO {$this->db->prefix}customer_credit 
 				SET 
-					customer_id = '" . (int)$order_info['customer_id'] . "', 
-					order_id = '" . (int)$order_info['order_id'] . "', 
-					description = '" . $this->db->escape(sprintf($this->language->get('lang_text_order_id'), (int)$order_info['order_id'])) . "', 
-					amount = '" . (float)$order_total['value'] . "', 
-					date_added = NOW()
+                    customer_id = '" . (int)$order_info['customer_id'] . "', 
+                    order_id    = '" . (int)$order_info['order_id'] . "', 
+                    description = '" . $this->db->escape(sprintf($this->language->get('lang_text_order_id'), (int)$order_info['order_id'])) . "', 
+                    amount      = '" . (float)$order_total['value'] . "', 
+                    date_added  = NOW()
 			");
         }
     }

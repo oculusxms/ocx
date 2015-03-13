@@ -61,9 +61,9 @@
 						<i class="fa fa-3x fa-exchange"></i><br>
 						<?= $lang_icon_return; ?>
 					</a>
-					<a href="<?= $transaction; ?>" class="btn btn-transparent btn-primary btn-app">
+					<a href="<?= $credit; ?>" class="btn btn-transparent btn-primary btn-app">
 						<i class="fa fa-3x fa-money"></i><br>
-						<?= $lang_icon_transaction; ?>
+						<?= $lang_icon_credit; ?>
 					</a>
 					<a href="<?= $waitlist; ?>" class="btn btn-transparent btn-primary btn-app">
 						<i class="fa fa-3x fa-clock-o"></i><br>

@@ -59,14 +59,6 @@
 						<td><?= $lang_text_total_review_approval; ?></td>
 						<td class="text-right"><span class="h4"><?= $total_review_approval; ?></span></td>
 					</tr>
-					<tr>
-						<td><?= $lang_text_total_affiliate; ?></td>
-						<td class="text-right"><span class="h4"><?= $total_affiliate; ?></span></td>
-					</tr>
-					<tr>
-						<td><?= $lang_text_total_affiliate_approval; ?></td>
-						<td class="text-right"><span class="h4"><?= $total_affiliate_approval; ?></span></td>
-					</tr>
 				</table>
 			</div>
 		</div>

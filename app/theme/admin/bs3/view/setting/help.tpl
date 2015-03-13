@@ -399,14 +399,14 @@
 								<td>Admin\Model\People\Customer\addHistory</td>
 							</tr>
 							<tr>
-								<td>admin_add_customer_transaction</td>
+								<td>admin_add_customer_credit</td>
 								<td>(array)customer_id</td>
-								<td>Admin\Model\People\Customer\addTransaction</td>
+								<td>Admin\Model\People\Customer\addCredit</td>
 							</tr>
 							<tr>
-								<td>admin_delete_customer_transaction</td>
+								<td>admin_delete_customer_credit</td>
 								<td>(array)order_id</td>
-								<td>Admin\Model\People\Customer\deleteTransaction</td>
+								<td>Admin\Model\People\Customer\deleteCredit</td>
 							</tr>
 							<tr>
 								<td>admin_add_reward</td>

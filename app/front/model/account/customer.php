@@ -16,8 +16,6 @@
 
 namespace Front\Model\Account;
 use Oculus\Engine\Model;
-use Oculus\Library\Mail;
-use Oculus\Library\Template;
 
 class Customer extends Model {
     public function addCustomer($data) {
@@ -34,19 +32,28 @@ class Customer extends Model {
         $this->db->query("
 			INSERT INTO {$this->db->prefix}customer 
 			SET 
-				store_id = '" . (int)$this->config->get('config_store_id') . "', 
-				username = '" . $this->db->escape($data['username']) . "', 
-				email = '" . $this->db->escape($data['email']) . "', 
-				salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
-				password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
-				customer_group_id = '" . (int)$customer_group_id . "', 
-				ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', 
-				status = '1', 
-				approved = '" . (int)!$customer_group_info['approval'] . "', 
-				date_added = NOW()
+                store_id          = '" . (int)$this->config->get('config_store_id') . "', 
+                username          = '" . $this->db->escape($data['username']) . "', 
+                email             = '" . $this->db->escape($data['email']) . "', 
+                salt              = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
+                password          = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
+                customer_group_id = '" . (int)$customer_group_id . "', 
+                ip                = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', 
+                status            = '1', 
+                approved          = '" . (int)!$customer_group_info['approval'] . "', 
+                date_added        = NOW()
 		");
         
         $customer_id = $this->db->getLastId();
+
+        // add customer to customer_ips table for each new account
+        $this->db->query("
+            INSERT INTO {$this->db->prefix}customer_ip 
+            SET 
+                customer_id = '" . (int)$customer_id . "', 
+                ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', 
+                date_added = NOW()
+        ");
         
         $this->db->query("
 			INSERT INTO {$this->db->prefix}address 
@@ -61,6 +68,30 @@ class Customer extends Model {
 			SET address_id = '" . (int)$address_id . "' 
 			WHERE customer_id = '" . (int)$customer_id . "'
 		");
+
+        /**
+         * Add default notification settings
+         */
+        $this->theme->model('account/notification');
+        $emails = $this->model_account_notification->getConfigurableNotifications();
+
+        $notify = array();
+
+        foreach ($emails as $email):
+            $notify[$email['email_id']] = array(
+                'email'    => 1,
+                'internal' => 1
+            );
+        endforeach;
+
+        $notify = serialize($notify);
+
+        $this->db->query("
+            INSERT INTO {$this->db->prefix}customer_notification 
+            SET 
+                customer_id = '" . (int)$customer_id . "', 
+                settings    = '" . $this->db->escape($notify) . "'
+        ");
         
         $lang = $this->language->load('mail/customer');
 
@@ -168,10 +199,10 @@ class Customer extends Model {
         $this->db->query("
 			UPDATE {$this->db->prefix}customer 
 			SET 
-				firstname = '" . $this->db->escape($data['firstname']) . "', 
-				lastname = '" . $this->db->escape($data['lastname']) . "', 
-				email = '" . $this->db->escape($data['email']) . "', 
-				telephone = '" . $this->db->escape($data['telephone']) . "' 
+                firstname = '" . $this->db->escape($data['firstname']) . "', 
+                lastname  = '" . $this->db->escape($data['lastname']) . "', 
+                email     = '" . $this->db->escape($data['email']) . "', 
+                telephone = '" . $this->db->escape($data['telephone']) . "' 
 			WHERE customer_id = '" . (int)$this->customer->getId() . "'
 		");
         
@@ -182,8 +213,8 @@ class Customer extends Model {
         $this->db->query("
 			UPDATE {$this->db->prefix}customer 
 			SET 
-				salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
-				password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "' 
+                salt     = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
+                password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "' 
 			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
 		");
         

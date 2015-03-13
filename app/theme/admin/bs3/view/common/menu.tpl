@@ -226,13 +226,6 @@
 								<?= $lang_text_review_approve; ?> <span class="label label-danger pull-right"><?= $review_total; ?></span>
 							</a>
 						</li>
-						<li class="divider visible-md visible-lg"></li>
-						<li class="dropdown-header visible-md visible-lg"><?= $lang_text_affiliate; ?></li>
-							<li>
-							<a href="<?= $alert_affiliate_approval; ?>">
-								<?= $lang_text_approval; ?> <span class="label label-danger pull-right"><?= $affiliate_total; ?></span>
-							</a>
-						</li>
 					</ul>
 				</li>
 				<li class="dropdown" id="help">

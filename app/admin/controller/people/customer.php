@@ -60,6 +60,10 @@ class Customer extends Controller {
             if (isset($this->request->get['filter_status'])) {
                 $url.= '&filter_status=' . $this->request->get['filter_status'];
             }
+
+            if (isset($this->request->get['filter_affiliate'])) {
+                $url.= '&filter_affiliate=' . $this->request->get['filter_affiliate'];
+            }
             
             if (isset($this->request->get['sort'])) {
                 $url.= '&sort=' . $this->request->get['sort'];
@@ -110,6 +114,10 @@ class Customer extends Controller {
             
             if (isset($this->request->get['filter_status'])) {
                 $url.= '&filter_status=' . $this->request->get['filter_status'];
+            }
+
+            if (isset($this->request->get['filter_affiliate'])) {
+                $url.= '&filter_affiliate=' . $this->request->get['filter_affiliate'];
             }
             
             if (isset($this->request->get['sort'])) {
@@ -164,6 +172,10 @@ class Customer extends Controller {
             
             if (isset($this->request->get['filter_status'])) {
                 $url.= '&filter_status=' . $this->request->get['filter_status'];
+            }
+
+            if (isset($this->request->get['filter_affiliate'])) {
+                $url.= '&filter_affiliate=' . $this->request->get['filter_affiliate'];
             }
             
             if (isset($this->request->get['sort'])) {
@@ -231,6 +243,10 @@ class Customer extends Controller {
             if (isset($this->request->get['filter_status'])) {
                 $url.= '&filter_status=' . $this->request->get['filter_status'];
             }
+
+            if (isset($this->request->get['filter_affiliate'])) {
+                $url.= '&filter_affiliate=' . $this->request->get['filter_affiliate'];
+            }
             
             if (isset($this->request->get['sort'])) {
                 $url.= '&sort=' . $this->request->get['sort'];
@@ -284,6 +300,12 @@ class Customer extends Controller {
         } else {
             $filter_status = null;
         }
+
+        if (isset($this->request->get['filter_affiliate'])) {
+            $filter_affiliate = $this->request->get['filter_affiliate'];
+        } else {
+            $filter_affiliate = null;
+        }
         
         if (isset($this->request->get['sort'])) {
             $sort = $this->request->get['sort'];
@@ -324,6 +346,10 @@ class Customer extends Controller {
         if (isset($this->request->get['filter_status'])) {
             $url.= '&filter_status=' . $this->request->get['filter_status'];
         }
+
+        if (isset($this->request->get['filter_affiliate'])) {
+            $url.= '&filter_affiliate=' . $this->request->get['filter_affiliate'];
+        }
         
         if (isset($this->request->get['sort'])) {
             $url.= '&sort=' . $this->request->get['sort'];
@@ -340,23 +366,48 @@ class Customer extends Controller {
         $this->breadcrumb->add('lang_heading_title', 'people/customer', $url);
         
         $data['approve'] = $this->url->link('people/customer/approve', 'token=' . $this->session->data['token'] . $url, 'SSL');
-        $data['insert'] = $this->url->link('people/customer/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-        $data['delete'] = $this->url->link('people/customer/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
+        $data['insert']  = $this->url->link('people/customer/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
+        $data['delete']  = $this->url->link('people/customer/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
         
         $data['customers'] = array();
         
-        $filter = array('filter_username' => $filter_username, 'filter_name' => $filter_name, 'filter_email' => $filter_email, 'filter_customer_group_id' => $filter_customer_group_id, 'filter_status' => $filter_status, 'sort' => $sort, 'order' => $order, 'start' => ($page - 1) * $this->config->get('config_admin_limit'), 'limit' => $this->config->get('config_admin_limit'));
+        $filter = array(
+            'filter_username'          => $filter_username, 
+            'filter_name'              => $filter_name, 
+            'filter_email'             => $filter_email, 
+            'filter_customer_group_id' => $filter_customer_group_id, 
+            'filter_status'            => $filter_status, 
+            'filter_affiliate'         => $filter_affiliate,
+            'sort'                     => $sort, 
+            'order'                    => $order, 
+            'start'                    => ($page - 1) * $this->config->get('config_admin_limit'), 
+            'limit'                    => $this->config->get('config_admin_limit')
+        );
         
         $customer_total = $this->model_people_customer->getTotalCustomers($filter);
-        
-        $results = $this->model_people_customer->getCustomers($filter);
+        $results        = $this->model_people_customer->getCustomers($filter);
         
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('people/customer/update', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'] . $url, 'SSL'));
+            $action[] = array(
+                'text' => $this->language->get('lang_text_edit'), 
+                'href' => $this->url->link('people/customer/update', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'] . $url, 'SSL')
+            );
             
-            $data['customers'][] = array('customer_id' => $result['customer_id'], 'username' => $result['username'], 'name' => $result['name'], 'email' => $result['email'], 'customer_group' => $result['customer_group'], 'status' => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 'approved' => ($result['approved'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no')), 'ip' => $result['ip'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['customer_id'], $this->request->post['selected']), 'action' => $action);
+            $data['customers'][] = array(
+                'customer_id'    => $result['customer_id'], 
+                'username'       => $result['username'], 
+                'name'           => $result['name'], 
+                'email'          => $result['email'], 
+                'customer_group' => $result['customer_group'], 
+                'status'         => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 
+                'approved'       => ($result['approved'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no')), 
+                'ip'             => $result['ip'], 
+                'date_added'     => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 
+                'selected'       => isset($this->request->post['selected']) && in_array($result['customer_id'], $this->request->post['selected']), 
+                'action'         => $action
+            );
         }
         
         $data['token'] = $this->session->data['token'];
@@ -396,6 +447,10 @@ class Customer extends Controller {
         if (isset($this->request->get['filter_status'])) {
             $url.= '&filter_status=' . $this->request->get['filter_status'];
         }
+
+        if (isset($this->request->get['filter_affiliate'])) {
+            $url.= '&filter_affiliate=' . $this->request->get['filter_affiliate'];
+        }
         
         if ($order == 'ASC') {
             $url.= '&order=DESC';
@@ -407,11 +462,11 @@ class Customer extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $data['sort_username'] = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=username' . $url, 'SSL');
-        $data['sort_name'] = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=name' . $url, 'SSL');
-        $data['sort_email'] = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=c.email' . $url, 'SSL');
+        $data['sort_username']       = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=username' . $url, 'SSL');
+        $data['sort_name']           = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=name' . $url, 'SSL');
+        $data['sort_email']          = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=c.email' . $url, 'SSL');
         $data['sort_customer_group'] = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=customer_group' . $url, 'SSL');
-        $data['sort_status'] = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=c.status' . $url, 'SSL');
+        $data['sort_status']         = $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&sort=c.status' . $url, 'SSL');
         
         $url = '';
         
@@ -434,6 +489,10 @@ class Customer extends Controller {
         if (isset($this->request->get['filter_status'])) {
             $url.= '&filter_status=' . $this->request->get['filter_status'];
         }
+
+        if (isset($this->request->get['filter_affiliate'])) {
+            $url.= '&filter_affiliate=' . $this->request->get['filter_affiliate'];
+        }
         
         if (isset($this->request->get['sort'])) {
             $url.= '&sort=' . $this->request->get['sort'];
@@ -443,13 +502,20 @@ class Customer extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($customer_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('people/customer', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $customer_total, 
+            $page, 
+            $this->config->get('config_admin_limit'), 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('people/customer', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL')
+        );
         
-        $data['filter_username'] = $filter_username;
-        $data['filter_name'] = $filter_name;
-        $data['filter_email'] = $filter_email;
+        $data['filter_username']          = $filter_username;
+        $data['filter_name']              = $filter_name;
+        $data['filter_email']             = $filter_email;
         $data['filter_customer_group_id'] = $filter_customer_group_id;
-        $data['filter_status'] = $filter_status;
+        $data['filter_status']            = $filter_status;
+        $data['filter_affiliate']         = $filter_affiliate;
         
         $this->theme->model('people/customergroup');
         
@@ -459,8 +525,8 @@ class Customer extends Controller {
         
         $data['stores'] = $this->model_setting_store->getStores();
         
-        $data['sort'] = $sort;
-        $data['order'] = $order;
+        $data['sort']   = $sort;
+        $data['order']  = $order;
         
         $this->theme->loadjs('javascript/people/customer_list', $data);
         
@@ -577,6 +643,12 @@ class Customer extends Controller {
         } else {
             $data['error_address_zone'] = '';
         }
+
+        if (isset($this->error['code'])) {
+            $data['error_code'] = $this->error['code'];
+        } else {
+            $data['error_code'] = '';
+        }
         
         $url = '';
         
@@ -598,6 +670,10 @@ class Customer extends Controller {
         
         if (isset($this->request->get['filter_status'])) {
             $url.= '&filter_status=' . $this->request->get['filter_status'];
+        }
+
+        if (isset($this->request->get['filter_affiliate'])) {
+            $url.= '&filter_affiliate=' . $this->request->get['filter_affiliate'];
         }
         
         if (isset($this->request->get['sort'])) {
@@ -686,6 +762,24 @@ class Customer extends Controller {
             $data['customer_group_id'] = $this->config->get('config_customer_group_id');
         }
         
+        /**
+         * Adding in affiliate params
+         */
+        
+        $data['is_affiliate'] = false;
+            
+        if (!empty($customer_info)):
+            $data['is_affiliate'] = $customer_info['is_affiliate'];
+        endif;
+
+        if (isset($this->request->post['affiliate'])):
+            $data['affiliate'] = $this->request->post['affiliate'];
+        elseif (isset($this->request->get['customer_id'])):
+            $data['affiliate'] = $this->model_people_customer->getAffiliateDetails($this->request->get['customer_id']);
+        else:
+            $data['affiliate'] = array();
+        endif;
+
         if (isset($this->request->post['status'])) {
             $data['status'] = $this->request->post['status'];
         } elseif (!empty($customer_info)) {
@@ -734,7 +828,13 @@ class Customer extends Controller {
             foreach ($results as $result) {
                 $ban_ip_total = $this->model_people_customer->getTotalBanIpsByIp($result['ip']);
                 
-                $data['ips'][] = array('ip' => $result['ip'], 'total' => $this->model_people_customer->getTotalCustomersByIp($result['ip']), 'date_added' => date('d/m/y', strtotime($result['date_added'])), 'filter_ip' => $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&filter_ip=' . $result['ip'], 'SSL'), 'ban_ip' => $ban_ip_total);
+                $data['ips'][] = array(
+                    'ip'         => $result['ip'], 
+                    'total'      => $this->model_people_customer->getTotalCustomersByIp($result['ip']), 
+                    'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 
+                    'filter_ip'  => $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&filter_ip=' . $result['ip'], 'SSL'), 
+                    'ban_ip'     => $ban_ip_total
+                );
             }
         }
         
@@ -837,6 +937,11 @@ class Customer extends Controller {
                 }
             }
         }
+
+        // check affiliate goodies
+        if (isset($this->request->post['affiliate'])):
+
+        endif;
         
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('lang_error_warning');
@@ -935,27 +1040,36 @@ class Customer extends Controller {
         $results = $this->model_people_customer->getHistories($this->request->get['customer_id'], ($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['histories'][] = array('comment' => $result['comment'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
+            $data['histories'][] = array(
+                'comment'    => $result['comment'], 
+                'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added']))
+            );
         }
         
-        $transaction_total = $this->model_people_customer->getTotalHistories($this->request->get['customer_id']);
+        $history_total = $this->model_people_customer->getTotalHistories($this->request->get['customer_id']);
         
-        $data['pagination'] = $this->theme->paginate($transaction_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('people/customer/history', 'token=' . $this->session->data['token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $history_total, 
+            $page, 
+            10, 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('people/customer/history', 'token=' . $this->session->data['token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', 'SSL')
+        );
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
         $this->response->setOutput($this->theme->view('people/customer_history', $data));
     }
     
-    public function transaction() {
+    public function credit() {
         $data = $this->theme->language('people/customer');
         
         $this->theme->model('people/customer');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->user->hasPermission('modify', 'people/customer')) {
-            $this->model_people_customer->addTransaction($this->request->get['customer_id'], $this->request->post['description'], $this->request->post['amount']);
+            $this->model_people_customer->addCredit($this->request->get['customer_id'], $this->request->post['description'], $this->request->post['amount']);
             
-            $data['success'] = $this->language->get('lang_text_success');
+            $data['success'] = $this->language->get('lang_text_credit_success');
         } else {
             $data['success'] = '';
         }
@@ -972,27 +1086,95 @@ class Customer extends Controller {
             $page = 1;
         }
         
-        $data['transactions'] = array();
+        $data['credits'] = array();
         
-        $results = $this->model_people_customer->getTransactions($this->request->get['customer_id'], ($page - 1) * 10, 10);
+        $results = $this->model_people_customer->getCredits($this->request->get['customer_id'], ($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['transactions'][] = array('amount' => $this->currency->format($result['amount'], $this->config->get('config_currency')), 'description' => $result['description'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
+            $data['credits'][] = array(
+                'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')), 
+                'description' => $result['description'], 
+                'date_added'  => date($this->language->get('lang_date_format_short'), strtotime($result['date_added']))
+            );
         }
         
-        $data['balance'] = $this->currency->format($this->model_people_customer->getTransactionTotal($this->request->get['customer_id']), $this->config->get('config_currency'));
+        $data['balance'] = $this->currency->format($this->model_people_customer->getCreditTotal($this->request->get['customer_id']), $this->config->get('config_currency'));
         
-        $transaction_total = $this->model_people_customer->getTotalTransactions($this->request->get['customer_id']);
+        $credit_total = $this->model_people_customer->getTotalCredits($this->request->get['customer_id']);
         
-        $data['pagination'] = $this->theme->paginate($transaction_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('people/customer/transaction', 'token=' . $this->session->data['token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $credit_total, 
+            $page, 
+            10, 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('people/customer/credit', 'token=' . $this->session->data['token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', 'SSL')
+        );
         
-        $this->theme->loadjs('javascript/people/customer_transaction', $data);
+        $this->theme->loadjs('javascript/people/customer_alert', $data);
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
         $data['javascript'] = $this->theme->controller('common/javascript');
         
-        $this->response->setOutput($this->theme->view('people/customer_transaction', $data));
+        $this->response->setOutput($this->theme->view('people/customer_credit', $data));
+    }
+
+    public function commission() {
+        $data = $this->theme->language('people/customer');
+        
+        $this->theme->model('people/customer');
+        
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->user->hasPermission('modify', 'people/customer')) {
+            $this->model_people_customer->addCommission($this->request->get['customer_id'], $this->request->post['description'], $this->request->post['amount']);
+            
+            $data['success'] = $this->language->get('lang_text_commission_success');
+        } else {
+            $data['success'] = '';
+        }
+        
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && !$this->user->hasPermission('modify', 'people/customer')) {
+            $data['error_warning'] = $this->language->get('lang_error_permission');
+        } else {
+            $data['error_warning'] = '';
+        }
+        
+        if (isset($this->request->get['page'])) {
+            $page = $this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+        
+        $data['commissions'] = array();
+        
+        $results = $this->model_people_customer->getCommissions($this->request->get['customer_id'], ($page - 1) * 10, 10);
+        
+        foreach ($results as $result) {
+            $data['commissions'][] = array(
+                'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')), 
+                'description' => $result['description'], 
+                'date_added'  => date($this->language->get('lang_date_format_short'), strtotime($result['date_added']))
+            );
+        }
+        
+        $data['balance'] = $this->currency->format($this->model_people_customer->getCommissionTotal($this->request->get['customer_id']), $this->config->get('config_currency'));
+        
+        $commission_total = $this->model_people_customer->getTotalCommissions($this->request->get['customer_id']);
+        
+        $data['pagination'] = $this->theme->paginate(
+            $commission_total, 
+            $page, 
+            $this->config->get('config_admin_limit'), 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('people/customer/commission', 'token=' . $this->session->data['token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', 'SSL')
+        );
+        
+        $this->theme->loadjs('javascript/people/customer_alert', $data);
+        
+        $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
+        
+        $data['javascript'] = $this->theme->controller('common/javascript');
+        
+        $this->response->setOutput($this->theme->view('people/customer_commission', $data));
     }
     
     public function reward() {
@@ -1003,7 +1185,7 @@ class Customer extends Controller {
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->user->hasPermission('modify', 'people/customer')) {
             $this->model_people_customer->addReward($this->request->get['customer_id'], $this->request->post['description'], $this->request->post['points']);
             
-            $data['success'] = $this->language->get('lang_text_success');
+            $data['success'] = $this->language->get('lang_text_reward_success');
         } else {
             $data['success'] = '';
         }
@@ -1025,16 +1207,26 @@ class Customer extends Controller {
         $results = $this->model_people_customer->getRewards($this->request->get['customer_id'], ($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['rewards'][] = array('points' => $result['points'], 'description' => $result['description'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])));
+            $data['rewards'][] = array(
+                'points'      => $result['points'], 
+                'description' => $result['description'], 
+                'date_added'  => date($this->language->get('lang_date_format_short'), strtotime($result['date_added']))
+            );
         }
         
         $data['balance'] = $this->model_people_customer->getRewardTotal($this->request->get['customer_id']);
         
         $reward_total = $this->model_people_customer->getTotalRewards($this->request->get['customer_id']);
         
-        $data['pagination'] = $this->theme->paginate($reward_total, $page, 10, $this->language->get('lang_text_pagination'), $this->url->link('people/customer/reward', 'token=' . $this->session->data['token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $reward_total, 
+            $page, 
+            10, 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('people/customer/reward', 'token=' . $this->session->data['token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', 'SSL')
+        );
         
-        $this->theme->loadjs('javascript/people/customer_reward', $data);
+        $this->theme->loadjs('javascript/people/customer_alert', $data);
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -1094,15 +1286,32 @@ class Customer extends Controller {
             $this->theme->model('people/customer');
             
             $filter_username = (isset($this->request->get['filter_username'])) ? $this->request->get['filter_username'] : null;
-            $filter_name = (isset($this->request->get['filter_name'])) ? $this->request->get['filter_name'] : null;
-            $filter_email = (isset($this->request->get['filter_email'])) ? $this->request->get['filter_email'] : null;
+            $filter_name     = (isset($this->request->get['filter_name'])) ? $this->request->get['filter_name'] : null;
+            $filter_email    = (isset($this->request->get['filter_email'])) ? $this->request->get['filter_email'] : null;
             
-            $filter = array('filter_username' => $filter_username, 'filter_name' => $filter_name, 'filter_email' => $filter_email, 'start' => 0, 'limit' => 20);
+            $filter = array(
+                'filter_username' => $filter_username, 
+                'filter_name'     => $filter_name, 
+                'filter_email'    => $filter_email, 
+                'start'           => 0, 
+                'limit'           => 20
+            );
             
             $results = $this->model_people_customer->getCustomers($filter);
             
             foreach ($results as $result) {
-                $json[] = array('customer_id' => $result['customer_id'], 'customer_group_id' => $result['customer_group_id'], 'username' => $result['username'], 'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')), 'customer_group' => $result['customer_group'], 'firstname' => $result['firstname'], 'lastname' => $result['lastname'], 'email' => $result['email'], 'telephone' => $result['telephone'], 'address' => $this->model_people_customer->getAddresses($result['customer_id']));
+                $json[] = array(
+                    'customer_id'       => $result['customer_id'], 
+                    'customer_group_id' => $result['customer_group_id'], 
+                    'username'          => $result['username'], 
+                    'name'              => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')), 
+                    'customer_group'    => $result['customer_group'], 
+                    'firstname'         => $result['firstname'], 
+                    'lastname'          => $result['lastname'], 
+                    'email'             => $result['email'], 
+                    'telephone'         => $result['telephone'], 
+                    'address'           => $this->model_people_customer->getAddresses($result['customer_id'])
+                );
             }
         }
         
@@ -1129,7 +1338,16 @@ class Customer extends Controller {
         if ($country_info) {
             $this->theme->model('localization/zone');
             
-            $json = array('country_id' => $country_info['country_id'], 'name' => $country_info['name'], 'iso_code_2' => $country_info['iso_code_2'], 'iso_code_3' => $country_info['iso_code_3'], 'address_format' => $country_info['address_format'], 'postcode_required' => $country_info['postcode_required'], 'zone' => $this->model_localization_zone->getZonesByCountryId($this->request->get['country_id']), 'status' => $country_info['status']);
+            $json = array(
+                'country_id'        => $country_info['country_id'], 
+                'name'              => $country_info['name'], 
+                'iso_code_2'        => $country_info['iso_code_2'], 
+                'iso_code_3'        => $country_info['iso_code_3'], 
+                'address_format'    => $country_info['address_format'], 
+                'postcode_required' => $country_info['postcode_required'], 
+                'zone'              => $this->model_localization_zone->getZonesByCountryId($this->request->get['country_id']), 
+                'status'            => $country_info['status']
+            );
         }
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);

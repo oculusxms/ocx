@@ -363,7 +363,6 @@ class Country extends Controller {
         
         $this->theme->model('setting/store');
         $this->theme->model('people/customer');
-        $this->theme->model('people/affiliate');
         $this->theme->model('localization/zone');
         $this->theme->model('localization/geozone');
         
@@ -384,7 +383,7 @@ class Country extends Controller {
                 $this->error['warning'] = sprintf($this->language->get('lang_error_address'), $address_total);
             }
             
-            $affiliate_total = $this->model_people_affiliate->getTotalAffiliatesByCountryId($country_id);
+            $affiliate_total = $this->model_people_customer->getTotalAffiliatesByCountryId($country_id);
             
             if ($affiliate_total) {
                 $this->error['warning'] = sprintf($this->language->get('lang_error_affiliate'), $affiliate_total);

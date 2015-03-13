@@ -2,22 +2,22 @@
 	<thead>
 		<tr>
 			<th><?= $lang_column_date_added; ?></th>
-			<th class="col-sm-10"><?= $lang_column_description; ?></th>
+			<th><?= $lang_column_description; ?></th>
 			<th class="text-right"><?= $lang_column_amount; ?></th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php if ($transactions) { ?>
-		<?php foreach ($transactions as $transaction) { ?>
+		<?php if ($commissions) { ?>
+		<?php foreach ($commissions as $commission) { ?>
 		<tr>
-			<td><?= $transaction['date_added']; ?></td>
-			<td><?= $transaction['description']; ?></td>
-			<td class="text-right"><?= $transaction['amount']; ?></td>
+			<td><?= $commission['date_added']; ?></td>
+			<td><?= $commission['description']; ?></td>
+			<td class="text-right"><?= $commission['amount']; ?></td>
 		</tr>
 		<?php } ?>
 		<tr>
 			<td>&nbsp;</td>
-			<td class="text-right"><?= $lang_text_balance; ?></td>
+			<td class="text-right"><b><?= $lang_text_balance; ?></b></td>
 			<td class="text-right"><?= $balance; ?></td>
 		</tr>
 		<?php } else { ?>

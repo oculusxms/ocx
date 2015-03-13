@@ -82,11 +82,6 @@ class Dashboard extends Controller {
         $data['total_review']          = $this->model_catalog_review->getTotalReviews();
         $data['total_review_approval'] = $this->model_catalog_review->getTotalReviewsAwaitingApproval();
         
-        $this->theme->model('people/affiliate');
-        
-        $data['total_affiliate']          = $this->model_people_affiliate->getTotalAffiliates();
-        $data['total_affiliate_approval'] = $this->model_people_affiliate->getTotalAffiliatesAwaitingApproval();
-        
         $data['orders'] = array();
         
         $filter = array(

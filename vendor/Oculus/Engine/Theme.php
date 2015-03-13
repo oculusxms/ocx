@@ -209,8 +209,15 @@ final class Theme {
 
         // fetch our text/html email message
         $message = $email->fetch($name);
-        
+
         /**
+         * There's no need to pass in a callback unless you have
+         * variables in your message that need to be replaced 
+         * outside of the default Decorator tags. It's always 
+         * required to pass in an array that includes either
+         * customer_id, affiliate_id or user_id based on who
+         * the notification goes to.
+         *
          * Pass in a callback method as an array so we know 
          * where to build the notification. If you wanted the 
          * callback in the same class that's calling it, and 
@@ -232,6 +239,19 @@ final class Theme {
          *         'callback'    => $callback //include your $callback array from above
          *     );
          *
+         * Or simply inline it like so:
+         *     
+         *     $notify = array(
+         *         'customer_id' => 123,
+         *         'order_id'    => 345,
+         *         'callback'    => array(
+         *             'class'  => __CLASS__,
+         *             'method' => 'myEmailCallback'
+         *         )
+         *     );
+         *     
+         * Then pass it to this method with the notification name:
+         *     
          *     $this->theme->notify('my_email_name', $notify);
          * 
          */
@@ -250,14 +270,10 @@ final class Theme {
                 /**
                  * We're not using call_user_func_array to call
                  * the method because we want to retain key names
-                 * inside our $data and $message arrays.
+                 * inside our $data array.
                  */
                 $message = $class->{$method}($data, $message); 
             endif;
-        else:
-            // if we don't have a call back to build the message
-            // we need to exit.
-            return false;
         endif;
 
         $preference = $this->app['notify']->getPreference();

@@ -54,16 +54,16 @@ class Dashboard extends Controller {
             $data['warning'] = '';
         endif;
         
-        $data['edit'] = $this->url->link('account/edit', '', 'SSL');
-        $data['password'] = $this->url->link('account/password', '', 'SSL');
-        $data['address'] = $this->url->link('account/address', '', 'SSL');
-        $data['wishlist'] = $this->url->link('account/wishlist');
-        $data['order'] = $this->url->link('account/order', '', 'SSL');
-        $data['return'] = $this->url->link('account/returns', '', 'SSL');
-        $data['transaction'] = $this->url->link('account/transaction', '', 'SSL');
-        $data['newsletter'] = $this->url->link('account/newsletter', '', 'SSL');
-        $data['recurring'] = $this->url->link('account/recurring', '', 'SSL');
-        $data['waitlist'] = $this->url->link('account/waitlist', '', 'SSL');
+        $data['edit']        = $this->url->link('account/edit', '', 'SSL');
+        $data['password']    = $this->url->link('account/password', '', 'SSL');
+        $data['address']     = $this->url->link('account/address', '', 'SSL');
+        $data['wishlist']    = $this->url->link('account/wishlist');
+        $data['order']       = $this->url->link('account/order', '', 'SSL');
+        $data['return']      = $this->url->link('account/returns', '', 'SSL');
+        $data['credit']      = $this->url->link('account/credit', '', 'SSL');
+        $data['newsletter']  = $this->url->link('account/newsletter', '', 'SSL');
+        $data['recurring']   = $this->url->link('account/recurring', '', 'SSL');
+        $data['waitlist']    = $this->url->link('account/waitlist', '', 'SSL');
         
         if ($this->config->get('reward_status')):
             $data['reward'] = $this->url->link('account/reward', '', 'SSL');

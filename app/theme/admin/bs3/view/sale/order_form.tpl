@@ -607,7 +607,8 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2"><?= $lang_entry_affiliate; ?></label>
 						<div class="control-field col-sm-4">
-							<input type="text" name="affiliate" value="<?= $affiliate; ?>" class="form-control" autocomplete="off"><input type="hidden" name="affiliate_id" value="<?= $affiliate_id; ?>" class="form-control">
+							<input type="text" name="affiliate" value="<?= $affiliate; ?>" class="form-control" autocomplete="off">
+							<input type="hidden" name="affiliate_id" value="<?= $affiliate_id; ?>" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">

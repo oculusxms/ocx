@@ -22,9 +22,15 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		<ul class="nav nav-tabs"><li><a href="#tab-general" data-toggle="tab"><?= $lang_tab_general; ?></a></li>
+		<ul class="nav nav-tabs">
+			<li><a href="#tab-general" data-toggle="tab"><?= $lang_tab_general; ?></a></li>
 			<?php if ($customer_id) { ?>
-			<li><a href="#tab-transaction" data-toggle="tab"><?= $lang_tab_transaction; ?></a></li><li><a href="#tab-reward" data-toggle="tab"><?= $lang_tab_reward; ?></a></li>
+			<li><a href="#tab-credit" data-toggle="tab"><?= $lang_tab_credit; ?></a></li>
+			<li><a href="#tab-reward" data-toggle="tab"><?= $lang_tab_reward; ?></a></li>
+			<?php if ($is_affiliate): ?>
+			<li><a href="#tab-affiliate" data-toggle="tab"><?= $lang_tab_affiliate; ?></a></li>
+			<li><a href="#tab-commission" data-toggle="tab"><?= $lang_tab_commission; ?></a></li>
+			<?php endif; ?>
 			<?php } ?>
 			<li><a href="#tab-ip" data-toggle="tab"><?= $lang_tab_ip; ?></a></li>
 		</ul>
@@ -277,8 +283,8 @@
 					</div>
 				</div>
 				<?php if ($customer_id) { ?>
-					<div class="tab-pane" id="tab-transaction">
-						<div id="transaction" data-href="index.php?route=people/customer/transaction&token=<?= $token; ?>&customer_id=<?= $customer_id; ?>"></div>
+					<div class="tab-pane" id="tab-credit">
+						<div id="credit" data-href="index.php?route=people/customer/credit&token=<?= $token; ?>&customer_id=<?= $customer_id; ?>"></div>
 						<div class="form-group">
 							<label class="control-label col-sm-2"><?= $lang_entry_description; ?></label>
 							<div class="control-field col-sm-4">
@@ -293,7 +299,7 @@
 						</div>
 						<div class="form-group">
 							<div class="control-field col-sm-4 col-sm-offset-2">
-								<button type="button" id="button-transaction" data-target="customer" data-id="<?= $customer_id; ?>" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_transaction; ?></button>
+								<button type="button" id="button-credit" data-target="customer" data-id="<?= $customer_id; ?>" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_credit; ?></button>
 							</div>
 						</div>
 					</div>
@@ -317,6 +323,139 @@
 							</div>
 						</div>
 					</div>
+					<?php if ($is_affiliate): ?>
+					<div class="tab-pane" id="tab-affiliate">
+						<div class="form-group">
+							<label class="control-label col-sm-2"><?= $lang_entry_affiliate_status; ?></label>
+							<div class="control-field col-sm-4">
+								<?php if ($affiliate['affiliate_status']): ?>
+									<label class="radio-inline"><input type="radio" name="affiliate[affiliate_status]" value="1" checked><?= $lang_text_enabled; ?></label>
+									<label class="radio-inline"><input type="radio" name="affiliate[affiliate_status]" value="0"><?= $lang_text_disabled; ?></label>
+								<?php else: ?>
+									<label class="radio-inline"><input type="radio" name="affiliate[affiliate_status]" value="1"><?= $lang_text_enabled; ?></label>
+									<label class="radio-inline"><input type="radio" name="affiliate[affiliate_status]" value="0" checked><?= $lang_text_disabled; ?></label>
+								<?php endif; ?>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2"><?= $lang_entry_company; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="affiliate[company]" value="<?= $affiliate['company']; ?>" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2"><?= $lang_entry_website; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="affiliate[website]" value="<?= $affiliate['website']; ?>" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_code; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="affiliate[code]" value="<?= $affiliate['code']; ?>" class="form-control">
+								<?php if ($error_code) { ?>
+									<div class="help-block error"><?= $error_code; ?></div>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="commission"><?= $lang_entry_commission; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="affiliate[commission]" value="<?= $affiliate['commission']; ?>" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="tax_id"><?= $lang_entry_tax_id; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="affiliate[tax_id]" value="<?= $affiliate['tax_id']; ?>" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2"><?= $lang_entry_payment_method; ?></label>
+							<div class="control-field col-sm-4">
+								<?php if ($affiliate['payment_method'] == 'cheque') { ?>
+									<label class="radio-inline"><input type="radio" name="affiliate[payment_method]" value="cheque" checked><?= $lang_text_cheque; ?></label>
+								<?php } else { ?>
+									<label class="radio-inline"><input type="radio" name="affiliate[payment_method]" value="cheque"><?= $lang_text_cheque; ?></label>
+								<?php } ?>
+								<?php if ($affiliate['payment_method'] == 'paypal') { ?>
+									<label class="radio-inline"><input type="radio" name="affiliate[payment_method]" value="paypal" checked><?= $lang_text_paypal; ?></label>
+								<?php } else { ?>
+									<label class="radio-inline"><input type="radio" name="affiliate[payment_method]" value="paypal"><?= $lang_text_paypal; ?></label>
+								<?php } ?>
+								<?php if ($affiliate['payment_method'] == 'bank') { ?>
+									<label class="radio-inline"><input type="radio" name="affiliate[payment_method]" value="bank" checked><?= $lang_text_bank; ?></label>
+								<?php } else { ?>
+									<label class="radio-inline"><input type="radio" name="affiliate[payment_method]" value="bank"><?= $lang_text_bank; ?></label>
+								<?php } ?>
+							</div>
+						</div>
+						<div id="payment-cheque" class="payment form-group">
+							<label class="control-label col-sm-2" for="cheque"><?= $lang_entry_cheque; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="affiliate[cheque]" value="<?= $affiliate['cheque']; ?>" class="form-control">
+							</div>
+						</div>
+						<div id="payment-paypal" class="payment form-group">
+							<label class="control-label col-sm-2" for="paypal"><?= $lang_entry_paypal; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="affiliate[paypal]" value="<?= $affiliate['paypal']; ?>" class="form-control">
+							</div>
+						</div>
+						<div id="payment-bank" class="payment">
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="bank_name"><?= $lang_entry_bank_name; ?></label>
+								<div class="control-field col-sm-4">
+									<input type="text" name="affiliate[bank_name]" value="<?= $affiliate['bank_name']; ?>" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="bank_branch_number"><?= $lang_entry_bank_branch_number; ?></label>
+								<div class="control-field col-sm-4">
+									<input type="text" name="affiliate[bank_branch_number]" value="<?= $affiliate['bank_branch_number']; ?>" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="bank_swift_code"><?= $lang_entry_bank_swift_code; ?></label>
+								<div class="control-field col-sm-4">
+									<input type="text" name="affiliate[bank_swift_code]" value="<?= $affiliate['bank_swift_code']; ?>" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="bank_account_name"><b class="required">*</b> <?= $lang_entry_bank_account_name; ?></label>
+								<div class="control-field col-sm-4">
+									<input type="text" name="affiliate[bank_account_name]" value="<?= $affiliate['bank_account_name']; ?>" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="bank_account_number"><b class="required">*</b> <?= $lang_entry_bank_account_number; ?></label>
+								<div class="control-field col-sm-4">
+									<input type="text" name="affiliate[bank_account_number]" value="<?= $affiliate['bank_account_number']; ?>" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab-commission">
+						<div id="commission" data-href="index.php?route=people/customer/commission&token=<?= $token; ?>&customer_id=<?= $customer_id; ?>"></div>
+						<div class="form-group">
+							<label class="control-label col-sm-2"><?= $lang_entry_description; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="description" value="" class="form-control" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2"><?= $lang_entry_amount; ?></label>
+							<div class="control-field col-sm-4">
+								<input type="text" name="amount" value="" class="form-control" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="control-field col-sm-4 col-sm-offset-2">
+								<a id="button-commission" class="btn btn-info" data-target="customer" data-id="<?= $customer_id; ?>"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_commission; ?></a>
+							</div>
+						</div>
+					</div>
+					<?php endif; ?>
 				<?php } ?>
 				<div class="tab-pane" id="tab-ip">
 					<table class="table table-bordered table-striped table-hover">

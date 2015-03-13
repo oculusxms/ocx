@@ -23,41 +23,41 @@ class Customer extends Model {
         $this->db->query("
 			INSERT INTO {$this->db->prefix}customer 
 			SET 
-				username = '" . $this->db->escape($data['username']) . "', 
-				firstname = '" . $this->db->escape($data['firstname']) . "', 
-				lastname = '" . $this->db->escape($data['lastname']) . "', 
-				email = '" . $this->db->escape($data['email']) . "', 
-				telephone = '" . $this->db->escape($data['telephone']) . "', 
-				newsletter = '" . (int)$data['newsletter'] . "', 
-				customer_group_id = '" . (int)$data['customer_group_id'] . "', 
-				salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
-				password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
-				status = '" . (int)$data['status'] . "', 
-				date_added = NOW()
+                username            = '" . $this->db->escape($data['username']) . "', 
+                firstname           = '" . $this->db->escape($data['firstname']) . "', 
+                lastname            = '" . $this->db->escape($data['lastname']) . "', 
+                email               = '" . $this->db->escape($data['email']) . "', 
+                telephone           = '" . $this->db->escape($data['telephone']) . "', 
+                newsletter          = '" . (int)$data['newsletter'] . "', 
+                customer_group_id   = '" . (int)$data['customer_group_id'] . "', 
+                salt                = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
+                password            = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
+                status              = '" . (int)$data['status'] . "', 
+                date_added          = NOW()
 		");
         
         $customer_id = $this->db->getLastId();
         
-        if (isset($data['address'])) {
-            foreach ($data['address'] as $address) {
+        if (isset($data['address'])):
+            foreach ($data['address'] as $address):
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}address 
 					SET 
-						customer_id = '" . (int)$customer_id . "', 
-						firstname = '" . $this->db->escape($address['firstname']) . "', 
-						lastname = '" . $this->db->escape($address['lastname']) . "', 
-						company = '" . $this->db->escape($address['company']) . "', 
-						company_id = '" . $this->db->escape($address['company_id']) . "', 
-						tax_id = '" . $this->db->escape($address['tax_id']) . "', 
-						address_1 = '" . $this->db->escape($address['address_1']) . "', 
-						address_2 = '" . $this->db->escape($address['address_2']) . "', 
-						city = '" . $this->db->escape($address['city']) . "', 
-						postcode = '" . $this->db->escape($address['postcode']) . "', 
-						country_id = '" . (int)$address['country_id'] . "', 
-						zone_id = '" . (int)$address['zone_id'] . "'
+                        customer_id = '" . (int)$customer_id . "', 
+                        firstname   = '" . $this->db->escape($address['firstname']) . "', 
+                        lastname    = '" . $this->db->escape($address['lastname']) . "', 
+                        company     = '" . $this->db->escape($address['company']) . "', 
+                        company_id  = '" . $this->db->escape($address['company_id']) . "', 
+                        tax_id      = '" . $this->db->escape($address['tax_id']) . "', 
+                        address_1   = '" . $this->db->escape($address['address_1']) . "', 
+                        address_2   = '" . $this->db->escape($address['address_2']) . "', 
+                        city        = '" . $this->db->escape($address['city']) . "', 
+                        postcode    = '" . $this->db->escape($address['postcode']) . "', 
+                        country_id  = '" . (int)$address['country_id'] . "', 
+                        zone_id     = '" . (int)$address['zone_id'] . "'
 				");
                 
-                if (isset($address['default'])) {
+                if (isset($address['default'])):
                     $address_id = $this->db->getLastId();
                     
                     $this->db->query("
@@ -65,93 +65,75 @@ class Customer extends Model {
 						SET address_id = '" . $address_id . "' 
 						WHERE customer_id = '" . (int)$customer_id . "'
 					");
-                }
-            }
-        }
+                endif;
+            endforeach;
+        endif;
+
+        if (isset($data['affiliate'])):
+            $affiliate = $data['affiliate'];
+
+            $this->db->query("
+                UPDATE {$this->db->prefix}customer 
+                SET 
+                    affiliate_status    = '" . (int)$affiliate['affiliate_status'] . "',
+                    company             = '" . $this->db->escape($affiliate['company']) . "',
+                    website             = '" . $this->db->escape($affiliate['website']) . "',
+                    code                = '" . $this->db->escape($affiliate['code']) . "',
+                    commission          = '" . (float)$affiliate['commission'] . "',
+                    tax_id              = '" . $this->db->escape($affiliate['tax_id']) . "',
+                    payment_method      = '" . $this->db->escape($affiliate['payment_method']) . "',
+                    cheque              = '" . $this->db->escape($affiliate['cheque']) . "',
+                    paypal              = '" . $this->db->escape($affiliate['paypal']) . "',
+                    bank_name           = '" . $this->db->escape($affiliate['bank_name']) . "',
+                    bank_branch_number  = '" . $this->db->escape($affiliate['bank_branch_number']) . "',
+                    bank_swift_code     = '" . $this->db->escape($affiliate['bank_swift_code']) . "',
+                    bank_account_name   = '" . $this->db->escape($affiliate['bank_account_name']) . "',
+                    bank_account_number = '" . $this->db->escape($affiliate['bank_account_number']) . "' 
+                WHERE customer_id = '" . (int)$customer_id . "'");
+        endif;
 
         $this->theme->trigger('admin_add_customer', array('customer_id' => $customer_id));
-        
-        // make an image directory for the new customer
-        //$path = $this->app['path.image'] . 'data/' . $this->config->get('config_member_image_dir') . '/' . $data['username'];
-        
-        //if (!is_dir($path)):
-        //    mkdir($path, 0777);
-        //endif;
     }
     
     public function editCustomer($customer_id, $data) {
-        
-        // we need to check to see if we need to rename
-        // the customer image directory, so for that we'll
-        // need to get the old username and compare it to the
-        // new one.
-        $query = $this->db->query("
-			SELECT username 
-			FROM {$this->db->prefix}customer 
-			WHERE customer_id = '" . (int)$customer_id . "'
-		");
-        
-        if (isset($data['username']) && $data['username'] !== $query->row['username']):
-            $base = $this->app['path.image'] . 'data/' . $this->config->get('config_member_image_dir');
-            
-            $old = $base . '/' . $query->row['username'];
-            $new = $base . '/' . $data['username'];
-            
-            rename($old, $new);
-            
-            // Now we need to see if this customer has any blog posts
-            // and if so we need to change the image paths so the articles
-            // don't break and everything is pretty.
-            $this->theme->model('content/post');
-            $total = $this->model_content_post->getTotalPostsByAuthorId($customer_id);
-            
-            if ($total):
-                $posts = $this->model_content_post->getPostsByAuthorId($customer_id);
-                foreach ($posts as $post):
-                    if ($post['image']):
-                        $find = str_replace($this->app['path.image'], '', $old) . '/';
-                        $replace = str_replace($this->app['path.image'], '', $new) . '/';
-                        $new_image = str_replace($find, $replace, $post['image']);
-                        
-                        $this->db->query("
-							UPDATE {$this->db->prefix}blog_post 
-							SET image = '" . $this->db->escape($new_image) . "' 
-							WHERE post_id = '" . (int)$post['post_id'] . "'
-						");
-                    endif;
-                    
-                    // update post images
-                    $query = $this->model_content_post->getPostImages($post['post_id']);
-                    if ($query->num_rows):
-                        foreach ($query->rows as $row):
-                            $new_post_image = str_replace($find, $replace, $row['image']);
-                            
-                            $this->db->query("
-								UPDATE {$this->db->prefix}blog_post_image 
-								SET image = '" . $this->db->escape($new_post_image) . "' 
-								WHERE post_image_id = '" . (int)$row['post_image_id'] . "'
-							");
-                        endforeach;
-                    endif;
-                endforeach;
-            endif;
-        endif;
-        
         $this->db->query("
 			UPDATE {$this->db->prefix}customer 
 			SET 
-				username = '" . $this->db->escape($data['username']) . "', 
-				firstname = '" . $this->db->escape($data['firstname']) . "', 
-				lastname = '" . $this->db->escape($data['lastname']) . "', 
-				email = '" . $this->db->escape($data['email']) . "', 
-				telephone = '" . $this->db->escape($data['telephone']) . "', 
-				newsletter = '" . (int)$data['newsletter'] . "', 
-				customer_group_id = '" . (int)$data['customer_group_id'] . "', 
-				status = '" . (int)$data['status'] . "' 
+                username            = '" . $this->db->escape($data['username']) . "', 
+                firstname           = '" . $this->db->escape($data['firstname']) . "', 
+                lastname            = '" . $this->db->escape($data['lastname']) . "', 
+                email               = '" . $this->db->escape($data['email']) . "', 
+                telephone           = '" . $this->db->escape($data['telephone']) . "', 
+                newsletter          = '" . (int)$data['newsletter'] . "', 
+                customer_group_id   = '" . (int)$data['customer_group_id'] . "', 
+                status              = '" . (int)$data['status'] . "' 
 			WHERE customer_id = '" . (int)$customer_id . "'
 		");
+
+        if (isset($data['affiliate'])):
+            $affiliate = $data['affiliate'];
+
+            $this->db->query("
+                UPDATE {$this->db->prefix}customer 
+                SET 
+                    affiliate_status    = '" . (int)$affiliate['affiliate_status'] . "',
+                    company             = '" . $this->db->escape($affiliate['company']) . "',
+                    website             = '" . $this->db->escape($affiliate['website']) . "',
+                    code                = '" . $this->db->escape($affiliate['code']) . "',
+                    commission          = '" . (float)$affiliate['commission'] . "',
+                    tax_id              = '" . $this->db->escape($affiliate['tax_id']) . "',
+                    payment_method      = '" . $this->db->escape($affiliate['payment_method']) . "',
+                    cheque              = '" . $this->db->escape($affiliate['cheque']) . "',
+                    paypal              = '" . $this->db->escape($affiliate['paypal']) . "',
+                    bank_name           = '" . $this->db->escape($affiliate['bank_name']) . "',
+                    bank_branch_number  = '" . $this->db->escape($affiliate['bank_branch_number']) . "',
+                    bank_swift_code     = '" . $this->db->escape($affiliate['bank_swift_code']) . "',
+                    bank_account_name   = '" . $this->db->escape($affiliate['bank_account_name']) . "',
+                    bank_account_number = '" . $this->db->escape($affiliate['bank_account_number']) . "' 
+                WHERE customer_id = '" . (int)$customer_id . "'");
+        endif;
         
-        if ($data['password']) {
+        if ($data['password']):
             $this->db->query("
 				UPDATE {$this->db->prefix}customer 
 				SET 
@@ -159,33 +141,33 @@ class Customer extends Model {
 					password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "' 
 				WHERE customer_id = '" . (int)$customer_id . "'
 			");
-        }
+        endif;
         
         $this->db->query("
 			DELETE FROM {$this->db->prefix}address 
 			WHERE customer_id = '" . (int)$customer_id . "'");
         
-        if (isset($data['address'])) {
-            foreach ($data['address'] as $address) {
+        if (isset($data['address'])):
+            foreach ($data['address'] as $address):
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}address 
 					SET 
-						address_id = '" . (int)$address['address_id'] . "', 
-						customer_id = '" . (int)$customer_id . "', 
-						firstname = '" . $this->db->escape($address['firstname']) . "', 
-						lastname = '" . $this->db->escape($address['lastname']) . "', 
-						company = '" . $this->db->escape($address['company']) . "', 
-						company_id = '" . $this->db->escape($address['company_id']) . "', 
-						tax_id = '" . $this->db->escape($address['tax_id']) . "', 
-						address_1 = '" . $this->db->escape($address['address_1']) . "', 
-						address_2 = '" . $this->db->escape($address['address_2']) . "', 
-						city = '" . $this->db->escape($address['city']) . "', 
-						postcode = '" . $this->db->escape($address['postcode']) . "', 
-						country_id = '" . (int)$address['country_id'] . "', 
-						zone_id = '" . (int)$address['zone_id'] . "'
+                        address_id  = '" . (int)$address['address_id'] . "', 
+                        customer_id = '" . (int)$customer_id . "', 
+                        firstname   = '" . $this->db->escape($address['firstname']) . "', 
+                        lastname    = '" . $this->db->escape($address['lastname']) . "', 
+                        company     = '" . $this->db->escape($address['company']) . "', 
+                        company_id  = '" . $this->db->escape($address['company_id']) . "', 
+                        tax_id      = '" . $this->db->escape($address['tax_id']) . "', 
+                        address_1   = '" . $this->db->escape($address['address_1']) . "', 
+                        address_2   = '" . $this->db->escape($address['address_2']) . "', 
+                        city        = '" . $this->db->escape($address['city']) . "', 
+                        postcode    = '" . $this->db->escape($address['postcode']) . "', 
+                        country_id  = '" . (int)$address['country_id'] . "', 
+                        zone_id     = '" . (int)$address['zone_id'] . "'
 				");
                 
-                if (isset($address['default'])) {
+                if (isset($address['default'])):
                     $address_id = $this->db->getLastId();
                     
                     $this->db->query("
@@ -193,9 +175,9 @@ class Customer extends Model {
 						SET address_id = '" . (int)$address_id . "' 
 						WHERE customer_id = '" . (int)$customer_id . "'
 					");
-                }
-            }
-        }
+                endif;
+            endforeach;
+        endif;
 
         $this->theme->trigger('admin_edit_customer', array('customer_id' => $customer_id));
     }
@@ -209,15 +191,6 @@ class Customer extends Model {
     }
     
     public function deleteCustomer($customer_id) {
-        
-        /**
-         * We need to reassign posts before we delete other entries
-         * because we need these settings in place in order to determine
-         * which posts belong to which customers.
-         */
-        
-        //$this->reassignPosts($customer_id);
-        
         $this->db->query("
 			DELETE FROM {$this->db->prefix}customer 
 			WHERE customer_id = '" . (int)$customer_id . "'");
@@ -227,8 +200,12 @@ class Customer extends Model {
 			WHERE customer_id = '" . (int)$customer_id . "'");
         
         $this->db->query("
-			DELETE FROM {$this->db->prefix}customer_transaction 
+			DELETE FROM {$this->db->prefix}customer_credit 
 			WHERE customer_id = '" . (int)$customer_id . "'");
+
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}customer_commission 
+            WHERE customer_id = '" . (int)$customer_id . "'");
         
         $this->db->query("
 			DELETE FROM {$this->db->prefix}customer_ip 
@@ -239,96 +216,6 @@ class Customer extends Model {
 			WHERE customer_id = '" . (int)$customer_id . "'");
 
         $this->theme->trigger('admin_delete_customer', array('customer_id' => $customer_id));
-    }
-    
-    public function reassignPosts($customer_id) {
-        $this->theme->model('content/post');
-        $total = $this->model_content_post->getTotalPostsByAuthorId($customer_id);
-        
-        $customer_username = $this->model_content_post->getAuthorUsername($customer_id);
-        
-        if ($total):
-            $posts = $this->model_content_post->getPostsByAuthorId($customer_id);
-            
-            if (!$this->config->get('config_delete_posts')):
-                $new_author = $this->config->get('config_assign_to');
-                $author_username = $this->model_content_post->getAuthorUsername($new_author);
-                
-                $path_base = 'data/' . $this->config->get('config_member_image_dir');
-                $base = $this->app['path.image'] . $path_base;
-                
-                if (is_dir($base . '/' . $customer_username)):
-                    $from = $base . '/' . $customer_username;
-                    $replace = $path_base . '/' . $customer_username;
-                    
-                    if (is_dir($base . '/' . $author_username)):
-                        $path = $author_username . '/' . $customer_id;
-                    else:
-                        $path = $customer_id;
-                    endif;
-                    
-                    $to = $base . '/' . $path;
-                    $path = $path_base . '/' . $path;
-                    
-                    rename($from, $to);
-                endif;
-                
-                foreach ($posts as $post):
-                    if ($post['image']):
-                        $new_image = str_replace($replace, $path, $post['image']);
-                    else:
-                        $new_image = '';
-                    endif;
-                    
-                    $this->db->query("
-						UPDATE {$this->db->prefix}blog_post 
-						SET 
-							author_id = '" . (int)$new_author . "', 
-							image = '" . $this->db->escape($new_image) . "' 
-						WHERE post_id = '" . (int)$post['post_id'] . "'
-					");
-                    
-                    // update post images
-                    $query = $this->model_content_post->getPostImages($post['post_id']);
-                    if ($query->num_rows):
-                        foreach ($query->rows as $row):
-                            $new_post_image = str_replace($replace, $path, $row['image']);
-                            
-                            $this->db->query("
-								UPDATE {$this->db->prefix}blog_post_image 
-								SET image = '" . $this->db->escape($new_post_image) . "' 
-								WHERE post_image_id = '" . (int)$row['post_image_id'] . "'
-							");
-                        endforeach;
-                    endif;
-                endforeach;
-            else:
-                
-                foreach ($posts as $post):
-                    $this->model_content_post->deletePost($post['post_id']);
-                endforeach;
-                
-                $path = $this->app['path.image'] . 'data/' . $this->config->get('config_member_image_dir') . '/' . $customer_username;
-                
-                if (is_dir($path)):
-                    exec("rm -rf {$path}");
-                endif;
-            endif;
-            
-            $this->cache->delete('post');
-            $this->cache->delete('posts');
-            $this->cache->delete('author');
-        else:
-            
-            // even if the customer doesn't have posts we still need to remove
-            // their images and image directory.
-            
-            $path = $this->app['path.image'] . 'data/' . $this->config->get('config_member_image_dir') . '/' . $customer_username;
-            
-            if (is_dir($path)):
-                exec("rm -rf {$path}");
-            endif;
-        endif;
     }
     
     public function getCustomer($customer_id) {
@@ -364,91 +251,123 @@ class Customer extends Model {
         
         $implode = array();
         
-        if (!empty($data['filter_username'])) {
+        if (!empty($data['filter_username'])):
             $implode[] = "c.username LIKE '" . $this->db->escape($data['filter_username']) . "%'";
-        }
+        endif;
         
-        if (!empty($data['filter_name'])) {
+        if (!empty($data['filter_name'])):
             $implode[] = "CONCAT(c.firstname, ' ', c.lastname) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
-        }
+        endif;
         
-        if (!empty($data['filter_email'])) {
+        if (!empty($data['filter_email'])):
             $implode[] = "c.email LIKE '" . $this->db->escape($data['filter_email']) . "%'";
-        }
+        endif;
         
-        if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])) {
+        if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])):
             $implode[] = "c.newsletter = '" . (int)$data['filter_newsletter'] . "'";
-        }
+        endif;
         
-        if (!empty($data['filter_customer_group_id'])) {
+        if (!empty($data['filter_customer_group_id'])):
             $implode[] = "c.customer_group_id = '" . (int)$data['filter_customer_group_id'] . "'";
-        }
+        endif;
         
-        if (!empty($data['filter_ip'])) {
+        if (!empty($data['filter_ip'])):
             $implode[] = "c.customer_id IN (SELECT customer_id FROM {$this->db->prefix}customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
-        }
+        endif;
         
-        if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
+        if (isset($data['filter_status']) && !is_null($data['filter_status'])):
             $implode[] = "c.status = '" . (int)$data['filter_status'] . "'";
-        }
+        endif;
+
+        if (isset($data['filter_affiliate']) && !is_null($data['filter_affiliate'])):
+            $implode[] = "c.is_affiliate = '" . (int)$data['filter_affiliate'] . "'";
+        endif;
         
-        if (isset($data['filter_approved']) && !is_null($data['filter_approved'])) {
+        if (isset($data['filter_approved']) && !is_null($data['filter_approved'])):
             $implode[] = "c.approved = '" . (int)$data['filter_approved'] . "'";
-        }
+        endif;
         
-        if (!empty($data['filter_date_added'])) {
+        if (!empty($data['filter_date_added'])):
             $implode[] = "DATE(c.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-        }
+        endif;
         
-        if ($implode) {
+        if ($implode):
             $imp = implode(" && ", $implode);
             $sql.= " && {$imp}";
-        }
+        endif;
         
         $sort_data = array(
             'c.username', 
             'name', 
             'c.email', 
             'customer_group', 
-            'c.status', 
+            'c.status',
+            'c.is_affiliate', 
             'c.approved', 
             'c.ip', 
             'c.date_added'
         );
         
-        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+        if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
             $sql.= " ORDER BY {$data['sort']}";
-        } else {
+        else:
             $sql.= " ORDER BY name";
-        }
+        endif;
         
-        if (isset($data['order']) && ($data['order'] == 'DESC')) {
+        if (isset($data['order']) && ($data['order'] == 'DESC')):
             $sql.= " DESC";
-        } else {
+        else:
             $sql.= " ASC";
-        }
+        endif;
         
-        if (isset($data['start']) || isset($data['limit'])) {
-            if ($data['start'] < 0) {
+        if (isset($data['start']) || isset($data['limit'])):
+            if ($data['start'] < 0):
                 $data['start'] = 0;
-            }
+            endif;
             
-            if ($data['limit'] < 1) {
+            if ($data['limit'] < 1):
                 $data['limit'] = 20;
-            }
+            endif;
             
             $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-        }
+        endif;
         
         $query = $this->db->query($sql);
         
         return $query->rows;
     }
-    
+
+    public function getAffiliateDetails($customer_id) {
+        $details = array();
+
+        $query = $this->db->query("
+            SELECT 
+                affiliate_status, 
+                company, 
+                website, 
+                code, 
+                commission, 
+                tax_id, 
+                payment_method, 
+                cheque, 
+                paypal, 
+                bank_name, 
+                bank_branch_number, 
+                bank_swift_code, 
+                bank_account_name,
+                bank_account_number 
+            FROM {$this->db->prefix}customer 
+            WHERE customer_id = '" . (int)$customer_id . "' 
+            AND is_affiliate = '1'
+        ");
+
+        return $query->row;
+    }
+
     public function approve($customer_id) {
         $customer_info = $this->getCustomer($customer_id);
         
-        if ($customer_info) {
+        if ($customer_info):
             $this->db->query("
 				UPDATE {$this->db->prefix}customer 
 				SET approved = '1' 
@@ -460,13 +379,13 @@ class Customer extends Model {
             
             $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
             
-            if ($store_info) {
+            if ($store_info):
                 $store_name = $store_info['name'];
                 $store_url = $store_info['url'] . 'account/login';
-            } else {
+            else:
                 $store_name = $this->config->get('config_name');
                 $store_url = $this->app['http.public'] . 'account/login';
-            }
+            endif;
 
             // NEW MAILER
             // admin_customer_approve
@@ -494,7 +413,7 @@ class Customer extends Model {
             // $mail->send();
             
             $this->theme->trigger('admin_approve_customer', array('customer_id' => $customer_id));
-        }
+        endif;
     }
     
     public function getAddress($address_id) {
@@ -503,36 +422,36 @@ class Customer extends Model {
 			FROM {$this->db->prefix}address 
 			WHERE address_id = '" . (int)$address_id . "'");
         
-        if ($address_query->num_rows) {
+        if ($address_query->num_rows):
             $country_query = $this->db->query("
 				SELECT * 
 				FROM `{$this->db->prefix}country` 
 				WHERE country_id = '" . (int)$address_query->row['country_id'] . "'");
             
-            if ($country_query->num_rows) {
+            if ($country_query->num_rows):
                 $country = $country_query->row['name'];
                 $iso_code_2 = $country_query->row['iso_code_2'];
                 $iso_code_3 = $country_query->row['iso_code_3'];
                 $address_format = $country_query->row['address_format'];
-            } else {
+            else:
                 $country = '';
                 $iso_code_2 = '';
                 $iso_code_3 = '';
                 $address_format = '';
-            }
+            endif;
             
             $zone_query = $this->db->query("
 				SELECT * 
 				FROM `{$this->db->prefix}zone` 
 				WHERE zone_id = '" . (int)$address_query->row['zone_id'] . "'");
             
-            if ($zone_query->num_rows) {
+            if ($zone_query->num_rows):
                 $zone = $zone_query->row['name'];
                 $zone_code = $zone_query->row['code'];
-            } else {
+            else:
                 $zone = '';
                 $zone_code = '';
-            }
+            endif;
             
             return array(
                 'address_id'     => $address_query->row['address_id'], 
@@ -555,7 +474,7 @@ class Customer extends Model {
                 'iso_code_3'     => $iso_code_3, 
                 'address_format' => $address_format
             );
-        }
+        endif;
     }
     
     public function getAddresses($customer_id) {
@@ -566,13 +485,13 @@ class Customer extends Model {
 			FROM {$this->db->prefix}address 
 			WHERE customer_id = '" . (int)$customer_id . "'");
         
-        foreach ($query->rows as $result) {
+        foreach ($query->rows as $result):
             $address_info = $this->getAddress($result['address_id']);
             
-            if ($address_info) {
+            if ($address_info):
                 $address_data[$result['address_id']] = $address_info;
-            }
-        }
+            endif;
+        endforeach;
         
         return $address_data;
     }
@@ -584,46 +503,50 @@ class Customer extends Model {
         
         $implode = array();
         
-        if (!empty($data['filter_username'])) {
+        if (!empty($data['filter_username'])):
             $implode[] = "username LIKE '" . $this->db->escape($data['filter_username']) . "%'";
-        }
+        endif;
         
-        if (!empty($data['filter_name'])) {
+        if (!empty($data['filter_name'])):
             $implode[] = "CONCAT(firstname, ' ', lastname) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
-        }
+        endif;
         
-        if (!empty($data['filter_email'])) {
+        if (!empty($data['filter_email'])):
             $implode[] = "email LIKE '" . $this->db->escape($data['filter_email']) . "%'";
-        }
+        endif;
         
-        if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])) {
+        if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])):
             $implode[] = "newsletter = '" . (int)$data['filter_newsletter'] . "'";
-        }
+        endif;
         
-        if (!empty($data['filter_customer_group_id'])) {
+        if (!empty($data['filter_customer_group_id'])):
             $implode[] = "customer_group_id = '" . (int)$data['filter_customer_group_id'] . "'";
-        }
+        endif;
         
-        if (!empty($data['filter_ip'])) {
+        if (!empty($data['filter_ip'])):
             $implode[] = "customer_id IN (SELECT customer_id FROM {$this->db->prefix}customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
-        }
+        endif;
         
-        if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
+        if (isset($data['filter_status']) && !is_null($data['filter_status'])):
             $implode[] = "status = '" . (int)$data['filter_status'] . "'";
-        }
-        
-        if (isset($data['filter_approved']) && !is_null($data['filter_approved'])) {
+        endif;
+
+         if (isset($data['filter_affiliate']) && !is_null($data['filter_affiliate'])):
+            $implode[] = "is_affiliate = '" . (int)$data['filter_affiliate'] . "'";
+        endif;
+
+        if (isset($data['filter_approved']) && !is_null($data['filter_approved'])):
             $implode[] = "approved = '" . (int)$data['filter_approved'] . "'";
-        }
+        endif;
         
-        if (!empty($data['filter_date_added'])) {
+        if (!empty($data['filter_date_added'])):
             $implode[] = "DATE(date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-        }
+        endif;
         
-        if ($implode) {
+        if ($implode):
             $imp = implode(" && ", $implode);
             $sql.= " WHERE {$imp}";
-        }
+        endif;
         
         $query = $this->db->query($sql);
         
@@ -688,13 +611,13 @@ class Customer extends Model {
     }
     
     public function getHistories($customer_id, $start = 0, $limit = 10) {
-        if ($start < 0) {
+        if ($start < 0):
             $start = 0;
-        }
+        endif;
         
-        if ($limit < 1) {
+        if ($limit < 1):
             $limit = 10;
-        }
+        endif;
         
         $query = $this->db->query("
 			SELECT comment, date_added 
@@ -715,39 +638,41 @@ class Customer extends Model {
         return $query->row['total'];
     }
     
-    public function addTransaction($customer_id, $description = '', $amount = '', $order_id = 0) {
+    public function addCredit($customer_id, $description = '', $amount = '', $order_id = 0) {
         $customer_info = $this->getCustomer($customer_id);
         
-        if ($customer_info) {
+        if ($customer_info):
             $this->db->query("
-				INSERT INTO {$this->db->prefix}customer_transaction 
+				INSERT INTO {$this->db->prefix}customer_credit 
 				SET 
-					customer_id = '" . (int)$customer_id . "', 
-					order_id = '" . (int)$order_id . "', 
-					description = '" . $this->db->escape($description) . "', 
-					amount = '" . (float)$amount . "', date_added = NOW()");
+                    customer_id = '" . (int)$customer_id . "', 
+                    order_id    = '" . (int)$order_id . "', 
+                    description = '" . $this->db->escape($description) . "', 
+                    amount      = '" . (float)$amount . "', 
+                    date_added  = NOW()
+            ");
             
             $this->language->load('mail/customer');
             
-            if ($customer_info['store_id']) {
+            if ($customer_info['store_id']):
                 $this->theme->model('setting/store');
                 
                 $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
                 
-                if ($store_info) {
+                if ($store_info):
                     $store_name = $store_info['name'];
-                } else {
+                else:
                     $store_name = $this->config->get('config_name');
-                }
-            } else {
+                endif;
+            else:
                 $store_name = $this->config->get('config_name');
-            }
+            endif;
 
             // NEW MAILER
-            // admin_customer_add_transaction
+            // admin_customer_add_credit
             
-            // $message = sprintf($this->language->get('lang_text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
-            // $message.= sprintf($this->language->get('lang_text_transaction_total'), $this->currency->format($this->getTransactionTotal($customer_id)));
+            // $message = sprintf($this->language->get('lang_text_credit_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
+            // $message.= sprintf($this->language->get('lang_text_credit_total'), $this->currency->format($this->getCreditTotal($customer_id)));
             
             // $mail = new Mail();
             // $mail->protocol = $this->config->get('config_mail_protocol');
@@ -760,34 +685,34 @@ class Customer extends Model {
             // $mail->setTo($customer_info['email']);
             // $mail->setFrom($this->config->get('config_email'));
             // $mail->setSender($store_name);
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_credit_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
             // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
             // $mail->send();
             
-            $this->theme->trigger('admin_add_customer_transaction', array('customer_id' => $customer_id));
-        }
+            $this->theme->trigger('admin_add_customer_credit', array('customer_id' => $customer_id));
+        endif;
     }
     
-    public function deleteTransaction($order_id) {
+    public function deleteCredit($order_id) {
         $this->db->query("
-			DELETE FROM {$this->db->prefix}customer_transaction 
+			DELETE FROM {$this->db->prefix}customer_credit 
 			WHERE order_id = '" . (int)$order_id . "'");
 
-        $this->theme->trigger('admin_delete_customer_transaction', array('order_id' => $order_id));
+        $this->theme->trigger('admin_delete_customer_credit', array('order_id' => $order_id));
     }
     
-    public function getTransactions($customer_id, $start = 0, $limit = 10) {
-        if ($start < 0) {
+    public function getCredits($customer_id, $start = 0, $limit = 10) {
+        if ($start < 0):
             $start = 0;
-        }
+        endif;
         
-        if ($limit < 1) {
+        if ($limit < 1):
             $limit = 10;
-        }
+        endif;
         
         $query = $this->db->query("
 			SELECT * 
-			FROM {$this->db->prefix}customer_transaction 
+			FROM {$this->db->prefix}customer_credit 
 			WHERE customer_id = '" . (int)$customer_id . "' 
 			ORDER BY date_added 
 			DESC LIMIT " . (int)$start . "," . (int)$limit);
@@ -795,37 +720,284 @@ class Customer extends Model {
         return $query->rows;
     }
     
-    public function getTotalTransactions($customer_id) {
+    public function getTotalCredits($customer_id) {
         $query = $this->db->query("
 			SELECT COUNT(*) AS total 
-			FROM {$this->db->prefix}customer_transaction 
+			FROM {$this->db->prefix}customer_credit 
 			WHERE customer_id = '" . (int)$customer_id . "'");
         
         return $query->row['total'];
     }
     
-    public function getTransactionTotal($customer_id) {
+    public function getCreditTotal($customer_id) {
         $query = $this->db->query("
 			SELECT SUM(amount) AS total 
-			FROM {$this->db->prefix}customer_transaction 
+			FROM {$this->db->prefix}customer_credit 
 			WHERE customer_id = '" . (int)$customer_id . "'");
         
         return $query->row['total'];
     }
     
-    public function getTotalTransactionsByOrderId($order_id) {
+    public function getTotalCreditsByOrderId($order_id) {
         $query = $this->db->query("
 			SELECT COUNT(*) AS total 
-			FROM {$this->db->prefix}customer_transaction 
+			FROM {$this->db->prefix}customer_credit 
 			WHERE order_id = '" . (int)$order_id . "'");
         
         return $query->row['total'];
+    }
+
+    public function addCommission($customer_id, $description = '', $amount = '', $order_id = 0) {
+        $customer_info = $this->getCustomer($customer_id);
+        
+        if ($customer_info):
+            $this->db->query("
+                INSERT INTO {$this->db->prefix}customer_commission 
+                SET 
+                    customer_id = '" . (int)$customer_id . "', 
+                    order_id     = '" . (float)$order_id . "', 
+                    description  = '" . $this->db->escape($description) . "', 
+                    amount       = '" . (float)$amount . "', 
+                    date_added   = NOW()
+            ");
+            
+            $customer_commission_id = $this->db->getLastId();
+
+            // NEW MAILER
+            // admin_affiliate_add_transaction
+            
+            // $message = sprintf($this->language->get('lang_text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
+            // $message.= sprintf($this->language->get('lang_text_transaction_total'), $this->currency->format($this->getTransactionTotal($affiliate_id), $this->config->get('config_currency')));
+            
+            // $mail = new Mail();
+            // $mail->protocol = $this->config->get('config_mail_protocol');
+            // $mail->parameter = $this->config->get('config_mail_parameter');
+            // $mail->hostname = $this->config->get('config_smtp_host');
+            // $mail->username = $this->config->get('config_smtp_username');
+            // $mail->password = $this->config->get('config_smtp_password');
+            // $mail->port = $this->config->get('config_smtp_port');
+            // $mail->timeout = $this->config->get('config_smtp_timeout');
+            // $mail->setTo($affiliate_info['email']);
+            // $mail->setFrom($this->config->get('config_email'));
+            // $mail->setSender($this->config->get('config_name'));
+            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+            // $mail->send();
+            
+            $this->theme->trigger('admin_add_customer_commission', array('customer_commission_id' => $customer_commission_id));
+        endif;
+    }
+
+    public function deleteCommission($order_id) {
+        $customer_commission_id = $this->getCommissionByOrderId($order_id);
+        
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}customer_commission 
+            WHERE order_id = '" . (int)$order_id . "'");
+        
+        $this->theme->trigger('admin_delete_customer_commission', array('customer_commission_id' => $customer_commission_id));
+    }
+
+    public function getCommissions($customer_id, $start = 0, $limit = 10) {
+        if ($start < 0):
+            $start = 0;
+        endif;
+        
+        if ($limit < 1):
+            $limit = 10;
+        endif;
+        
+        $query = $this->db->query("
+            SELECT * 
+            FROM {$this->db->prefix}customer_commission 
+            WHERE customer_id = '" . (int)$customer_id . "' 
+            ORDER BY date_added DESC 
+            LIMIT " . (int)$start . "," . (int)$limit);
+        
+        return $query->rows;
+    }
+    
+    public function getTotalCommissions($customer_id) {
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}customer_commission 
+            WHERE customer_id = '" . (int)$customer_id . "'");
+        
+        return $query->row['total'];
+    }
+    
+    public function getCommissionTotal($customer_id) {
+        $query = $this->db->query("
+            SELECT SUM(amount) AS total 
+            FROM {$this->db->prefix}customer_commission 
+            WHERE customer_id = '" . (int)$customer_id . "'");
+        
+        return $query->row['total'];
+    }
+    
+    public function getTotalCommissionsByOrderId($order_id) {
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}customer_commission 
+            WHERE order_id = '" . (int)$order_id . "'");
+        
+        return $query->row['total'];
+    }
+    
+    public function getCommissionByOrderId($order_id) {
+        $query = $this->db->query("
+            SELECT customer_commission_id 
+            FROM {$this->db->prefix}customer_commission 
+            WHERE order_id = '" . (int)$order_id . "'
+        ");
+        
+        return $query->row['customer_commission_id'];
+    }
+
+    public function getTotalAffiliatesByCountryId($country_id) {
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}customer 
+            WHERE country_id = '" . (int)$country_id . "' 
+            AND is_affiliate = '1'
+        ");
+        
+        return $query->row['total'];
+    }
+    
+    public function getTotalAffiliatesByZoneId($zone_id) {
+        $query = $this->db->query("
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}customer 
+            WHERE zone_id = '" . (int)$zone_id . "' 
+            AND is_affiliate = '1'
+        ");
+        
+        return $query->row['total'];
+    }
+
+    public function getTotalAffiliates($data = array()) {
+        $sql = "
+            SELECT COUNT(*) AS total 
+            FROM {$this->db->prefix}customer";
+        
+        $implode = array();
+        
+        if (!empty($data['filter_name'])):
+            $implode[] = "CONCAT(firstname, ' ', lastname) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+        endif;
+        
+        if (!empty($data['filter_email'])):
+            $implode[] = "LCASE(email) = '" . $this->db->escape($this->encode->strtolower($data['filter_email'])) . "'";
+        endif;
+        
+        if (isset($data['filter_status']) && !is_null($data['filter_status'])):
+            $implode[] = "status = '" . (int)$data['filter_status'] . "'";
+        endif;
+        
+        if (isset($data['filter_approved']) && !is_null($data['filter_approved'])):
+            $implode[] = "approved = '" . (int)$data['filter_approved'] . "'";
+        endif;
+        
+        if (!empty($data['filter_date_added'])):
+            $implode[] = "DATE(date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+        endif;
+        
+        if ($implode):
+            $imp  = implode(" && ", $implode);
+            $sql .= " WHERE {$imp}";
+        endif;
+
+        $sql .= " AND is_affiliate = '1'";
+        
+        $query = $this->db->query($sql);
+        
+        return $query->row['total'];
+    }
+
+    public function getAffiliates($data = array()) {
+        $sql = "
+            SELECT *, 
+            CONCAT(c.firstname, ' ', c.lastname) AS name, 
+            (SELECT SUM(cc.amount) 
+                FROM {$this->db->prefix}customer_commission cc 
+                WHERE cc.customer_id = c.customer_id 
+                GROUP BY cc.customer_id) AS balance 
+            FROM {$this->db->prefix}customer c";
+        
+        $implode = array();
+        
+        if (!empty($data['filter_name'])):
+            $implode[] = "CONCAT(c.firstname, ' ', c.lastname) LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+        endif;
+        
+        if (!empty($data['filter_email'])):
+            $implode[] = "LCASE(c.email) = '" . $this->db->escape($this->encode->strtolower($data['filter_email'])) . "'";
+        endif;
+        
+        if (!empty($data['filter_code'])):
+            $implode[] = "c.code = '" . $this->db->escape($data['filter_code']) . "'";
+        endif;
+        
+        if (isset($data['filter_status']) && !is_null($data['filter_status'])):
+            $implode[] = "c.status = '" . (int)$data['filter_status'] . "'";
+        endif;
+        
+        if (isset($data['filter_approved']) && !is_null($data['filter_approved'])):
+            $implode[] = "c.approved = '" . (int)$data['filter_approved'] . "'";
+        endif;
+        
+        if (!empty($data['filter_date_added'])):
+            $implode[] = "DATE(c.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+        endif;
+        
+        if ($implode):
+            $imp = implode(" && ", $implode);
+            $sql.= " WHERE {$imp}";
+        endif;
+        
+        $sort_data = array(
+            'name', 
+            'c.email', 
+            'c.code', 
+            'c.status', 
+            'c.approved', 
+            'c.date_added'
+        );
+        
+        if (isset($data['sort']) && in_array($data['sort'], $sort_data)):
+            $sql.= " ORDER BY {$data['sort']}";
+        else:
+            $sql.= " ORDER BY name";
+        endif;
+        
+        if (isset($data['order']) && ($data['order'] == 'DESC')):
+            $sql.= " DESC";
+        else:
+            $sql.= " ASC";
+        endif;
+        
+        if (isset($data['start']) || isset($data['limit'])):
+            if ($data['start'] < 0):
+                $data['start'] = 0;
+            endif;
+            
+            if ($data['limit'] < 1):
+                $data['limit'] = 20;
+            endif;
+            
+            $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+        endif;
+        
+        $query = $this->db->query($sql);
+        
+        return $query->rows;
     }
     
     public function addReward($customer_id, $description = '', $points = '', $order_id = 0) {
         $customer_info = $this->getCustomer($customer_id);
         
-        if ($customer_info) {
+        if ($customer_info):
             $this->db->query("
 				INSERT INTO {$this->db->prefix}customer_reward 
 				SET 
@@ -838,19 +1010,19 @@ class Customer extends Model {
             
             $this->language->load('mail/customer');
             
-            if ($order_id) {
+            if ($order_id):
                 $this->theme->model('sale/order');
                 
                 $order_info = $this->model_sale_order->getOrder($order_id);
                 
-                if ($order_info) {
+                if ($order_info):
                     $store_name = $order_info['store_name'];
-                } else {
+                else:
                     $store_name = $this->config->get('config_name');
-                }
-            } else {
+                endif;
+            else:
                 $store_name = $this->config->get('config_name');
-            }
+            endif;
 
             // NEW MAILER
             // admin_customer_add_reward
@@ -874,7 +1046,7 @@ class Customer extends Model {
             // $mail->send();
              
              $this->theme->trigger('admin_add_reward', array('customer_id' => $customer_id));
-        }
+        endif;
     }
     
     public function deleteReward($order_id) {

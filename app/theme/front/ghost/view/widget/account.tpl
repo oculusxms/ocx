@@ -21,7 +21,7 @@
 	<a class="list-group-item" href="<?= $order; ?>"><?= $lang_text_order; ?></a>
 	<a class="list-group-item" href="<?= $return; ?>"><?= $lang_text_return; ?></a>
 	<a class="list-group-item" href="<?= $recurring; ?>"><?= $lang_text_recurring; ?></a>
-	<a class="list-group-item" href="<?= $transaction; ?>"><?= $lang_text_transaction; ?></a>
+	<a class="list-group-item" href="<?= $credit; ?>"><?= $lang_text_credit; ?></a>
 	<a class="list-group-item" href="<?= $edit; ?>"><?= $lang_text_edit; ?></a>
 	<a class="list-group-item" href="<?= $password; ?>"><?= $lang_text_password; ?></a>
 	<a class="list-group-item" href="<?= $address; ?>"><?= $lang_text_address; ?></a>

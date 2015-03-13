@@ -994,17 +994,17 @@ $(function(){
 	var mapped={};
 	$('input[name="affiliate"]').typeahead({
 		source:function(q,process){
-			return $.getJSON('index.php?route=people/affiliate/autocomplete&token='+token+'&filter_name='+encodeURIComponent(q),function(json){
+			return $.getJSON('index.php?route=people/customer/autocomplete&token='+token+'&filter_name='+encodeURIComponent(q),function(json){
 				var data=[];
 				$.each(json,function(i,item){
-					mapped[item.name]=item.affiliate_id;
+					mapped[item.name]=item.customer_id;
 					data.push(item.name);
 				});
 				process(data);
 			});
 		},
 		updater:function(item){
-			$('input[name="affiliate_id"]').val(mapped[item]);
+			$('input[name="customer_id"]').val(mapped[item]);
 			return item;
 		}
 	});

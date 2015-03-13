@@ -30,10 +30,10 @@ $_['lang_text_order']         = 'View your order history';
 $_['lang_text_download']      = 'Downloads';
 $_['lang_text_reward']        = 'Your Reward Points';
 $_['lang_text_return']        = 'View your return requests';
-$_['lang_text_transaction']   = 'Your Transactions';
+$_['lang_text_credit']        = 'Your Credits';
 $_['lang_text_newsletter']    = 'Subscribe / Unsubscribe to newsletter';
 $_['lang_text_recurring']     = 'Recurring Payments';
-$_['lang_text_transactions']  = 'Transactions';
+$_['lang_text_credits']       = 'Credits';
 $_['lang_text_updates']       = 'Important Updates';
 $_['lang_text_waitlist']      = 'Wait Lists';
 
@@ -46,7 +46,7 @@ $_['lang_icon_history']       = 'Orders';
 $_['lang_icon_reward']        = 'Points';
 $_['lang_icon_download']      = 'Downloads';
 $_['lang_icon_return']        = 'Returns';
-$_['lang_icon_transaction']   = 'Transactions';
+$_['lang_icon_credit']   	  = 'Credits';
 $_['lang_icon_waitlist']      = 'Wait Lists';
 
 $_['lang_complete_profile']   = 'Please complete your <a href="%s">account settings.</a>';

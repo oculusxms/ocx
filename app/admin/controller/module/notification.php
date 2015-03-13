@@ -299,7 +299,7 @@ class Notification extends Controller {
             $data['config_description'] = '';
         endif;
 
-        // Customer: 1  Affiliate: 2  Admin: 3
+        // Customer: 1  Admin: 2
         if (isset($this->request->post['recipient'])):
             $data['recipient'] = $this->request->post['recipient'];
         elseif (!empty($notification_info)):

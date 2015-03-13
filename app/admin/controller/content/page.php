@@ -462,9 +462,11 @@ class Page extends Controller {
                 $this->error['warning'] = $this->language->get('lang_error_checkout');
             }
             
-            if ($this->config->get('config_affiliate_id') == $page_id) {
-                $this->error['warning'] = $this->language->get('lang_error_affiliate');
-            }
+            if ($this->config->get('config_affiliate_allowed')):
+                if ($this->config->get('config_affiliate_terms') == $page_id):
+                    $this->error['warning'] = $this->language->get('lang_error_affiliate');
+                endif;
+            endif;
             
             $store_total = $this->model_setting_store->getTotalStoresByPageId($page_id);
             

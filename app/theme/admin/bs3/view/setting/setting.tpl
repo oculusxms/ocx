@@ -729,24 +729,42 @@
 							</div>
 							<div id="tab-affiliate" class="tab-pane">
 								<div class="form-group">
-									<label class="control-label col-sm-2"><?= $lang_entry_affiliate; ?></label>
+									<label class="control-label col-sm-2"><?= $lang_entry_affiliate_allowed; ?></label>
 									<div class="control-field col-sm-4">
-										<select name="config_affiliate_id" class="form-control">
+										<?php if ($config_affiliate_allowed) { ?>
+										<label class="radio-inline"><input type="radio" name="config_affiliate_allowed" value="1" checked=""><?= $lang_text_yes; ?></label>
+										<label class="radio-inline"><input type="radio" name="config_affiliate_allowed" value="0"><?= $lang_text_no; ?></label>
+										<?php } else { ?>
+										<label class="radio-inline"><input type="radio" name="config_affiliate_allowed" value="1"><?= $lang_text_yes; ?></label>
+										<label class="radio-inline"><input type="radio" name="config_affiliate_allowed" value="0" checked=""><?= $lang_text_no; ?></label>
+										<?php } ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2"><?= $lang_entry_affiliate_terms; ?></label>
+									<div class="control-field col-sm-4">
+										<select name="config_affiliate_terms" class="form-control">
 											<option value="0"><?= $lang_text_none; ?></option>
 											<?php foreach ($pages as $page) { ?>
-												<?php if ($page['page_id'] == $config_affiliate_id) { ?>
+												<?php if ($page['page_id'] == $config_affiliate_terms) { ?>
 												<option value="<?= $page['page_id']; ?>" selected><?= $page['title']; ?></option>
 												<?php } else { ?>
 												<option value="<?= $page['page_id']; ?>"><?= $page['title']; ?></option>
 												<?php } ?>
 											<?php } ?>
 										</select>
+										<?php if ($error_affiliate_terms) { ?>
+											<div class="help-block error"><?= $error_affiliate_terms; ?></div>
+										<?php } ?>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-2"><?= $lang_entry_commission; ?></label>
 									<div class="control-field col-sm-4">
 										<input type="text" name="config_commission" value="<?= $config_commission; ?>" class="form-control">
+										<?php if ($error_commission) { ?>
+											<div class="help-block error"><?= $error_commission; ?></div>
+										<?php } ?>
 									</div>
 								</div>
 							</div>
