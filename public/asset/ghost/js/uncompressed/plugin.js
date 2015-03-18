@@ -124,7 +124,7 @@
         $('.radio')
           .not('.pui-init') // a flag to know the input has been initialized
             .each(function() {
-            var $this = $(this),
+            var $this = $(this).addClass('pui-init'),
                 radio = $this.find('input:radio'),
                 label = $this.children('label'),
                 overlay = $('<span class="ctrl-overlay"/>').appendTo(label);

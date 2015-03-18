@@ -35,6 +35,8 @@ $_['lang_text_pagination']       = 'Showing {start} to {end} of {total} ({pages}
 $_['lang_text_separator']        = ' &raquo; ';
 $_['lang_text_read_more']        = 'Read More';
 $_['lang_text_by']               = 'by';
+$_['lang_text_enabled']			 = 'Enabled';
+$_['lang_text_disabled']		 = 'Disabled';
 
 // Buttons
 $_['lang_button_add_address']    = 'Add Address';

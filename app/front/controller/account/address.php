@@ -188,15 +188,42 @@ class Address extends Controller {
                 $format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
             }
             
-            $find = array('{firstname}', '{lastname}', '{company}', '{address_1}', '{address_2}', '{city}', '{postcode}', '{zone}', '{zone_code}', '{country}');
+            $find = array(
+                '{firstname}', 
+                '{lastname}', 
+                '{company}', 
+                '{address_1}', 
+                '{address_2}', 
+                '{city}', 
+                '{postcode}', 
+                '{zone}', 
+                '{zone_code}', 
+                '{country}'
+            );
             
-            $replace = array('firstname' => $result['firstname'], 'lastname' => $result['lastname'], 'company' => $result['company'], 'address_1' => $result['address_1'], 'address_2' => $result['address_2'], 'city' => $result['city'], 'postcode' => $result['postcode'], 'zone' => $result['zone'], 'zone_code' => $result['zone_code'], 'country' => $result['country']);
+            $replace = array(
+                'firstname' => $result['firstname'], 
+                'lastname'  => $result['lastname'], 
+                'company'   => $result['company'], 
+                'address_1' => $result['address_1'], 
+                'address_2' => $result['address_2'], 
+                'city'      => $result['city'], 
+                'postcode'  => $result['postcode'], 
+                'zone'      => $result['zone'], 
+                'zone_code' => $result['zone_code'], 
+                'country'   => $result['country']
+            );
             
-            $data['addresses'][] = array('address_id' => $result['address_id'], 'address' => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))), 'update' => $this->url->link('account/address/update', 'address_id=' . $result['address_id'], 'SSL'), 'delete' => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], 'SSL'));
+            $data['addresses'][] = array(
+                'address_id' => $result['address_id'], 
+                'address'    => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))), 
+                'update'     => $this->url->link('account/address/update', 'address_id=' . $result['address_id'], 'SSL'), 
+                'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], 'SSL')
+            );
         }
         
         $data['insert'] = $this->url->link('account/address/insert', '', 'SSL');
-        $data['back'] = $this->url->link('account/dashboard', '', 'SSL');
+        $data['back']   = $this->url->link('account/dashboard', '', 'SSL');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

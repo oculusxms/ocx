@@ -54,6 +54,12 @@ class Dashboard extends Controller {
             $data['warning'] = '';
         endif;
         
+        $data['affiliate'] = false;
+
+        if ($this->config->get('config_affiliate_allowed') && $this->customer->isAffiliate()):
+            $data['affiliate'] = $this->url->link('account/affiliate', '', 'SSL');
+        endif;
+
         $data['edit']        = $this->url->link('account/edit', '', 'SSL');
         $data['password']    = $this->url->link('account/password', '', 'SSL');
         $data['address']     = $this->url->link('account/address', '', 'SSL');

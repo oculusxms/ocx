@@ -35,7 +35,12 @@
 						<i class="fa fa-envelope fa-3x"></i><br>
 						<span><?= $lang_icon_subscribe; ?></span>
 					</a>
-				
+				<?php if ($affiliate): ?>
+					<a href="<?= $affiliate; ?>" class="btn btn-transparent btn-primary btn-app">
+						<i class="fa fa-bar-chart-o fa-3x"></i><br>
+						<span><?= $lang_icon_affiliate; ?></span>
+					</a>
+				<?php endif; ?>
 			</fieldset>
 		</div>
 		<div class="col-sm-6">

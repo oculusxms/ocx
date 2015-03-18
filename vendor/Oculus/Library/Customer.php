@@ -30,6 +30,8 @@ class Customer extends LibraryService {
     private $profile_complete;
     private $address_complete;
     private $customer_products;
+    private $code;
+    private $is_affiliate;
     
     public $customer_group_id;
     public $customer_group_name;
@@ -56,6 +58,13 @@ class Customer extends LibraryService {
             $this->profile_complete    = $session->data['profile_complete'];
             $this->address_complete    = $session->data['address_complete'];
             $this->customer_products   = $session->data['customer_products'];
+            $this->is_affiliate        = $session->data['is_affiliate'];
+
+            if ($this->is_affiliate):
+                $this->code = $session->data['code'];
+            else:
+                $this->code = false;
+            endif;
             
             $db->query("
                 UPDATE {$db->prefix}customer 
@@ -132,7 +141,9 @@ class Customer extends LibraryService {
             $session->data['newsletter']        = $customer_query->row['newsletter'];
             $session->data['customer_group_id'] = $customer_query->row['customer_group_id'];
             $session->data['address_id']        = $customer_query->row['address_id'];
-            
+            $session->data['is_affiliate']      = $customer_query->row['is_affiliate'];
+            $session->data['code']              = $customer_query->row['code'];
+
             $customer_group_query = $db->query("
                 SELECT name 
                 FROM {$db->prefix}customer_group_description 
@@ -233,6 +244,8 @@ class Customer extends LibraryService {
         unset($session->data['profile_complete']);
         unset($session->data['address_complete']);
         unset($session->data['customer_products']);
+        unset($session->data['is_affiliate']);
+        unset($session->data['code']);
         
         $this->customer_id         = '';
         $this->username            = '';
@@ -246,6 +259,9 @@ class Customer extends LibraryService {
         $this->profile_complete    = false;
         $this->address_complete    = false;
         $this->customer_products   = false;
+        $this->is_affiliate        = false;
+        $this->code                = false;
+
         
         // set group id to publically visible
         $this->customer_group_id = parent::$app['config_default_visibility'];
@@ -324,6 +340,14 @@ class Customer extends LibraryService {
     public function getCustomerProducts() {
         return $this->customer_products;
     }
+
+    public function isAffiliate() {
+        return $this->is_affiliate;
+    }
+
+    public function getCode() {
+        return $this->code;
+    }
     
     public function getBalance() {
         $db = parent::$app['db'];
@@ -382,24 +406,24 @@ class Customer extends LibraryService {
             AND customer_id = '" . (int)$customer_id . "'
         ");
         
-        if ($address_query->num_rows) {
+        if ($address_query->num_rows):
             $country_query = $db->query("
                 SELECT * 
                 FROM `{$db->prefix}country` 
                 WHERE country_id = '" . (int)$address_query->row['country_id'] . "'
             ");
             
-            if ($country_query->num_rows) {
+            if ($country_query->num_rows):
                 $country = $country_query->row['name'];
                 $iso_code_2 = $country_query->row['iso_code_2'];
                 $iso_code_3 = $country_query->row['iso_code_3'];
                 $address_format = $country_query->row['address_format'];
-            } else {
+            else:
                 $country        = '';
                 $iso_code_2     = '';
                 $iso_code_3     = '';
                 $address_format = '';
-            }
+            endif;
             
             $zone_query = $db->query("
                 SELECT * 
@@ -407,13 +431,13 @@ class Customer extends LibraryService {
                 WHERE zone_id = '" . (int)$address_query->row['zone_id'] . "'
             ");
             
-            if ($zone_query->num_rows) {
+            if ($zone_query->num_rows):
                 $zone      = $zone_query->row['name'];
                 $zone_code = $zone_query->row['code'];
-            } else {
+            else:
                 $zone      = '';
                 $zone_code = '';
-            }
+            endif;
             
             $address_data = array(
                 'firstname'      => $address_query->row['firstname'],
@@ -436,9 +460,9 @@ class Customer extends LibraryService {
             );
             
             return $address_data;
-        } else {
+        else:
             return false;
-        }
+        endif;
     }
     
     public function processMembership($products) {
@@ -498,12 +522,10 @@ class Customer extends LibraryService {
                 $group_id = $group_names[$value];
                 
                 if ($value == $this->customer->customer_group_name):
-                    
                     // our customer is already this member type
                     // nothing to do but bail.
                     return;
                 else:
-                    
                     // update session, update class, update db
                     $this->setGroupId($group_id);
                     $this->updateCustomerGroup($group_id);

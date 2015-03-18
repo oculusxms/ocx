@@ -53,7 +53,7 @@ class Credit extends Controller {
         $results      = $this->model_account_credit->getCredits($filter);
         
         foreach ($results as $result) {
-            $data['transactions'][] = array(
+            $data['credits'][] = array(
                 'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')), 
                 'description' => $result['description'], 
                 'date_added'  => date($this->language->get('lang_date_format_short'), strtotime($result['date_added']))

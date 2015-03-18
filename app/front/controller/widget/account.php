@@ -48,6 +48,12 @@ class Account extends Controller {
         else:
             $data['product'] = false;
         endif;
+
+        if ($this->config->get('config_affiliate_allowed') && $this->customer->isAffiliate()):
+            $data['affiliate'] = $this->url->link('account/affiliate', '', 'SSL');
+        else:
+            $data['affiliate'] = false;
+        endif;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

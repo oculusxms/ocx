@@ -38,6 +38,7 @@ use Oculus\Library\Encode;
 use Oculus\Library\Encryption;
 use Oculus\Library\Error;
 use Oculus\Library\Event;
+use Oculus\Library\Filter;
 use Oculus\Library\Hook;
 use Oculus\Library\Javascript;
 use Oculus\Library\Language;
@@ -53,6 +54,7 @@ use Oculus\Library\Session;
 use Oculus\Library\Tax;
 use Oculus\Library\Url;
 use Oculus\Library\User;
+use Oculus\Library\Validation;
 use Oculus\Library\Vat;
 use Oculus\Library\Weight;
 
@@ -115,20 +117,20 @@ class Application {
          */
         
         $request->server['SCRIPT_NAME'] = str_replace(PUBLIC_DIR, '', $request->server['SCRIPT_NAME']);
-        $request->server['PHP_SELF'] = str_replace(PUBLIC_DIR, '', $request->server['PHP_SELF']);
+        $request->server['PHP_SELF']    = str_replace(PUBLIC_DIR, '', $request->server['PHP_SELF']);
         
         if (!$route):
             unset($request->get['_route_']);
             unset($request->request['_route_']);
             unset($request->server['REDIRECT_QUERY_STRING']);
             $request->server['QUERY_STRING'] = '';
-            $request->server['REQUEST_URI'] = '/';
+            $request->server['REQUEST_URI']  = '/';
         else:
-            $request->get['_route_'] = $route;
-            $request->request['_route_'] = $route;
+            $request->get['_route_']                  = $route;
+            $request->request['_route_']              = $route;
             $request->server['REDIRECT_QUERY_STRING'] = '_route_=' . $route;
-            $request->server['QUERY_STRING'] = '_route_=' . $route;
-            $request->server['REQUEST_URI'] = '/' . $route;
+            $request->server['QUERY_STRING']          = '_route_=' . $route;
+            $request->server['REQUEST_URI']           = '/' . $route;
         endif;
         
         /**
@@ -491,9 +493,8 @@ class Application {
         
         // file cache
         $this->data['filecache'] = function ($data) {
-            return new Cache(new Asset(31536000, $data) , $data);
-            
             // 1 year in seconds to match htaccess rules
+            return new Cache(new Asset(31536000, $data) , $data);
         };
         
         // mailer
@@ -504,6 +505,15 @@ class Application {
         // notifications
         $this->data['notify'] = function ($data) {
             return new Notification($data);
+        };
+
+        // filter
+        $this->data['filter'] = function ($data) {
+            return new Filter($data);
+        };
+
+        $this->data['validator'] = function ($data) {
+            return new Validation($data);
         };
     }
     

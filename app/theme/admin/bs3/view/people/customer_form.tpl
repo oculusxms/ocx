@@ -335,6 +335,7 @@
 									<label class="radio-inline"><input type="radio" name="affiliate[affiliate_status]" value="1"><?= $lang_text_enabled; ?></label>
 									<label class="radio-inline"><input type="radio" name="affiliate[affiliate_status]" value="0" checked><?= $lang_text_disabled; ?></label>
 								<?php endif; ?>
+								<input type="hidden" name="is_affiliate" value="<?= $is_affiliate; ?>">
 							</div>
 						</div>
 						<div class="form-group">
@@ -353,25 +354,31 @@
 							<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_code; ?></label>
 							<div class="control-field col-sm-4">
 								<input type="text" name="affiliate[code]" value="<?= $affiliate['code']; ?>" class="form-control">
-								<?php if ($error_code) { ?>
+								<?php if ($error_code): ?>
 									<div class="help-block error"><?= $error_code; ?></div>
-								<?php } ?>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-sm-2" for="commission"><?= $lang_entry_commission; ?></label>
+							<label class="control-label col-sm-2" for="commission"><b class="required">*</b> <?= $lang_entry_commission; ?></label>
 							<div class="control-field col-sm-4">
 								<input type="text" name="affiliate[commission]" value="<?= $affiliate['commission']; ?>" class="form-control">
+								<?php if ($error_commission): ?>
+									<div class="help-block error"><?= $error_commission; ?></div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-sm-2" for="tax_id"><?= $lang_entry_tax_id; ?></label>
+							<label class="control-label col-sm-2" for="tax_id"><b class="required">*</b> <?= $lang_entry_tax_id; ?></label>
 							<div class="control-field col-sm-4">
 								<input type="text" name="affiliate[tax_id]" value="<?= $affiliate['tax_id']; ?>" class="form-control">
+								<?php if ($error_tax_id): ?>
+									<div class="help-block error"><?= $error_tax_id; ?></div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-sm-2"><?= $lang_entry_payment_method; ?></label>
+							<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_payment_method; ?></label>
 							<div class="control-field col-sm-4">
 								<?php if ($affiliate['payment_method'] == 'cheque') { ?>
 									<label class="radio-inline"><input type="radio" name="affiliate[payment_method]" value="cheque" checked><?= $lang_text_cheque; ?></label>
@@ -388,25 +395,37 @@
 								<?php } else { ?>
 									<label class="radio-inline"><input type="radio" name="affiliate[payment_method]" value="bank"><?= $lang_text_bank; ?></label>
 								<?php } ?>
+								<?php if ($error_payment): ?>
+									<div class="help-block error"><?= $error_payment; ?></div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div id="payment-cheque" class="payment form-group">
-							<label class="control-label col-sm-2" for="cheque"><?= $lang_entry_cheque; ?></label>
+							<label class="control-label col-sm-2" for="cheque"><b class="required">*</b> <?= $lang_entry_cheque; ?></label>
 							<div class="control-field col-sm-4">
 								<input type="text" name="affiliate[cheque]" value="<?= $affiliate['cheque']; ?>" class="form-control">
+								<?php if ($error_cheque): ?>
+									<div class="help-block error"><?= $error_cheque; ?></div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div id="payment-paypal" class="payment form-group">
-							<label class="control-label col-sm-2" for="paypal"><?= $lang_entry_paypal; ?></label>
+							<label class="control-label col-sm-2" for="paypal"><b class="required">*</b> <?= $lang_entry_paypal; ?></label>
 							<div class="control-field col-sm-4">
 								<input type="text" name="affiliate[paypal]" value="<?= $affiliate['paypal']; ?>" class="form-control">
+								<?php if ($error_paypal): ?>
+									<div class="help-block error"><?= $error_paypal; ?></div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div id="payment-bank" class="payment">
 							<div class="form-group">
-								<label class="control-label col-sm-2" for="bank_name"><?= $lang_entry_bank_name; ?></label>
+								<label class="control-label col-sm-2" for="bank_name"><b class="required">*</b> <?= $lang_entry_bank_name; ?></label>
 								<div class="control-field col-sm-4">
 									<input type="text" name="affiliate[bank_name]" value="<?= $affiliate['bank_name']; ?>" class="form-control">
+									<?php if ($error_bank_name): ?>
+									<div class="help-block error"><?= $error_bank_name; ?></div>
+								<?php endif; ?>
 								</div>
 							</div>
 							<div class="form-group">
@@ -425,12 +444,18 @@
 								<label class="control-label col-sm-2" for="bank_account_name"><b class="required">*</b> <?= $lang_entry_bank_account_name; ?></label>
 								<div class="control-field col-sm-4">
 									<input type="text" name="affiliate[bank_account_name]" value="<?= $affiliate['bank_account_name']; ?>" class="form-control">
+									<?php if ($error_account_name): ?>
+									<div class="help-block error"><?= $error_account_name; ?></div>
+								<?php endif; ?>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-2" for="bank_account_number"><b class="required">*</b> <?= $lang_entry_bank_account_number; ?></label>
 								<div class="control-field col-sm-4">
 									<input type="text" name="affiliate[bank_account_number]" value="<?= $affiliate['bank_account_number']; ?>" class="form-control">
+									<?php if ($error_account_number): ?>
+									<div class="help-block error"><?= $error_account_number; ?></div>
+								<?php endif; ?>
 								</div>
 							</div>
 						</div>

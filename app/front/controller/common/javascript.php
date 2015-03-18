@@ -31,7 +31,19 @@ class Javascript extends Controller {
     }
     
     public function runner() {
-        $this->javascript->register('jquery.min')->register('migrate.min', 'jquery.min')->register('underscore.min', 'migrate.min')->register('cookie.min', 'underscore.min')->register('touchswipe.min', 'cookie.min')->register('bootstrap.min', 'cookie.min')->register('jstz.min', 'bootstrap.min')->register('plugin.min', 'jstz.min')->register('video.min', 'plugin.min')->register('youtube', 'video.min')->register('calendar', 'plugin.min')->register('common.min', null, true);
+        $this->javascript->register('jquery.min')
+            ->register('migrate.min', 'jquery.min')
+            ->register('underscore.min', 'migrate.min')
+            ->register('cookie.min', 'underscore.min')
+            ->register('touchswipe.min', 'cookie.min')
+            ->register('bootstrap.min', 'cookie.min')
+            ->register('typeahead.min', 'bootstrap.min')
+            ->register('jstz.min', 'bootstrap.min')
+            ->register('plugin.min', 'jstz.min')
+            ->register('video.min', 'plugin.min')
+            ->register('youtube', 'video.min')
+            ->register('calendar', 'plugin.min')
+            ->register('common.min', null, true);
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
     }

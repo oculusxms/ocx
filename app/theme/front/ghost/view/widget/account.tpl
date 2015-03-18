@@ -23,6 +23,9 @@
 	<a class="list-group-item" href="<?= $recurring; ?>"><?= $lang_text_recurring; ?></a>
 	<a class="list-group-item" href="<?= $credit; ?>"><?= $lang_text_credit; ?></a>
 	<a class="list-group-item" href="<?= $edit; ?>"><?= $lang_text_edit; ?></a>
+	<?php if ($affiliate): ?>
+	<a class="list-group-item" href="<?= $affiliate; ?>"><?= $lang_text_affiliate; ?></a>
+	<?php endif; ?>
 	<a class="list-group-item" href="<?= $password; ?>"><?= $lang_text_password; ?></a>
 	<a class="list-group-item" href="<?= $address; ?>"><?= $lang_text_address; ?></a>
 	<a class="list-group-item" href="<?= $newsletter; ?>"><?= $lang_text_newsletter; ?></a>
