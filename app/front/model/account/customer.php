@@ -38,6 +38,7 @@ class Customer extends Model {
                 salt              = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
                 password          = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
                 customer_group_id = '" . (int)$customer_group_id . "', 
+                referral_id       = '" . (isset($this->request->cookie['referrer']) ? $this->request->cookie['referrer'] : 0) . "', 
                 ip                = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', 
                 status            = '1', 
                 approved          = '" . (int)!$customer_group_info['approval'] . "', 

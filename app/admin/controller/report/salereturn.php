@@ -77,18 +77,29 @@ class Salereturn extends Controller {
         
         $this->breadcrumb->add('lang_heading_title', 'report/salereturn', $url);
         
-        $this->theme->model('report/return');
+        $this->theme->model('report/returns');
         
         $data['returns'] = array();
         
-        $filter = array('filter_date_start' => $filter_date_start, 'filter_date_end' => $filter_date_end, 'filter_group' => $filter_group, 'filter_return_status_id' => $filter_return_status_id, 'start' => ($page - 1) * $this->config->get('config_admin_limit'), 'limit' => $this->config->get('config_admin_limit'));
+        $filter = array(
+            'filter_date_start'       => $filter_date_start, 
+            'filter_date_end'         => $filter_date_end, 
+            'filter_group'            => $filter_group, 
+            'filter_return_status_id' => $filter_return_status_id, 
+            'start'                   => ($page - 1) * $this->config->get('config_admin_limit'), 
+            'limit'                   => $this->config->get('config_admin_limit')
+        );
         
-        $return_total = $this->model_report_return->getTotalReturns($filter);
+        $return_total = $this->model_report_returns->getTotalReturns($filter);
         
-        $results = $this->model_report_return->getReturns($filter);
+        $results = $this->model_report_returns->getReturns($filter);
         
         foreach ($results as $result) {
-            $data['returns'][] = array('date_start' => date($this->language->get('lang_date_format_short'), strtotime($result['date_start'])), 'date_end' => date($this->language->get('lang_date_format_short'), strtotime($result['date_end'])), 'returns' => $result['returns']);
+            $data['returns'][] = array(
+                'date_start' => date($this->language->get('lang_date_format_short'), strtotime($result['date_start'])), 
+                'date_end'   => date($this->language->get('lang_date_format_short'), strtotime($result['date_end'])), 
+                'returns'    => $result['returns']
+            );
         }
         
         $data['token'] = $this->session->data['token'];
@@ -99,13 +110,25 @@ class Salereturn extends Controller {
         
         $data['groups'] = array();
         
-        $data['groups'][] = array('text' => $this->language->get('lang_text_year'), 'value' => 'year',);
+        $data['groups'][] = array(
+            'text'  => $this->language->get('lang_text_year'), 
+            'value' => 'year'
+        );
         
-        $data['groups'][] = array('text' => $this->language->get('lang_text_month'), 'value' => 'month',);
+        $data['groups'][] = array(
+            'text'  => $this->language->get('lang_text_month'), 
+            'value' => 'month'
+        );
         
-        $data['groups'][] = array('text' => $this->language->get('lang_text_week'), 'value' => 'week',);
+        $data['groups'][] = array(
+            'text'  => $this->language->get('lang_text_week'), 
+            'value' => 'week'
+        );
         
-        $data['groups'][] = array('text' => $this->language->get('lang_text_day'), 'value' => 'day',);
+        $data['groups'][] = array(
+            'text'  => $this->language->get('lang_text_day'), 
+            'value' => 'day'
+        );
         
         $url = '';
         
@@ -125,11 +148,17 @@ class Salereturn extends Controller {
             $url.= '&filter_return_status_id=' . $this->request->get['filter_return_status_id'];
         }
         
-        $data['pagination'] = $this->theme->paginate($return_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('report/salereturn', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $return_total, 
+            $page, 
+            $this->config->get('config_admin_limit'), 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('report/salereturn', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL')
+        );
         
-        $data['filter_date_start'] = $filter_date_start;
-        $data['filter_date_end'] = $filter_date_end;
-        $data['filter_group'] = $filter_group;
+        $data['filter_date_start']       = $filter_date_start;
+        $data['filter_date_end']         = $filter_date_end;
+        $data['filter_group']            = $filter_group;
         $data['filter_return_status_id'] = $filter_return_status_id;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
