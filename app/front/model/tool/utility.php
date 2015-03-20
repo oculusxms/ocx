@@ -37,4 +37,22 @@ class Utility extends Model {
 
 		return $query->row['total'];
 	}
+
+	public function findSlugByName($slug) {
+		$query = $this->db->query("
+			SELECT query 
+			FROM {$this->db->prefix}affiliate_route 
+			WHERE slug = '" . $this->db->escape($slug) . "' 
+			UNION ALL 
+			SELECT query 
+			FROM {$this->db->prefix}route 
+			WHERE slug = '" . $this->db->escape($slug) . "' 
+			UNION ALL 
+			SELECT query 
+			FROM {$this->db->prefix}vanity_route 
+			WHERE slug = '" . $this->db->escape($slug) . "'
+		");
+
+		return ($query->num_rows) ? $query->row['query'] : false;
+    }
 }

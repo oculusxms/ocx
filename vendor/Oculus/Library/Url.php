@@ -315,6 +315,28 @@ class Url extends LibraryService {
                     unset($slug);
                     unset($array);
                     break;
+
+                case ('content/home' || 'shop/home') && $key === 'affiliate_id':
+                    if ($route['route'] === 'content/home'):
+                        $array = $slugs['content/home'];
+                    else:
+                        $array = $slugs['shop/home'];
+                    endif;
+                    $slug = 'affiliate_id:' . $value;
+                    foreach ($array as $k => $v):
+                        if (in_array($slug, $v)):
+                            if ($ucfirst):
+                                $url.= '/' . $this->cap_slug($v['slug']);
+                            else:
+                                $url.= '/' . $v['slug'];
+                            endif;
+                        endif;
+                    endforeach;
+                    unset($route[$key]);
+                    unset($slug);
+                    unset($array);
+                    break;
+
             endswitch;
         endforeach;
         

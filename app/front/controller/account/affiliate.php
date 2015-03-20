@@ -28,10 +28,70 @@ class Affiliate extends Controller {
         'paypal',
         'bank_name',
         'bank_account_name',
-        'bank_account_number'
+        'bank_account_number',
+        'slug',
+        'agree'
     );
 
 	public function index() {
+        if (!$this->customer->isLogged()):
+            $this->session->data['redirect'] = $this->url->link('account/affiliate', '', 'SSL');
+            $this->response->redirect($this->url->link('account/login', '', 'SSL'));
+        endif;
+        
+        $this->theme->language('account/affiliate');
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
+        
+        $this->theme->listen(__CLASS__, __FUNCTION__);
+        
+        $this->getForm();
+    }
+
+    public function update() {
+		if (!$this->customer->isLogged()):
+            $this->session->data['redirect'] = $this->url->link('account/affiliate', '', 'SSL');
+            $this->response->redirect($this->url->link('account/login', '', 'SSL'));
+        endif;
+
+		$this->theme->language('account/affiliate');
+        $this->theme->model('account/affiliate');
+
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
+        
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()):
+        	$this->model_account_affiliate->editSettings($this->request->post);
+
+        	$this->session->data['success'] = $this->language->get('lang_text_success');
+        	$this->response->redirect($this->url->link('account/dashboard', '', 'SSL'));
+        endif;
+
+        $this->theme->listen(__CLASS__, __FUNCTION__);
+        
+        $this->getForm();
+	}
+
+	public function register() {
+		if (!$this->customer->isLogged()):
+            $this->session->data['redirect'] = $this->url->link('account/affiliate', '', 'SSL');
+            $this->response->redirect($this->url->link('account/login', '', 'SSL'));
+        endif;
+
+		$this->theme->language('account/affiliate');
+        $this->theme->model('account/affiliate');
+
+        $this->theme->setTitle($this->language->get('lang_heading_title'));
+
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateRegister()):
+        	$this->model_account_affiliate->addAffiliate();
+        	$this->response->redirect($this->url->link('account/affiliate', '', 'SSL'));
+        endif;
+
+        $this->theme->listen(__CLASS__, __FUNCTION__);
+        
+        $this->getForm();
+	}
+
+	public function getForm() {
 		if (!$this->customer->isLogged()):
             $this->session->data['redirect'] = $this->url->link('account/affiliate', '', 'SSL');
             $this->response->redirect($this->url->link('account/login', '', 'SSL'));
@@ -44,13 +104,6 @@ class Affiliate extends Controller {
         
         $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
         $this->breadcrumb->add('lang_heading_title', 'account/affiliate', null, true, 'SSL');
-
-         if (isset($this->session->data['success'])):
-            $data['success'] = $this->session->data['success'];
-            unset($this->session->data['success']);
-        else:
-            $data['success'] = '';
-        endif;
         
         if (isset($this->session->data['warning'])):
             $data['warning'] = $this->session->data['warning'];
@@ -62,10 +115,14 @@ class Affiliate extends Controller {
         endif;
 
         $data['action'] = $this->url->link('account/affiliate/update', '', 'SSL');
+        $data['enroll'] = $this->url->link('account/affiliate/register', '', 'SSL');
 
 		if ($this->request->server['REQUEST_METHOD'] != 'POST'):
-			$customer_info = $this->model_account_affiliate->getSettings($this->customer->getId());
+			$customer_info = $this->model_account_affiliate->getSettings();
 		endif;
+        //$this->theme->test($customer_info);
+		$data['is_affiliate'] = $this->customer->isAffiliate();
+		$data['customer_id']  = $this->customer->getId();
 
 		foreach ($this->post_errors as $error):
             if (isset($this->error[$error])):
@@ -75,22 +132,47 @@ class Affiliate extends Controller {
             endif;
         endforeach;
 
+        $code = $this->model_account_affiliate->generateId();
+
         $defaults = array(
-			'affiliate_status'    => 0,
-			'company'             => '',
-			'website'             => '',
-			'code'                => uniqid(),
-			'commission'          => $this->config->get('config_commission'),
-			'tax_id'              => '',
-			'payment_method'      => '',
-			'cheque'              => '',
-			'paypal'              => '',
-			'bank_name'           => '',
-			'bank_branch_number'  => '',
-			'bank_swift_code'     => '',
-			'bank_account_name'   => '',
-			'bank_account_number' => ''
+            'affiliate_status'    => 0,
+            'company'             => '',
+            'website'             => '',
+            'code'                => $code,
+            'commission'          => $this->config->get('config_commission'),
+            'tax_id'              => '',
+            'payment_method'      => '',
+            'cheque'              => '',
+            'paypal'              => '',
+            'bank_name'           => '',
+            'bank_branch_number'  => '',
+            'bank_swift_code'     => '',
+            'bank_account_name'   => '',
+            'bank_account_number' => '',
+            'slug'                => ''
         );
+
+        if ($this->config->get('config_affiliate_terms')):
+            $this->theme->model('content/page');
+            
+            $page_info = $this->model_content_page->getPage($this->config->get('config_affiliate_terms'));
+            if ($page_info):
+				$data['text_agree']     = sprintf($this->language->get('lang_text_terms'), $this->url->link('content/page/info', 'page_id=' . $this->config->get('config_affiliate_terms'), 'SSL'), $page_info['title'], $page_info['title']);
+				$data['js_error_agree'] = sprintf($this->language->get('lang_error_agree'), $page_info['title']);
+            else:
+				$data['text_agree']     = '';
+				$data['js_error_agree'] = '';
+            endif;
+        else:
+			$data['text_agree']     = '';
+			$data['js_error_agree'] = '';
+        endif;
+
+        if (isset($this->request->post['agree'])):
+            $data['agree'] = $this->request->post['agree'];
+        else:
+            $data['agree'] = false;
+        endif;
 
         foreach ($defaults as $key => $value):
             if (isset($this->request->post[$key])):
@@ -102,10 +184,52 @@ class Affiliate extends Controller {
             endif;
         endforeach;
 
-        $base_url = $this->app['http.server'] . $this->customer->getUsername();
+        $data['vanity_base'] = $this->app['http.server'];
 
-        $data['lang_text_description'] = sprintf($this->language->get('lang_text_description'), $base_url);
+        if (!empty($customer_info)):
+            $base_url = $this->url->link($this->theme->style . '/home', 'affiliate_id=' . $this->customer->getId());
+        else:
+            $base_url = $this->url->link($this->theme->style . '/home');
+        endif;
+
+		$data['lang_text_description'] = sprintf($this->language->get('lang_text_description'), $base_url);
+		$data['lang_text_enroll_now']  = sprintf($this->language->get('lang_text_enroll_now'), $this->customer->getFirstname());
+		$data['column_amount']         = sprintf($this->language->get('lang_column_amount'), $this->config->get('config_currency'));
+
+		$data['commissions'] = array();
+
+        if (isset($this->request->get['page'])):
+            $page = $this->request->get['page'];
+        else:
+            $page = 1;
+        endif;
         
+        $filter = array(
+			'sort'  => 't.date_added', 
+			'order' => 'DESC', 
+			'start' => ($page - 1) * 10, 
+			'limit' => 10
+        );
+
+		$total_commissions = $this->model_account_affiliate->getTotalCommissions();
+		$commissions       = $this->model_account_affiliate->getCommissions($filter);
+		$data['balance']   = $this->currency->format($this->model_account_affiliate->getBalance());
+        
+        foreach ($commissions as $commission):
+            $data['commissions'][] = array(
+				'amount'      => $this->currency->format($commission['amount'], $this->config->get('config_currency')), 
+				'description' => $commission['description'], 
+				'date_added'  => date($this->language->get('lang_date_format_short'), strtotime($commission['date_added']))
+            );
+        endforeach;
+
+        $data['pagination'] = $this->theme->paginate(
+            $total_commissions, 
+            $page, 
+            10, 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('account/affiliate#tab-commission', 'page={page}', 'SSL')
+        );
 
         $this->theme->loadjs('javascript/account/affiliate', $data);
 
@@ -119,48 +243,12 @@ class Affiliate extends Controller {
         $this->response->setOutput($this->theme->view('account/affiliate', $data));
 	}
 
-	public function update() {
-		if (!$this->customer->isLogged()):
-            $this->session->data['redirect'] = $this->url->link('account/affiliate', '', 'SSL');
-            $this->response->redirect($this->url->link('account/login', '', 'SSL'));
-        endif;
-
-		$customer_id = $this->customer->getId();
-
-		$this->theme->language('account/affiliate');
-        $this->theme->model('account/affiliate');
-
-        $this->theme->setTitle($this->language->get('lang_heading_title'));
-        
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()):
-        	$this->model_account_affiliate->editSettings($customer_id, $this->request->post);
-
-        	$this->session->data['success'] = $this->language->get('lang_text_success');
-        	$this->response->redirect($this->url->link('account/affiliate', '', 'SSL'));
-        endif;
-
-        $this->theme->listen(__CLASS__, __FUNCTION__);
-        
-        $this->index();
-	}
-
-	public function register() {
-		if (!$this->customer->isLogged()):
-            $this->session->data['redirect'] = $this->url->link('account/affiliate', '', 'SSL');
-            $this->response->redirect($this->url->link('account/login', '', 'SSL'));
-        endif;
-
-        $customer_id = $this->customer->getId();
-
-		$this->theme->language('account/affiliate');
-        $this->theme->model('account/affiliate');
-
-        $this->theme->setTitle($this->language->get('lang_heading_title'));
-        
-       
-	}
-
 	public function autocomplete() {
+        if (!$this->customer->isLogged()):
+            $this->session->data['redirect'] = $this->url->link('account/affiliate', '', 'SSL');
+            $this->response->redirect($this->url->link('account/login', '', 'SSL'));
+        endif;
+
         $json = array();
         
         if (isset($this->request->get['filter_name'])):
@@ -187,7 +275,102 @@ class Affiliate extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-	public function validate() {
+    private function validateRegister() {
+    	if ($this->config->get('config_affiliate_terms')):
+            $this->theme->model('content/page');
+            
+            $page_info = $this->model_content_page->getPage($this->config->get('config_affiliate_terms'));
+            
+            if ($page_info && !isset($this->request->post['agree'])):
+                $this->error['warning'] = sprintf($this->language->get('lang_error_agree'), $page_info['title']);
+            endif;
+        endif;
+        
+        if ($this->error && !isset($this->error['warning'])):
+            $this->error['warning'] = $this->language->get('lang_error_warning');
+        endif;
+        
+        $this->theme->listen(__CLASS__, __FUNCTION__);
+        
+        return !$this->error;
+    }
 
+	private function validate() {
+        if ($this->encode->strlen($this->request->post['tax_id']) < 1):
+            $this->error['tax_id'] = $this->language->get('lang_error_tax_id');
+        endif;
+
+        if ($this->encode->strlen($this->request->post['slug']) < 1):
+            $this->error['slug'] = $this->language->get('lang_error_slug');
+        endif;
+
+        if (!$this->request->post['payment_method']):
+            $this->error['payment'] = $this->language->get('lang_error_payment');
+        else:
+            if ($this->request->post['payment_method'] == 'cheque' && $this->encode->strlen($this->request->post['cheque']) < 1):
+                $this->error['cheque'] = $this->language->get('lang_error_cheque');
+            endif;
+
+            if ($this->request->post['payment_method'] == 'paypal' && $this->encode->strlen($this->request->post['paypal']) < 1):
+                $this->error['paypal'] = $this->language->get('lang_error_paypal');
+            endif;
+
+            if ($this->request->post['payment_method'] == 'bank' && $this->encode->strlen($this->request->post['bank_name']) < 1):
+                $this->error['bank_name'] = $this->language->get('lang_error_bank_name');
+            endif;
+
+            if ($this->request->post['payment_method'] == 'bank' && $this->encode->strlen($this->request->post['bank_account_name']) < 1):
+                $this->error['bank_account_name'] = $this->language->get('lang_error_account_name');
+            endif;
+
+            if ($this->request->post['payment_method'] == 'bank' && $this->encode->strlen($this->request->post['bank_account_number']) < 1):
+                $this->error['bank_account_number'] = $this->language->get('lang_error_account_number');
+            endif;
+        endif;
+        
+        if ($this->error && !isset($this->error['warning'])):
+            $this->error['warning'] = $this->language->get('lang_error_warning');
+        endif;
+        
+        $this->theme->listen(__CLASS__, __FUNCTION__);
+        
+        return !$this->error;
 	}
+
+    public function slug() {
+        if (!$this->customer->isLogged()):
+            $this->session->data['redirect'] = $this->url->link('account/affiliate', '', 'SSL');
+            $this->response->redirect($this->url->link('account/login', '', 'SSL'));
+        endif;
+
+        $this->language->load('account/affiliate');
+        $this->theme->model('tool/utility');
+        
+        $json = array();
+        
+        if (!isset($this->request->get['name']) || $this->encode->strlen($this->request->get['name']) < 1):
+            $json['error'] = $this->language->get('lang_error_slug');
+        else:
+            
+            // build slug
+            $slug = $this->url->build_slug($this->request->get['name']);
+            
+            // check that the slug is globally unique
+            $query = $this->model_tool_utility->findSlugByName($slug);
+            
+            if ($query):
+                if ($query != 'affiliate_id:' . $this->customer->getId()):
+                    $json['error'] = sprintf($this->language->get('lang_error_slug_found'), $slug);
+                else:
+                    $json['slug'] = $slug;
+                endif;
+            else:
+                $json['slug'] = $slug;
+            endif;
+        endif;
+        
+        $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
+        
+        $this->response->setOutput(json_encode($json));
+    }
 }

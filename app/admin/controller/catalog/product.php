@@ -1285,7 +1285,7 @@ class Product extends Controller {
             // check that the slug is globally unique
             $query = $this->model_tool_utility->findSlugByName($slug);
             
-            if (isset($query)):
+            if ($query):
                 if (isset($this->request->get['product_id'])):
                     if ($query != 'product_id:' . $this->request->get['product_id']):
                         $json['error'] = sprintf($this->language->get('lang_error_slug_found'), $slug);

@@ -3811,7 +3811,7 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
     top: -2px;
     right: -21px;
     color: inherit;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 .alert-success {
     background-color: #dff0d8;
@@ -4293,6 +4293,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
     text-shadow: 0 1px 0 #fff;
     opacity: .2;
     filter: alpha(opacity=20);
+    text-decoration: none !important;
 }
 .close:hover, .close:focus {
     color: #000;

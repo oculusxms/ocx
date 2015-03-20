@@ -37,7 +37,7 @@ class Router extends Controller {
             
             // Slug Routes
             $routes = $this->get('routes');
-            
+            //$this->theme->test($routes);
             if (!isset($this->request->get['route'])):
                 foreach ($slugs as $slug):
                     $slug = strtolower($slug);
@@ -78,6 +78,10 @@ class Router extends Controller {
                                     elseif ($url[0] == 'post_id'):
                                         $this->request->get['route'] = 'content/post';
                                         $this->request->get[$url[0]] = $url[1];
+                                    elseif ($url[0] == 'affiliate_id'): // affiliate routes
+                                        if (!isset($this->request->cookie['referrer'])):
+                                            setcookie('referrer', $url[1], time() + ((3600 * 24) * 365), '/');
+                                        endif;
                                     else:
                                         $this->request->get[$url[0]] = $url[1];
                                     endif;
@@ -87,7 +91,7 @@ class Router extends Controller {
                     endforeach;
                 endforeach;
             endif;
-            
+            //$this->theme->test($this->request->get['route']);
             unset($slugs);
             
             // Native Routes

@@ -20,12 +20,20 @@ use Oculus\Engine\Model;
 class Utility extends Model {
     
     public function findSlugByName($slug) {
-        $query = $this->db->query("
+		$query = $this->db->query("
+			SELECT query 
+			FROM {$this->db->prefix}affiliate_route 
+			WHERE slug = '" . $this->db->escape($slug) . "' 
+			UNION ALL 
 			SELECT query 
 			FROM {$this->db->prefix}route 
+			WHERE slug = '" . $this->db->escape($slug) . "' 
+			UNION ALL 
+			SELECT query 
+			FROM {$this->db->prefix}vanity_route 
 			WHERE slug = '" . $this->db->escape($slug) . "'
 		");
-        
-        if ($query->num_rows) return $query->row['query'];
+
+		return ($query->num_rows) ? $query->row['query'] : false;
     }
 }

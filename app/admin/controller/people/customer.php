@@ -520,7 +520,7 @@ class Customer extends Controller {
                 endif;
 
                 if ($this->request->post['affiliate']['payment_method'] == 'paypal' && $this->encode->strlen($this->request->post['affiliate']['paypal']) < 1):
-                    $this->error[''] = $this->language->get('lang_error_paypal');
+                    $this->error['paypal'] = $this->language->get('lang_error_paypal');
                 endif;
 
                 if ($this->request->post['affiliate']['payment_method'] == 'bank' && $this->encode->strlen($this->request->post['affiliate']['bank_name']) < 1):

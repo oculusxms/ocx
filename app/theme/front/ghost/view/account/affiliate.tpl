@@ -1,17 +1,47 @@
 <?= $header; ?>
-<?php if ($success): ?>
-<div class="alert alert-success"><a class="close" data-dismiss="alert" href="#">&times;</a><?= $success; ?></div>
-<?php endif; ?>
-<?php if ($warning): ?>
-<div class="alert alert-danger"><a class="close" data-dismiss="alert" href="#">&times;</a><?= $warning; ?></div>
-<?php endif; ?>
 <?= $post_header; ?>
 <div class="row">
 	<?= $column_left; ?>
 	<div class="col-sm-<?php $span = trim($column_left) ? 9 : 12; $span = trim($column_right) ? $span - 3 : $span; echo $span; ?>">
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
+		<?php if ($warning): ?>
+		<div class="alert alert-danger"><a class="close" data-dismiss="alert" href="#">&times;</a><?= $warning; ?></div>
+		<?php endif; ?>
 		<div class="page-header"><h1><?= $lang_text_affiliate; ?></h1></div>
+		<?php if (!$is_affiliate): ?>
+		<div>
+			<form action="<?= $enroll; ?>" method="post" enctype="multipart/form-data" id="enroll-form" class="form-horizontal">
+				<input type="hidden" name="customer" value="<?= $customer_id; ?>">
+				<div class="col-sm-12">
+					<p><?= $lang_text_enroll_now; ?></p>
+				
+					<?php if ($text_agree): ?>
+					<div class="form-group">
+						<div class="col-sm-10">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="agree" value="1"<?= $agree ? ' checked' : ''; ?>><?= $text_agree; ?>
+								</label>
+								<?php if ($error_agree): ?>
+								<span class="help-block error"><?= $error_agree; ?></span>
+								<?php endif; ?>
+							</div>
+						</div>
+					</div>
+					<?php endif; ?>
+
+				</div>
+				<br style="clear:both">
+				<div class="form-actions">
+					<div class="form-actions-inner text-right">
+						<input type="submit" class="btn btn-warning" value="Enroll">
+					</div>
+				</div>
+			</form>
+		</div>
+		<?php else: ?>
+		<div>
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#tab-general" data-toggle="tab"><?= $lang_tab_general; ?></a></li>
 			<li><a href="#tab-tracking" data-toggle="tab"><?= $lang_tab_tracking; ?></a></li>
@@ -44,6 +74,21 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="control-label col-sm-3"><b class="required"></b> <?= $lang_entry_slug; ?></label>
+							<div class="control-field col-sm-6">
+								<p class="form-control-static"><?= $vanity_base; ?><span id="vanity"><?= $slug; ?></span></p>
+								<div class="input-group">
+									<input type="text" name="slug" value="<?= $slug; ?>" id="slug" class="form-control">
+									<span class="input-group-btn">
+										<button class="btn btn-default" style="padding:5px 12px;margin-left:-2px;" id="affiliate-slug-btn" type="button"><?= $lang_text_build; ?></button>
+									</span>
+								</div>
+								<?php if ($error_slug): ?>
+								<span class="help-block error"><?= $error_slug; ?></span>
+								<?php endif; ?>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="control-label col-sm-3" for="company"><?= $lang_entry_company; ?></label>
 							<div class="col-sm-6">
 								<input type="text" name="company" value="<?= $company; ?>" class="form-control" id="company">
@@ -72,7 +117,8 @@
 						<div class="form-group">
 							<label class="control-label col-sm-3"><?= $lang_text_code; ?></label>
 							<div class="col-sm-6">
-								<input type="text" value="<?= $code; ?>" class="form-control" id="code">
+								<input type="text" value="<?= $code; ?>" class="form-control" id="code" disabled>
+								<input type="hidden" name="code" value="<?= $code; ?>">
 							</div>
 						</div>
 						<div class="form-group">
@@ -95,6 +141,7 @@
 							<label class="control-label col-sm-3"><span class="required">*</span> <?= $lang_entry_payment; ?></label>
 							<div class="col-sm-6">
 								<div class="radio radio-inline">
+									<?php if (!$payment_method) $payment_method = 'cheque'; ?>
 									<label>
 										<input type="radio" name="payment_method" value="cheque"<?= ($payment_method == 'cheque') ? ' checked' : ''; ?>> <?= $lang_text_cheque; ?>
 									</label>
@@ -173,18 +220,40 @@
 					</fieldset>
 				</div>
 				<div class="tab-pane" id="tab-commission">
-					<fieldset>
-						
-					</fieldset>
+					<?php if ($commissions): ?>
+					<div class="alert alert-info"><?= $lang_text_balance; ?> <b><?= $balance; ?></b></div>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><?= $lang_column_date_added; ?></th>
+								<th><?= $lang_column_description; ?></th>
+								<th class="text-right"><?= $column_amount; ?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($commissions as $commission) { ?>
+							<tr>
+								<td><?= $commission['date_added']; ?></td>
+								<td><?= $commission['description']; ?></td>
+								<td class="text-right"><?= $commission['amount']; ?></td>
+							</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+					<div class="pagination"><?= str_replace('....','',$pagination); ?></div>
+					<?php else: ?>
+						<div class="alert alert-warning"><?= $lang_text_empty; ?></div>
+					<?php endif; ?>
 				</div>
 			</div>
 			<div class="form-actions">
 				<div class="form-actions-inner text-right">
-					<input type="submit" class="btn btn-warning" value="<?= $lang_button_continue; ?>">
+					<input type="submit" class="btn btn-warning" value="<?= $lang_button_save; ?>">
 				</div>
 			</div>
 		</form>
-		
+		</div>
+		<?php endif; ?>
 		<?= $content_bottom; ?>
 	</div>
 	<?= $column_right; ?>

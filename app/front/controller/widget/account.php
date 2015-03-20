@@ -35,25 +35,14 @@ class Account extends Controller {
         $data['order']        = $this->url->link('account/order', '', 'SSL');
         $data['download']     = ($this->config->get('config_download')) ? $this->url->link('account/download', '', 'SSL') : false;
         $data['reward']       = ($this->config->get('reward_status')) ? $this->url->link('account/reward', '', 'SSL') : false;
+        $data['product']      = (!empty($this->customer->getCustomerProducts())) ? $this->url->link('account/product', '', 'SSL') : false;
+        $data['affiliate']    = ($this->config->get('config_affiliate_allowed')) ? $this->url->link('account/affiliate', '', 'SSL') : false;
         $data['return']       = $this->url->link('account/returns', '', 'SSL');
         $data['credit']       = $this->url->link('account/credit', '', 'SSL');
         $data['newsletter']   = $this->url->link('account/newsletter', '', 'SSL');
         $data['recurring']    = $this->url->link('account/recurring', '', 'SSL');
         $data['notification'] = $this->url->link('account/notification', '', 'SSL');
-        
         $data['unread']       = $this->model_tool_utility->getUnreadCustomerNotifications($this->customer->getId());
-        
-        if (!empty($this->customer->getCustomerProducts())):
-            $data['product'] = $this->url->link('account/product', '', 'SSL');
-        else:
-            $data['product'] = false;
-        endif;
-
-        if ($this->config->get('config_affiliate_allowed') && $this->customer->isAffiliate()):
-            $data['affiliate'] = $this->url->link('account/affiliate', '', 'SSL');
-        else:
-            $data['affiliate'] = false;
-        endif;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

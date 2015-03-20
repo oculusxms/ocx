@@ -544,6 +544,8 @@ class Application {
     
     protected function frontClasses() {
         
+        $db = $this->data['db']; // added to get affiliate id
+
         // Image Upload Url for Summernote Editor
         if ($this->data['config_secure']):
             $img_url = $this->data['https.server'] . 'image/';
@@ -560,9 +562,19 @@ class Application {
             return new Customer($data);
         };
         
-        // tracking cookie --- this will change
-        if (isset($this->data['request']->get['tracking'])):
-            setcookie('tracking', $this->data['request']->get['tracking'], time() + 3600 * 24 * 1000, '/');
+        // Affiliate tracking cookie
+        if (isset($this->data['request']->get['z'])):
+            $query = $db->query("
+                SELECT customer_id 
+                FROM {$db->prefix}customer 
+                WHERE code = '" . $db->escape($this->data['request']->get['z']) . "' 
+                AND is_affiliate = '1' 
+                AND affiliate_status = '1'
+            ");
+
+            if ($query->num_rows):
+                setcookie('affiliate_id', $query->row['customer_id'], time() + ((3600 * 24) * 365), '/');
+            endif;
         endif;
         
         /**

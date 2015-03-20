@@ -32,6 +32,7 @@ class Customer extends LibraryService {
     private $customer_products;
     private $code;
     private $is_affiliate;
+    private $referral_id;
     
     public $customer_group_id;
     public $customer_group_name;
@@ -54,7 +55,7 @@ class Customer extends LibraryService {
             $this->customer_group_id   = $session->data['customer_group_id'];
             $this->customer_group_name = $session->data['customer_group_name'];
             $this->address_id          = $session->data['address_id'];
-            
+            $this->referral_id         = $session->data['referral_id'];
             $this->profile_complete    = $session->data['profile_complete'];
             $this->address_complete    = $session->data['address_complete'];
             $this->customer_products   = $session->data['customer_products'];
@@ -141,6 +142,7 @@ class Customer extends LibraryService {
             $session->data['newsletter']        = $customer_query->row['newsletter'];
             $session->data['customer_group_id'] = $customer_query->row['customer_group_id'];
             $session->data['address_id']        = $customer_query->row['address_id'];
+            $session->data['referral_id']       = $customer_query->row['referral_id'];
             $session->data['is_affiliate']      = $customer_query->row['is_affiliate'];
             $session->data['code']              = $customer_query->row['code'];
 
@@ -241,6 +243,7 @@ class Customer extends LibraryService {
         unset($session->data['customer_group_id']);
         unset($session->data['customer_group_name']);
         unset($session->data['address_id']);
+        unset($session->data['referral_id']);
         unset($session->data['profile_complete']);
         unset($session->data['address_complete']);
         unset($session->data['customer_products']);
@@ -256,6 +259,7 @@ class Customer extends LibraryService {
         $this->newsletter          = '';
         $this->customer_group_name = '';
         $this->address_id          = '';
+        $this->referral_id         = '';
         $this->profile_complete    = false;
         $this->address_complete    = false;
         $this->customer_products   = false;
@@ -311,18 +315,29 @@ class Customer extends LibraryService {
         $session = parent::$app['session'];
         
         $session->data['customer_group_id'] = $group_id;
-        $this->customer_group_id = $group_id;
+        $this->customer_group_id            = $group_id;
     }
     
     public function setGroupName($name) {
         $session = parent::$app['session'];
         
         $session->data['customer_group_name'] = $name;
-        $this->customer_group_name = $name;
+        $this->customer_group_name            = $name;
     }
     
     public function getAddressId() {
         return $this->address_id;
+    }
+
+    public function getReferralId() {
+        return $this->referral_id;
+    }
+
+    public function setReferralId($id) {
+        $session = parent::$app['session'];
+        
+        $session->data['referral_id'] = $id;
+        $this->referral_id            = $id;
     }
     
     public function getUploadPath() {
@@ -345,8 +360,22 @@ class Customer extends LibraryService {
         return $this->is_affiliate;
     }
 
+    public function setAffiliate() {
+        $session = parent::$app['session'];
+
+        $session->data['is_affiliate'] = 1;
+        $this->is_affiliate            = 1;
+    }
+
     public function getCode() {
         return $this->code;
+    }
+
+    public function setCode($code) {
+        $session = parent::$app['session'];
+
+        $session->data['code'] = $code;
+        $this->code            = $code;
     }
     
     public function getBalance() {
