@@ -11,7 +11,7 @@
 <?php endif; ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<div class="pull-left h2"><i class="hidden-xs fa fa-book"></i><?= $heading_title; ?></div>
+		<div class="pull-left h2"><i class="hidden-xs fa fa-book"></i><?= $lang_heading_title; ?></div>
 		<div class="pull-right"></div>
 	</div>
 	<div class="panel-body">

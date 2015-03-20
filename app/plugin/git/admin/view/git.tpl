@@ -12,19 +12,19 @@
 <div class="panel panel-default">
     <div class="panel-heading">
       <div class="clearfix">
-			<div class="pull-left h2"><i class="hidden-xs fa fa-git-square"></i><?= $heading_title; ?></div>
+			<div class="pull-left h2"><i class="hidden-xs fa fa-git-square"></i><?= $lang_heading_title; ?></div>
 			<div class="pull-right">
 				<button type="submit" form="form-git-settings" class="btn btn-primary">
-				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $button_save; ?></span></button>
+				<i class="fa fa-floppy-o"></i><span class="hidden-xs"> <?= $lang_button_save; ?></span></button>
 				<a class="btn btn-warning" href="<?= $cancel; ?>">
-				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $button_cancel; ?></span></a>
+				<i class="fa fa-ban"></i><span class="hidden-xs"> <?= $lang_button_cancel; ?></span></a>
 			</div>
 		</div>
 	</div>
     <div class="panel-body">
 		<form action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form-git-settings" class="form-horizontal">
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="input-git-provider"><b class="required">*</b> <?= $entry_git_provider; ?></label>
+			<label class="col-sm-2 control-label" for="input-git-provider"><b class="required">*</b> <?= $lang_entry_git_provider; ?></label>
 			<div class="control-field col-sm-4">
 				<select name="git_provider" id="input-git-provider" class="form-control" required>
 					<option value="0"><?= $lang_text_select; ?></option>
@@ -36,24 +36,24 @@
 					<?php endif; ?>
 					<?php endforeach; ?>
 				</select>
-				<span class="help-block"><?= $help_git_provider; ?></span>
+				<span class="help-block"><?= $lang_help_git_provider; ?></span>
 				<?php if ($error_git_provider): ?>
 				<div class="text-danger"><?= $error_git_provider; ?></div>
 				<?php endif; ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="input-git-url"><b class="required">*</b> <?= $entry_git_url; ?></label>
+			<label class="col-sm-2 control-label" for="input-git-url"><b class="required">*</b> <?= $lang_entry_git_url; ?></label>
 			<div class="control-field col-sm-4">
-				<input type="text" name="git_url" value="<?= $git_url; ?>" placeholder="<?= $entry_git_url; ?>" id="input-git-url" class="form-control" required>
-				<span class="help-block"><?= $help_git_url; ?></span>
+				<input type="text" name="git_url" value="<?= $git_url; ?>" placeholder="<?= $lang_entry_git_url; ?>" id="input-git-url" class="form-control" required>
+				<span class="help-block"><?= $lang_help_git_url; ?></span>
 				<?php if ($error_git_url): ?>
 				<div class="text-danger"><?= $error_git_url; ?></div>
 				<?php endif; ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="input-git-branch"><b class="required">*</b> <?= $entry_git_branch; ?></label>
+			<label class="col-sm-2 control-label" for="input-git-branch"><b class="required">*</b> <?= $lang_entry_git_branch; ?></label>
 			<div class="control-field col-sm-4">
 				<select id="input-git-branch" class="form-control" required>
 					<option value="0"><?= $lang_text_select; ?></option>
@@ -65,32 +65,32 @@
 					<?php endif; ?>
 					<?php endforeach; ?>
 				</select><br>
-				<input type="text" name="git_branch" value="<?= $git_branch; ?>" placeholder="<?= $entry_git_branch; ?>" id="git-branch" class="form-control" required>
-				<span class="help-block"><?= $help_git_branch; ?></span>
+				<input type="text" name="git_branch" value="<?= $git_branch; ?>" placeholder="<?= $lang_entry_git_branch; ?>" id="git-branch" class="form-control" required>
+				<span class="help-block"><?= $lang_help_git_branch; ?></span>
 				<?php if ($error_git_branch): ?>
 				<div class="text-danger"><?= $error_git_branch; ?></div>
 				<?php endif; ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><?= $entry_git_status; ?></label>
+			<label class="col-sm-2 control-label"><?= $lang_entry_git_status; ?></label>
 			<div class="col-sm-10">
 				<label class="radio-inline">
 					<?php if ($git_status): ?>
 					<input type="radio" name="git_status" value="1" checked="checked" />
-					<?= $text_enabled; ?>
+					<?= $lang_text_enabled; ?>
 					<?php else: ?>
 					<input type="radio" name="git_status" value="1" />
-					<?= $text_enabled; ?>
+					<?= $lang_text_enabled; ?>
 					<?php endif; ?>
 				</label>
 				<label class="radio-inline">
 					<?php if (!$git_status): ?>
 					<input type="radio" name="git_status" value="0" checked="checked" />
-					<?= $text_disabled; ?>
+					<?= $lang_text_disabled; ?>
 					<?php else: ?>
 					<input type="radio" name="git_status" value="0" />
-					<?= $text_disabled; ?>
+					<?= $lang_text_disabled; ?>
 					<?php endif; ?>
 				</label>
 			</div>
