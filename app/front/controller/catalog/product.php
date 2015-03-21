@@ -25,7 +25,9 @@ class Product extends Controller {
         
         $this->theme->model('catalog/category');
         
-        $this->javascript->register('ajaxupload.min', 'bootstrap.min')->register('datetimepicker.min', 'bootstrap.min')->register('gallery.min', 'bootstrap.min');
+        $this->javascript->register('ajaxupload.min', 'bootstrap.min')
+            ->register('datetimepicker.min', 'bootstrap.min')
+            ->register('gallery.min', 'bootstrap.min');
         
         if (isset($this->request->get['path'])) {
             $path = '';
@@ -153,8 +155,8 @@ class Product extends Controller {
         }
         
         $data['config_image_thumb_width'] = $this->config->get('config_image_thumb_width');
-        $data['config_url'] = $this->config->get('config_url');
-        $data['image_width'] = $this->config->get('config_image_related_width');
+        $data['config_url']               = $this->config->get('config_url');
+        $data['image_width']              = $this->config->get('config_image_related_width');
         
         $this->theme->model('catalog/product');
         
@@ -228,12 +230,12 @@ class Product extends Controller {
             
             $data['tab_review'] = sprintf($this->language->get('lang_tab_review'), $product_info['reviews']);
             
-            $data['product_id'] = $this->request->get['product_id'];
-            $data['manufacturer'] = $product_info['manufacturer'];
+            $data['product_id']    = $this->request->get['product_id'];
+            $data['manufacturer']  = $product_info['manufacturer'];
             $data['manufacturers'] = $this->url->link('catalog/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
-            $data['model'] = $product_info['model'];
-            $data['reward'] = $product_info['reward'];
-            $data['points'] = $product_info['points'];
+            $data['model']         = $product_info['model'];
+            $data['reward']        = $product_info['reward'];
+            $data['points']        = $product_info['points'];
             
             if ($product_info['event_id'] > 0):
                 $data['event_id'] = $product_info['event_id'];
@@ -251,17 +253,17 @@ class Product extends Controller {
                 
                 $event_info = $this->model_catalog_product->getEvent($product_info['event_id']);
                 
-                $data['event_name'] = html_entity_decode($event_info['event_name'], ENT_QUOTES, 'UTF-8');
-                $data['event_date'] = date($this->language->get('lang_date_format_short'), strtotime($event_info['date_time']));
-                $data['event_time'] = date($this->language->get('lang_time_format'), strtotime($event_info['date_time']));
-                $data['event_days'] = unserialize($event_info['event_days']);
-                $data['event_length'] = $event_info['event_length'];
-                $data['seats'] = $event_info['seats'];
-                $data['available'] = $event_info['seats'] - $event_info['filled'];
+                $data['event_name']            = html_entity_decode($event_info['event_name'], ENT_QUOTES, 'UTF-8');
+                $data['event_date']            = date($this->language->get('lang_date_format_short'), strtotime($event_info['date_time']));
+                $data['event_time']            = date($this->language->get('lang_time_format'), strtotime($event_info['date_time']));
+                $data['event_days']            = unserialize($event_info['event_days']);
+                $data['event_length']          = $event_info['event_length'];
+                $data['seats']                 = $event_info['seats'];
+                $data['available']             = $event_info['seats'] - $event_info['filled'];
                 
                 $data['text_unavailable_info'] = '';
-                $data['button_waitlist'] = '';
-                $data['text_already_on'] = '';
+                $data['button_waitlist']       = '';
+                $data['text_already_on']       = '';
                 
                 if ($data['available'] < 1):
                     $customer_waitlist = $this->model_catalog_product->checkWaitList($product_info['event_id'], $this->customer->getId());
@@ -294,12 +296,12 @@ class Product extends Controller {
                     $data['presenter_bio'] = html_entity_decode($presenter_bio, ENT_QUOTES, 'UTF-8');
                     if ($event_info['presenter_tab']):
                         $data['text_presenter_info'] = sprintf($this->language->get('lang_text_presenter_info'), $event_info['presenter_tab']);
-                        $data['text_presenter'] = sprintf($this->language->get('lang_text_presenter'), $event_info['presenter_tab']);
-                        $data['text_presenter_bio'] = sprintf($this->language->get('lang_text_presenter_bio'), $event_info['presenter_tab']);
+                        $data['text_presenter']      = sprintf($this->language->get('lang_text_presenter'), $event_info['presenter_tab']);
+                        $data['text_presenter_bio']  = sprintf($this->language->get('lang_text_presenter_bio'), $event_info['presenter_tab']);
                     else:
                         $data['text_presenter_info'] = sprintf($this->language->get('lang_text_presenter_info'), $this->language->get('lang_tab_presenter'));
-                        $data['text_presenter'] = sprintf($this->language->get('lang_text_presenter'), $this->language->get('lang_tab_presenter'));
-                        $data['text_presenter_bio'] = sprintf($this->language->get('lang_text_presenter_bio'), $this->language->get('lang_tab_presenter'));
+                        $data['text_presenter']      = sprintf($this->language->get('lang_text_presenter'), $this->language->get('lang_tab_presenter'));
+                        $data['text_presenter_bio']  = sprintf($this->language->get('lang_text_presenter_bio'), $this->language->get('lang_tab_presenter'));
                     endif;
                 endif;
             endif;

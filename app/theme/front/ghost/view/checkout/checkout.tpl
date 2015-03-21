@@ -12,7 +12,7 @@
 				<div id="checkout-collapse" class="panel-collapse collapse"></div>
 			</div>
 			<div id="payment-address" class="panel panel-default">
-				<div class="panel-heading"><span><?= !$logged ? $text_checkout_account : $text_checkout_payment_address; ?></span></div>
+				<div class="panel-heading"><span><?= !$logged ? $lang_text_checkout_account : $lang_text_checkout_payment_address; ?></span></div>
 				<div class="panel-collapse collapse"></div>
 			</div>
 			<?php if ($shipping_required) { ?>

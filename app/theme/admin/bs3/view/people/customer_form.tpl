@@ -59,6 +59,16 @@
 							<div class="tab-content" id="customer-content">
 								<div class="tab-pane" id="tab-customer">
 									<div class="form-group">
+										<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_referrer; ?></label>
+										<div class="control-field col-sm-4">
+											<?php if ($referrer): ?>
+											<p class="form-control-static"><?= $referrer['firstname']; ?> <?= $referrer['lastname']; ?> ( <a href="<?= $referrer['href']; ?>"><?= $referrer['username']; ?></a> )</p>
+											<?php else: ?>
+											<p class="form-control-static"><?= $lang_text_no_referrer; ?></p>
+											<?php endif; ?>
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_username; ?></label>
 										<div class="control-field col-sm-4">
 											<input type="text" name="username" value="<?= $username; ?>" class="form-control">

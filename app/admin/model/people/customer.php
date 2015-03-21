@@ -1140,4 +1140,13 @@ class Customer extends Model {
         
         return $query->row['username'];
     }
+
+    public function getReferrer($customer_id) {
+        $query = $this->db->query("
+            SELECT username, firstname, lastname 
+            FROM {$this->db->prefix}customer 
+            WHERE customer_id = '" . (int)$customer_id . "'");
+
+        return $query->row;
+    }
 }

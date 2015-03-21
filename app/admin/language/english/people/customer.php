@@ -33,6 +33,7 @@ $_['lang_text_cheque']               = 'Check';
 $_['lang_text_paypal']               = 'PayPal';
 $_['lang_text_bank']                 = 'Bank Transfer';
 $_['lang_text_confirm_login']        = 'Logging into a customer account will log you out of the Admin area. Click OK if you wish to proceed.';
+$_['lang_text_no_referrer']			 = 'No Referrer';
 
 // Column
 $_['lang_column_username']           = 'Username';
@@ -52,6 +53,7 @@ $_['lang_column_total']              = 'Total Accounts';
 $_['lang_column_action']             = 'Action';
 
 // Entry
+$_['lang_entry_referrer']			 = 'Referred by:';
 $_['lang_entry_username']            = 'Username:';
 $_['lang_entry_firstname']           = 'First Name:';
 $_['lang_entry_lastname']            = 'Last Name:';

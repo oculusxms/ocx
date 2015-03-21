@@ -105,6 +105,16 @@ class Affiliate extends Model {
 		return true;
 	}
 
+	public function getAffiliate($affiliate_id) {
+        $query = $this->db->query("
+			SELECT * 
+			FROM {$this->db->prefix}customer 
+			WHERE customer_id = '" . (int)$affiliate_id . "'
+		");
+        
+        return $query->row;
+    }
+
 	public function getCommissions($data = array()) {
         $sql = "
 			SELECT * 

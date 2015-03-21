@@ -415,6 +415,20 @@ class Customer extends LibraryService {
                 date_added = NOW()
         ");
     }
+
+    public function addCommission($customer_id, $order_id, $description, $amount) {
+        $db = parent::$app['db'];
+
+        $query = $db->query("
+            INSERT INTO {$db->prefix}customer_commission 
+            SET 
+                customer_id = '" . (int)$customer_id . "', 
+                order_id    = '" . (int)$order_id . "', 
+                description = '" . $db->escape($description) . "', 
+                amount      = '" . (float)$amount . "', 
+                date_added  = NOW()
+        ");
+    }
     
     public function updateCustomerGroup($group_id) {
         $db = parent::$app['db'];

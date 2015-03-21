@@ -139,7 +139,6 @@ class Paymentaddress extends Controller {
                     $address_info = $this->model_account_address->getAddress($this->request->post['address_id']);
                     
                     if ($address_info) {
-                        $this->theme->model('account/customer_group');
                         
                         $customer_group_info = $this->model_account_customergroup->getCustomerGroup($this->customer->getGroupId());
                         
@@ -177,6 +176,7 @@ class Paymentaddress extends Controller {
                 
                 // Customer Group
                 $this->theme->model('account/customergroup');
+                
                 $customer_group_info = $this->model_account_customergroup->getCustomerGroup($this->customer->getGroupId());
                 
                 if ($customer_group_info) {

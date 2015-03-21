@@ -378,6 +378,20 @@ class Customer extends Controller {
         else:
             $data['addresses'] = array();
         endif;
+
+        $data['referrer'] = false;
+
+        if (!empty($customer_info)):
+            $referrer = $this->model_people_customer->getReferrer($customer_info['referral_id']);
+            if ($referrer):
+                $data['referrer'] = array(
+                    'firstname' => $referrer['firstname'],
+                    'lastname'  => $referrer['lastname'],
+                    'username'  => $referrer['username'],
+                    'href'      => $this->url->link('people/customer', 'token=' . $this->session->data['token'] . '&filter_username=' . $referrer['username'], 'SSL')
+                );
+            endif;
+        endif;
         
         $data['ips'] = array();
         

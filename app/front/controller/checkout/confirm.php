@@ -331,13 +331,13 @@ class Confirm extends Controller {
             if (!$affiliate_id && isset($this->request->cookie['referrer'])):
                 $affiliate_id = $this->request->cookie['referrer'];
             endif;
-
+            
             // affiliate_id cookie
-            if (!$affiliate_id && isset($this->request->cookie['affiliate_id']));
+            if (!$affiliate_id && isset($this->request->cookie['affiliate_id'])):
                 $affiliate_id = $this->request->cookie['affiliate_id'];
             endif;
 
-            if ($affiliate_id):
+            if ($affiliate_id && ($affiliate_id !== $this->customer->getId())):
                 $order['affiliate_id'] = $affiliate_id;
                 $order['commission']   = $this->model_account_affiliate->getAffiliateCommission($affiliate_id);
             else:
@@ -426,7 +426,8 @@ class Confirm extends Controller {
                     'subtract'   => $product['subtract'], 
                     'price'      => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'))), 
                     'total'      => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity']), 
-                    'href'       => $this->url->link('catalog/product', 'product_id=' . $product['product_id']), 'recurring' => $recurring
+                    'href'       => $this->url->link('catalog/product', 'product_id=' . $product['product_id']), 
+                    'recurring'  => $recurring
                 );
             endforeach;
             
@@ -447,6 +448,7 @@ class Confirm extends Controller {
         else:
             $data['redirect'] = $redirect;
         endif;
+        
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

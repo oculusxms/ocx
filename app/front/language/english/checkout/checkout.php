@@ -19,13 +19,13 @@ $_['lang_heading_title']                           = 'Checkout';
 
 // Text
 $_['lang_text_cart']                               = 'Shopping Cart';
-$_['lang_text_checkout_option']                    = 'Step 1: Checkout Options';
-$_['lang_text_checkout_account']                   = 'Step 2: Account &amp; Billing Details';
-$_['lang_text_checkout_payment_address']           = 'Step 2: Billing Details';
-$_['lang_text_checkout_shipping_address']          = 'Step 3: Delivery Details';
-$_['lang_text_checkout_shipping_method']           = 'Step 4: Delivery Method';
-$_['lang_text_checkout_payment_method']            = 'Step 5: Payment Method';
-$_['lang_text_checkout_confirm']                   = 'Step 6: Confirm Order';
+$_['lang_text_checkout_option']                    = 'Checkout Options';
+$_['lang_text_checkout_account']                   = 'Account &amp; Billing Details';
+$_['lang_text_checkout_payment_address']           = 'Billing Details';
+$_['lang_text_checkout_shipping_address']          = 'Delivery Details';
+$_['lang_text_checkout_shipping_method']           = 'Delivery Method';
+$_['lang_text_checkout_payment_method']            = 'Payment Method';
+$_['lang_text_checkout_confirm']                   = 'Confirm Order';
 $_['lang_text_modify']                             = 'Modify &raquo;';
 $_['lang_text_new_customer']                       = 'New Customer';
 $_['lang_text_returning_customer']                 = 'Returning Customer';
