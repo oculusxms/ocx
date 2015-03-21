@@ -67,7 +67,7 @@
 						<label class="col-sm-2 control-label"><?= $lang_text_ipn; ?></label>
 						<div class="col-sm-10">
 						<div class="input-group"> <span class="input-group-addon"><i class="fa fa-link"></i></span>
-							<input type="text" value="<?= $lang_text_ipn_url; ?>" class="form-control" />
+							<input type="text" value="<?= $text_ipn_url; ?>" class="form-control" />
 						</div>
 					</div>
 				</div>
