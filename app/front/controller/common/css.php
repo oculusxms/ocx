@@ -19,8 +19,8 @@ use Oculus\Engine\Controller;
 
 class Css extends Controller {
     public function index() {
-        $key = $this->request->get['css'];
-        $file = $this->filecache->get($key);
+		$key  = $this->request->get['css'];
+		$file = $this->filecache->get($key);
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
         

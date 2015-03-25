@@ -30,7 +30,7 @@ $_['lang_text_code']                 = 'Your Tracking Code:';
 $_['lang_text_generator']            = 'Tracking Link Generator:<br><span class="help">Type in the name of a product you would like to link to.</span>';
 $_['lang_text_link']                 = 'Tracking Link:';
 $_['lang_text_balance']              = 'Your current balance is:';
-$_['lang_text_empty']                = 'You do not have any transactions.';
+$_['lang_text_empty']                = 'You do not have any commissions.';
 $_['lang_text_enroll_now']           = 'Hi %s,</p><p>It looks like you didn\'t enroll as an Affiliate when you signed up.</p><p>No worries, you can enroll right now with the click of Enroll button below.';
 $_['lang_text_terms']                = 'I have read and agree to the <a class="modalbox" href="%s" alt="%s"><b>%s</b></a>';
 $_['lang_text_build']                = 'Build URL';

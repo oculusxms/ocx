@@ -215,6 +215,10 @@ class Customer extends Model {
 			DELETE FROM {$this->db->prefix}address 
 			WHERE customer_id = '" . (int)$customer_id . "'");
 
+        $this->db->query("
+            DELETE FROM {$this->db->prefix}affiliate_route 
+            WHERE query = 'affiliate_id:" . (int)$customer_id . "'");
+
         $this->theme->trigger('admin_delete_customer', array('customer_id' => $customer_id));
     }
     

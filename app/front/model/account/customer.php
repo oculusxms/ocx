@@ -34,9 +34,13 @@ class Customer extends Model {
 			SET 
                 store_id          = '" . (int)$this->config->get('config_store_id') . "', 
                 username          = '" . $this->db->escape($data['username']) . "', 
+                firstname         = '" . $this->db->escape($data['firstname']) . "', 
+                lastname          = '" . $this->db->escape($data['lastname']) . "', 
                 email             = '" . $this->db->escape($data['email']) . "', 
+                telephone         = '" . $this->db->escape($data['telephone']) . "', 
                 salt              = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
                 password          = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
+                newsletter        = '" . (isset($data['newsletter']) ? (int)$data['newsletter'] : 0) . "', 
                 customer_group_id = '" . (int)$customer_group_id . "', 
                 referral_id       = '" . (isset($this->request->cookie['referrer']) ? $this->request->cookie['referrer'] : 0) . "', 
                 ip                = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', 
@@ -59,7 +63,18 @@ class Customer extends Model {
         $this->db->query("
 			INSERT INTO {$this->db->prefix}address 
 			SET 
-				customer_id = '" . (int)$customer_id . "'
+                customer_id = '" . (int)$customer_id . "', 
+                firstname   = '" . $this->db->escape($data['firstname']) . "', 
+                lastname    = '" . $this->db->escape($data['lastname']) . "', 
+                company     = '" . $this->db->escape($data['company']) . "', 
+                company_id  = '" . $this->db->escape($data['company_id']) . "', 
+                tax_id      = '" . $this->db->escape($data['tax_id']) . "', 
+                address_1   = '" . $this->db->escape($data['address_1']) . "', 
+                address_2   = '" . $this->db->escape($data['address_2']) . "', 
+                city        = '" . $this->db->escape($data['city']) . "', 
+                postcode    = '" . $this->db->escape($data['postcode']) . "', 
+                country_id  = '" . (int)$data['country_id'] . "', 
+                zone_id     = '" . (int)$data['zone_id'] . "'
 		");
         
         $address_id = $this->db->getLastId();
@@ -69,6 +84,48 @@ class Customer extends Model {
 			SET address_id = '" . (int)$address_id . "' 
 			WHERE customer_id = '" . (int)$customer_id . "'
 		");
+
+        /**
+         * Add affiliate settings if posted
+         */
+        
+        if (isset($data['affiliate']) && $data['affiliate']['status'] == 1):
+            $aff = $data['affiliate'];
+
+            $this->db->query("
+                UPDATE {$this->db->prefix}customer 
+                SET 
+                  is_affiliate        = '" . (int)1 . "', 
+                  affiliate_status    = '" . (int)1 . "', 
+                  company             = '" . $this->db->escape($data['company']) . "', 
+                  website             = '" . $this->db->escape($aff['website']) . "', 
+                  code                = '" . uniqid() . "', 
+                  commission          = '" . (float)$this->config->get('config_commission') . "', 
+                  tax_id              = '" . $this->db->escape($aff['tax']) . "', 
+                  payment_method      = '" . $this->db->escape($aff['payment_method']) . "', 
+                  cheque              = '" . $this->db->escape($aff['cheque']) . "', 
+                  paypal              = '" . $this->db->escape($aff['paypal']) . "', 
+                  bank_name           = '" . $this->db->escape($aff['bank_name']) . "', 
+                  bank_branch_number  = '" . $this->db->escape($aff['bank_branch_number']) . "', 
+                  bank_swift_code     = '" . $this->db->escape($aff['bank_swift_code']) . "', 
+                  bank_account_name   = '" . $this->db->escape($aff['bank_account_name']) . "',
+                  bank_account_number = '" . $this->db->escape($aff['bank_account_number']) . "' 
+                WHERE customer_id = '" . (int)$customer_id . "'
+            ");
+            
+            /**
+             * Add affiliate vanity url slug
+             */
+            if ($aff['slug']):
+                $this->db->query("
+                    INSERT INTO {$this->db->prefix}affiliate_route 
+                    SET 
+                        route = '" . $this->theme->style . "/home', 
+                        query = 'affiliate_id:" . (int)$customer_id . "', 
+                        slug  = '" . $this->db->escape($aff['slug']) . "'
+                ");
+            endif;
+        endif;
 
         /**
          * Add default notification settings

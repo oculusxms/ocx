@@ -21,7 +21,7 @@ class Javascript extends Controller {
     
     public function index() {
         $scripts = $this->javascript->fetch();
-        $data = $scripts['data'];
+        $data    = $scripts['data'];
         
         $data['scripts'] = $scripts['files'];
         
@@ -49,7 +49,7 @@ class Javascript extends Controller {
     }
     
     public function render() {
-        $key = $this->request->get['js'];
+        $key  = $this->request->get['js'];
         $file = $this->filecache->get($key);
         
         header('Content-Type: application/javascript');
