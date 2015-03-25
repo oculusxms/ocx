@@ -89,7 +89,11 @@ class Cart extends Controller {
                     $value = $this->encode->substr($filename, 0, $this->encode->strrpos($filename, '.'));
                 }
                 
-                $option_data[] = array('name' => $option['name'], 'value' => ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value), 'type' => $option['type']);
+                $option_data[] = array(
+                    'name'  => $option['name'], 
+                    'value' => ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value), 
+                    'type'  => $option['type']
+                );
             }
             
             // Display prices
@@ -106,7 +110,18 @@ class Cart extends Controller {
                 $total = false;
             }
             
-            $data['products'][] = array('key' => $product['key'], 'thumb' => $image, 'name' => $product['name'], 'model' => $product['model'], 'option' => $option_data, 'quantity' => $product['quantity'], 'price' => $price, 'total' => $total, 'href' => $this->url->link('catalog/product', 'product_id=' . $product['product_id']), 'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''));
+            $data['products'][] = array(
+                'key'       => $product['key'], 
+                'thumb'     => $image, 
+                'name'      => $product['name'], 
+                'model'     => $product['model'], 
+                'option'    => $option_data, 
+                'quantity'  => $product['quantity'], 
+                'price'     => $price, 
+                'total'     => $total, 
+                'href'      => $this->url->link('catalog/product', 'product_id=' . $product['product_id']), 
+                'recurring' => ($product['recurring'] ? $product['recurring']['name'] : '')
+            );
         }
         
         // Gift Voucher
@@ -114,7 +129,11 @@ class Cart extends Controller {
         
         if (!empty($this->session->data['vouchers'])) {
             foreach ($this->session->data['vouchers'] as $key => $voucher) {
-                $data['vouchers'][] = array('key' => $key, 'description' => $voucher['description'], 'amount' => $this->currency->format($voucher['amount']));
+                $data['vouchers'][] = array(
+                    'key'         => $key, 
+                    'description' => $voucher['description'], 
+                    'amount'      => $this->currency->format($voucher['amount'])
+                );
             }
         }
         

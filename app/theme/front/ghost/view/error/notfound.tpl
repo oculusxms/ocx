@@ -6,7 +6,7 @@
 		<?= $breadcrumb; ?>
 		<?= $content_top; ?>
 		<div class="page-header"><h1><?= $heading_title; ?></h1></div>
-		<div class="alert alert-warning"><?= $lang_text_error; ?></div>
+		<div class="alert alert-warning"><?= $text_error; ?></div>
 		<div class="form-actions">
 			<div class="form-actions-inner text-right">
 				<a href="<?= $continue; ?>" class="btn btn-primary"><?= $lang_button_continue; ?></a>
