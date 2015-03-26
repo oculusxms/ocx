@@ -235,13 +235,13 @@ class Register extends Controller {
                 
                 $this->session->data['payment_address_id'] = $this->customer->getAddressId();
                 $this->session->data['payment_country_id'] = $this->request->post['country_id'];
-                $this->session->data['payment_zone_id'] = $this->request->post['zone_id'];
+                $this->session->data['payment_zone_id']    = $this->request->post['zone_id'];
                 
                 if (!empty($this->request->post['shipping_address'])) {
                     $this->session->data['shipping_address_id'] = $this->customer->getAddressId();
                     $this->session->data['shipping_country_id'] = $this->request->post['country_id'];
-                    $this->session->data['shipping_zone_id'] = $this->request->post['zone_id'];
-                    $this->session->data['shipping_postcode'] = $this->request->post['postcode'];
+                    $this->session->data['shipping_zone_id']    = $this->request->post['zone_id'];
+                    $this->session->data['shipping_postcode']   = $this->request->post['postcode'];
                 }
             } else {
                 $json['redirect'] = $this->url->link('account/success');

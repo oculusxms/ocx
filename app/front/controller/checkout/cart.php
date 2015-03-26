@@ -181,7 +181,10 @@ class Cart extends Controller {
                         $value = $this->encode->substr($filename, 0, $this->encode->strrpos($filename, '.'));
                     }
                     
-                    $option_data[] = array('name' => $option['name'], 'value' => ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value));
+                    $option_data[] = array(
+                        'name' => $option['name'], 
+                        'value' => ($this->encode->strlen($value) > 20 ? $this->encode->substr($value, 0, 20) . '..' : $value)
+                    );
                 }
                 
                 // Display prices
@@ -201,7 +204,13 @@ class Cart extends Controller {
                 $recurring = '';
                 
                 if ($product['recurring']) {
-                    $frequencies = array('day' => $this->language->get('lang_text_day'), 'week' => $this->language->get('lang_text_week'), 'semi_month' => $this->language->get('lang_text_semi_month'), 'month' => $this->language->get('lang_text_month'), 'year' => $this->language->get('lang_text_year'),);
+                    $frequencies = array(
+                        'day'        => $this->language->get('lang_text_day'), 
+                        'week'       => $this->language->get('lang_text_week'), 
+                        'semi_month' => $this->language->get('lang_text_semi_month'), 
+                        'month'      => $this->language->get('lang_text_month'), 
+                        'year'       => $this->language->get('lang_text_year')
+                    );
                     
                     if ($product['recurring']['trial']) {
                         $recurring = sprintf($this->language->get('lang_text_trial_description'), $this->currency->format($this->tax->calculate($product['recurring']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax'))), $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
@@ -214,7 +223,21 @@ class Cart extends Controller {
                     }
                 }
                 
-                $data['products'][] = array('key' => $product['key'], 'thumb' => $image, 'name' => $product['name'], 'model' => $product['model'], 'option' => $option_data, 'quantity' => $product['quantity'], 'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')), 'reward' => ($product['reward'] ? sprintf($this->language->get('lang_text_points'), $product['reward']) : ''), 'price' => $price, 'total' => $total, 'href' => $this->url->link('catalog/product', 'product_id=' . $product['product_id']), 'remove' => $this->url->link('checkout/cart', 'remove=' . $product['key']), 'recurring' => $recurring);
+                $data['products'][] = array(
+                    'key'       => $product['key'], 
+                    'thumb'     => $image, 
+                    'name'      => $product['name'], 
+                    'model'     => $product['model'], 
+                    'option'    => $option_data, 
+                    'quantity'  => $product['quantity'], 
+                    'stock'     => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')), 
+                    'reward'    => ($product['reward'] ? sprintf($this->language->get('lang_text_points'), $product['reward']) : ''), 
+                    'price'     => $price, 
+                    'total'     => $total, 
+                    'href'      => $this->url->link('catalog/product', 'product_id=' . $product['product_id']), 
+                    'remove'    => $this->url->link('checkout/cart', 'remove=' . $product['key']), 
+                    'recurring' => $recurring
+                );
             }
             
             // Gift Voucher
@@ -222,7 +245,12 @@ class Cart extends Controller {
             
             if (!empty($this->session->data['vouchers'])) {
                 foreach ($this->session->data['vouchers'] as $key => $voucher) {
-                    $data['vouchers'][] = array('key' => $key, 'description' => $voucher['description'], 'amount' => $this->currency->format($voucher['amount']), 'remove' => $this->url->link('checkout/cart', 'remove=' . $key));
+                    $data['vouchers'][] = array(
+                        'key' => $key, 
+                        'description' => $voucher['description'], 
+                        'amount' => $this->currency->format($voucher['amount']), 
+                        'remove' => $this->url->link('checkout/cart', 'remove=' . $key)
+                    );
                 }
             }
             

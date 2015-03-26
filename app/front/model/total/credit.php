@@ -19,7 +19,7 @@ use Oculus\Engine\Model;
 
 class Credit extends Model {
     public function getTotal(&$total_data, &$total, &$taxes) {
-        if ($this->config->get('credit_status')) {
+        if ($this->config->get('credit_status')):
             $this->language->load('total/credit');
             
             $balance = 0;
@@ -28,14 +28,14 @@ class Credit extends Model {
                 $balance = $this->customer->getBalance();
             endif;
             
-            if ((float)$balance) {
-                if ($balance > $total) {
+            if ((float)$balance):
+                if ($balance > $total):
                     $credit = $total;
-                } else {
+                else:
                     $credit = $balance;
-                }
+                endif;
                 
-                if ($credit > 0) {
+                if ($credit > 0):
                     $total_data[] = array(
                         'code'       => 'credit', 
                         'title'      => $this->language->get('lang_text_credit'), 
@@ -44,15 +44,15 @@ class Credit extends Model {
                         'sort_order' => $this->config->get('credit_sort_order'));
                     
                     $total-= $credit;
-                }
-            }
-        }
+                endif;
+            endif;
+        endif;
     }
     
     public function confirm($order_info, $order_total) {
         $this->language->load('total/credit');
         
-        if ($order_info['customer_id']) {
+        if ($order_info['customer_id']):
             $this->db->query("
 				INSERT INTO {$this->db->prefix}customer_credit 
 				SET 
@@ -62,6 +62,6 @@ class Credit extends Model {
                     amount      = '" . (float)$order_total['value'] . "', 
                     date_added  = NOW()
 			");
-        }
+        endif;
     }
 }

@@ -303,7 +303,7 @@ class Geozone extends Controller {
         
         $this->theme->model('localization/country');
         
-        $data['countries'] = $this->model_localization_country->getCountries();
+        $data['countries'] = $this->model_localization_country->getCountries(array('filter_status' => 1));
         
         if (isset($this->request->post['zone_to_geo_zone'])) {
             $data['zone_to_geo_zones'] = $this->request->post['zone_to_geo_zone'];

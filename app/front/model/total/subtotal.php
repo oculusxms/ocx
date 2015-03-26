@@ -22,15 +22,21 @@ class Subtotal extends Model {
         $this->language->load('total/subtotal');
         
         $sub_total = $this->cart->getSubTotal();
-        
-        if (isset($this->session->data['vouchers']) && $this->session->data['vouchers']) {
-            foreach ($this->session->data['vouchers'] as $voucher) {
+
+        if (isset($this->session->data['vouchers']) && $this->session->data['vouchers']):
+            foreach ($this->session->data['vouchers'] as $voucher):
                 $sub_total+= $voucher['amount'];
-            }
-        }
+            endforeach;
+        endif;
         
-        $total_data[] = array('code' => 'subtotal', 'title' => $this->language->get('lang_text_subtotal'), 'text' => $this->currency->format($sub_total), 'value' => $sub_total, 'sort_order' => $this->config->get('subtotal_sort_order'));
+        $total_data[] = array(
+            'code'       => 'subtotal', 
+            'title'      => $this->language->get('lang_text_subtotal'), 
+            'text'       => $this->currency->format($sub_total), 
+            'value'      => $sub_total, 
+            'sort_order' => $this->config->get('subtotal_sort_order')
+        );
         
-        $total+= $sub_total;
+        $total += $sub_total;
     }
 }
