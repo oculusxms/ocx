@@ -729,6 +729,7 @@ class Order extends Model {
                 $affiliate_id = 0;
             }
             
+            $this->theme->model('people/customer');
             $affiliate_info = $this->model_people_customer->getCustomer($affiliate_id);
             
             if ($affiliate_info) {

@@ -550,7 +550,7 @@ class Order extends Model {
                 $affiliate_info = $this->model_account_affiliate->getAffiliate($order_info['affiliate_id']);
             }
             
-            $subject = sprintf($language->get('text_new_subject'), $order_info['store_name'], $order_id);
+            $subject = sprintf($this->language->get('text_new_subject'), $order_info['store_name'], $order_id);
 
             // NEW MAILER
         	// public_customer_order_confirm
@@ -865,14 +865,14 @@ class Order extends Model {
      //            $mail->send();
                 
                 // Send to additional alert emails
-                $emails = explode(',', $this->config->get('config_alert_emails'));
+                // $emails = explode(',', $this->config->get('config_alert_emails'));
                 
-                foreach ($emails as $email) {
-                    if ($email && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)) {
-                        $mail->setTo($email);
-                        $mail->send();
-                    }
-                }
+                // foreach ($emails as $email) {
+                //     if ($email && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)) {
+                //         $mail->setTo($email);
+                //         $mail->send();
+                //     }
+                // }
             }
             
             $this->theme->trigger('front_order_confirm', array('order_id' => $order_id));

@@ -521,7 +521,7 @@ class Customer extends LibraryService {
                 FROM {$db->prefix}product_recurring 
                 WHERE product_id = '" . (int)$product_id . "'");
             
-            if ($query->row['total'] > 0):
+            if ($query->num_rows):
                 $recurring_products[] = $product_id;
             endif;
         endforeach;
