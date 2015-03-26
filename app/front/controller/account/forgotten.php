@@ -33,7 +33,7 @@ class Forgotten extends Controller {
             $customer = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
             $password = substr(sha1(uniqid(mt_rand(), true)), 0, 10);
             
-            //$this->model_account_customer->editPassword($this->request->post['email'], $password);
+            $this->model_account_customer->editPassword($this->request->post['email'], $password);
 
             $notify = array(
                 'customer_id' => $customer['customer_id'],

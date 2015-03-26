@@ -9,7 +9,7 @@
 		<?php if ($thumb || $description) { ?>
 			<div class="media">
 				<?php if ($thumb) { ?>
-					<div class="pull-left thumbnail"><img class="media-object" src="<?= $thumb; ?>" alt="<?= $lang_heading_title; ?>"></div>
+					<div class="pull-left thumbnail"><img class="media-object" src="<?= $thumb; ?>" alt="<?= $heading_title; ?>"></div>
 				<?php } ?>
 				<?php if ($description) { ?>
 					<div class="media-body">

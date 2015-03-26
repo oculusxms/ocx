@@ -71,8 +71,7 @@
 				<div class="control-field col-sm-3">
 					<select name="recipient" class="form-control">
 						<option value="1" <?= $recipient == 1 ? 'selected' : ''; ?>><?= $lang_text_customer; ?></option>
-						<option value="2" <?= $recipient == 2 ? 'selected' : ''; ?>><?= $lang_text_affiliate; ?></option>
-						<option value="3" <?= $recipient == 3 ? 'selected' : ''; ?>><?= $lang_text_admin; ?></option>
+						<option value="3" <?= $recipient == 2 ? 'selected' : ''; ?>><?= $lang_text_admin; ?></option>
 					</select>
 				</div>
 			</div>

@@ -168,10 +168,9 @@ final class Theme {
         $this->app['notify']->setOrderId($order_id);
 
         /**
-         * ALL notifications require either a customer_id, 
-         * affiliate_id or user_id (admin) in order to 
-         * create all the parts required to send an email 
-         * notification.
+         * ALL notifications require either a customer_id 
+         * or user_id (admin) in order to create all the 
+         * parts required to send an email notification.
          */
         
         $type     = $this->app['notify']->getNotificationType($name);
@@ -180,9 +179,6 @@ final class Theme {
         if (array_key_exists('customer_id', $data)):
             $receiver = $data['customer_id'];
             unset($data['customer_id']);
-        elseif (array_key_exists('affiliate_id', $data)):
-            $receiver = $data['affiliate_id'];
-            unset($data['affiliate_id']);
         elseif (array_key_exists('user_id', $data)):
             $receiver = $data['user_id'];
             unset($data['user_id']);
@@ -195,10 +191,7 @@ final class Theme {
             case 1: // customer
                 $this->app['notify']->setCustomer($type['email_id'], $receiver);
                 break;
-            case 2: // affiliate
-                $this->app['notify']->setAffiliate($type['email_id'], $receiver);
-                break;
-            case 3: // admin user
+            case 2: // admin user
                 $this->app['notify']->setUser($receiver);
                 break;
         endswitch;
@@ -215,8 +208,8 @@ final class Theme {
          * variables in your message that need to be replaced 
          * outside of the default Decorator tags. It's always 
          * required to pass in an array that includes either
-         * customer_id, affiliate_id or user_id based on who
-         * the notification goes to.
+         * customer_id or user_id based on who the notification 
+         * goes to.
          *
          * Pass in a callback method as an array so we know 
          * where to build the notification. If you wanted the 
@@ -290,9 +283,6 @@ final class Theme {
                     $this->app['notify']->customerInternal($message);
                     break;
                 case 2:
-                    $this->app['notify']->affiliateInternal($message);
-                    break;
-                case 3:
                     break;
             endswitch;
         endif;
