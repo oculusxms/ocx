@@ -452,3 +452,36 @@
 .tabcontrol > .content > .body ul > li {
     display: list-item;
 }
+
+@media all and (max-width: 1199px), all and (max-device-width: 1199px) {
+	.wizard > .steps > ul > li {
+		width: 60px;
+		height: 60px;
+	}
+	.wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+		width: 100%;
+		height: 100%;
+		padding: 0.4em;
+	}
+	.wizard > .steps > ul > li:before {
+		margin-top: 1.1em;
+		margin-left: 2.85em;
+	}
+}
+
+@media all and (max-width: 499px), all and (max-device-width: 499px) {
+	.wizard > .steps > ul > li {
+		width: 40px;
+		height: 40px;
+	}
+	.wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+		padding: 0;
+	}
+	.wizard > .steps .number {
+		font-size: 1.15em;
+	}
+	.wizard > .steps > ul > li:before {
+		margin-top: 0.45em;
+		margin-left: 2.1em;
+	}
+}

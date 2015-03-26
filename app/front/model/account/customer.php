@@ -153,50 +153,17 @@ class Customer extends Model {
         
         $lang = $this->language->load('mail/customer');
 
-        // NEW MAILER
-        // public_register_customer
+        $notify = array(
+            'customer_id' => $customer_id,
+            'percent'     => number_format($this->config->get('config_commission')),
+            'callback'    => array(
+                'class'  => __CLASS__,
+                'method' => 'public_register_customer'
+            )
+        );
         
-        // $template = new Template($this->app);
-        // $template->data = $lang;
+        $this->theme->notify('public_register_customer', $notify);
         
-        // $template->data['username'] = $data['username'];
-        // $template->data['title'] = sprintf($this->language->get('lang_text_welcome'), $this->config->get('config_name'));
-        // $template->data['account_login'] = $this->url->link('account/login', '', 'SSL');
-        // $template->data['email'] = $data['email'];
-        
-        // if (!$customer_group_info['approval']) {
-        //     $template->data['customer_text'] = $this->language->get('lang_text_login');
-        // } else {
-        //     $template->data['customer_text'] = $this->language->get('lang_text_approval');
-        // }
-        
-        // $html = $template->fetch('mail/customer_register');
-        
-        // $subject = sprintf($this->language->get('lang_text_subject'), $this->config->get('config_name'));
-        
-        // $message = sprintf($this->language->get('lang_text_welcome'), $this->config->get('config_name')) . "\n\n";
-        
-        // if (!$customer_group_info['approval']) {
-        //     $message.= $this->language->get('lang_text_login') . "\n";
-        // } else {
-        //     $message.= $this->language->get('lang_text_approval') . "\n";
-        // }
-        
-        // $message.= $this->url->link('account/login', '', 'SSL') . "\n\n";
-        // $message.= $this->language->get('lang_text_services') . "\n\n";
-        // $message.= $this->language->get('lang_text_thanks') . "\n";
-        // $message.= $this->config->get('config_name');
-        
-        
-        // $this->mailer->build(
-        //     html_entity_decode($subject, ENT_QUOTES, 'UTF-8'), 
-        //     $data['email'], 
-        //     $data['username'], 
-        //     html_entity_decode($message, ENT_QUOTES, 'UTF-8'), 
-        //     $html
-        // );
-        
-        // $this->mailer->send();
 
         // Send to main admin email if new account email is enabled
         if ($this->config->get('config_account_mail')) {
@@ -438,5 +405,20 @@ class Customer extends Model {
 		");
         
         return $query->num_rows;
+    }
+
+    public function public_register_customer($data, $message) {
+        $search  = array('!percent!');
+        $replace = array();
+
+        foreach($data as $key => $value):
+            $replace[] = $value;
+        endforeach;
+
+        foreach ($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+
+        return $message;
     }
 }

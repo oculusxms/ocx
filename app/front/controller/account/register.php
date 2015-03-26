@@ -38,10 +38,6 @@ class Register extends Controller {
             ->register('validate', 'steps');
         
         $this->theme->model('account/customer');
-        
-        // if ($this->request->server['REQUEST_METHOD'] == 'POST'):
-        //     $this->theme->test($this->request->post);
-        // endif;
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_account_customer->addCustomer($this->request->post);
