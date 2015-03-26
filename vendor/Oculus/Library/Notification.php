@@ -26,7 +26,6 @@ class Notification extends LibraryService {
     private $decorator;
     private $customer;
     private $order_id = 0;
-    private $affiliate;
     private $user;
     private $to_name;
     private $to_email;
@@ -110,23 +109,6 @@ class Notification extends LibraryService {
         $this->order_id = $order_id;
     }
 
-    public function setAffiliate($email_id, $affiliate_id) {
-        $db = parent::$app['db'];
-
-        $query = $db->query("
-            SELECT DISTINCT * 
-            FROM {$db->prefix}affiliate 
-            WHERE affiliate_id = '" . (int)$affiliate_id . "'");
-
-        $this->affiliate = $query->row;
-
-        // Let's set our to_name and to_email for the send method
-        $this->to_name  = $this->affiliate['firstname'] . ' ' . $this->affiliate['lastname'];
-        $this->to_email = $this->affiliate['email'];
-
-        $this->setAffiliatePreference($email_id, $affiliate_id);
-    }
-
     public function setUser($user_id) {
         $db = parent::$app['db'];
 
@@ -180,32 +162,6 @@ class Notification extends LibraryService {
         return $this->preference;
     }
 
-    private function setAffiliatePreference($email_id, $affiliate_id) {
-        $db = parent::$app['db'];
-
-        $query = $db->query("
-            SELECT settings 
-            FROM {$db->prefix}affiliate_notification 
-            WHERE affiliate_id = '" . (int)$affiliate_id . "'");
-
-        $data = unserialize($query->row['settings']);
-
-        // If the email_id exists in the array then we will use
-        // the preferences provided, otherwise this notification
-        // isn't configurable and we should send them email only.
-        // This would be the case for a forgotten password etc.
-        if (array_key_exists($email_id, $data)):
-            $preference = $data[$email_id];
-        else:
-            $preference = array(
-                'email'    => 1,
-                'internal' => 0
-            );
-        endif;
-
-        $this->preference = $preference;
-    }
-
     public function customerInternal($message) {
         $message = $this->decorator->decorateCustomerNotification($message, $this->customer, $this->order_id);
 
@@ -227,27 +183,6 @@ class Notification extends LibraryService {
         ");
     }
 
-    public function affiliateInternal($message) {
-        $message = $this->decorator->decorateAffiliateNotification($message, $this->affiliate);
-
-        /**
-         * Let's go ahead and insert the message.
-         */
-        $db = parent::$app['db'];
-
-        $affiliate_id = $this->affiliate['affiliate_id'];
-        $subject      = $message['subject'];
-        $content      = $message['html'];
-
-        $db->query("
-            INSERT INTO {$db->prefix}affiliate_inbox 
-            SET 
-                affiliate_id = '" . (int)$affiliate_id . "', 
-                subject = '" . $db->escape($subject) . "', 
-                message = '" . $db->escape($content) . "'
-        ");
-    }
-
     public function formatEmail($email, $type) {
         $message = array();
         // subject
@@ -263,9 +198,6 @@ class Notification extends LibraryService {
                 $message = $this->decorator->decorateCustomerNotification($message, $this->customer, $this->order_id);
                 break;
             case 2:
-                $message = $this->decorator->decorateAffiliateNotification($message, $this->affiliate);
-                break;
-            case 3:
                 $message = $this->decorator->decorateUserNotification($message, $this->user);
                 break;
         endswitch;
@@ -284,5 +216,4 @@ class Notification extends LibraryService {
             true
         );
     }
-    
 }

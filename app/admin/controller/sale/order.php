@@ -296,12 +296,23 @@ class Order extends Controller {
         $this->breadcrumb->add('lang_heading_title', 'sale/order', $url);
         
         $data['invoice'] = $this->url->link('sale/order/invoice', 'token=' . $this->session->data['token'], 'SSL');
-        $data['insert'] = $this->url->link('sale/order/insert', 'token=' . $this->session->data['token'], 'SSL');
-        $data['delete'] = $this->url->link('sale/order/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
+        $data['insert']  = $this->url->link('sale/order/insert', 'token=' . $this->session->data['token'], 'SSL');
+        $data['delete']  = $this->url->link('sale/order/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
         
         $data['orders'] = array();
         
-        $filter = array('filter_order_id' => $filter_order_id, 'filter_customer' => $filter_customer, 'filter_order_status_id' => $filter_order_status_id, 'filter_total' => $filter_total, 'filter_date_added' => $filter_date_added, 'filter_date_modified' => $filter_date_modified, 'sort' => $sort, 'order' => $order, 'start' => ($page - 1) * $this->config->get('config_admin_limit'), 'limit' => $this->config->get('config_admin_limit'));
+        $filter = array(
+            'filter_order_id'        => $filter_order_id, 
+            'filter_customer'        => $filter_customer, 
+            'filter_order_status_id' => $filter_order_status_id, 
+            'filter_total'           => $filter_total, 
+            'filter_date_added'      => $filter_date_added, 
+            'filter_date_modified'   => $filter_date_modified, 
+            'sort'                   => $sort, 
+            'order'                  => $order, 
+            'start'                  => ($page - 1) * $this->config->get('config_admin_limit'), 
+            'limit'                  => $this->config->get('config_admin_limit')
+        );
         
         $order_total = $this->model_sale_order->getTotalOrders($filter);
         
@@ -310,13 +321,28 @@ class Order extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('lang_text_view'), 'href' => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, 'SSL'));
+            $action[] = array(
+                'text' => $this->language->get('lang_text_view'), 
+                'href' => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, 'SSL')
+            );
             
             if (strtotime($result['date_added']) > strtotime('-' . (int)$this->config->get('config_order_edit') . ' day')) {
-                $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('sale/order/update', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, 'SSL'));
+                $action[] = array(
+                    'text' => $this->language->get('lang_text_edit'), 
+                    'href' => $this->url->link('sale/order/update', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, 'SSL')
+                );
             }
             
-            $data['orders'][] = array('order_id' => $result['order_id'], 'customer' => $result['customer'], 'status' => $result['status'], 'total' => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'date_modified' => date($this->language->get('lang_date_format_short'), strtotime($result['date_modified'])), 'selected' => isset($this->request->post['selected']) && in_array($result['order_id'], $this->request->post['selected']), 'action' => $action);
+            $data['orders'][] = array(
+                'order_id'      => $result['order_id'], 
+                'customer'      => $result['customer'], 
+                'status'        => $result['status'], 
+                'total'         => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']), 
+                'date_added'    => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 
+                'date_modified' => date($this->language->get('lang_date_format_short'), strtotime($result['date_modified'])), 
+                'selected'      => isset($this->request->post['selected']) && in_array($result['order_id'], $this->request->post['selected']), 
+                'action'        => $action
+            ;
         }
         
         $data['token'] = $this->session->data['token'];
@@ -371,11 +397,11 @@ class Order extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $data['sort_order'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.order_id' . $url, 'SSL');
-        $data['sort_customer'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=customer' . $url, 'SSL');
-        $data['sort_status'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=status' . $url, 'SSL');
-        $data['sort_total'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.total' . $url, 'SSL');
-        $data['sort_date_added'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.date_added' . $url, 'SSL');
+        $data['sort_order']         = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.order_id' . $url, 'SSL');
+        $data['sort_customer']      = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=customer' . $url, 'SSL');
+        $data['sort_status']        = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=status' . $url, 'SSL');
+        $data['sort_total']         = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.total' . $url, 'SSL');
+        $data['sort_date_added']    = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.date_added' . $url, 'SSL');
         $data['sort_date_modified'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.date_modified' . $url, 'SSL');
         
         $url = '';
@@ -412,20 +438,26 @@ class Order extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($order_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $order_total, 
+            $page, 
+            $this->config->get('config_admin_limit'), 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL')
+        );
         
-        $data['filter_order_id'] = $filter_order_id;
-        $data['filter_customer'] = $filter_customer;
+        $data['filter_order_id']        = $filter_order_id;
+        $data['filter_customer']        = $filter_customer;
         $data['filter_order_status_id'] = $filter_order_status_id;
-        $data['filter_total'] = $filter_total;
-        $data['filter_date_added'] = $filter_date_added;
-        $data['filter_date_modified'] = $filter_date_modified;
+        $data['filter_total']           = $filter_total;
+        $data['filter_date_added']      = $filter_date_added;
+        $data['filter_date_modified']   = $filter_date_modified;
         
         $this->theme->model('localization/orderstatus');
         
         $data['order_statuses'] = $this->model_localization_orderstatus->getOrderStatuses();
         
-        $data['sort'] = $sort;
+        $data['sort']  = $sort;
         $data['order'] = $order;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
@@ -1235,7 +1267,7 @@ class Order extends Controller {
             $this->breadcrumb->add('lang_heading_title', 'sale/order', $url);
             
             $data['invoice'] = $this->url->link('sale/order/invoice', 'token=' . $this->session->data['token'] . '&order_id=' . (int)$this->request->get['order_id'], 'SSL');
-            $data['cancel'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url, 'SSL');
+            $data['cancel']  = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url, 'SSL');
             
             $data['order_id'] = $this->request->get['order_id'];
             
@@ -1246,9 +1278,9 @@ class Order extends Controller {
             }
             
             $data['store_name'] = $order_info['store_name'];
-            $data['store_url'] = $order_info['store_url'];
-            $data['firstname'] = $order_info['firstname'];
-            $data['lastname'] = $order_info['lastname'];
+            $data['store_url']  = $order_info['store_url'];
+            $data['firstname']  = $order_info['firstname'];
+            $data['lastname']   = $order_info['lastname'];
             
             if ($order_info['customer_id']) {
                 $data['customer'] = $this->url->link('people/customer/update', 'token=' . $this->session->data['token'] . '&customer_id=' . $order_info['customer_id'], 'SSL');
