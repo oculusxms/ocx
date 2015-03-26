@@ -102,7 +102,7 @@ class Coupon extends Model {
                 );
                 
                 $total-= $discount_total;
-            }
+            endif;
         endif;
     }
     
