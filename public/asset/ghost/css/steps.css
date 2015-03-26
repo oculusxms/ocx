@@ -83,6 +83,10 @@
     border-radius: 50%;
 }
 
+.wizard > .steps > ul > li:last-child {
+    margin-right: 0 !important;
+}
+
 .wizard > .steps > ul > li:before {
     display: inline-block;
     font-family: FontAwesome;
@@ -99,7 +103,7 @@
 }
 
 .wizard > .steps > ul > li:last-child:before {
-    content: "";
+    display: none;
 }
 
 .wizard > .actions > ul > li {
