@@ -272,6 +272,12 @@ class User extends Controller {
         } else {
             $data['error_lastname'] = '';
         }
+
+        if (isset($this->error['email'])) {
+            $data['error_email'] = $this->error['email'];
+        } else {
+            $data['error_email'] = '';
+        }
         
         $url = '';
         
@@ -400,6 +406,10 @@ class User extends Controller {
         if (($this->encode->strlen($this->request->post['lastname']) < 1) || ($this->encode->strlen($this->request->post['lastname']) > 32)) {
             $this->error['lastname'] = $this->language->get('lang_error_lastname');
         }
+
+        if (($this->encode->strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])):
+            $this->error['email'] = $this->language->get('lang_error_email');
+        endif;
         
         if ($this->request->post['password'] || (!isset($this->request->get['user_id']))) {
             if (($this->encode->strlen($this->request->post['password']) < 4) || ($this->encode->strlen($this->request->post['password']) > 20)) {

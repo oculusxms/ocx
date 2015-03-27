@@ -157,9 +157,10 @@ final class Theme {
      * for wrapping and sending.
      * @param  text $name name of email_slug from database
      * @param  array $data notification specific variables to decorate in notification
+     * @param  array $additional added emails to use for CC
      * @return none
      */
-    public function notify($name, $data) {
+    public function notify($name, $data, $add = array()) {
         /**
          * Let's check for our order_id in $data and send it to the notifier.
          */
@@ -296,7 +297,7 @@ final class Theme {
             // Let's wrap and format the email message. 
             $message = $this->app['notify']->formatEmail($message, $type['recipient']);
             // Send it baby!!
-            $this->app['notify']->send($message);
+            $this->app['notify']->send($message, $add);
         endif;
     }
     

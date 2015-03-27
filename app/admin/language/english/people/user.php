@@ -46,4 +46,5 @@ $_['lang_error_password']    = 'Password must be between 4 and 20 characters.';
 $_['lang_error_confirm']     = 'Password and password confirmation do not match.';
 $_['lang_error_firstname']   = 'First name must be between 1 and 32 characters.';
 $_['lang_error_lastname']    = 'Last name must be between 1 and 32 characters.';
+$_['lang_error_email']       = 'E-Mail address does not appear to be valid.';
 $_['lang_error_captcha']     = 'Verification code does not match the image.';

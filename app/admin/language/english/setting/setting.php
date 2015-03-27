@@ -48,7 +48,7 @@ $_['lang_entry_name']                   = 'Store Name:';
 $_['lang_entry_owner']                  = 'Store Owner:';
 $_['lang_entry_address']                = 'Address:';
 $_['lang_entry_email']                  = 'E-Mail:<br><span class="help">This serves as the from email for all outgoing email from your site.</span>';
-$_['lang_entry_admin_email']			= 'Administrator E-Mail:<br><span class="help">This is a personal admin email address where the administrator can receive notification emails from the server.</span>';
+$_['lang_entry_admin_email_user']		= 'Admin E-Mail User:<br><span class="help">Select the admin user from the list that should receive all administrative emails.</span>';
 $_['lang_entry_telephone']              = 'Telephone:';
 $_['lang_entry_title']                  = 'Title:';
 $_['lang_entry_meta_description']       = 'Meta Tag Description:';
@@ -165,7 +165,7 @@ $_['lang_error_name']                   = 'Store name must be between 3 and 32 c
 $_['lang_error_owner']                  = 'Store owner must be between 3 and 64 characters.';
 $_['lang_error_address']                = 'Store address must be between 10 and 256 characters.';
 $_['lang_error_email']                  = 'E-Mail address does not appear to be valid.';
-$_['lang_error_admin_email']            = 'Administrator email is required.';
+$_['lang_error_admin_email_user']       = 'Admin email user is required.';
 $_['lang_error_telephone']              = 'Telephone must be between 3 and 32 characters.';
 $_['lang_error_title']                  = 'Title must be between 3 and 32 characters.';
 $_['lang_error_limit']                  = 'Limit required.';
@@ -194,9 +194,3 @@ $_['lang_error_assign_to']              = 'If you\'re not deleting posts, you mu
 $_['lang_error_member_image_dir']       = 'Please set the Upload Image Directory for member uploaded pictures.';
 $_['lang_error_affiliate_terms']		= 'If allowing affiliates, Terms must be selected.';
 $_['lang_error_affiliate_commission']   = 'If allowing affiliates, a Commission percentage must be set.';
-
-
-
-
-
-

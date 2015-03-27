@@ -28,75 +28,43 @@ use Oculus\Service\LibraryService;
 */
 
 class Decorator extends LibraryService {
+	private $search       = array();
+	private $replace      = array();
+	private $html_replace = array();
+
 	public function __construct(Container $app) {
 		parent::__construct($app);
 	}
 
 	public function decorateCustomerNotification($message, $customer, $order_id = 0) {
-		$search = array(
+		$this->search = array(
 			'!fname!',
 			'!lname!',
 			'!username!',
 			'!email!',
 			'!telephone!',
 			'!ip_address!',
-			'!points!',
-			'!store_name!',
-			'!store_owner!',
-			'!store_address!',
-			'!store_phone!',
-			'!store_send_email!',
-			'!store_admin_email!',
-			'!store_url!',
-			'!preference!',
-			'!unsubscribe!',
-			'!webversion!',
-			'!twitter!',
-			'!facebook!'
+			'!points!'
 		);
 
-		$replace = array(
+		$this->replace = array(
 			$customer['firstname'] ? $customer['firstname'] : $customer['username'],
 			$customer['lastname'],
 			$customer['username'],
 			$customer['email'],
 			isset($customer['telephone']) ? $customer['telephone'] : '',
 			$customer['ip'],
-			$customer['points'],
-			parent::$app['config_name'],
-			parent::$app['config_owner'],
-			parent::$app['config_address'],
-			parent::$app['config_telephone'],
-			parent::$app['config_email'],
-			parent::$app['config_admin_email'],
-			trim(parent::$app['config_url'], '/'),
-			parent::$app['config_url'] . 'account/notification/preferences',
-			parent::$app['config_url'] . 'account/notification/unsubscribe',
-			parent::$app['config_url'] . 'account/notification/webversion',
-			'http://twitter.com/' . parent::$app['config_mail_twitter'],
-			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
+			$customer['points']
 		);
 
-		$html_replace = array(
+		$this->html_replace = array(
 			$customer['firstname'] ? $customer['firstname'] : $customer['username'],
 			$customer['lastname'],
 			$customer['username'],
 			$customer['email'],
 			isset($customer['telephone']) ? $customer['telephone'] : '',
 			$customer['ip'],
-			$customer['points'],
-			parent::$app['config_name'],
-			parent::$app['config_owner'],
-			nl2br(parent::$app['config_address']),
-			parent::$app['config_telephone'],
-			parent::$app['config_email'],
-			parent::$app['config_admin_email'],
-			trim(parent::$app['config_url'], '/'),
-			parent::$app['config_url'] . 'account/notification/preferences',
-			parent::$app['config_url'] . 'account/notification/unsubscribe',
-			parent::$app['config_url'] . 'account/notification/webversion',
-			'http://twitter.com/' . parent::$app['config_mail_twitter'],
-			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
+			$customer['points']	
 		);
 
 		/**
@@ -110,27 +78,110 @@ class Decorator extends LibraryService {
 
 		endif;
 
-		if (is_array($message)):
-			foreach($message as $key => $value):
-				if ($key == 'html'):
-					$message[$key] = str_replace($search, $html_replace, $value);
-				else:
-					$message[$key] = str_replace($search, $replace, $value);
-				endif;
-			endforeach;
-		else:
-			$message = str_replace($search, $replace, $message);
-		endif;
-		
-		return $message;
+		$this->baseDecorate();
+
+		//$message = $this->parse($message);
+		//parent::$app['theme']->test($this->search);
+		return $this->parse($message);
 	}
 
 	public function decorateUserNotification($message, $user) {
+		$this->search = array(
+			'!fname!',
+			'!lname!',
+			'!username!',
+			'!email!'
+		);
 
+		$this->replace = array(
+			$user['firstname'] ? $user['firstname'] : $user['username'],
+			$user['lastname'],
+			$user['username'],
+			$user['email']
+		);
+
+		$this->html_replace = array(
+			$user['firstname'] ? $user['firstname'] : $user['username'],
+			$user['lastname'],
+			$user['username'],
+			$user['email']
+		);
+
+		$this->baseDecorate();
+
+		//$message = $this->parse($message);
+		//parent::$app['theme']->test($this->search);
+		return $this->parse($message);
+	}
+
+	protected function baseDecorate() {
+		$search = array(
+			'!store_name!',
+			'!store_owner!',
+			'!store_address!',
+			'!store_phone!',
+			'!store_send_email!',
+			'!store_url!',
+			'!preference!',
+			'!unsubscribe!',
+			'!webversion!',
+			'!twitter!',
+			'!facebook!'
+		);
+
+		$this->search = array_merge($this->search, $search);
+
+		$replace = array(
+			parent::$app['config_name'],
+			parent::$app['config_owner'],
+			parent::$app['config_address'],
+			parent::$app['config_telephone'],
+			parent::$app['config_email'],
+			trim(parent::$app['config_url'], '/'),
+			parent::$app['config_url'] . 'account/notification/preferences',
+			parent::$app['config_url'] . 'account/notification/unsubscribe',
+			parent::$app['config_url'] . 'account/notification/webversion',
+			'http://twitter.com/' . parent::$app['config_mail_twitter'],
+			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
+		);
+
+		$this->replace = array_merge($this->replace, $replace);
+
+		$html_replace = array(
+			parent::$app['config_name'],
+			parent::$app['config_owner'],
+			nl2br(parent::$app['config_address']),
+			parent::$app['config_telephone'],
+			parent::$app['config_email'],
+			trim(parent::$app['config_url'], '/'),
+			parent::$app['config_url'] . 'account/notification/preferences',
+			parent::$app['config_url'] . 'account/notification/unsubscribe',
+			parent::$app['config_url'] . 'account/notification/webversion',
+			'http://twitter.com/' . parent::$app['config_mail_twitter'],
+			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
+		);
+
+		$this->html_replace = array_merge($this->html_replace, $html_replace);
 	}
 
 	protected function getOrder($order_id) {
 		
+	}
+
+	protected function parse($message) {
+		if (is_array($message)):
+			foreach($message as $key => $value):
+				if ($key == 'html'):
+					$message[$key] = str_replace($this->search, $this->html_replace, $value);
+				else:
+					$message[$key] = str_replace($this->search, $this->replace, $value);
+				endif;
+			endforeach;
+		else:
+			$message = str_replace($this->search, $this->replace, $message);
+		endif;
+		
+		return $message;
 	}
 }
 

@@ -205,7 +205,7 @@ class Notification extends LibraryService {
         return $message;
     }
 
-    public function send($message) {
+    public function send($message, $add = array()) {
 
         $mailer = parent::$app['mailer']->build(
             $message['subject'],
@@ -213,7 +213,8 @@ class Notification extends LibraryService {
             $this->to_name,
             $message['text'],
             $message['html'],
-            true
+            true,
+            $add
         );
     }
 }

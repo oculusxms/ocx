@@ -167,54 +167,34 @@ class Customer extends Model {
 
         // Send to main admin email if new account email is enabled
         if ($this->config->get('config_account_mail')) {
-            // NEW MAILER
             // public_register_admin
 
-            // $message = $this->language->get('lang_text_signup') . "\n\n";
-            // $message.= $this->language->get('lang_text_website') . ' ' . $this->config->get('config_name') . "\n";
-            // $message.= $this->language->get('lang_text_username') . ' ' . $data['username'] . "\n";
-            // $message.= $this->language->get('lang_text_customer_group') . ' ' . $customer_group_info['name'] . "\n";
-            
-            // $message.= $this->language->get('lang_text_email') . ' ' . $data['email'] . "\n";
-            
-            // $template->data['title'] = $this->language->get('lang_text_signup');
-            
-            // if ($customer_group_info['approval']) {
-            //     $template->data['text_approve'] = $this->language->get('lang_text_approve');
-            //     $template->data['account_approve'] = $this->app['https.server'] . ADMIN_FASCADE . '/index.php?route=sale/customer&filter_approved=0';
-            //     $subject = "ADMIN APPROVAL - " . html_entity_decode($this->language->get('lang_text_new_customer'), ENT_QUOTES, 'UTF-8');
-            // } else {
-            //     $subject = "ADMIN - " . html_entity_decode($this->language->get('lang_text_new_customer'), ENT_QUOTES, 'UTF-8');
-            // }
-            
-            // $html = $template->fetch('mail/customer_register_admin');
-            
-            // $this->mailer->build(
-            //     $subject,
-            //     $this->config->get('config_email'),
-            //     $this->config->get('config_name'),
-            //     html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
-            //     $html,
-            //     true
-            // );
+            // Send to additional alert emails as Cc: if new account email is enabled
+            $cc = array();
 
-            // Send to additional alert emails if new account email is enabled
-            $emails = explode(',', $this->config->get('config_alert_emails'));
-            
-            foreach ($emails as $email) {
-                if (strlen($email) > 0 && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)) {
-                    // public_register_admin
+            if ($this->config->get('config_alert_emails')):
+                $emails = explode(',', $this->config->get('config_alert_emails'));
+                foreach ($emails as $email):
+                    if (strlen($email) > 0 && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)):
+                       $cc[] = $email;
+                    endif;
+                endif;
+            endif;
 
-                    // $this->mailer->build(
-                    //     $subject,
-                    //     $email,
-                    //     $this->config->get('config_name'),
-                    //     html_entity_decode($message, ENT_QUOTES, 'UTF-8'),
-                    //     $html,
-                    //     true
-                    // );
-                }
-            }
+            $notify = array(
+                'user_id'    => $this->config->get('config_admin_email_user'),
+                'customer'   => $customer_id,
+                'address_id' => $address_id,
+                'callback'   => array(
+                    'class'  => __CLASS__,
+                    'method' => 'send_test_email'
+                )
+            );
+            
+            $this->theme->notify('public_register_admin', $notify);
+            
+            
+                
         }
         
         $this->theme->trigger('front_add_customer', array('customer_id' => $customer_id));
@@ -420,5 +400,9 @@ class Customer extends Model {
         endforeach;
 
         return $message;
+    }
+
+    public function public_register_admin($data, $message) {
+        
     }
 }

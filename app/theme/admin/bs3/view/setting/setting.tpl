@@ -79,15 +79,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_admin_email; ?></label>
-						<div class="control-field col-sm-4">
-							<input type="text" name="config_admin_email" value="<?= $config_admin_email; ?>" class="form-control">
-							<?php if ($error_admin_email) { ?>
-								<div class="help-block error"><?= $error_admin_email; ?></div>
-							<?php } ?>
-						</div>
-					</div>
-					<div class="form-group">
 						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_telephone; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="config_telephone" value="<?= $config_telephone; ?>" class="form-control">
@@ -1015,6 +1006,24 @@
 						<label class="control-label col-sm-2"><?= $lang_entry_smtp_timeout; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="config_smtp_timeout" value="<?= $config_smtp_timeout; ?>" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_admin_email_user; ?></label>
+						<div class="control-field col-sm-4">
+							<select name="config_admin_email_user" class="form-control">
+								<option value="0"><?= $lang_text_select; ?></option>
+								<?php foreach ($users as $user): ?>
+								<?php if ($user['user_id'] == $config_admin_email_user): ?>
+								<option value="<?= $user['user_id']; ?>" selected><?= $user['name']; ?></option>
+								<?php else: ?>
+								<option value="<?= $user['user_id']; ?>"><?= $user['name']; ?></option>
+								<?php endif; ?>
+								<?php endforeach; ?>
+							</select>
+							<?php if ($error_admin_email_user) { ?>
+								<div class="help-block error"><?= $error_admin_email_user; ?></div>
+							<?php } ?>
 						</div>
 					</div>
 					<div class="form-group">

@@ -51,9 +51,12 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><?= $lang_entry_email; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_email; ?></label>
 				<div class="control-field col-sm-4">
 					<input type="text" name="email" value="<?= $email; ?>" class="form-control">
+					<?php if ($error_email) { ?>
+						<div class="help-block error"><?= $error_email; ?></div>
+					<?php } ?>
 				</div>
 			</div>
 			<div class="form-group">

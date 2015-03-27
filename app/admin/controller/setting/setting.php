@@ -68,12 +68,6 @@ class Setting extends Controller {
         } else {
             $data['error_email'] = '';
         }
-
-        if (isset($this->error['admin_email'])) {
-            $data['error_admin_email'] = $this->error['admin_email'];
-        } else {
-            $data['error_admin_email'] = '';
-        }
         
         if (isset($this->error['telephone'])) {
             $data['error_telephone'] = $this->error['telephone'];
@@ -235,6 +229,12 @@ class Setting extends Controller {
             $data['error_top_customer'] = $this->error['top_customer'];
         } else {
             $data['error_top_customer'] = '';
+        }
+
+        if (isset($this->error['admin_email_user'])) {
+            $data['error_admin_email_user'] = $this->error['admin_email_user'];
+        } else {
+            $data['error_admin_email_user'] = '';
         }
         
         $this->breadcrumb->add('lang_heading_title', 'setting/setting');
@@ -896,6 +896,25 @@ class Setting extends Controller {
         } else {
             $data['config_smtp_timeout'] = 5;
         }
+
+        $this->theme->model('people/user');
+
+        $users = $this->model_people_user->getUsers();
+
+        $data['users'] = array();
+
+        foreach($users as $user):
+            $data['users'][] = array(
+                'user_id' => $user['user_id'],
+                'name'    => $user['username']
+            );
+        endforeach;
+
+        if (isset($this->request->post['config_admin_email_user'])) {
+            $data['config_admin_email_user'] = $this->request->post['config_admin_email_user'];
+        } else {
+            $data['config_admin_email_user'] = $this->config->get('config_admin_email_user');
+        }
         
         if (isset($this->request->post['config_mail_twitter'])) {
             $data['config_mail_twitter'] = $this->request->post['config_mail_twitter'];
@@ -1105,14 +1124,6 @@ class Setting extends Controller {
         if (($this->encode->strlen($this->request->post['config_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['config_email'])) {
             $this->error['email'] = $this->language->get('lang_error_email');
         }
-
-        if (($this->encode->strlen($this->request->post['config_admin_email']) < 1)):
-             $this->error['admin_email'] = $this->language->get('lang_error_admin_email');
-        endif;
-
-        if (($this->encode->strlen($this->request->post['config_admin_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['config_admin_email'])) {
-            $this->error['admin_email'] = $this->language->get('lang_error_email');
-        }
         
         if (($this->encode->strlen($this->request->post['config_telephone']) < 3) || ($this->encode->strlen($this->request->post['config_telephone']) > 32)) {
             $this->error['telephone'] = $this->language->get('lang_error_telephone');
@@ -1120,6 +1131,10 @@ class Setting extends Controller {
         
         if (!$this->request->post['config_title']) {
             $this->error['title'] = $this->language->get('lang_error_title');
+        }
+
+        if (!$this->request->post['config_admin_email_user'] || $this->request->post['config_admin_email_user'] < 1) {
+            $this->error['admin_email_user'] = $this->language->get('lang_error_admin_email_user');
         }
 
         // Affiliate settings

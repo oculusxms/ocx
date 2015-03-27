@@ -53,7 +53,7 @@ class Mail extends LibraryService {
 		$this->mailer = Swift_Mailer::newInstance($transport);
 	}
 
-	public function build($subject, $email, $name, $text, $html = false, $send = false) {
+	public function build($subject, $email, $name, $text, $html = false, $send = false, $add = array()) {
 		$message = Swift_Message::newInstance()->setCharset('iso-8859-2');
 		$message->setFrom(array(parent::$app['config_email'] => parent::$app['config_name']));
 
@@ -65,6 +65,10 @@ class Mail extends LibraryService {
 		
 		if ($html):
 			$message->addPart($html, 'text/html');
+		endif;
+		
+		if (!empty($add)):
+			$message->setCc($add);
 		endif;
 
 		$this->message = $message;
