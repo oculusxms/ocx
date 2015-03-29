@@ -69,12 +69,19 @@ class User extends Model {
     }
     
     public function editCode($email, $code) {
+        $user = $this->getUserByEmail($email);
+
+        $user_id = $user['user_id'];
+
         $this->db->query("
             UPDATE `{$this->db->prefix}user` 
             SET 
                 code = '" . $this->db->escape($code) . "' 
-            WHERE LCASE(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
+            WHERE LCASE(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "' 
+            AND user_id = '" . (int)$user_id . "'
         ");
+
+        return $user_id;
     }
     
     public function deleteUser($user_id) {
@@ -96,6 +103,15 @@ class User extends Model {
             SELECT * 
             FROM `{$this->db->prefix}user` 
             WHERE username = '" . $this->db->escape($username) . "'");
+        
+        return $query->row;
+    }
+
+    public function getUserByEmail($email) {
+        $query = $this->db->query("
+            SELECT * 
+            FROM `{$this->db->prefix}user` 
+            WHERE email = '" . $this->db->escape($email) . "'");
         
         return $query->row;
     }

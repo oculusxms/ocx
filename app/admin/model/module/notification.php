@@ -22,11 +22,12 @@ class Notification extends Model {
 		$this->db->query("
 			INSERT INTO {$this->db->prefix}email 
 			SET 
-				email_slug = '" . $this->db->escape($data['email_slug']) . "', 
-				configurable = '" . (int)$data['configurable'] . "', 
+				email_slug         = '" . $this->db->escape($data['email_slug']) . "', 
+				configurable       = '" . (int)$data['configurable'] . "', 
+				priority           = '" . (int)$data['priority'] . "', 
 				config_description = '" . $this->db->escape($data['config_description']) . "', 
-				recipient = '" . (int)$data['recipient'] . "', 
-				is_system = '" . (int)$data['is_system'] . "'
+				recipient          = '" . (int)$data['recipient'] . "', 
+				is_system          = '" . (int)$data['is_system'] . "'
 		");
 
 		$id = $this->db->getLastId();
@@ -35,11 +36,11 @@ class Notification extends Model {
 			$this->db->query("
 				INSERT INTO {$this->db->prefix}email_content 
 				SET 
-					email_id = '" . (int)$id . "', 
+					email_id    = '" . (int)$id . "', 
 					language_id = '" . (int)$language_id . "', 
-					subject = '" . $this->db->escape($value['subject']) . "', 
-					text = '" . $this->db->escape($value['text']) . "',
-					html = '" . $this->db->escape($value['html']) . "'
+					subject     = '" . $this->db->escape($value['subject']) . "', 
+					text        = '" . $this->db->escape($value['text']) . "',
+					html        = '" . $this->db->escape($value['html']) . "'
 			");
 		endforeach;
 
@@ -50,11 +51,12 @@ class Notification extends Model {
 		$this->db->query("
 			UPDATE {$this->db->prefix}email 
 			SET 
-				email_slug = '" . $this->db->escape($data['email_slug']) . "', 
-				configurable = '" . (int)$data['configurable'] . "', 
+				email_slug         = '" . $this->db->escape($data['email_slug']) . "', 
+				configurable       = '" . (int)$data['configurable'] . "', 
+				priority           = '" . (int)$data['priority'] . "', 
 				config_description = '" . $this->db->escape($data['config_description']) . "', 
-				recipient = '" . (int)$data['recipient'] . "', 
-				is_system = '" . (int)$data['is_system'] . "' 
+				recipient          = '" . (int)$data['recipient'] . "', 
+				is_system          = '" . (int)$data['is_system'] . "' 
 			WHERE email_id = '" . (int)$id . "'
 		");
         
@@ -66,11 +68,11 @@ class Notification extends Model {
             $this->db->query("
 				INSERT INTO {$this->db->prefix}email_content 
 				SET 
-					email_id = '" . (int)$id . "', 
+					email_id    = '" . (int)$id . "', 
 					language_id = '" . (int)$language_id . "', 
-					subject = '" . $this->db->escape($value['subject']) . "', 
-					text = '" . $this->db->escape($value['text']) . "', 
-					html = '" . $this->db->escape($value['html']) . "'
+					subject     = '" . $this->db->escape($value['subject']) . "', 
+					text        = '" . $this->db->escape($value['text']) . "', 
+					html        = '" . $this->db->escape($value['html']) . "'
 			");
         }
 

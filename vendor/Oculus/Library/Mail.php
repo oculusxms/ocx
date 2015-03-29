@@ -26,11 +26,14 @@ use Swift_MailTransport;
 use Swift_SmtpTransport;
 use Swift_Mailer;
 use Swift_Message;
+use Swift_Plugins_Loggers_EchoLogger;
+use Swift_Plugins_LoggerPlugin;
 
 class Mail extends LibraryService {
 
 	private $mailer;
 	private $message;
+	private $logger;
 
 	public function __construct(Container $app) {
 		parent::__construct($app);
@@ -51,11 +54,13 @@ class Mail extends LibraryService {
 		endif;
 
 		$this->mailer = Swift_Mailer::newInstance($transport);
+		$this->logger = new Swift_Plugins_Loggers_EchoLogger();
+		$this->mailer->registerPlugin(new Swift_Plugins_LoggerPlugin($this->logger));
 	}
 
 	public function build($subject, $email, $name, $text, $html = false, $send = false, $add = array()) {
-		$message = Swift_Message::newInstance()->setCharset('iso-8859-2');
-		$message->setFrom(array(parent::$app['config_email'] => parent::$app['config_name']));
+		$message = Swift_Message::newInstance()
+			->setFrom(array(parent::$app['config_email'] => parent::$app['config_name']));
 
 		// customer/function specific details
 		$message->setSubject($subject);
@@ -89,5 +94,6 @@ class Mail extends LibraryService {
 	public function send() {
 		$this->mailer->send($this->message);
 		unset($this->message);
+		//$this->logger->dump();
 	}
 }

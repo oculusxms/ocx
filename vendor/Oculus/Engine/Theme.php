@@ -19,7 +19,6 @@ use Oculus\Engine\Container;
 use Oculus\Engine\Action;
 use Oculus\Service\ActionService;
 use Oculus\Engine\View;
-use Oculus\Library\Email;
 
 final class Theme {
     private $title;
@@ -197,12 +196,11 @@ final class Theme {
                 break;
         endswitch;
         
-
-        // create email object
-        $email   = new Email($this->app);
-
         // fetch our text/html email message
-        $message = $email->fetch($name);
+        $message = $this->app['notify']->fetch($name);
+
+        // Let's grab our priority before we re-write the message
+        $priority = $message['priority'];
 
         /**
          * There's no need to pass in a callback unless you have
@@ -296,8 +294,12 @@ final class Theme {
         if ($preference['email']):
             // Let's wrap and format the email message. 
             $message = $this->app['notify']->formatEmail($message, $type['recipient']);
-            // Send it baby!!
-            $this->app['notify']->send($message, $add);
+
+            if ($priority == 1):
+                $this->app['notify']->send($message, $add);
+            else:
+                $this->app['notify']->addToEmailQueue($message);
+            endif;
         endif;
     }
     

@@ -35,7 +35,7 @@ class Forgotten extends Controller {
             
             $this->model_account_customer->editPassword($this->request->post['email'], $password);
 
-            $notify = array(
+            $callback = array(
                 'customer_id' => $customer['customer_id'],
                 'password'    => $password,
                 'callback'    => array(
@@ -44,7 +44,8 @@ class Forgotten extends Controller {
                 )
             );
             
-            $this->theme->notify('public_customer_forgotten', $notify);
+            $this->theme->notify('public_customer_forgotten', $callback);
+
             $this->session->data['success'] = $this->language->get('lang_text_success');
             $this->response->redirect($this->url->link('account/login', '', 'SSL'));
         endif;

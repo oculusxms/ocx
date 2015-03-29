@@ -21,91 +21,85 @@ class Forgotten extends Controller {
     private $error = array();
     
     public function index() {
-        if ($this->user->isLogged()) {
+        if ($this->user->isLogged()):
             $this->response->redirect($this->url->link('common/dashboard', '', 'SSL'));
-        }
+        endif;
         
-        if (!$this->config->get('config_password')) {
+        if (!$this->config->get('config_password')):
             $this->response->redirect($this->url->link('common/login', '', 'SSL'));
-        }
+        endif;
         
         $data = $this->theme->language('common/forgotten');
         
         $this->theme->setTitle($this->language->get('lang_heading_title'));
-        
         $this->theme->model('people/user');
         
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $data = $this->theme->language('mail/forgotten', $data);
-            
-            $code = sha1(uniqid(mt_rand(), true));
-            
-            $this->model_people_user->editCode($this->request->post['email'], $code);
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()):
+            $code    = sha1(uniqid(mt_rand(), true));
+            $user_id = $this->model_people_user->editCode($this->request->post['email'], $code);
 
-            // NEW MAILER
-            // admin_forgotten_email
-            
-            // $subject = sprintf($this->language->get('lang_text_subject'), $this->config->get('config_name'));
-            
-            // $message = sprintf($this->language->get('lang_text_greeting'), $this->config->get('config_name')) . "\n\n";
-            // $message.= sprintf($this->language->get('lang_text_change'), $this->config->get('config_name')) . "\n\n";
-            // $message.= $this->url->link('common/reset', 'code=' . $code, 'SSL') . "\n\n";
-            // $message.= sprintf($this->language->get('lang_text_ip'), $this->request->server['REMOTE_ADDR']) . "\n\n";
-            
-            // $mail = new Mail();
-            // $mail->protocol = $this->config->get('config_mail_protocol');
-            // $mail->parameter = $this->config->get('config_mail_parameter');
-            // $mail->hostname = $this->config->get('config_smtp_host');
-            // $mail->username = $this->config->get('config_smtp_username');
-            // $mail->password = $this->config->get('config_smtp_password');
-            // $mail->port = $this->config->get('config_smtp_port');
-            // $mail->timeout = $this->config->get('config_smtp_timeout');
-            // $mail->setTo($this->request->post['email']);
-            // $mail->setFrom($this->config->get('config_email'));
-            // $mail->setSender($this->config->get('config_name'));
-            // $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            // $mail->send();
+            $notify = array(
+                'user_id'  => $user_id,
+                'link'     => $this->url->link('common/reset', 'code=' . $code, 'SSL'),
+                'callback' => array(
+                    'class'  => __CLASS__,
+                    'method' => 'admin_forgotten_email'
+                )
+            );
+
+            $this->theme->notify('admin_forgotten_email', $notify);
             
             $this->session->data['success'] = $this->language->get('lang_text_success');
-            
             $this->response->redirect($this->url->link('common/login', '', 'SSL'));
-        }
+        endif;
         
         $this->breadcrumb->add('lang_text_forgotten', 'common/forgotten');
         
-        if (isset($this->error['warning'])) {
+        if (isset($this->error['warning'])):
             $data['error_warning'] = $this->error['warning'];
-        } else {
+        else:
             $data['error_warning'] = '';
-        }
+        endif;
         
         $data['action'] = $this->url->link('common/forgotten', '', 'SSL');
-        
         $data['cancel'] = $this->url->link('common/login', '', 'SSL');
         
-        if (isset($this->request->post['email'])) {
+        if (isset($this->request->post['email'])):
             $data['email'] = $this->request->post['email'];
-        } else {
+        else:
             $data['email'] = '';
-        }
+        endif;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
-        
         $data = $this->theme->render_controllers($data);
         
         $this->response->setOutput($this->theme->view('common/forgotten', $data));
     }
     
     protected function validate() {
-        if (!isset($this->request->post['email'])) {
+        if (!isset($this->request->post['email'])):
             $this->error['warning'] = $this->language->get('lang_error_email');
-        } elseif (!$this->model_people_user->getTotalUsersByEmail($this->request->post['email'])) {
+        elseif (!$this->model_people_user->getTotalUsersByEmail($this->request->post['email'])):
             $this->error['warning'] = $this->language->get('lang_error_email');
-        }
+        endif;
         
         $this->theme->listen(__CLASS__, __FUNCTION__);
         
         return !$this->error;
+    }
+
+    public function admin_forgotten_email($data, $message) {
+        $search  = array('!link!');
+        $replace = array();
+
+        foreach($data as $key => $value):
+            $replace[] = $value;
+        endforeach;
+
+        foreach ($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+
+        return $message;
     }
 }

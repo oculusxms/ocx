@@ -24,6 +24,28 @@ class Email extends LibraryService {
 		parent::__construct($app);
 	}
 
+	public function fetchWrapper() {
+        $db = parent::$app['db'];
+
+        $data = array();
+
+        $query = $db->query("
+            SELECT 
+                ec.text AS text, 
+                ec.html AS html 
+            FROM {$db->prefix}email_content ec 
+            LEFT JOIN {$db->prefix}email e 
+            ON (e.email_id = ec.email_id) 
+            WHERE e.email_slug = 'email_wrapper' 
+            AND language_id = '" . (int)parent::$app['config_language_id'] . "'
+        ");
+
+        $data['text'] = $query->row['text'];
+        $data['html'] = $query->row['html'];
+
+        return $data;
+    }
+
 	public function fetch($name) {
 		$data = array();
 
@@ -33,7 +55,8 @@ class Email extends LibraryService {
 			SELECT 
 				ec.subject AS subject, 
 				ec.text AS text, 
-				ec.html AS html 
+				ec.html AS html, 
+				e.priority AS priority 
 			FROM {$db->prefix}email_content ec 
 			LEFT JOIN {$db->prefix}email e 
 			ON (e.email_id = ec.email_id) 
@@ -41,110 +64,38 @@ class Email extends LibraryService {
 			AND language_id = '" . (int)parent::$app['config_language_id'] . "'
 		");
 
-		$data['subject'] = html_entity_decode($query->row['subject'], ENT_QUOTES, 'UTF-8');
-		$data['text']    = html_entity_decode($query->row['text'], ENT_QUOTES, 'UTF-8');
-		$data['html']    = html_entity_decode($query->row['html'], ENT_QUOTES, 'UTF-8');
+		$data['subject']  = html_entity_decode($query->row['subject'], ENT_QUOTES, 'UTF-8');
+		$data['text']     = html_entity_decode($query->row['text'], ENT_QUOTES, 'UTF-8');
+		$data['html']     = html_entity_decode($query->row['html'], ENT_QUOTES, 'UTF-8');
+		$data['priority'] = $query->row['priority'];
 
 		return $data;
 	}
 
-	public function public_waitlist_join() {
+	public function addToEmailQueue($message, $email, $name) {
+		$db = parent::$app['db'];
 
-	}
+		$db->query("
+			INSERT INTO {$db->prefix}notification_queue 
+			SET 
+				email      = '" . $db->escape($email) . "', 
+				name       = '" . $db->escape($name) . "', 
+				subject    = '" . $db->escape($message['subject']) . "', 
+				text       = '" . $db->escape($message['text']) . "', 
+				html       = '" . $db->escape($message['html']) . "', 
+				date_added = NOW()
+		");
+    }
 
-	public function public_customer_order_confirm() {
-
-	}
-
-	public function public_admin_order_confirm() {
-
-	}
-
-	public function public_customer_order_update() {
-
-	}
-
-	public function public_affiliate_forgotten() {
-
-	}
-
-	public function public_contact_admin() {
-
-	}
-
-	public function public_contact_customer() {
-
-	}
-
-	public function public_register_customer() {
-
-	}
-
-	public function public_register_admin() {
-
-	}
-
-	public function public_affiliate_register() {
-
-	}
-
-	public function public_affiliate_admin() {
-
-	}
-
-	public function public_voucher_confirm() {
-
-	}
-
-	public function admin_forgotten_email() {
-
-	}
-
-	public function admin_people_contact() {
-
-	}
-
-	public function admin_event_add(){
-
-	}
-
-	public function admin_event_waitlist() {
-
-	}
-
-	public function admin_affiliate_add_transaction() {
-
-	}
-
-	public function admin_affiliate_approve() {
-
-	}
-
-	public function admin_customer_approve() {
-
-	}
-
-	public function admin_customer_add_transaction() {
-
-	}
-
-	public function admin_customer_add_reward() {
-
-	}
-
-	public function admin_order_add_history() {
-
-	}
-
-	public function admin_return_add_history() {
-
-	}
-
-	public function admin_voucher_order_send() {
-
-	}
-
-	public function admin_voucher_no_order_send() {
-
-	}
+    public function send($message, $to, $name, $send = false, $add = array()) {
+        $mailer = parent::$app['mailer']->build(
+            $message['subject'],
+            $to,
+            $name,
+            $message['text'],
+            $message['html'],
+            $send,
+            $add
+        );
+    }
 }

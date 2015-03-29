@@ -71,7 +71,16 @@
 				<div class="control-field col-sm-3">
 					<select name="recipient" class="form-control">
 						<option value="1" <?= $recipient == 1 ? 'selected' : ''; ?>><?= $lang_text_customer; ?></option>
-						<option value="3" <?= $recipient == 2 ? 'selected' : ''; ?>><?= $lang_text_admin; ?></option>
+						<option value="2" <?= $recipient == 2 ? 'selected' : ''; ?>><?= $lang_text_admin; ?></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_priority; ?></label>
+				<div class="control-field col-sm-3">
+					<select name="priority" class="form-control">
+						<option value="1" <?= $priority == 1 ? 'selected' : ''; ?>><?= $lang_text_send_now; ?></option>
+						<option value="2" <?= $priority == 2 ? 'selected' : ''; ?>><?= $lang_text_send_queue; ?></option>
 					</select>
 				</div>
 			</div>

@@ -153,7 +153,7 @@ class Customer extends Model {
         
         $lang = $this->language->load('mail/customer');
 
-        $notify = array(
+        $callback = array(
             'customer_id' => $customer_id,
             'percent'     => number_format($this->config->get('config_commission')),
             'callback'    => array(
@@ -162,40 +162,37 @@ class Customer extends Model {
             )
         );
         
-        $this->theme->notify('public_register_customer', $notify);
+        $this->theme->notify('public_register_customer', $callback);
+
+        unset($callback);
         
-
         // Send to main admin email if new account email is enabled
-        if ($this->config->get('config_account_mail')) {
-            // public_register_admin
+        if ($this->config->get('config_account_mail')):
 
-            // Send to additional alert emails as Cc: if new account email is enabled
+            // Build additional emails array to Cc: these emails.
             $cc = array();
 
             if ($this->config->get('config_alert_emails')):
                 $emails = explode(',', $this->config->get('config_alert_emails'));
                 foreach ($emails as $email):
                     if (strlen($email) > 0 && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)):
-                       $cc[] = $email;
+                       $cc[] = trim($email);
                     endif;
-                endif;
+                endforeach;
             endif;
-
-            $notify = array(
+            
+            $callback = array(
                 'user_id'    => $this->config->get('config_admin_email_user'),
                 'customer'   => $customer_id,
                 'address_id' => $address_id,
                 'callback'   => array(
                     'class'  => __CLASS__,
-                    'method' => 'send_test_email'
+                    'method' => 'public_register_admin'
                 )
             );
             
-            $this->theme->notify('public_register_admin', $notify);
-            
-            
-                
-        }
+            $this->theme->notify('public_register_admin', $callback, $cc);   
+        endif;
         
         $this->theme->trigger('front_add_customer', array('customer_id' => $customer_id));
     }
@@ -403,6 +400,60 @@ class Customer extends Model {
     }
 
     public function public_register_admin($data, $message) {
-        
+        $this->theme->model('tool/utility');
+        $customer = $this->model_tool_utility->getNewCustomerDetail ($data['customer'], $data['address_id']);
+
+        $format = 
+            '{username}' . "\n" . 
+            '{firstname} {lastname}' . "\n" . 
+            '{email}' . "\n" . 
+            '{company}' . "\n" . 
+            '{address_1}' . "\n" . 
+            '{address_2}' . "\n" . 
+            '{city}, {zone} {postcode}' . "\n" .  
+            '{country}';
+
+        $find = array(
+            '{username}', 
+            '{firstname}', 
+            '{lastname}', 
+            '{email}', 
+            '{company}', 
+            '{address_1}', 
+            '{address_2}', 
+            '{city}', 
+            '{postcode}', 
+            '{zone}',  
+            '{country}'
+        );
+            
+        $replace = array(
+            'username'  => $customer['username'],
+            'firstname' => $customer['firstname'], 
+            'lastname'  => $customer['lastname'], 
+            'email'     => $customer['email'],
+            'company'   => $customer['company'], 
+            'address_1' => $customer['address_1'], 
+            'address_2' => $customer['address_2'], 
+            'city'      => $customer['city'], 
+            'postcode'  => $customer['postcode'], 
+            'zone'      => $customer['zone'], 
+            'country'   => $customer['country']
+        );
+
+        $text = preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), "\n", trim(str_replace($find, $replace, $format)));
+        $html = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+
+        $search  = array('!customer_details!');
+
+        foreach ($message as $key => $value):
+            if ($key == 'html'):
+                $message[$key] = str_replace('!customer_details!', $html, $value);
+            else:
+                $message[$key] = str_replace('!customer_details!', $text, $value);
+            endif;
+        endforeach;
+
+        return $message;
     }
 }

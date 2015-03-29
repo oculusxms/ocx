@@ -18,12 +18,14 @@ namespace Oculus\Library;
 use Oculus\Engine\Container;
 use Oculus\Service\LibraryService;
 use Oculus\Library\Decorator;
+use Oculus\Library\Email;
 
 class Notification extends LibraryService {
     
     private $html;
     private $text;
     private $decorator;
+    private $email;
     private $customer;
     private $order_id = 0;
     private $user;
@@ -35,29 +37,31 @@ class Notification extends LibraryService {
         parent::__construct($app);
         
         $this->decorator = new Decorator($app);
+        $this->email     = new Email($app);
+
         $this->fetchWrapper();
     }
 
     /**
-     * fetch the wrapper from the database
-     * @return null
+     * fetch the wrapper from the email object.
+     * @return array $data for calling from outside the class.
      */
     public function fetchWrapper() {
-        $db = parent::$app['db'];
-
-        $query = $db->query("
-            SELECT 
-                ec.text AS text, 
-                ec.html AS html 
-            FROM {$db->prefix}email_content ec 
-            LEFT JOIN {$db->prefix}email e 
-            ON (e.email_id = ec.email_id) 
-            WHERE e.email_slug = 'email_wrapper' 
-            AND language_id = '" . (int)parent::$app['config_language_id'] . "'
-        ");
+        $data = $this->email->fetchWrapper();
         
-        $this->text = html_entity_decode($query->row['text'], ENT_QUOTES, 'UTF-8');
-        $this->html = html_entity_decode($query->row['html'], ENT_QUOTES, 'UTF-8');
+        $this->text = html_entity_decode($data['text'], ENT_QUOTES, 'UTF-8');
+        $this->html = html_entity_decode($data['html'], ENT_QUOTES, 'UTF-8');
+
+        return $data;
+    }
+
+    /**
+     * fetch the data for the called notification
+     * @param  string $name slug string of notification
+     * @return array  subject, text, html, priority
+     */
+    public function fetch($name) {
+        return $this->email->fetch($name);
     }
 
     public function getNotificationType($name) {
@@ -181,6 +185,16 @@ class Notification extends LibraryService {
                 subject = '" . $db->escape($subject) . "', 
                 message = '" . $db->escape($content) . "'
         ");
+
+        return $message;
+    }
+
+    public function prepareForQueue($message) {
+        if (isset($this->customer)):
+            return $this->decorator->decorateCustomerNotification($message, $this->customer, $this->order_id);
+        elseif(isset($this->user)):
+            return $this->decorator->decorateUserNotification($message, $this->user);
+        endif;
     }
 
     public function formatEmail($email, $type) {
@@ -205,16 +219,11 @@ class Notification extends LibraryService {
         return $message;
     }
 
-    public function send($message, $add = array()) {
+    public function addToEmailQueue($message) {
+        return $this->email->addToEmailQueue($message, $this->to_email, $this->to_name);
+    }
 
-        $mailer = parent::$app['mailer']->build(
-            $message['subject'],
-            $this->to_email,
-            $this->to_name,
-            $message['text'],
-            $message['html'],
-            true,
-            $add
-        );
+    public function send($message, $add = array()) {
+        return $this->email->send($message, $this->to_email, $this->to_name, true, $add);
     }
 }

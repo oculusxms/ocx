@@ -137,10 +137,10 @@ class Decorator extends LibraryService {
 			parent::$app['config_address'],
 			parent::$app['config_telephone'],
 			parent::$app['config_email'],
-			trim(parent::$app['config_url'], '/'),
-			parent::$app['config_url'] . 'account/notification/preferences',
-			parent::$app['config_url'] . 'account/notification/unsubscribe',
-			parent::$app['config_url'] . 'account/notification/webversion',
+			trim(parent::$app['http.public'], '/'),
+			parent::$app['http.public'] . 'account/notification/preferences',
+			parent::$app['http.public'] . 'account/notification/unsubscribe',
+			parent::$app['http.public'] . 'account/notification/webversion',
 			'http://twitter.com/' . parent::$app['config_mail_twitter'],
 			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
@@ -153,10 +153,10 @@ class Decorator extends LibraryService {
 			nl2br(parent::$app['config_address']),
 			parent::$app['config_telephone'],
 			parent::$app['config_email'],
-			trim(parent::$app['config_url'], '/'),
-			parent::$app['config_url'] . 'account/notification/preferences',
-			parent::$app['config_url'] . 'account/notification/unsubscribe',
-			parent::$app['config_url'] . 'account/notification/webversion',
+			trim(parent::$app['http.public'], '/'),
+			parent::$app['http.public'] . 'account/notification/preferences',
+			parent::$app['http.public'] . 'account/notification/unsubscribe',
+			parent::$app['http.public'] . 'account/notification/webversion',
 			'http://twitter.com/' . parent::$app['config_mail_twitter'],
 			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);

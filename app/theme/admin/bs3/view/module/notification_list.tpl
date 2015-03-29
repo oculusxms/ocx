@@ -30,6 +30,7 @@
 						<th><?= $lang_column_name; ?></th>
 						<th><?= $lang_column_slug; ?></th>
 						<th><?= $lang_column_type; ?></th>
+						<th><?= $lang_column_priority; ?></th>
 						<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
 					</tr>
 				</thead>
@@ -51,6 +52,7 @@
 						<td><?= $notification['name']; ?></td>
 						<td><?= $notification['email_slug']; ?></td>
 						<td><?= $notification['type']; ?></td>
+						<td><?= $notification['priority']; ?></td>
 						<td class="text-right">
 							<?php foreach ($notification['action'] as $action): ?>
 							<a class="btn btn-default" href="<?= $action['href']; ?>">
@@ -61,7 +63,7 @@
 					<?php endforeach; ?>
 					<?php else: ?>
 					<tr>
-						<td class="text-center" colspan="5"><?= $lang_text_no_results; ?></td>
+						<td class="text-center" colspan="6"><?= $lang_text_no_results; ?></td>
 					</tr>
 					<?php endif; ?>
 				</tbody>

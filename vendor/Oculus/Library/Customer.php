@@ -222,7 +222,7 @@ class Customer extends LibraryService {
     }
     
     public function logout() {
-        $db = parent::$app['db'];
+        $db      = parent::$app['db'];
         $session = parent::$app['session'];
         
         $db->query("

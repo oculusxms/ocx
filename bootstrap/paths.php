@@ -112,6 +112,7 @@ $config['base'] = $base;
 $front = array(
 	'http.server'      => 'http://' . $_SERVER['SERVER_NAME'] . '/',
 	'https.server'     => 'http://' . $_SERVER['SERVER_NAME'] . '/',
+	'http.public'      => 'http://' . $_SERVER['SERVER_NAME'] . '/',
 	'path.application' => APP_PATH . 'front/',
 	'path.language'    => APP_PATH . 'front/language/',
 	'path.theme'       => APP_PATH . 'theme/front/',
@@ -141,6 +142,7 @@ $config[ADMIN_FASCADE] = $admin;
 $install = array(
 	'http.server'      => 'http://' . $_SERVER['SERVER_NAME'] . '/install/',
 	'https.server'     => 'http://' . $_SERVER['SERVER_NAME'] . '/install/',
+	'http.public'      => 'http://' . $_SERVER['SERVER_NAME'] . '/',
 	'path.application' => APP_PATH . 'install/',
 	'path.language'    => APP_PATH . 'install/language/',
 	'path.theme'       => APP_PATH . 'theme/install/',
@@ -179,6 +181,7 @@ $custom_routes = array(
 	'register' => 'account/register',
 	'blog'     => 'content/home',
 	'shop'     => 'shop/home',
+	'queue'    => 'common/queue',
 	'calendar' => 'content/calendar'
 );
 

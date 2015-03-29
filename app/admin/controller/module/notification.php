@@ -146,16 +146,18 @@ class Notification extends Controller {
 
 			$name = implode(' ', $split);
 
-			$type = ($result['is_system']) ? $this->language->get('lang_text_system') : $this->language->get('lang_text_user');
+            $type     = ($result['is_system']) ? $this->language->get('lang_text_system') : $this->language->get('lang_text_user');
+            $priority = ($result['priority'] == 1) ? $this->language->get('lang_text_immediate') : $this->language->get('lang_text_queue');
             
             $data['notifications'][] = array(
-				'notification_id' => $result['email_id'],
-				'name'            => $name, 
-				'email_slug'      => $result['email_slug'],
-				'type'            => $type,
-				'is_system'       => $result['is_system'],
-				'selected'        => isset($this->request->post['selected']) && in_array($result['email_id'], $this->request->post['selected']), 
-				'action'          => $action
+                'notification_id' => $result['email_id'],
+                'name'            => $name, 
+                'email_slug'      => $result['email_slug'],
+                'priority'        => $priority,
+                'type'            => $type,
+                'is_system'       => $result['is_system'],
+                'selected'        => isset($this->request->post['selected']) && in_array($result['email_id'], $this->request->post['selected']), 
+                'action'          => $action
             );
         endforeach;
 
@@ -306,6 +308,14 @@ class Notification extends Controller {
             $data['recipient'] = $notification_info['recipient'];
         else:
             $data['recipient'] = 1;
+        endif;
+
+        if (isset($this->request->post['priority'])):
+            $data['priority'] = $this->request->post['priority'];
+        elseif (!empty($notification_info)):
+            $data['priority'] = $notification_info['priority'];
+        else:
+            $data['priority'] = 2;
         endif;
 
         $this->theme->loadjs('javascript/module/notification_form', $data);

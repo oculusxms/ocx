@@ -27,13 +27,15 @@ class User extends LibraryService {
     
     public function __construct(Container $app) {
         parent::__construct($app);
+
+        $session = $app['session'];
         
-        if (isset($app['session']->data['user_id'])):
-            $this->user_id          = $app['session']->data['user_id'];
-            $this->username         = $app['session']->data['username'];
-            $this->user_group_id    = $app['session']->data['user_group_id'];
-            $this->user_last_access = $app['session']->data['user_last_access'];
-            $this->permission       = $app['session']->data['permission'];
+        if (isset($session->data['user_id'])):
+            $this->user_id          = $session->data['user_id'];
+            $this->username         = $session->data['username'];
+            $this->user_group_id    = $session->data['user_group_id'];
+            $this->user_last_access = $session->data['user_last_access'];
+            $this->permission       = $session->data['permission'];
         else:
             $this->logout();
         endif;
@@ -90,7 +92,11 @@ class User extends LibraryService {
     public function logout() {
         $session = parent::$app['session'];
         
-        unset($session);
+        unset($session->data['user_id']);
+        unset($session->data['username']);
+        unset($session->data['user_group_id']);
+        unset($session->data['user_last_access']);
+        unset($session->data['permission']);
         
         $this->user_id          = '';
         $this->username         = '';
@@ -108,7 +114,7 @@ class User extends LibraryService {
     }
     
     public function reload_permissions() {
-        $db = parent::$app['db'];
+        $db      = parent::$app['db'];
         $session = parent::$app['session'];
         
         $query = $db->query("

@@ -112,25 +112,53 @@ class Utility extends Model {
 				'lastname'       => $address_query->row['lastname'],
 				'email'          => $email,
 				'company'        => $address_query->row['company'],
-				'company_id'     => $address_query->row['company_id'],
-				'tax_id'         => $address_query->row['tax_id'],
 				'address_1'      => $address_query->row['address_1'],
 				'address_2'      => $address_query->row['address_2'],
 				'postcode'       => $address_query->row['postcode'],
 				'city'           => $address_query->row['city'],
-				'zone_id'        => $address_query->row['zone_id'],
 				'zone'           => $zone,
-				'zone_code'      => $zone_code,
-				'country_id'     => $address_query->row['country_id'],
-				'country'        => $country,
-				'iso_code_2'     => $iso_code_2,
-				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format
+				'country'        => $country
             );
             
             return $address_data;
         else:
             return false;
         endif;
+    }
+
+    /**
+     * The following methods are for Email queue execution.
+     */
+    
+    public function pruneQueue() {
+    	$this->db->query("
+    		DELETE FROM {$this->db->prefix}notification_queue 
+    		WHERE sent = '1'");
+    }
+
+    public function getQueue($data = array()) {
+    	if (isset($data['filter_status'])):
+    		$status = $data['filter_status'];
+    	else:
+    		$status = 0;
+    	endif;
+
+    	$query = $this->db->query("
+    		SELECT * 
+    		FROM {$this->db->prefix}notification_queue 
+    		WHERE sent = '" . (int)$status . "' LIMIT 0, 50
+    	");
+
+    	return $query->rows;
+    }
+
+    public function updateQueue($queue_id) {
+    	$this->db->query("
+    		UPDATE {$this->db->prefix}notification_queue 
+    		SET 
+				sent      = '1', 
+				date_sent = NOW() 
+    		WHERE queue_id = '" . (int)$queue_id . "'
+    	");
     }
 }
