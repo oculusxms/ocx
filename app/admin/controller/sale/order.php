@@ -342,7 +342,7 @@ class Order extends Controller {
                 'date_modified' => date($this->language->get('lang_date_format_short'), strtotime($result['date_modified'])), 
                 'selected'      => isset($this->request->post['selected']) && in_array($result['order_id'], $this->request->post['selected']), 
                 'action'        => $action
-            ;
+            );
         }
         
         $data['token'] = $this->session->data['token'];
