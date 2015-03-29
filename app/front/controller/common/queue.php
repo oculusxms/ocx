@@ -22,6 +22,12 @@ class Queue extends Controller {
 	private $queued;
 
 	public function index() {
+		
+		// for test
+		$this->mailer->build('Cron Test Email', 'vkronlein@icloud.com', 'Vince Kronlein', 'This is a cron test.', false, true);
+
+		exit;
+
 		// /usr/bin/curl -s -L "http://dev.ocx.io/queue" > /dev/null
 		$this->theme->model('tool/utility');
 
