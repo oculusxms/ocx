@@ -43,7 +43,7 @@ class Queue extends Controller {
 	private function process() {
 		if ($this->queued):
 			foreach ($this->queued as $email):
-				$this->mailer->build($email['subject'], $email['email'], $email['name'], $email['text'], false, true);
+				$this->mailer->build($email['subject'], $email['email'], $email['name'], $email['text'], $email['html'], true);
 				$this->model_tool_utility->updateQueue($email['queue_id']);
 			endforeach;
 		endif;
