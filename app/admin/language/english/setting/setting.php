@@ -48,7 +48,7 @@ $_['lang_entry_name']                   = 'Store Name:';
 $_['lang_entry_owner']                  = 'Store Owner:';
 $_['lang_entry_address']                = 'Address:';
 $_['lang_entry_email']                  = 'E-Mail:<br><span class="help">This serves as the from email for all outgoing email from your site.</span>';
-$_['lang_entry_admin_email_user']		= 'Admin E-Mail User:<br><span class="help">Select the admin user from the list that should receive all administrative emails.</span>';
+$_['lang_entry_admin_email_user']       = 'Admin E-Mail User:<br><span class="help">Select the admin user from the list that should receive all administrative emails.</span>';
 $_['lang_entry_telephone']              = 'Telephone:';
 $_['lang_entry_title']                  = 'Title:';
 $_['lang_entry_meta_description']       = 'Meta Tag Description:';
@@ -92,7 +92,7 @@ $_['lang_entry_stock_display']          = 'Display Stock:<br /><span class="help
 $_['lang_entry_stock_warning']          = 'Show Out Of Stock Warning:<br /><span class="help">Display out of stock message on the shopping cart page if a product is out of stock but stock checkout is yes. (Warning always shows if stock checkout is no)</span>';
 $_['lang_entry_stock_checkout']         = 'Stock Checkout:<br /><span class="help">Allow customers to continue with checkout if the products they are ordering are not in stock.</span>';
 $_['lang_entry_stock_status']           = 'Out of Stock Status:<br /><span class="help">Set the default out of stock status selected in product edit.</span>';
-$_['lang_entry_affiliate_allowed']		= 'Allow Affiliates:<br><span class="help">Allow customers to register as affiliates. If set to no, anything related to the affiliate program will be disabled sitewide.</span>';
+$_['lang_entry_affiliate_allowed']      = 'Allow Affiliates:<br><span class="help">Allow customers to register as affiliates. If set to no, anything related to the affiliate program will be disabled sitewide.</span>';
 $_['lang_entry_affiliate_terms']        = 'Affiliate Terms:<br /><span class="help">This forces people to agree to terms before an affiliate account can be created.</span>';
 $_['lang_entry_commission']             = 'Affiliate Commission (%):<br /><span class="help">The default affiliate commission percentage.</span>';
 $_['lang_entry_return']                 = 'Return Terms:<br /><span class="help">This forces people to agree to terms before a return account can be created.</span>';
@@ -121,11 +121,13 @@ $_['lang_entry_smtp_username']          = 'SMTP Username:';
 $_['lang_entry_smtp_password']          = 'SMTP Password:';
 $_['lang_entry_smtp_port']              = 'SMTP Port:';
 $_['lang_entry_smtp_timeout']           = 'SMTP Timeout:';
-$_['lang_entry_mail_twitter']		   = 'Twitter Handle:<br><span class="help">Your Twitter handle for your store. DO NOT include the http address, just the handle. IE: Oculus <b>NOT</b> http://twitter.com/Oculus.</span>';	
-$_['lang_entry_mail_facebook']		   = 'Facebook Page:<br><span class="help">Your Facebook page for your store. DO NOT include the http address, just the page name. IE: Oculus <b>NOT</b> http://www.facebook.com/Oculus.</span>';	
+$_['lang_entry_mail_twitter']           = 'Twitter Handle:<br><span class="help">Your Twitter handle for your store. DO NOT include the http address, just the handle. IE: Oculus <b>NOT</b> http://twitter.com/Oculus.</span>';	
+$_['lang_entry_mail_facebook']          = 'Facebook Page:<br><span class="help">Your Facebook page for your store. DO NOT include the http address, just the page name. IE: Oculus <b>NOT</b> http://www.facebook.com/Oculus.</span>';	
 $_['lang_entry_account_mail']           = 'New Account Alert Mail:<br /><span class="help">Send an E-mail to the store owner when a new account is registered.</span>';
 $_['lang_entry_alert_mail']             = 'New Order Alert Mail:<br /><span class="help">Send an E-mail to the store owner when a new order is created.</span>';
 $_['lang_entry_alert_emails']           = 'Additional Alert E-Mails:<br /><span class="help">Any additional E-mail accounts you want alert E-mails sent to, in addition to the main store email. (comma separated)</span>';
+$_['lang_entry_signature_text']         = 'Text E-Mail Signature:<br><span class="help">Added to the footer of your text email wrapper.</span>';
+$_['lang_entry_signature_html']         = 'HTML E-Mail Signature:<br><span class="help">Added to the footer of your HTML email wrapper, and internal notifications.</span>';
 $_['lang_entry_fraud_detection']        = 'Use MaxMind Fraud Detection System:<br /><span class="help">MaxMind is a fraud detection service. If you don\'t have a license key you can <a href="http://www.maxmind.com/" target="_blank"><u>sign up here</u></a>. Once you have obtained a key copy you can paste it into the field below.</span>';
 $_['lang_entry_fraud_key']              = 'MaxMind License Key:</span>';
 $_['lang_entry_fraud_score']            = 'MaxMind Risk Score:<br /><span class="help">The higher the score the more likely the order is fraudulent. Set a score between 0 - 100.</span>';
@@ -192,5 +194,12 @@ $_['lang_error_free_customer']          = 'Please select a Free Customer Level.'
 $_['lang_error_top_customer']           = 'Please select a Top Customer Level.';
 $_['lang_error_assign_to']              = 'If you\'re not deleting posts, you must assign a new author.';
 $_['lang_error_member_image_dir']       = 'Please set the Upload Image Directory for member uploaded pictures.';
-$_['lang_error_affiliate_terms']		= 'If allowing affiliates, Terms must be selected.';
+$_['lang_error_affiliate_terms']        = 'If allowing affiliates, Terms must be selected.';
 $_['lang_error_affiliate_commission']   = 'If allowing affiliates, a Commission percentage must be set.';
+$_['lang_error_text_signature'] = 'Text signature is required.';
+$_['lang_error_html_signature'] = 'HTML signature is required.';
+
+
+
+
+

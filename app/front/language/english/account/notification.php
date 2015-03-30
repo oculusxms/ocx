@@ -24,7 +24,8 @@ $_['lang_text_email']        = 'Email';
 $_['lang_text_internal']     = 'Inbox';
 $_['lang_text_success']      = 'You have successfully updated your notification settings.';
 $_['lang_text_empty']        = 'You have no notifications.';
-$_['lang_text_success']		= 'You have successfully deleted a notification.';
+$_['lang_text_success']      = 'You have successfully deleted a notification.';
+$_['lang_not_available']     = 'This email is no longer available for viewing online.';
 
 // Column
 $_['lang_column_message']    = 'Message';

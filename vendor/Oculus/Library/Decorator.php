@@ -80,8 +80,6 @@ class Decorator extends LibraryService {
 
 		$this->baseDecorate();
 
-		//$message = $this->parse($message);
-		//parent::$app['theme']->test($this->search);
 		return $this->parse($message);
 	}
 
@@ -109,8 +107,6 @@ class Decorator extends LibraryService {
 
 		$this->baseDecorate();
 
-		//$message = $this->parse($message);
-		//parent::$app['theme']->test($this->search);
 		return $this->parse($message);
 	}
 
@@ -122,14 +118,16 @@ class Decorator extends LibraryService {
 			'!store_phone!',
 			'!store_send_email!',
 			'!store_url!',
+			'!signature!',
 			'!preference!',
 			'!unsubscribe!',
-			'!webversion!',
 			'!twitter!',
 			'!facebook!'
 		);
 
 		$this->search = array_merge($this->search, $search);
+
+		$sig = $this->parse_signature();
 
 		$replace = array(
 			parent::$app['config_name'],
@@ -138,9 +136,9 @@ class Decorator extends LibraryService {
 			parent::$app['config_telephone'],
 			parent::$app['config_email'],
 			trim(parent::$app['http.public'], '/'),
+			html_entity_decode($sig['text'], ENT_QUOTES, 'UTF-8'),
 			parent::$app['http.public'] . 'account/notification/preferences',
 			parent::$app['http.public'] . 'account/notification/unsubscribe',
-			parent::$app['http.public'] . 'account/notification/webversion',
 			'http://twitter.com/' . parent::$app['config_mail_twitter'],
 			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
@@ -154,9 +152,9 @@ class Decorator extends LibraryService {
 			parent::$app['config_telephone'],
 			parent::$app['config_email'],
 			trim(parent::$app['http.public'], '/'),
+			html_entity_decode($sig['html'], ENT_QUOTES, 'UTF-8'),
 			parent::$app['http.public'] . 'account/notification/preferences',
 			parent::$app['http.public'] . 'account/notification/unsubscribe',
-			parent::$app['http.public'] . 'account/notification/webversion',
 			'http://twitter.com/' . parent::$app['config_mail_twitter'],
 			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
@@ -182,6 +180,50 @@ class Decorator extends LibraryService {
 		endif;
 		
 		return $message;
+	}
+
+	public function decorateWebversion($id, $message) {
+		$url = parent::$app['http.public'] . 'account/notification/webversion?id=' . $id;
+
+		$message = str_replace('!webversion!', $url, $message);
+
+		return $message;
+	}
+
+	private function parse_signature() {
+		$data = array();
+
+		$search = array(
+			'!store_name!',
+			'!store_owner!',
+			'!store_address!',
+			'!store_phone!',
+			'!store_send_email!',
+			'!store_url!'
+		);
+
+		$replace = array(
+			parent::$app['config_name'],
+			parent::$app['config_owner'],
+			parent::$app['config_address'],
+			parent::$app['config_telephone'],
+			parent::$app['config_email'],
+			trim(parent::$app['http.public'], '/')
+		);
+
+		$html_replace = array(
+			parent::$app['config_name'],
+			parent::$app['config_owner'],
+			nl2br(parent::$app['config_address']),
+			parent::$app['config_telephone'],
+			parent::$app['config_email'],
+			trim(parent::$app['http.public'], '/')
+		);
+
+		$data['text'] = str_replace($search, $replace, parent::$app['config_text_signature']);
+		$data['html'] = str_replace($search, $html_replace, parent::$app['config_html_signature']);
+
+		return $data;
 	}
 }
 

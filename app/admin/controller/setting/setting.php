@@ -236,6 +236,18 @@ class Setting extends Controller {
         } else {
             $data['error_admin_email_user'] = '';
         }
+
+        if (isset($this->error['text_signature'])) {
+            $data['error_text_signature'] = $this->error['text_signature'];
+        } else {
+            $data['error_text_signature'] = '';
+        }
+
+        if (isset($this->error['html_signature'])) {
+            $data['error_html_signature'] = $this->error['html_signature'];
+        } else {
+            $data['error_html_signature'] = '';
+        }
         
         $this->breadcrumb->add('lang_heading_title', 'setting/setting');
         
@@ -915,21 +927,29 @@ class Setting extends Controller {
         } else {
             $data['config_admin_email_user'] = $this->config->get('config_admin_email_user');
         }
+
+        if (isset($this->request->post['config_text_signature'])) {
+            $data['config_text_signature'] = $this->request->post['config_text_signature'];
+        } else {
+            $data['config_text_signature'] = $this->config->get('config_text_signature');
+        }
+
+        if (isset($this->request->post['config_html_signature'])) {
+            $data['config_html_signature'] = $this->request->post['config_html_signature'];
+        } else {
+            $data['config_html_signature'] = $this->config->get('config_html_signature');
+        }
         
         if (isset($this->request->post['config_mail_twitter'])) {
             $data['config_mail_twitter'] = $this->request->post['config_mail_twitter'];
-        } elseif ($this->config->get('config_mail_twitter')) {
-            $data['config_mail_twitter'] = $this->config->get('config_mail_twitter');
         } else {
-            $data['config_mail_twitter'] = '';
+            $data['config_mail_twitter'] = $this->config->get('config_mail_twitter');
         }
 
         if (isset($this->request->post['config_mail_facebook'])) {
             $data['config_mail_facebook'] = $this->request->post['config_mail_facebook'];
-        } elseif ($this->config->get('config_mail_facebook')) {
-            $data['config_mail_facebook'] = $this->config->get('config_mail_facebook');
         } else {
-            $data['config_mail_facebook'] = '';
+            $data['config_mail_facebook'] = $this->config->get('config_mail_facebook');
         }
 
         if (isset($this->request->post['config_alert_mail'])) {
@@ -1135,6 +1155,14 @@ class Setting extends Controller {
 
         if (!$this->request->post['config_admin_email_user'] || $this->request->post['config_admin_email_user'] < 1) {
             $this->error['admin_email_user'] = $this->language->get('lang_error_admin_email_user');
+        }
+
+        if (!$this->request->post['config_text_signature'] || $this->encode->strlen($this->request->post['config_text_signature']) < 1) {
+            $this->error['text_signature'] = $this->language->get('lang_error_text_signature');
+        }
+
+        if (!$this->request->post['config_html_signature'] || $this->encode->strlen($this->request->post['config_html_signature']) < 1) {
+            $this->error['html_signature'] = $this->language->get('lang_error_html_signature');
         }
 
         // Affiliate settings

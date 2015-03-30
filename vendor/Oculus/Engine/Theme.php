@@ -295,7 +295,7 @@ final class Theme {
         if ($preference['email']):
             // Let's wrap and format the email message. 
             $message = $this->app['notify']->formatEmail($message, $type['recipient']);
-
+            
             if ($priority == 1):
                 $this->app['notify']->send($message, $add);
             else:

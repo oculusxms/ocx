@@ -906,13 +906,13 @@ class Customer extends Model {
         if (!empty($data['filter_date_added'])):
             $implode[] = "DATE(date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         endif;
+
+        $implode[] = "is_affiliate = '1'";
         
         if ($implode):
             $imp  = implode(" && ", $implode);
             $sql .= " WHERE {$imp}";
         endif;
-
-        $sql .= " AND is_affiliate = '1'";
         
         $query = $this->db->query($sql);
         
@@ -954,13 +954,13 @@ class Customer extends Model {
         if (!empty($data['filter_date_added'])):
             $implode[] = "DATE(c.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         endif;
+
+        $implode[] = "c.is_affiliate = '1'";
         
         if ($implode):
             $imp = implode(" && ", $implode);
             $sql.= " WHERE {$imp}";
         endif;
-
-        $sql .= " AND is_affiliate = '1'";
         
         $sort_data = array(
             'name', 

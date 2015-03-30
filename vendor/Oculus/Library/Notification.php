@@ -167,6 +167,7 @@ class Notification extends LibraryService {
     }
 
     public function customerInternal($message) {
+        $message['html'] .= '!signature!';
         $message = $this->decorator->decorateCustomerNotification($message, $this->customer, $this->order_id);
 
         /**
@@ -214,7 +215,16 @@ class Notification extends LibraryService {
     }
 
     public function addToEmailQueue($message) {
-        return $this->email->addToEmailQueue($message, $this->to_email, $this->to_name);
+        // first add all parts of the email to queue and get the insert id
+        $id = $this->email->addToEmailQueue($message, $this->to_email, $this->to_name);
+
+        // now pass the insert id and html to decorator to decorate the webversion url
+        $html = $this->decorator->decorateWebversion($id, $message['html']);
+
+        // now update the queue with the html
+        $this->email->updateHtml($id, $html);
+
+        return true;
     }
 
     public function send($message, $add = array()) {

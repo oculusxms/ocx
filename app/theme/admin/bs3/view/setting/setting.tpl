@@ -1027,6 +1027,24 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="control-label col-sm-2" for="config_html_signature"><b class="required">*</b> <?= $lang_entry_signature_html; ?></label>
+						<div class="control-field col-sm-8">
+							<textarea name="config_html_signature" class="summernote form-control" rows="10" spellcheck="false"><?= $config_html_signature; ?></textarea>
+							<?php if ($error_html_signature) { ?>
+								<div class="help-block error"><?= $error_html_signature; ?></div>
+							<?php } ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="config_text_signature"><b class="required">*</b> <?= $lang_entry_signature_text; ?></label>
+						<div class="col-sm-8">
+							<textarea name="config_text_signature" class="form-control" rows="6"><?= $config_text_signature; ?></textarea>
+							<?php if ($error_text_signature) { ?>
+								<div class="help-block error"><?= $error_text_signature; ?></div>
+							<?php } ?>
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="control-label col-sm-2"><?= $lang_entry_mail_twitter; ?></label>
 						<div class="control-field col-sm-4">
 							<input type="text" name="config_mail_twitter" value="<?= $config_mail_twitter; ?>" class="form-control">

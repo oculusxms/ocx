@@ -181,7 +181,16 @@ class Notification extends Controller {
     }
 
     public function webversion() {
+        $data = $this->theme->language('account/notification');
 
+        $data['webversion'] = false;
+
+        if (isset($this->request->get['id'])):
+            $this->theme->model('account/notification');
+            $data['webversion'] = $this->model_account_notification->getWebversion($this->request->get['id']);
+        endif;
+
+        $this->response->setOutput($this->theme->view('account/webversion', $data));
     }
 
     public function preferences() {

@@ -166,7 +166,7 @@ class Contact extends Controller {
                                 $affiliate_info = $this->model_people_customer->getCustomer($affiliate_id);
                                 
                                 if ($affiliate_info):
-                                    $emails[] = $affiliate_info['email'];
+                                    $emails[] = $affiliate_info['customer_id'];
                                 endif;
                             endforeach;
                         endif;

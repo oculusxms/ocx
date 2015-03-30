@@ -82,9 +82,20 @@ class Email extends LibraryService {
 				name       = '" . $db->escape($name) . "', 
 				subject    = '" . $db->escape($message['subject']) . "', 
 				text       = '" . $db->escape($message['text']) . "', 
-				html       = '" . $db->escape($message['html']) . "', 
 				date_added = NOW()
 		");
+
+		return $db->getLastId();
+    }
+
+    public function updateHtml($id, $message) {
+    	$db = parent::$app['db'];
+
+    	$db->query("
+    		UPDATE {$db->prefix}notification_queue 
+			SET html       = '" . $db->escape($message) . "' 
+			WHERE queue_id = '" . (int)$id . "'
+    	");
     }
 
     public function send($message, $to, $name, $send = false, $add = array()) {

@@ -139,4 +139,18 @@ class Notification extends Model {
 
 		if ($query) return true;
 	}
+
+	public function getWebversion($id) {
+		$query = $this->db->query("
+			SELECT html 
+			FROM {$this->db->prefix}notification_queue 
+			WHERE queue_id = '" . (int)$id . "'
+		");
+
+		if ($query->num_rows):
+			return $query->row['html'];
+		else:
+			return false;
+		endif;
+	}
 }
