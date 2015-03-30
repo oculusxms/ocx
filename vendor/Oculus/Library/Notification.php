@@ -197,11 +197,10 @@ class Notification extends LibraryService {
         $message['text']    = str_replace('!content!', $email['text'], $this->text);
         
         // html
-        if (!empty($email['html'])):
-            $this->html         = str_replace('!subject!', $email['subject'], $this->html);
-            $message['html']    = str_replace('!content!', $email['html'], $this->html);
-        endif;
+        $this->html         = str_replace('!subject!', $email['subject'], $this->html);
+        $message['html']    = str_replace('!content!', $email['html'], $this->html);
         
+
         switch($type):
             case 1:
                 $message = $this->decorator->decorateCustomerNotification($message, $this->customer, $this->order_id);

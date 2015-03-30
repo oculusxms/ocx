@@ -89,13 +89,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="contact_html"><?= $lang_entry_html; ?></label>
+				<label class="control-label col-sm-2" for="contact_html"><b class="required">*</b> <?= $lang_entry_html; ?></label>
 				<div class="control-field col-sm-8">
 					<textarea name="contact_html" class="summernote form-control" rows="10" spellcheck="false" id="contact-html"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_text; ?></label>
+				<label class="control-label col-sm-2" for="contact_text"><b class="required">*</b> <?= $lang_entry_text; ?></label>
 				<div class="col-sm-8">
 					<textarea name="contact_text" class="form-control" rows="6" id="contact-text"></textarea>
 				</div>

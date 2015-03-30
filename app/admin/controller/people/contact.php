@@ -65,6 +65,10 @@ class Contact extends Controller {
             if (!$this->request->post['contact_text']):
                 $json['error']['text'] = $this->language->get('lang_error_text');
             endif;
+
+            if (!$this->request->post['contact_html']):
+                $json['error']['html'] = $this->language->get('lang_error_html');
+            endif;
             
             if (!$json):
                 $this->theme->model('setting/store');
@@ -203,12 +207,9 @@ class Contact extends Controller {
                     endif;
 
                     $content = array(
-                        'text' => html_entity_decode($this->request->post['contact_text'], ENT_QUOTES, 'UTF-8')
+                        'text' => html_entity_decode($this->request->post['contact_text'], ENT_QUOTES, 'UTF-8'),
+                        'html' => html_entity_decode($this->request->post['contact_html'], ENT_QUOTES, 'UTF-8')
                     );
-
-                    if ($this->request->post['contact_html']):
-                        $content['html'] = html_entity_decode($this->request->post['contact_html'], ENT_QUOTES, 'UTF-8');
-                    endif;
                     
                     foreach ($emails as $customer_id):
                         $callback = array(
@@ -236,11 +237,8 @@ class Contact extends Controller {
        
         $message['subject'] = $data['subject'];
         $message['text']    = str_replace('!content!', $data['content']['text'], $message['text']);
-        
-        if (!empty($data['content']['html'])):
-            $message['html'] = str_replace('!content!', $data['content']['html'], $message['html']);
-        endif;
-        
+        $message['html']    = str_replace('!content!', $data['content']['html'], $message['html']);
+
         return $message;
     }
 }

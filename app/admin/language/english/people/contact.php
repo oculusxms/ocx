@@ -36,11 +36,12 @@ $_['lang_entry_customer_group'] = 'Customer Group:';
 $_['lang_entry_customer']       = 'Customer:<br /><span class="help">Autocomplete</span>';
 $_['lang_entry_affiliate']      = 'Affiliate:<br /><span class="help">Autocomplete</span>';
 $_['lang_entry_product']        = 'Products:<br /><span class="help">Send only to customers who have ordered products in the list. (Autocomplete)</span>';
-$_['lang_entry_subject']        = 'Subject:';
-$_['lang_entry_html']           = 'Message HTML:';
-$_['lang_entry_text']           = 'Message Text:<br><span class="A text version is always required, html can be skipped but it\'s not advised."></span>';
+$_['lang_entry_subject']        = 'Subject:<br><span class="The subject of your message."></span>';
+$_['lang_entry_html']           = 'Message HTML:<br><span class="An html version is required."></span>';
+$_['lang_entry_text']           = 'Message Text:<br><span class="A text version is required."></span>';
 
 // Error
 $_['lang_error_permission']     = 'Warning: You do not have permission to send E-Mail\'s.';
 $_['lang_error_subject']        = 'E-Mail Subject required.';
 $_['lang_error_text']           = 'E-Mail text version required.';
+$_['lang_error_html']           = 'E-Mail html version required.';
