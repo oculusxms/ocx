@@ -1249,7 +1249,7 @@ class Order extends Model {
         return $query->row['total'];
     }
     
-    public function getEmailsByProductsOrdered($products, $start, $end) {
+    public function getCustomersByProductsOrdered($products, $start, $end) {
         $implode = array();
         
         foreach ($products as $product_id) {
@@ -1257,7 +1257,7 @@ class Order extends Model {
         }
         
         $query = $this->db->query("
-			SELECT DISTINCT email 
+			SELECT DISTINCT customer_id 
 			FROM `{$this->db->prefix}order` o 
 			LEFT JOIN {$this->db->prefix}order_product op 
 				ON (o.order_id = op.order_id) 
@@ -1268,7 +1268,7 @@ class Order extends Model {
         return $query->rows;
     }
     
-    public function getTotalEmailsByProductsOrdered($products) {
+    public function getTotalCustomersByProductsOrdered($products) {
         $implode = array();
         
         foreach ($products as $product_id) {
@@ -1276,7 +1276,7 @@ class Order extends Model {
         }
         
         $query = $this->db->query("
-			SELECT DISTINCT email 
+			SELECT DISTINCT customer_id 
 			FROM `{$this->db->prefix}order` o 
 			LEFT JOIN {$this->db->prefix}order_product op 
 			ON (o.order_id = op.order_id) 

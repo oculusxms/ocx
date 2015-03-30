@@ -155,7 +155,7 @@ class Notification extends LibraryService {
         else:
             $preference = array(
                 'email'    => 1,
-                'internal' => 1
+                'internal' => 0
             );
         endif;
 
@@ -189,24 +189,19 @@ class Notification extends LibraryService {
         return $message;
     }
 
-    public function prepareForQueue($message) {
-        if (isset($this->customer)):
-            return $this->decorator->decorateCustomerNotification($message, $this->customer, $this->order_id);
-        elseif(isset($this->user)):
-            return $this->decorator->decorateUserNotification($message, $this->user);
-        endif;
-    }
-
     public function formatEmail($email, $type) {
         $message = array();
         // subject
         $message['subject'] = $email['subject'];
         // text
         $message['text']    = str_replace('!content!', $email['text'], $this->text);
+        
         // html
-        $this->html         = str_replace('!subject!', $email['subject'], $this->html);
-        $message['html']    = str_replace('!content!', $email['html'], $this->html);
-
+        if (!empty($email['html'])):
+            $this->html         = str_replace('!subject!', $email['subject'], $this->html);
+            $message['html']    = str_replace('!content!', $email['html'], $this->html);
+        endif;
+        
         switch($type):
             case 1:
                 $message = $this->decorator->decorateCustomerNotification($message, $this->customer, $this->order_id);

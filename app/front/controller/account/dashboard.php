@@ -34,10 +34,6 @@ class Dashboard extends Controller {
         
         $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
         
-        // let's find out if our member has their profile
-        // and address filled in, if not, lets nag them.
-        $this->checkProfile();
-        
         if (isset($this->session->data['success'])):
             $data['success'] = $this->session->data['success'];
             unset($this->session->data['success']);
@@ -91,23 +87,5 @@ class Dashboard extends Controller {
         $data = $this->theme->render_controllers($data);
         
         $this->response->setOutput($this->theme->view('account/dashboard', $data));
-    }
-    
-    private function checkProfile() {
-        $this->theme->language('account/dashboard');
-        
-        $warning = '';
-        
-        if (!isset($this->session->data['profile_complete'])) $warning.= sprintf($this->language->get('lang_complete_profile'), $this->url->link('account/edit', '', 'SSL'));
-        
-        if (!isset($this->session->data['address_complete'])):
-            if ($warning !== '') $warning.= '<br>';
-            
-            $warning.= sprintf($this->language->get('lang_complete_address'), $this->url->link('account/address/update', 'address_id=' . $this->customer->getAddressId(), 'SSL'));
-        endif;
-        
-        if ($warning !== '') $this->error['warning'] = $warning;
-        
-        return !$this->error;
     }
 }

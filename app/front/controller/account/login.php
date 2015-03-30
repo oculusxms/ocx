@@ -136,8 +136,8 @@ class Login extends Controller {
             $data['error_warning'] = '';
         }
         
-        $data['action'] = $this->url->link('account/login', '', 'SSL');
-        $data['register'] = $this->url->link('account/register', '', 'SSL');
+        $data['action']    = $this->url->link('account/login', '', 'SSL');
+        $data['register']  = $this->url->link('account/register', '', 'SSL');
         $data['forgotten'] = $this->url->link('account/forgotten', '', 'SSL');
         
         if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) !== false)) {

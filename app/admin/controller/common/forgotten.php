@@ -38,7 +38,7 @@ class Forgotten extends Controller {
             $code    = sha1(uniqid(mt_rand(), true));
             $user_id = $this->model_people_user->editCode($this->request->post['email'], $code);
 
-            $notify = array(
+            $callback = array(
                 'user_id'  => $user_id,
                 'link'     => $this->url->link('common/reset', 'code=' . $code, 'SSL'),
                 'callback' => array(
@@ -47,7 +47,7 @@ class Forgotten extends Controller {
                 )
             );
 
-            $this->theme->notify('admin_forgotten_email', $notify);
+            $this->theme->notify('admin_forgotten_email', $callback);
             
             $this->session->data['success'] = $this->language->get('lang_text_success');
             $this->response->redirect($this->url->link('common/login', '', 'SSL'));

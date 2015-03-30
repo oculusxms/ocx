@@ -27,8 +27,6 @@ class Customer extends LibraryService {
     private $telephone;
     private $newsletter;
     private $address_id;
-    private $profile_complete;
-    private $address_complete;
     private $customer_products;
     private $code;
     private $is_affiliate;
@@ -56,8 +54,6 @@ class Customer extends LibraryService {
             $this->customer_group_name = $session->data['customer_group_name'];
             $this->address_id          = $session->data['address_id'];
             $this->referral_id         = $session->data['referral_id'];
-            $this->profile_complete    = $session->data['profile_complete'];
-            $this->address_complete    = $session->data['address_complete'];
             $this->customer_products   = $session->data['customer_products'];
             $this->is_affiliate        = $session->data['is_affiliate'];
 
@@ -156,7 +152,9 @@ class Customer extends LibraryService {
             
             $db->query("
                 UPDATE {$db->prefix}customer 
-                SET ip = '" . $db->escape($request->server['REMOTE_ADDR']) . "' 
+                SET 
+                    ip    = '" . $db->escape($request->server['REMOTE_ADDR']) . "', 
+                    reset = '' 
                 WHERE customer_id = '" . (int)$customer_query->row['customer_id'] . "'
             ");
             
@@ -179,42 +177,6 @@ class Customer extends LibraryService {
                 endforeach;
             endif;
             
-            // is profile complete
-            $complete = 0;
-            $required = 3;
-            
-            if ($session->data['firstname']) $complete++;
-            if ($session->data['lastname'])  $complete++;
-            if ($session->data['telephone']) $complete++;
-            
-            if ($complete === $required):
-                $session->data['profile_complete'] = true;
-            else:
-                $session->data['profile_complete'] = false;
-            endif;
-            
-            $required = 0;
-            
-            // is address complete
-            $address = $this->getAddress($session->data['customer_id'], $session->data['address_id']);
-            
-            $complete = 0;
-            $required = 7;
-            
-            if ($address['firstname'])  $complete++;
-            if ($address['lastname'])   $complete++;
-            if ($address['address_1'])  $complete++;
-            if ($address['city'])       $complete++;
-            if ($address['postcode'])   $complete++;
-            if ($address['country_id']) $complete++;
-            if ($address['zone_id'])    $complete++;
-            
-            if ($complete === $required):
-                $session->data['address_complete'] = true;
-            else:
-                $session->data['address_complete'] = false;
-            endif;
-            
             return true;
         else:
             return false;
@@ -228,7 +190,7 @@ class Customer extends LibraryService {
         $db->query("
             UPDATE {$db->prefix}customer 
             SET 
-                cart = '" . $db->escape(isset($session->data['cart']) ? serialize($session->data['cart']) : '') . "', 
+                cart     = '" . $db->escape(isset($session->data['cart']) ? serialize($session->data['cart']) : '') . "', 
                 wishlist = '" . $db->escape(isset($session->data['wishlist']) ? serialize($session->data['wishlist']) : '') . "' 
             WHERE customer_id = '" . (int)$this->customer_id . "'
         ");
@@ -244,8 +206,6 @@ class Customer extends LibraryService {
         unset($session->data['customer_group_name']);
         unset($session->data['address_id']);
         unset($session->data['referral_id']);
-        unset($session->data['profile_complete']);
-        unset($session->data['address_complete']);
         unset($session->data['customer_products']);
         unset($session->data['is_affiliate']);
         unset($session->data['code']);
@@ -260,13 +220,10 @@ class Customer extends LibraryService {
         $this->customer_group_name = '';
         $this->address_id          = '';
         $this->referral_id         = '';
-        $this->profile_complete    = false;
-        $this->address_complete    = false;
         $this->customer_products   = false;
         $this->is_affiliate        = false;
         $this->code                = false;
 
-        
         // set group id to publically visible
         $this->customer_group_id = parent::$app['config_default_visibility'];
     }
@@ -342,14 +299,6 @@ class Customer extends LibraryService {
     
     public function getUploadPath() {
         return $this->upload_path;
-    }
-    
-    public function profileComplete() {
-        return $this->profile_complete;
-    }
-    
-    public function addressComplete() {
-        return $this->address_complete;
     }
     
     public function getCustomerProducts() {
@@ -437,75 +386,6 @@ class Customer extends LibraryService {
             UPDATE {$db->prefix}customer 
             SET customer_group_id = '" . (int)$group_id . "' 
             WHERE customer_id = '" . (int)$this->customer_id . "'");
-    }
-    
-    private function getAddress($customer_id, $address_id) {
-        $db = parent::$app['db'];
-        
-        $address_query = $db->query("
-            SELECT DISTINCT * 
-            FROM {$db->prefix}address 
-            WHERE address_id = '" . (int)$address_id . "' 
-            AND customer_id = '" . (int)$customer_id . "'
-        ");
-        
-        if ($address_query->num_rows):
-            $country_query = $db->query("
-                SELECT * 
-                FROM `{$db->prefix}country` 
-                WHERE country_id = '" . (int)$address_query->row['country_id'] . "'
-            ");
-            
-            if ($country_query->num_rows):
-                $country = $country_query->row['name'];
-                $iso_code_2 = $country_query->row['iso_code_2'];
-                $iso_code_3 = $country_query->row['iso_code_3'];
-                $address_format = $country_query->row['address_format'];
-            else:
-                $country        = '';
-                $iso_code_2     = '';
-                $iso_code_3     = '';
-                $address_format = '';
-            endif;
-            
-            $zone_query = $db->query("
-                SELECT * 
-                FROM `{$db->prefix}zone` 
-                WHERE zone_id = '" . (int)$address_query->row['zone_id'] . "'
-            ");
-            
-            if ($zone_query->num_rows):
-                $zone      = $zone_query->row['name'];
-                $zone_code = $zone_query->row['code'];
-            else:
-                $zone      = '';
-                $zone_code = '';
-            endif;
-            
-            $address_data = array(
-                'firstname'      => $address_query->row['firstname'],
-                'lastname'       => $address_query->row['lastname'],
-                'company'        => $address_query->row['company'],
-                'company_id'     => $address_query->row['company_id'],
-                'tax_id'         => $address_query->row['tax_id'],
-                'address_1'      => $address_query->row['address_1'],
-                'address_2'      => $address_query->row['address_2'],
-                'postcode'       => $address_query->row['postcode'],
-                'city'           => $address_query->row['city'],
-                'zone_id'        => $address_query->row['zone_id'],
-                'zone'           => $zone,
-                'zone_code'      => $zone_code,
-                'country_id'     => $address_query->row['country_id'],
-                'country'        => $country,
-                'iso_code_2'     => $iso_code_2,
-                'iso_code_3'     => $iso_code_3,
-                'address_format' => $address_format
-            );
-            
-            return $address_data;
-        else:
-            return false;
-        endif;
     }
     
     public function processMembership($products) {

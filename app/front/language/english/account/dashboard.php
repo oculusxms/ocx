@@ -49,6 +49,3 @@ $_['lang_icon_download']      = 'Downloads';
 $_['lang_icon_return']        = 'Returns';
 $_['lang_icon_credit']        = 'Credits';
 $_['lang_icon_waitlist']      = 'Wait Lists';
-
-$_['lang_complete_profile']   = 'Please complete your <a href="%s">account settings.</a>';
-$_['lang_complete_address']   = 'Please complete your <a href="%s">default address.</a>';

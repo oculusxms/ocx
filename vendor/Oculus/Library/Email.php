@@ -75,6 +75,12 @@ class Email extends LibraryService {
 	public function addToEmailQueue($message, $email, $name) {
 		$db = parent::$app['db'];
 
+		if (!empty($message['html'])):
+			$html = $message['html'];
+		else:
+			$html = '';
+		endif;
+
 		$db->query("
 			INSERT INTO {$db->prefix}notification_queue 
 			SET 
@@ -82,18 +88,24 @@ class Email extends LibraryService {
 				name       = '" . $db->escape($name) . "', 
 				subject    = '" . $db->escape($message['subject']) . "', 
 				text       = '" . $db->escape($message['text']) . "', 
-				html       = '" . $db->escape($message['html']) . "', 
+				html       = '" . $db->escape($html) . "', 
 				date_added = NOW()
 		");
     }
 
     public function send($message, $to, $name, $send = false, $add = array()) {
+        if (!empty($message['html'])):
+			$html = $message['html'];
+		else:
+			$html = false;
+		endif;
+
         $mailer = parent::$app['mailer']->build(
             $message['subject'],
             $to,
             $name,
             $message['text'],
-            $message['html'],
+            $html,
             $send,
             $add
         );

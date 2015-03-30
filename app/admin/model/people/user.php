@@ -77,8 +77,7 @@ class User extends Model {
             UPDATE `{$this->db->prefix}user` 
             SET 
                 code = '" . $this->db->escape($code) . "' 
-            WHERE LCASE(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "' 
-            AND user_id = '" . (int)$user_id . "'
+            WHERE user_id = '" . (int)$user_id . "'
         ");
 
         return $user_id;

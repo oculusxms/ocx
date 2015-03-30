@@ -64,8 +64,9 @@ class User extends LibraryService {
             $db->query("
 				UPDATE {$db->prefix}user 
 				SET 
-					ip = '" . $db->escape($request->server['REMOTE_ADDR']) . "', 
-					last_access = NOW() 
+                    ip          = '" . $db->escape($request->server['REMOTE_ADDR']) . "', 
+                    code        = '', 
+                    last_access = NOW() 
 				WHERE user_id = '" . (int)$user_query->row['user_id'] . "'
 			");
             

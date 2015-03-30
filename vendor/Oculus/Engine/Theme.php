@@ -173,26 +173,27 @@ final class Theme {
          * parts required to send an email notification.
          */
         
-        $type     = $this->app['notify']->getNotificationType($name);
-        $receiver = 0;
-
-        if (array_key_exists('customer_id', $data)):
-            $receiver = $data['customer_id'];
-            unset($data['customer_id']);
-        elseif (array_key_exists('user_id', $data)):
-            $receiver = $data['user_id'];
-            unset($data['user_id']);
-        else:
-            return;
-        endif;
+        $type = $this->app['notify']->getNotificationType($name);
 
         // Process receiver and get variables such as notification preferences.
         switch ($type['recipient']):
             case 1: // customer
-                $this->app['notify']->setCustomer($type['email_id'], $receiver);
+                if (array_key_exists('customer_id', $data)):
+                    $this->app['notify']->setCustomer($type['email_id'], $data['customer_id']);
+                    unset($data['customer_id']);
+                else:
+                    return;
+                endif;
                 break;
             case 2: // admin user
-                $this->app['notify']->setUser($receiver);
+                if (array_key_exists('user_id', $data)):
+                    $this->app['notify']->setUser($data['user_id']);
+                    unset($data['user_id']);
+                else: 
+                    return;
+                endif;
+                break;
+            default:
                 break;
         endswitch;
         

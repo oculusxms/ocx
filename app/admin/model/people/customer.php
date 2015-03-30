@@ -959,6 +959,8 @@ class Customer extends Model {
             $imp = implode(" && ", $implode);
             $sql.= " WHERE {$imp}";
         endif;
+
+        $sql .= " AND is_affiliate = '1'";
         
         $sort_data = array(
             'name', 

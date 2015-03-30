@@ -49,7 +49,7 @@
 					</form>
 				</div>
 				<div class="col-sm-6">
-					<p class="h3"><?= $lang_text_register; ?></p>
+					<p class="h3" style="margin-top:0;"><?= $lang_text_register; ?></p>
 					<p><?= $lang_text_register_account; ?></p>
 					<p><a href="<?= $register; ?>" class="btn btn-warning"><?= $lang_button_continue; ?></a></p>
 				</div>

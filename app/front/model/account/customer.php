@@ -211,16 +211,17 @@ class Customer extends Model {
         $this->theme->trigger('front_edit_customer', array('customer_id' => $customer_id));
     }
     
-    public function editPassword($email, $password) {
+    public function editPassword($customer_id, $password) {
         $this->db->query("
 			UPDATE {$this->db->prefix}customer 
 			SET 
                 salt     = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
-                password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "' 
-			WHERE LOWER(email) = '" . $this->db->escape($this->encode->strtolower($email)) . "'
+                password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "', 
+                reset    = '' 
+			WHERE customer_id = '" . (int)$customer_id . "'
 		");
         
-        $this->theme->trigger('front_customer_edit_password', array('customer_id' => $this->customer->getId()));
+        $this->theme->trigger('front_customer_edit_password', array('customer_id' => $customer_id));
     }
     
     public function editNewsletter($newsletter) {
@@ -239,6 +240,30 @@ class Customer extends Model {
 			FROM {$this->db->prefix}customer 
 			WHERE customer_id = '" . (int)$customer_id . "'
 		");
+        
+        return $query->row;
+    }
+
+    public function editCode($email, $code) {
+        $customer = $this->getCustomerByEmail($email);
+
+        $customer_id = $customer['customer_id'];
+
+        $this->db->query("
+            UPDATE {$this->db->prefix}customer 
+            SET 
+                reset = '" . $this->db->escape($code) . "' 
+            WHERE customer_id = '" . (int)$customer_id . "'
+        ");
+
+        return $customer_id;
+    }
+
+    public function getCustomerByCode($code) {
+        $query = $this->db->query("
+            SELECT * 
+            FROM {$this->db->prefix}customer 
+            WHERE reset = '" . $this->db->escape($code) . "' AND reset != ''");
         
         return $query->row;
     }

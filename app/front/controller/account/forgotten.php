@@ -30,14 +30,12 @@ class Forgotten extends Controller {
         $this->theme->model('account/customer');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()):
-            $customer = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
-            $password = substr(sha1(uniqid(mt_rand(), true)), 0, 10);
-            
-            $this->model_account_customer->editPassword($this->request->post['email'], $password);
+            $code        = sha1(uniqid(mt_rand(), true));
+            $customer_id = $this->model_account_customer->editCode($this->request->post['email'], $code);
 
             $callback = array(
-                'customer_id' => $customer['customer_id'],
-                'password'    => $password,
+                'customer_id' => $customer_id,
+                'link'        => $this->url->link('account/reset', 'code=' . $code, 'SSL'),
                 'callback'    => array(
                     'class'  => __CLASS__,
                     'method' => 'customer_forgotten_message'
@@ -84,7 +82,7 @@ class Forgotten extends Controller {
     }
 
     public function customer_forgotten_message($data, $message) {
-        $search  = array('!password!');
+        $search  = array('!link!');
         $replace = array();
 
         foreach($data as $key => $value):

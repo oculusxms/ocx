@@ -21,8 +21,8 @@ $_['lang_heading_title']   = 'Forgot Your Password?';
 $_['lang_text_account']    = 'Dashboard';
 $_['lang_text_forgotten']  = 'Forgotten Password';
 $_['lang_text_your_email'] = 'Your E-Mail Address';
-$_['lang_text_email']      = 'Enter the E-Mail address associated with your account. Click submit to have your password e-mailed to you.';
-$_['lang_text_success']    = 'Success: A new password has been sent to your e-mail address.';
+$_['lang_text_email']      = 'Enter the e-mail address associated with your account. Click submit, and a password reset link will be e-mailed to you.';
+$_['lang_text_success']    = 'An email with a confirmation link has been sent your admin email address.';
 
 // Entry
 $_['lang_entry_email']     = 'E-Mail Address';

@@ -16,7 +16,6 @@
 
 namespace Admin\Controller\People;
 use Oculus\Engine\Controller;
-use Oculus\Library\Mail;
 
 class Contact extends Controller {
     
@@ -63,8 +62,8 @@ class Contact extends Controller {
                 $json['error']['subject'] = $this->language->get('lang_error_subject');
             endif;
             
-            if (!$this->request->post['message']):
-                $json['error']['message'] = $this->language->get('lang_error_message');
+            if (!$this->request->post['contact_text']):
+                $json['error']['text'] = $this->language->get('lang_error_text');
             endif;
             
             if (!$json):
@@ -95,15 +94,15 @@ class Contact extends Controller {
                     case 'newsletter':
                         $customer_data = array(
                             'filter_newsletter' => 1, 
-                            'start' => ($page - 1) * 10, 
-                            'limit' => 10
+                            'start'             => ($page - 1) * 10, 
+                            'limit'             => 10
                         );
                         
                         $email_total = $this->model_people_customer->getTotalCustomers($customer_data);
                         $results     = $this->model_people_customer->getCustomers($customer_data);
                         
                         foreach ($results as $result):
-                            $emails[] = $result['email'];
+                            $emails[] = $result['customer_id'];
                         endforeach;
                         break;
                     case 'customer_all':
@@ -116,7 +115,7 @@ class Contact extends Controller {
                         $results     = $this->model_people_customer->getCustomers($customer_data);
                         
                         foreach ($results as $result):
-                            $emails[] = $result['email'];
+                            $emails[] = $result['customer_id'];
                         endforeach;
                         break;
                     case 'customer_group':
@@ -130,7 +129,7 @@ class Contact extends Controller {
                         $results     = $this->model_people_customer->getCustomers($customer_data);
                         
                         foreach ($results as $result):
-                            $emails[$result['customer_id']] = $result['email'];
+                            $emails[] = $result['customer_id'];
                         endforeach;
                         break;
                     case 'customer':
@@ -139,7 +138,7 @@ class Contact extends Controller {
                                 $customer_info = $this->model_people_customer->getCustomer($customer_id);
                                 
                                 if ($customer_info):
-                                    $emails[] = $customer_info['email'];
+                                    $emails[] = $customer_info['customer_id'];
                                 endif;
                             endforeach;
                         endif;
@@ -154,7 +153,7 @@ class Contact extends Controller {
                         $results     = $this->model_people_customer->getAffiliates($affiliate_data);
                         
                         foreach ($results as $result):
-                            $emails[] = $result['email'];
+                            $emails[] = $result['customer_id'];
                         endforeach;
                         break;
                     case 'affiliate':
@@ -170,11 +169,11 @@ class Contact extends Controller {
                         break;
                     case 'product':
                         if (isset($this->request->post['product'])):
-                            $email_total = $this->model_sale_order->getTotalEmailsByProductsOrdered($this->request->post['product']);
-                            $results     = $this->model_sale_order->getEmailsByProductsOrdered($this->request->post['product'], ($page - 1) * 10, 10);
+                            $email_total = $this->model_sale_order->getTotalCustomersByProductsOrdered($this->request->post['product']);
+                            $results     = $this->model_sale_order->getCustomersByProductsOrdered($this->request->post['product'], ($page - 1) * 10, 10);
                             
                             foreach ($results as $result):
-                                $emails[] = $result['email'];
+                                $emails[] = $result['customer_id'];
                             endforeach;
                         endif;
                         break;
@@ -203,42 +202,30 @@ class Contact extends Controller {
                         $this->session->data['success'] = $this->language->get('lang_text_success');
                     endif;
 
-                    // NEW MAILER
-                    // admin_people_contact
-                    
-                    $callback = array(
-
+                    $content = array(
+                        'text' => html_entity_decode($this->request->post['contact_text'], ENT_QUOTES, 'UTF-8')
                     );
 
-
-
-                    // $message = '<html dir="ltr" lang="en">' . "\n";
-                    // $message.= '  <head>' . "\n";
-                    // $message.= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
-                    // $message.= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
-                    // $message.= '  </head>' . "\n";
-                    // $message.= '  <body>' . html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
-                    // $message.= '</html>' . "\n";
+                    if ($this->request->post['contact_html']):
+                        $content['html'] = html_entity_decode($this->request->post['contact_html'], ENT_QUOTES, 'UTF-8');
+                    endif;
                     
-                    // foreach ($emails as $email) {
-                    //     $mail = new Mail();
-                    //     $mail->protocol = $this->config->get('config_mail_protocol');
-                    //     $mail->parameter = $this->config->get('config_mail_parameter');
-                    //     $mail->hostname = $this->config->get('config_smtp_host');
-                    //     $mail->username = $this->config->get('config_smtp_username');
-                    //     $mail->password = $this->config->get('config_smtp_password');
-                    //     $mail->port = $this->config->get('config_smtp_port');
-                    //     $mail->timeout = $this->config->get('config_smtp_timeout');
-                    //     $mail->setTo($email);
-                    //     $mail->setFrom($this->config->get('config_email'));
-                    //     $mail->setSender($store_name);
-                    //     $mail->setSubject(html_entity_decode($this->request->post['subject'], ENT_QUOTES, 'UTF-8'));
-                    //     $mail->setHtml($message);
-                    //     $mail->send();
-                    // }
+                    foreach ($emails as $customer_id):
+                        $callback = array(
+                            'customer_id' => $customer_id,
+                            'subject'     => $this->request->post['subject'],
+                            'content'     => $content,
+                            'callback'    => array(
+                                'class'  => __CLASS__,
+                                'method' => 'admin_people_contact'
+                            )
+                        );
+
+                        $this->theme->notify('admin_people_contact', $callback);
+                    endforeach;
                 endif;
             endif;
-        }
+        endif;
         
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
         
@@ -246,6 +233,14 @@ class Contact extends Controller {
     }
 
     public function admin_people_contact($data, $message) {
-
+       
+        $message['subject'] = $data['subject'];
+        $message['text']    = str_replace('!content!', $data['content']['text'], $message['text']);
+        
+        if (!empty($data['content']['html'])):
+            $message['html'] = str_replace('!content!', $data['content']['html'], $message['html']);
+        endif;
+        
+        return $message;
     }
 }
