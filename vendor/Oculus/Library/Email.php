@@ -24,7 +24,7 @@ class Email extends LibraryService {
 		parent::__construct($app);
 	}
 
-	public function fetchWrapper() {
+	public function fetchWrapper($priority) {
         $db = parent::$app['db'];
 
         $data = array();
@@ -37,6 +37,7 @@ class Email extends LibraryService {
             LEFT JOIN {$db->prefix}email e 
             ON (e.email_id = ec.email_id) 
             WHERE e.email_slug = 'email_wrapper' 
+            AND priority = '" . (int)$priority . "' 
             AND language_id = '" . (int)parent::$app['config_language_id'] . "'
         ");
 
@@ -81,7 +82,6 @@ class Email extends LibraryService {
 				email      = '" . $db->escape($email) . "', 
 				name       = '" . $db->escape($name) . "', 
 				subject    = '" . $db->escape($message['subject']) . "', 
-				text       = '" . $db->escape($message['text']) . "', 
 				date_added = NOW()
 		");
 
@@ -93,7 +93,9 @@ class Email extends LibraryService {
 
     	$db->query("
     		UPDATE {$db->prefix}notification_queue 
-			SET html       = '" . $db->escape($message) . "' 
+			SET 
+				text = '" . $db->escape($message['text']) . "', 
+				html = '" . $db->escape($message['html']) . "' 
 			WHERE queue_id = '" . (int)$id . "'
     	");
     }

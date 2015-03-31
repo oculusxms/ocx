@@ -203,6 +203,9 @@ final class Theme {
         // Let's grab our priority before we re-write the message
         $priority = $message['priority'];
 
+        // Fetch the proper wrapper for this email priority
+        $this->app['notify']->fetchWrapper($priority);
+
         /**
          * There's no need to pass in a callback unless you have
          * variables in your message that need to be replaced 
@@ -295,7 +298,7 @@ final class Theme {
         if ($preference['email']):
             // Let's wrap and format the email message. 
             $message = $this->app['notify']->formatEmail($message, $type['recipient']);
-            
+
             if ($priority == 1):
                 $this->app['notify']->send($message, $add);
             else:

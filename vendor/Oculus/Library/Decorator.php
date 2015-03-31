@@ -120,7 +120,6 @@ class Decorator extends LibraryService {
 			'!store_url!',
 			'!signature!',
 			'!preference!',
-			'!unsubscribe!',
 			'!twitter!',
 			'!facebook!'
 		);
@@ -138,7 +137,6 @@ class Decorator extends LibraryService {
 			trim(parent::$app['http.public'], '/'),
 			html_entity_decode($sig['text'], ENT_QUOTES, 'UTF-8'),
 			parent::$app['http.public'] . 'account/notification/preferences',
-			parent::$app['http.public'] . 'account/notification/unsubscribe',
 			'http://twitter.com/' . parent::$app['config_mail_twitter'],
 			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
@@ -154,7 +152,6 @@ class Decorator extends LibraryService {
 			trim(parent::$app['http.public'], '/'),
 			html_entity_decode($sig['html'], ENT_QUOTES, 'UTF-8'),
 			parent::$app['http.public'] . 'account/notification/preferences',
-			parent::$app['http.public'] . 'account/notification/unsubscribe',
 			'http://twitter.com/' . parent::$app['config_mail_twitter'],
 			'http://www.facebook.com/' . parent::$app['config_mail_facebook']
 		);
@@ -182,10 +179,14 @@ class Decorator extends LibraryService {
 		return $message;
 	}
 
-	public function decorateWebversion($id, $message) {
-		$url = parent::$app['http.public'] . 'account/notification/webversion?id=' . $id;
+	public function decorateUrls($id, $message) {
+		$web = parent::$app['http.public'] . 'account/notification/webversion?id=' . $id;
+		$url = parent::$app['http.public'] . 'account/notification/unsubscribe?id=' . $id;
 
-		$message = str_replace('!webversion!', $url, $message);
+		$message['html'] = str_replace('!webversion!', $web, $message['html']);
+		$message['html'] = str_replace('!unsubscribe!', $url, $message['html']);
+
+		$message['text'] = str_replace('!unsubscribe!', $url, $message['text']);
 
 		return $message;
 	}

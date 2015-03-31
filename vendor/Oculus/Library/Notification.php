@@ -38,16 +38,14 @@ class Notification extends LibraryService {
         
         $this->decorator = new Decorator($app);
         $this->email     = new Email($app);
-
-        $this->fetchWrapper();
     }
 
     /**
      * fetch the wrapper from the email object.
      * @return array $data for calling from outside the class.
      */
-    public function fetchWrapper() {
-        $data = $this->email->fetchWrapper();
+    public function fetchWrapper($priority) {
+        $data = $this->email->fetchWrapper($priority);
         
         $this->text = html_entity_decode($data['text'], ENT_QUOTES, 'UTF-8');
         $this->html = html_entity_decode($data['html'], ENT_QUOTES, 'UTF-8');
@@ -218,11 +216,12 @@ class Notification extends LibraryService {
         // first add all parts of the email to queue and get the insert id
         $id = $this->email->addToEmailQueue($message, $this->to_email, $this->to_name);
 
-        // now pass the insert id and html to decorator to decorate the webversion url
-        $html = $this->decorator->decorateWebversion($id, $message['html']);
+        // now pass the insert id and message to decorator to decorate 
+        // the webversion and unsubscribe urls
+        $message = $this->decorator->decorateUrls($id, $message);
 
         // now update the queue with the html
-        $this->email->updateHtml($id, $html);
+        $this->email->updateHtml($id, $message);
 
         return true;
     }
