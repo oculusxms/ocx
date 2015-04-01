@@ -22,35 +22,35 @@ class Product extends Model {
         $this->db->query("
 			INSERT INTO {$this->db->prefix}product 
 			SET 
-				model = '" . $this->db->escape($data['model']) . "', 
-				sku = '" . $this->db->escape($data['sku']) . "', 
-				upc = '" . $this->db->escape($data['upc']) . "', 
-				ean = '" . $this->db->escape($data['ean']) . "', 
-				jan = '" . $this->db->escape($data['jan']) . "', 
-				isbn = '" . $this->db->escape($data['isbn']) . "', 
-				mpn = '" . $this->db->escape($data['mpn']) . "', 
-				location = '" . $this->db->escape($data['location']) . "', 
-				visibility = '" . (int)$data['visibility'] . "', 
-				quantity = '" . (int)$data['quantity'] . "', 
-				minimum = '" . (int)$data['minimum'] . "', 
-				subtract = '" . (int)$data['subtract'] . "', 
+				model           = '" . $this->db->escape($data['model']) . "', 
+				sku             = '" . $this->db->escape($data['sku']) . "', 
+				upc             = '" . $this->db->escape($data['upc']) . "', 
+				ean             = '" . $this->db->escape($data['ean']) . "', 
+				jan             = '" . $this->db->escape($data['jan']) . "', 
+				isbn            = '" . $this->db->escape($data['isbn']) . "', 
+				mpn             = '" . $this->db->escape($data['mpn']) . "', 
+				location        = '" . $this->db->escape($data['location']) . "', 
+				visibility      = '" . (int)$data['visibility'] . "', 
+				quantity        = '" . (int)$data['quantity'] . "', 
+				minimum         = '" . (int)$data['minimum'] . "', 
+				subtract        = '" . (int)$data['subtract'] . "', 
 				stock_status_id = '" . (int)$data['stock_status_id'] . "', 
-				date_available = '" . $this->db->escape($data['date_available']) . "', 
+				date_available  = '" . $this->db->escape($data['date_available']) . "', 
 				manufacturer_id = '" . (int)$data['manufacturer_id'] . "', 
-				shipping = '" . (int)$data['shipping'] . "', 
-				price = '" . (float)$data['price'] . "', 
-				points = '" . (int)$data['points'] . "', 
-				weight = '" . (float)$data['weight'] . "', 
+				shipping        = '" . (int)$data['shipping'] . "', 
+				price           = '" . (float)$data['price'] . "', 
+				points          = '" . (int)$data['points'] . "', 
+				weight          = '" . (float)$data['weight'] . "', 
 				weight_class_id = '" . (int)$data['weight_class_id'] . "', 
-				length = '" . (float)$data['length'] . "', 
-				width = '" . (float)$data['width'] . "', 
-				height = '" . (float)$data['height'] . "', 
+				length          = '" . (float)$data['length'] . "', 
+				width           = '" . (float)$data['width'] . "', 
+				height          = '" . (float)$data['height'] . "', 
 				length_class_id = '" . (int)$data['length_class_id'] . "', 
-				status = '" . (int)$data['status'] . "', 
-				tax_class_id = '" . $this->db->escape($data['tax_class_id']) . "', 
-				sort_order = '" . (int)$data['sort_order'] . "', 
-				date_added = NOW(), 
-				customer_id = '" . (int)$data['customer_id'] . "'
+				status          = '" . (int)$data['status'] . "', 
+				tax_class_id    = '" . $this->db->escape($data['tax_class_id']) . "', 
+				sort_order      = '" . (int)$data['sort_order'] . "', 
+				date_added      = NOW(), 
+				customer_id     = '" . (int)$data['customer_id'] . "'
 		");
         
         $product_id = $this->db->getLastId();
@@ -760,7 +760,7 @@ class Product extends Model {
         
         if ($event_product->row['event_id'] > 0):
             $this->db->query("
-				DELETE FROM {$this->db->prefix}event 
+				DELETE FROM {$this->db->prefix}event_manager 
 				WHERE event_id = '" . (int)$event_product->row['event_id'] . "'");
         endif;
         
@@ -838,7 +838,7 @@ class Product extends Model {
         
         $this->db->query("
         	DELETE FROM {$this->db->prefix}route 
-        	WHERE query = 'product_id=" . (int)$product_id . "'");
+        	WHERE query = 'product_id:" . (int)$product_id . "'");
         
         $this->cache->delete('product');
         $this->cache->delete('products.total');

@@ -16,7 +16,8 @@
 
 namespace Admin\Model\Catalog;
 use Oculus\Engine\Model;
-use Oculus\Library\Mail;
+use Oculus\Library\Template;
+use Oculus\Library\Text;
 
 class Event extends Model {
     
@@ -45,47 +46,48 @@ class Event extends Model {
         $this->db->query("
 			INSERT INTO {$this->db->prefix}event_manager 
 			SET 
-				event_name = '" . $this->db->escape($data['name']) . "', 
-				model = '" . $this->db->escape($data['model']) . "', 
-				sku = '" . $this->db->escape($data['sku']) . "', 
-				visibility = '" . (int)$data['visibility'] . "', 
-				event_days = '" . $this->db->escape(serialize($data['event_days'])) . "', 
-				event_length = '" . $this->db->escape($data['event_length']) . "', 
-				date_time = '" . $this->db->escape($date_start) . "', 
-				online = '" . (int)$data['online'] . "', 
-				hangout = '" . $this->db->escape($data['hangout']) . "', 
-				location = '" . $this->db->escape($data['location']) . "', 
-				telephone = '" . $this->db->escape($data['telephone']) . "', 
-				cost = '" . (float)$data['cost'] . "', 
-				seats = '" . (int)$data['seats'] . "', 
-				presenter_id = '" . (int)$data['presenter'] . "', 
-				description = '" . $this->db->escape($data['description']) . "', 
+				event_name    = '" . $this->db->escape($data['name']) . "', 
+				model         = '" . $this->db->escape($data['model']) . "', 
+				sku           = '" . $this->db->escape($data['sku']) . "', 
+				visibility    = '" . (int)$data['visibility'] . "', 
+				event_length  = '" . $this->db->escape($data['event_length']) . "', 
+				event_days    = '" . $this->db->escape(serialize($data['event_days'])) . "', 
+				date_time     = '" . $this->db->escape($date_start) . "', 
+				online        = '" . (int)$data['online'] . "', 
+				hangout       = '" . $this->db->escape($data['hangout']) . "', 
+				location      = '" . $this->db->escape($data['location']) . "', 
+				telephone     = '" . $this->db->escape($data['telephone']) . "', 
+				cost          = '" . (float)$data['cost'] . "', 
+				seats         = '" . (int)$data['seats'] . "', 
 				presenter_tab = '" . $this->db->escape($data['presenter_tab']) . "', 
-				date_end = '" . $this->db->escape($date_end) . "', 
-				refundable = '" . (int)$data['refundable'] . "'");
+				presenter_id  = '" . (int)$data['presenter'] . "', 
+				description   = '" . $this->db->escape($data['description']) . "', 
+				refundable    = '" . (int)$data['refundable'] . "', 
+				date_end      = '" . $this->db->escape($date_end) . "'
+		");
         
         $event_id = $this->db->getLastId();
         
         $this->db->query("
 			INSERT INTO {$this->db->prefix}product 
 			SET 
-				model = '" . $this->db->escape($data['model']) . "', 
-				sku = '" . $this->db->escape($data['sku']) . "', 
-				location = '" . $this->db->escape($data['location']) . "', 
-				visibility = '" . (int)$data['visibility'] . "', 
-				quantity = '" . (int)$data['seats'] . "', 
+				model           = '" . $this->db->escape($data['model']) . "', 
+				sku             = '" . $this->db->escape($data['sku']) . "', 
+				location        = '" . $this->db->escape($data['location']) . "', 
+				visibility      = '" . (int)$data['visibility'] . "', 
+				quantity        = '" . (int)$data['seats'] . "', 
 				stock_status_id = '" . (int)$data['stock_status_id'] . "', 
-				price = '" . (float)$data['cost'] . "', 
-				subtract = '1', 
-				status = '" . (int)$data['status'] . "', 
-				end_date = '" . $this->db->escape($date_end) . "', 
-				event_id = '" . (int)$event_id . "', 
-				shipping = '0', 
+				price           = '" . (float)$data['cost'] . "', 
+				subtract        = '1', 
+				status          = '" . (int)$data['status'] . "', 
+				end_date        = '" . $this->db->escape($date_end) . "', 
+				event_id        = '" . (int)$event_id . "', 
+				shipping        = '0', 
 				weight_class_id = '" . (int)$this->config->get('config_weight_class_id') . "', 
 				length_class_id = '" . (int)$this->config->get('config_length_class_id') . "', 
-				date_available = NOW(), 
-				date_added = NOW(), 
-				date_modified = NOW()");
+				date_available  = NOW(), 
+				date_added      = NOW(), 
+				date_modified   = NOW()");
         
         $product_id = $this->db->getLastId();
         
@@ -95,7 +97,7 @@ class Event extends Model {
 			SET 
 				route = 'catalog/product', 
 				query = 'product_id:" . (int)$product_id . "', 
-				slug = '" . $this->db->escape($data['slug']) . "'
+				slug  = '" . $this->db->escape($data['slug']) . "'
 		");
         
         $languages = $this->db->query("
@@ -111,9 +113,9 @@ class Event extends Model {
             $this->db->query("
 				INSERT INTO {$this->db->prefix}product_description 
 				SET 
-					product_id = '" . (int)$product_id . "', 
+					product_id  = '" . (int)$product_id . "', 
 					language_id = '" . $language['language_id'] . "', 
-					name = '" . $this->db->escape($data['name']) . "', 
+					name        = '" . $this->db->escape($data['name']) . "', 
 					description = '" . $this->db->escape($data['description']) . "'");
         }
         
@@ -123,7 +125,7 @@ class Event extends Model {
 					INSERT INTO {$this->db->prefix}product_to_store 
 					SET 
 						product_id = '" . (int)$product_id . "', 
-						store_id = '" . (int)$store_id . "'");
+						store_id   = '" . (int)$store_id . "'");
             }
         }
         
@@ -132,7 +134,7 @@ class Event extends Model {
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}product_to_category 
 					SET 
-						product_id = '" . (int)$product_id . "', 
+						product_id  = '" . (int)$product_id . "', 
 						category_id = '" . (int)$category_id . "'");
             }
         }
@@ -149,25 +151,25 @@ class Event extends Model {
         $this->db->query("
 			UPDATE {$this->db->prefix}event_manager 
 			SET 
-				event_name = '" . $this->db->escape($data['name']) . "', 
-				model = '" . $this->db->escape($data['model']) . "', 
-				sku = '" . $this->db->escape($data['sku']) . "', 
-				visibility = '" . (int)$data['visibility'] . "', 
-				event_days = '" . $this->db->escape(serialize($data['event_days'])) . "', 
-				event_length = '" . $this->db->escape($data['event_length']) . "', 
-				date_time = '" . $this->db->escape($date_start) . "', 
-				online = '" . (int)$data['online'] . "', 
-				hangout = '" . $this->db->escape($data['hangout']) . "', 
-				location = '" . $this->db->escape($data['location']) . "', 
-				telephone = '" . $this->db->escape($data['telephone']) . "', 
-				cost = '" . (float)$data['cost'] . "', 
-				seats = '" . (int)$data['seats'] . "', 
-				presenter_id = '" . (int)$data['presenter'] . "', 
-				description = '" . $this->db->escape($data['description']) . "', 
+				event_name    = '" . $this->db->escape($data['name']) . "', 
+				model         = '" . $this->db->escape($data['model']) . "', 
+				sku           = '" . $this->db->escape($data['sku']) . "', 
+				visibility    = '" . (int)$data['visibility'] . "', 
+				event_length  = '" . $this->db->escape($data['event_length']) . "', 
+				event_days    = '" . $this->db->escape(serialize($data['event_days'])) . "', 
+				date_time     = '" . $this->db->escape($date_start) . "', 
+				online        = '" . (int)$data['online'] . "', 
+				hangout       = '" . $this->db->escape($data['hangout']) . "', 
+				location      = '" . $this->db->escape($data['location']) . "', 
+				telephone     = '" . $this->db->escape($data['telephone']) . "', 
+				cost          = '" . (float)$data['cost'] . "', 
+				seats         = '" . (int)$data['seats'] . "', 
 				presenter_tab = '" . $this->db->escape($data['presenter_tab']) . "', 
-				date_end = '" . $this->db->escape($date_end) . "', 
-				product_id = '" . (int)$data['product_id'] . "', 
-				refundable = '" . (int)$data['refundable'] . "' 
+				presenter_id  = '" . (int)$data['presenter'] . "', 
+				description   = '" . $this->db->escape($data['description']) . "', 
+				refundable    = '" . (int)$data['refundable'] . "', 
+				date_end      = '" . $this->db->escape($date_end) . "', 
+				product_id    = '" . (int)$data['product_id'] . "' 
 			WHERE event_id = '" . (int)$event_id . "'");
         
         $filled = $this->db->query("
@@ -180,16 +182,16 @@ class Event extends Model {
         $this->db->query("
 			UPDATE {$this->db->prefix}product 
 			SET 
-				model = '" . $this->db->escape($data['model']) . "', 
-				sku = '" . $this->db->escape($data['sku']) . "', 
-				location = '" . $this->db->escape($data['location']) . "', 
-				visibility = '" . (int)$data['visibility'] . "', 
-				quantity = '" . (int)$quantity . "', 
-				price = '" . (float)$data['cost'] . "', 
+				model           = '" . $this->db->escape($data['model']) . "', 
+				sku             = '" . $this->db->escape($data['sku']) . "', 
+				location        = '" . $this->db->escape($data['location']) . "', 
+				visibility      = '" . (int)$data['visibility'] . "', 
+				quantity        = '" . (int)$quantity . "', 
+				price           = '" . (float)$data['cost'] . "', 
 				stock_status_id = '" . (int)$data['stock_status_id'] . "', 
-				status = '" . (int)$data['status'] . "', 
-				end_date = '" . $this->db->escape($date_end) . "', 
-				date_modified = NOW() 
+				status          = '" . (int)$data['status'] . "', 
+				end_date        = '" . $this->db->escape($date_end) . "', 
+				date_modified   = NOW() 
 			WHERE product_id = '" . (int)$data['product_id'] . "'");
         
         $this->db->query("
@@ -202,7 +204,7 @@ class Event extends Model {
 					INSERT INTO {$this->db->prefix}product_to_store 
 					SET 
 						product_id = '" . (int)$data['product_id'] . "', 
-						store_id = '" . (int)$store_id . "'");
+						store_id   = '" . (int)$store_id . "'");
             }
         }
         
@@ -215,7 +217,7 @@ class Event extends Model {
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}product_to_category 
 					SET 
-						product_id = '" . (int)$data['product_id'] . "', 
+						product_id  = '" . (int)$data['product_id'] . "', 
 						category_id = '" . (int)$category_id . "'");
             }
         }
@@ -229,7 +231,7 @@ class Event extends Model {
 			SET 
 				route = 'catalog/product', 
 				query = 'product_id:" . (int)$data['product_id'] . "', 
-				slug = '" . $this->db->escape($data['slug']) . "'
+				slug  = '" . $this->db->escape($data['slug']) . "'
 		");
         
         $languages = $this->db->query("
@@ -240,7 +242,7 @@ class Event extends Model {
             $this->db->query("
 				UPDATE {$this->db->prefix}product_description 
 				SET 
-					name = '" . $this->db->escape($data['name']) . "', 
+					name        = '" . $this->db->escape($data['name']) . "', 
 					description = '" . $this->db->escape($data['description']) . "' 
 				WHERE product_id = '" . (int)$data['product_id'] . "' 
 				AND language_id = '" . (int)$language['language_id'] . "'");
@@ -327,7 +329,7 @@ class Event extends Model {
 			INSERT INTO {$this->db->prefix}presenter 
 			SET 
 				presenter_name = '" . $this->db->escape($data['presenter_name']) . "', 
-				bio = '" . $this->db->escape($data['bio']) . "'");
+				bio            = '" . $this->db->escape($data['bio']) . "'");
         return;
     }
     
@@ -336,7 +338,7 @@ class Event extends Model {
 			UPDATE {$this->db->prefix}presenter 
 			SET 
 				presenter_name = '" . $this->db->escape($data['presenter_name']) . "', 
-				bio = '" . $this->db->escape($data['bio']) . "' 
+				bio            = '" . $this->db->escape($data['bio']) . "' 
 			WHERE presenter_id = '" . (int)$presenter_id . "'");
         
         return;
@@ -360,7 +362,11 @@ class Event extends Model {
         
         if (!empty($query->row['roster'])) {
             foreach (unserialize($query->row['roster']) as $roster) {
-                $return_data[] = array('attendee_id' => $roster['attendee_id'], 'name' => $this->getAttendeeName($roster['attendee_id']), 'date_added' => $roster['date_added']);
+                $return_data[] = array(
+					'attendee_id' => $roster['attendee_id'], 
+					'name'        => $this->getAttendeeName($roster['attendee_id']), 
+					'date_added'  => $roster['date_added']
+                );
             }
         }
         
@@ -390,95 +396,41 @@ class Event extends Model {
     }
     
     public function addToEvent($data) {
-        $attendee_data = array('attendee_id' => $data['customer_id'], 'event_id' => $data['event_id']);
+        $attendee_data = array(
+			'attendee_id' => $data['customer_id'], 
+			'event_id'    => $data['event_id']
+        );
         
         $this->addAttendee($attendee_data);
-        
-        $query = $this->db->query("
-			SELECT seats, filled 
-			FROM {$this->db->prefix}event_manager 
-			WHERE event_id = '" . (int)$data['event_id'] . "'");
-        
-        if ($query->row['seats'] < $query->row['filled']) {
-            $this->db->query("
-				UPDATE {$this->db->prefix}event_manager 
-				SET 
-					seats = '" . (int)$query->row['filled'] . "' 
-				WHERE event_id = '" . (int)$data['event_id'] . "'");
-        }
-        
-        $this->db->query("
-			DELETE FROM {$this->db->prefix}event_wait_list 
-			WHERE event_id = '" . (int)$data['event_id'] . "' 
-			AND customer_id = '" . (int)$data['customer_id'] . "'");
         
         $event_info = $this->db->query("
 			SELECT * 
 			FROM {$this->db->prefix}event_manager 
 			WHERE event_id = '" . (int)$data['event_id'] . "'");
         
-        $customer_email = $this->db->query("
-			SELECT email 
-			FROM {$this->db->prefix}customer 
-			WHERE customer_id = '" . (int)$data['customer_id'] . "'");
+        if ($event_info->row['seats'] < $event_info->row['filled']):
+            $this->db->query("
+				UPDATE {$this->db->prefix}event_manager 
+				SET 
+					seats = '" . (int)$query->row['filled'] . "' 
+				WHERE event_id = '" . (int)$data['event_id'] . "'");
+        endif;
         
-        // NEW MAILER
-        // admin_event_add
-            
-        // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-        //     $subject = sprintf($this->language->get('lang_text_add_event_subject'), $event_info->row['event_name']);
-        //     $image = IMAGE_URL . $this->config->get('config_logo');
-        //     $logo = str_replace(' ', '%20', $image);
-        //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
-        //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-        //     $html.= sprintf($this->language->get('lang_text_add_event_message'), $event_info->row['event_name']);
-        //     $html.= '</div>';
-        //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-        //     $html.= '<table>';
-        //     $html.= '<tr>';
-        //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_event_name') . ':</td>';
-        //     $html.= '<td>' . $event_info->row['event_name'] . '</td>';
-        //     $html.= '</tr>';
-        //     $html.= '<tr>';
-        //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_date_time') . ':</td>';
-        //     $html.= '<td>' . date($this->language->get('lang_date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('lang_time_format'), strtotime($event_info->row['date_time'])) . '</td>';
-        //     $html.= '</tr>';
-            
-        //     if ($event_info->row['location'] != "") {
-        //         $html.= '<tr>';
-        //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_location') . ':</td>';
-        //         $html.= '<td>' . $event_info->row['location'] . '</td>';
-        //         $html.= '</tr>';
-        //     }
-            
-        //     if ($event_info->row['telephone'] != "") {
-        //         $html.= '<tr>';
-        //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_telephone') . ':</td>';
-        //         $html.= '<td>' . $event_info->row['telephone'] . '</td>';
-        //         $html.= '</tr>';
-        //     }
-            
-        //     $html.= '</table>';
-        //     $html.= '</div>';
-        //     $html.= '<div style="width: 100%;">';
-        //     $html.= $this->config->get('config_name');
-        //     $html.= '</div>';
-            
-        //     $mail = new Mail();
-        //     $mail->protocol = $this->config->get('config_mail_protocol');
-        //     $mail->parameter = $this->config->get('config_mail_parameter');
-        //     $mail->hostname = $this->config->get('config_smtp_host');
-        //     $mail->username = $this->config->get('config_smtp_username');
-        //     $mail->password = $this->config->get('config_smtp_password');
-        //     $mail->port = $this->config->get('config_smtp_port');
-        //     $mail->timeout = $this->config->get('config_smtp_timeout');
-        //     $mail->setTo($customer_email->row['email']);
-        //     $mail->setFrom($this->config->get('config_email'));
-        //     $mail->setSender($this->config->get('config_name'));
-        //     $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-        //     $mail->setHtml($html);
-        //     $mail->send();
-        // }
+        $this->db->query("
+			DELETE FROM {$this->db->prefix}event_wait_list 
+			WHERE event_id = '" . (int)$data['event_id'] . "' 
+			AND customer_id = '" . (int)$data['customer_id'] . "'");
+        
+        $callback = array(
+			'customer_id' => $data['customer_id'],
+			'event'       => $event_info,
+			'callback'    => array(
+				'class'  => __CLASS__,
+				'method' => 'admin_event_add'
+        	)
+        );
+
+        $this->theme->notify('admin_event_add', $callback);
         
         return;
     }
@@ -506,68 +458,17 @@ class Event extends Model {
 				FROM {$this->db->prefix}event_manager 
 				WHERE event_id = '" . (int)$data['event_id'] . "'");
             
-            $customer_email = $this->db->query("
-				SELECT email 
-				FROM {$this->db->prefix}customer 
-				WHERE customer_id = '" . (int)$data['attendee_id'] . "'");
+            $callback = array(
+				'customer_id' => $data['attendee_id'],
+				'event'       => $event_info,
+				'callback'    => array(
+					'class'  => __CLASS__,
+					'method' => 'admin_event_waitlist'
+            	)
+            );
 
-            // NEW MAILER
-            // admin_event_waitlist
-            
-            // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-            //     $subject = sprintf($this->language->get('lang_text_add_wait_subject'), $event_info->row['event_name']);
-            //     $image = IMAGE_URL . $this->config->get('config_logo');
-            //     $logo = str_replace(' ', '%20', $image);
-            //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
-            //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-            //     $html.= sprintf($this->language->get('lang_text_add_wait_message'), $event_info->row['event_name']);
-            //     $html.= '</div>';
-            //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-            //     $html.= '<table>';
-            //     $html.= '<tr>';
-            //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_event_name') . ':</td>';
-            //     $html.= '<td>' . $event_info->row['event_name'] . '</td>';
-            //     $html.= '</tr>';
-            //     $html.= '<tr>';
-            //     $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_date_time') . ':</td>';
-            //     $html.= '<td>' . date($this->language->get('lang_date_format_short'), strtotime($event_info->row['date_time'])) . ' at ' . date($this->language->get('lang_time_format'), strtotime($event_info->row['date_time'])) . '</td>';
-            //     $html.= '</tr>';
-                
-            //     if ($event_info->row['location'] != "") {
-            //         $html.= '<tr>';
-            //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_location') . ':</td>';
-            //         $html.= '<td>' . $event_info->row['location'] . '</td>';
-            //         $html.= '</tr>';
-            //     }
-                
-            //     if ($event_info->row['telephone'] != "") {
-            //         $html.= '<tr>';
-            //         $html.= '<td style="width: 200px; font-weight: bold;">' . $this->language->get('lang_column_telephone') . ':</td>';
-            //         $html.= '<td>' . $event_info->row['telephone'] . '</td>';
-            //         $html.= '</tr>';
-            //     }
-                
-            //     $html.= '</table>';
-            //     $html.= '</div>';
-            //     $html.= '<div style="width: 100%;">';
-            //     $html.= $this->config->get('config_name');
-            //     $html.= '</div>';
-                
-            //     $mail = new Mail();
-            //     $mail->protocol = $this->config->get('config_mail_protocol');
-            //     $mail->parameter = $this->config->get('config_mail_parameter');
-            //     $mail->hostname = $this->config->get('config_smtp_host');
-            //     $mail->username = $this->config->get('config_smtp_username');
-            //     $mail->password = $this->config->get('config_smtp_password');
-            //     $mail->port = $this->config->get('config_smtp_port');
-            //     $mail->timeout = $this->config->get('config_smtp_timeout');
-            //     $mail->setTo($customer_email->row['email']);
-            //     $mail->setFrom($this->config->get('config_email'));
-            //     $mail->setSender($this->config->get('config_name'));
-            //     $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-            //     $mail->setHtml($html);
-            //     $mail->send();
-            // }
+            $this->theme->notify('admin_event_waitlist', $callback);
+
             return true;
         } else {
             return false;
@@ -678,11 +579,17 @@ class Event extends Model {
         
         if (!empty($query->row['roster'])) {
             foreach (unserialize($query->row['roster']) as $attendee) {
-                $new_array[] = array('attendee_id' => $attendee['attendee_id'], 'date_added' => $attendee['date_added']);
+                $new_array[] = array(
+					'attendee_id' => $attendee['attendee_id'], 
+					'date_added'  => $attendee['date_added']
+                );
             }
         }
         
-        $new_array[] = array('attendee_id' => $data['attendee_id'], 'date_added' => time());
+        $new_array[] = array(
+			'attendee_id' => $data['attendee_id'], 
+			'date_added'  => time()
+        );
         
         if ($filled > $seats) {
             $seats = $filled;
@@ -692,7 +599,7 @@ class Event extends Model {
 			UPDATE {$this->db->prefix}event_manager 
 			SET 
 				roster = '" . $this->db->escape(serialize($new_array)) . "', 
-				seats = '" . (int)$seats . "', 
+				seats  = '" . (int)$seats . "', 
 				filled = (filled + 1) 
 			WHERE event_id = '" . (int)$data['event_id'] . "'");
         
@@ -717,7 +624,10 @@ class Event extends Model {
         
         foreach (unserialize($query->row['roster']) as $roster) {
             if ($attendee_id != $roster['attendee_id']) {
-                $new_array[] = array('attendee_id' => $roster['attendee_id'], 'date_added' => $roster['date_added']);
+                $new_array[] = array(
+					'attendee_id' => $roster['attendee_id'], 
+					'date_added'  => $roster['date_added']
+                );
             }
         }
         
@@ -760,5 +670,85 @@ class Event extends Model {
         } else {
             return 0;
         }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    |   NOTIFICATIONS
+    |--------------------------------------------------------------------------
+    |
+    |	The methods below are notification callbacks.
+    |	
+    */
+    public function admin_event_add($data, $message) {
+    	$call = $data['event'];
+        unset($data);
+
+        $data = $this->theme->language('notification/event');
+
+        $data['event_name'] = $call['event_name'];
+        $data['event_date'] = date($this->language->get('lang_date_format_short'), strtotime($call['date_time']));
+        $data['event_time'] = date($this->language->get('lang_time_format'), strtotime($call['date_time']));
+
+        $data['event_location']  = false;
+        $data['event_telephone'] = false;
+
+        if ($call['location']):
+            $data['event_location'] = $call['location'];
+        endif;
+
+        if ($call['telephone']):
+            $data['event_telephone'] = $call['telephone'];
+        endif;
+
+        $html = new Template($this->app);
+        $text = new Text($this->app);
+
+        $html->data = $data;
+        $text->data = $data;
+
+        $html = $html->fetch('notification/event');
+        $text = $text->fetch('notification/event');
+
+        $message['text'] = str_replace('!content!', $text, $message['text']);
+        $message['html'] = str_replace('!content!', $html, $message['html']);
+
+        return $message;
+    }
+
+    public function admin_event_waitlist($data, $message) {
+    	$call = $data['event'];
+        unset($data);
+
+        $data = $this->theme->language('notification/event');
+
+        $data['event_name'] = $call['event_name'];
+        $data['event_date'] = date($this->language->get('lang_date_format_short'), strtotime($call['date_time']));
+        $data['event_time'] = date($this->language->get('lang_time_format'), strtotime($call['date_time']));
+
+        $data['event_location']  = false;
+        $data['event_telephone'] = false;
+
+        if ($call['location']):
+            $data['event_location'] = $call['location'];
+        endif;
+
+        if ($call['telephone']):
+            $data['event_telephone'] = $call['telephone'];
+        endif;
+
+        $html = new Template($this->app);
+        $text = new Text($this->app);
+
+        $html->data = $data;
+        $text->data = $data;
+
+        $html = $html->fetch('notification/event');
+        $text = $text->fetch('notification/event');
+
+        $message['text'] = str_replace('!content!', $text, $message['text']);
+        $message['html'] = str_replace('!content!', $html, $message['html']);
+
+        return $message;
     }
 }

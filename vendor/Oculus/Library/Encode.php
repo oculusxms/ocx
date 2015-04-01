@@ -50,7 +50,7 @@ class Encode extends LibraryService {
     
     public function substr($string, $offset, $length = null) {
         if ($length === null):
-            return $this->encode->utf8Substr($string, $offset, utf8_strlen($string));
+            return $this->encode->utf8Substr($string, $offset, $this->strlen($string));
         else:
             return $this->encode->utf8Substr($string, $offset, $length);
         endif;

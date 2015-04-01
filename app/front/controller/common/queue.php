@@ -44,6 +44,8 @@ class Queue extends Controller {
 		if ($this->queued):
 			foreach ($this->queued as $email):
 				$this->mailer->build($email['subject'], $email['email'], $email['name'], $email['text'], $email['html'], true);
+				// comment previous and uncomment below to test text message
+				//$this->mailer->build($email['subject'], $email['email'], $email['name'], $email['text'], false, true);
 				$this->model_tool_utility->updateQueue($email['queue_id']);
 			endforeach;
 		endif;
