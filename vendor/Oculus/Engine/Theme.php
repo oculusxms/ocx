@@ -165,6 +165,8 @@ final class Theme {
          */
         
         $order_id = (isset($data['order_id'])) ? $data['order_id'] : 0;
+        $order    = (isset($data['order'])) ? $data['order'] : false;
+
         $this->app['notify']->setOrderId($order_id);
 
         /**
@@ -179,7 +181,7 @@ final class Theme {
         switch ($type['recipient']):
             case 1: // customer
                 if (array_key_exists('customer_id', $data)):
-                    $this->app['notify']->setCustomer($type['email_id'], $data['customer_id']);
+                    $this->app['notify']->setCustomer($type['email_id'], $data['customer_id'], $order);
                     unset($data['customer_id']);
                 else:
                     return;

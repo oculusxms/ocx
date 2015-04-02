@@ -17,7 +17,6 @@
 namespace Admin\Model\Sale;
 use Oculus\Engine\Model;
 use Oculus\Library\Language;
-use Oculus\Library\Mail;
 
 class Order extends Model {
     public function addOrder($data) {
@@ -158,15 +157,15 @@ class Order extends Model {
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}order_product 
 					SET 
-						order_id = '" . (int)$order_id . "', 
+						order_id   = '" . (int)$order_id . "', 
 						product_id = '" . (int)$order_product['product_id'] . "', 
-						name = '" . $this->db->escape($order_product['name']) . "', 
-						model = '" . $this->db->escape($order_product['model']) . "', 
-						quantity = '" . (int)$order_product['quantity'] . "', 
-						price = '" . (float)$order_product['price'] . "', 
-						total = '" . (float)$order_product['total'] . "', 
-						tax = '" . (float)$order_product['tax'] . "', 
-						reward = '" . (int)$order_product['reward'] . "'
+						name       = '" . $this->db->escape($order_product['name']) . "', 
+						model      = '" . $this->db->escape($order_product['model']) . "', 
+						quantity   = '" . (int)$order_product['quantity'] . "', 
+						price      = '" . (float)$order_product['price'] . "', 
+						total      = '" . (float)$order_product['total'] . "', 
+						tax        = '" . (float)$order_product['tax'] . "', 
+						reward     = '" . (int)$order_product['reward'] . "'
 				");
                 
                 $order_product_id = $this->db->getLastId();
@@ -184,13 +183,13 @@ class Order extends Model {
                         $this->db->query("
 							INSERT INTO {$this->db->prefix}order_option 
 							SET 
-								order_id = '" . (int)$order_id . "', 
-								order_product_id = '" . (int)$order_product_id . "', 
-								product_option_id = '" . (int)$order_option['product_option_id'] . "', 
+								order_id                = '" . (int)$order_id . "', 
+								order_product_id        = '" . (int)$order_product_id . "', 
+								product_option_id       = '" . (int)$order_option['product_option_id'] . "', 
 								product_option_value_id = '" . (int)$order_option['product_option_value_id'] . "', 
-								name = '" . $this->db->escape($order_option['name']) . "', 
-								`value` = '" . $this->db->escape($order_option['value']) . "', 
-								`type` = '" . $this->db->escape($order_option['type']) . "'
+								name                    = '" . $this->db->escape($order_option['name']) . "', 
+								`value`                 = '" . $this->db->escape($order_option['value']) . "', 
+								`type`                  = '" . $this->db->escape($order_option['type']) . "'
 						");
                         
                         $this->db->query("
@@ -208,12 +207,12 @@ class Order extends Model {
                         $this->db->query("
 							INSERT INTO {$this->db->prefix}order_download 
 							SET 
-								order_id = '" . (int)$order_id . "', 
+								order_id         = '" . (int)$order_id . "', 
 								order_product_id = '" . (int)$order_product_id . "', 
-								name = '" . $this->db->escape($order_download['name']) . "', 
-								filename = '" . $this->db->escape($order_download['filename']) . "', 
-								mask = '" . $this->db->escape($order_download['mask']) . "', 
-								remaining = '" . (int)$order_download['remaining'] . "'
+								name             = '" . $this->db->escape($order_download['name']) . "', 
+								filename         = '" . $this->db->escape($order_download['filename']) . "', 
+								mask             = '" . $this->db->escape($order_download['mask']) . "', 
+								remaining        = '" . (int)$order_download['remaining'] . "'
 						");
                     }
                 }
@@ -225,17 +224,17 @@ class Order extends Model {
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}order_voucher 
 					SET 
-						order_id = '" . (int)$order_id . "', 
-						voucher_id = '" . (int)$order_voucher['voucher_id'] . "', 
-						description = '" . $this->db->escape($order_voucher['description']) . "', 
-						code = '" . $this->db->escape($order_voucher['code']) . "', 
-						from_name = '" . $this->db->escape($order_voucher['from_name']) . "', 
-						from_email = '" . $this->db->escape($order_voucher['from_email']) . "', 
-						to_name = '" . $this->db->escape($order_voucher['to_name']) . "', 
-						to_email = '" . $this->db->escape($order_voucher['to_email']) . "', 
+						order_id         = '" . (int)$order_id . "', 
+						voucher_id       = '" . (int)$order_voucher['voucher_id'] . "', 
+						description      = '" . $this->db->escape($order_voucher['description']) . "', 
+						code             = '" . $this->db->escape($order_voucher['code']) . "', 
+						from_name        = '" . $this->db->escape($order_voucher['from_name']) . "', 
+						from_email       = '" . $this->db->escape($order_voucher['from_email']) . "', 
+						to_name          = '" . $this->db->escape($order_voucher['to_name']) . "', 
+						to_email         = '" . $this->db->escape($order_voucher['to_email']) . "', 
 						voucher_theme_id = '" . (int)$order_voucher['voucher_theme_id'] . "', 
-						message = '" . $this->db->escape($order_voucher['message']) . "', 
-						amount = '" . (float)$order_voucher['amount'] . "'
+						message          = '" . $this->db->escape($order_voucher['message']) . "', 
+						amount           = '" . (float)$order_voucher['amount'] . "'
 				");
                 
                 $this->db->query("
@@ -255,11 +254,11 @@ class Order extends Model {
                 $this->db->query("
 					INSERT INTO {$this->db->prefix}order_total 
 					SET 
-						order_id = '" . (int)$order_id . "', 
-						code = '" . $this->db->escape($order_total['code']) . "', 
-						title = '" . $this->db->escape($order_total['title']) . "', 
-						text = '" . $this->db->escape($order_total['text']) . "', 
-						`value` = '" . (float)$order_total['value'] . "', 
+						order_id   = '" . (int)$order_id . "', 
+						code       = '" . $this->db->escape($order_total['code']) . "', 
+						title      = '" . $this->db->escape($order_total['title']) . "', 
+						text       = '" . $this->db->escape($order_total['text']) . "', 
+						`value`    = '" . (float)$order_total['value'] . "', 
 						sort_order = '" . (int)$order_total['sort_order'] . "'
 				");
             }
@@ -430,15 +429,15 @@ class Order extends Model {
 					INSERT INTO {$this->db->prefix}order_product 
 					SET 
 						order_product_id = '" . (int)$order_product['order_product_id'] . "', 
-						order_id = '" . (int)$order_id . "', 
-						product_id = '" . (int)$order_product['product_id'] . "', 
-						name = '" . $this->db->escape($order_product['name']) . "', 
-						model = '" . $this->db->escape($order_product['model']) . "', 
-						quantity = '" . (int)$order_product['quantity'] . "', 
-						price = '" . (float)$order_product['price'] . "', 
-						total = '" . (float)$order_product['total'] . "', 
-						tax = '" . (float)$order_product['tax'] . "', 
-						reward = '" . (int)$order_product['reward'] . "'
+						order_id         = '" . (int)$order_id . "', 
+						product_id       = '" . (int)$order_product['product_id'] . "', 
+						name             = '" . $this->db->escape($order_product['name']) . "', 
+						model            = '" . $this->db->escape($order_product['model']) . "', 
+						quantity         = '" . (int)$order_product['quantity'] . "', 
+						price            = '" . (float)$order_product['price'] . "', 
+						total            = '" . (float)$order_product['total'] . "', 
+						tax              = '" . (float)$order_product['tax'] . "', 
+						reward           = '" . (int)$order_product['reward'] . "'
 				");
                 
                 $order_product_id = $this->db->getLastId();
@@ -456,14 +455,14 @@ class Order extends Model {
                         $this->db->query("
 							INSERT INTO {$this->db->prefix}order_option 
 							SET 
-								order_option_id = '" . (int)$order_option['order_option_id'] . "', 
-								order_id = '" . (int)$order_id . "', 
-								order_product_id = '" . (int)$order_product_id . "', 
-								product_option_id = '" . (int)$order_option['product_option_id'] . "', 
+								order_option_id         = '" . (int)$order_option['order_option_id'] . "', 
+								order_id                = '" . (int)$order_id . "', 
+								order_product_id        = '" . (int)$order_product_id . "', 
+								product_option_id       = '" . (int)$order_option['product_option_id'] . "', 
 								product_option_value_id = '" . (int)$order_option['product_option_value_id'] . "', 
-								name = '" . $this->db->escape($order_option['name']) . "', 
-								`value` = '" . $this->db->escape($order_option['value']) . "', 
-								`type` = '" . $this->db->escape($order_option['type']) . "'
+								name                    = '" . $this->db->escape($order_option['name']) . "', 
+								`value`                 = '" . $this->db->escape($order_option['value']) . "', 
+								`type`                  = '" . $this->db->escape($order_option['type']) . "'
 						");
                         
                         $this->db->query("
@@ -482,12 +481,12 @@ class Order extends Model {
 							INSERT INTO {$this->db->prefix}order_download 
 							SET 
 								order_download_id = '" . (int)$order_download['order_download_id'] . "', 
-								order_id = '" . (int)$order_id . "', 
-								order_product_id = '" . (int)$order_product_id . "', 
-								name = '" . $this->db->escape($order_download['name']) . "', 
-								filename = '" . $this->db->escape($order_download['filename']) . "', 
-								mask = '" . $this->db->escape($order_download['mask']) . "', 
-								remaining = '" . (int)$order_download['remaining'] . "'
+								order_id          = '" . (int)$order_id . "', 
+								order_product_id  = '" . (int)$order_product_id . "', 
+								name              = '" . $this->db->escape($order_download['name']) . "', 
+								filename          = '" . $this->db->escape($order_download['filename']) . "', 
+								mask              = '" . $this->db->escape($order_download['mask']) . "', 
+								remaining         = '" . (int)$order_download['remaining'] . "'
 						");
                     }
                 }
@@ -502,17 +501,17 @@ class Order extends Model {
 					INSERT INTO {$this->db->prefix}order_voucher 
 					SET 
 						order_voucher_id = '" . (int)$order_voucher['order_voucher_id'] . "', 
-						order_id = '" . (int)$order_id . "', 
-						voucher_id = '" . (int)$order_voucher['voucher_id'] . "', 
-						description = '" . $this->db->escape($order_voucher['description']) . "', 
-						code = '" . $this->db->escape($order_voucher['code']) . "', 
-						from_name = '" . $this->db->escape($order_voucher['from_name']) . "', 
-						from_email = '" . $this->db->escape($order_voucher['from_email']) . "', 
-						to_name = '" . $this->db->escape($order_voucher['to_name']) . "', 
-						to_email = '" . $this->db->escape($order_voucher['to_email']) . "', 
+						order_id         = '" . (int)$order_id . "', 
+						voucher_id       = '" . (int)$order_voucher['voucher_id'] . "', 
+						description      = '" . $this->db->escape($order_voucher['description']) . "', 
+						code             = '" . $this->db->escape($order_voucher['code']) . "', 
+						from_name        = '" . $this->db->escape($order_voucher['from_name']) . "', 
+						from_email       = '" . $this->db->escape($order_voucher['from_email']) . "', 
+						to_name          = '" . $this->db->escape($order_voucher['to_name']) . "', 
+						to_email         = '" . $this->db->escape($order_voucher['to_email']) . "', 
 						voucher_theme_id = '" . (int)$order_voucher['voucher_theme_id'] . "', 
-						message = '" . $this->db->escape($order_voucher['message']) . "', 
-						amount = '" . (float)$order_voucher['amount'] . "'
+						message          = '" . $this->db->escape($order_voucher['message']) . "', 
+						amount           = '" . (float)$order_voucher['amount'] . "'
 				");
                 
                 $this->db->query("
@@ -535,12 +534,12 @@ class Order extends Model {
 					INSERT INTO {$this->db->prefix}order_total 
 					SET 
 						order_total_id = '" . (int)$order_total['order_total_id'] . "', 
-						order_id = '" . (int)$order_id . "', 
-						code = '" . $this->db->escape($order_total['code']) . "', 
-						title = '" . $this->db->escape($order_total['title']) . "', 
-						text = '" . $this->db->escape($order_total['text']) . "', 
-						`value` = '" . (float)$order_total['value'] . "', 
-						sort_order = '" . (int)$order_total['sort_order'] . "'
+						order_id       = '" . (int)$order_id . "', 
+						code           = '" . $this->db->escape($order_total['code']) . "', 
+						title          = '" . $this->db->escape($order_total['title']) . "', 
+						text           = '" . $this->db->escape($order_total['text']) . "', 
+						`value`        = '" . (float)$order_total['value'] . "', 
+						sort_order     = '" . (int)$order_total['sort_order'] . "'
 				");
             }
             
@@ -565,9 +564,9 @@ class Order extends Model {
         $this->db->query("
 			UPDATE `{$this->db->prefix}order` 
 			SET 
-				total = '" . (float)$total . "', 
+				total        = '" . (float)$total . "', 
 				affiliate_id = '" . (int)$affiliate_id . "', 
-				commission = '" . (float)$commission . "' 
+				commission   = '" . (float)$commission . "' 
 			WHERE order_id = '" . (int)$order_id . "'
 		");
     }
@@ -1128,11 +1127,11 @@ class Order extends Model {
         $this->db->query("
 			INSERT INTO {$this->db->prefix}order_history 
 			SET 
-				order_id = '" . (int)$order_id . "', 
+				order_id        = '" . (int)$order_id . "', 
 				order_status_id = '" . (int)$data['order_status_id'] . "', 
-				notify = '" . (isset($data['notify']) ? (int)$data['notify'] : 0) . "', 
-				comment = '" . $this->db->escape(strip_tags($data['comment'])) . "', 
-				date_added = NOW()
+				notify          = '" . (isset($data['notify']) ? (int)$data['notify'] : 0) . "', 
+				comment         = '" . $this->db->escape(strip_tags($data['comment'])) . "', 
+				date_added      = NOW()
 		");
         
         $order_info = $this->getOrder($order_id);
@@ -1149,56 +1148,36 @@ class Order extends Model {
         }
         
         if ($data['notify']) {
-            $language = new Language($order_info['language_directory'], $this->app['path.language'], $this->app);
-            $language->load($order_info['language_filename']);
-            $language->load('mail/order');
+			$order_status_query = $this->db->query("
+				SELECT * 
+				FROM {$this->db->prefix}order_status 
+				WHERE order_status_id = '" . (int)$data['order_status_id'] . "' 
+				AND language_id = '" . (int)$order_info['language_id'] . "'
+			");
 
-            // NEW MAILER
-            // admin_order_add_history
-            
-   //          $subject = sprintf($language->get('text_subject'), $order_info['store_name'], $order_id);
-            
-   //          $message = $language->get('text_order') . ' ' . $order_id . "\n";
-   //          $message.= $language->get('text_date_added') . ' ' . date($language->get('date_format_short'), strtotime($order_info['date_added'])) . "\n\n";
-            
-   //          $order_status_query = $this->db->query("
-			// 	SELECT * 
-			// 	FROM {$this->db->prefix}order_status 
-			// 	WHERE order_status_id = '" . (int)$data['order_status_id'] . "' 
-			// 	AND language_id = '" . (int)$order_info['language_id'] . "'
-			// ");
-            
-   //          if ($order_status_query->num_rows) {
-   //              $message.= $language->get('text_order_status') . "\n";
-   //              $message.= $order_status_query->row['name'] . "\n\n";
-   //          }
-            
-   //          if ($order_info['customer_id']) {
-   //              $message.= $language->get('text_link') . "\n";
-   //              $message.= html_entity_decode($order_info['store_url'] . 'account/order/info&order_id=' . $order_id, ENT_QUOTES, 'UTF-8') . "\n\n";
-   //          }
-            
-   //          if ($data['comment']) {
-   //              $message.= $language->get('text_comment') . "\n\n";
-   //              $message.= strip_tags(html_entity_decode($data['comment'], ENT_QUOTES, 'UTF-8')) . "\n\n";
-   //          }
-            
-   //          $message.= $language->get('text_footer');
-            
-   //          $mail = new Mail();
-   //          $mail->protocol = $this->config->get('config_mail_protocol');
-   //          $mail->parameter = $this->config->get('config_mail_parameter');
-   //          $mail->hostname = $this->config->get('config_smtp_host');
-   //          $mail->username = $this->config->get('config_smtp_username');
-   //          $mail->password = $this->config->get('config_smtp_password');
-   //          $mail->port = $this->config->get('config_smtp_port');
-   //          $mail->timeout = $this->config->get('config_smtp_timeout');
-   //          $mail->setTo($order_info['email']);
-   //          $mail->setFrom($this->config->get('config_email'));
-   //          $mail->setSender($order_info['store_name']);
-   //          $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-   //          $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-   //          $mail->send();
+			$status = $order_status_query->row['name'];
+			$link   = html_entity_decode($order_info['store_url'] . 'account/order/info&order_id=' . $order_id, ENT_QUOTES, 'UTF-8');
+
+			if ($data['comment']):
+				$comment = strip_tags(html_entity_decode($data['comment'], ENT_QUOTES, 'UTF-8'));
+			else:
+				$comment = 'No further comments added.';
+			endif;
+
+            $callback = array(
+				'customer_id' => $order_info['customer_id'],
+				'order_id'    => $order_info['order_id'],
+				'order'       => $order_info,
+				'status'      => $status,
+				'link'        => $link,
+				'comment'     => $comment,
+				'callback'    => array(
+					'class'  => __CLASS__,
+					'method' => 'admin_order_add_history'
+            	)
+            );
+
+            $this->theme->notify('admin_order_add_history', $callback);
         }
     }
     
@@ -1285,5 +1264,47 @@ class Order extends Model {
 		");
         
         return $query->row['total'];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    |   NOTIFICATIONS
+    |--------------------------------------------------------------------------
+    |
+    |   The below methods are notification callbacks.
+    |	
+    */
+
+    public function admin_order_add_history($data, $message) {
+    	$search = array(
+    		'!order_id!',
+    		'!status!',
+    		'!link!',
+    		'!comment!'
+    	);
+
+    	$replace = array(
+    		$data['order_id'],
+    		$data['status'],
+    		$data['link'],
+    		$data['comment']
+    	);
+
+    	$html_replace = array(
+    		$data['order_id'],
+    		$data['status'],
+    		$data['link'],
+    		nl2br($data['comment'])
+    	);
+
+    	foreach ($message as $key => $value):
+            if ($key == 'html'):
+            	$message['html'] = str_replace($search, $html_replace, $value);
+            else:
+            	$message[$key] = str_replace($search, $replace, $value);
+        	endif;
+        endforeach;
+        
+        return $message;
     }
 }

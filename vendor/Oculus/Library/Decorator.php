@@ -48,7 +48,7 @@ class Decorator extends LibraryService {
 		);
 
 		$this->replace = array(
-			$customer['firstname'] ? $customer['firstname'] : $customer['username'],
+			$customer['firstname'],
 			$customer['lastname'],
 			$customer['username'],
 			$customer['email'],
@@ -58,7 +58,7 @@ class Decorator extends LibraryService {
 		);
 
 		$this->html_replace = array(
-			$customer['firstname'] ? $customer['firstname'] : $customer['username'],
+			$customer['firstname'],
 			$customer['lastname'],
 			$customer['username'],
 			$customer['email'],

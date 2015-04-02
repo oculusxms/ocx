@@ -150,7 +150,7 @@ class Propf extends Controller {
                 $message.= 'TRANSACTIONID: ' . $response_info['TRANSACTIONID'] . "\n";
             }
             
-            $this->model_checkout_order->update($this->session->data['order_id'], $this->config->get('propf_order_status_id'), $message, false);
+            $this->model_checkout_order->update($this->session->data['order_id'], $this->config->get('propf_order_status_id'), $message);
             
             $json['success'] = $this->url->link('checkout/success');
         } else {

@@ -35,19 +35,7 @@ class Test extends Controller {
         
         $this->breadcrumb->add('lang_heading_title', 'tool/test');
 
-        $this->theme->model('catalog/event');
-        $event_info = $this->model_catalog_event->getEvent(5);
-
-        $callback = array(
-            'customer_id' => 1,
-            'event'       => $event_info,
-            'callback'    => array(
-                'class'  => __CLASS__,
-                'method' => 'email_test'
-            )
-        );
-
-        $this->theme->notify('admin_event_waitlist', $callback);
+        
 
         
         
@@ -59,38 +47,24 @@ class Test extends Controller {
     }
 
     public function email_test($data, $message) {
-        $call = $data['event'];
-        unset($data);
+        $search = array(
+            '!order_id!',
+            '!status!',
+            '!link!',
+            '!comment!'
+        );
 
-        $data = $this->theme->language('notification/event');
+        $replace = array(
+            $data['order_id'],
+            $data['status'],
+            $data['link'],
+            $data['comment']
+        );
 
-        $data['event_name'] = $call['event_name'];
-        $data['event_date'] = date($this->language->get('lang_date_format_short'), strtotime($call['date_time']));
-        $data['event_time'] = date($this->language->get('lang_time_format'), strtotime($call['date_time']));
-
-        $data['event_location']  = false;
-        $data['event_telephone'] = false;
-
-        if ($call['location']):
-            $data['event_location'] = $call['location'];
-        endif;
-
-        if ($call['telephone']):
-            $data['event_telephone'] = $call['telephone'];
-        endif;
-
-        $html = new Template($this->app);
-        $text = new Text($this->app);
-
-        $html->data = $data;
-        $text->data = $data;
-
-        $html = $html->fetch('notification/event');
-        $text = $text->fetch('notification/event');
-
-        $message['text'] = str_replace('!content!', $text, $message['text']);
-        $message['html'] = str_replace('!content!', $html, $message['html']);
-
+        foreach ($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+        //$this->theme->test($message);
         return $message;
     }
 }

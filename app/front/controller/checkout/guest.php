@@ -191,7 +191,7 @@ class Guest extends Controller {
             $this->theme->model('account/customergroup');
             
             if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-                $customer_group_id = $this->request->post['customer_group_id'];
+                $customer_group_id = ($this->request->post['customer_group_id'] == $this->config->get('config_default_visibility')) ? $this->request->post['customer_group_id'] : $this->config->get('config_default_visibility');
             } else {
                 $customer_group_id = $this->config->get('config_default_visibility');
             }
@@ -244,36 +244,36 @@ class Guest extends Controller {
         
         if (!$json) {
             $this->session->data['guest']['customer_group_id'] = $customer_group_id;
-            $this->session->data['guest']['firstname'] = $this->request->post['firstname'];
-            $this->session->data['guest']['lastname'] = $this->request->post['lastname'];
-            $this->session->data['guest']['email'] = $this->request->post['email'];
-            $this->session->data['guest']['telephone'] = $this->request->post['telephone'];
+            $this->session->data['guest']['firstname']         = $this->request->post['firstname'];
+            $this->session->data['guest']['lastname']          = $this->request->post['lastname'];
+            $this->session->data['guest']['email']             = $this->request->post['email'];
+            $this->session->data['guest']['telephone']         = $this->request->post['telephone'];
             
-            $this->session->data['guest']['payment']['firstname'] = $this->request->post['firstname'];
-            $this->session->data['guest']['payment']['lastname'] = $this->request->post['lastname'];
-            $this->session->data['guest']['payment']['company'] = $this->request->post['company'];
+            $this->session->data['guest']['payment']['firstname']  = $this->request->post['firstname'];
+            $this->session->data['guest']['payment']['lastname']   = $this->request->post['lastname'];
+            $this->session->data['guest']['payment']['company']    = $this->request->post['company'];
             $this->session->data['guest']['payment']['company_id'] = $this->request->post['company_id'];
-            $this->session->data['guest']['payment']['tax_id'] = $this->request->post['tax_id'];
-            $this->session->data['guest']['payment']['address_1'] = $this->request->post['address_1'];
-            $this->session->data['guest']['payment']['address_2'] = $this->request->post['address_2'];
-            $this->session->data['guest']['payment']['postcode'] = $this->request->post['postcode'];
-            $this->session->data['guest']['payment']['city'] = $this->request->post['city'];
+            $this->session->data['guest']['payment']['tax_id']     = $this->request->post['tax_id'];
+            $this->session->data['guest']['payment']['address_1']  = $this->request->post['address_1'];
+            $this->session->data['guest']['payment']['address_2']  = $this->request->post['address_2'];
+            $this->session->data['guest']['payment']['postcode']   = $this->request->post['postcode'];
+            $this->session->data['guest']['payment']['city']       = $this->request->post['city'];
             $this->session->data['guest']['payment']['country_id'] = $this->request->post['country_id'];
-            $this->session->data['guest']['payment']['zone_id'] = $this->request->post['zone_id'];
+            $this->session->data['guest']['payment']['zone_id']    = $this->request->post['zone_id'];
             
             $this->theme->model('localization/country');
             
             $country_info = $this->model_localization_country->getCountry($this->request->post['country_id']);
             
             if ($country_info) {
-                $this->session->data['guest']['payment']['country'] = $country_info['name'];
-                $this->session->data['guest']['payment']['iso_code_2'] = $country_info['iso_code_2'];
-                $this->session->data['guest']['payment']['iso_code_3'] = $country_info['iso_code_3'];
+                $this->session->data['guest']['payment']['country']        = $country_info['name'];
+                $this->session->data['guest']['payment']['iso_code_2']     = $country_info['iso_code_2'];
+                $this->session->data['guest']['payment']['iso_code_3']     = $country_info['iso_code_3'];
                 $this->session->data['guest']['payment']['address_format'] = $country_info['address_format'];
             } else {
-                $this->session->data['guest']['payment']['country'] = '';
-                $this->session->data['guest']['payment']['iso_code_2'] = '';
-                $this->session->data['guest']['payment']['iso_code_3'] = '';
+                $this->session->data['guest']['payment']['country']        = '';
+                $this->session->data['guest']['payment']['iso_code_2']     = '';
+                $this->session->data['guest']['payment']['iso_code_3']     = '';
                 $this->session->data['guest']['payment']['address_format'] = '';
             }
             
@@ -282,10 +282,10 @@ class Guest extends Controller {
             $zone_info = $this->model_localization_zone->getZone($this->request->post['zone_id']);
             
             if ($zone_info) {
-                $this->session->data['guest']['payment']['zone'] = $zone_info['name'];
+                $this->session->data['guest']['payment']['zone']      = $zone_info['name'];
                 $this->session->data['guest']['payment']['zone_code'] = $zone_info['code'];
             } else {
-                $this->session->data['guest']['payment']['zone'] = '';
+                $this->session->data['guest']['payment']['zone']      = '';
                 $this->session->data['guest']['payment']['zone_code'] = '';
             }
             
@@ -300,40 +300,40 @@ class Guest extends Controller {
             $this->session->data['payment_zone_id'] = $this->request->post['zone_id'];
             
             if ($this->session->data['guest']['shipping_address']) {
-                $this->session->data['guest']['shipping']['firstname'] = $this->request->post['firstname'];
-                $this->session->data['guest']['shipping']['lastname'] = $this->request->post['lastname'];
-                $this->session->data['guest']['shipping']['company'] = $this->request->post['company'];
-                $this->session->data['guest']['shipping']['address_1'] = $this->request->post['address_1'];
-                $this->session->data['guest']['shipping']['address_2'] = $this->request->post['address_2'];
-                $this->session->data['guest']['shipping']['postcode'] = $this->request->post['postcode'];
-                $this->session->data['guest']['shipping']['city'] = $this->request->post['city'];
+                $this->session->data['guest']['shipping']['firstname']  = $this->request->post['firstname'];
+                $this->session->data['guest']['shipping']['lastname']   = $this->request->post['lastname'];
+                $this->session->data['guest']['shipping']['company']    = $this->request->post['company'];
+                $this->session->data['guest']['shipping']['address_1']  = $this->request->post['address_1'];
+                $this->session->data['guest']['shipping']['address_2']  = $this->request->post['address_2'];
+                $this->session->data['guest']['shipping']['postcode']   = $this->request->post['postcode'];
+                $this->session->data['guest']['shipping']['city']       = $this->request->post['city'];
                 $this->session->data['guest']['shipping']['country_id'] = $this->request->post['country_id'];
-                $this->session->data['guest']['shipping']['zone_id'] = $this->request->post['zone_id'];
+                $this->session->data['guest']['shipping']['zone_id']    = $this->request->post['zone_id'];
                 
                 if ($country_info) {
-                    $this->session->data['guest']['shipping']['country'] = $country_info['name'];
-                    $this->session->data['guest']['shipping']['iso_code_2'] = $country_info['iso_code_2'];
-                    $this->session->data['guest']['shipping']['iso_code_3'] = $country_info['iso_code_3'];
+                    $this->session->data['guest']['shipping']['country']        = $country_info['name'];
+                    $this->session->data['guest']['shipping']['iso_code_2']     = $country_info['iso_code_2'];
+                    $this->session->data['guest']['shipping']['iso_code_3']     = $country_info['iso_code_3'];
                     $this->session->data['guest']['shipping']['address_format'] = $country_info['address_format'];
                 } else {
-                    $this->session->data['guest']['shipping']['country'] = '';
-                    $this->session->data['guest']['shipping']['iso_code_2'] = '';
-                    $this->session->data['guest']['shipping']['iso_code_3'] = '';
+                    $this->session->data['guest']['shipping']['country']        = '';
+                    $this->session->data['guest']['shipping']['iso_code_2']     = '';
+                    $this->session->data['guest']['shipping']['iso_code_3']     = '';
                     $this->session->data['guest']['shipping']['address_format'] = '';
                 }
                 
                 if ($zone_info) {
-                    $this->session->data['guest']['shipping']['zone'] = $zone_info['name'];
+                    $this->session->data['guest']['shipping']['zone']      = $zone_info['name'];
                     $this->session->data['guest']['shipping']['zone_code'] = $zone_info['code'];
                 } else {
-                    $this->session->data['guest']['shipping']['zone'] = '';
+                    $this->session->data['guest']['shipping']['zone']      = '';
                     $this->session->data['guest']['shipping']['zone_code'] = '';
                 }
                 
                 // Default Shipping Address
                 $this->session->data['shipping_country_id'] = $this->request->post['country_id'];
-                $this->session->data['shipping_zone_id'] = $this->request->post['zone_id'];
-                $this->session->data['shipping_postcode'] = $this->request->post['postcode'];
+                $this->session->data['shipping_zone_id']    = $this->request->post['zone_id'];
+                $this->session->data['shipping_postcode']   = $this->request->post['postcode'];
             }
             
             $this->session->data['account'] = 'guest';

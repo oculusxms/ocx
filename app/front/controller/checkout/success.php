@@ -34,6 +34,7 @@ class Success extends Controller {
             unset($this->session->data['voucher']);
             unset($this->session->data['vouchers']);
             unset($this->session->data['totals']);
+            unset($this->session->data['paypal']);
         }
         
         $data = $this->theme->language('checkout/success');

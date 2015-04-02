@@ -160,7 +160,7 @@ class Authorizenet extends Controller {
                         $message.= 'Cardholder Authentication Verification Response: ' . $response_info['40'] . "\n";
                     }
                     
-                    $this->model_checkout_order->update($this->session->data['order_id'], $this->config->get('authorizenet_order_status_id'), $message, false);
+                    $this->model_checkout_order->update($this->session->data['order_id'], $this->config->get('authorizenet_order_status_id'), $message);
                 }
                 
                 $json['success'] = $this->url->link('checkout/success', '', 'SSL');

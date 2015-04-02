@@ -57,10 +57,23 @@ class Returns extends Controller {
         $results = $this->model_account_returns->getReturns(($page - 1) * 10, 10);
         
         foreach ($results as $result) {
-            $data['returns'][] = array('return_id' => $result['return_id'], 'order_id' => $result['order_id'], 'name' => $result['firstname'] . ' ' . $result['lastname'], 'status' => $result['status'], 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'href' => $this->url->link('account/returns/info', 'return_id=' . $result['return_id'] . $url, 'SSL'));
+            $data['returns'][] = array(
+                'return_id'  => $result['return_id'], 
+                'order_id'   => $result['order_id'], 
+                'name'       => $result['firstname'] . ' ' . $result['lastname'], 
+                'status'     => $result['status'], 
+                'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 
+                'href'       => $this->url->link('account/returns/info', 'return_id=' . $result['return_id'] . $url, 'SSL')
+            );
         }
         
-        $data['pagination'] = $this->theme->paginate($return_total, $page, $this->config->get('config_catalog_limit'), $this->language->get('lang_text_pagination'), $this->url->link('account/history', 'page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $return_total, 
+            $page, 
+            $this->config->get('config_catalog_limit'), 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('account/history', 'page={page}', 'SSL')
+        );
         
         $data['continue'] = $this->url->link('account/dashboard', '', 'SSL');
         
@@ -107,28 +120,32 @@ class Returns extends Controller {
             $this->breadcrumb->add('lang_heading_title', 'account/returns', $url, true, 'SSL');
             $this->breadcrumb->add('lang_text_return', 'account/returns/info', 'return_id=' . $this->request->get['return_id'] . $url, true, 'SSL');
             
-            $data['return_id'] = $return_info['return_id'];
-            $data['order_id'] = $return_info['order_id'];
+            $data['return_id']    = $return_info['return_id'];
+            $data['order_id']     = $return_info['order_id'];
             $data['date_ordered'] = date($this->language->get('lang_date_format_short'), strtotime($return_info['date_ordered']));
-            $data['date_added'] = date($this->language->get('lang_date_format_short'), strtotime($return_info['date_added']));
-            $data['firstname'] = $return_info['firstname'];
-            $data['lastname'] = $return_info['lastname'];
-            $data['email'] = $return_info['email'];
-            $data['telephone'] = $return_info['telephone'];
-            $data['product'] = $return_info['product'];
-            $data['model'] = $return_info['model'];
-            $data['quantity'] = $return_info['quantity'];
-            $data['reason'] = $return_info['reason'];
-            $data['opened'] = $return_info['opened'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no');
-            $data['comment'] = nl2br($return_info['comment']);
-            $data['action'] = $return_info['action'];
+            $data['date_added']   = date($this->language->get('lang_date_format_short'), strtotime($return_info['date_added']));
+            $data['firstname']    = $return_info['firstname'];
+            $data['lastname']     = $return_info['lastname'];
+            $data['email']        = $return_info['email'];
+            $data['telephone']    = $return_info['telephone'];
+            $data['product']      = $return_info['product'];
+            $data['model']        = $return_info['model'];
+            $data['quantity']     = $return_info['quantity'];
+            $data['reason']       = $return_info['reason'];
+            $data['opened']       = $return_info['opened'] ? $this->language->get('lang_text_yes') : $this->language->get('lang_text_no');
+            $data['comment']      = nl2br($return_info['comment']);
+            $data['action']       = $return_info['action'];
             
             $data['histories'] = array();
             
             $results = $this->model_account_returns->getReturnHistories($this->request->get['return_id']);
             
             foreach ($results as $result) {
-                $data['histories'][] = array('date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'status' => $result['status'], 'comment' => nl2br($result['comment']));
+                $data['histories'][] = array(
+                    'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 
+                    'status' => $result['status'], 
+                    'comment' => nl2br($result['comment'])
+                );
             }
             
             $data['continue'] = $this->url->link('account/returns', $url, 'SSL');

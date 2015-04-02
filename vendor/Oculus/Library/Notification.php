@@ -73,38 +73,62 @@ class Notification extends LibraryService {
         return $query->row;
     }
 
-    public function setCustomer($email_id, $customer_id) {
+    public function setCustomer($email_id, $customer_id, $order = false) {
         $db = parent::$app['db'];
 
         $customer = array();
 
-        $query = $db->query("
-            SELECT DISTINCT * 
-            FROM {$db->prefix}customer 
-            WHERE customer_id = '" . (int)$customer_id . "'");
+        if ($this->order_id && $order):
+            // this handles guests
+            $customer = $this->setCustomerByOrder($order);
 
-        foreach ($query->row as $key => $value):
-            $customer[$key] = $value;
-        endforeach;
+            $this->preference = array(
+                'email'    => 1,
+                'internal' => 0
+            );
+        else:
+            $query = $db->query("
+                SELECT DISTINCT * 
+                FROM {$db->prefix}customer 
+                WHERE customer_id = '" . (int)$customer_id . "'");
 
-        $query = $db->query("
-            SELECT SUM(points) AS total 
-            FROM {$db->prefix}customer_reward 
-            WHERE customer_id = '" . (int)$customer_id . "'
-        ");
+            foreach ($query->row as $key => $value):
+                $customer[$key] = $value;
+            endforeach;
 
-        $points = $query->row['total'] ? $query->row['total'] : 0;
+            $query = $db->query("
+                SELECT SUM(points) AS total 
+                FROM {$db->prefix}customer_reward 
+                WHERE customer_id = '" . (int)$customer_id . "'
+            ");
 
-        $customer['points'] = $points;
+            $points = $query->row['total'] ? $query->row['total'] : 0;
+
+            $customer['points'] = $points;
+
+            // set the preference for this specific email
+            $this->setCustomerPreference($email_id, $customer_id);
+        endif;
 
         $this->customer = $customer;
 
         // Let's set our to_name and to_email for the send method
         $this->to_name  = (isset($this->customer['firstname'])) ? $this->customer['firstname'] . ' ' . $this->customer['lastname'] : $this->customer['username'];
         $this->to_email = $this->customer['email'];
+    }
 
-        // set the preference for this specific email
-        $this->setCustomerPreference($email_id, $customer_id);
+    public function setCustomerByOrder($order) {
+        $customer = array(
+            'firstname' => $order['firstname'],
+            'lastname'  => $order['lastname'],
+            'username'  => '',
+            'email'     => $order['email'],
+            'telephone' => $order['telephone'],
+            'ip'        => $order['ip'],
+            'points'    => 0
+        );
+
+        return $customer;
     }
 
     public function setOrderId($order_id) {

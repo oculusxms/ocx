@@ -16,7 +16,6 @@
 
 namespace Admin\Model\People;
 use Oculus\Engine\Model;
-use Oculus\Library\Mail as Mail;
 
 class Customer extends Model {
     public function addCustomer($data) {
@@ -391,31 +390,7 @@ class Customer extends Model {
                 $store_url = $this->app['http.public'] . 'account/login';
             endif;
 
-            // NEW MAILER
-            // admin_customer_approve
-            
-            // $message = sprintf($this->language->get('lang_text_approve_welcome'), $store_name) . "\n\n";
-            // $message.= $this->language->get('lang_text_approve_login') . "\n";
-            // $message.= $store_url . "\n\n";
-            // $message.= $this->language->get('lang_text_approve_services') . "\n\n";
-            // $message.= $this->language->get('lang_text_approve_thanks') . "\n";
-            // $message.= $store_name;
-            
-            // $mail = new Mail();
-            // $mail->protocol = $this->config->get('config_mail_protocol');
-            // $mail->parameter = $this->config->get('config_mail_parameter');
-            // $mail->hostname = $this->config->get('config_smtp_host');
-            // $mail->username = $this->config->get('config_smtp_username');
-            // $mail->password = $this->config->get('config_smtp_password');
-            // $mail->port = $this->config->get('config_smtp_port');
-            // $mail->timeout = $this->config->get('config_smtp_timeout');
-            // $mail->setTo($customer_info['email']);
-            // $mail->setFrom($this->config->get('config_email'));
-            // $mail->setSender($store_name);
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_approve_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
-            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            // $mail->send();
-            
+            $this->theme->notify('admin_customer_approve', array('customer_id' => $customer_id));
             $this->theme->trigger('admin_approve_customer', array('customer_id' => $customer_id));
         endif;
     }
@@ -672,27 +647,17 @@ class Customer extends Model {
                 $store_name = $this->config->get('config_name');
             endif;
 
-            // NEW MAILER
-            // admin_customer_add_credit
-            
-            // $message = sprintf($this->language->get('lang_text_credit_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
-            // $message.= sprintf($this->language->get('lang_text_credit_total'), $this->currency->format($this->getCreditTotal($customer_id)));
-            
-            // $mail = new Mail();
-            // $mail->protocol = $this->config->get('config_mail_protocol');
-            // $mail->parameter = $this->config->get('config_mail_parameter');
-            // $mail->hostname = $this->config->get('config_smtp_host');
-            // $mail->username = $this->config->get('config_smtp_username');
-            // $mail->password = $this->config->get('config_smtp_password');
-            // $mail->port = $this->config->get('config_smtp_port');
-            // $mail->timeout = $this->config->get('config_smtp_timeout');
-            // $mail->setTo($customer_info['email']);
-            // $mail->setFrom($this->config->get('config_email'));
-            // $mail->setSender($store_name);
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_credit_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
-            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            // $mail->send();
-            
+            $callback = array(
+                'customer_id' => $customer_id,
+                'credit'      => $this->currency->format($amount, $this->config->get('config_currency')),
+                'total'       => $this->currency->format($this->getCreditTotal($customer_id), $this->config->get('config_currency')),
+                'callback'    => array(
+                    'class'  => __CLASS__,
+                    'method' => 'admin_customer_add_credit'
+                )
+            );
+
+            $this->theme->notify('admin_customer_add_credit', $callback);
             $this->theme->trigger('admin_add_customer_credit', array('customer_id' => $customer_id));
         endif;
     }
@@ -766,28 +731,19 @@ class Customer extends Model {
             ");
             
             $customer_commission_id = $this->db->getLastId();
+            
+            $callback = array(
+                'customer_id' => $customer_id,
+                'commission'  => $this->currency->format($amount, $this->config->get('config_currency')),
+                'total'       => $this->currency->format($this->getCommissionTotal($customer_id), $this->config->get('config_currency')),
+                'days'        => '30',
+                'callback'    => array(
+                    'class'  => __CLASS__,
+                    'method' => 'admin_affiliate_add_commission'
+                )
+            );
 
-            // NEW MAILER
-            // admin_affiliate_add_transaction
-            
-            // $message = sprintf($this->language->get('lang_text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
-            // $message.= sprintf($this->language->get('lang_text_transaction_total'), $this->currency->format($this->getTransactionTotal($affiliate_id), $this->config->get('config_currency')));
-            
-            // $mail = new Mail();
-            // $mail->protocol = $this->config->get('config_mail_protocol');
-            // $mail->parameter = $this->config->get('config_mail_parameter');
-            // $mail->hostname = $this->config->get('config_smtp_host');
-            // $mail->username = $this->config->get('config_smtp_username');
-            // $mail->password = $this->config->get('config_smtp_password');
-            // $mail->port = $this->config->get('config_smtp_port');
-            // $mail->timeout = $this->config->get('config_smtp_timeout');
-            // $mail->setTo($affiliate_info['email']);
-            // $mail->setFrom($this->config->get('config_email'));
-            // $mail->setSender($this->config->get('config_name'));
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_transaction_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
-            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            // $mail->send();
-            
+            $this->theme->notify('admin_affiliate_add_commission', $callback);
             $this->theme->trigger('admin_add_customer_commission', array('customer_commission_id' => $customer_commission_id));
         endif;
     }
@@ -1029,29 +985,19 @@ class Customer extends Model {
             else:
                 $store_name = $this->config->get('config_name');
             endif;
+            
+            $callback = array(
+                'customer_id' => $customer_id,
+                'points'      => $points,
+                'total'       => $this->getRewardTotal($customer_id),
+                'callback'    => array(
+                    'class'  => __CLASS__,
+                    'method' => 'admin_customer_add_reward'
+                )
+            );
 
-            // NEW MAILER
-            // admin_customer_add_reward
-            
-            // $message = sprintf($this->language->get('lang_text_reward_received'), $points) . "\n\n";
-            // $message.= sprintf($this->language->get('lang_text_reward_total'), $this->getRewardTotal($customer_id));
-            
-            // $mail = new Mail();
-            // $mail->protocol = $this->config->get('config_mail_protocol');
-            // $mail->parameter = $this->config->get('config_mail_parameter');
-            // $mail->hostname = $this->config->get('config_smtp_host');
-            // $mail->username = $this->config->get('config_smtp_username');
-            // $mail->password = $this->config->get('config_smtp_password');
-            // $mail->port = $this->config->get('config_smtp_port');
-            // $mail->timeout = $this->config->get('config_smtp_timeout');
-            // $mail->setTo($customer_info['email']);
-            // $mail->setFrom($this->config->get('config_email'));
-            // $mail->setSender($store_name);
-            // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_reward_subject'), $store_name), ENT_QUOTES, 'UTF-8'));
-            // $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            // $mail->send();
-             
-             $this->theme->trigger('admin_add_reward', array('customer_id' => $customer_id));
+            $this->theme->notify('admin_customer_add_reward', $callback); 
+            $this->theme->trigger('admin_add_reward', array('customer_id' => $customer_id));
         endif;
     }
     
@@ -1155,4 +1101,71 @@ class Customer extends Model {
 
         return $query->row;
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    |   NOTIFICATIONS
+    |--------------------------------------------------------------------------
+    |
+    |   The below are notification callbacks.
+    */
+
+    public function admin_customer_add_credit($data, $message) {
+        $search = array(
+            '!credit!',
+            '!total!'
+        );
+
+        $replace = array();
+
+        foreach($data as $key => $value):
+            $replace[] = $value;
+        endforeach;
+
+        foreach ($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+
+        return $message;
+    }
+
+    public function admin_affiliate_add_commission($data, $message) {
+        $search = array(
+            '!commission!',
+            '!total!',
+            '!days!'
+        );
+
+        $replace = array();
+
+        foreach($data as $key => $value):
+            $replace[] = $value;
+        endforeach;
+
+        foreach ($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+        
+        return $message;
+    }
+
+    public function admin_customer_add_reward($data, $message) {
+        $search = array(
+            '!points!',
+            '!total!'
+        );
+
+        $replace = array();
+
+        foreach($data as $key => $value):
+            $replace[] = $value;
+        endforeach;
+
+        foreach ($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+        
+        return $message;
+    }
 }
+
