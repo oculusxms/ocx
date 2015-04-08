@@ -15,9 +15,9 @@
 */
 
 // Text
-$_['lang_text_subject']  = 'You have been sent a gift voucher from %s';
-$_['lang_text_greeting'] = 'Congratulations! You have received a gift certificate worth %s';
-$_['lang_text_from']     = 'This gift certificate has been sent to you by %s';
+$_['lang_text_subject']  = 'You have been sent a gift gift card from %s';
+$_['lang_text_greeting'] = 'Congratulations! You have received a gift card worth %s';
+$_['lang_text_from']     = 'This gift card has been sent to you by %s';
 $_['lang_text_message']  = 'With a message that says';
-$_['lang_text_redeem']   = 'To redeem this gift certificate, record the redemption code, which is <b>%s</b> then click on the the link below to purchase the product your heart desires. You can enter the gift voucher code on the shopping cart page before you click checkout.';
+$_['lang_text_redeem']   = 'To redeem this gift card, record the redemption code, which is <b>%s</b> then click on the the link below to purchase the product your heart desires. You can enter the gift card code on the shopping cart page before you click checkout.';
 $_['lang_text_footer']   = 'Please reply to this email if you have any questions.';

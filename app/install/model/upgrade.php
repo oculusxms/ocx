@@ -378,24 +378,24 @@ class Upgrade extends Model {
             endif;
         endforeach;
         
-        // Set defaults for new voucher min/max fields if not set
-        if (empty($settings['config_voucher_min'])):
+        // Set defaults for new giftcard min/max fields if not set
+        if (empty($settings['config_giftcard_min'])):
             $this->db->query("
                 INSERT INTO `{$this->db->prefix}setting` 
                 SET 
                     `value` = '1', 
-                    `key` = 'config_voucher_min', 
+                    `key` = 'config_giftcard_min', 
                     `group` = 'config', 
                     `store_id` = 0
             ");
         endif;
         
-        if (empty($settings['config_voucher_max'])):
+        if (empty($settings['config_giftcard_max'])):
             $this->db->query("
                 INSERT INTO `{$this->db->prefix}setting` 
                 SET 
                     `value` = '1000', 
-                    `key` = 'config_voucher_max', 
+                    `key` = 'config_giftcard_max', 
                     `group` = 'config', 
                     `store_id` = 0
             ");

@@ -91,16 +91,20 @@
 					</tr>
 					<tr>
 						<td><?= $lang_text_return_action; ?></td>
-						<td><select name="return_action_id" class="form-control">
-							<option value="0">&ndash;</option>
-							<?php foreach ($return_actions as $return_action) { ?>
-							<?php if ($return_action['return_action_id'] == $return_action_id) { ?>
-							<option value="<?= $return_action['return_action_id']; ?>" selected><?= $return_action['name']; ?></option>
-							<?php } else { ?>
-							<option value="<?= $return_action['return_action_id']; ?>"><?= $return_action['name']; ?></option>
-							<?php } ?>
-							<?php } ?>
-						</select></td>
+						<td>
+							<div class="col-sm-5" style="padding-left:0;">
+								<select name="return_action_id" class="form-control">
+									<option value="0"><?= $lang_text_select; ?></option>
+									<?php foreach ($return_actions as $return_action): ?>
+									<?php if ($return_action['return_action_id'] == $return_action_id): ?>
+									<option value="<?= $return_action['return_action_id']; ?>" selected><?= $return_action['name']; ?></option>
+									<?php else: ?>
+									<option value="<?= $return_action['return_action_id']; ?>"><?= $return_action['name']; ?></option>
+									<?php endif; ?>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</td>
 					</tr>
 					<?php if ($comment) { ?>
 					<tr>
@@ -111,7 +115,7 @@
 				</table>
 			</div>
 			<div class="tab-pane" id="tab-history">
-				<div id="history" data-href="index.php?route=sale/return/history&token=<?= $token; ?>&return_id=<?= $return_id; ?>"></div>
+				<div id="history" data-href="index.php?route=sale/returns/history&token=<?= $token; ?>&return_id=<?= $return_id; ?>"></div>
 				<div class="form-group">
 					<label class="control-label col-sm-2"><?= $lang_entry_return_status; ?></label>
 					<div class="control-field col-sm-4">
@@ -140,7 +144,7 @@
 				</div>
 				<div class="form-group">
 					<div class="control-field col-sm-4 col-sm-offset-2">
-						<button type="button" id="button-history" data-action="return" data-id="<?= $return_id; ?>" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_history; ?></button>
+						<button type="button" id="button-history-returns" data-action="returns" data-id="<?= $return_id; ?>" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_history; ?></button>
 					</div>
 				</div>
 			</div>

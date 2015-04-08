@@ -371,20 +371,20 @@ class Language extends Model {
 			");
         }
         
-        // Voucher Theme
+        // Giftcard Theme
         $query = $this->db->query("
 			SELECT * 
-			FROM {$this->db->prefix}voucher_theme_description 
+			FROM {$this->db->prefix}giftcard_theme_description 
 			WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'
 		");
         
-        foreach ($query->rows as $voucher_theme) {
+        foreach ($query->rows as $giftcard_theme) {
             $this->db->query("
-				INSERT INTO {$this->db->prefix}voucher_theme_description 
+				INSERT INTO {$this->db->prefix}giftcard_theme_description 
 				SET 
-					voucher_theme_id = '" . (int)$voucher_theme['voucher_theme_id'] . "', 
+					giftcard_theme_id = '" . (int)$giftcard_theme['giftcard_theme_id'] . "', 
 					language_id = '" . (int)$language_id . "', 
-					name = '" . $this->db->escape($voucher_theme['name']) . "'
+					name = '" . $this->db->escape($giftcard_theme['name']) . "'
 			");
         }
         
@@ -464,7 +464,7 @@ class Language extends Model {
         $this->db->query("DELETE FROM {$this->db->prefix}return_reason WHERE language_id = '" . (int)$language_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}return_status WHERE language_id = '" . (int)$language_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}stock_status WHERE language_id = '" . (int)$language_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}voucher_theme_description WHERE language_id = '" . (int)$language_id . "'");
+        $this->db->query("DELETE FROM {$this->db->prefix}giftcard_theme_description WHERE language_id = '" . (int)$language_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}weight_class_description WHERE language_id = '" . (int)$language_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}recurring_description WHERE language_id = '" . (int)$language_id . "'");
         

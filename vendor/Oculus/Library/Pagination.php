@@ -39,6 +39,8 @@ class Pagination extends LibraryService {
     public function render() {
         $total = $this->total;
         
+        $this->url = rawurldecode($this->url);
+        
         if ($this->page < 1):
             $page = 1;
         else:

@@ -65,15 +65,15 @@
 						<td class="text-center hidden-xs"><a class="btn btn-warning btn-sm" href="<?= $product['return']; ?>" data-toggle="tooltip" title="<?= $lang_button_return; ?>"><i class="fa fa-reply fa-lg"></i></a></td>
 					</tr>
 				<?php } ?>
-				<?php foreach ($vouchers as $voucher) { ?>
+				<?php foreach ($giftcards as $giftcard) { ?>
 					<tr>
-						<td><?= $voucher['description']; ?></td>
+						<td><?= $giftcard['description']; ?></td>
 						<?php if ($products) { ?>
 						<td class="hidden-xs"></td>
 						<?php } ?>
 						<td class="text-right">1</td>
-						<td class="hidden-xs text-right"><?= $voucher['amount']; ?></td>
-						<td class="text-right"><?= $voucher['amount']; ?></td>
+						<td class="hidden-xs text-right"><?= $giftcard['amount']; ?></td>
+						<td class="text-right"><?= $giftcard['amount']; ?></td>
 						<td class="hidden-xs"></td>
 					</tr>
 				<?php } ?>

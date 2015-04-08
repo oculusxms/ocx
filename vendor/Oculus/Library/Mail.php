@@ -34,6 +34,7 @@ class Mail extends LibraryService {
 	private $mailer;
 	private $message;
 	private $logger;
+	private $debug = false;
 
 	public function __construct(Container $app) {
 		parent::__construct($app);
@@ -54,8 +55,11 @@ class Mail extends LibraryService {
 		endif;
 
 		$this->mailer = Swift_Mailer::newInstance($transport);
-		$this->logger = new Swift_Plugins_Loggers_EchoLogger();
-		$this->mailer->registerPlugin(new Swift_Plugins_LoggerPlugin($this->logger));
+
+		if ($this->debug):
+			$this->logger = new Swift_Plugins_Loggers_EchoLogger();
+			$this->mailer->registerPlugin(new Swift_Plugins_LoggerPlugin($this->logger));
+		endif;
 	}
 
 	public function build($subject, $email, $name, $text, $html = false, $send = false, $add = array()) {

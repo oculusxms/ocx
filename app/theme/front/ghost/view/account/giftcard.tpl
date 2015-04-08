@@ -50,14 +50,14 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3"><b class="required">*</b> <?= $lang_entry_theme; ?></label>
 				<div class="col-sm-6">
-					<?php foreach ($voucher_themes as $voucher_theme) { ?>
-						<div class="radio"><label for="voucher-<?= $voucher_theme['voucher_theme_id']; ?>">
-						<?php if ($voucher_theme['voucher_theme_id'] == $voucher_theme_id) { ?>
-							<input type="radio" name="voucher_theme_id" value="<?= $voucher_theme['voucher_theme_id']; ?>" id="voucher-<?= $voucher_theme['voucher_theme_id']; ?>" checked="">
+					<?php foreach ($giftcard_themes as $giftcard_theme) { ?>
+						<div class="radio"><label for="giftcard-<?= $giftcard_theme['giftcard_theme_id']; ?>">
+						<?php if ($giftcard_theme['giftcard_theme_id'] == $giftcard_theme_id) { ?>
+							<input type="radio" name="giftcard_theme_id" value="<?= $giftcard_theme['giftcard_theme_id']; ?>" id="giftcard-<?= $giftcard_theme['giftcard_theme_id']; ?>" checked="">
 						<?php } else { ?>
-							<input type="radio" name="voucher_theme_id" value="<?= $voucher_theme['voucher_theme_id']; ?>" id="voucher-<?= $voucher_theme['voucher_theme_id']; ?>">
+							<input type="radio" name="giftcard_theme_id" value="<?= $giftcard_theme['giftcard_theme_id']; ?>" id="giftcard-<?= $giftcard_theme['giftcard_theme_id']; ?>">
 						<?php } ?>
-						<?= $voucher_theme['name']; ?></label></div>
+						<?= $giftcard_theme['name']; ?></label></div>
 					<?php } ?>
 					<?php if ($error_theme) { ?>
 						<span class="help-block error"><?= $error_theme; ?></span>
@@ -79,15 +79,13 @@
 					<?php } ?>
 				</div>
 			</div>
-			<?php if ($text_agree) { ?>
-				<div class="form-group">
-					<div class="col-sm-6 col-sm-offset-3">
-						<div class="checkbox"><label>
-							<input type="checkbox" name="agree" value="1"<?= $agree ? ' checked' : ''; ?>><?= $text_agree; ?>
-						</label></div>
-					</div>
+			<div class="form-group">
+				<div class="col-sm-6 col-sm-offset-3">
+					<div class="checkbox"><label>
+						<input type="checkbox" name="agree" value="1"<?= $agree ? ' checked' : ''; ?>><?= $lang_text_agree; ?>
+					</label></div>
 				</div>
-			<?php } ?>
+			</div>
 			<div class="form-actions">
 				<div class="form-actions-inner text-right">
 					<button type="submit" class="btn btn-primary"><?= $lang_button_continue; ?></button>

@@ -138,10 +138,10 @@ class Order extends Model {
         return $query->rows;
     }
     
-    public function getOrderVouchers($order_id) {
+    public function getOrderGiftcards($order_id) {
         $query = $this->db->query("
 			SELECT * 
-			FROM `{$this->db->prefix}order_voucher` 
+			FROM `{$this->db->prefix}order_giftcard` 
 			WHERE order_id = '" . (int)$order_id . "'
 		");
         
@@ -210,10 +210,10 @@ class Order extends Model {
         return $query->row['total'];
     }
     
-    public function getTotalOrderVouchersByOrderId($order_id) {
+    public function getTotalOrderGiftcardsByOrderId($order_id) {
         $query = $this->db->query("
 			SELECT COUNT(*) AS total 
-			FROM `{$this->db->prefix}order_voucher` 
+			FROM `{$this->db->prefix}order_giftcard` 
 			WHERE order_id = '" . (int)$order_id . "'
 		");
         

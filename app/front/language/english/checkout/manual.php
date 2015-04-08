@@ -15,7 +15,7 @@
 */
 
 // Text
-$_['lang_text_for']          = '%s Gift Certificate for %s';
+$_['lang_text_for']          = '%s Gift Card for %s';
 $_['lang_text_success']      = 'Order totals has been successfully re-calculated.';
 
 // Error
@@ -34,7 +34,7 @@ $_['lang_error_no_shipping'] = 'Warning: No Shipping options are available.';
 $_['lang_error_payment']     = 'Warning: Payment method required.';
 $_['lang_error_no_payment']  = 'Warning: No Payment options are available.';
 $_['lang_error_coupon']      = 'Warning: Coupon is either invalid, expired or reached it\'s usage limit.';
-$_['lang_error_voucher']     = 'Warning: Gift Voucher is either invalid or the balance has been used up.';
+$_['lang_error_giftcard']    = 'Warning: Gift Card is either invalid or the balance has been used up.';
 $_['lang_error_reward']      = 'Warning: Please enter the amount of reward points to use.';
 $_['lang_error_points']      = 'Warning: You don\'t have %s reward points.';
 $_['lang_error_maximum']     = 'Warning: The maximum number of points that can be applied is %s.';

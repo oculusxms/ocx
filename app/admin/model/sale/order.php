@@ -219,29 +219,29 @@ class Order extends Model {
             }
         }
         
-        if (isset($data['order_voucher'])) {
-            foreach ($data['order_voucher'] as $order_voucher) {
+        if (isset($data['order_giftcard'])) {
+            foreach ($data['order_giftcard'] as $order_giftcard) {
                 $this->db->query("
-					INSERT INTO {$this->db->prefix}order_voucher 
+					INSERT INTO {$this->db->prefix}order_giftcard 
 					SET 
-						order_id         = '" . (int)$order_id . "', 
-						voucher_id       = '" . (int)$order_voucher['voucher_id'] . "', 
-						description      = '" . $this->db->escape($order_voucher['description']) . "', 
-						code             = '" . $this->db->escape($order_voucher['code']) . "', 
-						from_name        = '" . $this->db->escape($order_voucher['from_name']) . "', 
-						from_email       = '" . $this->db->escape($order_voucher['from_email']) . "', 
-						to_name          = '" . $this->db->escape($order_voucher['to_name']) . "', 
-						to_email         = '" . $this->db->escape($order_voucher['to_email']) . "', 
-						voucher_theme_id = '" . (int)$order_voucher['voucher_theme_id'] . "', 
-						message          = '" . $this->db->escape($order_voucher['message']) . "', 
-						amount           = '" . (float)$order_voucher['amount'] . "'
+						order_id          = '" . (int)$order_id . "', 
+						giftcard_id       = '" . (int)$order_giftcard['giftcard_id'] . "', 
+						description       = '" . $this->db->escape($order_giftcard['description']) . "', 
+						code              = '" . $this->db->escape($order_giftcard['code']) . "', 
+						from_name         = '" . $this->db->escape($order_giftcard['from_name']) . "', 
+						from_email        = '" . $this->db->escape($order_giftcard['from_email']) . "', 
+						to_name           = '" . $this->db->escape($order_giftcard['to_name']) . "', 
+						to_email          = '" . $this->db->escape($order_giftcard['to_email']) . "', 
+						giftcard_theme_id = '" . (int)$order_giftcard['giftcard_theme_id'] . "', 
+						message           = '" . $this->db->escape($order_giftcard['message']) . "', 
+						amount            = '" . (float)$order_giftcard['amount'] . "'
 				");
                 
                 $this->db->query("
-					UPDATE {$this->db->prefix}voucher 
+					UPDATE {$this->db->prefix}giftcard 
 					SET 
 						order_id = '" . (int)$order_id . "' 
-					WHERE voucher_id = '" . (int)$order_voucher['voucher_id'] . "'
+					WHERE giftcard_id = '" . (int)$order_giftcard['giftcard_id'] . "'
 				");
             }
         }
@@ -493,32 +493,32 @@ class Order extends Model {
             }
         }
         
-        $this->db->query("DELETE FROM {$this->db->prefix}order_voucher WHERE order_id = '" . (int)$order_id . "'");
+        $this->db->query("DELETE FROM {$this->db->prefix}order_giftcard WHERE order_id = '" . (int)$order_id . "'");
         
-        if (isset($data['order_voucher'])) {
-            foreach ($data['order_voucher'] as $order_voucher) {
+        if (isset($data['order_giftcard'])) {
+            foreach ($data['order_giftcard'] as $order_giftcard) {
                 $this->db->query("
-					INSERT INTO {$this->db->prefix}order_voucher 
+					INSERT INTO {$this->db->prefix}order_giftcard 
 					SET 
-						order_voucher_id = '" . (int)$order_voucher['order_voucher_id'] . "', 
-						order_id         = '" . (int)$order_id . "', 
-						voucher_id       = '" . (int)$order_voucher['voucher_id'] . "', 
-						description      = '" . $this->db->escape($order_voucher['description']) . "', 
-						code             = '" . $this->db->escape($order_voucher['code']) . "', 
-						from_name        = '" . $this->db->escape($order_voucher['from_name']) . "', 
-						from_email       = '" . $this->db->escape($order_voucher['from_email']) . "', 
-						to_name          = '" . $this->db->escape($order_voucher['to_name']) . "', 
-						to_email         = '" . $this->db->escape($order_voucher['to_email']) . "', 
-						voucher_theme_id = '" . (int)$order_voucher['voucher_theme_id'] . "', 
-						message          = '" . $this->db->escape($order_voucher['message']) . "', 
-						amount           = '" . (float)$order_voucher['amount'] . "'
+						order_giftcard_id = '" . (int)$order_giftcard['order_giftcard_id'] . "', 
+						order_id          = '" . (int)$order_id . "', 
+						giftcard_id       = '" . (int)$order_giftcard['giftcard_id'] . "', 
+						description       = '" . $this->db->escape($order_giftcard['description']) . "', 
+						code              = '" . $this->db->escape($order_giftcard['code']) . "', 
+						from_name         = '" . $this->db->escape($order_giftcard['from_name']) . "', 
+						from_email        = '" . $this->db->escape($order_giftcard['from_email']) . "', 
+						to_name           = '" . $this->db->escape($order_giftcard['to_name']) . "', 
+						to_email          = '" . $this->db->escape($order_giftcard['to_email']) . "', 
+						giftcard_theme_id = '" . (int)$order_giftcard['giftcard_theme_id'] . "', 
+						message           = '" . $this->db->escape($order_giftcard['message']) . "', 
+						amount            = '" . (float)$order_giftcard['amount'] . "'
 				");
                 
                 $this->db->query("
-					UPDATE {$this->db->prefix}voucher 
+					UPDATE {$this->db->prefix}giftcard 
 					SET 
 						order_id = '" . (int)$order_id . "' 
-					WHERE voucher_id = '" . (int)$order_voucher['voucher_id'] . "'
+					WHERE giftcard_id = '" . (int)$order_giftcard['giftcard_id'] . "'
 				");
             }
         }
@@ -618,7 +618,7 @@ class Order extends Model {
         $this->db->query("DELETE FROM {$this->db->prefix}order_product WHERE order_id = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}order_option WHERE order_id = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}order_download WHERE order_id = '" . (int)$order_id . "'");
-        $this->db->query("DELETE FROM {$this->db->prefix}order_voucher WHERE order_id = '" . (int)$order_id . "'");
+        $this->db->query("DELETE FROM {$this->db->prefix}order_giftcard WHERE order_id = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}order_total WHERE order_id = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}order_history WHERE order_id = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM {$this->db->prefix}order_fraud WHERE order_id = '" . (int)$order_id . "'");
@@ -951,21 +951,21 @@ class Order extends Model {
         return $query->rows;
     }
     
-    public function getOrderVouchers($order_id) {
+    public function getOrderGiftcards($order_id) {
         $query = $this->db->query("
 			SELECT * 
-			FROM {$this->db->prefix}order_voucher 
+			FROM {$this->db->prefix}order_giftcard 
 			WHERE order_id = '" . (int)$order_id . "'
 		");
         
         return $query->rows;
     }
     
-    public function getOrderVoucherByVoucherId($voucher_id) {
+    public function getOrderGiftcardByGiftcardId($giftcard_id) {
         $query = $this->db->query("
 			SELECT * 
-			FROM `{$this->db->prefix}order_voucher` 
-			WHERE voucher_id = '" . (int)$voucher_id . "'
+			FROM `{$this->db->prefix}order_giftcard` 
+			WHERE giftcard_id = '" . (int)$giftcard_id . "'
 		");
         
         return $query->row;
@@ -1136,14 +1136,14 @@ class Order extends Model {
         
         $order_info = $this->getOrder($order_id);
         
-        // Send out any gift voucher mails
+        // Send out any gift giftcard mails
         if ($this->config->get('config_complete_status_id') == $data['order_status_id']) {
-            $this->theme->model('sale/voucher');
+            $this->theme->model('sale/giftcard');
             
-            $results = $this->getOrderVouchers($order_id);
+            $results = $this->getOrderGiftcards($order_id);
             
             foreach ($results as $result) {
-                $this->model_sale_voucher->sendVoucher($result['voucher_id']);
+                $this->model_sale_giftcard->sendGiftcard($result['giftcard_id']);
             }
         }
         

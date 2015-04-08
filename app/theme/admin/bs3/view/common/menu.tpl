@@ -64,10 +64,10 @@
 						<li><a href="<?= $order_recurring; ?>"><?= $lang_text_order_recurring; ?></a></li>
 						<li><a href="<?= $return; ?>"><?= $lang_text_return; ?></a></li>
 						<li><a href="<?= $coupon; ?>"><?= $lang_text_coupon; ?></a></li>
-						<li class="dropdown-submenu"><a class="dropdown-toggle" data-toggle="dropdown"><?= $lang_text_voucher; ?> <b class="fa fa-caret-right"></b></a>
+						<li class="dropdown-submenu"><a class="dropdown-toggle" data-toggle="dropdown"><?= $lang_text_giftcard; ?> <b class="fa fa-caret-right"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="<?= $voucher; ?>"><?= $lang_text_voucher; ?></a></li>
-								<li><a href="<?= $voucher_theme; ?>"><?= $lang_text_voucher_theme; ?></a></li>
+								<li><a href="<?= $giftcard; ?>"><?= $lang_text_giftcard; ?></a></li>
+								<li><a href="<?= $giftcard_theme; ?>"><?= $lang_text_giftcard_theme; ?></a></li>
 							</ul>
 						</li>
 						<?php if ($paypalexpress_status) { ?>

@@ -14,7 +14,7 @@
 <div id="content">
 	<?= $content_top; ?>
 	<h1><?= $heading_title; ?></h1>
-	<?php if ($coupon_status || $voucher_status || $reward_status) { ?>
+	<?php if ($coupon_status || $giftcard_status || $reward_status) { ?>
 		<h2><?= $lang_text_next; ?></h2>
 		<div class="content">
 			<p><?= $lang_text_next_choice; ?></p>
@@ -33,18 +33,18 @@
 						<td><label for="use_coupon"><?= $lang_text_use_coupon; ?></label></td>
 					</tr>
 				<?php } ?>
-				<?php if ($voucher_status) { ?>
+				<?php if ($giftcard_status) { ?>
 					<tr class="highlight">
 						<td>
 							<div class="radio radio-inline">
-							<?php if ($next == 'voucher') { ?>
-								<input type="radio" name="next" value="voucher" id="use_voucher" checked="">
+							<?php if ($next == 'giftcard') { ?>
+								<input type="radio" name="next" value="giftcard" id="use_giftcard" checked="">
 							<?php } else { ?>
-								<input type="radio" name="next" value="voucher" id="use_voucher">
+								<input type="radio" name="next" value="giftcard" id="use_giftcard">
 							<?php } ?>
 							</div>
 						</td>
-						<td><label for="use_voucher"><?= $lang_text_use_voucher; ?></label></td>
+						<td><label for="use_giftcard"><?= $lang_text_use_giftcard; ?></label></td>
 					</tr>
 				<?php } ?>
 				<?php if ($reward_status) { ?>
@@ -73,13 +73,13 @@
 					<input type="submit" value="<?= $lang_button_coupon; ?>" class="btn btn-default">
 				</form>
 			</div>
-			<div id="voucher" class="content" style="display: <?= ($next == 'voucher' ? 'block' : 'none'); ?>;">
+			<div id="giftcard" class="content" style="display: <?= ($next == 'giftcard' ? 'block' : 'none'); ?>;">
 				<form action="<?= $action; ?>" method="post" enctype="multipart/form-data">
-					<?= $lang_entry_voucher; ?>&nbsp;
-					<input type="text" name="voucher" value="<?= $voucher; ?>">
-					<input type="hidden" name="next" value="voucher">
+					<?= $lang_entry_giftcard; ?>&nbsp;
+					<input type="text" name="giftcard" value="<?= $giftcard; ?>">
+					<input type="hidden" name="next" value="giftcard">
 					&nbsp;
-					<input type="submit" value="<?= $lang_button_voucher; ?>" class="btn btn-default">
+					<input type="submit" value="<?= $lang_button_giftcard; ?>" class="btn btn-default">
 				</form>
 			</div>
 			<div id="reward" class="content" style="display: <?= ($next == 'reward' ? 'block' : 'none'); ?>;">
@@ -174,13 +174,13 @@
 				<td class="total"><?= $product['total']; ?></td>
 			</tr>
 			<?php } ?>
-			<?php foreach ($vouchers as $voucher) { ?>
+			<?php foreach ($giftcards as $giftcard) { ?>
 			<tr>
-				<td class="name"><?= $voucher['description']; ?></td>
+				<td class="name"><?= $giftcard['description']; ?></td>
 				<td class="model"></td>
 				<td class="quantity">1</td>
-				<td class="price"><?= $voucher['amount']; ?></td>
-				<td class="total"><?= $voucher['amount']; ?></td>
+				<td class="price"><?= $giftcard['amount']; ?></td>
+				<td class="total"><?= $giftcard['amount']; ?></td>
 			</tr>
 			<?php } ?>
 			</tbody>

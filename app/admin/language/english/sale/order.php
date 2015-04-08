@@ -63,7 +63,7 @@ $_['lang_text_missing']                            = 'Missing Orders';
 $_['lang_text_default']                            = 'Default';
 $_['lang_text_wait']                               = 'Please Wait.';
 $_['lang_text_product']                            = 'Add Product(s)';
-$_['lang_text_voucher']                            = 'Add Voucher(s)';
+$_['lang_text_giftcard']                           = 'Add Gift Card(s)';
 $_['lang_text_order']                              = 'Order Details';
 $_['lang_text_generate']                           = 'Generate';
 $_['lang_text_reward_add']                         = 'Add Reward Points';
@@ -184,7 +184,7 @@ $_['lang_entry_comment']                           = 'Comment:';
 $_['lang_entry_shipping']                          = 'Shipping Method:';
 $_['lang_entry_payment']                           = 'Payment Method:';
 $_['lang_entry_coupon']                            = 'Coupon:';
-$_['lang_entry_voucher']                           = 'Voucher:';
+$_['lang_entry_giftcard']                          = 'Gift Card:';
 $_['lang_entry_reward']                            = 'Reward:';
 
 // Error

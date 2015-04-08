@@ -18,28 +18,37 @@
 namespace Front\Controller\Account;
 use Oculus\Engine\Controller;
 
-class Voucher extends Controller {
+class Giftcard extends Controller {
     private $error = array();
     
     public function index() {
-        $data = $this->theme->language('account/voucher');
+        $data = $this->theme->language('account/giftcard');
         
         $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        if (!isset($this->session->data['vouchers'])) {
-            $this->session->data['vouchers'] = array();
+        if (!isset($this->session->data['giftcards'])) {
+            $this->session->data['giftcards'] = array();
         }
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->session->data['vouchers'][mt_rand() ] = array('description' => sprintf($this->language->get('lang_text_for'), $this->currency->format($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency'))), $this->request->post['to_name']), 'to_name' => $this->request->post['to_name'], 'to_email' => $this->request->post['to_email'], 'from_name' => $this->request->post['from_name'], 'from_email' => $this->request->post['from_email'], 'voucher_theme_id' => $this->request->post['voucher_theme_id'], 'message' => $this->request->post['message'], 'amount' => $this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')));
+            $this->session->data['giftcards'][mt_rand()] = array(
+                'description'       => sprintf($this->language->get('lang_text_for'), $this->currency->format($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency'))), $this->request->post['to_name']), 
+                'to_name'           => $this->request->post['to_name'], 
+                'to_email'          => $this->request->post['to_email'], 
+                'from_name'         => $this->request->post['from_name'], 
+                'from_email'        => $this->request->post['from_email'], 
+                'giftcard_theme_id' => $this->request->post['giftcard_theme_id'], 
+                'message'           => $this->request->post['message'], 
+                'amount'            => $this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency'))
+            );
             
-            $this->response->redirect($this->url->link('account/voucher/success'));
+            $this->response->redirect($this->url->link('account/giftcard/success'));
         }
         
         $this->breadcrumb->add('lang_text_account', 'account/dashboard', null, true, 'SSL');
-        $this->breadcrumb->add('lang_text_voucher', 'account/voucher', null, true, 'SSL');
+        $this->breadcrumb->add('lang_text_giftcard', 'account/giftcard', null, true, 'SSL');
         
-        $data['entry_amount'] = sprintf($this->language->get('lang_entry_amount'), $this->currency->format($this->config->get('config_voucher_min')), $this->currency->format($this->config->get('config_voucher_max')));
+        $data['entry_amount'] = sprintf($this->language->get('lang_entry_amount'), $this->currency->format($this->config->get('config_giftcard_min')), $this->currency->format($this->config->get('config_giftcard_max')));
         
         $data['button_continue'] = $this->language->get('lang_button_continue');
         
@@ -85,7 +94,7 @@ class Voucher extends Controller {
             $data['error_amount'] = '';
         }
         
-        $data['action'] = $this->url->link('account/voucher', '', 'SSL');
+        $data['action'] = $this->url->link('account/giftcard', '', 'SSL');
         
         if (isset($this->request->post['to_name'])) {
             $data['to_name'] = $this->request->post['to_name'];
@@ -115,14 +124,14 @@ class Voucher extends Controller {
             $data['from_email'] = '';
         }
         
-        $this->theme->model('checkout/voucher_theme');
+        $this->theme->model('checkout/giftcard_theme');
         
-        $data['voucher_themes'] = $this->model_checkout_voucher_theme->getVoucherThemes();
+        $data['giftcard_themes'] = $this->model_checkout_giftcard_theme->getGiftcardThemes();
         
-        if (isset($this->request->post['voucher_theme_id'])) {
-            $data['voucher_theme_id'] = $this->request->post['voucher_theme_id'];
+        if (isset($this->request->post['giftcard_theme_id'])) {
+            $data['giftcard_theme_id'] = $this->request->post['giftcard_theme_id'];
         } else {
-            $data['voucher_theme_id'] = '';
+            $data['giftcard_theme_id'] = '';
         }
         
         if (isset($this->request->post['message'])) {
@@ -150,17 +159,18 @@ class Voucher extends Controller {
         
         $data = $this->theme->render_controllers($data);
         
-        $this->response->setOutput($this->theme->view('account/voucher', $data));
+        $this->response->setOutput($this->theme->view('account/giftcard', $data));
     }
     
     public function success() {
-        $data = $this->theme->language('account/voucher');
+        $data = $this->theme->language('account/giftcard');
         
         $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        $this->breadcrumb->add('lang_heading_title', 'account/voucher', null, true, 'SSL');
+        $this->breadcrumb->add('lang_heading_title', 'account/giftcard', null, true, 'SSL');
         
         $data['continue'] = $this->url->link('checkout/cart');
+        $data['text_message'] = $this->language->get('lang_text_message');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -189,12 +199,12 @@ class Voucher extends Controller {
             $this->error['from_email'] = $this->language->get('lang_error_email');
         }
         
-        if (!isset($this->request->post['voucher_theme_id'])) {
+        if (!isset($this->request->post['giftcard_theme_id'])) {
             $this->error['theme'] = $this->language->get('lang_error_theme');
         }
         
-        if (($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')) < $this->config->get('config_voucher_min')) || ($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')) > $this->config->get('config_voucher_max'))) {
-            $this->error['amount'] = sprintf($this->language->get('lang_error_amount'), $this->currency->format($this->config->get('config_voucher_min')), $this->currency->format($this->config->get('config_voucher_max')) . ' ' . $this->currency->getCode());
+        if (($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')) < $this->config->get('config_giftcard_min')) || ($this->currency->convert($this->request->post['amount'], $this->currency->getCode(), $this->config->get('config_currency')) > $this->config->get('config_giftcard_max'))) {
+            $this->error['amount'] = sprintf($this->language->get('lang_error_amount'), $this->currency->format($this->config->get('config_giftcard_min')), $this->currency->format($this->config->get('config_giftcard_max')) . ' ' . $this->currency->getCode());
         }
         
         if (!isset($this->request->post['agree'])) {

@@ -29,7 +29,6 @@
 						<th class="text-right hidden-xs"><a href="<?= $sort_order_id; ?>"><?= $lang_column_order_id; echo ($sort == 'r.order_id') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
 						<th><a href="<?= $sort_customer; ?>"><?= $lang_column_customer; echo ($sort == 'customer') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
 						<th class="col-sm-2 hidden-xs"><a href="<?= $sort_product; ?>"><?= $lang_column_product; echo ($sort == 'r.product') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
-						<th class="hidden-xs"><a href="<?= $sort_model; ?>"><?= $lang_column_model; echo ($sort == 'r.model') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
 						<th><a href="<?= $sort_status; ?>"><?= $lang_column_status; echo ($sort == 'status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
 						<th class="hidden-xs"><a href="<?= $sort_date_added; ?>"><?= $lang_column_date_added; echo ($sort == 'r.date_added') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
 						<th class="hidden-xs"><a href="<?= $sort_date_modified; ?>"><?= $lang_column_date_modified; echo ($sort == 'r.date_modified') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
@@ -43,7 +42,6 @@
 						<td class="text-right hidden-xs"><input type="text" name="filter_order_id" value="<?= $filter_order_id; ?>" class="form-control text-right"></td>
 						<td><input type="text" name="filter_customer" value="<?= $filter_customer; ?>" class="form-control" data-target="name" data-url="people/customer" class="form-control"></td>
 						<td class="hidden-xs"><input type="text" name="filter_product" value="<?= $filter_product; ?>" class="form-control" data-target="name" data-url="catalog/product" class="form-control"></td>
-						<td class="hidden-xs"><input type="text" name="filter_model" value="<?= $filter_model; ?>" class="form-control" data-target="model" data-url="catalog/product" class="form-control"></td>
 						<td><select name="filter_return_status_id" class="form-control">
 							<option value="*">&ndash;</option>
 							<?php foreach ($return_statuses as $return_status) { ?>
@@ -76,7 +74,6 @@
 						<td class="text-right hidden-xs"><?= $return['order_id']; ?></td>
 						<td><?= $return['customer']; ?></td>
 						<td class="hidden-xs"><?= $return['product']; ?></td>
-						<td class="hidden-xs"><?= $return['model']; ?></td>
 						<td class="text-<?= strtolower($return['status']); ?>"><?= $return['status']; ?></td>
 						<td class="hidden-xs"><?= $return['date_added']; ?></td>
 						<td class="hidden-xs"><?= $return['date_modified']; ?></td>
@@ -89,7 +86,7 @@
 					<?php } ?>
 					<?php } else { ?>
 					<tr>
-						<td class="text-center" colspan="10"><?= $lang_text_no_results; ?></td>
+						<td class="text-center" colspan="9"><?= $lang_text_no_results; ?></td>
 					</tr>
 					<?php } ?>
 				</tbody>

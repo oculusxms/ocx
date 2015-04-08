@@ -16,9 +16,6 @@
 
 namespace Front\Controller\Content;
 use Oculus\Engine\Controller;
-use Oculus\Library\Mail;
-use Oculus\Library\Template;
-use Front\Controller\Tool\Captcha;
 
 class Contact extends Controller {
     private $error = array();
@@ -28,185 +25,130 @@ class Contact extends Controller {
         
         $this->theme->setTitle($this->language->get('lang_heading_title'));
         
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            unset($this->session->data['captcha']);
-            
-            $this->theme->language('mail/contact');
+        $this->javascript->register('validation/validate.min', 'migrate.min')
+            ->register('validation/validate.bootstrap.min', 'validate.min');
 
-            // NEW MAILER
-            // public_contact_admin
-            // public_contact_customer
-
-
-
-
-            // $message  = $this->language->get('lang_text_admin_message') . "\n\n";
-            // $message .= $this->language->get('lang_text_name') . ' ' . $this->request->post['name'] . "\n";
-            // $message .= $this->language->get('lang_text_email') . ' ' . $this->request->post['email'] . "\n";
-            // $message .= $this->language->get('lang_text_enquiry') . "\n\n";
-            // $message .= strip_tags(html_entity_decode($this->request->post['enquiry'], ENT_QUOTES, 'UTF-8')) . "\n\n";
-
-            // $text = sprintf($this->language->get('lang_email_template'), $message);
-
-            // $subject = html_entity_decode(sprintf($this->language->get('lang_email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8');
-
-            // $template = new Template($this->app);
-            // $template->data = $this->theme->language('mail/contact', $data);
-            // $template->data['title'] = $this->language->get('lang_heading_title');
-            // $template->data['name'] = $this->request->post['name'];
-            // $template->data['email'] = $this->request->post['email'];
-            // $template->data['enquiry'] = html_entity_decode(str_replace("\n", "<br />", $this->request->post['enquiry']), ENT_QUOTES, 'UTF-8');
-            
-            // $html = $template->fetch('mail/contact_admin');
-            
-            // $this->mailer->build(
-            //     $subject,
-            //     $this->config->get('config_email'),
-            //     $this->config->get('config_owner'),
-            //     $text,
-            //     $html
-            // );
-
-            // $this->mailer->setFrom($this->config->get('config_email'), $this->language->get('lang_email_title_server'));
-            // $this->mailer->send();
-            
-            // unset($message);
-            // unset($text);
-            // unset($html);
-
-            // $message  = $this->language->get('lang_entry_enquiry_customer') . "\n\n";
-            // $message .= $this->language->get('lang_text_name') . ' ' . $this->request->post['name'] . "\n";
-            // $message .= $this->language->get('lang_text_email') . ' ' . $this->request->post['email'] . "\n";
-            // $message .= $this->language->get('lang_text_enquiry') . "\n\n";
-            // $message .= strip_tags(html_entity_decode($this->request->post['enquiry'], ENT_QUOTES, 'UTF-8')) . "\n\n";
-            // $message .= $this->language->get('lang_entry_footer') . "\n\n";
-
-            // $text = sprintf($this->language->get('lang_email_template'), $message);
-            
-            // $html = $template->fetch('mail/contact');
-
-            // $this->mailer->build(
-            //     $subject,
-            //     $this->request->post['email'],
-            //     $this->request->post['name'],
-            //     $text,
-            //     $html,
-            //     true
-            // );
-            
-            $this->response->redirect($this->url->link('content/contact/success'));
-        }
-        
         $this->breadcrumb->add('lang_heading_title', 'content/contact');
         
-        if (isset($this->error['name'])) {
-            $data['error_name'] = $this->error['name'];
-        } else {
-            $data['error_name'] = '';
-        }
-        
-        if (isset($this->error['email'])) {
-            $data['error_email'] = $this->error['email'];
-        } else {
-            $data['error_email'] = '';
-        }
-        
-        if (isset($this->error['enquiry'])) {
-            $data['error_enquiry'] = $this->error['enquiry'];
-        } else {
-            $data['error_enquiry'] = '';
-        }
-        
-        if (isset($this->error['captcha'])) {
-            $data['error_captcha'] = $this->error['captcha'];
-        } else {
-            $data['error_captcha'] = '';
-        }
-        
-        $data['action'] = $this->url->link('content/contact');
-        $data['store'] = $this->config->get('config_name');
-        $data['address'] = nl2br($this->config->get('config_address'));
+        $data['action']    = $this->url->link('content/contact');
+        $data['store']     = $this->config->get('config_name');
+        $data['address']   = nl2br($this->config->get('config_address'));
         $data['telephone'] = $this->config->get('config_telephone');
         
-        if (isset($this->request->post['name'])) {
-            $data['name'] = $this->request->post['name'];
-        } else {
+        if ($this->customer->isLogged()):
             $data['name'] = $this->customer->getFirstName() . ' ' . $this->customer->getLastName();
-        }
+        else:
+            $data['name'] = '';
+        endif;
         
-        if (isset($this->request->post['email'])) {
-            $data['email'] = $this->request->post['email'];
-        } else {
+       
+        if ($this->customer->isLogged()):
             $data['email'] = $this->customer->getEmail();
-        }
+        else:
+            $data['email'] = '';
+        endif;
         
-        if (isset($this->request->post['enquiry'])) {
-            $data['enquiry'] = $this->request->post['enquiry'];
-        } else {
-            $data['enquiry'] = '';
-        }
-        
-        if (isset($this->request->post['captcha'])) {
-            $data['captcha'] = $this->request->post['captcha'];
-        } else {
-            $data['captcha'] = '';
-        }
+        $data['enquiry'] = '';
+        $data['captcha'] = '';
+       
+        $this->theme->loadjs('javascript/content/contact', $data);
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
-        
         $data = $this->theme->render_controllers($data);
         
         $this->response->setOutput($this->theme->view('content/contact', $data));
     }
     
-    public function success() {
+    public function send() {
         $data = $this->theme->language('content/contact');
         
-        $this->theme->setTitle($this->language->get('lang_heading_title'));
+        $json = array();
+
+        if ($this->request->server['REQUEST_METHOD'] == 'POST'):
+            unset($this->session->data['captcha']);
+            $json['success'] = $this->language->get('lang_text_message');
+
+            $callback = array(
+                'user_id'  => $this->config->get('config_admin_email_user'),
+                'post'     => $this->request->post,
+                'callback' => array(
+                    'class'  => __CLASS__,
+                    'method' => 'public_contact_admin'
+                )
+            );
+
+            $this->theme->notify('public_contact_admin', $callback);
+
+            unset($callback);
+
+            /**
+             * Build our customer contact notification
+             */
+            
+            $split    = explode(' ', $this->request->post['name']);
+            $callback = array(
+                'firstname' => $split[0],
+                'lastname'  => isset($split[1]) ? $split[1] : '',
+                'email'     => $this->request->post['email']
+            );
+
+            $this->notify->setGenericCustomer($callback);
+
+            $message  = $this->notify->fetch('public_contact_customer');
+            $priority = $message['priority'];
+
+            $this->notify->fetchWrapper($priority);
+
+            $message = $this->notify->formatEmail($message, 1);
+
+            if ($priority == 1):
+                $this->notify->send($message);
+            else:
+                $this->notify->addToEmailQueue($message);
+            endif;
+
+        else:
+            $json['error'] = $this->error['captcha'];
+        endif;
         
-        $this->breadcrumb->add('lang_heading_title', 'content/contact');
+        $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
         
-        $data['continue'] = $this->url->link('shop/home');
-        
-        $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
-        
-        $this->theme->set_controller('header', 'shop/header');
-        $this->theme->set_controller('footer', 'shop/footer');
-        
-        $data = $this->theme->render_controllers($data);
-        
-        $this->response->setOutput($this->theme->view('common/success', $data));
-    }
-    
-    protected function validate() {
-        if (($this->encode->strlen($this->request->post['name']) < 3) || ($this->encode->strlen($this->request->post['name']) > 32)) {
-            $this->error['name'] = $this->language->get('lang_error_name');
-        }
-        
-        if (!preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
-            $this->error['email'] = $this->language->get('lang_error_email');
-        }
-        
-        if (($this->encode->strlen($this->request->post['enquiry']) < 10) || ($this->encode->strlen($this->request->post['enquiry']) > 3000)) {
-            $this->error['enquiry'] = $this->language->get('lang_error_enquiry');
-        }
-        
-        if (empty($this->session->data['captcha']) || ($this->session->data['captcha'] != $this->request->post['captcha'])) {
-            $this->error['captcha'] = $this->language->get('lang_error_captcha');
-        }
-        
-        $this->theme->listen(__CLASS__, __FUNCTION__);
-        
-        return !$this->error;
+        $this->response->setOutput(json_encode($json));
     }
     
     public function captcha() {
-        $captcha = new Captcha();
-        
-        $this->session->data['captcha'] = $captcha->getCode();
-        
-        $this->theme->listen(__CLASS__, __FUNCTION__);
-        
-        $captcha->showImage();
+        echo $this->session->data['captcha'];
+    }
+
+    public function public_contact_admin($data, $message) {
+        $call = $data['post'];
+
+        $search = array(
+            '!name!',
+            '!email!',
+            '!inquiry!'
+        );
+
+        $replace = array(
+            $call['name'],
+            $call['email'],
+            $call['enquiry']
+        );
+
+        $html_replace = array(
+            $call['name'],
+            $call['email'],
+            nl2br($call['enquiry'])
+        );
+
+        foreach ($message as $key => $value):
+            if ($key == 'html'):
+                $message['html'] = str_replace($search, $html_replace, $message['html']);
+            else:
+                $message[$key] = str_replace($search, $replace, $message[$key]);
+            endif;
+        endforeach;
+
+        return $message;
     }
 }

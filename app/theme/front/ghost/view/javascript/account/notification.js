@@ -30,8 +30,11 @@ $('#inbox').load('account/notification/inbox');
 
 $(document).on('click', '#inbox .pagination a', function(e) {
 	e.preventDefault();
+	
+	$href = this.href;
+
 	$('#inbox').fadeOut('slow', function() {
-		$('#inbox').load(this.href);
+		$('#inbox').load($href);
 		$('#inbox').fadeIn('slow');
 	});
 });

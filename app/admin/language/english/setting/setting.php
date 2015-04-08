@@ -22,7 +22,7 @@ $_['lang_text_success']                 = 'Success: You have modified settings.'
 $_['lang_text_flush_success']           = 'The cache has been flushed successfully.';
 $_['lang_text_items']                   = 'Items';
 $_['lang_text_product']                 = 'Products';
-$_['lang_text_voucher']                 = 'Vouchers';
+$_['lang_text_giftcard']                = 'Gift Cards';
 $_['lang_text_tax']                     = 'Taxes';
 $_['lang_text_account']                 = 'Account';
 $_['lang_text_checkout']                = 'Checkout';
@@ -70,8 +70,8 @@ $_['lang_entry_admin_limit']            = 'Default Items Per Page (Admin):<br />
 $_['lang_entry_product_count']          = 'Category Product Count:<br /><span class="help">Show the number of products within the subcategories in the store front header category menu. Be very, very aware that this will cause an extreme performance hit for stores with a lot of subcategories.</span>';
 $_['lang_entry_review']                 = 'Allow Reviews:<br /><span class="help">Enable/disable new review entry and display of existing reviews</span>';
 $_['lang_entry_download']               = 'Allow Downloads:';
-$_['lang_entry_voucher_min']            = 'Voucher Min:<br /><span class="help">Minimum amount for which a customer can purchase a voucher.</span>';
-$_['lang_entry_voucher_max']            = 'Voucher Max:<br /><span class="help">Maximum amount for which a customer can purchase a voucher.</span>';
+$_['lang_entry_giftcard_min']           = 'Gift Card Min:<br /><span class="help">Minimum amount for which a customer can purchase a gift card.</span>';
+$_['lang_entry_giftcard_max']           = 'Gift Card Max:<br /><span class="help">Maximum amount for which a customer can purchase a gift card.</span>';
 $_['lang_entry_tax']                    = 'Display Prices with Tax:';
 $_['lang_entry_vat']                    = 'VAT Number Validate:<br /><span class="help">Validate VAT number with http://ec.europa.eu service.</span>';
 $_['lang_entry_tax_default']            = 'Use Store Tax Address:<br /><span class="help">Use the store address to calculate taxes if no one is logged in. You can choose to use the store address for the customers shipping or payment address.</span>';
@@ -87,7 +87,7 @@ $_['lang_entry_checkout']               = 'Checkout Terms:<br /><span class="hel
 $_['lang_entry_order_edit']             = 'Order Editing:<br /><span class="help">Number of days allowed to edit an order. This is required because prices and discounts may change over time corrupting the order if it\'s edited.</span>';
 $_['lang_entry_invoice_prefix']         = 'Invoice Prefix:<br /><span class="help">Set the invoice prefix (e.g. INV-2011-00). Invoice IDs will start at 1 for each unique prefix</span>';
 $_['lang_entry_order_status']           = 'Order Status:<br /><span class="help">Set the default order status when an order is processed.</span>';
-$_['lang_entry_complete_status']        = 'Complete Order Status:<br /><span class="help">Set the status the customer\'s order must reach prior to being allowed access to their downloadable products and gift vouchers.</span>';
+$_['lang_entry_complete_status']        = 'Complete Order Status:<br /><span class="help">Set the status the customer\'s order must reach prior to being allowed access to their downloadable products and gift giftcards.</span>';
 $_['lang_entry_stock_display']          = 'Display Stock:<br /><span class="help">Display stock quantity on the product page.</span>';
 $_['lang_entry_stock_warning']          = 'Show Out Of Stock Warning:<br /><span class="help">Display out of stock message on the shopping cart page if a product is out of stock but stock checkout is yes. (Warning always shows if stock checkout is no)</span>';
 $_['lang_entry_stock_checkout']         = 'Stock Checkout:<br /><span class="help">Allow customers to continue with checkout if the products they are ordering are not in stock.</span>';
@@ -172,8 +172,8 @@ $_['lang_error_telephone']              = 'Telephone must be between 3 and 32 ch
 $_['lang_error_title']                  = 'Title must be between 3 and 32 characters.';
 $_['lang_error_limit']                  = 'Limit required.';
 $_['lang_error_customer_group_display'] = 'You must include the default customer group in order to use this feature.';
-$_['lang_error_voucher_min']            = 'Minimum voucher amount required.';
-$_['lang_error_voucher_max']            = 'Maximum voucher amount required.';
+$_['lang_error_giftcard_min']           = 'Minimum gift card amount required.';
+$_['lang_error_giftcard_max']           = 'Maximum gift card amount required.';
 $_['lang_error_image_thumb']            = 'Product image thumb size dimensions required.';
 $_['lang_error_image_popup']            = 'Product image pop-up size dimensions required.';
 $_['lang_error_image_product']          = 'Product list size dimensions required.';
@@ -196,8 +196,8 @@ $_['lang_error_assign_to']              = 'If you\'re not deleting posts, you mu
 $_['lang_error_member_image_dir']       = 'Please set the Upload Image Directory for member uploaded pictures.';
 $_['lang_error_affiliate_terms']        = 'If allowing affiliates, Terms must be selected.';
 $_['lang_error_affiliate_commission']   = 'If allowing affiliates, a Commission percentage must be set.';
-$_['lang_error_text_signature'] = 'Text signature is required.';
-$_['lang_error_html_signature'] = 'HTML signature is required.';
+$_['lang_error_text_signature']         = 'Text signature is required.';
+$_['lang_error_html_signature']         = 'HTML signature is required.';
 
 
 

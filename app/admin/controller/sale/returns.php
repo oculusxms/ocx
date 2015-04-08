@@ -434,13 +434,13 @@ class Returns extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $data['sort_return_id'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=r.return_id' . $url, 'SSL');
-        $data['sort_order_id'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=r.order_id' . $url, 'SSL');
-        $data['sort_customer'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=customer' . $url, 'SSL');
-        $data['sort_product'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=product' . $url, 'SSL');
-        $data['sort_model'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=model' . $url, 'SSL');
-        $data['sort_status'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=status' . $url, 'SSL');
-        $data['sort_date_added'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=r.date_added' . $url, 'SSL');
+        $data['sort_return_id']     = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=r.return_id' . $url, 'SSL');
+        $data['sort_order_id']      = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=r.order_id' . $url, 'SSL');
+        $data['sort_customer']      = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=customer' . $url, 'SSL');
+        $data['sort_product']       = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=product' . $url, 'SSL');
+        $data['sort_model']         = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=model' . $url, 'SSL');
+        $data['sort_status']        = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=status' . $url, 'SSL');
+        $data['sort_date_added']    = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=r.date_added' . $url, 'SSL');
         $data['sort_date_modified'] = $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . '&sort=r.date_modified' . $url, 'SSL');
         
         $url = '';
@@ -487,14 +487,14 @@ class Returns extends Controller {
         
         $data['pagination'] = $this->theme->paginate($return_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('sale/returns', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
         
-        $data['filter_return_id'] = $filter_return_id;
-        $data['filter_order_id'] = $filter_order_id;
-        $data['filter_customer'] = $filter_customer;
-        $data['filter_product'] = $filter_product;
-        $data['filter_model'] = $filter_model;
+        $data['filter_return_id']        = $filter_return_id;
+        $data['filter_order_id']         = $filter_order_id;
+        $data['filter_customer']         = $filter_customer;
+        $data['filter_product']          = $filter_product;
+        $data['filter_model']            = $filter_model;
         $data['filter_return_status_id'] = $filter_return_status_id;
-        $data['filter_date_added'] = $filter_date_added;
-        $data['filter_date_modified'] = $filter_date_modified;
+        $data['filter_date_added']       = $filter_date_added;
+        $data['filter_date_modified']    = $filter_date_modified;
         
         $this->theme->model('localization/returnstatus');
         

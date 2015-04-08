@@ -421,7 +421,8 @@ class Returns extends Controller {
         
         $this->breadcrumb->add('lang_heading_title', 'account/returns', null, true, 'SSL');
         
-        $data['continue'] = $this->url->link('shop/home');
+        $data['continue']     = $this->url->link('shop/home');
+        $data['text_message'] = $this->language->get('lang_text_message');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

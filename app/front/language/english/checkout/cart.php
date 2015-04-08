@@ -21,7 +21,7 @@ $_['lang_heading_title']                           = 'Shopping Cart';
 $_['lang_text_success']                            = 'Success: You have added <a href="%s">%s</a> to your <a href="%s">shopping cart</a>.';
 $_['lang_text_remove']                             = 'Success: You have modified your shopping cart.';
 $_['lang_text_coupon']                             = 'Success: Your coupon discount has been applied.';
-$_['lang_text_voucher']                            = 'Success: Your gift voucher discount has been applied.';
+$_['lang_text_giftcard']                           = 'Success: Your gift card discount has been applied.';
 $_['lang_text_reward']                             = 'Success: Your reward points discount has been applied.';
 $_['lang_text_shipping']                           = 'Success: Your shipping estimate has been applied.';
 $_['lang_text_login']                              = 'Attention: You must <a href="%s">login</a> or <a href="%s">create an account</a> to view prices.';
@@ -30,7 +30,7 @@ $_['lang_text_items']                              = '%s item(s) - %s';
 $_['lang_text_next']                               = 'What would you like to do next?';
 $_['lang_text_next_choice']                        = 'Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.';
 $_['lang_text_use_coupon']                         = 'Use Coupon Code';
-$_['lang_text_use_voucher']                        = 'Use Gift Voucher';
+$_['lang_text_use_giftcard']                       = 'Use Gift Card';
 $_['lang_text_use_reward']                         = 'Use Reward Points (Available %s)';
 $_['lang_text_shipping_estimate']                  = 'Estimate Shipping &amp; Taxes';
 $_['lang_text_shipping_detail']                    = 'Enter your destination to get a shipping estimate.';
@@ -58,7 +58,7 @@ $_['lang_column_total']                            = 'Total';
 
 // Entry
 $_['lang_entry_coupon']                            = 'Enter your coupon here';
-$_['lang_entry_voucher']                           = 'Enter your gift voucher code here';
+$_['lang_entry_giftcard']                          = 'Enter your gift card code here';
 $_['lang_entry_reward']                            = 'Points to use (Max %s)';
 $_['lang_entry_country']                           = 'Country';
 $_['lang_entry_zone']                              = 'Region / State';
@@ -70,7 +70,7 @@ $_['lang_error_minimum']                           = 'Minimum order amount for %
 $_['lang_error_required']                          = '%s required.';
 $_['lang_error_product']                           = 'Warning: There are no products in your cart.';
 $_['lang_error_coupon']                            = 'Warning: Coupon is either invalid, expired or reached it\'s usage limit.';
-$_['lang_error_voucher']                           = 'Warning: Gift Voucher is either invalid or the balance has been used up.';
+$_['lang_error_giftcard']                          = 'Warning: Gift Card is either invalid or the balance has been used up.';
 $_['lang_error_reward']                            = 'Warning: Please enter the amount of reward points to use.';
 $_['lang_error_points']                            = 'Warning: You don\'t have %s reward points.';
 $_['lang_error_maximum']                           = 'Warning: The maximum number of points that can be applied is %s.';

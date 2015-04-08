@@ -210,15 +210,15 @@ class Paypalexpress extends Model {
             $i++;
         }
         
-        if (!empty($this->session->data['vouchers'])) {
-            foreach ($this->session->data['vouchers'] as $voucher) {
-                $item_total+= $this->currency->format($voucher['amount'], false, false, false);;
+        if (!empty($this->session->data['giftcards'])) {
+            foreach ($this->session->data['giftcards'] as $giftcard) {
+                $item_total+= $this->currency->format($giftcard['amount'], false, false, false);;
                 
                 $data['L_PAYMENTREQUEST_0_DESC' . $i] = '';
-                $data['L_PAYMENTREQUEST_0_NAME' . $i] = $voucher['description'];
-                $data['L_PAYMENTREQUEST_0_NUMBER' . $i] = 'VOUCHER';
+                $data['L_PAYMENTREQUEST_0_NAME' . $i] = $giftcard['description'];
+                $data['L_PAYMENTREQUEST_0_NUMBER' . $i] = 'GIFTCARD';
                 $data['L_PAYMENTREQUEST_0_QTY' . $i] = 1;
-                $data['L_PAYMENTREQUEST_0_AMT' . $i] = $this->currency->format($voucher['amount'], false, false, false);
+                $data['L_PAYMENTREQUEST_0_AMT' . $i] = $this->currency->format($giftcard['amount'], false, false, false);
                 $i++;
             }
         }

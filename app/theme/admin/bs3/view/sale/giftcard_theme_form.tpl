@@ -27,7 +27,7 @@
 				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_name; ?></label>
 				<div class="control-field col-sm-4">
 					<?php foreach ($languages as $language) { ?>
-						<div class="input-group"><input type="text" name="voucher_theme_description[<?= $language['language_id']; ?>][name]" value="<?= isset($voucher_theme_description[$language['language_id']]) ? $voucher_theme_description[$language['language_id']]['name'] :''; ?>" class="form-control">
+						<div class="input-group"><input type="text" name="giftcard_theme_description[<?= $language['language_id']; ?>][name]" value="<?= isset($giftcard_theme_description[$language['language_id']]) ? $giftcard_theme_description[$language['language_id']]['name'] :''; ?>" class="form-control">
 						<span class="input-group-addon"><i class="lang-<?= str_replace('.png','', $language['image']); ?>" title="<?= $language['name']; ?>"></i></span>
 						<?php if (isset($error_name[$language['language_id']])) { ?>
 						<div class="help-block error"><?= $error_name[$language['language_id']]; ?></div>

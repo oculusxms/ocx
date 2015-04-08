@@ -133,7 +133,7 @@ class Notification extends Controller {
             $page, 
             10, 
             $this->language->get('lang_text_pagination'), 
-            $this->url->link('account/notification/inbox', 'page={page}')
+            $this->url->link('account/notification/inbox', 'page={page}', 'SSL')
         );
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);

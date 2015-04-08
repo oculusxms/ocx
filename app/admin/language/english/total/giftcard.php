@@ -15,15 +15,15 @@
 */
 
 // Heading
-$_['lang_heading_title']    = 'Gift Voucher';
+$_['lang_heading_title']    = 'Gift Card';
 
 // Text
 $_['lang_text_total']       = 'Order Totals';
-$_['lang_text_success']     = 'Success: You have modified gift voucher total.';
+$_['lang_text_success']     = 'Success: You have modified gift card total.';
 
 // Entry
 $_['lang_entry_status']     = 'Status:';
 $_['lang_entry_sort_order'] = 'Sort Order:';
 
 // Error
-$_['lang_error_permission'] = 'Warning: You do not have permission to modify gift voucher total.';
+$_['lang_error_permission'] = 'Warning: You do not have permission to modify gift card total.';

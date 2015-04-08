@@ -38,7 +38,7 @@ class Paypalexpress extends Controller {
     }
     
     public function express() {
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+        if ((!$this->cart->hasProducts() && empty($this->session->data['giftcards'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
             $this->log->write('No product redirect');
             $this->response->redirect($this->url->link('checkout/cart'));
         }
@@ -410,10 +410,10 @@ class Paypalexpress extends Controller {
             $this->response->redirect($this->url->link('payment/paypalexpress/expressConfirm', '', 'SSL'));
         }
         
-        // Voucher
-        if (isset($this->request->post['voucher']) && $this->validateVoucher()) {
-            $this->session->data['voucher'] = $this->request->post['voucher'];
-            $this->session->data['success'] = $this->language->get('lang_text_voucher');
+        // Gift card
+        if (isset($this->request->post['giftcard']) && $this->validateGiftcard()) {
+            $this->session->data['giftcard'] = $this->request->post['giftcard'];
+            $this->session->data['success'] = $this->language->get('lang_text_giftcard');
             $this->response->redirect($this->url->link('payment/paypalexpress/expressConfirm', '', 'SSL'));
         }
         
@@ -546,7 +546,7 @@ class Paypalexpress extends Controller {
             );
         }
         
-        $data['vouchers'] = array();
+        $data['giftcards'] = array();
         
         if ($this->cart->hasShipping()) {
             
@@ -788,7 +788,7 @@ class Paypalexpress extends Controller {
         }
         
         // Validate cart has products and has stock.
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+        if ((!$this->cart->hasProducts() && empty($this->session->data['giftcards'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
             $redirect = $this->url->link('checkout/cart');
         }
         
@@ -989,30 +989,30 @@ class Paypalexpress extends Controller {
                 );
             }
             
-            // Gift Voucher
-            $voucher_data = array();
+            // Gift Giftcard
+            $giftcard_data = array();
             
-            if (!empty($this->session->data['vouchers'])) {
-                foreach ($this->session->data['vouchers'] as $voucher) {
-                    $voucher_data[] = array(
-                        'description'      => $voucher['description'], 
-                        'code'             => substr(md5(mt_rand()), 0, 10), 
-                        'to_name'          => $voucher['to_name'], 
-                        'to_email'         => $voucher['to_email'], 
-                        'from_name'        => $voucher['from_name'], 
-                        'from_email'       => $voucher['from_email'], 
-                        'voucher_theme_id' => $voucher['voucher_theme_id'], 
-                        'message'          => $voucher['message'], 
-                        'amount'           => $voucher['amount']
+            if (!empty($this->session->data['giftcards'])) {
+                foreach ($this->session->data['giftcards'] as $giftcard) {
+                    $giftcard_data[] = array(
+                        'description'       => $giftcard['description'], 
+                        'code'              => substr(md5(mt_rand()), 0, 10), 
+                        'to_name'           => $giftcard['to_name'], 
+                        'to_email'          => $giftcard['to_email'], 
+                        'from_name'         => $giftcard['from_name'], 
+                        'from_email'        => $giftcard['from_email'], 
+                        'giftcard_theme_id' => $giftcard['giftcard_theme_id'], 
+                        'message'           => $giftcard['message'], 
+                        'amount'            => $giftcard['amount']
                     );
                 }
             }
             
-            $data['products'] = $product_data;
-            $data['vouchers'] = $voucher_data;
-            $data['totals']   = $total_data;
-            $data['comment']  = $this->session->data['comment'];
-            $data['total']    = $total;
+            $data['products']  = $product_data;
+            $data['giftcards'] = $giftcard_data;
+            $data['totals']    = $total_data;
+            $data['comment']   = $this->session->data['comment'];
+            $data['total']     = $total;
 
             $subtotal = $this->cart->getSubTotal();
             
@@ -1284,7 +1284,7 @@ class Paypalexpress extends Controller {
     }
     
     public function checkout() {
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+        if ((!$this->cart->hasProducts() && empty($this->session->data['giftcards'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
             $this->response->redirect($this->url->link('checkout/cart'));
         }
         
@@ -1915,21 +1915,21 @@ class Paypalexpress extends Controller {
         }
     }
     
-    protected function validateVoucher() {
-        $this->theme->model('checkout/voucher');
+    protected function validateGiftcard() {
+        $this->theme->model('checkout/giftcard');
         
-        $voucher_info = $this->model_checkout_voucher->getVoucher($this->request->post['voucher']);
+        $giftcard_info = $this->model_checkout_giftcard->getGiftcard($this->request->post['giftcard']);
         
         $error = '';
         
-        if (!$voucher_info) {
-            $error = $this->language->get('lang_error_voucher');
+        if (!$giftcard_info) {
+            $error = $this->language->get('lang_error_giftcard');
         }
         
         if (!$error) {
             return true;
         } else {
-            $this->session->data['error_warning'] = $this->language->get('lang_error_voucher');;
+            $this->session->data['error_warning'] = $this->language->get('lang_error_giftcard');;
             return false;
         }
     }

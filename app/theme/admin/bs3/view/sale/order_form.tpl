@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		<ul class="nav nav-tabs"><li><a href="#tab-customer" data-toggle="tab"><?= $lang_tab_customer; ?></a></li><li><a href="#tab-payment" data-toggle="tab"><?= $lang_tab_payment; ?></a></li><li><a href="#tab-shipping" data-toggle="tab"><?= $lang_tab_shipping; ?></a></li><li><a href="#tab-product" data-toggle="tab"><?= $lang_tab_product; ?></a></li><li><a href="#tab-voucher" data-toggle="tab"><?= $lang_tab_voucher; ?></a></li><li><a href="#tab-total" data-toggle="tab"><?= $lang_tab_total; ?></a></li></ul>
+		<ul class="nav nav-tabs"><li><a href="#tab-customer" data-toggle="tab"><?= $lang_tab_customer; ?></a></li><li><a href="#tab-payment" data-toggle="tab"><?= $lang_tab_payment; ?></a></li><li><a href="#tab-shipping" data-toggle="tab"><?= $lang_tab_shipping; ?></a></li><li><a href="#tab-product" data-toggle="tab"><?= $lang_tab_product; ?></a></li><li><a href="#tab-giftcard" data-toggle="tab"><?= $lang_tab_giftcard; ?></a></li><li><a href="#tab-total" data-toggle="tab"><?= $lang_tab_total; ?></a></li></ul>
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 		<div class="tab-content">
 			<div id="tab-customer" class="tab-pane">
@@ -390,7 +390,7 @@
 					</div>
 				</fieldset>
 			</div>
-			<div id="tab-voucher" class="tab-pane">
+			<div id="tab-giftcard" class="tab-pane">
 				<table class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
@@ -402,30 +402,30 @@
 							<th class="text-right"><?= $lang_column_total; ?></th>
 						</tr>
 					</thead>
-					<tbody id="voucher">
-						<?php $voucher_row = 0; ?>
-						<?php if ($order_vouchers) { ?>
-						<?php foreach ($order_vouchers as $order_voucher) { ?>
-						<tr id="voucher-row<?= $voucher_row; ?>">
-							<td class="text-center"><a title="<?= $lang_button_remove; ?>" onclick="$('#voucher-row<?= $voucher_row; ?>').remove();$('#button-update').trigger('click');"><i class="fa fa-trash-o fa-lg"></i></a></td>
-							<td><?= $order_voucher['description']; ?>
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][order_voucher_id]" value="<?= $order_voucher['order_voucher_id']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][voucher_id]" value="<?= $order_voucher['voucher_id']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][description]" value="<?= $order_voucher['description']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][code]" value="<?= $order_voucher['code']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][from_name]" value="<?= $order_voucher['from_name']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][from_email]" value="<?= $order_voucher['from_email']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][to_name]" value="<?= $order_voucher['to_name']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][to_email]" value="<?= $order_voucher['to_email']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][voucher_theme_id]" value="<?= $order_voucher['voucher_theme_id']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][message]" value="<?= $order_voucher['message']; ?>">
-								<input type="hidden" name="order_voucher[<?= $voucher_row; ?>][amount]" value="<?= $order_voucher['amount']; ?>"></td>
+					<tbody id="giftcard">
+						<?php $giftcard_row = 0; ?>
+						<?php if ($order_giftcards) { ?>
+						<?php foreach ($order_giftcards as $order_giftcard) { ?>
+						<tr id="giftcard-row<?= $giftcard_row; ?>">
+							<td class="text-center"><a title="<?= $lang_button_remove; ?>" onclick="$('#giftcard-row<?= $giftcard_row; ?>').remove();$('#button-update').trigger('click');"><i class="fa fa-trash-o fa-lg"></i></a></td>
+							<td><?= $order_giftcard['description']; ?>
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][order_giftcard_id]" value="<?= $order_giftcard['order_giftcard_id']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][giftcard_id]" value="<?= $order_giftcard['giftcard_id']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][description]" value="<?= $order_giftcard['description']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][code]" value="<?= $order_giftcard['code']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][from_name]" value="<?= $order_giftcard['from_name']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][from_email]" value="<?= $order_giftcard['from_email']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][to_name]" value="<?= $order_giftcard['to_name']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][to_email]" value="<?= $order_giftcard['to_email']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][giftcard_theme_id]" value="<?= $order_giftcard['giftcard_theme_id']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][message]" value="<?= $order_giftcard['message']; ?>">
+								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][amount]" value="<?= $order_giftcard['amount']; ?>"></td>
 							<td></td>
 							<td class="text-right">1</td>
-							<td class="text-right"><?= $order_voucher['amount']; ?></td>
-							<td class="text-right"><?= $order_voucher['amount']; ?></td>
+							<td class="text-right"><?= $order_giftcard['amount']; ?></td>
+							<td class="text-right"><?= $order_giftcard['amount']; ?></td>
 						</tr>
-						<?php $voucher_row++; ?>
+						<?php $giftcard_row++; ?>
 						<?php } ?>
 						<?php } else { ?>
 						<tr>
@@ -435,7 +435,7 @@
 					</tbody>
 				</table>
 				<fieldset>
-					<legend><?= $lang_text_voucher; ?></legend>
+					<legend><?= $lang_text_giftcard; ?></legend>
 					<div class="form-group">
 						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_to_name; ?></label>
 						<div class="control-field col-sm-4"><input type="text" name="to_name" value="" class="form-control" class="form-control"></div>
@@ -455,9 +455,9 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_theme; ?></label>
 						<div class="control-field col-sm-4">
-							<select name="voucher_theme_id" class="form-control">
-								<?php foreach ($voucher_themes as $voucher_theme) { ?>
-									<option value="<?= $voucher_theme['voucher_theme_id']; ?>"><?= addslashes($voucher_theme['name']); ?></option>
+							<select name="giftcard_theme_id" class="form-control">
+								<?php foreach ($giftcard_themes as $giftcard_theme) { ?>
+									<option value="<?= $giftcard_theme['giftcard_theme_id']; ?>"><?= addslashes($giftcard_theme['name']); ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -472,7 +472,7 @@
 					</div>
 					<div class="form-group">
 						<div class="control-field col-sm-4 col-sm-offset-2">
-							<button type="button" id="button-voucher" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_voucher; ?></button>
+							<button type="button" id="button-giftcard" class="btn btn-info"><i class="fa fa-plus-circle"></i> <?= $lang_button_add_giftcard; ?></button>
 						</div>
 					</div>
 				</fieldset>
@@ -490,7 +490,7 @@
 					</thead>
 					<tbody id="total">
 						<?php $total_row = 0; ?>
-						<?php if ($order_products || $order_vouchers || $order_totals) { ?>
+						<?php if ($order_products || $order_giftcards || $order_totals) { ?>
 						<?php foreach ($order_products as $order_product) { ?>
 						<tr>
 							<td><?= $order_product['name']; ?>
@@ -503,13 +503,13 @@
 							<td class="text-right"><?= $order_product['total']; ?></td>
 						</tr>
 						<?php } ?>
-						<?php foreach ($order_vouchers as $order_voucher) { ?>
+						<?php foreach ($order_giftcards as $order_giftcard) { ?>
 						<tr>
-							<td><?= $order_voucher['description']; ?></td>
+							<td><?= $order_giftcard['description']; ?></td>
 							<td></td>
 							<td class="text-right">1</td>
-							<td class="text-right"><?= $order_voucher['amount']; ?></td>
-							<td class="text-right"><?= $order_voucher['amount']; ?></td>
+							<td class="text-right"><?= $order_giftcard['amount']; ?></td>
+							<td class="text-right"><?= $order_giftcard['amount']; ?></td>
 						</tr>
 						<?php } ?>
 						<?php foreach ($order_totals as $order_total) { ?>
@@ -573,9 +573,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2"><?= $lang_entry_voucher; ?></label>
+						<label class="control-label col-sm-2"><?= $lang_entry_giftcard; ?></label>
 						<div class="control-field col-sm-4">
-							<input type="text" name="voucher" value="" class="form-control" class="form-control">
+							<input type="text" name="giftcard" value="" class="form-control" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">

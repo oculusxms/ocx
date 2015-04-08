@@ -34,9 +34,6 @@ class Test extends Controller {
         endif;
         
         $this->breadcrumb->add('lang_heading_title', 'tool/test');
-
-        
-
         
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
@@ -47,22 +44,34 @@ class Test extends Controller {
     }
 
     public function email_test($data, $message) {
+        //$this->theme->test($data);
         $search = array(
-            '!order_id!',
+            '!return_id!',
             '!status!',
             '!link!',
             '!comment!'
         );
 
         $replace = array(
-            $data['order_id'],
+            $data['return_id'],
             $data['status'],
             $data['link'],
             $data['comment']
         );
 
+        $html_replace = array(
+            $data['return_id'],
+            $data['status'],
+            $data['link'],
+            nl2br($data['comment'])
+        );
+
         foreach ($message as $key => $value):
-            $message[$key] = str_replace($search, $replace, $value);
+            if ($key == 'html'):
+                $message['html'] = str_replace($search, $html_replace, $value);
+            else:
+                $message[$key] = str_replace($search, $replace, $value);
+            endif;
         endforeach;
         //$this->theme->test($message);
         return $message;

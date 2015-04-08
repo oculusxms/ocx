@@ -30,16 +30,16 @@
 					</tr>
 				</thead>
 				<tbody data-link="row" class="rowlink">
-					<?php if ($voucher_themes) { ?>
-					<?php foreach ($voucher_themes as $voucher_theme) { ?>
+					<?php if ($giftcard_themes) { ?>
+					<?php foreach ($giftcard_themes as $giftcard_theme) { ?>
 					<tr>
-						<td class="rowlink-skip text-center"><?php if ($voucher_theme['selected']) { ?>
-							<input type="checkbox" name="selected[]" value="<?= $voucher_theme['voucher_theme_id']; ?>" checked="">
+						<td class="rowlink-skip text-center"><?php if ($giftcard_theme['selected']) { ?>
+							<input type="checkbox" name="selected[]" value="<?= $giftcard_theme['giftcard_theme_id']; ?>" checked="">
 							<?php } else { ?>
-							<input type="checkbox" name="selected[]" value="<?= $voucher_theme['voucher_theme_id']; ?>">
+							<input type="checkbox" name="selected[]" value="<?= $giftcard_theme['giftcard_theme_id']; ?>">
 							<?php } ?></td>
-						<td><?= $voucher_theme['name']; ?></td>
-						<td class="text-right"><?php foreach ($voucher_theme['action'] as $action) { ?>
+						<td><?= $giftcard_theme['name']; ?></td>
+						<td class="text-right"><?php foreach ($giftcard_theme['action'] as $action) { ?>
 							<a class="btn btn-default" href="<?= $action['href']; ?>">
 								<i class="fa fa-pencil-square-o"></i><span class="hidden-xs"> <?= $action['text']; ?></span>
 							</a>

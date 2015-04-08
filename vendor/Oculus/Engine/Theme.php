@@ -161,11 +161,25 @@ final class Theme {
      */
     public function notify($name, $data, $add = array()) {
         /**
-         * Let's check for our order_id in $data and send it to the notifier.
+         * Set order_id and order if in $data, this should work
+         * for both orders and returns for the notification.
          */
         
-        $order_id = (isset($data['order_id'])) ? $data['order_id'] : 0;
-        $order    = (isset($data['order'])) ? $data['order'] : false;
+        if (isset($data['order_id'])):
+            $order_id = $data['order_id'];
+        elseif (isset($data['return_id'])):
+            $order_id = $data['return_id'];
+        else:
+            $order_id = 0;
+        endif;
+
+        if (isset($data['order'])):
+            $order = $data['order'];
+        elseif (isset($data['return'])):
+            $order = $data['return'];
+        else:
+            $order = false;
+        endif;
 
         $this->app['notify']->setOrderId($order_id);
 

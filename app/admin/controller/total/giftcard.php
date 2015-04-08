@@ -17,16 +17,16 @@
 namespace Admin\Controller\Total;
 use Oculus\Engine\Controller;
 
-class Voucher extends Controller {
+class Giftcard extends Controller {
     private $error = array();
     
     public function index() {
-        $data = $this->theme->language('total/voucher');
+        $data = $this->theme->language('total/giftcard');
         $this->theme->setTitle($this->language->get('lang_heading_title'));
         $this->theme->model('setting/setting');
         
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->model_setting_setting->editSetting('voucher', $this->request->post);
+            $this->model_setting_setting->editSetting('giftcard', $this->request->post);
             $this->session->data['success'] = $this->language->get('lang_text_success');
             
             $this->response->redirect($this->url->link('module/total', 'token=' . $this->session->data['token'], 'SSL'));
@@ -39,32 +39,32 @@ class Voucher extends Controller {
         }
         
         $this->breadcrumb->add('lang_text_total', 'module/total');
-        $this->breadcrumb->add('lang_heading_title', 'total/voucher');
+        $this->breadcrumb->add('lang_heading_title', 'total/giftcard');
         
-        $data['action'] = $this->url->link('total/voucher', 'token=' . $this->session->data['token'], 'SSL');
+        $data['action'] = $this->url->link('total/giftcard', 'token=' . $this->session->data['token'], 'SSL');
         $data['cancel'] = $this->url->link('module/total', 'token=' . $this->session->data['token'], 'SSL');
         
-        if (isset($this->request->post['voucher_status'])) {
-            $data['voucher_status'] = $this->request->post['voucher_status'];
+        if (isset($this->request->post['giftcard_status'])) {
+            $data['giftcard_status'] = $this->request->post['giftcard_status'];
         } else {
-            $data['voucher_status'] = $this->config->get('voucher_status');
+            $data['giftcard_status'] = $this->config->get('giftcard_status');
         }
         
-        if (isset($this->request->post['voucher_sort_order'])) {
-            $data['voucher_sort_order'] = $this->request->post['voucher_sort_order'];
+        if (isset($this->request->post['giftcard_sort_order'])) {
+            $data['giftcard_sort_order'] = $this->request->post['giftcard_sort_order'];
         } else {
-            $data['voucher_sort_order'] = $this->config->get('voucher_sort_order');
+            $data['giftcard_sort_order'] = $this->config->get('giftcard_sort_order');
         }
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
         $data = $this->theme->render_controllers($data);
         
-        $this->response->setOutput($this->theme->view('total/voucher', $data));
+        $this->response->setOutput($this->theme->view('total/giftcard', $data));
     }
     
     protected function validate() {
-        if (!$this->user->hasPermission('modify', 'total/voucher')) {
+        if (!$this->user->hasPermission('modify', 'total/giftcard')) {
             $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         

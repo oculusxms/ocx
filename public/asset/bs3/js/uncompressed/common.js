@@ -748,9 +748,9 @@ var alertMessage=function(state,msg){
 		$(this).remove();
 	});
 };
-function sendVoucher(voucher_id,b){
+function sendGiftcard(giftcard_id,b){
 	$.ajax({
-		url:'index.php?route=sale/voucher/send&token='+token+'&voucher_id='+voucher_id,
+		url:'index.php?route=sale/giftcard/send&token='+token+'&giftcard_id='+giftcard_id,
 		type:'post',
 		dataType:'json',
 		beforeSend:function(){
@@ -1153,7 +1153,7 @@ $(function(){
 	}).click(function(){
 		this.select();
 	});
-	$('#button-product,#button-voucher,#button-update').on('click',function(){
+	$('#button-product,#button-giftcard,#button-update').on('click',function(){
 		var a=$(this);
 		data='#tab-customer input[type="text"],#tab-customer input[type="hidden"],#tab-customer input[type="radio"]:checked,#tab-customer input[type="checkbox"]:checked,#tab-customer select,#tab-customer textarea,';
 		data+='#tab-payment input[type="text"],#tab-payment input[type="hidden"],#tab-payment input[type="radio"]:checked,#tab-payment input[type="checkbox"]:checked,#tab-payment select,#tab-payment textarea,';
@@ -1163,10 +1163,10 @@ $(function(){
 		}else{
 			data+='#product input[type="text"],#product input[type="hidden"],#product input[type="radio"]:checked,#product input[type="checkbox"]:checked,#product select,#product textarea,';
 		}
-		if (a.attr('id')=='button-voucher'){
-			data+='#tab-voucher input[type="text"],#tab-voucher input[type="hidden"],#tab-voucher input[type="radio"]:checked,#tab-voucher input[type="checkbox"]:checked,#tab-voucher select,#tab-voucher textarea,';
+		if (a.attr('id')=='button-giftcard'){
+			data+='#tab-giftcard input[type="text"],#tab-giftcard input[type="hidden"],#tab-giftcard input[type="radio"]:checked,#tab-giftcard input[type="checkbox"]:checked,#tab-giftcard select,#tab-giftcard textarea,';
 		}else{
-			data+='#voucher input[type="text"],#voucher input[type="hidden"],#voucher input[type="radio"]:checked,#voucher input[type="checkbox"]:checked,#voucher select,#voucher textarea,';
+			data+='#giftcard input[type="text"],#giftcard input[type="hidden"],#giftcard input[type="radio"]:checked,#giftcard input[type="checkbox"]:checked,#giftcard select,#giftcard textarea,';
 		}
 		data+='#tab-total input[type="text"],#tab-total input[type="hidden"],#tab-total input[type="radio"]:checked,#tab-total input[type="checkbox"]:checked,#tab-total select,#tab-total textarea';
 		$.ajax({
@@ -1230,8 +1230,8 @@ $(function(){
 						$('#option .form-group').remove();		
 						$('input[name="quantity"]').val('1');		
 					}
-					if(json['error']['vouchers']){
-						$.each(json['error']['vouchers'],function(key,val){
+					if(json['error']['giftcards']){
+						$.each(json['error']['giftcards'],function(key,val){
 							$('input[name="'+key+'"]').after('<div class="help-block error">'+val+'</div>');
 						});
 					}else{
@@ -1248,8 +1248,8 @@ $(function(){
 					if(json['error']['coupon']){
 						alertMessage('danger',json['error']['coupon']);
 					}
-					if(json['error']['voucher']){
-						alertMessage('danger',json['error']['voucher']);
+					if(json['error']['giftcard']){
+						alertMessage('danger',json['error']['giftcard']);
 					}
 					if(json['error']['reward']){
 						alertMessage('danger',json['error']['reward']);
@@ -1311,38 +1311,38 @@ $(function(){
 				}else{
 					$('#product').html('<tr><td colspan="6" class="text-center">'+text_no_results+'</td></tr>');
 				}
-				if(json['order_voucher']!=''){
-					var voucher_row=0;
+				if(json['order_giftcard']!=''){
+					var giftcard_row=0;
 					html = '';
-					for(i in json['order_voucher']){
-						voucher=json['order_voucher'][i];
-						html += '<tr id="voucher-row'+voucher_row+'">';
-						html += '<td class="text-center"><a title="'+button_remove+'" onclick="$("#voucher-row'+voucher_row+'").remove();$("#button-update").trigger("click");"><i class="fa fa-trash-o fa-lg"></i></a></td>';
-						html += '<td>'+voucher['description'];
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][order_voucher_id]" value="">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][voucher_id]" value="'+voucher['voucher_id']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][description]" value="'+voucher['description']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][code]" value="'+voucher['code']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][from_name]" value="'+voucher['from_name']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][from_email]" value="'+voucher['from_email']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][to_name]" value="'+voucher['to_name']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][to_email]" value="'+voucher['to_email']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][voucher_theme_id]" value="'+voucher['voucher_theme_id']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][message]" value="'+voucher['message']+'">';
-						html += '<input type="hidden" name="order_voucher['+voucher_row+'][amount]" value="'+voucher['amount']+'">';
+					for(i in json['order_giftcard']){
+						giftcard=json['order_giftcard'][i];
+						html += '<tr id="giftcard-row'+giftcard_row+'">';
+						html += '<td class="text-center"><a title="'+button_remove+'" onclick="$("#giftcard-row'+giftcard_row+'").remove();$("#button-update").trigger("click");"><i class="fa fa-trash-o fa-lg"></i></a></td>';
+						html += '<td>'+giftcard['description'];
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][order_giftcard_id]" value="">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][giftcard_id]" value="'+giftcard['giftcard_id']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][description]" value="'+giftcard['description']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][code]" value="'+giftcard['code']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][from_name]" value="'+giftcard['from_name']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][from_email]" value="'+giftcard['from_email']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][to_name]" value="'+giftcard['to_name']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][to_email]" value="'+giftcard['to_email']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][giftcard_theme_id]" value="'+giftcard['giftcard_theme_id']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][message]" value="'+giftcard['message']+'">';
+						html += '<input type="hidden" name="order_giftcard['+giftcard_row+'][amount]" value="'+giftcard['amount']+'">';
 						html += '</td>';
 						html += '<td></td>';
 						html += '<td class="text-right">1</td>';
-						html += '<td class="text-right">'+voucher['amount']+'</td>';
-						html += '<td class="text-right">'+voucher['amount']+'</td>';
+						html += '<td class="text-right">'+giftcard['amount']+'</td>';
+						html += '<td class="text-right">'+giftcard['amount']+'</td>';
 						html += '</tr>';
-						voucher_row++;
+						giftcard_row++;
 					}
-					$('#voucher').html(html);			
+					$('#giftcard').html(html);			
 				}else{
-					$('#voucher').html('<tr><td colspan="6" class="text-center">'+text_no_results+'</td></tr>');
+					$('#giftcard').html('<tr><td colspan="6" class="text-center">'+text_no_results+'</td></tr>');
 				}
-				if(json['order_product']!=''||json['order_voucher']!=''||json['order_total']!=''){
+				if(json['order_product']!=''||json['order_giftcard']!=''||json['order_total']!=''){
 					html = '';
 					if(json['order_product']!=''){
 						for(i=0;i<json['order_product'].length;i++){
@@ -1364,15 +1364,15 @@ $(function(){
 							html += '</tr>';
 						}			
 					}
-					if(json['order_voucher']!=''){
-						for(i in json['order_voucher']){
-							voucher=json['order_voucher'][i];
+					if(json['order_giftcard']!=''){
+						for(i in json['order_giftcard']){
+							giftcard=json['order_giftcard'][i];
 							html += '<tr>';
-							html += '<td>'+voucher['description']+'</td>';
+							html += '<td>'+giftcard['description']+'</td>';
 							html += '<td></td>';
 							html += '<td class="text-right">1</td>';
-							html += '<td class="text-right">'+voucher['amount']+'</td>';
-							html += '<td class="text-right">'+voucher['amount']+'</td>';
+							html += '<td class="text-right">'+giftcard['amount']+'</td>';
+							html += '<td class="text-right">'+giftcard['amount']+'</td>';
 							html += '</tr>';
 						}
 					}

@@ -23,8 +23,8 @@
 	</div>
 	<div class="panel-body">
 		<ul class="nav nav-tabs"><li><a href="#tab-general" data-toggle="tab"><?= $lang_tab_general; ?></a></li>
-			<?php if ($voucher_id) { ?>
-			<li><a href="#tab-history" data-toggle="tab"><?= $lang_tab_voucher_history; ?></a></li>
+			<?php if ($giftcard_id) { ?>
+			<li><a href="#tab-history" data-toggle="tab"><?= $lang_tab_giftcard_history; ?></a></li>
 			<?php } ?>
 		</ul>
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
@@ -78,12 +78,12 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2"><?= $lang_entry_theme; ?></label>
 						<div class="control-field col-sm-4">
-							<select name="voucher_theme_id" class="form-control">
-								<?php foreach ($voucher_themes as $voucher_theme) { ?>
-									<?php if ($voucher_theme['voucher_theme_id'] == $voucher_theme_id) { ?>
-									<option value="<?= $voucher_theme['voucher_theme_id']; ?>" selected><?= $voucher_theme['name']; ?></option>
+							<select name="giftcard_theme_id" class="form-control">
+								<?php foreach ($giftcard_themes as $giftcard_theme) { ?>
+									<?php if ($giftcard_theme['giftcard_theme_id'] == $giftcard_theme_id) { ?>
+									<option value="<?= $giftcard_theme['giftcard_theme_id']; ?>" selected><?= $giftcard_theme['name']; ?></option>
 									<?php } else { ?>
-									<option value="<?= $voucher_theme['voucher_theme_id']; ?>"><?= $voucher_theme['name']; ?></option>
+									<option value="<?= $giftcard_theme['giftcard_theme_id']; ?>"><?= $giftcard_theme['name']; ?></option>
 									<?php } ?>
 								<?php } ?>
 							</select>
@@ -119,9 +119,9 @@
 						</div>
 					</div>
 				</div>
-				<?php if ($voucher_id) { ?>
+				<?php if ($giftcard_id) { ?>
 				<div class="tab-pane" id="tab-history">
-					<div id="history" data-href="index.php?route=sale/voucher/history&token=<?= $token; ?>&voucher_id=<?= $voucher_id; ?>"></div>
+					<div id="history" data-href="index.php?route=sale/giftcard/history&token=<?= $token; ?>&giftcard_id=<?= $giftcard_id; ?>"></div>
 				</div>
 				<?php } ?>
 			</div>

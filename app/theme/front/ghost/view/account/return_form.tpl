@@ -132,6 +132,19 @@
 						<textarea name="comment" rows="4" class="form-control" placeholder="<?= $lang_entry_fault_detail; ?>"  id="comment"><?= $comment; ?></textarea>
 					</div>
 				</div>
+				<?php if ($text_agree): ?>
+				<div class="form-group">
+					<label class="control-label col-sm-3"></label>
+					<div class="col-sm-8">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="agree" value="1"<?= $agree ? ' checked' : ''; ?> required><?= $text_agree; ?>
+							</label>
+						</div>
+					</div>
+				</div>
+				<?php endif; ?>
+				<hr>
 				<div class="form-group">
 					<label class="control-label col-sm-3"><?= $lang_entry_captcha; ?></label>
 					<div class="col-sm-6">

@@ -52,6 +52,7 @@ class Notfound extends Controller {
 
         $data['heading_title'] = $this->language->get('lang_page_title');
         $data['continue']      = $this->url->link('shop/home');
+        $data['text_error']    = $this->language->get('lang_text_error');
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         

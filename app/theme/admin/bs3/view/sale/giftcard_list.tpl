@@ -36,27 +36,27 @@
 					</tr>
 				</thead>
 				<tbody data-link="row" class="rowlink">
-					<?php if ($vouchers) { ?>
-					<?php foreach ($vouchers as $voucher) { ?>
+					<?php if ($giftcards) { ?>
+					<?php foreach ($giftcards as $giftcard) { ?>
 					<tr>
-						<td class="rowlink-skip text-center"><?php if ($voucher['selected']) { ?>
-							<input type="checkbox" name="selected[]" value="<?= $voucher['voucher_id']; ?>" checked="">
+						<td class="rowlink-skip text-center"><?php if ($giftcard['selected']) { ?>
+							<input type="checkbox" name="selected[]" value="<?= $giftcard['giftcard_id']; ?>" checked="">
 							<?php } else { ?>
-							<input type="checkbox" name="selected[]" value="<?= $voucher['voucher_id']; ?>">
+							<input type="checkbox" name="selected[]" value="<?= $giftcard['giftcard_id']; ?>">
 							<?php } ?></td>
-						<td class="hidden-xs"><?= $voucher['code']; ?></td>
-						<td><?= $voucher['from']; ?></td>
-						<td><?= $voucher['to']; ?></td>
-						<td class="text-right hidden-xs"><?= $voucher['amount']; ?></td>
-						<td class="hidden-xs"><?= $voucher['theme']; ?></td>
-						<td class="hidden-xs text-<?= strtolower($voucher['status']); ?>"><?= $voucher['status']; ?></td>
-						<td class="hidden-xs"><?= $voucher['date_added']; ?></td>
-						<td class="text-right"><?php foreach ($voucher['action'] as $action) { ?>
+						<td class="hidden-xs"><?= $giftcard['code']; ?></td>
+						<td><?= $giftcard['from']; ?></td>
+						<td><?= $giftcard['to']; ?></td>
+						<td class="text-right hidden-xs"><?= $giftcard['amount']; ?></td>
+						<td class="hidden-xs"><?= $giftcard['theme']; ?></td>
+						<td class="hidden-xs text-<?= strtolower($giftcard['status']); ?>"><?= $giftcard['status']; ?></td>
+						<td class="hidden-xs"><?= $giftcard['date_added']; ?></td>
+						<td class="text-right"><?php foreach ($giftcard['action'] as $action) { ?>
 							<a class="btn btn-default" href="<?= $action['href']; ?>">
 								<i class="fa fa-pencil-square-o"></i><span class="hidden-xs"> <?= $action['text']; ?></span>
 							</a>
 							<?php } ?>
-						<span class="bracket"><a class="rowlink-skip" onclick="sendVoucher('<?= $voucher['voucher_id']; ?>','<?= $lang_text_wait; ?>');"><?= $lang_text_send; ?></a></span></td>
+						<span class="bracket"><a class="rowlink-skip" onclick="sendGiftcard('<?= $giftcard['giftcard_id']; ?>','<?= $lang_text_wait; ?>');"><?= $lang_text_send; ?></a></span></td>
 					</tr>
 					<?php } ?>
 					<?php } else { ?>

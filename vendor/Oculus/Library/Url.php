@@ -345,7 +345,7 @@ class Url extends LibraryService {
             $query = '';
             if ($route):
                 foreach ($route as $key => $value):
-                    $query.= '&' . rawurlencode($key) . '=' . $value;
+                    $query.= '&' . $key . '=' . $value;
                 endforeach;
                 
                 if ($query):

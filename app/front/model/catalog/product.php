@@ -16,7 +16,8 @@
 
 namespace Front\Model\Catalog;
 use Oculus\Engine\Model;
-use Oculus\Library\Mail;
+use Oculus\Library\Template;
+use Oculus\Library\Text;
 
 class Product extends Model {
     public function updateViewed($product_id) {
@@ -1179,47 +1180,24 @@ class Product extends Model {
 				event_id = '" . (int)$event_id . "', 
 				customer_id = '" . (int)$customer_id . "'");
         
-        $event_name = $this->db->query("
-			SELECT event_name 
+        $event = $this->db->query("
+			SELECT * 
 			FROM {$this->db->prefix}event_manager 
 			WHERE event_id = '" . (int)$event_id . "'");
-        
-        $customer_email = $this->db->query("
-			SELECT email 
-			FROM {$this->db->prefix}customer 
-			WHERE customer_id = '" . (int)$customer_id . "'");
 
-        // NEW MAILER
-        // public_waitlist_join
-        
-        // if ($customer_email->num_rows && $customer_email->row['email'] != "") {
-        //     $subject = sprintf($this->language->get('lang_text_waitlist_subject'), $event_name->row['event_name']);
-        //     $this->theme->model('tool/image');
-        //     $image = IMAGE_URL . $this->config->get('config_logo');
-        //     $logo = str_replace(' ', '%20', $image);
-        //     $html = '<div style="width: 100%; height: 100px; margin-bottom: 20px;"><img src="' . $logo . '" border="0" /></div>';
-        //     $html.= '<div style="width: 100%; margin-bottom: 20px;">';
-        //     $html.= sprintf($this->language->get('lang_text_waitlist_message'), $event_name->row['event_name']);
-        //     $html.= '</div>';
-        //     $html.= '<div style="width: 100%;">';
-        //     $html.= $this->config->get('config_name');
-        //     $html.= '</div>';
-            
-        //     $mail = new Mail();
-        //     $mail->protocol = $this->config->get('config_mail_protocol');
-        //     $mail->parameter = $this->config->get('config_mail_parameter');
-        //     $mail->hostname = $this->config->get('config_smtp_host');
-        //     $mail->username = $this->config->get('config_smtp_username');
-        //     $mail->password = $this->config->get('config_smtp_password');
-        //     $mail->port = $this->config->get('config_smtp_port');
-        //     $mail->timeout = $this->config->get('config_smtp_timeout');
-        //     $mail->setTo($customer_email->row['email']);
-        //     $mail->setFrom($this->config->get('config_email'));
-        //     $mail->setSender($this->config->get('config_name'));
-        //     $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-        //     $mail->setHtml($html);
-        //     $mail->send();
-        // }
+        $event_info = $event->row;
+
+        $callback = array(
+            'customer_id' => $customer_id,
+            'event'       => $event_info,
+            'callback'    => array(
+                'class'  => __CLASS__,
+                'method' => 'public_waitlist_join'
+            )
+        );
+
+        $this->theme->notify('public_waitlist_join', $callback);
+
         return 1;
     }
     
@@ -1326,5 +1304,41 @@ class Product extends Model {
         else:
             return 'placeholder.png';
         endif;
+    }
+
+    public function public_waitlist_join($data, $message) {
+        $call = $data['event'];
+        unset($data);
+
+        $data = $this->theme->language('notification/event');
+
+        $data['event_name'] = $call['event_name'];
+        $data['event_date'] = date($this->language->get('lang_date_format_short'), strtotime($call['date_time']));
+        $data['event_time'] = date($this->language->get('lang_time_format'), strtotime($call['date_time']));
+
+        $data['event_location']  = false;
+        $data['event_telephone'] = false;
+
+        if ($call['location']):
+            $data['event_location'] = $call['location'];
+        endif;
+
+        if ($call['telephone']):
+            $data['event_telephone'] = $call['telephone'];
+        endif;
+
+        $html = new Template($this->app);
+        $text = new Text($this->app);
+
+        $html->data = $data;
+        $text->data = $data;
+
+        $html = $html->fetch('notification/event');
+        $text = $text->fetch('notification/event');
+
+        $message['text'] = str_replace('!content!', $text, $message['text']);
+        $message['html'] = str_replace('!content!', $html, $message['html']);
+
+        return $message;
     }
 }

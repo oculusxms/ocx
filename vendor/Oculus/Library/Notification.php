@@ -124,11 +124,31 @@ class Notification extends LibraryService {
             'username'  => '',
             'email'     => $order['email'],
             'telephone' => $order['telephone'],
-            'ip'        => $order['ip'],
+            'ip'        => isset($order['ip']) ? $order['ip'] : 0,
             'points'    => 0
         );
 
         return $customer;
+    }
+
+    public function setGenericCustomer($data) {
+        $this->customer = array(
+            'firstname' => $data['firstname'],
+            'lastname'  => $data['lastname'],
+            'username'  => '',
+            'email'     => $data['email'],
+            'telephone' => '',
+            'ip'        => isset($data['ip']) ? $data['ip'] : 0,
+            'points'    => 0
+        );
+
+        $this->preference = array(
+            'email'    => 1,
+            'internal' => 0
+        );
+
+        $this->to_name  = (isset($this->customer['lastname'])) ? $this->customer['firstname'] . ' ' . $this->customer['lastname'] : $this->customer['firstname'];
+        $this->to_email = $this->customer['email'];
     }
 
     public function setOrderId($order_id) {

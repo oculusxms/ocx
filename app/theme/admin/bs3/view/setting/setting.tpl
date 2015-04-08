@@ -342,7 +342,7 @@
 							<li><a href="#tab-items" data-toggle="tab"><?= $lang_text_items; ?></a></li>
 							<li><a href="#tab-product" data-toggle="tab"><?= $lang_text_product; ?></a></li>
 							<li><a href="#tab-blog" data-toggle="tab"><?= $lang_tab_blog; ?></a></li>
-							<li><a href="#tab-voucher" data-toggle="tab"><?= $lang_text_voucher; ?></a></li>
+							<li><a href="#tab-giftcard" data-toggle="tab"><?= $lang_text_giftcard; ?></a></li>
 							<li><a href="#tab-tax" data-toggle="tab"><?= $lang_text_tax; ?></a></li>
 							<li><a href="#tab-account" data-toggle="tab"><?= $lang_text_account; ?></a></li>
 							<li><a href="#tab-checkout" data-toggle="tab"><?= $lang_text_checkout; ?></a></li>
@@ -425,22 +425,22 @@
 								
 								
 							</div>
-							<div id="tab-voucher" class="tab-pane">
+							<div id="tab-giftcard" class="tab-pane">
 								<div class="form-group">
-									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_voucher_min; ?></label>
+									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_giftcard_min; ?></label>
 									<div class="control-field col-sm-4">
-										<input type="text" name="config_voucher_min" value="<?= $config_voucher_min; ?>" class="form-control">
-										<?php if ($error_voucher_min) { ?>
-											<div class="help-block error"><?= $error_voucher_min; ?></div>
+										<input type="text" name="config_giftcard_min" value="<?= $config_giftcard_min; ?>" class="form-control">
+										<?php if ($error_giftcard_min) { ?>
+											<div class="help-block error"><?= $error_giftcard_min; ?></div>
 										<?php } ?>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_voucher_max; ?></label>
+									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_giftcard_max; ?></label>
 									<div class="control-field col-sm-4">
-										<input type="text" name="config_voucher_max" value="<?= $config_voucher_max; ?>" class="form-control">
-										<?php if ($error_voucher_max) { ?>
-											<div class="help-block error"><?= $error_voucher_max; ?></div>
+										<input type="text" name="config_giftcard_max" value="<?= $config_giftcard_max; ?>" class="form-control">
+										<?php if ($error_giftcard_max) { ?>
+											<div class="help-block error"><?= $error_giftcard_max; ?></div>
 										<?php } ?>
 									</div>
 								</div>

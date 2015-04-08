@@ -17,18 +17,18 @@
 namespace Front\Model\Checkout;
 use Oculus\Engine\Model;
 
-class Vouchertheme extends Model {
-    public function getVoucherTheme($voucher_theme_id) {
-        $key = md5('voucher.themeid.' . $voucher_theme_id);
+class Giftcardtheme extends Model {
+    public function getGiftcardTheme($giftcard_theme_id) {
+        $key = md5('giftcard.themeid.' . $giftcard_theme_id);
         $cachefile = $this->cache->get($key);
         
         if (is_bool($cachefile)):
             $query = $this->db->query("
 				SELECT * 
-				FROM {$this->db->prefix}voucher_theme vt 
-				LEFT JOIN {$this->db->prefix}voucher_theme_description vtd 
-				ON (vt.voucher_theme_id = vtd.voucher_theme_id) 
-				WHERE vt.voucher_theme_id = '" . (int)$voucher_theme_id . "' 
+				FROM {$this->db->prefix}giftcard_theme vt 
+				LEFT JOIN {$this->db->prefix}giftcard_theme_description vtd 
+				ON (vt.giftcard_theme_id = vtd.giftcard_theme_id) 
+				WHERE vt.giftcard_theme_id = '" . (int)$giftcard_theme_id . "' 
 				AND vtd.language_id = '" . (int)$this->config->get('config_language_id') . "'
 			");
             
@@ -44,17 +44,17 @@ class Vouchertheme extends Model {
         return $cachefile;
     }
     
-    public function getVoucherThemes($data = array()) {
+    public function getGiftcardThemes($data = array()) {
         if (!empty($data)):
-            $key = 'voucher.themes.all.' . md5(serialize($data));
+            $key = 'giftcard.themes.all.' . md5(serialize($data));
             $cachefile = $this->cache->get($key);
             
             if (is_bool($cachefile)):
                 $sql = "
 					SELECT * 
-					FROM {$this->db->prefix}voucher_theme vt 
-					LEFT JOIN {$this->db->prefix}voucher_theme_description vtd 
-						ON (vt.voucher_theme_id = vtd.voucher_theme_id) 
+					FROM {$this->db->prefix}giftcard_theme vt 
+					LEFT JOIN {$this->db->prefix}giftcard_theme_description vtd 
+						ON (vt.giftcard_theme_id = vtd.giftcard_theme_id) 
 					WHERE vtd.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 					ORDER BY vtd.name";
                 
@@ -88,15 +88,15 @@ class Vouchertheme extends Model {
             endif;
             unset($key);
         else:
-            $key = 'voucher.themes.all.' . (int)$this->config->get('config_store_id');
+            $key = 'giftcard.themes.all.' . (int)$this->config->get('config_store_id');
             $cachefile = $this->cache->get($key);
             
             if (is_bool($cachefile)):
                 $query = $this->db->query("
 					SELECT * 
-					FROM {$this->db->prefix}voucher_theme vt 
-					LEFT JOIN {$this->db->prefix}voucher_theme_description vtd 
-						ON (vt.voucher_theme_id = vtd.voucher_theme_id) 
+					FROM {$this->db->prefix}giftcard_theme vt 
+					LEFT JOIN {$this->db->prefix}giftcard_theme_description vtd 
+						ON (vt.giftcard_theme_id = vtd.giftcard_theme_id) 
 					WHERE vtd.language_id = '" . (int)$this->config->get('config_language_id') . "' 
 					ORDER BY vtd.name
 				");

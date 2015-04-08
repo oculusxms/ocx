@@ -40,7 +40,7 @@
 <?php endif; ?>
 
 
-<?php if (!empty($products) || !empty($vouchers)): ?>
+<?php if (!empty($products) || !empty($giftcards)): ?>
 Products 
 -------------------------------- 
 <?php foreach ($products as $product): ?>
@@ -64,9 +64,9 @@ Options:
 <?= $product['quantity']; ?> x <?= $product['price']; ?> Total: <?= $product['total']; ?> 
 -------------------------------- 
 <?php endforeach; ?>
-<?php if (isset($vouchers)): ?>
-<?php foreach ($vouchers as $voucher): ?>
-<?= $voucher['description']; ?>: <?= $voucher['amount']; ?> 
+<?php if (isset($giftcards)): ?>
+<?php foreach ($giftcards as $giftcard): ?>
+<?= $giftcard['description']; ?>: <?= $giftcard['amount']; ?> 
 <?php endforeach; ?>
 <?php endif; ?>
 <?php endif; // end products?>

@@ -1530,8 +1530,8 @@ INSERT INTO `ocx_email` (`email_id`, `email_slug`, `configurable`, `config_descr
 (9, 'admin_customer_add_reward', 1, 'Administrator Adds Reward Points to Your Customer Account', 1, 1),
 (10, 'admin_order_add_history', 1, 'Administrator Updates Your Active Orders', 1, 1),
 (11, 'admin_return_add_history', 1, 'Administrator Updates Your Active Returns', 1, 1),
-(12, 'admin_voucher_order_send', 0, '', 1, 1),
-(13, 'admin_voucher_no_order_send', 0, '', 1, 1),
+(12, 'admin_giftcard_order_send', 0, '', 1, 1),
+(13, 'admin_giftcard_no_order_send', 0, '', 1, 1),
 (14, 'public_waitlist_join', 1, 'You Join an Event Waitlist', 1, 1),
 (15, 'public_customer_order_confirm', 1, 'You Place an Order', 1, 1),
 (16, 'public_admin_order_confirm', 0, '', 3, 1),
@@ -1544,7 +1544,7 @@ INSERT INTO `ocx_email` (`email_id`, `email_slug`, `configurable`, `config_descr
 (23, 'public_register_admin', 0, '', 3, 1),
 (24, 'public_affiliate_register', 0, '', 2, 1),
 (25, 'public_affiliate_admin', 0, '', 3, 1),
-(26, 'public_voucher_confirm', 0, '', 1, 1),
+(26, 'public_giftcard_confirm', 0, '', 1, 1),
 (27, 'email_wrapper', 0, '', 1, 1);
 
 -- --------------------------------------------------------
@@ -2025,7 +2025,7 @@ INSERT INTO `ocx_module` VALUES
 (387, 'shipping', 'flat'),
 (390, 'total', 'credit'),
 (393, 'total', 'reward'),
-(398, 'total', 'voucher'),
+(398, 'total', 'giftcard'),
 (408, 'widget', 'account'),
 (410, 'widget', 'banner'),
 (411, 'widget', 'affiliate'),
@@ -2526,24 +2526,24 @@ CREATE TABLE IF NOT EXISTS `ocx_order_total` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_order_voucher`
+-- Table structure for table `ocx_order_giftcard`
 --
 
-DROP TABLE IF EXISTS `ocx_order_voucher`;
-CREATE TABLE IF NOT EXISTS `ocx_order_voucher` (
-  `order_voucher_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `ocx_order_giftcard`;
+CREATE TABLE IF NOT EXISTS `ocx_order_giftcard` (
+  `order_giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
-  `voucher_id` int(11) NOT NULL,
+  `giftcard_id` int(11) NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `from_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `from_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
   `to_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `to_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
-  `voucher_theme_id` int(11) NOT NULL,
+  `giftcard_theme_id` int(11) NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  PRIMARY KEY (`order_voucher_id`)
+  PRIMARY KEY (`order_giftcard_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -3668,8 +3668,8 @@ INSERT INTO `ocx_setting` VALUES
 (4000, 0, 'coupon', 'coupon_sort_order', '4', 0),
 (4001, 0, 'credit', 'credit_status', '1', 0),
 (4002, 0, 'credit', 'credit_sort_order', '6', 0),
-(4003, 0, 'voucher', 'voucher_status', '1', 0),
-(4004, 0, 'voucher', 'voucher_sort_order', '7', 0),
+(4003, 0, 'giftcard', 'giftcard_status', '1', 0),
+(4004, 0, 'giftcard', 'giftcard_sort_order', '7', 0),
 (4005, 0, 'total', 'total_status', '1', 0),
 (4006, 0, 'total', 'total_sort_order', '8', 0),
 (4012, 0, 'blog_category', 'blog_category_widget', 'a:1:{i:0;a:4:{s:9:"layout_id";s:1:"6";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}}', 1),
@@ -3743,8 +3743,8 @@ INSERT INTO `ocx_setting` VALUES
 (10069, 0, 'config', 'config_product_count', '0', 0),
 (10070, 0, 'config', 'config_review_status', '1', 0),
 (10071, 0, 'config', 'config_download', '0', 0),
-(10072, 0, 'config', 'config_voucher_min', '1', 0),
-(10073, 0, 'config', 'config_voucher_max', '1000', 0),
+(10072, 0, 'config', 'config_giftcard_min', '1', 0),
+(10073, 0, 'config', 'config_giftcard_max', '1000', 0),
 (10074, 0, 'config', 'config_tax', '0', 0),
 (10075, 0, 'config', 'config_vat', '0', 0),
 (10076, 0, 'config', 'config_tax_default', '', 0),
@@ -4019,83 +4019,83 @@ INSERT INTO `ocx_user_group` VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_voucher`
+-- Table structure for table `ocx_giftcard`
 --
 
-DROP TABLE IF EXISTS `ocx_voucher`;
-CREATE TABLE IF NOT EXISTS `ocx_voucher` (
-  `voucher_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `ocx_giftcard`;
+CREATE TABLE IF NOT EXISTS `ocx_giftcard` (
+  `giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `from_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `from_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
   `to_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `to_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
-  `voucher_theme_id` int(11) NOT NULL,
+  `giftcard_theme_id` int(11) NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`voucher_id`)
+  PRIMARY KEY (`giftcard_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_voucher_history`
+-- Table structure for table `ocx_giftcard_history`
 --
 
-DROP TABLE IF EXISTS `ocx_voucher_history`;
-CREATE TABLE IF NOT EXISTS `ocx_voucher_history` (
-  `voucher_history_id` int(11) NOT NULL AUTO_INCREMENT,
-  `voucher_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ocx_giftcard_history`;
+CREATE TABLE IF NOT EXISTS `ocx_giftcard_history` (
+  `giftcard_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `giftcard_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   `date_added` datetime NOT NULL,
-  PRIMARY KEY (`voucher_history_id`)
+  PRIMARY KEY (`giftcard_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_voucher_theme`
+-- Table structure for table `ocx_giftcard_theme`
 --
 
-DROP TABLE IF EXISTS `ocx_voucher_theme`;
-CREATE TABLE IF NOT EXISTS `ocx_voucher_theme` (
-  `voucher_theme_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `ocx_giftcard_theme`;
+CREATE TABLE IF NOT EXISTS `ocx_giftcard_theme` (
+  `giftcard_theme_id` int(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`voucher_theme_id`)
+  PRIMARY KEY (`giftcard_theme_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `ocx_voucher_theme`
+-- Dumping data for table `ocx_giftcard_theme`
 --
 
-INSERT INTO `ocx_voucher_theme` VALUES
+INSERT INTO `ocx_giftcard_theme` VALUES
 (6, 'data/demo/apple_logo.jpg'),
-(7, 'data/demo/gift-voucher-birthday.jpg'),
+(7, 'data/demo/gift-giftcard-birthday.jpg'),
 (8, 'data/demo/canon_eos_5d_2.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_voucher_theme_description`
+-- Table structure for table `ocx_giftcard_theme_description`
 --
 
-DROP TABLE IF EXISTS `ocx_voucher_theme_description`;
-CREATE TABLE IF NOT EXISTS `ocx_voucher_theme_description` (
-  `voucher_theme_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ocx_giftcard_theme_description`;
+CREATE TABLE IF NOT EXISTS `ocx_giftcard_theme_description` (
+  `giftcard_theme_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`voucher_theme_id`,`language_id`)
+  PRIMARY KEY (`giftcard_theme_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `ocx_voucher_theme_description`
+-- Dumping data for table `ocx_giftcard_theme_description`
 --
 
-INSERT INTO `ocx_voucher_theme_description` VALUES
+INSERT INTO `ocx_giftcard_theme_description` VALUES
 (6, 1, 'Christmas'),
 (7, 1, 'Birthday'),
 (8, 1, 'General');

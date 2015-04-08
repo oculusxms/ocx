@@ -17,28 +17,28 @@
 namespace Front\Model\Total;
 use Oculus\Engine\Model;
 
-class Voucher extends Model {
+class Giftcard extends Model {
     public function getTotal(&$total_data, &$total, &$taxes) {
-        if (isset($this->session->data['voucher'])):
-            $this->language->load('total/voucher');
+        if (isset($this->session->data['giftcard'])):
+            $this->language->load('total/giftcard');
             
-            $this->theme->model('checkout/voucher');
+            $this->theme->model('checkout/giftcard');
             
-            $voucher_info = $this->model_checkout_voucher->getVoucher($this->session->data['voucher']);
+            $giftcard_info = $this->model_checkout_giftcard->getGiftcard($this->session->data['giftcard']);
             
-            if ($voucher_info):
-                if ($voucher_info['amount'] > $total):
+            if ($giftcard_info):
+                if ($giftcard_info['amount'] > $total):
                     $amount = $total;
                 else:
-                    $amount = $voucher_info['amount'];
+                    $amount = $giftcard_info['amount'];
                 endif;
                 
                 $total_data[] = array(
-                    'code'       => 'voucher', 
-                    'title'      => sprintf($this->language->get('lang_text_voucher'), $this->session->data['voucher']), 
+                    'code'       => 'giftcard', 
+                    'title'      => sprintf($this->language->get('lang_text_giftcard'), $this->session->data['giftcard']), 
                     'text'       => $this->currency->format(-$amount), 
                     'value'      => - $amount, 
-                    'sort_order' => $this->config->get('voucher_sort_order')
+                    'sort_order' => $this->config->get('giftcard_sort_order')
                 );
                 
                 $total -= $amount;
@@ -55,12 +55,12 @@ class Voucher extends Model {
             $code = substr($order_total['title'], $start, $end - $start);
         endif;
         
-        $this->theme->model('checkout/voucher');
+        $this->theme->model('checkout/giftcard');
         
-        $voucher_info = $this->model_checkout_voucher->getVoucher($code);
+        $giftcard_info = $this->model_checkout_giftcard->getGiftcard($code);
         
-        if ($voucher_info):
-            $this->model_checkout_voucher->redeem($voucher_info['voucher_id'], $order_info['order_id'], $order_total['value']);
+        if ($giftcard_info):
+            $this->model_checkout_giftcard->redeem($giftcard_info['giftcard_id'], $order_info['order_id'], $order_total['value']);
         endif;
     }
 }

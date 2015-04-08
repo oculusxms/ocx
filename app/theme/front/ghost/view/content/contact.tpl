@@ -8,47 +8,36 @@
 		<div class="page-header"><h1><?= $lang_heading_title; ?></h1></div>
 		<div class="row">
 			<div class="col-sm-9">
-				<form title="<?= $lang_text_contact; ?>" class="form-<?= ($span > 6) ? 'horizontal' : 'inline'; ?>" action="<?= $action; ?>" method="post" enctype="multipart/form-data">
+				<form id="contact-form" title="<?= $lang_text_contact; ?>" class="form-<?= ($span > 6) ? 'horizontal' : 'inline'; ?>" action="<?= $action; ?>" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="control-label col-sm-3" for="name"><?= $lang_entry_name; ?></label>
 						<div class="col-sm-8">
-							<input type="text" name="name" value="<?= $name; ?>" id="name" class="form-control" placeholder="<?= $lang_entry_name; ?>"  autofocus>
-							<?php if ($error_name) { ?>
-								<span class="help-block error"><?= $error_name; ?></span>
-							<?php } ?>
+							<input type="text" name="name" value="<?= $name; ?>" id="name" class="form-control" placeholder="<?= $lang_entry_name; ?>" autofocus>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-3" for="email"><?= $lang_entry_email; ?></label>
 						<div class="col-sm-8">
 							<input type="email" name="email" value="<?= $email; ?>" id="email" class="form-control" placeholder="<?= $lang_entry_email; ?>" >
-							<?php if ($error_email) { ?>
-								<span class="help-block error"><?= $error_email; ?></span>
-							<?php } ?>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-3" for="enquiry"><?= $lang_entry_enquiry; ?></label>
 						<div class="col-sm-8">
 							<textarea name="enquiry" class="form-control" placeholder="<?= $lang_entry_enquiry; ?>"  rows="4" id="enquiry"><?= $enquiry; ?></textarea>
-							<?php if ($error_enquiry) { ?>
-								<span class="help-block error"><?= $error_enquiry; ?></span>
-							<?php } ?>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-3" for="captcha"><?= $lang_entry_captcha; ?></label>
 						<div class="col-sm-8">
 							<input type="text" name="captcha" value="<?= $captcha; ?>" id="captcha" class="form-control">
-							<div class="help-block"><img src="tool/captcha" alt=""></div>
-							<?php if ($error_captcha) { ?>
-								<span class="help-block error"><?= $error_captcha; ?></span>
-							<?php } ?>
+							<div class="help-block"><img id="captcha-img" src="tool/captcha" alt=""></div>
+							<input type="hidden" id="cap-code" name="cap_code" value="">
 						</div>
 					</div>
 					<div class="form-actions">
 						<div class="form-actions-inner text-right">
-							<button type="submit" class="btn btn-primary"><?= $lang_button_continue; ?></button>
+							<button type="submit" id="contact-submit" class="btn btn-primary"><?= $lang_button_continue; ?></button>
 						</div>
 					</div>
 				</form>
@@ -56,7 +45,7 @@
 			<div class="col-sm-3">
 				<div class="thumbnail">
 					<?php $map = urlencode(strip_tags(html_entity_decode($address, ENT_QUOTES, 'UTF-8'))); ?>
-					<a href="https://maps.google.com/maps?q=<?= $map; ?>" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=256x180&center=<?= $map; ?>&sensor=false" alt=""></a>
+					<a href="https://www.google.com/maps/place/<?= $map; ?>" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=256x180&center=<?= $map; ?>&sensor=false" alt=""></a>
 					<div class="caption">
 						<h4><?= $lang_text_location; ?></h4>
 						<strong><?= $store; ?></strong><br>

@@ -64,7 +64,7 @@ class Confirm extends Controller {
         endif;
         
         // Validate cart has products and has stock.
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))):
+        if ((!$this->cart->hasProducts() && empty($this->session->data['giftcards'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))):
             $redirect = $this->url->link('checkout/cart');
         endif;
         
@@ -268,30 +268,30 @@ class Confirm extends Controller {
                 );
             endforeach;
             
-            // Gift Voucher
-            $voucher_data = array();
+            // Gift card
+            $giftcard_data = array();
             
-            if (!empty($this->session->data['vouchers'])):
-                foreach ($this->session->data['vouchers'] as $voucher):
-                    $voucher_data[] = array(
-                        'description'      => $voucher['description'], 
-                        'code'             => substr(md5(mt_rand()), 0, 10), 
-                        'to_name'          => $voucher['to_name'], 
-                        'to_email'         => $voucher['to_email'], 
-                        'from_name'        => $voucher['from_name'], 
-                        'from_email'       => $voucher['from_email'], 
-                        'voucher_theme_id' => $voucher['voucher_theme_id'], 
-                        'message'          => $voucher['message'], 
-                        'amount'           => $voucher['amount']
+            if (!empty($this->session->data['giftcards'])):
+                foreach ($this->session->data['giftcards'] as $giftcard):
+                    $giftcard_data[] = array(
+                        'description'       => $giftcard['description'], 
+                        'code'              => substr(md5(mt_rand()), 0, 10), 
+                        'to_name'           => $giftcard['to_name'], 
+                        'to_email'          => $giftcard['to_email'], 
+                        'from_name'         => $giftcard['from_name'], 
+                        'from_email'        => $giftcard['from_email'], 
+                        'giftcard_theme_id' => $giftcard['giftcard_theme_id'], 
+                        'message'           => $giftcard['message'], 
+                        'amount'            => $giftcard['amount']
                     );
                 endforeach;
             endif;
             
-            $order['products'] = $product_data;
-            $order['vouchers'] = $voucher_data;
-            $order['totals']   = $total_data;
-            $order['comment']  = $this->session->data['comment'];
-            $order['total']    = $total;
+            $order['products']  = $product_data;
+            $order['giftcards'] = $giftcard_data;
+            $order['totals']    = $total_data;
+            $order['comment']   = $this->session->data['comment'];
+            $order['total']     = $total;
             
             /**
              * 3 ways to check for an affiliate, listed by precedence:
@@ -431,14 +431,14 @@ class Confirm extends Controller {
                 );
             endforeach;
             
-            // Gift Voucher
-            $data['vouchers'] = array();
+            // Gift Giftcard
+            $data['giftcards'] = array();
             
-            if (!empty($this->session->data['vouchers'])):
-                foreach ($this->session->data['vouchers'] as $voucher):
-                    $data['vouchers'][] = array(
-                        'description' => $voucher['description'], 
-                        'amount'      => $this->currency->format($voucher['amount'])
+            if (!empty($this->session->data['giftcards'])):
+                foreach ($this->session->data['giftcards'] as $giftcard):
+                    $data['giftcards'][] = array(
+                        'description' => $giftcard['description'], 
+                        'amount'      => $this->currency->format($giftcard['amount'])
                     );
                 endforeach;
             endif;

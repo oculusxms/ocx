@@ -15,7 +15,7 @@
 */
 
 // Text
-$_['lang_text_affiliate']					= 'Affiliates';
+$_['lang_text_affiliate']                   = 'Affiliates';
 $_['lang_text_alerts']                      = 'Alerts';
 $_['lang_text_approval']                    = 'Waiting for approval';
 $_['lang_text_attribute']                   = 'Attributes';
@@ -63,7 +63,7 @@ $_['lang_text_logout']                      = 'Logout';
 $_['lang_text_contact']                     = 'Mailer';
 $_['lang_text_menubuilder']                 = 'Menu Builder';
 $_['lang_text_manufacturer']                = 'Manufacturers';
-$_['lang_text_notification']				   = 'Notifications';
+$_['lang_text_notification']                = 'Notifications';
 $_['lang_text_widget']                      = 'Widgets';
 $_['lang_text_ocx']                         = 'Homepage';
 $_['lang_text_online']                      = 'Customers Online';
@@ -112,8 +112,8 @@ $_['lang_text_user']                        = 'Users';
 $_['lang_text_documentation']               = 'Documentation';
 $_['lang_text_users']                       = 'Users';
 $_['lang_text_user_group']                  = 'User Groups';
-$_['lang_text_voucher']                     = 'Gift Vouchers';
-$_['lang_text_voucher_theme']               = 'Voucher Themes';
+$_['lang_text_giftcard']                    = 'Gift Cards';
+$_['lang_text_giftcard_theme']              = 'Gift Card Themes';
 $_['lang_text_weight_class']                = 'Weight Classes';
 $_['lang_text_length_class']                = 'Length Classes';
 $_['lang_text_zone']                        = 'Zones';

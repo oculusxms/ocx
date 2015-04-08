@@ -14,5 +14,7 @@
 |	
 */
 
-// Text
-$_['lang_text_voucher'] = 'Voucher(%s)';
+$_['lang_column_event_name'] = 'Event Name:';
+$_['lang_column_date_time']  = 'Date and Time:';
+$_['lang_column_location']   = 'Location:';
+$_['lang_column_telephone']  = 'Telephone:';

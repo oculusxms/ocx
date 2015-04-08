@@ -87,10 +87,10 @@ class Setting extends Controller {
             $data['error_customer_group_display'] = '';
         }
         
-        if (isset($this->error['voucher_min'])) {
-            $data['error_voucher_min'] = $this->error['voucher_min'];
+        if (isset($this->error['giftcard_min'])) {
+            $data['error_giftcard_min'] = $this->error['giftcard_min'];
         } else {
-            $data['error_voucher_min'] = '';
+            $data['error_giftcard_min'] = '';
         }
 
         if (isset($this->error['affiliate_terms'])) {
@@ -105,10 +105,10 @@ class Setting extends Controller {
             $data['error_commission'] = '';
         }
         
-        if (isset($this->error['voucher_max'])) {
-            $data['error_voucher_max'] = $this->error['voucher_max'];
+        if (isset($this->error['giftcard_max'])) {
+            $data['error_giftcard_max'] = $this->error['giftcard_max'];
         } else {
-            $data['error_voucher_max'] = '';
+            $data['error_giftcard_max'] = '';
         }
         
         if (isset($this->error['ftp_host'])) {
@@ -488,16 +488,16 @@ class Setting extends Controller {
             $data['config_download'] = $this->config->get('config_download');
         }
         
-        if (isset($this->request->post['config_voucher_min'])) {
-            $data['config_voucher_min'] = $this->request->post['config_voucher_min'];
+        if (isset($this->request->post['config_giftcard_min'])) {
+            $data['config_giftcard_min'] = $this->request->post['config_giftcard_min'];
         } else {
-            $data['config_voucher_min'] = $this->config->get('config_voucher_min');
+            $data['config_giftcard_min'] = $this->config->get('config_giftcard_min');
         }
         
-        if (isset($this->request->post['config_voucher_max'])) {
-            $data['config_voucher_max'] = $this->request->post['config_voucher_max'];
+        if (isset($this->request->post['config_giftcard_max'])) {
+            $data['config_giftcard_max'] = $this->request->post['config_giftcard_max'];
         } else {
-            $data['config_voucher_max'] = $this->config->get('config_voucher_max');
+            $data['config_giftcard_max'] = $this->config->get('config_giftcard_max');
         }
         
         if (isset($this->request->post['config_tax'])) {
@@ -1181,12 +1181,12 @@ class Setting extends Controller {
             $this->error['customer_group_display'] = $this->language->get('lang_error_customer_group_display');
         }
         
-        if (!$this->request->post['config_voucher_min']) {
-            $this->error['voucher_min'] = $this->language->get('lang_error_voucher_min');
+        if (!$this->request->post['config_giftcard_min']) {
+            $this->error['giftcard_min'] = $this->language->get('lang_error_giftcard_min');
         }
         
-        if (!$this->request->post['config_voucher_max']) {
-            $this->error['voucher_max'] = $this->language->get('lang_error_voucher_max');
+        if (!$this->request->post['config_giftcard_max']) {
+            $this->error['giftcard_max'] = $this->language->get('lang_error_giftcard_max');
         }
         
         if (!$this->request->post['config_image_category_width'] || !$this->request->post['config_image_category_height']) {

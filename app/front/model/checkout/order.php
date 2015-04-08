@@ -128,20 +128,20 @@ class Order extends Model {
             endforeach;
         endforeach;
         
-        foreach ($data['vouchers'] as $voucher):
+        foreach ($data['giftcards'] as $giftcard):
             $this->db->query("
-				INSERT INTO {$this->db->prefix}order_voucher 
+				INSERT INTO {$this->db->prefix}order_giftcard 
 				SET 
-					order_id         = '" . (int)$order_id . "', 
-					description      = '" . $this->db->escape($voucher['description']) . "', 
-					code             = '" . $this->db->escape($voucher['code']) . "', 
-					from_name        = '" . $this->db->escape($voucher['from_name']) . "', 
-					from_email       = '" . $this->db->escape($voucher['from_email']) . "', 
-					to_name          = '" . $this->db->escape($voucher['to_name']) . "', 
-					to_email         = '" . $this->db->escape($voucher['to_email']) . "', 
-					voucher_theme_id = '" . (int)$voucher['voucher_theme_id'] . "', 
-					message          = '" . $this->db->escape($voucher['message']) . "', 
-					amount           = '" . (float)$voucher['amount'] . "'
+					order_id          = '" . (int)$order_id . "', 
+					description       = '" . $this->db->escape($giftcard['description']) . "', 
+					code              = '" . $this->db->escape($giftcard['code']) . "', 
+					from_name         = '" . $this->db->escape($giftcard['from_name']) . "', 
+					from_email        = '" . $this->db->escape($giftcard['from_email']) . "', 
+					to_name           = '" . $this->db->escape($giftcard['to_name']) . "', 
+					to_email          = '" . $this->db->escape($giftcard['to_email']) . "', 
+					giftcard_theme_id = '" . (int)$giftcard['giftcard_theme_id'] . "', 
+					message           = '" . $this->db->escape($giftcard['message']) . "', 
+					amount            = '" . (float)$giftcard['amount'] . "'
 			");
         endforeach;
         
@@ -484,30 +484,30 @@ class Order extends Model {
 
 			$temp['downloads'] = $order_download_query->rows;
             
-            // Gift Voucher
-            $this->theme->model('checkout/voucher');
+            // Gift Giftcard
+            $this->theme->model('checkout/giftcard');
             
-            $order_voucher_query = $this->db->query("
+            $order_giftcard_query = $this->db->query("
 				SELECT * 
-				FROM {$this->db->prefix}order_voucher 
+				FROM {$this->db->prefix}order_giftcard 
 				WHERE order_id = '" . (int)$order_id . "'
 			");
             
-            $temp['vouchers'] = $order_voucher_query->rows;
+            $temp['giftcards'] = $order_giftcard_query->rows;
 
-            foreach ($order_voucher_query->rows as $order_voucher):
-                $voucher_id = $this->model_checkout_voucher->addVoucher($order_id, $order_voucher);
+            foreach ($order_giftcard_query->rows as $order_giftcard):
+                $giftcard_id = $this->model_checkout_giftcard->addGiftcard($order_id, $order_giftcard);
                 $this->db->query("
-					UPDATE {$this->db->prefix}order_voucher 
+					UPDATE {$this->db->prefix}order_giftcard 
 					SET 
-						voucher_id = '" . (int)$voucher_id . "' 
-					WHERE order_voucher_id = '" . (int)$order_voucher['order_voucher_id'] . "'
+						giftcard_id = '" . (int)$giftcard_id . "' 
+					WHERE order_giftcard_id = '" . (int)$order_giftcard['order_giftcard_id'] . "'
 				");
             endforeach;
             
-            // Send out any gift voucher mails
+            // Send out any gift giftcard mails
             if ($this->config->get('config_complete_status_id') == $order_status_id):
-                $this->model_checkout_voucher->confirm($order_id);
+                $this->model_checkout_giftcard->confirm($order_id);
             endif;
             
             // Order Totals
@@ -630,7 +630,7 @@ class Order extends Model {
 				UPDATE `{$this->db->prefix}order` 
 				SET 
 					order_status_id = '" . (int)$order_status_id . "', 
-					date_modified = NOW() 
+					date_modified   = NOW() 
 				WHERE order_id = '" . (int)$order_id . "'
 			");
             
@@ -644,10 +644,10 @@ class Order extends Model {
 					date_added      = NOW()
 			");
             
-            // Send out any gift voucher mails
+            // Send out any gift giftcard mails
             if ($this->config->get('config_complete_status_id') == $order_status_id):
-                $this->theme->model('checkout/voucher');
-                $this->model_checkout_voucher->confirm($order_id);
+                $this->theme->model('checkout/giftcard');
+                $this->model_checkout_giftcard->confirm($order_id);
             endif;
             
             $this->theme->trigger('front_order_update', array('order_id' => $order_id));
@@ -858,14 +858,14 @@ class Order extends Model {
         
         $data['has_hangout'] = $has_hangout;
         
-        // Vouchers
-		$data['vouchers'] = array();
-		$vouchers         = $call['query']['vouchers'];
+        // Gift cards
+		$data['giftcards'] = array();
+		$giftcards         = $call['query']['giftcards'];
         
-        foreach ($vouchers as $voucher):
-            $data['vouchers'][] = array(
-				'description' => $voucher['description'], 
-				'amount'      => $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value'])
+        foreach ($giftcards as $giftcard):
+            $data['giftcards'][] = array(
+				'description' => $giftcard['description'], 
+				'amount'      => $this->currency->format($giftcard['amount'], $order_info['currency_code'], $order_info['currency_value'])
             );
         endforeach;
         
@@ -881,7 +881,7 @@ class Order extends Model {
 
         $message['html'] = str_replace('!content!', $html, $message['html']);
         $message['text'] = str_replace('!content!', $text, $message['text']);
-        //$this->theme->test($message);
+        
        	return $message;
 
 	}

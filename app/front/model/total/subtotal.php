@@ -23,9 +23,9 @@ class Subtotal extends Model {
         
         $sub_total = $this->cart->getSubTotal();
 
-        if (isset($this->session->data['vouchers']) && $this->session->data['vouchers']):
-            foreach ($this->session->data['vouchers'] as $voucher):
-                $sub_total+= $voucher['amount'];
+        if (isset($this->session->data['giftcards']) && $this->session->data['giftcards']):
+            foreach ($this->session->data['giftcards'] as $giftcard):
+                $sub_total+= $giftcard['amount'];
             endforeach;
         endif;
         

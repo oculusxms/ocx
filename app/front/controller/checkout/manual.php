@@ -37,8 +37,8 @@ class Manual extends Controller {
             unset($this->session->data['payment_methods']);
             unset($this->session->data['coupon']);
             unset($this->session->data['reward']);
-            unset($this->session->data['voucher']);
-            unset($this->session->data['vouchers']);
+            unset($this->session->data['giftcard']);
+            unset($this->session->data['giftcards']);
             
             // Settings
             $this->theme->model('setting/setting');
@@ -160,64 +160,120 @@ class Manual extends Controller {
                 $option_data = array();
                 
                 foreach ($product['option'] as $option) {
-                    $option_data[] = array('product_option_id' => $option['product_option_id'], 'product_option_value_id' => $option['product_option_value_id'], 'name' => $option['name'], 'value' => $option['option_value'], 'type' => $option['type']);
+                    $option_data[] = array(
+                        'product_option_id'       => $option['product_option_id'], 
+                        'product_option_value_id' => $option['product_option_value_id'], 
+                        'name'                    => $option['name'], 
+                        'value'                   => $option['option_value'], 
+                        'type'                    => $option['type']
+                    );
                 }
                 
                 $download_data = array();
                 
                 foreach ($product['download'] as $download) {
-                    $download_data[] = array('name' => $download['name'], 'filename' => $download['filename'], 'mask' => $download['mask'], 'remaining' => $download['remaining']);
+                    $download_data[] = array(
+                        'name'      => $download['name'], 
+                        'filename'  => $download['filename'], 
+                        'mask'      => $download['mask'], 
+                        'remaining' => $download['remaining']
+                    );
                 }
                 
-                $json['order_product'][] = array('product_id' => $product['product_id'], 'name' => $product['name'], 'model' => $product['model'], 'option' => $option_data, 'download' => $download_data, 'quantity' => $product['quantity'], 'stock' => $product['stock'], 'price' => $product['price'], 'total' => $product['total'], 'tax' => $this->tax->getTax($product['price'], $product['tax_class_id']), 'reward' => $product['reward']);
+                $json['order_product'][] = array(
+                    'product_id' => $product['product_id'], 
+                    'name'       => $product['name'], 
+                    'model'      => $product['model'], 
+                    'option'     => $option_data, 
+                    'download'   => $download_data, 
+                    'quantity'   => $product['quantity'], 
+                    'stock'      => $product['stock'], 
+                    'price'      => $product['price'], 
+                    'total'      => $product['total'], 
+                    'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']), 
+                    'reward'     => $product['reward']
+                );
             }
             
-            // Voucher
-            $this->session->data['vouchers'] = array();
+            // Giftcard
+            $this->session->data['giftcards'] = array();
             
-            if (isset($this->request->post['order_voucher'])) {
-                foreach ($this->request->post['order_voucher'] as $voucher) {
-                    $this->session->data['vouchers'][] = array('voucher_id' => $voucher['voucher_id'], 'description' => $voucher['description'], 'code' => substr(md5(mt_rand()), 0, 10), 'from_name' => $voucher['from_name'], 'from_email' => $voucher['from_email'], 'to_name' => $voucher['to_name'], 'to_email' => $voucher['to_email'], 'voucher_theme_id' => $voucher['voucher_theme_id'], 'message' => $voucher['message'], 'amount' => $voucher['amount']);
+            if (isset($this->request->post['order_giftcard'])) {
+                foreach ($this->request->post['order_giftcard'] as $giftcard) {
+                    $this->session->data['giftcards'][] = array(
+                        'giftcard_id'       => $giftcard['giftcard_id'], 
+                        'description'       => $giftcard['description'], 
+                        'code'              => substr(md5(mt_rand()), 0, 10), 
+                        'from_name'         => $giftcard['from_name'], 
+                        'from_email'        => $giftcard['from_email'], 
+                        'to_name'           => $giftcard['to_name'], 
+                        'to_email'          => $giftcard['to_email'], 
+                        'giftcard_theme_id' => $giftcard['giftcard_theme_id'], 
+                        'message'           => $giftcard['message'], 
+                        'amount'            => $giftcard['amount']
+                    );
                 }
             }
             
-            // Add a new voucher if set
+            // Add a new giftcard if set
             if (isset($this->request->post['from_name']) && isset($this->request->post['from_email']) && isset($this->request->post['to_name']) && isset($this->request->post['to_email']) && isset($this->request->post['amount'])) {
                 if (($this->encode->strlen($this->request->post['from_name']) < 1) || ($this->encode->strlen($this->request->post['from_name']) > 64)) {
-                    $json['error']['vouchers']['from_name'] = $this->language->get('lang_error_from_name');
+                    $json['error']['giftcards']['from_name'] = $this->language->get('lang_error_from_name');
                 }
                 
                 if (($this->encode->strlen($this->request->post['from_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['from_email'])) {
-                    $json['error']['vouchers']['from_email'] = $this->language->get('lang_error_email');
+                    $json['error']['giftcards']['from_email'] = $this->language->get('lang_error_email');
                 }
                 
                 if (($this->encode->strlen($this->request->post['to_name']) < 1) || ($this->encode->strlen($this->request->post['to_name']) > 64)) {
-                    $json['error']['vouchers']['to_name'] = $this->language->get('lang_error_to_name');
+                    $json['error']['giftcards']['to_name'] = $this->language->get('lang_error_to_name');
                 }
                 
                 if (($this->encode->strlen($this->request->post['to_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['to_email'])) {
-                    $json['error']['vouchers']['to_email'] = $this->language->get('lang_error_email');
+                    $json['error']['giftcards']['to_email'] = $this->language->get('lang_error_email');
                 }
                 
                 if (($this->request->post['amount'] < 1) || ($this->request->post['amount'] > 1000)) {
-                    $json['error']['vouchers']['amount'] = sprintf($this->language->get('lang_error_amount'), $this->currency->format(1, false, 1), $this->currency->format(1000, false, 1) . ' ' . $this->config->get('config_currency'));
+                    $json['error']['giftcards']['amount'] = sprintf($this->language->get('lang_error_amount'), $this->currency->format(1, false, 1), $this->currency->format(1000, false, 1) . ' ' . $this->config->get('config_currency'));
                 }
                 
-                if (!isset($json['error']['vouchers'])) {
-                    $voucher_data = array('order_id' => 0, 'code' => substr(md5(mt_rand()), 0, 10), 'from_name' => $this->request->post['from_name'], 'from_email' => $this->request->post['from_email'], 'to_name' => $this->request->post['to_name'], 'to_email' => $this->request->post['to_email'], 'voucher_theme_id' => $this->request->post['voucher_theme_id'], 'message' => $this->request->post['message'], 'amount' => $this->request->post['amount'], 'status' => true);
+                if (!isset($json['error']['giftcards'])) {
+                    $giftcard_data = array('order_id' => 0, 'code' => substr(md5(mt_rand()), 0, 10), 'from_name' => $this->request->post['from_name'], 'from_email' => $this->request->post['from_email'], 'to_name' => $this->request->post['to_name'], 'to_email' => $this->request->post['to_email'], 'giftcard_theme_id' => $this->request->post['giftcard_theme_id'], 'message' => $this->request->post['message'], 'amount' => $this->request->post['amount'], 'status' => true);
                     
-                    $this->theme->model('checkout/voucher');
+                    $this->theme->model('checkout/giftcard');
                     
-                    $voucher_id = $this->model_checkout_voucher->addVoucher(0, $voucher_data);
+                    $giftcard_id = $this->model_checkout_giftcard->addGiftcard(0, $giftcard_data);
                     
-                    $this->session->data['vouchers'][] = array('voucher_id' => $voucher_id, 'description' => sprintf($this->language->get('lang_text_for'), $this->currency->format($this->request->post['amount'], $this->config->get('config_currency')), $this->request->post['to_name']), 'code' => substr(md5(mt_rand()), 0, 10), 'from_name' => $this->request->post['from_name'], 'from_email' => $this->request->post['from_email'], 'to_name' => $this->request->post['to_name'], 'to_email' => $this->request->post['to_email'], 'voucher_theme_id' => $this->request->post['voucher_theme_id'], 'message' => $this->request->post['message'], 'amount' => $this->request->post['amount']);
+                    $this->session->data['giftcards'][] = array(
+                        'giftcard_id'       => $giftcard_id, 
+                        'description'       => sprintf($this->language->get('lang_text_for'), $this->currency->format($this->request->post['amount'], $this->config->get('config_currency')), $this->request->post['to_name']), 
+                        'code'              => substr(md5(mt_rand()), 0, 10), 
+                        'from_name'         => $this->request->post['from_name'], 
+                        'from_email'        => $this->request->post['from_email'], 
+                        'to_name'           => $this->request->post['to_name'], 
+                        'to_email'          => $this->request->post['to_email'], 
+                        'giftcard_theme_id' => $this->request->post['giftcard_theme_id'], 
+                        'message'           => $this->request->post['message'], 
+                        'amount'            => $this->request->post['amount']
+                    );
                 }
             }
             
-            $json['order_voucher'] = array();
+            $json['order_giftcard'] = array();
             
-            foreach ($this->session->data['vouchers'] as $voucher) {
-                $json['order_voucher'][] = array('voucher_id' => $voucher['voucher_id'], 'description' => $voucher['description'], 'code' => $voucher['code'], 'from_name' => $voucher['from_name'], 'from_email' => $voucher['from_email'], 'to_name' => $voucher['to_name'], 'to_email' => $voucher['to_email'], 'voucher_theme_id' => $voucher['voucher_theme_id'], 'message' => $voucher['message'], 'amount' => $voucher['amount']);
+            foreach ($this->session->data['giftcards'] as $giftcard) {
+                $json['order_giftcard'][] = array(
+                    'giftcard_id'       => $giftcard['giftcard_id'], 
+                    'description'       => $giftcard['description'], 
+                    'code'              => $giftcard['code'], 
+                    'from_name'         => $giftcard['from_name'], 
+                    'from_email'        => $giftcard['from_email'], 
+                    'to_name'           => $giftcard['to_name'], 
+                    'to_email'          => $giftcard['to_email'], 
+                    'giftcard_theme_id' => $giftcard['giftcard_theme_id'], 
+                    'message'           => $giftcard['message'], 
+                    'amount'            => $giftcard['amount']
+                );
             }
             
             $this->theme->model('setting/module');
@@ -256,28 +312,44 @@ class Manual extends Controller {
                 
                 if (!isset($json['error']['shipping'])) {
                     if ($country_info) {
-                        $country = $country_info['name'];
-                        $iso_code_2 = $country_info['iso_code_2'];
-                        $iso_code_3 = $country_info['iso_code_3'];
+                        $country        = $country_info['name'];
+                        $iso_code_2     = $country_info['iso_code_2'];
+                        $iso_code_3     = $country_info['iso_code_3'];
                         $address_format = $country_info['address_format'];
                     } else {
-                        $country = '';
-                        $iso_code_2 = '';
-                        $iso_code_3 = '';
+                        $country        = '';
+                        $iso_code_2     = '';
+                        $iso_code_3     = '';
                         $address_format = '';
                     }
                     
                     $zone_info = $this->model_localization_zone->getZone($this->request->post['shipping_zone_id']);
                     
                     if ($zone_info) {
-                        $zone = $zone_info['name'];
+                        $zone      = $zone_info['name'];
                         $zone_code = $zone_info['code'];
                     } else {
-                        $zone = '';
+                        $zone      = '';
                         $zone_code = '';
                     }
                     
-                    $address_data = array('firstname' => $this->request->post['shipping_firstname'], 'lastname' => $this->request->post['shipping_lastname'], 'company' => $this->request->post['shipping_company'], 'address_1' => $this->request->post['shipping_address_1'], 'address_2' => $this->request->post['shipping_address_2'], 'postcode' => $this->request->post['shipping_postcode'], 'city' => $this->request->post['shipping_city'], 'zone_id' => $this->request->post['shipping_zone_id'], 'zone' => $zone, 'zone_code' => $zone_code, 'country_id' => $this->request->post['shipping_country_id'], 'country' => $country, 'iso_code_2' => $iso_code_2, 'iso_code_3' => $iso_code_3, 'address_format' => $address_format);
+                    $address_data = array(
+                        'firstname'      => $this->request->post['shipping_firstname'], 
+                        'lastname'       => $this->request->post['shipping_lastname'], 
+                        'company'        => $this->request->post['shipping_company'], 
+                        'address_1'      => $this->request->post['shipping_address_1'], 
+                        'address_2'      => $this->request->post['shipping_address_2'], 
+                        'postcode'       => $this->request->post['shipping_postcode'], 
+                        'city'           => $this->request->post['shipping_city'], 
+                        'zone_id'        => $this->request->post['shipping_zone_id'], 
+                        'zone'           => $zone, 
+                        'zone_code'      => $zone_code, 
+                        'country_id'     => $this->request->post['shipping_country_id'], 
+                        'country'        => $country, 
+                        'iso_code_2'     => $iso_code_2, 
+                        'iso_code_3'     => $iso_code_3, 
+                        'address_format' => $address_format
+                    );
                     
                     $results = $this->model_setting_module->getModules('shipping');
                     
@@ -288,7 +360,12 @@ class Manual extends Controller {
                             $quote = $this->{'model_shipping_' . $result['code']}->getQuote($address_data);
                             
                             if ($quote) {
-                                $json['shipping_method'][$result['code']] = array('title' => $quote['title'], 'quote' => $quote['quote'], 'sort_order' => $quote['sort_order'], 'error' => $quote['error']);
+                                $json['shipping_method'][$result['code']] = array(
+                                    'title'      => $quote['title'], 
+                                    'quote'      => $quote['quote'], 
+                                    'sort_order' => $quote['sort_order'], 
+                                    'error'      => $quote['error']
+                                );
                             }
                         }
                     }
@@ -328,16 +405,16 @@ class Manual extends Controller {
                 }
             }
             
-            // Voucher
-            if (!empty($this->request->post['voucher'])) {
-                $this->theme->model('checkout/voucher');
+            // Giftcard
+            if (!empty($this->request->post['giftcard'])) {
+                $this->theme->model('checkout/giftcard');
                 
-                $voucher_info = $this->model_checkout_voucher->getVoucher($this->request->post['voucher']);
+                $giftcard_info = $this->model_checkout_giftcard->getGiftcard($this->request->post['giftcard']);
                 
-                if ($voucher_info) {
-                    $this->session->data['voucher'] = $this->request->post['voucher'];
+                if ($giftcard_info) {
+                    $this->session->data['giftcard'] = $this->request->post['giftcard'];
                 } else {
-                    $json['error']['voucher'] = $this->language->get('lang_error_voucher');
+                    $json['error']['giftcard'] = $this->language->get('lang_error_giftcard');
                 }
             }
             
@@ -414,14 +491,14 @@ class Manual extends Controller {
                 $country_info = $this->model_localization_country->getCountry($this->request->post['payment_country_id']);
                 
                 if ($country_info) {
-                    $country = $country_info['name'];
-                    $iso_code_2 = $country_info['iso_code_2'];
-                    $iso_code_3 = $country_info['iso_code_3'];
+                    $country        = $country_info['name'];
+                    $iso_code_2     = $country_info['iso_code_2'];
+                    $iso_code_3     = $country_info['iso_code_3'];
                     $address_format = $country_info['address_format'];
                 } else {
-                    $country = '';
-                    $iso_code_2 = '';
-                    $iso_code_3 = '';
+                    $country        = '';
+                    $iso_code_2     = '';
+                    $iso_code_3     = '';
                     $address_format = '';
                 }
                 
@@ -435,7 +512,23 @@ class Manual extends Controller {
                     $zone_code = '';
                 }
                 
-                $address_data = array('firstname' => $this->request->post['payment_firstname'], 'lastname' => $this->request->post['payment_lastname'], 'company' => $this->request->post['payment_company'], 'address_1' => $this->request->post['payment_address_1'], 'address_2' => $this->request->post['payment_address_2'], 'postcode' => $this->request->post['payment_postcode'], 'city' => $this->request->post['payment_city'], 'zone_id' => $this->request->post['payment_zone_id'], 'zone' => $zone, 'zone_code' => $zone_code, 'country_id' => $this->request->post['payment_country_id'], 'country' => $country, 'iso_code_2' => $iso_code_2, 'iso_code_3' => $iso_code_3, 'address_format' => $address_format);
+                $address_data = array(
+                    'firstname'      => $this->request->post['payment_firstname'], 
+                    'lastname'       => $this->request->post['payment_lastname'], 
+                    'company'        => $this->request->post['payment_company'], 
+                    'address_1'      => $this->request->post['payment_address_1'], 
+                    'address_2'      => $this->request->post['payment_address_2'], 
+                    'postcode'       => $this->request->post['payment_postcode'], 
+                    'city'           => $this->request->post['payment_city'], 
+                    'zone_id'        => $this->request->post['payment_zone_id'], 
+                    'zone'           => $zone, 
+                    'zone_code'      => $zone_code, 
+                    'country_id'     => $this->request->post['payment_country_id'], 
+                    'country'        => $country, 
+                    'iso_code_2'     => $iso_code_2, 
+                    'iso_code_3'     => $iso_code_3, 
+                    'address_format' => $address_format
+                );
                 
                 $json['payment_method'] = array();
                 
@@ -486,8 +579,8 @@ class Manual extends Controller {
             unset($this->session->data['payment_methods']);
             unset($this->session->data['coupon']);
             unset($this->session->data['reward']);
-            unset($this->session->data['voucher']);
-            unset($this->session->data['vouchers']);
+            unset($this->session->data['giftcard']);
+            unset($this->session->data['giftcards']);
         } else {
             $json['error']['warning'] = $this->language->get('lang_error_permission');
         }

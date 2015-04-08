@@ -29,7 +29,7 @@ $_['lang_text_message']   = '<p>Your inquiry has been successfully sent to the w
 $_['lang_entry_name']     = 'Full Name';
 $_['lang_entry_email']    = 'E-Mail Address';
 $_['lang_entry_enquiry']  = 'Inquiry';
-$_['lang_entry_captcha']  = 'Enter the code in the box below';
+$_['lang_entry_captcha']  = 'Enter the code below';
 
 // Email
 $_['lang_email_subject']  = 'Inquiry %s';

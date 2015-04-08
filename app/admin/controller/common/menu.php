@@ -99,8 +99,8 @@ class Menu extends Controller {
             $data['total']                       = $this->url->link('module/total', 'token=' . $this->session->data['token'], 'SSL');
             $data['user']                        = $this->url->link('people/user', 'token=' . $this->session->data['token'], 'SSL');
             $data['user_group']                  = $this->url->link('people/userpermission', 'token=' . $this->session->data['token'], 'SSL');
-            $data['voucher']                     = $this->url->link('sale/voucher', 'token=' . $this->session->data['token'], 'SSL');
-            $data['voucher_theme']               = $this->url->link('sale/vouchertheme', 'token=' . $this->session->data['token'], 'SSL');
+            $data['giftcard']                    = $this->url->link('sale/giftcard', 'token=' . $this->session->data['token'], 'SSL');
+            $data['giftcard_theme']              = $this->url->link('sale/giftcardtheme', 'token=' . $this->session->data['token'], 'SSL');
             $data['weight_class']                = $this->url->link('localization/weightclass', 'token=' . $this->session->data['token'], 'SSL');
             $data['length_class']                = $this->url->link('localization/lengthclass', 'token=' . $this->session->data['token'], 'SSL');
             $data['zone']                        = $this->url->link('localization/zone', 'token=' . $this->session->data['token'], 'SSL');
