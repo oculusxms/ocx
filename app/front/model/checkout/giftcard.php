@@ -122,73 +122,47 @@ class Giftcard extends Model {
         
         $order_info = $this->model_checkout_order->getOrder($order_id);
         
-        if ($order_info) {
-            $this->theme->model('localization/language');
-            
-            $language = new Language($order_info['language_directory'], $this->app['path.language'], $this->app);
-            $language->load($order_info['language_filename']);
-            $language->load('mail/giftcard');
-            
+        if ($order_info):
             $giftcard_query = $this->db->query("
                 SELECT 
                     *, 
-                    vtd.name AS theme 
-                FROM `{$this->db->prefix}giftcard` v 
-                LEFT JOIN {$this->db->prefix}giftcard_theme vt 
-                ON (v.giftcard_theme_id = vt.giftcard_theme_id) 
-                LEFT JOIN {$this->db->prefix}giftcard_theme_description vtd 
-                ON (vt.giftcard_theme_id = vtd.giftcard_theme_id) 
-                AND vtd.language_id = '" . (int)$order_info['language_id'] . "' 
-                WHERE v.order_id = '" . (int)$order_id . "'");
+                    gtd.name AS theme 
+                FROM {$this->db->prefix}giftcard g 
+                LEFT JOIN {$this->db->prefix}giftcard_theme gt 
+                ON (g.giftcard_theme_id = gt.giftcard_theme_id) 
+                LEFT JOIN {$this->db->prefix}giftcard_theme_description gtd 
+                ON (gt.giftcard_theme_id = gtd.giftcard_theme_id) 
+                AND gtd.language_id = '" . (int)$order_info['language_id'] . "' 
+                WHERE g.order_id = '" . (int)$order_id . "'");
             
-            foreach ($giftcard_query->rows as $giftcard) {
+            foreach ($giftcard_query->rows as $giftcard):
+                $split    = explode(' ', $giftcard['to_name']);
+                $callback = array(
+                    'firstname' => $split[0],
+                    'lastname'  => isset($split[1]) ? $split[1] : '',
+                    'email'     => $giftcard['to_email']
+                );
 
-                // NEW MAILER
-                // public_giftcard_confirm
+                $this->notify->setGenericCustomer($callback);
                 
-                // Text email
-                // $text  = sprintf($language->get('text_greeting') , $this->currency->format($giftcard['amount'], $order_info['currency_code'], $order_info['currency_value'])) . "\n\n";
-                // $text .= sprintf($language->get('text_from') , $giftcard['from_name']) . "\n\n";
-                // $text .= $language->get('text_message') . "\n\n";
-                // $text .= sprintf($language->get('text_redeem') , $giftcard['code']) . "\n\n";
-                // $text .= $language->get('text_footer') . "\n\n";
+                $message  = $this->notify->fetch('public_giftcard_confirm');
+                $priority = $message['priority'];
+                
+                // decorate the base email
+                $message = $this->buildMessage($giftcard, $message);
 
-                // // HTML Mail
-                // $template = new Template($this->app);
+                $this->notify->fetchWrapper($priority);
+
+                $message = $this->notify->formatEmail($message, 1);
                 
-                // $template->data['title'] = sprintf($language->get('text_subject') , $giftcard['from_name']);
+                if ($priority == 1):
+                    $this->notify->send($message);
+                else:
+                    $this->notify->addToEmailQueue($message);
+                endif;
                 
-                // $template->data['text_greeting'] = sprintf($language->get('text_greeting') , $this->currency->format($giftcard['amount'], $order_info['currency_code'], $order_info['currency_value']));
-                // $template->data['text_from']     = sprintf($language->get('text_from') , $giftcard['from_name']);
-                // $template->data['text_message']  = $language->get('text_message');
-                // $template->data['text_redeem']   = sprintf($language->get('text_redeem') , $giftcard['code']);
-                // $template->data['text_footer']   = $language->get('text_footer');
-                
-                // if (file_exists($this->app['path.image'] . $giftcard['image'])) {
-                //     $template->data['image'] = $this->config->get('config_url') . 'image/' . $giftcard['image'];
-                // } else {
-                //     $template->data['image'] = '';
-                // }
-                
-                // $template->data['store_name']       = $order_info['store_name'];
-                // $template->data['store_url']        = $order_info['store_url'];
-                // $template->data['message']          = nl2br($giftcard['message']);
-                
-                // $template->data['email_store_url']  = $language->get('email_store_url');
-                // $template->data['email_store_name'] = $language->get('email_store_name');
-                
-                // $html = $template->fetch('mail/giftcard_customer');
-                
-                // $this->mailer->build(
-                //     html_entity_decode(sprintf($language->get('text_subject') , $giftcard['from_name']) , ENT_QUOTES, 'UTF-8'), 
-                //     $giftcard['to_email'], 
-                //     $giftcard['to_name'],
-                //     $text,
-                //     $html,
-                //     true
-                // );
-            }
-        }
+            endforeach;
+        endif;
     }
     
     public function redeem($giftcard_id, $order_id, $amount) {
@@ -197,6 +171,62 @@ class Giftcard extends Model {
             SET 
                 giftcard_id = '" . (int)$giftcard_id . "', 
                 order_id    = '" . (int)$order_id . "', 
-                amount      = '" . (float)$amount . "', date_added = NOW()");
+                amount      = '" . (float)$amount . "', 
+                date_added  = NOW()");
     }
+
+    public function buildMessage($data, $message) {
+        $call = $data;
+        unset($data);
+        
+        $data = $this->theme->language('notification/giftcard');
+
+        $data['theme_image'] = $this->app['http.public'] . 'image/' . $call['image'];
+        $data['theme_name']  = $call['theme'];
+        $data['store_name']  = $this->config->get('config_name');
+        $data['to_name']     = $call['to_name'];
+        $data['code']        = $call['code'];
+
+        $data['text_message'] = false;
+        $data['html_message'] = false;
+
+        if (isset($call['message'])):
+            $data['text_message'] = $call['message'];
+            $data['html_message'] = nl2br($call['message']);
+        endif;
+
+        $data['lang_text_message'] = sprintf($this->language->get('lang_text_message'), $call['from_name']);
+
+        $search = array(
+            '!amount!',
+            '!sender!',
+            '!sender_email!',
+            '!code!'
+        );
+
+        $replace = array(
+            $this->currency->format($call['amount']),
+            $call['from_name'],
+            $call['from_email'],
+            $call['code']
+        );
+
+        foreach($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+
+        $html = new Template($this->app);
+        $text = new Text($this->app);
+
+        $html->data = $data;
+        $text->data = $data;
+
+        $html = $html->fetch('notification/giftcard');
+        $text = $text->fetch('notification/giftcard');
+
+        $message['text'] = str_replace('!content!', $text, $message['text']);
+        $message['html'] = str_replace('!content!', $html, $message['html']);
+        
+        return $message;
+    } 
 }
