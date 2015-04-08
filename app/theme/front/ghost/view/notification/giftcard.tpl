@@ -30,8 +30,8 @@
 </div>
 
 <?php if ($html_message): ?>
-	<p>
-		<?= $lang_text_message; ?><br><br>
+	<p><?= $lang_text_message; ?></p>
+	<div style="padding: 15px;margin-bottom: 20px;border: 2px solid #faebcc;border-radius: 4px;background-color: #fcf8e3;color: #D7A663;">
 		<?= $html_message; ?>
-	</p>
+	</div>
 <?php endif; ?>

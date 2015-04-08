@@ -136,8 +136,8 @@
 	<?php if (isset($giftcards)): ?>
 	<?php foreach ($giftcards as $giftcard): ?>
 	<tr>
-        <td colspan="<?= $colspan; ?>" style="font-size:0.8em"><?= $giftcard['description']; ?></td>
-		<td style="font-size:0.8em"><?= $giftcard['amount']; ?></td>
+        <td align="left" colspan="<?= $colspan; ?>" style="font-size:0.8em"><?= $giftcard['description']; ?></td>
+		<td align="right" style="font-size:0.8em"><?= $giftcard['amount']; ?></td>
 	</tr>
 	<?php endforeach; ?>
 	<?php endif; ?>
