@@ -42,7 +42,6 @@ class Menu extends Controller {
             $data['blog_category']               = $this->url->link('content/category', 'token=' . $this->session->data['token'], 'SSL');
             $data['blog_post']                   = $this->url->link('content/post', 'token=' . $this->session->data['token'], 'SSL');
             $data['blog_comment']                = $this->url->link('content/comment', 'token=' . $this->session->data['token'], 'SSL');
-            $data['blog_setting']                = $this->url->link('content/setting', 'token=' . $this->session->data['token'], 'SSL');
             $data['category']                    = $this->url->link('catalog/category', 'token=' . $this->session->data['token'], 'SSL');
             $data['country']                     = $this->url->link('localization/country', 'token=' . $this->session->data['token'], 'SSL');
             $data['coupon']                      = $this->url->link('sale/coupon', 'token=' . $this->session->data['token'], 'SSL');

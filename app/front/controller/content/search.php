@@ -26,7 +26,7 @@ class Search extends Controller {
         $this->theme->model('tool/image');
         
         if ($this->theme->style === 'shop'):
-            $this->breadcrumb->add($this->config->get('blog_title'), 'content/home');
+            $this->breadcrumb->add($this->config->get('config_name'), 'content/home');
         endif;
         
         if (isset($this->request->get['filter_name'])) {
@@ -86,7 +86,7 @@ class Search extends Controller {
         if (isset($this->request->get['limit'])) {
             $limit = $this->request->get['limit'];
         } else {
-            $limit = $this->config->get('blog_limit');
+            $limit = $this->config->get('config_catalog_limit');
         }
         
         if (isset($this->request->get['filter_name'])) {

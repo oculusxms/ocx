@@ -252,18 +252,32 @@ class Post extends Controller {
         
         $data['posts'] = array();
         
-        $filter = array('filter_name' => $filter_name, 'filter_author_id' => $filter_author_id, 'filter_category_id' => $filter_category_id, 'filter_sub_category' => true, 'filter_status' => $filter_status, 'filter_date_added' => $filter_date_added, 'filter_date_modified' => $filter_date_modified, 'sort' => $sort, 'order' => $order, 'start' => ($page - 1) * $this->config->get('config_admin_limit'), 'limit' => $this->config->get('config_admin_limit'));
+        $filter = array(
+            'filter_name'          => $filter_name, 
+            'filter_author_id'     => $filter_author_id, 
+            'filter_category_id'   => $filter_category_id, 
+            'filter_sub_category'  => true, 
+            'filter_status'        => $filter_status, 
+            'filter_date_added'    => $filter_date_added, 
+            'filter_date_modified' => $filter_date_modified, 
+            'sort'                 => $sort, 
+            'order'                => $order, 
+            'start'                => ($page - 1) * $this->config->get('config_admin_limit'), 
+            'limit'                => $this->config->get('config_admin_limit')
+        );
         
         $this->theme->model('tool/image');
         
         $post_total = $this->model_content_post->getTotalPosts($filter);
-        
-        $results = $this->model_content_post->getPosts($filter);
+        $results    = $this->model_content_post->getPosts($filter);
         
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('content/post/update', 'token=' . $this->session->data['token'] . '&post_id=' . $result['post_id'] . $url, 'SSL'));
+            $action[] = array(
+                'text' => $this->language->get('lang_text_edit'), 
+                'href' => $this->url->link('content/post/update', 'token=' . $this->session->data['token'] . '&post_id=' . $result['post_id'] . $url, 'SSL')
+            );
             
             if ($result['image'] && file_exists($this->app['path.image'] . $result['image'])) {
                 $image = $this->model_tool_image->resize($result['image'], 40, 40);
@@ -273,7 +287,19 @@ class Post extends Controller {
             
             $status = (!$result['status']) ? $this->language->get('lang_text_disabled') : (($result['status'] === 2) ? $this->language->get('lang_text_draft') : $this->language->get('lang_text_posted'));
             
-            $data['posts'][] = array('post_id' => $result['post_id'], 'image' => $image, 'name' => $result['name'], 'author_id' => $result['author_id'], 'author_name' => $this->model_content_post->getPostAuthor($result['author_id']), 'category' => implode(', ', $this->model_content_post->getPostCategoriesNames($result['post_id'])), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'date_modified' => ($result['date_modified'] != '0000-00-00 00:00:00') ? date($this->language->get('lang_date_format_short'), strtotime($result['date_modified'])) : '-', 'viewed' => $result['viewed'], 'status' => $status, 'selected' => isset($this->request->post['selected']) && in_array($result['post_id'], $this->request->post['selected']), 'action' => $action);
+            $data['posts'][] = array(
+                'post_id'       => $result['post_id'], 
+                'image'         => $image, 
+                'name'          => $result['name'], 
+                'author_id'     => $result['author_id'], 
+                'author_name'   => $this->model_content_post->getPostAuthor($result['author_id']), 
+                'category'      => implode(', ', $this->model_content_post->getPostCategoriesNames($result['post_id'])), 
+                'date_added'    => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 
+                'date_modified' => ($result['date_modified'] != '0000-00-00 00:00:00') ? date($this->language->get('lang_date_format_short'), strtotime($result['date_modified'])) : '-', 
+                'viewed'        => $result['viewed'], 'status' => $status, 
+                'selected'      => isset($this->request->post['selected']) && in_array($result['post_id'], $this->request->post['selected']), 
+                'action'        => $action
+            );
         }
         
         $data['token'] = $this->session->data['token'];
@@ -332,12 +358,12 @@ class Post extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $data['sort_name'] = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=pd.name' . $url, 'SSL');
-        $data['sort_status'] = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.status' . $url, 'SSL');
-        $data['sort_viewed'] = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.viewed' . $url, 'SSL');
-        $data['sort_date_added'] = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.date_added' . $url, 'SSL');
+        $data['sort_name']          = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=pd.name' . $url, 'SSL');
+        $data['sort_status']        = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.status' . $url, 'SSL');
+        $data['sort_viewed']        = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.viewed' . $url, 'SSL');
+        $data['sort_date_added']    = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.date_added' . $url, 'SSL');
         $data['sort_date_modified'] = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.date_modified' . $url, 'SSL');
-        $data['sort_order'] = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.sort_order' . $url, 'SSL');
+        $data['sort_order']         = $this->url->link('content/post', 'token=' . $this->session->data['token'] . '&sort=p.sort_order' . $url, 'SSL');
         
         $url = '';
         
@@ -376,14 +402,22 @@ class Post extends Controller {
         if (isset($this->request->get['order'])) {
             $url.= '&order=' . $this->request->get['order'];
         }
+
+        $data['posted_by'] = $this->config->get('blog_posted_by');
         
-        $data['pagination'] = $this->theme->paginate($post_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('content/post', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $post_total, 
+            $page, 
+            $this->config->get('config_admin_limit'), 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('content/post', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL')
+        );
         
-        $data['filter_name'] = $filter_name;
-        $data['filter_author_id'] = $filter_author_id;
-        $data['filter_category_id'] = $filter_category_id;
-        $data['filter_status'] = $filter_status;
-        $data['filter_date_added'] = $filter_date_added;
+        $data['filter_name']          = $filter_name;
+        $data['filter_author_id']     = $filter_author_id;
+        $data['filter_category_id']   = $filter_category_id;
+        $data['filter_status']        = $filter_status;
+        $data['filter_date_added']    = $filter_date_added;
         $data['filter_date_modified'] = $filter_date_modified;
         
         $data['authors'] = $this->model_content_post->getAuthors();
@@ -392,8 +426,10 @@ class Post extends Controller {
         
         $data['categories'] = $this->model_content_category->getCategories();
         
-        $data['sort'] = $sort;
+        $data['sort']  = $sort;
         $data['order'] = $order;
+
+        $this->theme->loadjs('javascript/content/post_list', $data);
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -520,6 +556,8 @@ class Post extends Controller {
         }
         
         $authors = $this->model_content_post->getAuthors();
+
+        $data['posted_by'] = $this->config->get('blog_posted_by');
         
         foreach ($authors as $author):
             if ($author['author_id'] === $data['author_id']):
@@ -763,26 +801,39 @@ class Post extends Controller {
     public function autoauthor() {
         $json = array();
         
-        if (isset($this->request->get['filter_username']) || isset($this->request->get['filter_name'])) {
-            $this->theme->model('people/customer');
+        $filter = array(
+            'start'       => 0, 
+            'limit'       => 20
+        );
+        
+        if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_user_name'])):
+            $this->theme->model('people/user');
             
-            $filter_username = (isset($this->request->get['filter_username'])) ? $this->request->get['filter_username'] : null;
-            $filter_name = (isset($this->request->get['filter_name'])) ? $this->request->get['filter_name'] : null;
+            if (isset($this->request->get['filter_name'])) $filter['filter_name'] = $this->request->get['filter_name']; 
+            if (isset($this->request->get['filter_user_name'])) $filter['filter_user_name'] = $this->request->get['filter_user_name'];
             
-            $filter = array('filter_username' => $filter_username, 'filter_name' => $filter_name, 'start' => 0, 'limit' => 20);
+            $results = $this->model_people_user->getUsers($filter);
             
-            $results = $this->model_people_customer->getCustomers($filter);
-            
-            foreach ($results as $result) {
-                $json[] = array('customer_id' => $result['customer_id'], 'username' => $result['username'], 'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')));
-            }
-        }
+            foreach ($results as $result):
+                if ($this->config->get('blog_posted_by') == 'lastname firstname'):
+                    $name = $result['lastname'] . ' ' . $result['firstname'];
+                else:
+                    $name = $result['firstname'] . ' ' . $result['lastname'];
+                endif;
+
+                $json[] = array(
+                    'user_id'   => $result['user_id'],
+                    'user_name' => $result['user_name'],
+                    'name'      => strip_tags(html_entity_decode($name, ENT_QUOTES, 'UTF-8'))
+                );
+            endforeach;
+        endif;
         
         $sort_order = array();
         
-        foreach ($json as $key => $value) {
-            $sort_order[$key] = $value;
-        }
+        foreach ($json as $key => $value):
+            $sort_order[$key] = $value['name'];
+        endforeach;
         
         array_multisort($sort_order, SORT_ASC, $json);
         

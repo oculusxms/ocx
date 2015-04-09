@@ -58,11 +58,11 @@ class Home extends Controller {
         else:
             $data = $this->theme->language('content/home');
             
-            $this->theme->setTitle($this->config->get('blog_title'));
-            $this->theme->setDescription($this->config->get('blog_meta_description'));
+            $this->theme->setTitle($this->config->get('config_name'));
+            $this->theme->setDescription($this->config->get('config_meta_description'));
             
             $this->theme->setOgType('article');
-            $this->theme->setOgDescription(html_entity_decode($this->config->get('blog_meta_description'), ENT_QUOTES, 'UTF-8'));
+            $this->theme->setOgDescription(html_entity_decode($this->config->get('config_meta_description'), ENT_QUOTES, 'UTF-8'));
             
             $this->breadcrumb->add(sprintf($this->language->get('lang_heading_title'), $this->config->get('config_name')), 'content/home');
             
@@ -90,7 +90,7 @@ class Home extends Controller {
             if (isset($this->request->get['limit'])):
                 $limit = $this->request->get['limit'];
             else:
-                $limit = $this->config->get('blog_limit');
+                $limit = $this->config->get('config_catalog_limit');
             endif;
             
             $post_total = $this->model_content_post->getTotalPosts();

@@ -422,8 +422,162 @@
 								</div>
 							</div>
 							<div id="tab-blog" class="tab-pane">
-								
-								
+								<div class="form-group">
+									<label class="control-label col-sm-2" for="blog_posted_by"><b class="required">*</b> <?= $lang_entry_blog_posted_by; ?></label>
+									<div class="control-field col-sm-4">
+										<select name="blog_posted_by" class="form-control">
+											<option value="0"><?= $lang_text_select; ?></option>
+										<?php if ($blog_posted_by == 'firstname lastname'): ?>
+											<option value="firstname lastname" selected="selected"><?= $lang_text_blog_pb_firstname_lastname; ?></option>
+											<option value="lastname firstname"><?= $lang_text_blog_pb_lastname_firstname; ?></option>
+											<option value="user_name"><?= $lang_text_blog_pb_username; ?></option>
+										<?php elseif ($blog_posted_by == 'lastname firstname'): ?>
+											<option value="firstname lastname"><?= $lang_text_blog_pb_firstname_lastname; ?></option>
+											<option value="lastname firstname" selected="selected"><?= $lang_text_blog_pb_lastname_firstname; ?></option>
+											<option value="user_name"><?= $lang_text_blog_pb_username; ?></option>
+										<?php elseif($blog_posted_by == 'user_name'): ?>
+											<option value="firstname lastname"><?= $lang_text_blog_pb_firstname_lastname; ?></option>
+											<option value="lastname firstname"><?= $lang_text_blog_pb_lastname_firstname; ?></option>
+											<option value="user_name" selected="selected"><?= $lang_text_blog_pb_username; ?></option>
+										<?php else: ?>
+											<option value="firstname lastname"><?= $lang_text_blog_pb_firstname_lastname; ?></option>
+											<option value="lastname firstname"><?= $lang_text_blog_pb_lastname_firstname; ?></option>
+											<option value="user_name"><?= $lang_text_blog_pb_username; ?></option>
+										<?php endif; ?>
+										</select>
+										<?php if ($error_blog_posted_by): ?>
+										<span class="help-block error"><?= $error_blog_posted_by; ?></span>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2" for="blog_comment_status"><?= $lang_entry_blog_comment; ?></label>
+									<div class="control-field col-sm-4">
+										<?php if ($blog_comment_status): ?>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_status" value="1" checked="checked"> <?= $lang_text_yes; ?>
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_status" value="0"> <?= $lang_text_no; ?>
+										</label>
+										<?php else: ?>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_status" value="1"> <?= $lang_text_yes; ?>
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_status" value="0" checked="checked"> <?= $lang_text_no; ?>
+										</label>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2" for="blog_comment_logged"><?= $lang_entry_blog_comment_anonymous; ?></label>
+									<div class="control-field col-sm-4">
+										<?php if ($blog_comment_logged): ?>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_logged" value="1" checked> <?= $lang_text_yes; ?>
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_logged" value="0"> <?= $lang_text_no; ?>
+										</label>
+										<?php else: ?>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_logged" value="1"> <?= $lang_text_yes; ?>
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_logged" value="0" checked> <?= $lang_text_no; ?>
+										</label>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2" for="blog_comment_require_approve"><?= $lang_entry_blog_comment_require_approve; ?></label>
+									<div class="control-field col-sm-4">
+										<?php if ($blog_comment_require_approve): ?>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_require_approve" value="1" checked="checked"> <?= $lang_text_yes; ?>
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_require_approve" value="0"> <?= $lang_text_no; ?>
+										</label>
+										<?php else: ?>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_require_approve" value="1"> <?= $lang_text_yes; ?>
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="blog_comment_require_approve" value="0" checked="checked"> <?= $lang_text_no; ?>
+										</label>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2" for="blog_admin_group_id"><b class="required">*</b> <?= $lang_entry_blog_admin_group; ?></label>
+									<div class="control-field col-sm-4">
+										<select name="blog_admin_group_id" class="form-control">
+											<option value="0"><?= $lang_text_select; ?></option>
+											<?php foreach($user_groups as $user_group): ?>
+											<?php if ($user_group['user_group_id'] == $blog_admin_group_id): ?>
+											<option value="<?= $user_group['user_group_id']; ?>" selected="selected"><?= $user_group['name']; ?></option>
+											<?php else: ?>
+											<option value="<?= $user_group['user_group_id']; ?>"><?= $user_group['name']; ?></option>
+											<?php endif; ?>
+											<?php endforeach; ?>
+										</select>
+										<?php if ($error_blog_admin_group_id): ?>
+										<span class="help-block error"><?= $error_blog_admin_group_id; ?></span>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_blog_image_thumb; ?></label>
+									<div class="control-field col-sm-4">
+										<input type="text" name="blog_image_thumb_width" value="<?= $blog_image_thumb_width; ?>" class="form-control" placeholder="<?= $lang_text_width; ?>"> 
+										<input type="text" name="blog_image_thumb_height" value="<?= $blog_image_thumb_height; ?>" class="form-control" placeholder="<?= $lang_text_height; ?>">
+										<?php if ($error_blog_image_thumb): ?>
+										<span class="help-block error"><?= $error_blog_image_thumb; ?></span>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_blog_image_popup; ?></label>
+									<div class="control-field col-sm-4">
+										<input type="text" name="blog_image_popup_width" value="<?= $blog_image_popup_width; ?>" class="form-control" placeholder="<?= $lang_text_width; ?>">
+										<input type="text" name="blog_image_popup_height" value="<?= $blog_image_popup_height; ?>" class="form-control" placeholder="<?= $lang_text_height; ?>">
+										<?php if ($error_blog_image_popup): ?>
+										<span class="help-block error"><?= $error_blog_image_popup; ?></span>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_blog_image_post; ?></label>
+									<div class="control-field col-sm-4">
+										<input type="text" name="blog_image_post_width" value="<?= $blog_image_post_width; ?>" class="form-control" placeholder="<?= $lang_text_width; ?>">
+										<input type="text" name="blog_image_post_height" value="<?= $blog_image_post_height; ?>" class="form-control" placeholder="<?= $lang_text_height; ?>">
+										<?php if ($error_blog_image_post): ?>
+										<span class="help-block error"><?= $error_blog_image_post; ?></span>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_blog_image_additional; ?></label>
+									<div class="control-field col-sm-4">
+										<input type="text" name="blog_image_additional_width" value="<?= $blog_image_additional_width; ?>" class="form-control" placeholder="<?= $lang_text_width; ?>">
+										<input type="text" name="blog_image_additional_height" value="<?= $blog_image_additional_height; ?>" class="form-control" placeholder="<?= $lang_text_height; ?>">
+										<?php if ($error_blog_image_additional): ?>
+										<span class="help-block error"><?= $error_blog_image_additional; ?></span>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_blog_image_related; ?></label>
+									<div class="control-field col-sm-4">
+										<input type="text" name="blog_image_related_width" value="<?= $blog_image_related_width; ?>" class="form-control" placeholder="<?= $lang_text_width; ?>">
+										<input type="text" name="blog_image_related_height" value="<?= $blog_image_related_height; ?>" class="form-control" placeholder="<?= $lang_text_height; ?>">
+										<?php if ($error_blog_image_related): ?>
+										<span class="help-block error"><?= $error_blog_image_related; ?></span>
+										<?php endif; ?>
+									</div>
+								</div>
 							</div>
 							<div id="tab-giftcard" class="tab-pane">
 								<div class="form-group">

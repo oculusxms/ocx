@@ -86,6 +86,48 @@ class Setting extends Controller {
         } else {
             $data['error_customer_group_display'] = '';
         }
+
+        if (isset($this->error['blog_image_thumb'])) {
+            $data['error_blog_image_thumb'] = $this->error['blog_image_thumb'];
+        } else {
+            $data['error_blog_image_thumb'] = '';
+        }
+
+        if (isset($this->error['blog_image_popup'])) {
+            $data['error_blog_image_popup'] = $this->error['blog_image_popup'];
+        } else {
+            $data['error_blog_image_popup'] = '';
+        }
+        
+        if (isset($this->error['blog_image_post'])) {
+            $data['error_blog_image_post'] = $this->error['blog_image_post'];
+        } else {
+            $data['error_blog_image_post'] = '';
+        }
+        
+        if (isset($this->error['blog_image_additional'])) {
+            $data['error_blog_image_additional'] = $this->error['blog_image_additional'];
+        } else {
+            $data['error_blog_image_additional'] = '';
+        }
+        
+        if (isset($this->error['blog_image_related'])) {
+            $data['error_blog_image_related'] = $this->error['blog_image_related'];
+        } else {
+            $data['error_blog_image_related'] = '';
+        }
+        
+        if (isset($this->error['blog_posted_by'])) {
+            $data['error_blog_posted_by'] = $this->error['blog_posted_by'];
+        } else {
+            $data['error_blog_posted_by'] = '';
+        }
+        
+        if (isset($this->error['blog_admin_group_id'])) {
+            $data['error_blog_admin_group_id'] = $this->error['blog_admin_group_id'];
+        } else {
+            $data['error_blog_admin_group_id'] = '';
+        }
         
         if (isset($this->error['giftcard_min'])) {
             $data['error_giftcard_min'] = $this->error['giftcard_min'];
@@ -556,6 +598,100 @@ class Setting extends Controller {
         } else {
             $data['config_customer_price'] = $this->config->get('config_customer_price');
         }
+
+        if (isset($this->request->post['blog_posted_by'])) {
+            $data['blog_posted_by'] = $this->request->post['blog_posted_by'];
+        } else {
+            $data['blog_posted_by'] = $this->config->get('blog_posted_by');
+        }
+        
+        if (isset($this->request->post['blog_comment_status'])) {
+            $data['blog_comment_status'] = $this->request->post['blog_comment_status'];
+        } else {
+            $data['blog_comment_status'] = $this->config->get('blog_comment_status');
+        }
+        
+        if (isset($this->request->post['blog_comment_logged'])) {
+            $data['blog_comment_logged'] = $this->request->post['blog_comment_logged'];
+        } else {
+            $data['blog_comment_logged'] = $this->config->get('blog_comment_logged');
+        }
+        
+        if (isset($this->request->post['blog_comment_require_approve'])) {
+            $data['blog_comment_require_approve'] = $this->request->post['blog_comment_require_approve'];
+        } else {
+            $data['blog_comment_require_approve'] = $this->config->get('blog_comment_require_approve');
+        }
+        
+        if (isset($this->request->post['blog_admin_group_id'])) {
+            $data['blog_admin_group_id'] = $this->request->post['blog_admin_group_id'];
+        } else {
+            $data['blog_admin_group_id'] = $this->config->get('blog_admin_group_id');
+        }
+        
+        if (isset($this->request->post['blog_image_thumb_width'])) {
+            $data['blog_image_thumb_width'] = $this->request->post['blog_image_thumb_width'];
+        } else {
+            $data['blog_image_thumb_width'] = $this->config->get('blog_image_thumb_width');
+        }
+        
+        if (isset($this->request->post['blog_image_thumb_height'])) {
+            $data['blog_image_thumb_height'] = $this->request->post['blog_image_thumb_height'];
+        } else {
+            $data['blog_image_thumb_height'] = $this->config->get('blog_image_thumb_height');
+        }
+        
+        if (isset($this->request->post['blog_image_popup_width'])) {
+            $data['blog_image_popup_width'] = $this->request->post['blog_image_popup_width'];
+        } else {
+            $data['blog_image_popup_width'] = $this->config->get('blog_image_popup_width');
+        }
+        
+        if (isset($this->request->post['blog_image_popup_height'])) {
+            $data['blog_image_popup_height'] = $this->request->post['blog_image_popup_height'];
+        } else {
+            $data['blog_image_popup_height'] = $this->config->get('blog_image_popup_height');
+        }
+        
+        if (isset($this->request->post['blog_image_post_width'])) {
+            $data['blog_image_post_width'] = $this->request->post['blog_image_post_width'];
+        } else {
+            $data['blog_image_post_width'] = $this->config->get('blog_image_post_width');
+        }
+        
+        if (isset($this->request->post['blog_image_post_height'])) {
+            $data['blog_image_post_height'] = $this->request->post['blog_image_post_height'];
+        } else {
+            $data['blog_image_post_height'] = $this->config->get('blog_image_post_height');
+        }
+        
+        if (isset($this->request->post['blog_image_additional_width'])) {
+            $data['blog_image_additional_width'] = $this->request->post['blog_image_additional_width'];
+        } else {
+            $data['blog_image_additional_width'] = $this->config->get('blog_image_additional_width');
+        }
+        
+        if (isset($this->request->post['blog_image_additional_height'])) {
+            $data['blog_image_additional_height'] = $this->request->post['blog_image_additional_height'];
+        } else {
+            $data['blog_image_additional_height'] = $this->config->get('blog_image_additional_height');
+        }
+        
+        if (isset($this->request->post['blog_image_related_width'])) {
+            $data['blog_image_related_width'] = $this->request->post['blog_image_related_width'];
+        } else {
+            $data['blog_image_related_width'] = $this->config->get('blog_image_related_width');
+        }
+        
+        if (isset($this->request->post['blog_image_related_height'])) {
+            $data['blog_image_related_height'] = $this->request->post['blog_image_related_height'];
+        } else {
+            $data['blog_image_related_height'] = $this->config->get('blog_image_related_height');
+        }
+        
+        $this->theme->model('people/user_group');
+        
+        $data['user_groups'] = $this->model_people_user_group->getUserGroups();
         
         if (isset($this->request->post['config_account_id'])) {
             $data['config_account_id'] = $this->request->post['config_account_id'];
@@ -1270,6 +1406,34 @@ class Setting extends Controller {
         if (!$this->request->post['config_top_customer']):
             $this->error['top_customer'] = $this->language->get('lang_error_top_customer');
         endif;
+
+        if (!$this->request->post['blog_image_thumb_width'] || !$this->request->post['blog_image_thumb_height']) {
+            $this->error['blog_image_thumb'] = $this->language->get('lang_error_blog_image_thumb');
+        }
+        
+        if (!$this->request->post['blog_image_popup_width'] || !$this->request->post['blog_image_popup_height']) {
+            $this->error['blog_image_popup'] = $this->language->get('lang_error_blog_image_popup');
+        }
+        
+        if (!$this->request->post['blog_image_post_width'] || !$this->request->post['blog_image_post_height']) {
+            $this->error['blog_image_post'] = $this->language->get('lang_error_blog_image_post');
+        }
+        
+        if (!$this->request->post['blog_image_additional_width'] || !$this->request->post['blog_image_additional_height']) {
+            $this->error['blog_image_additional'] = $this->language->get('lang_error_blog_image_additional');
+        }
+        
+        if (!$this->request->post['blog_image_related_width'] || !$this->request->post['blog_image_related_height']) {
+            $this->error['blog_image_related'] = $this->language->get('lang_error_blog_image_related');
+        }
+        
+        if (!$this->request->post['blog_posted_by']) {
+            $this->error['blog_posted_by'] = $this->language->get('lang_error_blog_posted_by');
+        }
+        
+        if (!$this->request->post['blog_admin_group_id']) {
+            $this->error['blog_admin_group_id'] = $this->language->get('lang_error_blog_admin_group_id');
+        }
         
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('lang_error_warning');

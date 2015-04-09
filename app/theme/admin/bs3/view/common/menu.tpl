@@ -40,7 +40,6 @@
 						<li><a href="<?= $blog_category; ?>"><?= $lang_text_blog_cats; ?></a></li>
 						<li><a href="<?= $blog_post; ?>"><?= $lang_text_blog_post; ?></a></li>
 						<li><a href="<?= $blog_comment; ?>"><?= $lang_text_blog_comm; ?></a></li>
-						<li><a href="<?= $blog_setting; ?>"><?= $lang_text_blog_sett; ?></a></li>
 					</ul>
 				</li>
 				<li class="dropdown" id="module"><a class="dropdown-toggle" data-toggle="dropdown"><?= $lang_text_module; ?> <b class="caret"></b></a>

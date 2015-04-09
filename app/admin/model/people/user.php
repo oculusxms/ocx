@@ -125,10 +125,35 @@ class User extends Model {
     }
     
     public function getUsers($data = array()) {
+        if (!empty($data['status'])):
+            $status = $data['status'];
+        else:
+            $status = 1;
+        endif;
+
         $sql = "
-            SELECT * FROM `{$this->db->prefix}user`";
+            SELECT * FROM `{$this->db->prefix}user` WHERE status = '" . (int)$status . "'";
         
-        $sort_data = array('user_name', 'status', 'date_added');
+        $implode = array();
+        
+        if (!empty($data['filter_user_name'])):
+            $implode[] = "user_name LIKE '" . $this->db->escape($data['filter_user_name']) . "%'";
+        endif;
+        
+        if (!empty($data['filter_name'])):
+            $implode[] = "CONCAT(firstname, ' ', lastname) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+        endif;
+
+        if ($implode):
+            $imp = implode(" && ", $implode);
+            $sql.= " && {$imp}";
+        endif;
+
+        $sort_data = array(
+            'user_name', 
+            'status', 
+            'date_added'
+        );
         
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql.= " ORDER BY {$data['sort']}";
@@ -153,7 +178,7 @@ class User extends Model {
             
             $sql.= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
         }
-        
+        //$this->theme->test($sql);
         $query = $this->db->query($sql);
         
         return $query->rows;

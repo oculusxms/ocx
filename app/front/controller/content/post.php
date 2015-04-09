@@ -24,7 +24,7 @@ class Post extends Controller {
         $data = $this->theme->language('content/post');
         
         if ($this->theme->style === 'shop'):
-            $this->breadcrumb->add($this->config->get('blog_title'), 'content/home');
+            $this->breadcrumb->add($this->config->get('config_name'), 'content/home');
         endif;
         
         $this->theme->model('content/category');
@@ -128,7 +128,7 @@ class Post extends Controller {
             
             $this->breadcrumb->add($post_info['name'], 'content/post', $url . '&post_id=' . $this->request->get['post_id']);
             
-            $this->theme->setTitle($this->config->get('blog_title') . ' - ' . $post_info['name']);
+            $this->theme->setTitle($this->config->get('config_name') . ' - ' . $post_info['name']);
             $this->theme->setDescription($post_info['meta_description']);
             $this->theme->setKeywords($post_info['meta_keyword']);
             

@@ -47,8 +47,8 @@ class Author extends Model {
             $posted_by = $user_info['firstname'] . ' ' . $user_info['lastname'];
         elseif ($this->config->get('blog_posted_by') == 'lastname firstname'):
             $posted_by = $user_info['lastname'] . ' ' . $user_info['firstname'];
-        elseif ($this->config->get('blog_posted_by') == 'username'):
-            $posted_by = $user_info['username'];
+        elseif ($this->config->get('blog_posted_by') == 'user_name'):
+            $posted_by = $user_info['user_name'];
         endif;
         
         return $posted_by;

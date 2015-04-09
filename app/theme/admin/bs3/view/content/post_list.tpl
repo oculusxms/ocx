@@ -40,16 +40,7 @@
 								<i class="fa fa-power-off fa-fw"></i></a>
 						</td>
 						<td><input type="text" name="filter_name" value="<?= $filter_name; ?>" class="form-control" data-target="name" data-url="content/post"></td>
-						<td>
-							
-							<input type="text" 
-								name="filter_author_id" 
-								value="<?= $filter_author_id; ?>" 
-								class="form-control" 
-								data-target="username" 
-								data-url="content/post">
-							
-						</td>
+						<td><input type="text" name="filter_author_id" value="<?= $filter_author_id; ?>" class="form-control" data-target="author_id" data-url="content/post"></td>
 						<td>
 							<select name="filter_category_id" class="form-control">
 								<option value="*"></option>

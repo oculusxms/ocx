@@ -22,7 +22,7 @@ class Category extends Controller {
         $data = $this->theme->language('content/category');
         
         if ($this->theme->style === 'shop'):
-            $this->breadcrumb->add($this->config->get('blog_title'), 'content/home');
+            $this->breadcrumb->add($this->config->get('config_name'), 'content/home');
         endif;
         
         $this->theme->model('content/category');
@@ -50,7 +50,7 @@ class Category extends Controller {
         if (isset($this->request->get['limit'])) {
             $limit = $this->request->get['limit'];
         } else {
-            $limit = $this->config->get('blog_limit');
+            $limit = $this->config->get('config_catalog_limit');
         }
         
         if (isset($this->request->get['bpath'])) {

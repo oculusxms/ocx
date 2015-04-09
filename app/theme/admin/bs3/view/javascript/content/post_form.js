@@ -15,4 +15,39 @@ function addImage(){
 	
 	image_row++;
 }
+
+var mapped={};
+<?php if ($posted_by == 'user_name'): ?>
+	var filter_name = 'filter_user_name';
+<?php else: ?>
+	var filter_name = 'filter_name';
+<?php endif; ?>
+$('input[name="author"]').typeahead({
+	source:function(q,process){
+		return $.getJSON('index.php?route=content/post/autoauthor&token='+token+'&'+filter_name+'='+encodeURIComponent(q),function(json){
+			var data=[];
+			$.each(json,function(i,item){
+				<?php if ($posted_by == 'user_name'): ?>
+				mapped[item.user_name]=item;
+				data.push(item.user_name);
+				<?php else: ?>
+				mapped[item.name]=item;
+				data.push(item.name);
+				<?php endif; ?>
+			});
+			process(data);
+		});
+	},
+	updater:function(item){
+		<?php if ($posted_by == 'user_name'): ?>
+		$('input[name="author"]').val(mapped[item].user_name);
+		<?php else: ?>
+		$('input[name="author"]').val(mapped[item].name);
+		<?php endif; ?>
+		return item;
+	}
+}).click(function(){
+	this.select();
+});
+
 </script>

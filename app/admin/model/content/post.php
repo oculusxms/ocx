@@ -388,6 +388,14 @@ class Post extends Model {
             }
             
             if (!empty($data['filter_author_id'])) {
+                $authors = $this->getAuthors();
+                
+                foreach($authors as $author):
+                    if ($author['name'] == $data['filter_author_id']):
+                        $data['filter_author_id'] = $author['author_id'];
+                    endif;
+                endforeach;
+                
                 $sql.= " AND p.author_id= '" . (int)$data['filter_author_id'] . "'";
             }
             
@@ -545,7 +553,7 @@ class Post extends Model {
                     'name'      => $this->getAuthorNameRelatedToPostedBy($author), 
                     'firstname' => $author['firstname'], 
                     'lastname'  => $author['lastname'], 
-                    'username'  => $author['username']
+                    'user_name' => $author['user_name']
                 );
             }
         }
@@ -561,8 +569,8 @@ class Post extends Model {
             $posted_by = $user_info['firstname'] . ' ' . $user_info['lastname'];
         } elseif ($this->config->get('blog_posted_by') == 'lastname firstname') {
             $posted_by = $user_info['lastname'] . ' ' . $user_info['firstname'];
-        } elseif ($this->config->get('blog_posted_by') == 'username') {
-            $posted_by = $user_info['username'];
+        } elseif ($this->config->get('blog_posted_by') == 'user_name') {
+            $posted_by = $user_info['user_name'];
         }
         
         return $posted_by;
@@ -680,6 +688,14 @@ class Post extends Model {
         }
         
         if (!empty($data['filter_author_id'])) {
+            $authors = $this->getAuthors();
+
+            foreach($authors as $author):
+                if ($author['name'] == $data['filter_author_id']):
+                    $data['filter_author_id'] = $author['author_id'];
+                endif;
+            endforeach;
+
             $sql.= " AND p.author_id = '" . (int)$data['filter_author_id'] . "'";
         }
         
