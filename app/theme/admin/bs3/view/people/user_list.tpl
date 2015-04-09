@@ -25,7 +25,7 @@
 				<thead>
 					<tr>
 						<th width="40" class="text-center"><input type="checkbox" data-toggle="selected"></th>
-						<th><a href="<?= $sort_username; ?>"><?= $lang_column_username; echo ($sort == 'username') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
+						<th><a href="<?= $sort_user_name; ?>"><?= $lang_column_user_name; echo ($sort == 'user_name') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
 						<th class="hidden-xs"><a href="<?= $sort_status; ?>"><?= $lang_column_status; echo ($sort == 'status') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
 						<th class="hidden-xs"><a href="<?= $sort_date_added; ?>"><?= $lang_column_date_added; echo ($sort == 'date_added') ? '<i class="caret caret-' . strtolower($order) . '"></i>' : ''; ?></a></th>
 						<th class="text-right"><span class="hidden-xs"><?= $lang_column_action; ?></span></th>
@@ -40,7 +40,7 @@
 							<?php } else { ?>
 							<input type="checkbox" name="selected[]" value="<?= $user['user_id']; ?>">
 							<?php } ?></td>
-						<td><?= $user['username']; ?></td>
+						<td><?= $user['user_name']; ?></td>
 						<td class="hidden-xs text-<?= strtolower($user['status']); ?>"><?= $user['status']; ?></td>
 						<td class="hidden-xs"><?= $user['date_added']; ?></td>
 						<td class="text-right"><?php foreach ($user['action'] as $action) { ?>

@@ -89,10 +89,10 @@ class Configuration extends Controller {
             $data['error_db_prefix'] = '';
         endif;
         
-        if (isset($this->error['username'])):
-            $data['error_username'] = $this->error['username'];
+        if (isset($this->error['user_name'])):
+            $data['error_user_name'] = $this->error['user_name'];
         else:
-            $data['error_username'] = '';
+            $data['error_user_name'] = '';
         endif;
         
         if (isset($this->error['password'])):
@@ -145,10 +145,10 @@ class Configuration extends Controller {
             $data['db_prefix'] = 'ocx_';
         endif;
         
-        if (isset($this->request->post['username'])):
-            $data['username'] = $this->request->post['username'];
+        if (isset($this->request->post['user_name'])):
+            $data['user_name'] = $this->request->post['user_name'];
         else:
-            $data['username'] = 'admin';
+            $data['user_name'] = 'admin';
         endif;
         
         if (isset($this->request->post['password'])):
@@ -214,8 +214,8 @@ class Configuration extends Controller {
             }
         endif;
         
-        if (!$this->request->post['username']):
-            $this->error['username'] = 'Username required!';
+        if (!$this->request->post['user_name']):
+            $this->error['user_name'] = 'Username required!';
         endif;
         
         if (!$this->request->post['password']):

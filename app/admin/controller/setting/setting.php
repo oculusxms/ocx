@@ -918,7 +918,7 @@ class Setting extends Controller {
         foreach($users as $user):
             $data['users'][] = array(
                 'user_id' => $user['user_id'],
-                'name'    => $user['username']
+                'name'    => $user['user_name']
             );
         endforeach;
 

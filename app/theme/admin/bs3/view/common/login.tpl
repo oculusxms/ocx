@@ -12,8 +12,8 @@
 			<div class="well well-lg">
 				<p class="lead"><?= $lang_text_login; ?></p>
 				<div class="form-group">
-					<label><?= $lang_entry_username; ?></label>
-					<input type="text" name="username" value="<?= $username; ?>" class="form-control" autofocus>
+					<label><?= $lang_entry_user_name; ?></label>
+					<input type="text" name="user_name" value="<?= $user_name; ?>" class="form-control" autofocus>
 				</div>
 				<div class="form-group">
 					<label><?= $lang_entry_password; ?></label>

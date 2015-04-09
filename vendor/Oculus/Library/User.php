@@ -20,7 +20,7 @@ use Oculus\Service\LibraryService;
 
 class User extends LibraryService {
     private $user_id;
-    private $username;
+    private $user_name;
     private $user_group_id;
     private $user_last_access;
     private $permission = array();
@@ -32,7 +32,7 @@ class User extends LibraryService {
         
         if (isset($session->data['user_id'])):
             $this->user_id          = $session->data['user_id'];
-            $this->username         = $session->data['username'];
+            $this->user_name        = $session->data['user_name'];
             $this->user_group_id    = $session->data['user_group_id'];
             $this->user_last_access = $session->data['user_last_access'];
             $this->permission       = $session->data['permission'];
@@ -41,7 +41,7 @@ class User extends LibraryService {
         endif;
     }
     
-    public function login($username, $password, $override = false) {
+    public function login($user_name, $password, $override = false) {
         $db      = parent::$app['db'];
         $request = parent::$app['request'];
         $session = parent::$app['session'];
@@ -50,23 +50,23 @@ class User extends LibraryService {
         if ($override):
             $user_query = $db->query("
                 SELECT * FROM {$db->prefix}user 
-                WHERE user_id = '" . $db->escape($encode->strtolower($username)) . "' 
+                WHERE user_id = '" . $db->escape($encode->strtolower($user_name)) . "' 
                 AND status = '1'
             ");
         else:
             $user_query = $db->query("
     			SELECT * 
     			FROM {$db->prefix}user 
-    			WHERE username = '" . $db->escape($username) . "' 
+    			WHERE user_name = '" . $db->escape($user_name) . "' 
     			AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $db->escape($password) . "'))))) 
     			OR password = '" . $db->escape(md5($password)) . "') 
     			AND status = '1'
     		");
         endif;
-        //parent::$app['theme']->test($user_query->row['username']);
+        //parent::$app['theme']->test($user_query->row['user_name']);
         if ($user_query->num_rows):
             $session->data['user_id']          = $user_query->row['user_id'];
-            $session->data['username']         = $user_query->row['username'];
+            $session->data['user_name']        = $user_query->row['user_name'];
             $session->data['user_group_id']    = $user_query->row['user_group_id'];
             $session->data['user_last_access'] = strtotime($user_query->row['last_access']);
             
@@ -103,13 +103,13 @@ class User extends LibraryService {
         $session = parent::$app['session'];
         
         unset($session->data['user_id']);
-        unset($session->data['username']);
+        unset($session->data['user_name']);
         unset($session->data['user_group_id']);
         unset($session->data['user_last_access']);
         unset($session->data['permission']);
         
         $this->user_id          = '';
-        $this->username         = '';
+        $this->user_name        = '';
         $this->user_group_id    = '';
         $this->user_last_access = '';
         $this->permission       = array(null);
@@ -153,7 +153,7 @@ class User extends LibraryService {
     }
     
     public function getUserName() {
-        return $this->username;
+        return $this->user_name;
     }
     
     public function getGroupId() {

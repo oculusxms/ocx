@@ -72,10 +72,10 @@ class Register extends Controller {
             $data['error_warning'] = '';
         }
         
-        if (isset($this->error['user_name'])) {
-            $data['error_user_name'] = $this->error['user_name'];
+        if (isset($this->error['username'])) {
+            $data['error_username'] = $this->error['username'];
         } else {
-            $data['error_user_name'] = '';
+            $data['error_username'] = '';
         }
 
         if (isset($this->error['firstname'])) {
@@ -158,10 +158,10 @@ class Register extends Controller {
         
         $data['action'] = $this->url->link('account/register', '', 'SSL');
         
-        if (isset($this->request->post['user_name'])) {
-            $data['user_name'] = $this->request->post['user_name'];
+        if (isset($this->request->post['username'])) {
+            $data['username'] = $this->request->post['username'];
         } else {
-            $data['user_name'] = '';
+            $data['username'] = '';
         }
 
         if (isset($this->request->post['firstname'])) {
@@ -534,7 +534,7 @@ class Register extends Controller {
         
         $json['valid'] = true;
         
-        if ($this->model_account_customer->getTotalCustomersByUsername($this->request->get['user_name'])):
+        if ($this->model_account_customer->getTotalCustomersByUsername($this->request->get['username'])):
             $json['valid']   = false;
             $json['message'] = $this->language->get('lang_error_uexists');
         endif;

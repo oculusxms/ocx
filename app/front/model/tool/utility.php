@@ -58,12 +58,12 @@ class Utility extends Model {
 
     public function getNewCustomerDetail ($customer_id, $address_id) {
     	$user = $this->db->query("
-    		SELECT user_name, email 
+    		SELECT username, email 
     		FROM {$this->db->prefix}customer 
     		WHERE customer_id = '" . (int)$customer_id . "'
     	");
 
-		$user_name = $user->row['user_name'];
+		$username = $user->row['username'];
 		$email    = $user->row['email'];
 
 		$address_query = $this->db->query("
@@ -107,7 +107,7 @@ class Utility extends Model {
             endif;
             
             $address_data = array(
-				'user_name'       => $user_name,
+				'username'       => $username,
 				'firstname'      => $address_query->row['firstname'],
 				'lastname'       => $address_query->row['lastname'],
 				'email'          => $email,

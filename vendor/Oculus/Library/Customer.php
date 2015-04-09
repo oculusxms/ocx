@@ -20,7 +20,7 @@ use Oculus\Service\LibraryService;
 
 class Customer extends LibraryService {
     private $customer_id;
-    private $user_name;
+    private $username;
     private $firstname;
     private $lastname;
     private $email;
@@ -44,7 +44,7 @@ class Customer extends LibraryService {
         
         if (isset($session->data['customer_id'])):
             $this->customer_id         = $session->data['customer_id'];
-            $this->user_name            = $session->data['user_name'];
+            $this->username            = $session->data['username'];
             $this->firstname           = $session->data['firstname'];
             $this->lastname            = $session->data['lastname'];
             $this->email               = $session->data['email'];
@@ -92,7 +92,7 @@ class Customer extends LibraryService {
             $customer_query = $db->query("
                 SELECT * FROM {$db->prefix}customer 
                 WHERE (LOWER(email) = '" . $db->escape($encode->strtolower($email)) . "') 
-                OR LOWER(user_name) = '" . $db->escape($encode->strtolower($email)) . "' 
+                OR LOWER(username) = '" . $db->escape($encode->strtolower($email)) . "' 
                 AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $db->escape($password) . "'))))) 
                 OR password = '" . $db->escape(md5($password)) . "') 
                 AND status = '1' 
@@ -130,7 +130,7 @@ class Customer extends LibraryService {
             endif;
             
             $session->data['customer_id']       = $customer_query->row['customer_id'];
-            $session->data['user_name']          = $customer_query->row['user_name'];
+            $session->data['username']          = $customer_query->row['username'];
             $session->data['firstname']         = $customer_query->row['firstname'];
             $session->data['lastname']          = $customer_query->row['lastname'];
             $session->data['email']             = $customer_query->row['email'];
@@ -196,7 +196,7 @@ class Customer extends LibraryService {
         ");
         
         unset($session->data['customer_id']);
-        unset($session->data['user_name']);
+        unset($session->data['username']);
         unset($session->data['firstname']);
         unset($session->data['lastname']);
         unset($session->data['email']);
@@ -211,7 +211,7 @@ class Customer extends LibraryService {
         unset($session->data['code']);
         
         $this->customer_id         = '';
-        $this->user_name            = '';
+        $this->username            = '';
         $this->firstname           = '';
         $this->lastname            = '';
         $this->email               = '';
@@ -237,7 +237,7 @@ class Customer extends LibraryService {
     }
     
     public function getUsername() {
-        return $this->user_name;
+        return $this->username;
     }
     
     public function getFirstName() {

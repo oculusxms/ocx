@@ -893,6 +893,8 @@ class Order extends Controller {
         } else {
             $data['payment_code'] = '';
         }
+
+        $data['payments'] = $this->model_sale_order->getPaymentModules();
         
         if (isset($this->request->post['shipping_firstname'])) {
             $data['shipping_firstname'] = $this->request->post['shipping_firstname'];
@@ -985,6 +987,8 @@ class Order extends Controller {
         } else {
             $data['shipping_code'] = '';
         }
+
+        $data['shippings'] = $this->model_sale_order->getShippingModules();
         
         if (isset($this->request->post['order_product'])) {
             $order_products = $this->request->post['order_product'];

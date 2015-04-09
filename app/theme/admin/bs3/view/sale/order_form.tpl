@@ -539,9 +539,9 @@
 						<div class="control-field col-sm-4">
 							<select name="shipping" class="form-control">
 								<option value=""><?= $lang_text_select; ?></option>
-								<?php if ($shipping_code) { ?>
+								<?php if ($shipping_code): ?>
 								<option value="<?= $shipping_code; ?>" selected><?= $shipping_method; ?></option>
-								<?php } ?>
+								<?php endif; ?>
 							</select>
 							<input type="hidden" name="shipping_method" value="<?= $shipping_method; ?>">
 							<input type="hidden" name="shipping_code" value="<?= $shipping_code; ?>">
@@ -555,9 +555,9 @@
 						<div class="control-field col-sm-4">
 							<select name="payment" class="form-control">
 								<option value=""><?= $lang_text_select; ?></option>
-								<?php if ($payment_code) { ?>
+								<?php if ($payment_code): ?>
 								<option value="<?= $payment_code; ?>" selected><?= $payment_method; ?></option>
-								<?php } ?>
+								<?php endif; ?>
 							</select>
 							<input type="hidden" name="payment_method" value="<?= $payment_method; ?>">
 							<input type="hidden" name="payment_code" value="<?= $payment_code; ?>">

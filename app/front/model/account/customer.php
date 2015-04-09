@@ -33,7 +33,7 @@ class Customer extends Model {
 			INSERT INTO {$this->db->prefix}customer 
 			SET 
                 store_id          = '" . (int)$this->config->get('config_store_id') . "', 
-                user_name          = '" . $this->db->escape($data['user_name']) . "', 
+                username          = '" . $this->db->escape($data['username']) . "', 
                 firstname         = '" . $this->db->escape($data['firstname']) . "', 
                 lastname          = '" . $this->db->escape($data['lastname']) . "', 
                 email             = '" . $this->db->escape($data['email']) . "', 
@@ -379,11 +379,11 @@ class Customer extends Model {
         return $query->row['total'];
     }
     
-    public function getTotalCustomersByUsername($user_name) {
+    public function getTotalCustomersByUsername($username) {
         $query = $this->db->query("
 			SELECT COUNT(*) AS total 
 			FROM {$this->db->prefix}customer 
-			WHERE LOWER(user_name) = '" . $this->db->escape($this->encode->strtolower($user_name)) . "'
+			WHERE LOWER(username) = '" . $this->db->escape($this->encode->strtolower($username)) . "'
 		");
         
         return $query->row['total'];
@@ -429,7 +429,7 @@ class Customer extends Model {
         $customer = $this->model_tool_utility->getNewCustomerDetail ($data['customer'], $data['address_id']);
 
         $format = 
-            '{user_name}' . "\n" . 
+            '{username}' . "\n" . 
             '{firstname} {lastname}' . "\n" . 
             '{email}' . "\n" . 
             '{company}' . "\n" . 
@@ -439,7 +439,7 @@ class Customer extends Model {
             '{country}';
 
         $find = array(
-            '{user_name}', 
+            '{username}', 
             '{firstname}', 
             '{lastname}', 
             '{email}', 
@@ -453,7 +453,7 @@ class Customer extends Model {
         );
             
         $replace = array(
-            'user_name'  => $customer['user_name'],
+            'username'  => $customer['username'],
             'firstname' => $customer['firstname'], 
             'lastname'  => $customer['lastname'], 
             'email'     => $customer['email'],

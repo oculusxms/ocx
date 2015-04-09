@@ -40,7 +40,7 @@ class Decorator extends LibraryService {
 		$this->search = array(
 			'!fname!',
 			'!lname!',
-			'!user_name!',
+			'!username!',
 			'!email!',
 			'!telephone!',
 			'!ip_address!',
@@ -50,7 +50,7 @@ class Decorator extends LibraryService {
 		$this->replace = array(
 			$customer['firstname'],
 			$customer['lastname'],
-			$customer['user_name'],
+			$customer['username'],
 			$customer['email'],
 			isset($customer['telephone']) ? $customer['telephone'] : '',
 			$customer['ip'],
@@ -60,7 +60,7 @@ class Decorator extends LibraryService {
 		$this->html_replace = array(
 			$customer['firstname'],
 			$customer['lastname'],
-			$customer['user_name'],
+			$customer['username'],
 			$customer['email'],
 			isset($customer['telephone']) ? $customer['telephone'] : '',
 			$customer['ip'],
@@ -87,21 +87,21 @@ class Decorator extends LibraryService {
 		$this->search = array(
 			'!fname!',
 			'!lname!',
-			'!username!',
+			'!user_name!',
 			'!email!'
 		);
 
 		$this->replace = array(
-			$user['firstname'] ? $user['firstname'] : $user['username'],
+			$user['firstname'] ? $user['firstname'] : $user['user_name'],
 			$user['lastname'],
-			$user['username'],
+			$user['user_name'],
 			$user['email']
 		);
 
 		$this->html_replace = array(
-			$user['firstname'] ? $user['firstname'] : $user['username'],
+			$user['firstname'] ? $user['firstname'] : $user['user_name'],
 			$user['lastname'],
-			$user['username'],
+			$user['user_name'],
 			$user['email']
 		);
 
@@ -233,7 +233,7 @@ class Decorator extends LibraryService {
  * 
  * !fname! - customer first name
  * !lname! - customer last name
- * !user_name! - customer user_name
+ * !username! - customer username
  * !email! - customer email address
  * !points! - customer reward points
  * !telephone! - customer telephone

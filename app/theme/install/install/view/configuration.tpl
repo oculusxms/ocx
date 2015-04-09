@@ -86,13 +86,13 @@
 		<fieldset>
 			<p class="alert alert-info">2. Please enter a username, password and email for the administration.</p>
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="username"><b class="required">*</b> Username:</label>
+				<label class="control-label col-sm-3" for="user_name"><b class="required">*</b> Username:</label>
 				<div class="col-sm-6">
 					<input type="text" 
-						name="username" value="<?= $username; ?>" class="form-control" 
-						placeholder="Username"  id="username" required>
-					<?php if ($error_username): ?>
-					<span class="help-block error"><?= $error_username; ?></span>
+						name="user_name" value="<?= $user_name; ?>" class="form-control" 
+						placeholder="Username"  id="user_name" required>
+					<?php if ($error_user_name): ?>
+					<span class="help-block error"><?= $error_user_name; ?></span>
 					<?php endif; ?>
 				</div>
 			</div>

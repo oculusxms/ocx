@@ -21,13 +21,13 @@ $_['lang_heading_title']     = 'User';
 $_['lang_text_success']      = 'Success: You have modified users.';
 
 // Column
-$_['lang_column_username']   = 'Username';
+$_['lang_column_user_name']  = 'Username';
 $_['lang_column_status']     = 'Status';
 $_['lang_column_date_added'] = 'Date Added';
 $_['lang_column_action']     = 'Action';
 
 // Entry
-$_['lang_entry_username']    = 'Username:';
+$_['lang_entry_user_name']   = 'Username:';
 $_['lang_entry_password']    = 'Password:';
 $_['lang_entry_confirm']     = 'Confirm:';
 $_['lang_entry_firstname']   = 'First Name:';
@@ -41,7 +41,7 @@ $_['lang_entry_captcha']     = 'Enter the code in the box below:';
 $_['lang_error_permission']  = 'Warning: You do not have permission to modify users.';
 $_['lang_error_account']     = 'Warning: You can not delete your own account.';
 $_['lang_error_exists']      = 'Warning: Username is already in use.';
-$_['lang_error_username']    = 'Username must be between 3 and 20 characters.';
+$_['lang_error_user_name']   = 'Username must be between 3 and 20 characters.';
 $_['lang_error_password']    = 'Password must be between 4 and 20 characters.';
 $_['lang_error_confirm']     = 'Password and password confirmation do not match.';
 $_['lang_error_firstname']   = 'First name must be between 1 and 32 characters.';

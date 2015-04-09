@@ -109,20 +109,20 @@ $("#register-form").steps({
     },
     exclude: ':disabled, :hidden, :not(:visible)',
     fields: {
-    	user_name: {
+    	username: {
             verbose: false,
             validators: {
                 notEmpty: {
-                    message: '<?= $lang_error_req_user_name; ?>'
+                    message: '<?= $lang_error_req_username; ?>'
                 },
                 stringLength: {
                     min: 3,
                     max: 16,
-                    message: '<?= $lang_error_user_name; ?>'
+                    message: '<?= $lang_error_username; ?>'
                 },
                 regexp: {
                     regexp: /^[a-zA-Z]+$/,
-                    message: '<?= $lang_error_alpha_user_name; ?>'
+                    message: '<?= $lang_error_alpha_username; ?>'
                 },
                 remote: {
                     url: 'account/register/username',

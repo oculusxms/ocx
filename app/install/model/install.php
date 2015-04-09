@@ -56,14 +56,14 @@ class Install extends Model {
             $db->query("
 				INSERT INTO `" . $data['db_prefix'] . "user` 
 				SET 
-					user_id = '1', 
+					user_id       = '1', 
 					user_group_id = '1', 
-					username = '" . $db->escape($data['username']) . "', 
-					salt = '" . $db->escape($salt = substr(md5(uniqid(rand() , true)) , 0, 9)) . "', 
-					password = '" . $db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
-					status = '1', 
-					email = '" . $db->escape($data['email']) . "', 
-					date_added = NOW()
+					user_name     = '" . $db->escape($data['user_name']) . "', 
+					salt          = '" . $db->escape($salt = substr(md5(uniqid(rand() , true)) , 0, 9)) . "', 
+					password      = '" . $db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
+					status        = '1', 
+					email         = '" . $db->escape($data['email']) . "', 
+					date_added    = NOW()
 			");
             
             $db->query("

@@ -24,11 +24,11 @@
 	<div class="panel-body">
 		<form class="form-horizontal" action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form">
 			<div class="form-group">
-				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_username; ?></label>
+				<label class="control-label col-sm-2"><b class="required">*</b> <?= $lang_entry_user_name; ?></label>
 				<div class="control-field col-sm-4">
-					<input type="text" name="username" value="<?= $username; ?>" class="form-control" autofocus>
-					<?php if ($error_username) { ?>
-						<div class="help-block error"><?= $error_username; ?></div>
+					<input type="text" name="user_name" value="<?= $user_name; ?>" class="form-control" autofocus>
+					<?php if ($error_user_name) { ?>
+						<div class="help-block error"><?= $error_user_name; ?></div>
 					<?php } ?>
 				</div>
 			</div>

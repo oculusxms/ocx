@@ -83,9 +83,9 @@ class Edit extends Controller {
         }
         
         if (isset($customer_info)):
-            $data['user_name'] = $customer_info['user_name'];
+            $data['username'] = $customer_info['username'];
         else:
-            $data['user_name'] = '';
+            $data['username'] = '';
         endif;
         
         if (isset($this->request->post['firstname'])) {

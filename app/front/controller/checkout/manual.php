@@ -26,7 +26,7 @@ class Manual extends Controller {
         
         $this->user = new User($this->app);
         $this->user->login($this->config->get('config_admin_email_user'), '', true);
-        //$this->theme->test($this->session->data);
+        
         if ($this->user->isLogged() && $this->user->hasPermission('modify', 'sale/order')) {
             
             // Reset everything
@@ -190,9 +190,9 @@ class Manual extends Controller {
                     'download'   => $download_data, 
                     'quantity'   => $product['quantity'], 
                     'stock'      => $product['stock'], 
-                    'price'      => $product['price'], 
-                    'total'      => $product['total'], 
-                    'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']), 
+                    'price'      => number_format($product['price'], 2), 
+                    'total'      => number_format($product['total'], 2), 
+                    'tax'        => number_format($this->tax->getTax($product['price'], $product['tax_class_id']), 2), 
                     'reward'     => $product['reward']
                 );
             }
@@ -212,7 +212,7 @@ class Manual extends Controller {
                         'to_email'          => $giftcard['to_email'], 
                         'giftcard_theme_id' => $giftcard['giftcard_theme_id'], 
                         'message'           => $giftcard['message'], 
-                        'amount'            => $giftcard['amount']
+                        'amount'            => number_format($giftcard['amount'], 2)
                     );
                 }
             }
@@ -240,7 +240,18 @@ class Manual extends Controller {
                 }
                 
                 if (!isset($json['error']['giftcards'])) {
-                    $giftcard_data = array('order_id' => 0, 'code' => substr(md5(mt_rand()), 0, 10), 'from_name' => $this->request->post['from_name'], 'from_email' => $this->request->post['from_email'], 'to_name' => $this->request->post['to_name'], 'to_email' => $this->request->post['to_email'], 'giftcard_theme_id' => $this->request->post['giftcard_theme_id'], 'message' => $this->request->post['message'], 'amount' => $this->request->post['amount'], 'status' => true);
+                    $giftcard_data = array(
+                        'order_id'          => 0, 
+                        'code'              => substr(md5(mt_rand()), 0, 10), 
+                        'from_name'         => $this->request->post['from_name'], 
+                        'from_email'        => $this->request->post['from_email'], 
+                        'to_name'           => $this->request->post['to_name'], 
+                        'to_email'          => $this->request->post['to_email'], 
+                        'giftcard_theme_id' => $this->request->post['giftcard_theme_id'], 
+                        'message'           => $this->request->post['message'], 
+                        'amount'            => $this->request->post['amount'], 
+                        'status'            => true
+                    );
                     
                     $this->theme->model('checkout/giftcard');
                     
@@ -274,7 +285,7 @@ class Manual extends Controller {
                     'to_email'          => $giftcard['to_email'], 
                     'giftcard_theme_id' => $giftcard['giftcard_theme_id'], 
                     'message'           => $giftcard['message'], 
-                    'amount'            => $giftcard['amount']
+                    'amount'            => number_format($giftcard['amount'], 2)
                 );
             }
             
@@ -472,7 +483,8 @@ class Manual extends Controller {
                 $sort_order = array();
                 
                 foreach ($json['order_total'] as $key => $value) {
-                    $sort_order[$key] = $value['sort_order'];
+                    $sort_order[$key]                   = $value['sort_order'];
+                    $json['order_total'][$key]['value'] = number_format($value['value'], 2);
                 }
                 
                 array_multisort($sort_order, SORT_ASC, $json['order_total']);

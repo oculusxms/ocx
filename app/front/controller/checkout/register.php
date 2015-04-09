@@ -124,8 +124,8 @@ class Register extends Controller {
         }
         
         if (!$json) {
-            if (($this->encode->strlen($this->request->post['user_name']) < 3) || ($this->encode->strlen($this->request->post['user_name']) > 16)) {
-                $json['error']['user_name'] = $this->language->get('lang_error_user_name');
+            if (($this->encode->strlen($this->request->post['username']) < 3) || ($this->encode->strlen($this->request->post['username']) > 16)) {
+                $json['error']['username'] = $this->language->get('lang_error_username');
             }
             
             if (($this->encode->strlen($this->request->post['firstname']) < 1) || ($this->encode->strlen($this->request->post['firstname']) > 32)) {
@@ -140,7 +140,7 @@ class Register extends Controller {
                 $json['error']['email'] = $this->language->get('lang_error_email');
             }
             
-            if ($this->model_account_customer->getTotalCustomersByUsername($this->request->post['user_name'])) {
+            if ($this->model_account_customer->getTotalCustomersByUsername($this->request->post['username'])) {
                 $json['error']['warning'] = $this->language->get('lang_error_uexists');
             }
             

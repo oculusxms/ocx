@@ -22,15 +22,15 @@ class User extends Model {
         $this->db->query("
             INSERT INTO `{$this->db->prefix}user` 
             SET 
-                username = '" . $this->db->escape($data['username']) . "', 
-                salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
-                password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
-                firstname = '" . $this->db->escape($data['firstname']) . "', 
-                lastname = '" . $this->db->escape($data['lastname']) . "', 
-                email = '" . $this->db->escape($data['email']) . "', 
+                user_name     = '" . $this->db->escape($data['user_name']) . "', 
+                salt          = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', 
+                password      = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', 
+                firstname     = '" . $this->db->escape($data['firstname']) . "', 
+                lastname      = '" . $this->db->escape($data['lastname']) . "', 
+                email         = '" . $this->db->escape($data['email']) . "', 
                 user_group_id = '" . (int)$data['user_group_id'] . "', 
-                status = '" . (int)$data['status'] . "', 
-                date_added = NOW()
+                status        = '" . (int)$data['status'] . "', 
+                date_added    = NOW()
         ");
     }
     
@@ -38,12 +38,12 @@ class User extends Model {
         $this->db->query("
             UPDATE `{$this->db->prefix}user` 
             SET 
-                username = '" . $this->db->escape($data['username']) . "', 
-                firstname = '" . $this->db->escape($data['firstname']) . "', 
-                lastname = '" . $this->db->escape($data['lastname']) . "', 
-                email = '" . $this->db->escape($data['email']) . "', 
+                user_name     = '" . $this->db->escape($data['user_name']) . "', 
+                firstname     = '" . $this->db->escape($data['firstname']) . "', 
+                lastname      = '" . $this->db->escape($data['lastname']) . "', 
+                email         = '" . $this->db->escape($data['email']) . "', 
                 user_group_id = '" . (int)$data['user_group_id'] . "', 
-                status = '" . (int)$data['status'] . "' 
+                status        = '" . (int)$data['status'] . "' 
             WHERE user_id = '" . (int)$user_id . "'");
         
         if ($data['password']) {
@@ -97,11 +97,11 @@ class User extends Model {
         return $query->row;
     }
     
-    public function getUserByUsername($username) {
+    public function getUserByUsername($user_name) {
         $query = $this->db->query("
             SELECT * 
             FROM `{$this->db->prefix}user` 
-            WHERE username = '" . $this->db->escape($username) . "'");
+            WHERE user_name = '" . $this->db->escape($user_name) . "'");
         
         return $query->row;
     }
@@ -128,12 +128,12 @@ class User extends Model {
         $sql = "
             SELECT * FROM `{$this->db->prefix}user`";
         
-        $sort_data = array('username', 'status', 'date_added');
+        $sort_data = array('user_name', 'status', 'date_added');
         
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql.= " ORDER BY {$data['sort']}";
         } else {
-            $sql.= " ORDER BY username";
+            $sql.= " ORDER BY user_name";
         }
         
         if (isset($data['order']) && ($data['order'] == 'DESC')) {

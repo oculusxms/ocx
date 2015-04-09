@@ -3,9 +3,9 @@
 		<fieldset>
 			<legend><?= $lang_text_your_details; ?></legend>
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="user_name"><b class="required">*</b> <?= $lang_entry_user_name; ?></label>
+				<label class="control-label col-sm-3" for="username"><b class="required">*</b> <?= $lang_entry_username; ?></label>
 				<div class="col-sm-6">
-					<input type="text" name="user_name" value="" class="form-control" placeholder="<?= $lang_entry_user_name; ?>"  id="user_name" required autofocus>
+					<input type="text" name="username" value="" class="form-control" placeholder="<?= $lang_entry_username; ?>"  id="username" required autofocus>
 				</div>
 			</div>
 			<div class="form-group">

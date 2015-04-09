@@ -1268,6 +1268,44 @@ class Order extends Model {
         return $query->row['total'];
     }
 
+    public function getShippingModules() {
+    	$modules = array();
+
+    	$this->theme->model('setting/module');
+    	$query = $this->model_setting_module->getAll('shipping');
+
+    	foreach ($query as $module):
+    		if ($module['status']):
+	    		$this->theme->language('shipping/' . $module['code']);
+	    		$modules[] = array(
+	    			'code' => $module['code'],
+	    			'name' => $this->language->get('lang_heading_title')
+	    		);
+    		endif;
+    	endforeach;
+
+    	return $modules;
+    }
+
+    public function getPaymentModules() {
+    	$modules = array();
+
+    	$this->theme->model('setting/module');
+    	$query = $this->model_setting_module->getAll('payment');
+
+    	foreach ($query as $module):
+    		if ($module['status']):
+	    		$this->theme->language('payment/' . $module['code']);
+	    		$modules[] = array(
+	    			'code' => $module['code'],
+	    			'name' => $this->language->get('lang_heading_title')
+	    		);
+    		endif;
+    	endforeach;
+
+    	return $modules;
+    }
+
     /*
     |--------------------------------------------------------------------------
     |   NOTIFICATIONS

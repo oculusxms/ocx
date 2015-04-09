@@ -59,10 +59,10 @@ class Login extends Controller {
         
         $data['action'] = $this->url->link('common/login', '', 'SSL');
         
-        if (isset($this->request->post['username'])) {
-            $data['username'] = $this->request->post['username'];
+        if (isset($this->request->post['user_name'])) {
+            $data['user_name'] = $this->request->post['user_name'];
         } else {
-            $data['username'] = '';
+            $data['user_name'] = '';
         }
         
         if (isset($this->request->post['password'])) {
@@ -107,7 +107,7 @@ class Login extends Controller {
     }
     
     protected function validate() {
-        if (!isset($this->request->post['username']) || !isset($this->request->post['password']) || !$this->user->login($this->request->post['username'], $this->request->post['password'])) {
+        if (!isset($this->request->post['user_name']) || !isset($this->request->post['password']) || !$this->user->login($this->request->post['user_name'], $this->request->post['password'])) {
             $this->error['warning'] = $this->language->get('lang_error_login');
         }
         

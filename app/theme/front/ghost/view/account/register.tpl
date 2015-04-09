@@ -16,11 +16,11 @@
 			<fieldset>
 				<legend><?= $lang_text_your_details; ?></legend>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="user_name"><b class="required">*</b> <?= $lang_entry_user_name; ?></label>
+					<label class="control-label col-sm-3" for="username"><b class="required">*</b> <?= $lang_entry_username; ?></label>
 					<div class="col-sm-8">
-						<input type="text" name="user_name" value="<?= $user_name; ?>" class="form-control" placeholder="<?= $lang_entry_user_name; ?>" autofocus id="user_name" required>
-						<?php if ($error_user_name) { ?>
-						<span class="help-block error"><?= $error_user_name; ?></span>
+						<input type="text" name="username" value="<?= $username; ?>" class="form-control" placeholder="<?= $lang_entry_username; ?>" autofocus id="username" required>
+						<?php if ($error_username) { ?>
+						<span class="help-block error"><?= $error_username; ?></span>
 						<?php } ?>
 					</div>
 				</div>

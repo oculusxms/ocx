@@ -35,6 +35,8 @@ class Module extends Model {
     }
 
     public function getAll($type) {
+        $modules = array();
+
         $query = $this->db->query("
             SELECT * 
             FROM {$this->db->prefix}module 
@@ -42,10 +44,23 @@ class Module extends Model {
         ");
         
         if ($query->num_rows):
-            return $query->rows;
-        else:
-            return false;
+            foreach($query->rows as $key => $row):
+                $modules[$key] = $row;
+                $q = $this->db->query("
+                    SELECT `value` 
+                    FROM {$this->db->prefix}setting 
+                    WHERE `group` = '" . $this->db->escape($row['code']) . "' 
+                    AND `key` = '" . $this->db->escape($row['code'] . '_status') . "'
+                ");
+                if ($q->num_rows):
+                    $modules[$key]['status'] = $q->row['value'];
+                else:
+                    $modules[$key]['status'] = 0;
+                endif;
+            endforeach;
         endif;
+
+        return $modules;
     }
     
     public function install($type, $code) {

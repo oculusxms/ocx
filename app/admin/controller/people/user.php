@@ -132,7 +132,7 @@ class User extends Controller {
         if (isset($this->request->get['sort'])) {
             $sort = $this->request->get['sort'];
         } else {
-            $sort = 'username';
+            $sort = 'user_name';
         }
         
         if (isset($this->request->get['order'])) {
@@ -168,7 +168,12 @@ class User extends Controller {
         
         $data['users'] = array();
         
-        $filter = array('sort' => $sort, 'order' => $order, 'start' => ($page - 1) * $this->config->get('config_admin_limit'), 'limit' => $this->config->get('config_admin_limit'));
+        $filter = array(
+            'sort'  => $sort, 
+            'order' => $order, 
+            'start' => ($page - 1) * $this->config->get('config_admin_limit'), 
+            'limit' => $this->config->get('config_admin_limit')
+        );
         
         $user_total = $this->model_people_user->getTotalUsers();
         
@@ -177,9 +182,19 @@ class User extends Controller {
         foreach ($results as $result) {
             $action = array();
             
-            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('people/user/update', 'token=' . $this->session->data['token'] . '&user_id=' . $result['user_id'] . $url, 'SSL'));
+            $action[] = array(
+                'text' => $this->language->get('lang_text_edit'), 
+                'href' => $this->url->link('people/user/update', 'token=' . $this->session->data['token'] . '&user_id=' . $result['user_id'] . $url, 'SSL')
+            );
             
-            $data['users'][] = array('user_id' => $result['user_id'], 'username' => $result['username'], 'status' => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 'selected' => isset($this->request->post['selected']) && in_array($result['user_id'], $this->request->post['selected']), 'action' => $action);
+            $data['users'][] = array(
+                'user_id'    => $result['user_id'], 
+                'user_name'  => $result['user_name'], 
+                'status'     => ($result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled')), 
+                'date_added' => date($this->language->get('lang_date_format_short'), strtotime($result['date_added'])), 
+                'selected'   => isset($this->request->post['selected']) && in_array($result['user_id'], $this->request->post['selected']), 
+                'action'     => $action
+            );
         }
         
         if (isset($this->error['warning'])) {
@@ -208,8 +223,8 @@ class User extends Controller {
             $url.= '&page=' . $this->request->get['page'];
         }
         
-        $data['sort_username'] = $this->url->link('people/user', 'token=' . $this->session->data['token'] . '&sort=username' . $url, 'SSL');
-        $data['sort_status'] = $this->url->link('people/user', 'token=' . $this->session->data['token'] . '&sort=status' . $url, 'SSL');
+        $data['sort_user_name']  = $this->url->link('people/user', 'token=' . $this->session->data['token'] . '&sort=user_name' . $url, 'SSL');
+        $data['sort_status']     = $this->url->link('people/user', 'token=' . $this->session->data['token'] . '&sort=status' . $url, 'SSL');
         $data['sort_date_added'] = $this->url->link('people/user', 'token=' . $this->session->data['token'] . '&sort=date_added' . $url, 'SSL');
         
         $url = '';
@@ -222,9 +237,15 @@ class User extends Controller {
             $url.= '&order=' . $this->request->get['order'];
         }
         
-        $data['pagination'] = $this->theme->paginate($user_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('people/user', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $user_total, 
+            $page, 
+            $this->config->get('config_admin_limit'), 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('people/user', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL')
+        );
         
-        $data['sort'] = $sort;
+        $data['sort']  = $sort;
         $data['order'] = $order;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
@@ -243,10 +264,10 @@ class User extends Controller {
             $data['error_warning'] = '';
         }
         
-        if (isset($this->error['username'])) {
-            $data['error_username'] = $this->error['username'];
+        if (isset($this->error['user_name'])) {
+            $data['error_user_name'] = $this->error['user_name'];
         } else {
-            $data['error_username'] = '';
+            $data['error_user_name'] = '';
         }
         
         if (isset($this->error['password'])) {
@@ -307,12 +328,12 @@ class User extends Controller {
             $user_info = $this->model_people_user->getUser($this->request->get['user_id']);
         }
         
-        if (isset($this->request->post['username'])) {
-            $data['username'] = $this->request->post['username'];
+        if (isset($this->request->post['user_name'])) {
+            $data['user_name'] = $this->request->post['user_name'];
         } elseif (!empty($user_info)) {
-            $data['username'] = $user_info['username'];
+            $data['user_name'] = $user_info['user_name'];
         } else {
-            $data['username'] = '';
+            $data['user_name'] = '';
         }
         
         if (isset($this->request->post['password'])) {
@@ -383,11 +404,11 @@ class User extends Controller {
             $this->error['warning'] = $this->language->get('lang_error_permission');
         }
         
-        if (($this->encode->strlen($this->request->post['username']) < 3) || ($this->encode->strlen($this->request->post['username']) > 20)) {
-            $this->error['username'] = $this->language->get('lang_error_username');
+        if (($this->encode->strlen($this->request->post['user_name']) < 3) || ($this->encode->strlen($this->request->post['user_name']) > 20)) {
+            $this->error['user_name'] = $this->language->get('lang_error_user_name');
         }
         
-        $user_info = $this->model_people_user->getUserByUsername($this->request->post['username']);
+        $user_info = $this->model_people_user->getUserByUsername($this->request->post['user_name']);
         
         if (!isset($this->request->get['user_id'])) {
             if ($user_info) {
