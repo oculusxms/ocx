@@ -56,7 +56,10 @@
 								<i class="fa fa-pencil-square-o"></i><span class="hidden-xs"> <?= $action['text']; ?></span>
 							</a>
 							<?php } ?>
-						<span class="bracket"><a class="rowlink-skip" onclick="sendGiftcard('<?= $giftcard['giftcard_id']; ?>','<?= $lang_text_wait; ?>');"><?= $lang_text_send; ?></a></span></td>
+							<a class="rowlink-skip btn btn-default" onclick="sendGiftcard('<?= $giftcard['giftcard_id']; ?>','<?= $lang_text_wait; ?>');">
+								<i class="fa fa-envelope-o"></i> <?= $lang_text_send; ?>
+							</a>
+						</td>
 					</tr>
 					<?php } ?>
 					<?php } else { ?>

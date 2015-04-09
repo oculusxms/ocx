@@ -35,7 +35,6 @@ class Test extends Controller {
         
         $this->breadcrumb->add('lang_heading_title', 'tool/test');
         
-        
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
         $data = $this->theme->render_controllers($data);

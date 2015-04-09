@@ -1153,7 +1153,7 @@ DROP TABLE IF EXISTS `ocx_customer`;
 CREATE TABLE IF NOT EXISTS `ocx_customer` (
   `customer_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
-  `username` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `user_name` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `firstname` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
@@ -1184,7 +1184,7 @@ CREATE TABLE IF NOT EXISTS `ocx_customer` (
   `approved` tinyint(1) NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`customer_id`,`username`)
+  PRIMARY KEY (`customer_id`,`user_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

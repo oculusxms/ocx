@@ -113,7 +113,7 @@ class Notification extends LibraryService {
         $this->customer = $customer;
 
         // Let's set our to_name and to_email for the send method
-        $this->to_name  = (isset($this->customer['firstname'])) ? $this->customer['firstname'] . ' ' . $this->customer['lastname'] : $this->customer['username'];
+        $this->to_name  = (isset($this->customer['firstname'])) ? $this->customer['firstname'] . ' ' . $this->customer['lastname'] : $this->customer['user_name'];
         $this->to_email = $this->customer['email'];
     }
 
@@ -121,7 +121,7 @@ class Notification extends LibraryService {
         $customer = array(
             'firstname' => $order['firstname'],
             'lastname'  => $order['lastname'],
-            'username'  => '',
+            'user_name'  => '',
             'email'     => $order['email'],
             'telephone' => $order['telephone'],
             'ip'        => isset($order['ip']) ? $order['ip'] : 0,
@@ -135,7 +135,7 @@ class Notification extends LibraryService {
         $this->customer = array(
             'firstname' => $data['firstname'],
             'lastname'  => $data['lastname'],
-            'username'  => '',
+            'user_name'  => '',
             'email'     => $data['email'],
             'telephone' => '',
             'ip'        => isset($data['ip']) ? $data['ip'] : 0,

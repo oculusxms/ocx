@@ -16,7 +16,6 @@
 
 namespace Admin\Model\Sale;
 use Oculus\Engine\Model;
-use Oculus\Library\Mail;
 
 class Returns extends Model {
     public function addReturn($data) {

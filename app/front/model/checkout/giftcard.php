@@ -18,7 +18,7 @@ namespace Front\Model\Checkout;
 use Oculus\Engine\Model;
 use Oculus\Library\Language;
 use Oculus\Library\Template;
-use Oculus\Library\Mail;
+use Oculus\Library\Text;
 
 class Giftcard extends Model {
     public function addGiftcard($order_id, $data) {

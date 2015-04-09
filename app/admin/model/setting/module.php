@@ -33,6 +33,20 @@ class Module extends Model {
         
         return $module_data;
     }
+
+    public function getAll($type) {
+        $query = $this->db->query("
+            SELECT * 
+            FROM {$this->db->prefix}module 
+            WHERE `type` = '" . $this->db->escape($type) . "'
+        ");
+        
+        if ($query->num_rows):
+            return $query->rows;
+        else:
+            return false;
+        endif;
+    }
     
     public function install($type, $code) {
         $this->db->query("

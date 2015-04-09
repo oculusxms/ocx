@@ -45,7 +45,12 @@ class Shippingmethod extends Controller {
                     $quote = $this->{'model_shipping_' . $result['code']}->getQuote($shipping_address);
                     
                     if ($quote) {
-                        $quote_data[$result['code']] = array('title' => $quote['title'], 'quote' => $quote['quote'], 'sort_order' => $quote['sort_order'], 'error' => $quote['error']);
+                        $quote_data[$result['code']] = array(
+                            'title'      => $quote['title'], 
+                            'quote'      => $quote['quote'], 
+                            'sort_order' => $quote['sort_order'], 
+                            'error'      => $quote['error']
+                        );
                     }
                 }
             }

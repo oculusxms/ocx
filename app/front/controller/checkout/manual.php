@@ -16,6 +16,7 @@
 
 namespace Front\Controller\Checkout;
 use Oculus\Engine\Controller;
+use Oculus\Library\User;
 
 class Manual extends Controller {
     public function index() {
@@ -23,8 +24,9 @@ class Manual extends Controller {
         
         $json = array();
         
-        $this->user = $this->app['user'];
-        
+        $this->user = new User($this->app);
+        $this->user->login($this->config->get('config_admin_email_user'), '', true);
+        //$this->theme->test($this->session->data);
         if ($this->user->isLogged() && $this->user->hasPermission('modify', 'sale/order')) {
             
             // Reset everything

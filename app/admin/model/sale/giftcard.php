@@ -17,6 +17,7 @@
 namespace Admin\Model\Sale;
 use Oculus\Engine\Model;
 use Oculus\Library\Language;
+use Oculus\Library\Text;
 use Oculus\Library\Template;
 
 class Giftcard extends Model {
@@ -146,116 +147,46 @@ class Giftcard extends Model {
     public function sendGiftcard($giftcard_id) {
         $giftcard_info = $this->getGiftcard($giftcard_id);
         
-        if ($giftcard_info) {
-            if ($giftcard_info['order_id']) {
-                $order_id = $giftcard_info['order_id'];
-            } else {
-                $order_id = 0;
-            }
-            
-            $this->theme->model('sale/order');
-            
-            $order_info = $this->model_sale_order->getOrder($order_id);
-            
-            // If giftcard belongs to an order
-            if ($order_info) {
-                $this->theme->model('localization/language');
-                
-                $language = new Language($order_info['language_directory'], $this->app['path.language'], $this->app);
-                $language->load($order_info['language_filename']);
-                $language->load('mail/giftcard');
+        if ($giftcard_info):
+            $this->theme->model('sale/giftcardtheme');
+            $giftcard_theme_info = $this->model_sale_giftcardtheme->getGiftcardTheme($giftcard_info['giftcard_theme_id']);
 
-                // NEW MAILER
-                // admin_giftcard_order_send
-                
-                // HTML Mail
-                // $template = new Template($this->app);
-                
-                // $template->data['title'] = sprintf($language->get('text_subject'), $giftcard_info['from_name']);
-                
-                // $template->data['text_greeting'] = sprintf($language->get('text_greeting'), $this->currency->format($giftcard_info['amount'], $order_info['currency_code'], $order_info['currency_value']));
-                // $template->data['text_from'] = sprintf($language->get('text_from'), $giftcard_info['from_name']);
-                // $template->data['text_message'] = $language->get('text_message');
-                // $template->data['text_redeem'] = sprintf($language->get('text_redeem'), $giftcard_info['code']);
-                // $template->data['text_footer'] = $language->get('text_footer');
-                
-                // $this->theme->model('sale/giftcardtheme');
-                
-                // $giftcard_theme_info = $this->model_sale_giftcardtheme->getGiftcardTheme($giftcard_info['giftcard_theme_id']);
-                
-                // if ($giftcard_info && file_exists($this->app['path.image'] . $giftcard_theme_info['image'])) {
-                //     $template->data['image'] = $this->app['http.public'] . 'image/' . $giftcard_theme_info['image'];
-                // } else {
-                //     $template->data['image'] = '';
-                // }
-                
-                // $template->data['store_name'] = $order_info['store_name'];
-                // $template->data['store_url'] = $order_info['store_url'];
-                // $template->data['message'] = nl2br($giftcard_info['message']);
-                
-                // $mail = new Mail();
-                // $mail->protocol = $this->config->get('config_mail_protocol');
-                // $mail->parameter = $this->config->get('config_mail_parameter');
-                // $mail->hostname = $this->config->get('config_smtp_host');
-                // $mail->username = $this->config->get('config_smtp_username');
-                // $mail->password = $this->config->get('config_smtp_password');
-                // $mail->port = $this->config->get('config_smtp_port');
-                // $mail->timeout = $this->config->get('config_smtp_timeout');
-                // $mail->setTo($giftcard_info['to_email']);
-                // $mail->setFrom($this->config->get('config_email'));
-                // $mail->setSender($order_info['store_name']);
-                // $mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $giftcard_info['from_name']), ENT_QUOTES, 'UTF-8'));
-                // $mail->setHtml($template->fetch('mail/giftcard'));
-                // $mail->send();
-                
-                // If giftcard does not belong to an order
-                
-            } else {
-                $this->language->load('mail/giftcard');
+            $card = array(
+                'image'      => $giftcard_theme_info['image'],
+                'theme'      => $giftcard_theme_info['name'],
+                'to_name'    => $giftcard_info['to_name'],
+                'code'       => $giftcard_info['code'],
+                'amount'     => $giftcard_info['amount'],
+                'message'    => $giftcard_info['message'],
+                'from_name'  => $giftcard_info['from_name'],
+                'from_email' => $giftcard_info['from_email']
+            );
 
-                // NEW MAILER
-                // admin_giftcard_no_order_send
-                
-                // $template = new Template($this->app);
-                
-                // $template->data['title'] = sprintf($this->language->get('lang_text_subject'), $giftcard_info['from_name']);
-                
-                // $template->data['text_greeting'] = sprintf($this->language->get('lang_text_greeting'), $this->currency->format($giftcard_info['amount'], $order_info['currency_code'], $order_info['currency_value']));
-                // $template->data['text_from'] = sprintf($this->language->get('lang_text_from'), $giftcard_info['from_name']);
-                // $template->data['text_message'] = $this->language->get('lang_text_message');
-                // $template->data['text_redeem'] = sprintf($this->language->get('lang_text_redeem'), $giftcard_info['code']);
-                // $template->data['text_footer'] = $this->language->get('lang_text_footer');
-                
-                // $this->theme->model('sale/giftcardtheme');
-                
-                // $giftcard_theme_info = $this->model_sale_giftcardtheme->getGiftcardTheme($giftcard_info['giftcard_theme_id']);
-                
-                // if ($giftcard_info && file_exists($this->app['path.image'] . $giftcard_theme_info['image'])) {
-                //     $template->data['image'] = $this->app['http.public'] . 'image/' . $giftcard_theme_info['image'];
-                // } else {
-                //     $template->data['image'] = '';
-                // }
-                
-                // $template->data['store_name'] = $this->config->get('config_name');
-                // $template->data['store_url'] = $this->app['http.public'];
-                // $template->data['message'] = nl2br($giftcard_info['message']);
-                
-                // $mail = new Mail();
-                // $mail->protocol = $this->config->get('config_mail_protocol');
-                // $mail->parameter = $this->config->get('config_mail_parameter');
-                // $mail->hostname = $this->config->get('config_smtp_host');
-                // $mail->username = $this->config->get('config_smtp_username');
-                // $mail->password = $this->config->get('config_smtp_password');
-                // $mail->port = $this->config->get('config_smtp_port');
-                // $mail->timeout = $this->config->get('config_smtp_timeout');
-                // $mail->setTo($giftcard_info['to_email']);
-                // $mail->setFrom($this->config->get('config_email'));
-                // $mail->setSender($this->config->get('config_name'));
-                // $mail->setSubject(html_entity_decode(sprintf($this->language->get('lang_text_subject'), $giftcard_info['from_name']), ENT_QUOTES, 'UTF-8'));
-                // $mail->setHtml($template->fetch('mail/giftcard'));
-                // $mail->send();
-            }
-        }
+            $split    = explode(' ', $giftcard_info['to_name']);
+            $callback = array(
+                'firstname' => $split[0],
+                'lastname'  => isset($split[1]) ? $split[1] : '',
+                'email'     => $giftcard_info['to_email']
+            );
+
+            $this->notify->setGenericCustomer($callback);
+            
+            $message  = $this->notify->fetch('admin_giftcard_send');
+            $priority = $message['priority'];
+            
+            // decorate the base email
+            $message = $this->buildMessage($card, $message);
+
+            $this->notify->fetchWrapper($priority);
+
+            $message = $this->notify->formatEmail($message, 1);
+            
+            if ($priority == 1):
+                $this->notify->send($message);
+            else:
+                $this->notify->addToEmailQueue($message);
+            endif;
+        endif;
     }
     
     public function getTotalGiftcards() {
@@ -310,4 +241,59 @@ class Giftcard extends Model {
         
         return $query->row['total'];
     }
+
+    public function buildMessage($data, $message) {
+        $call = $data;
+        unset($data);
+
+        $data = $this->theme->language('notification/giftcard');
+
+        $data['theme_image'] = $this->app['http.public'] . 'image/' . $call['image'];
+        $data['theme_name']  = $call['theme'];
+        $data['store_name']  = $this->config->get('config_name');
+        $data['to_name']     = $call['to_name'];
+        $data['code']        = $call['code'];
+
+        $data['text_message'] = false;
+        $data['html_message'] = false;
+
+        if (isset($call['message'])):
+            $data['text_message'] = $call['message'];
+            $data['html_message'] = nl2br($call['message']);
+        endif;
+
+        $data['lang_text_message'] = sprintf($this->language->get('lang_text_message'), $call['from_name']);
+
+        $search = array(
+            '!amount!',
+            '!sender!',
+            '!sender_email!',
+            '!code!'
+        );
+
+        $replace = array(
+            $this->currency->format($call['amount']),
+            $call['from_name'],
+            $call['from_email'],
+            $call['code']
+        );
+
+        foreach($message as $key => $value):
+            $message[$key] = str_replace($search, $replace, $value);
+        endforeach;
+
+        $html = new Template($this->app);
+        $text = new Text($this->app);
+
+        $html->data = $data;
+        $text->data = $data;
+
+        $html = $html->fetch('notification/giftcard');
+        $text = $text->fetch('notification/giftcard');
+
+        $message['text'] = str_replace('!content!', $text, $message['text']);
+        $message['html'] = str_replace('!content!', $html, $message['html']);
+        
+        return $message;
+    } 
 }

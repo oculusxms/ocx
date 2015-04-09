@@ -983,7 +983,9 @@ class Order extends Model {
     }
     
     public function getTotalOrders($data = array()) {
-        $sql = "SELECT COUNT(*) AS total FROM `{$this->db->prefix}order`";
+        $sql = "
+        	SELECT COUNT(*) AS total 
+        	FROM `{$this->db->prefix}order`";
         
         if (isset($data['filter_order_status_id']) && !is_null($data['filter_order_status_id'])) {
             $sql.= " WHERE order_status_id = '" . (int)$data['filter_order_status_id'] . "'";

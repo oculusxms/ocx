@@ -46,7 +46,7 @@ $_['lang_text_bank_account_name']    = 'Account Name';
 $_['lang_text_bank_account_number']  = 'Account Number';
 
 // Entry
-$_['lang_entry_username']            = 'Username';
+$_['lang_entry_user_name']            = 'Username';
 $_['lang_entry_email']               = 'E-Mail';
 $_['lang_entry_customer_group']      = 'Membership Type';
 $_['lang_entry_password']            = 'Password';
@@ -79,7 +79,7 @@ $_['lang_entry_bank_account_number'] = 'Account Number';
 
 // Error
 // JS Validation
-$_['lang_error_req_username']        = 'Username is required.';
+$_['lang_error_req_user_name']        = 'Username is required.';
 $_['lang_error_req_firstname']       = 'First Name is required.';
 $_['lang_error_req_lastname']        = 'Last Name is required.';
 $_['lang_error_req_email']           = 'E-Mail address is required.';
@@ -95,14 +95,14 @@ $_['lang_error_req_account']         = 'You must agree to our %s';
 $_['lang_error_req_affiliate']       = 'You must agree to our %s';
 $_['lang_error_req_tax']             = 'Tax ID is required.';
 
-$_['lang_error_alpha_username']      = 'Username can only consist of alpha characters.';
+$_['lang_error_alpha_user_name']      = 'Username can only consist of alpha characters.';
 $_['lang_error_alpha_firstname']     = 'First Name can only consist of alpha characters.';
 $_['lang_error_alpha_lastname']      = 'Last Name can only consist of alpha characters.';
 $_['lang_error_alpha_']              = '';
 $_['lang_error_alpha_']              = '';
 
 $_['lang_error_status']              = 'Please select if you\'d like to be an affiliate';
-$_['lang_error_username']            = 'Username must be between 3 and 16 characters.';
+$_['lang_error_user_name']            = 'Username must be between 3 and 16 characters.';
 $_['lang_error_email']               = 'E-Mail address does not appear to be valid.';
 $_['lang_error_password']            = 'Password must be between 4 and 20 characters.';
 $_['lang_error_confirm']             = 'Password confirmation does not match password.';

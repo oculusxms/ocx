@@ -40,7 +40,7 @@ class Decorator extends LibraryService {
 		$this->search = array(
 			'!fname!',
 			'!lname!',
-			'!username!',
+			'!user_name!',
 			'!email!',
 			'!telephone!',
 			'!ip_address!',
@@ -50,7 +50,7 @@ class Decorator extends LibraryService {
 		$this->replace = array(
 			$customer['firstname'],
 			$customer['lastname'],
-			$customer['username'],
+			$customer['user_name'],
 			$customer['email'],
 			isset($customer['telephone']) ? $customer['telephone'] : '',
 			$customer['ip'],
@@ -60,7 +60,7 @@ class Decorator extends LibraryService {
 		$this->html_replace = array(
 			$customer['firstname'],
 			$customer['lastname'],
-			$customer['username'],
+			$customer['user_name'],
 			$customer['email'],
 			isset($customer['telephone']) ? $customer['telephone'] : '',
 			$customer['ip'],
@@ -233,7 +233,7 @@ class Decorator extends LibraryService {
  * 
  * !fname! - customer first name
  * !lname! - customer last name
- * !username! - customer username
+ * !user_name! - customer user_name
  * !email! - customer email address
  * !points! - customer reward points
  * !telephone! - customer telephone

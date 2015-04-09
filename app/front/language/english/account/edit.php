@@ -24,7 +24,7 @@ $_['lang_text_your_details'] = 'Your Personal Details';
 $_['lang_text_success']      = 'Success: Your account has been successfully updated.';
 
 // Entry
-$_['lang_entry_username']    = 'Username';
+$_['lang_entry_user_name']    = 'Username';
 $_['lang_entry_firstname']   = 'First Name';
 $_['lang_entry_lastname']    = 'Last Name';
 $_['lang_entry_email']       = 'E-Mail';

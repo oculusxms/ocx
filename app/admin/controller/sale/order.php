@@ -200,7 +200,7 @@ class Order extends Controller {
     
     protected function getList() {
         $data = $this->theme->language('sale/order');
-        
+        //$this->theme->test($this->session->data);
         if (isset($this->request->get['filter_order_id'])) {
             $filter_order_id = $this->request->get['filter_order_id'];
         } else {
@@ -1025,8 +1025,8 @@ class Order extends Controller {
                 'option'           => $order_option, 
                 'download'         => $order_download, 
                 'quantity'         => $order_product['quantity'], 
-                'price'            => $order_product['price'], 
-                'total'            => $order_product['total'], 
+                'price'            => number_format($order_product['price'], 2), 
+                'total'            => number_format($order_product['total'], 2), 
                 'tax'              => $order_product['tax'], 
                 'reward'           => $order_product['reward']
             );
@@ -2071,6 +2071,23 @@ class Order extends Controller {
         $json = $this->theme->listen(__CLASS__, __FUNCTION__, $json);
         
         $this->response->setOutput(json_encode($json));
+    }
+
+    public function shipping() {
+        $this->theme->model('setting/module');
+        
+        $modules = $this->model_setting_module->getAll('shipping');
+        $this->theme->test($modules);
+        foreach ($modules as $key => $value) {
+            $theme_file = $this->theme->path . 'controller/shipping/' . $value . '.php';
+            $core_file = $this->app['path.application'] . 'controller/shipping/' . $value . '.php';
+            
+            if (!is_readable($theme_file) && !is_readable($core_file)) {
+                $this->model_setting_module->uninstall('shipping', $value);
+                
+                unset($modules[$key]);
+            }
+        }
     }
     
     public function invoice() {

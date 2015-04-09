@@ -36,4 +36,6 @@ $('#customer_group_id').change(function(){
 		}	
 	}
 }).change();
+
+
 </script>

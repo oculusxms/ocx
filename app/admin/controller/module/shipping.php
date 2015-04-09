@@ -68,14 +68,28 @@ class Shipping extends Controller {
                 $action = array();
                 
                 if (!in_array($module, $modules)) {
-                    $action[] = array('text' => $this->language->get('lang_text_install'), 'href' => $this->url->link('module/shipping/install', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
+                    $action[] = array(
+                        'text' => $this->language->get('lang_text_install'), 
+                        'href' => $this->url->link('module/shipping/install', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL')
+                    );
                 } else {
-                    $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('shipping/' . $module . '', 'token=' . $this->session->data['token'], 'SSL'));
+                    $action[] = array(
+                        'text' => $this->language->get('lang_text_edit'), 
+                        'href' => $this->url->link('shipping/' . $module . '', 'token=' . $this->session->data['token'], 'SSL')
+                    );
                     
-                    $action[] = array('text' => $this->language->get('lang_text_uninstall'), 'href' => $this->url->link('module/shipping/uninstall', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL'));
+                    $action[] = array(
+                        'text' => $this->language->get('lang_text_uninstall'), 
+                        'href' => $this->url->link('module/shipping/uninstall', 'token=' . $this->session->data['token'] . '&module=' . $module, 'SSL')
+                    );
                 }
                 
-                $data['modules'][] = array('name' => $this->language->get('lang_heading_title'), 'status' => $this->config->get($module . '_status') ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled'), 'sort_order' => $this->config->get($module . '_sort_order'), 'action' => $action);
+                $data['modules'][] = array(
+                    'name'       => $this->language->get('lang_heading_title'), 
+                    'status'     => $this->config->get($module . '_status') ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled'), 
+                    'sort_order' => $this->config->get($module . '_sort_order'), 
+                    'action'     => $action
+                );
             }
         }
         

@@ -41,20 +41,29 @@ class User extends LibraryService {
         endif;
     }
     
-    public function login($username, $password) {
+    public function login($username, $password, $override = false) {
         $db      = parent::$app['db'];
         $request = parent::$app['request'];
         $session = parent::$app['session'];
+        $encode  = parent::$app['encode'];
         
-        $user_query = $db->query("
-			SELECT * 
-			FROM {$db->prefix}user 
-			WHERE username = '" . $db->escape($username) . "' 
-			AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $db->escape($password) . "'))))) 
-			OR password = '" . $db->escape(md5($password)) . "') 
-			AND status = '1'
-		");
-        
+        if ($override):
+            $user_query = $db->query("
+                SELECT * FROM {$db->prefix}user 
+                WHERE user_id = '" . $db->escape($encode->strtolower($username)) . "' 
+                AND status = '1'
+            ");
+        else:
+            $user_query = $db->query("
+    			SELECT * 
+    			FROM {$db->prefix}user 
+    			WHERE username = '" . $db->escape($username) . "' 
+    			AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $db->escape($password) . "'))))) 
+    			OR password = '" . $db->escape(md5($password)) . "') 
+    			AND status = '1'
+    		");
+        endif;
+        //parent::$app['theme']->test($user_query->row['username']);
         if ($user_query->num_rows):
             $session->data['user_id']          = $user_query->row['user_id'];
             $session->data['username']         = $user_query->row['username'];

@@ -422,8 +422,8 @@
 								<input type="hidden" name="order_giftcard[<?= $giftcard_row; ?>][amount]" value="<?= $order_giftcard['amount']; ?>"></td>
 							<td></td>
 							<td class="text-right">1</td>
-							<td class="text-right"><?= $order_giftcard['amount']; ?></td>
-							<td class="text-right"><?= $order_giftcard['amount']; ?></td>
+							<td class="text-right"><?= number_format($order_giftcard['amount'], 2); ?></td>
+							<td class="text-right"><?= number_format($order_giftcard['amount'], 2); ?></td>
 						</tr>
 						<?php $giftcard_row++; ?>
 						<?php } ?>
@@ -508,8 +508,8 @@
 							<td><?= $order_giftcard['description']; ?></td>
 							<td></td>
 							<td class="text-right">1</td>
-							<td class="text-right"><?= $order_giftcard['amount']; ?></td>
-							<td class="text-right"><?= $order_giftcard['amount']; ?></td>
+							<td class="text-right"><?= number_format($order_giftcard['amount'], 2); ?></td>
+							<td class="text-right"><?= number_format($order_giftcard['amount'], 2); ?></td>
 						</tr>
 						<?php } ?>
 						<?php foreach ($order_totals as $order_total) { ?>
@@ -521,7 +521,7 @@
 								<input type="hidden" name="order_total[<?= $total_row; ?>][text]" value="<?= $order_total['text']; ?>">
 								<input type="hidden" name="order_total[<?= $total_row; ?>][value]" value="<?= $order_total['value']; ?>">
 								<input type="hidden" name="order_total[<?= $total_row; ?>][sort_order]" value="<?= $order_total['sort_order']; ?>"></td>
-							<td class="text-right"><?= $order_total['value']; ?></td>
+							<td class="text-right"><?= number_format($order_total['value'], 2); ?></td>
 						</tr>
 						<?php $total_row++; ?>
 						<?php } ?>
