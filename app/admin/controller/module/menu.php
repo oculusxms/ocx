@@ -124,7 +124,10 @@ class Menu extends Controller {
         
         $data['menus'] = array();
         
-        $filter = array('start' => ($page - 1) * $this->config->get('config_admin_limit'), 'limit' => $this->config->get('config_admin_limit'));
+        $filter = array(
+            'start' => ($page - 1) * $this->config->get('config_admin_limit'), 
+            'limit' => $this->config->get('config_admin_limit')
+        );
         
         $menu_total = $this->model_module_menu->getTotalMenus();
         $results = $this->model_module_menu->getMenus($filter);
@@ -132,9 +135,19 @@ class Menu extends Controller {
         foreach ($results as $result):
             $action = array();
             
-            $action[] = array('text' => $this->language->get('lang_text_edit'), 'href' => $this->url->link('module/menu/update', 'token=' . $this->session->data['token'] . '&menu_id=' . $result['menu_id'] . $url, 'SSL'));
+            $action[] = array(
+                'text' => $this->language->get('lang_text_edit'), 
+                'href' => $this->url->link('module/menu/update', 'token=' . $this->session->data['token'] . '&menu_id=' . $result['menu_id'] . $url, 'SSL')
+            );
             
-            $data['menus'][] = array('menu_id' => $result['menu_id'], 'name' => $result['name'], 'type' => $this->language->get('lang_text_' . $result['type']), 'status' => $result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled'), 'selected' => isset($this->request->post['selected']) && in_array($result['menu_id'], $this->request->post['selected']), 'action' => $action);
+            $data['menus'][] = array(
+                'menu_id'  => $result['menu_id'], 
+                'name'     => $result['name'], 
+                'type'     => $this->language->get('lang_text_' . $result['type']), 
+                'status'   => $result['status'] ? $this->language->get('lang_text_enabled') : $this->language->get('lang_text_disabled'), 
+                'selected' => isset($this->request->post['selected']) && in_array($result['menu_id'], $this->request->post['selected']), 
+                'action'   => $action
+            );
         endforeach;
         
         if (isset($this->error['warning'])):
@@ -150,7 +163,13 @@ class Menu extends Controller {
             $data['success'] = '';
         endif;
         
-        $data['pagination'] = $this->theme->paginate($menu_total, $page, $this->config->get('config_admin_limit'), $this->language->get('lang_text_pagination'), $this->url->link('module/menu', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL'));
+        $data['pagination'] = $this->theme->paginate(
+            $menu_total, 
+            $page, 
+            $this->config->get('config_admin_limit'), 
+            $this->language->get('lang_text_pagination'), 
+            $this->url->link('module/menu', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL')
+        );
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
         
@@ -202,7 +221,12 @@ class Menu extends Controller {
         
         $data['token'] = $this->session->data['token'];
         
-        $fields = array('name', 'type', 'items', 'status');
+        $fields = array(
+            'name', 
+            'type', 
+            'items', 
+            'status'
+        );
         
         foreach ($fields as $field):
             if (isset($this->request->post[$field])):
@@ -216,10 +240,19 @@ class Menu extends Controller {
         
         $data['menu_types'] = array();
         
-        $menu_types = array('product_category' => $this->language->get('lang_text_product_category'), 'content_category' => $this->language->get('lang_text_content_category'), 'page' => $this->language->get('lang_text_page'), 'post' => $this->language->get('lang_text_post'), 'custom' => $this->language->get('lang_text_custom'));
+        $menu_types = array(
+            'product_category' => $this->language->get('lang_text_product_category'), 
+            'content_category' => $this->language->get('lang_text_content_category'), 
+            'page'             => $this->language->get('lang_text_page'), 
+            'post'             => $this->language->get('lang_text_post'), 
+            'custom'           => $this->language->get('lang_text_custom')
+        );
         
         foreach ($menu_types as $key => $value):
-            $data['menu_types'][] = array('type' => $key, 'name' => $value);
+            $data['menu_types'][] = array(
+                'type' => $key, 
+                'name' => $value
+            );
         endforeach;
         
         $data['layouts'] = array();
@@ -300,7 +333,10 @@ class Menu extends Controller {
         $results = $this->model_catalog_category->getCategories();
         
         foreach ($results as $result):
-            $data['categories'][] = array('category_id' => $result['category_id'], 'name' => $result['name']);
+            $data['categories'][] = array(
+                'category_id' => $result['category_id'], 
+                'name'        => $result['name']
+            );
         endforeach;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
@@ -337,7 +373,10 @@ class Menu extends Controller {
         $results = $this->model_content_category->getCategories(0);
         
         foreach ($results as $result):
-            $data['categories'][] = array('category_id' => $result['category_id'], 'name' => $result['name']);
+            $data['categories'][] = array(
+                'category_id' => $result['category_id'], 
+                'name'        => $result['name']
+            );
         endforeach;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
@@ -362,12 +401,15 @@ class Menu extends Controller {
         
         $data['singles'] = array();
         
-        $data['entry_single'] = $this->language->get('lang_entry_page');
+        $data['lang_entry_single'] = $this->language->get('lang_entry_page');
         
         $results = $this->model_content_page->getPages();
         
         foreach ($results as $result):
-            $data['singles'][] = array('item_id' => $result['page_id'], 'name' => $result['title']);
+            $data['singles'][] = array(
+                'item_id' => $result['page_id'], 
+                'name'    => $result['title']
+            );
         endforeach;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
@@ -392,12 +434,15 @@ class Menu extends Controller {
         
         $data['singles'] = array();
         
-        $data['entry_single'] = $this->language->get('lang_entry_post');
+        $data['lang_entry_single'] = $this->language->get('lang_entry_post');
         
         $results = $this->model_content_post->getPosts();
         
         foreach ($results as $result):
-            $data['singles'][] = array('item_id' => $result['post_id'], 'name' => $result['name']);
+            $data['singles'][] = array(
+                'item_id' => $result['post_id'], 
+                'name'    => $result['name']
+            );
         endforeach;
         
         $data = $this->theme->listen(__CLASS__, __FUNCTION__, $data);
