@@ -1,12 +1,8 @@
 -- --------------------------------------------------------
 
 --
--- Database: `ocx`
+-- Database: `Oculus XMS`
 --
-
--- --------------------------------------------------------
-
-SET SQL_MODE = '';
 
 -- --------------------------------------------------------
 
@@ -31,7 +27,22 @@ CREATE TABLE IF NOT EXISTS `ocx_address` (
   `zone_id` int(11) NOT NULL,
   PRIMARY KEY (`address_id`),
   KEY `customer_id` (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_affiliate_route`
+--
+
+DROP TABLE IF EXISTS `ocx_affiliate_route`;
+CREATE TABLE IF NOT EXISTS `ocx_affiliate_route` (
+  `route_id` int(11) NOT NULL AUTO_INCREMENT,
+  `route` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `query` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`route_id`,`route`,`slug`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -51,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `ocx_attribute` (
 -- Dumping data for table `ocx_attribute`
 --
 
-INSERT INTO `ocx_attribute` VALUES
+INSERT INTO `ocx_attribute` (`attribute_id`, `attribute_group_id`, `sort_order`) VALUES
 (1, 6, 1),
 (2, 6, 5),
 (3, 6, 3),
@@ -82,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `ocx_attribute_description` (
 -- Dumping data for table `ocx_attribute_description`
 --
 
-INSERT INTO `ocx_attribute_description` VALUES
+INSERT INTO `ocx_attribute_description` (`attribute_id`, `language_id`, `name`) VALUES
 (1, 1, 'Description'),
 (2, 1, 'No. of Cores'),
 (3, 1, 'Clockspeed'),
@@ -112,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `ocx_attribute_group` (
 -- Dumping data for table `ocx_attribute_group`
 --
 
-INSERT INTO `ocx_attribute_group` VALUES
+INSERT INTO `ocx_attribute_group` (`attribute_group_id`, `sort_order`) VALUES
 (3, 2),
 (4, 1),
 (5, 3),
@@ -136,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `ocx_attribute_group_description` (
 -- Dumping data for table `ocx_attribute_group_description`
 --
 
-INSERT INTO `ocx_attribute_group_description` VALUES
+INSERT INTO `ocx_attribute_group_description` (`attribute_group_id`, `language_id`, `name`) VALUES
 (3, 1, 'Memory'),
 (4, 1, 'Technical'),
 (5, 1, 'Motherboard'),
@@ -160,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `ocx_banner` (
 -- Dumping data for table `ocx_banner`
 --
 
-INSERT INTO `ocx_banner` VALUES
+INSERT INTO `ocx_banner` (`banner_id`, `name`, `status`) VALUES
 (6, 'HP Products', 1),
 (7, 'Samsung Tab', 1),
 (8, 'Manufacturers', 1),
@@ -185,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `ocx_banner_image` (
 -- Dumping data for table `ocx_banner_image`
 --
 
-INSERT INTO `ocx_banner_image` VALUES
+INSERT INTO `ocx_banner_image` (`banner_image_id`, `banner_id`, `link`, `image`) VALUES
 (84, 6, 'hewlett-packard', 'data/demo/hp_banner.jpg'),
 (85, 8, 'sony', 'data/demo/sony_logo.jpg'),
 (86, 8, 'palm', 'data/demo/palm_logo.jpg'),
@@ -193,7 +204,7 @@ INSERT INTO `ocx_banner_image` VALUES
 (88, 8, 'canon', 'data/demo/canon_logo.jpg'),
 (89, 8, 'htc', 'data/demo/htc_logo.jpg'),
 (90, 8, 'hewlett-packard', 'data/demo/hp_logo.jpg'),
-(91, 7, 'http://ocx.local/tablets?product_id=49', 'data/demo/samsung_banner.jpg'),
+(91, 7, 'tablets', 'data/demo/samsung_banner.jpg'),
 (92, 9, 'apple', 'data/banner/1.jpg'),
 (93, 9, 'samsung', 'data/banner/2.jpg'),
 (94, 9, 'hewlett-packard', 'data/banner/3.jpg');
@@ -217,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `ocx_banner_image_description` (
 -- Dumping data for table `ocx_banner_image_description`
 --
 
-INSERT INTO `ocx_banner_image_description` VALUES
+INSERT INTO `ocx_banner_image_description` (`banner_image_id`, `language_id`, `banner_id`, `title`) VALUES
 (84, 1, 6, 'HP Banner'),
 (85, 1, 8, 'Sony'),
 (86, 1, 8, 'Palm'),
@@ -254,9 +265,9 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_category` (
 -- Dumping data for table `ocx_blog_category`
 --
 
-INSERT INTO `ocx_blog_category` VALUES
+INSERT INTO `ocx_blog_category` (`category_id`, `image`, `parent_id`, `top`, `column`, `sort_order`, `status`, `date_added`, `date_modified`) VALUES
 (1, '', 0, 0, 0, 0, 1, '2014-08-20 04:58:59', '2014-08-24 15:59:01'),
-(2, 'data/blog/category/landscape-a.jpg', 1, 0, 0, 0, 1, '2014-08-22 17:04:52', '2014-09-27 21:49:04');
+(2, 'data/blog/category/landscape-a.jpg', 1, 0, 0, 0, 1, '2014-08-22 17:04:52', '2014-12-28 04:50:34');
 
 -- --------------------------------------------------------
 
@@ -280,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_category_description` (
 -- Dumping data for table `ocx_blog_category_description`
 --
 
-INSERT INTO `ocx_blog_category_description` VALUES
+INSERT INTO `ocx_blog_category_description` (`category_id`, `language_id`, `name`, `description`, `meta_description`, `meta_keyword`) VALUES
 (1, 1, 'General', '&lt;p&gt;This is the general category for all things general.&lt;/p&gt;', '																																								', '																																								'),
 (2, 1, 'Latest Product News', '&lt;p&gt;\r\n	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n&lt;/p&gt;', '																																																																																', '																																																																																');
 
@@ -315,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_category_to_store` (
 -- Dumping data for table `ocx_blog_category_to_store`
 --
 
-INSERT INTO `ocx_blog_category_to_store` VALUES
+INSERT INTO `ocx_blog_category_to_store` (`category_id`, `store_id`) VALUES
 (1, 0),
 (2, 0);
 
@@ -342,14 +353,6 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_comment` (
   KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
---
--- Dumping data for table `ocx_blog_comment`
---
-
-INSERT INTO `ocx_blog_comment` VALUES
-(1, 1, 0, 'Ralph P', 'vkronlein@icloud.com', 'http://ocx.io', '&lt;p&gt;Great article on Lorem Ipsum, thanks.&lt;/p&gt;', 4, 1, '2014-10-02 09:16:24', '0000-00-00 00:00:00'),
-(2, 1, 0, 'Steve J', 'vince.kronlein@gmail.com', 'http://google.com', 'Cheerio mate, good show.  Loved it.', 5, 1, '2014-08-23 19:54:13', '0000-00-00 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -364,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_post` (
   `date_available` date NOT NULL,
   `sort_order` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `visibility` tinyint(3) NOT NULL,
+  `visibility` tinyint(3) NOT NULL DEFAULT '1',
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `viewed` int(5) NOT NULL,
@@ -375,8 +378,8 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_post` (
 -- Dumping data for table `ocx_blog_post`
 --
 
-INSERT INTO `ocx_blog_post` VALUES
-(1, 'data/blog/post/landscape-b.jpg', 1, '2014-08-19', 1, 1, 1, '2014-08-20 06:34:50', '2014-10-02 09:14:57', 214);
+INSERT INTO `ocx_blog_post` (`post_id`, `image`, `author_id`, `date_available`, `sort_order`, `status`, `visibility`, `date_added`, `date_modified`, `viewed`) VALUES
+(1, 'data/blog/post/landscape-b.jpg', 1, '2014-08-19', 1, 1, 1, '2014-08-20 06:34:50', '2014-12-28 04:51:04', 228);
 
 -- --------------------------------------------------------
 
@@ -386,7 +389,7 @@ INSERT INTO `ocx_blog_post` VALUES
 
 DROP TABLE IF EXISTS `ocx_blog_post_description`;
 CREATE TABLE IF NOT EXISTS `ocx_blog_post_description` (
-  `post_id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -397,13 +400,13 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_post_description` (
   KEY `name` (`name`),
   FULLTEXT KEY `description` (`description`),
   FULLTEXT KEY `tag` (`tag`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `ocx_blog_post_description`
 --
 
-INSERT INTO `ocx_blog_post_description` VALUES
+INSERT INTO `ocx_blog_post_description` (`post_id`, `language_id`, `name`, `description`, `meta_description`, `meta_keyword`, `tag`) VALUES
 (1, 1, 'Lorem Ipsum Test Post', '&lt;p&gt;&lt;span style=&quot;font-weight: bold;&quot;&gt;Lorem ipsum dolor sit amet,&lt;/span&gt; consectetur adipiscing elit. Phasellus feugiat dui a odio facilisis porta commodo ut ligula. Nullam ligula urna, blandit vel justo eu, tristique tempor nisl. Nam ornare auctor enim vel venenatis. Duis et elit augue. Nulla auctor nunc et ultrices lobortis. Donec ultricies, metus quis convallis tincidunt, nisl nibh molestie tortor, et accumsan turpis nulla rhoncus libero. Donec hendrerit enim ut lectus condimentum malesuada.&lt;/p&gt;\r\n&lt;p&gt;Quisque vel augue semper, euismod turpis sed, suscipit odio. Morbi venenatis neque a tristique sodales. Suspendisse sed tempor mauris, eu blandit nulla. Vivamus quis enim et nibh ultrices pellentesque. In nec dapibus orci. Nam vel augue at nunc convallis adipiscing eget quis libero. Cras semper odio congue, varius diam a, rutrum dolor.&lt;/p&gt;\r\n&lt;p&gt;Pellentesque sed tincidunt velit, pellentesque luctus tellus. Duis vulputate lacus eu metus consectetur pretium. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce pulvinar quam non magna aliquet, a tincidunt diam lobortis. Vestibulum quam quam, commodo commodo ornare at, sodales ac elit. Pellentesque convallis pellentesque ante at facilisis. Duis ut porta mauris. Vestibulum suscipit elit vitae urna hendrerit, fermentum placerat justo tristique. Quisque eget odio nunc. Morbi interdum sed mi sit amet suscipit. Nullam nec lacinia dolor, vel dapibus nulla. Aenean sed congue nisi, id dictum diam. Phasellus ac metus non ligula interdum hendrerit eget vitae nisi.&lt;/p&gt;\r\n&lt;p&gt;In posuere molestie imperdiet. Nunc auctor sagittis risus, ullamcorper elementum dui ullamcorper eget. Donec quis diam porttitor, fringilla purus nec, viverra tellus. In sit amet pulvinar risus, sed porttitor lectus. Proin nunc metus, porta id viverra nec, aliquet in lorem. Quisque faucibus lorem vitae nulla adipiscing, in aliquet lorem cursus. Pellentesque id suscipit justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis non ante quis vehicula.&lt;/p&gt;\r\n&lt;p&gt;Sed at metus ipsum. Integer odio leo, volutpat eu sagittis sed, sodales vel dui. Vestibulum nec tellus orci. Etiam hendrerit at arcu vel interdum. Praesent quis nulla adipiscing, convallis est in, pulvinar quam. Curabitur at massa pulvinar eros rhoncus molestie vitae eget purus. Curabitur ullamcorper dictum tortor, in blandit urna gravida et. Nulla a nisl ligula. Vestibulum lobortis rutrum luctus. Phasellus mattis, turpis at dignissim fringilla, quam quam egestas nisl, vel viverra sem diam gravida purus. In eget erat rutrum, pulvinar lectus porta, aliquam lorem. Sed lorem purus, sodales id pellentesque id, volutpat a tellus. Nam aliquam ullamcorper odio sed egestas. Donec vel dictum odio.&lt;/p&gt;', 'Test Meta Description', 'lorem, ipsum', 'lorem, ipsum');
 
 -- --------------------------------------------------------
@@ -451,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_post_to_category` (
 -- Dumping data for table `ocx_blog_post_to_category`
 --
 
-INSERT INTO `ocx_blog_post_to_category` VALUES
+INSERT INTO `ocx_blog_post_to_category` (`post_id`, `category_id`) VALUES
 (1, 1),
 (1, 2);
 
@@ -486,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `ocx_blog_post_to_store` (
 -- Dumping data for table `ocx_blog_post_to_store`
 --
 
-INSERT INTO `ocx_blog_post_to_store` VALUES
+INSERT INTO `ocx_blog_post_to_store` (`post_id`, `store_id`) VALUES
 (1, 0);
 
 -- --------------------------------------------------------
@@ -513,7 +516,7 @@ CREATE TABLE IF NOT EXISTS `ocx_category` (
 -- Dumping data for table `ocx_category`
 --
 
-INSERT INTO `ocx_category` VALUES
+INSERT INTO `ocx_category` (`category_id`, `image`, `parent_id`, `top`, `column`, `sort_order`, `status`, `date_added`, `date_modified`) VALUES
 (17, '', 0, 1, 1, 4, 1, '2009-01-03 21:08:57', '2014-06-28 01:02:28'),
 (18, 'data/demo/hp_2.jpg', 0, 1, 0, 2, 1, '2009-01-05 21:49:15', '2014-06-28 01:06:55'),
 (20, 'data/demo/compaq_presario.jpg', 0, 1, 1, 1, 1, '2009-01-05 21:49:43', '2014-09-16 06:49:47'),
@@ -526,7 +529,7 @@ INSERT INTO `ocx_category` VALUES
 (30, '', 25, 0, 0, 1, 1, '2009-02-02 13:11:59', '2014-06-28 01:08:08'),
 (31, '', 25, 0, 0, 1, 1, '2009-02-03 14:17:24', '2014-06-28 01:07:52'),
 (32, '', 25, 0, 0, 1, 1, '2009-02-03 14:17:34', '2014-06-28 01:07:41'),
-(33, '', 0, 1, 1, 6, 1, '2009-02-03 14:17:55', '2014-09-12 22:25:57'),
+(33, '', 0, 1, 1, 6, 1, '2009-02-03 14:17:55', '2014-12-31 19:37:25'),
 (34, 'data/demo/ipod_touch_4.jpg', 0, 1, 4, 7, 1, '2009-02-03 14:18:11', '2014-06-28 01:06:06'),
 (35, '', 28, 0, 0, 0, 1, '2010-09-17 10:06:48', '2014-06-28 01:01:31'),
 (36, '', 28, 0, 0, 0, 1, '2010-09-17 10:07:13', '2014-06-28 01:01:44'),
@@ -575,7 +578,7 @@ CREATE TABLE IF NOT EXISTS `ocx_category_description` (
 -- Dumping data for table `ocx_category_description`
 --
 
-INSERT INTO `ocx_category_description` VALUES
+INSERT INTO `ocx_category_description` (`category_id`, `language_id`, `name`, `description`, `meta_description`, `meta_keyword`) VALUES
 (17, 1, 'Software', '', '', ''),
 (18, 1, 'Laptops &amp; Notebooks', '&lt;p&gt;Shop Laptop feature only the best laptop deals on the market. By comparing laptop deals from the likes of PC World, Comet, Dixons, The Link and Carphone Warehouse, Shop Laptop has the most comprehensive selection of laptops on the internet. At Shop Laptop, we pride ourselves on offering customers the very best laptop deals. From refurbished laptops to netbooks, Shop Laptop ensures that every laptop - in every colour, style, size and technical spec - is featured on the site at the lowest possible price.&lt;/p&gt;\r\n', '', ''),
 (20, 1, 'Desktops', '&lt;p&gt;Example of category description text&lt;/p&gt;\r\n', 'Example of category description', ''),
@@ -646,7 +649,7 @@ CREATE TABLE IF NOT EXISTS `ocx_category_path` (
 -- Dumping data for table `ocx_category_path`
 --
 
-INSERT INTO `ocx_category_path` VALUES
+INSERT INTO `ocx_category_path` (`category_id`, `path_id`, `level`) VALUES
 (17, 17, 0),
 (18, 18, 0),
 (20, 20, 0),
@@ -750,7 +753,7 @@ CREATE TABLE IF NOT EXISTS `ocx_category_to_store` (
 -- Dumping data for table `ocx_category_to_store`
 --
 
-INSERT INTO `ocx_category_to_store` VALUES
+INSERT INTO `ocx_category_to_store` (`category_id`, `store_id`) VALUES
 (17, 0),
 (18, 0),
 (20, 0),
@@ -812,7 +815,7 @@ CREATE TABLE IF NOT EXISTS `ocx_country` (
 -- Dumping data for table `ocx_country`
 --
 
-INSERT INTO `ocx_country` VALUES
+INSERT INTO `ocx_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`) VALUES
 (3, 'Algeria', 'DZ', 'DZA', '', 0, 0),
 (4, 'American Samoa', 'AS', 'ASM', '', 0, 0),
 (5, 'Andorra', 'AD', 'AND', '', 0, 0),
@@ -1065,7 +1068,7 @@ CREATE TABLE IF NOT EXISTS `ocx_coupon` (
 -- Dumping data for table `ocx_coupon`
 --
 
-INSERT INTO `ocx_coupon` VALUES
+INSERT INTO `ocx_coupon` (`coupon_id`, `name`, `code`, `type`, `discount`, `logged`, `shipping`, `total`, `date_start`, `date_end`, `uses_total`, `uses_customer`, `status`, `date_added`) VALUES
 (4, '-10% Discount', '2222', 'P', '10.0000', 0, 0, '0.0000', '2011-01-01', '2012-01-01', 10, '10', 1, '2009-01-27 13:55:03'),
 (5, 'Free Shipping', '3333', 'P', '0.0000', 0, 1, '100.0000', '2009-03-01', '2009-08-31', 10, '10', 1, '2009-03-14 21:13:53'),
 (6, '-10.00 Discount', '1111', 'F', '10.0000', 0, 0, '10.0000', '1970-11-01', '2020-11-01', 100000, '10000', 1, '2009-03-14 21:15:18');
@@ -1138,10 +1141,10 @@ CREATE TABLE IF NOT EXISTS `ocx_currency` (
 -- Dumping data for table `ocx_currency`
 --
 
-INSERT INTO `ocx_currency` VALUES
-(1, 'Pound Sterling', 'GBP', '£', '', '2', 0.61979997, 1, '2014-10-02 17:43:44'),
-(2, 'US Dollar', 'USD', '$', '', '2', 1.00000000, 1, '2014-10-02 18:17:36'),
-(3, 'Euro', 'EUR', '', '€', '2', 0.78990000, 1, '2014-10-02 17:43:44');
+INSERT INTO `ocx_currency` (`currency_id`, `title`, `code`, `symbol_left`, `symbol_right`, `decimal_place`, `value`, `status`, `date_modified`) VALUES
+(1, 'Pound Sterling', 'GBP', '£', '', '2', 0.67979997, 1, '2015-04-09 20:10:25'),
+(2, 'US Dollar', 'USD', '$', '', '2', 1.00000000, 1, '2015-04-09 20:33:29'),
+(3, 'Euro', 'EUR', '', '€', '2', 0.93730003, 1, '2015-04-09 20:10:25');
 
 -- --------------------------------------------------------
 
@@ -1160,14 +1163,17 @@ CREATE TABLE IF NOT EXISTS `ocx_customer` (
   `telephone` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `salt` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
+  `reset` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `cart` text COLLATE utf8_unicode_ci,
   `wishlist` text COLLATE utf8_unicode_ci,
   `newsletter` tinyint(1) NOT NULL,
   `address_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
-  `is_affiliate` tinyint(1) NOT NULL DEFAULT '0',
+  `referral_id` int(11) NOT NULL DEFAULT '0',
+  `is_affiliate` tinyint(4) NOT NULL DEFAULT '0',
+  `affiliate_status` tinyint(1) NOT NULL,
   `company` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `code` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `commission` decimal(4,2) NOT NULL DEFAULT '0.00',
   `tax_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -1185,7 +1191,7 @@ CREATE TABLE IF NOT EXISTS `ocx_customer` (
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`customer_id`,`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -1216,7 +1222,7 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_commission` (
   `amount` decimal(15,4) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_commission_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -1233,7 +1239,7 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_credit` (
   `amount` decimal(15,4) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_credit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -1268,14 +1274,17 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_group` (
   `tax_id_required` int(1) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`customer_group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `ocx_customer_group`
 --
 
-INSERT INTO `ocx_customer_group` VALUES
-(1, 0, 0, 0, 0, 0, 1);
+INSERT INTO `ocx_customer_group` (`customer_group_id`, `approval`, `company_id_display`, `company_id_required`, `tax_id_display`, `tax_id_required`, `sort_order`) VALUES
+(1, 0, 0, 0, 0, 0, 1),
+(2, 0, 0, 0, 0, 0, 2),
+(3, 0, 0, 0, 0, 0, 3),
+(4, 0, 0, 0, 0, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -1296,8 +1305,11 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_group_description` (
 -- Dumping data for table `ocx_customer_group_description`
 --
 
-INSERT INTO `ocx_customer_group_description` VALUES
-(1, 1, 'Default', 'test');
+INSERT INTO `ocx_customer_group_description` (`customer_group_id`, `language_id`, `name`, `description`) VALUES
+(1, 1, 'Guest', 'This is the default group for any site visitor that isn''t logged in.'),
+(2, 1, 'Customer', 'This is the default free customer group for any customer that simply has an account.'),
+(3, 1, 'Silver', 'This is an example 1st tier paid membership group. Always ensure that the customer_group_id''s of your memberships are in ascending order otherwise the visibility and content settings will not work correctly.  This can be safely deleted if not needed.'),
+(4, 1, 'Gold', 'This is an example 2nd tier paid membership group. Always ensure that the customer_group_id''s of your memberships are in ascending order otherwise the visibility and content settings will not work correctly.  This can be safely deleted if not needed.');
 
 -- --------------------------------------------------------
 
@@ -1322,14 +1334,14 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_history` (
 
 DROP TABLE IF EXISTS `ocx_customer_inbox`;
 CREATE TABLE IF NOT EXISTS `ocx_customer_inbox` (
-  `notification_id` int(13) NOT NULL AUTO_INCREMENT,
+  `notification_id` int(13) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `subject` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`notification_id`),
   KEY `customer_id` (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1345,7 +1357,7 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_ip` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -1391,7 +1403,7 @@ CREATE TABLE IF NOT EXISTS `ocx_customer_reward` (
   `points` int(8) NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`customer_reward_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -1435,7 +1447,8 @@ DROP TABLE IF EXISTS `ocx_custom_field_to_customer_group`;
 CREATE TABLE IF NOT EXISTS `ocx_custom_field_to_customer_group` (
   `custom_field_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
-  PRIMARY KEY (`custom_field_id`,`customer_group_id`)
+  PRIMARY KEY (`custom_field_id`),
+  KEY `customer_group_id` (`customer_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1446,11 +1459,11 @@ CREATE TABLE IF NOT EXISTS `ocx_custom_field_to_customer_group` (
 
 DROP TABLE IF EXISTS `ocx_custom_field_value`;
 CREATE TABLE IF NOT EXISTS `ocx_custom_field_value` (
-  `custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT,
+  `custom_field_value_id` int(11) NOT NULL,
   `custom_field_id` int(11) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`custom_field_value_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1508,6 +1521,7 @@ CREATE TABLE IF NOT EXISTS `ocx_email` (
   `email_id` int(11) NOT NULL AUTO_INCREMENT,
   `email_slug` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
   `configurable` tinyint(1) NOT NULL DEFAULT '0',
+  `priority` tinyint(1) NOT NULL DEFAULT '2',
   `config_description` text COLLATE utf8_unicode_ci NOT NULL,
   `recipient` tinyint(1) NOT NULL DEFAULT '1',
   `is_system` tinyint(1) NOT NULL DEFAULT '1',
@@ -1518,34 +1532,29 @@ CREATE TABLE IF NOT EXISTS `ocx_email` (
 -- Dumping data for table `ocx_email`
 --
 
-INSERT INTO `ocx_email` (`email_id`, `email_slug`, `configurable`, `config_description`, `recipient`, `is_system`) VALUES
-(1, 'admin_forgotten_email', 0, '', 3, 1),
-(2, 'admin_people_contact', 1, 'Customer Newsletter', 1, 1),
-(3, 'admin_event_add', 1, 'Administrator Adds You to an Event', 1, 1),
-(4, 'admin_event_waitlist', 1, 'Administrator Adds You to an Event Waitlist ', 1, 1),
-(5, 'admin_affiliate_add_transaction', 1, 'Administrator Adds a Commission to Your Affiliate Account', 2, 1),
-(6, 'admin_affiliate_approve', 0, '', 2, 1),
-(7, 'admin_customer_approve', 0, '', 1, 1),
-(8, 'admin_customer_add_transaction', 1, 'Administrator Adds a Store Credit to Your Customer Account', 1, 1),
-(9, 'admin_customer_add_reward', 1, 'Administrator Adds Reward Points to Your Customer Account', 1, 1),
-(10, 'admin_order_add_history', 1, 'Administrator Updates Your Active Orders', 1, 1),
-(11, 'admin_return_add_history', 1, 'Administrator Updates Your Active Returns', 1, 1),
-(12, 'admin_giftcard_order_send', 0, '', 1, 1),
-(13, 'admin_giftcard_no_order_send', 0, '', 1, 1),
-(14, 'public_waitlist_join', 1, 'You Join an Event Waitlist', 1, 1),
-(15, 'public_customer_order_confirm', 1, 'You Place an Order', 1, 1),
-(16, 'public_admin_order_confirm', 0, '', 3, 1),
-(17, 'public_customer_order_update', 0, '', 1, 1),
-(18, 'public_customer_forgotten', 0, '', 1, 1),
-(19, 'public_affiliate_forgotten', 0, '', 2, 1),
-(20, 'public_contact_admin', 0, '', 3, 1),
-(21, 'public_contact_customer', 0, '', 1, 1),
-(22, 'public_register_customer', 0, '', 1, 1),
-(23, 'public_register_admin', 0, '', 3, 1),
-(24, 'public_affiliate_register', 0, '', 2, 1),
-(25, 'public_affiliate_admin', 0, '', 3, 1),
-(26, 'public_giftcard_confirm', 0, '', 1, 1),
-(27, 'email_wrapper', 0, '', 1, 1);
+INSERT INTO `ocx_email` (`email_id`, `email_slug`, `configurable`, `priority`, `config_description`, `recipient`, `is_system`) VALUES
+(1, 'admin_forgotten_email', 0, 1, '', 2, 1),
+(2, 'admin_people_contact', 1, 2, 'Customer Newsletter', 1, 1),
+(3, 'admin_event_add', 1, 2, 'Administrator Adds You to an Event', 1, 1),
+(4, 'admin_event_waitlist', 1, 2, 'Administrator Adds You to an Event Waitlist ', 1, 1),
+(5, 'admin_affiliate_add_commission', 1, 2, 'Administrator Adds a Commission to Your Affiliate Account', 1, 1),
+(7, 'admin_customer_approve', 0, 2, '', 1, 1),
+(8, 'admin_customer_add_credit', 1, 2, 'Administrator Adds a Store Credit to Your Customer Account', 1, 1),
+(9, 'admin_customer_add_reward', 1, 2, 'Administrator Adds Reward Points to Your Customer Account', 1, 1),
+(10, 'admin_order_add_history', 1, 2, 'Administrator Updates Your Active Orders', 1, 1),
+(11, 'admin_return_add_history', 1, 2, 'Administrator Updates Your Active Returns', 1, 1),
+(12, 'admin_giftcard_send', 0, 1, '', 1, 1),
+(14, 'public_waitlist_join', 1, 2, 'You Join an Event Waitlist', 1, 1),
+(15, 'public_customer_order_confirm', 1, 2, 'You Place an Order', 1, 1),
+(16, 'public_admin_order_confirm', 0, 2, '', 2, 1),
+(18, 'public_customer_forgotten', 0, 1, '', 1, 1),
+(20, 'public_contact_admin', 0, 2, '', 2, 1),
+(21, 'public_contact_customer', 0, 1, '', 1, 1),
+(22, 'public_register_customer', 0, 2, '', 1, 1),
+(23, 'public_register_admin', 0, 2, '', 2, 1),
+(26, 'public_giftcard_confirm', 0, 1, '', 1, 1),
+(27, 'email_wrapper', 0, 2, '', 1, 1),
+(28, 'email_wrapper', 0, 1, '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1557,10 +1566,10 @@ DROP TABLE IF EXISTS `ocx_email_content`;
 CREATE TABLE IF NOT EXISTS `ocx_email_content` (
   `email_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL DEFAULT '1',
-  `subject` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `subject` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `text` text COLLATE utf8_unicode_ci NOT NULL,
   `html` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`email_id`)
+  PRIMARY KEY (`email_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -1568,33 +1577,31 @@ CREATE TABLE IF NOT EXISTS `ocx_email_content` (
 --
 
 INSERT INTO `ocx_email_content` (`email_id`, `language_id`, `subject`, `text`, `html`) VALUES
-(1, 1, 'Forgotten Admin Email', 'xxx', 'xxx'),
-(2, 1, 'N/A', 'xxx', 'xxx'),
-(3, 1, 'You''ve Been Added to an Event', 'xxx', 'xxx'),
-(4, 1, 'You''ve Been Added to the Waitlist', 'xxx', 'xxx'),
-(5, 1, 'You''ve Earned a Commission', 'xxx', 'xxx'),
-(6, 1, 'Your Affiliate Account Has Been Approved', 'xxx', 'xxx'),
-(7, 1, 'Your Customer Account Has Been Approved', 'xxx', 'xxx'),
-(8, 1, 'Your Account Has Been Credited', 'xxx', 'xxx'),
-(9, 1, 'You''ve Earned Reward Points', 'xxx', 'xxx'),
-(10, 1, 'Your Order Has Been Updated', 'xxx', 'xxx'),
-(11, 1, 'Your Return Has Been Updated', 'xxx', 'xxx'),
-(12, 1, 'You''ve Received a Gift Certificate', 'xxx', 'xxx'),
-(13, 1, 'You''ve Received a Gift Certificate', 'xxx', 'xxx'),
-(14, 1, 'You''ve Been Added to the Waitlist', 'xxx', 'xxx'),
-(15, 1, 'Your Order Details', 'xxx', 'xxx'),
-(16, 1, 'An Order Has Been Placed', 'xxx', 'xxx'),
-(17, 1, 'Your Order Has Been Updated', 'xxx', 'xxx'),
-(18, 1, 'Customer Password Reset', 'Hi !fname!,\r\n\r\nYou, or someone claiming to be you has requested a new password for your customer account at !store_name!.\r\n\r\nYour temporary password is:\r\n\r\n!password!\r\n\r\nPlease ensure you log in and change this password to a permanent one that''s specific to you.', '\r\n\r\n\r\n\r\n&lt;p class=&quot;p1&quot;&gt;&lt;span class=&quot;s1&quot;&gt;Hi !fname!,&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;You, or someone claiming to be you has requested a new password for your customer account at !store_name!.&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;Your temporary password is:&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;!password!&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;Please ensure you log in and change this password to a permanent one that''s specific to you.&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p2&quot;&gt;&lt;span class=&quot;s1&quot;&gt;&lt;/span&gt;&lt;/p&gt;'),
-(19, 1, 'Affiliate Password Reset', 'Hi !fname!,\r\n\r\nYou, or someone claiming to be you has requested a new password for your affiliate account at !store_name!.\r\n\r\nYour temporary password is:\r\n\r\n!password!\r\n\r\nPlease ensure you log in and change this password to a permanent one that''s specific to you.', '&lt;p class=&quot;p1&quot;&gt;&lt;span class=&quot;s1&quot;&gt;Hi !fname!,&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;You, or someone claiming to be you has requested a new password for your affiliate account at !store_name!.&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;Your temporary password is:&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;!password!&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot;&gt;&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;Please ensure you log in and change this password to a permanent one that''s specific to you.&lt;/span&gt;&lt;/p&gt;'),
-(20, 1, 'A Contact Request Has Been Sent', 'xxx', 'xxx'),
-(21, 1, 'Your Contact Request Has Been Received', 'xxx', 'xxx'),
-(22, 1, 'Your New Customer Account', 'xxx', 'xxx'),
-(23, 1, 'New Customer Account Created', 'xxx', 'xxx'),
-(24, 1, 'Your Affiliate Account Has Been Created', 'xxx', 'xxx'),
-(25, 1, 'New Affiliate Registered', 'xxx', 'xxx'),
-(26, 1, 'Your Gift Certificate', 'xxx', 'xxx'),
-(27, 1, 'N/A', '===========================================\r\n!store_name!\r\n===========================================\r\n\r\n!content!\r\n\r\nThanks.\r\n\r\n!store_name! Administration\r\n\r\n==========================\r\n!store_name!\r\n!store_url!\r\n\r\n!store_address!\r\n!store_phone!\r\n-----------------------------------\r\nYou are receiving this because:\r\n1.) You''re a member of !store_name! (!store_url!) or\r\n2.) You subscribed via our website (!store_url!)\r\n\r\nWant to be removed? No problem, click here:\r\n!store_url!/contact\r\nand let us know you''d like to close your account.\r\n-----------------------------------\r\nhttp://twitter.com/TwitterHandle\r\nhttp://www.facebook.com/FacebookPage', '&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;\r\n&lt;title&gt;\r\n&lt;/title&gt;\r\n&lt;style type=&quot;text/css&quot;&gt;\r\n .ReadMsgBody {\r\n  width: 100%;\r\n  background-color: #ffffff;\r\n  }\r\n .ExternalClass {\r\n  width: 100%;\r\n  background-color: #ffffff;\r\n  }\r\n body {\r\n  width: 100%;\r\n  background-color: #E9E8DD;\r\n  margin:0;\r\n padding:0; -webkit-font-smoothing: antialiased;\r\n font-family: Helvetica, Arial, sans-serif;\r\n  }\r\n table {\r\n border-collapse: collapse;\r\n  }\r\n .boxed {\r\n  border-collapse: separate;\r\n  -webkit-border-radius: 3px;\r\n -moz-border-radius: 3px;\r\n  border-radius: 3px;\r\n border: 1px solid #CDCBC0;\r\n  -webkit-box-shadaw: 0 1px 2px rgba(0, 0, 0, .15);\r\n -moz-box-shadaw: 0 1px 2px rgba(0, 0, 0, .15);\r\n  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);\r\n }\r\n @media only screen and (max-width: 640px) {\r\n body[yahoo] .deviceWidth {\r\n  width:440px!important;\r\n  padding:0;\r\n  } \r\n  body[yahoo] .center {\r\n text-align: center!important;\r\n }  \r\n }\r\n @media only screen and (max-width: 479px) {\r\n body[yahoo] .deviceWidth {\r\n  width:280px!important;\r\n  padding:0;\r\n  } \r\n  body[yahoo] .center {\r\n text-align: center!important;\r\n }  \r\n }\r\n&lt;/style&gt;\r\n\r\n\r\n&lt;table width=&quot;100%&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot;&gt;\r\n &lt;tbody&gt;\r\n   &lt;tr&gt;\r\n      &lt;td width=&quot;100%&quot; valign=&quot;top&quot; bgcolor=&quot;#E9E8DD&quot; style=&quot;padding-top:20px&quot;&gt;\r\n       &lt;table width=&quot;580&quot; class=&quot;deviceWidth boxed&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; bgcolor=&quot;#E9E8DD&quot;&gt;\r\n         &lt;tbody&gt;\r\n           &lt;tr&gt;\r\n              &lt;td valign=&quot;top&quot; align=&quot;center&quot; style=&quot;padding:10px&quot; bgcolor=&quot;#ffffff&quot;&gt;\r\n               &lt;a href=&quot;!store_url!&quot;&gt;\r\n                  &lt;img class=&quot;deviceWidth&quot; src=&quot;!store_url!/image/data/email/logo.png&quot; alt=&quot;&quot; border=&quot;0&quot; style=&quot;display: block;&quot;&gt;\r\n               &lt;/a&gt;\r\n\r\n              &lt;/td&gt;\r\n           &lt;/tr&gt;\r\n           &lt;tr&gt;\r\n              &lt;td style=&quot;font-size: 13px; color: #212425; font-weight: normal; text-align: left; font-family: Helvetica, Arial, sans-serif; line-height: 18px; vertical-align: top; padding:10px 8px 10px 8px&quot; bgcolor=&quot;#ffffff&quot;&gt;\r\n               !content!\r\n             &lt;/td&gt;\r\n           &lt;/tr&gt;\r\n           &lt;tr&gt;\r\n              &lt;td valign=&quot;top&quot; style=&quot;padding:0;height:28px;&quot; height=&quot;28&quot; bgcolor=&quot;#ffffff&quot;&gt;\r\n              &lt;/td&gt;\r\n           &lt;/tr&gt;\r\n\r\n         &lt;/tbody&gt;\r\n        &lt;/table&gt;\r\n        &lt;div style=&quot;height:20px&quot;&gt;\r\n         &amp;nbsp;\r\n        &lt;/div&gt;\r\n        &lt;table width=&quot;100%&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot;&gt;\r\n          &lt;tbody&gt;\r\n           &lt;tr&gt;\r\n              &lt;td bgcolor=&quot;#363636&quot; style=&quot;padding:30px 0&quot;&gt;\r\n               &lt;table width=&quot;580&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; class=&quot;deviceWidth&quot;&gt;\r\n                 &lt;tbody&gt;\r\n                   &lt;tr&gt;\r\n                      &lt;td&gt;\r\n\r\n                        &lt;table width=&quot;45%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; align=&quot;left&quot; class=&quot;deviceWidth&quot;&gt;\r\n                         &lt;tbody&gt;\r\n                           &lt;tr&gt;\r\n                              &lt;td valign=&quot;top&quot; style=&quot;font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:20px&quot; class=&quot;center&quot;&gt;\r\n                               You are receiving this email because\r\n                                &lt;br&gt;\r\n                                1.) You''re a member of !store_name! or\r\n                               &lt;br&gt;\r\n                                2.) You subscribed via \r\n                               &lt;a href=&quot;!store_url!&quot; style=&quot;color:#999;text-decoration:underline;&quot;&gt;\r\n                                  our website\r\n                               &lt;/a&gt;\r\n                                &lt;br&gt;\r\n                                &lt;br&gt;\r\n                                &lt;br&gt;\r\n                                Want to be removed? No problem, \r\n                                &lt;a href=&quot;!store_url!/contact&quot; style=&quot;color:#999;text-decoration:underline;&quot;&gt;\r\n                                  click here\r\n                                &lt;/a&gt;\r\n                                and let us know you''d like to close your account.\r\n                              &lt;/td&gt;\r\n                           &lt;/tr&gt;\r\n                         &lt;/tbody&gt;\r\n                        &lt;/table&gt;\r\n                        &lt;table width=&quot;40%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; align=&quot;right&quot; class=&quot;deviceWidth&quot;&gt;\r\n                          &lt;tbody&gt;\r\n                           &lt;tr&gt;\r\n                              &lt;td valign=&quot;top&quot; style=&quot;font-size: 11px; color: #f1f1f1; font-weight: normal; font-family: Helvetica, Arial, sans-serif; vertical-align: top; text-align:right&quot; class=&quot;center&quot;&gt;\r\n\r\n                               &lt;a href=&quot;https://twitter.com/TwitterHandle&quot;&gt;\r\n                                  &lt;img src=&quot;!store_url!/image/data/email/footer_twitter.gif&quot; width=&quot;42&quot; height=&quot;42&quot; alt=&quot;Twitter&quot; title=&quot;Twitter&quot; border=&quot;0&quot;&gt;\r\n                               &lt;/a&gt;\r\n                                &lt;a href=&quot;http://www.facebook.com/FacebookPage&quot;&gt;\r\n                                 &lt;img src=&quot;!store_url!/image/data/email/footer_fb.gif&quot; width=&quot;42&quot; height=&quot;42&quot; alt=&quot;Facebook&quot; title=&quot;Facebook&quot; border=&quot;0&quot;&gt;\r\n                                &lt;/a&gt;\r\n                                &lt;br&gt;\r\n                                &lt;span style=&quot;color: #848484; font-weight: bold; font-size:14px&quot;&gt;\r\n                                  !store_name!\r\n                                &lt;/span&gt;\r\n                               &lt;br&gt;\r\n                                &lt;span style=&quot;color: #848484; font-weight: normal;&quot;&gt;\r\n                                 !store_address!\r\n                                 !store_phone!\r\n                               &lt;/span&gt;\r\n                               &lt;br&gt;\r\n                              &lt;/td&gt;\r\n                           &lt;/tr&gt;\r\n                         &lt;/tbody&gt;\r\n                        &lt;/table&gt;\r\n                      &lt;/td&gt;\r\n                   &lt;/tr&gt;\r\n                 &lt;/tbody&gt;\r\n                &lt;/table&gt;\r\n              &lt;/td&gt;\r\n           &lt;/tr&gt;\r\n         &lt;/tbody&gt;\r\n        &lt;/table&gt;\r\n      &lt;/td&gt;\r\n   &lt;/tr&gt;\r\n &lt;/tbody&gt;\r\n&lt;/table&gt;\r\n');
+(1, 1, 'Forgotten Admin Email', 'Hi !fname!,\r\n\r\nYou, or someone claiming to be you has requested a new password for your customer account at !store_name!.\r\n\r\nTo reset your password click the link below:\r\n\r\n!link!\r\n', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hey !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		You, or someone claiming to be you has requested a new password for your customer account at !store_name!.\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		To reset your password, click the link below:&amp;nbsp;\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n	&lt;a href=&quot;!link!&quot; target=&quot;_blank&quot; style=&quot;font-weight: bold;&quot;&gt;\r\n		!link!\r\n	&lt;/a&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n	&lt;br&gt;\r\n&lt;/p&gt;'),
+(2, 1, 'N/A', 'Hi !fname!,\r\n\r\n!content!', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		!content!\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n'),
+(3, 1, 'You''ve Been Added to an Event', 'Hi !fname!,\r\n\r\nYou''ve been added to an event.\r\n\r\nThe event details are listed below:\r\n---------------------------------------\r\n\r\n!content!', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p&gt;\r\n	You''ve been added to an event.\r\n&lt;/p&gt;\r\n&lt;p&gt;\r\n	The event details are listed below:\r\n&lt;/p&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	!content!\r\n&lt;/div&gt;'),
+(4, 1, 'You''ve Been Added to the Waitlist', 'Hi !fname!,\r\n\r\nYou''ve been added to an event waitlist.\r\n\r\nThe event details are listed below:\r\n---------------------------------------\r\n\r\n!content!', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p&gt;\r\n	You''ve been added to an event waitlist.\r\n&lt;/p&gt;\r\n&lt;p&gt;\r\n	The event details are listed below:\r\n&lt;/p&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	!content!\r\n&lt;/div&gt;'),
+(5, 1, 'You''ve Earned a Commission', 'Hi !fname!,\r\n\r\nYou''ve just earned an affiliate commission.\r\n\r\nCommission: !commission!\r\n\r\nTotal commission balance: !total!\r\n\r\nOnce the refund period of !days! days has elapsed, you''ll be able to request payment of this commission from your member account.\r\n\r\nThanks for all your hard work, we really appreciate it.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		You''ve just earned an affiliate commission.\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Commission: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!commission!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Total commission balance: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!total!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Once the refund period of !days! days has elapsed, you''ll be able to request payment of this commission from your member account.\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Thanks for all your hard work, we really appreciate it.\r\n&lt;/div&gt;'),
+(7, 1, 'Your Customer Account Has Been Approved', 'Hey !fname!,\r\n\r\nYour customer account has been approved and you can now login at:\r\n\r\n!store_url!/login\r\n\r\nWelcome to !store_name! and we look forward to serving you.\r\n', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Your customer account has been approved and you can now login at:\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;a href=&quot;!store_url!/login&quot; target=&quot;_blank&quot;&gt;\r\n		!store_url!/login\r\n	&lt;/a&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Welcome to !store_name! and we look forward to serving you.\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;'),
+(8, 1, 'Your Account Has Been Credited', 'Hey !fname!,\r\n\r\nWe''ve added a store credit to your account.\r\n\r\nAmount: !credit!\r\n\r\nTotal credit on your account: !total!\r\n\r\nHave a great day.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		We''ve added a store credit to your account.\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Amount: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!credit!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Total credit on your account: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!total!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Have a great day.\r\n&lt;/div&gt;'),
+(9, 1, 'You''ve Earned Reward Points', 'Hi !fname!,\r\n\r\nWe just wanted to let you know you''ve earned some reward points.\r\n\r\nPoints: !points!\r\n\r\nCurrent total points: !total!\r\n\r\nHave a great day.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		We just wanted to let you know you''ve earned some reward points.\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Points: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!points!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Current total points: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!total!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Have a great day.\r\n&lt;/div&gt;'),
+(10, 1, 'Your Order Has Been Updated', 'Hi !fname!,\r\n\r\nYour order number !order_id! has been updated to the following status:\r\n\r\nOrder Status: !status!\r\n\r\nIf you have an account with us you can view your order here:\r\n\r\n!link!\r\n\r\nComments:\r\n\r\n!comment!\r\n\r\nHave a great day.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Your order number \r\n		&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n			!order_id!\r\n		&lt;/span&gt;\r\n		has been updated to the following status:\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Order Status: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!status!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	If you have an account with us you can view your order here:\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;a href=&quot;!link!&quot; target=&quot;_blank&quot;&gt;\r\n		!link!\r\n	&lt;/a&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Comments:\r\n	&lt;br&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;div style=&quot;padding: 15px;margin-bottom: 20px;border: 2px solid #faebcc;border-radius: 4px;background-color: #fcf8e3;color: #D7A663;&quot;&gt;\r\n		!comment!\r\n	&lt;/div&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Have a great day.\r\n&lt;/div&gt;'),
+(11, 1, 'Your Return Has Been Updated', 'Hi !fname!,\r\n\r\nYour return number: !return_id! has been updated to the following status:\r\n\r\nReturn Status: !status!\r\n\r\nIf you have an account with us you can view your return here:\r\n\r\n!link!\r\n\r\nComments:\r\n\r\n!comment!\r\n\r\nHave a great day.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Your return number: \r\n		&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n			!return_id!\r\n		&lt;/span&gt;\r\n		has been updated to the following status:\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Return Status: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!status!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	If you have an account with us you can view your return here:\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;a href=&quot;!link!&quot; target=&quot;_blank&quot;&gt;\r\n		!link!\r\n	&lt;/a&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Comments:\r\n	&lt;br&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;div style=&quot;padding: 15px;margin-bottom: 20px;border: 2px solid #faebcc;border-radius: 4px;background-color: #fcf8e3;color: #D7A663;&quot;&gt;\r\n		!comment!\r\n	&lt;/div&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Have a great day.\r\n&lt;/div&gt;'),
+(12, 1, 'You''ve Received a Gift Card!', 'Hi !fname!,\r\n\r\nGreat news, you''ve received a !store_name! gift card in the amount of !amount!\r\n\r\nThis gift card was sent to you by: \r\n\r\n!sender!\r\n!sender_email!\r\n\r\n!content!\r\nTo redeem this gift card, visit the !store_name! website here:\r\n\r\n!store_url!\r\n\r\nSelect the items you''d like to purchase, then apply the code below to your shopping cart.\r\n\r\nGift card code: !code!\r\n\r\nHappy Shopping!', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Great news, you''ve received a !store_name! gift card in the amount of \r\n		&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n			!amount!\r\n		&lt;/span&gt;\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	This gift card was sent to you by: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		&lt;a href=&quot;mailto:!sender_email!&quot; target=&quot;_blank&quot;&gt;\r\n			!sender!\r\n		&lt;/a&gt;\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	!content!\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	To redeem this gift card, visit the !store_name! website here:\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;a href=&quot;!store_url!&quot; target=&quot;_blank&quot;&gt;\r\n		!store_url!\r\n	&lt;/a&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Select the items you''d like to purchase, then apply the code below to your shopping cart.\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Gift card code: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!code!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		Happy Shopping!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;'),
+(14, 1, 'You''ve Been Added to the Waitlist', 'Hi !fname!,\r\n\r\nThe below listed event is currently sold out, so we''ve added you to the waitlist.\r\n\r\nIf a seat becomes available, we''ll contact you so that you can purchase a seat in this event.\r\n\r\nThe event details are listed below:\r\n---------------------------------------\r\n\r\n!content!', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p&gt;\r\n	The below listed event is currently sold out, so we''ve added you to the waitlist.\r\n&lt;/p&gt;\r\n&lt;p&gt;\r\n	If a seat becomes available, we''ll contact you so that you can purchase a seat in this event.\r\n	&lt;br&gt;\r\n&lt;/p&gt;\r\n&lt;p&gt;\r\n	The event details are listed below:\r\n&lt;/p&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p&gt;\r\n	!content!\r\n&lt;/p&gt;\r\n&lt;p&gt;\r\n&lt;/p&gt;'),
+(15, 1, 'Thank You for Your Order', 'Hi !fname!,\r\n\r\nThank so much for your order, we appreciate it a lot.\r\n\r\nBelow you''ll find the details of your order.\r\n--------------------------------\r\n!content!\r\n\r\nThanks again and if you have any questions or problems feel free to email us or give us a call.\r\n', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Thank so much for your order, we appreciate it a lot.\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Below you''ll find the details of your order.\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		!content!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Thanks again and if you have any questions or problems feel free to email us or give us a call.\r\n	&lt;/span&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;'),
+(16, 1, 'An Order Has Been Placed', 'Hey !fname!,\r\n\r\nYou have a new order on !store_name!.\r\n\r\nLog into the admin area to view the details of this order.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hey !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		You have a new order on !store_name!.\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Log into the admin area to view the details of this order.\r\n&lt;/div&gt;'),
+(18, 1, 'Customer Password Reset', 'Hi !fname!,\r\n\r\nYou, or someone claiming to be you has requested a new password for your customer account at !store_name!.\r\n\r\nTo reset your password, click the link below:\r\n\r\n!link!\r\n', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		You, or someone claiming to be you has requested a new password for your customer account at !store_name!.\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		To reset your password, click the link below:\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n			&lt;a href=&quot;!link!&quot; target=&quot;_blank&quot;&gt;\r\n				!link!\r\n			&lt;/a&gt;\r\n		&lt;/span&gt;\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		&lt;br&gt;\r\n	&lt;/span&gt;\r\n&lt;/p&gt;'),
+(20, 1, 'A Contact Request Has Been Sent', 'Hey !fname!,\r\n\r\nYou''ve just received a contact form submission.\r\n\r\nHere are the details:\r\n-----------------------------------\r\nName: !name! \r\nEmail: !email! \r\nInquiry:\r\n\r\n!inquiry!\r\n----------------------------------- ', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hey !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		You''ve just received a contact form submission.\r\n	&lt;/span&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Here are the details:\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div style=&quot;padding: 15px;margin-bottom: 20px;border: 2px solid #faebcc;border-radius: 4px;background-color: #fcf8e3;color: #D7A663;&quot;&gt;\r\n	&lt;div&gt;\r\n		Name: !name!&amp;nbsp;\r\n	&lt;/div&gt;\r\n	&lt;div&gt;\r\n		Email: !email!&amp;nbsp;\r\n	&lt;/div&gt;\r\n	&lt;div&gt;\r\n		Inquiry:\r\n	&lt;/div&gt;\r\n	&lt;div&gt;\r\n		&lt;br&gt;\r\n	&lt;/div&gt;\r\n	&lt;div&gt;\r\n		!inquiry!\r\n	&lt;/div&gt;\r\n&lt;/div&gt;');
+INSERT INTO `ocx_email_content` (`email_id`, `language_id`, `subject`, `text`, `html`) VALUES
+(21, 1, 'Your Contact Request Has Been Received', 'Hi !fname!,\r\n\r\nThanks for contacting us, we''ve received your inquiry and we''ll route it to the correct department right away.\r\n\r\nPlease allow us up to 48 hours to get back to you.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Thanks for contacting us, we''ve received your inquiry and we''ll route it to the correct department right away.\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Please allow us up to 48 hours to get back to you.\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;'),
+(22, 1, 'Your New Customer Account', 'Hi !fname!,\r\n\r\nWelcome to !store_name!.\r\n\r\nWe’re really happy to have you as a customer and we look forward to serving you.\r\n\r\nWith your new !store_name! account you can track all your orders, re-order a previous order with a single click and if you didn’t do so when you signed up, you can enroll in our affiliate program and earn up to !percent!% on all the sales you refer to us.\r\n\r\nIf you have any question don’t be afraid to hit us up by email or by the telephone number below.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Welcome to !store_name!.\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n	&lt;span class=&quot;s1&quot;&gt;\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		We’re really happy to have you as a customer and we look forward to serving you.\r\n	&lt;/span&gt;\r\n	&lt;br&gt;\r\n	&lt;span class=&quot;s1&quot;&gt;\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		With your new !store_name! account you can track all your orders, re-order a previous order with a single click and if you didn’t do so when you signed up, you can enroll in our affiliate program and earn up to !percent!% on all the sales you refer to us.\r\n	&lt;/span&gt;\r\n	&lt;br&gt;\r\n	&lt;span class=&quot;s1&quot;&gt;\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		If you have any question don’t be afraid to hit us up by email or by the telephone number below.\r\n	&lt;/span&gt;\r\n	&lt;br&gt;\r\n	&lt;span class=&quot;s1&quot;&gt;\r\n	&lt;/span&gt;\r\n&lt;/p&gt;'),
+(23, 1, 'New Customer Account Created', 'Hey !fname!,\r\n\r\nYou’ve had a new customer enrollment on !store_name!.\r\n\r\nHere are the new customer’s details:\r\n\r\n!customer_details!\r\n\r\nTo get further details, log in to the admin section of !store_name!.', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hey !fname!\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		You’ve had a new customer enrollment on !store_name!.\r\n	&lt;/span&gt;\r\n	&lt;br&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span class=&quot;s1&quot;&gt;\r\n		Here are the new customer’s details:\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p1&quot;&gt;\r\n	&lt;span class=&quot;s1&quot;&gt;\r\n		!customer_details!\r\n	&lt;/span&gt;\r\n&lt;/p&gt;\r\n&lt;p class=&quot;p2&quot;&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		To get further details, log in to the admin section of !store_name!.\r\n	&lt;/span&gt;\r\n	&lt;br&gt;\r\n	&lt;span class=&quot;s1&quot;&gt;\r\n	&lt;/span&gt;\r\n&lt;/p&gt;'),
+(26, 1, 'You''ve Received a Gift Card!', 'Hi !fname!,\r\n\r\nGreat news, you''ve received a !store_name! gift card in the amount of !amount!\r\n\r\nThis gift card was sent to you by: \r\n\r\n!sender!\r\n!sender_email!\r\n\r\n!content!\r\nTo redeem this gift card, visit the !store_name! website here:\r\n\r\n!store_url!\r\n\r\nSelect the items you''d like to purchase, then apply the code below to your shopping cart.\r\n\r\nGift card code: !code!\r\n\r\nHappy Shopping!', '&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left:0 !important;padding-right: 32px&quot;&gt;\r\n				&lt;h1 style=&quot;margin-top: 0;color: #212425;font-weight: 700;font-size: 36px;margin-bottom: 18px;font-family: sans-serif;line-height: 44px&quot;&gt;\r\n					Hi !fname!,\r\n				&lt;/h1&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n	&lt;tbody&gt;\r\n		&lt;tr&gt;\r\n			&lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n				&lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n					&lt;tbody&gt;\r\n						&lt;tr&gt;\r\n							&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n								&lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n									&lt;tbody&gt;\r\n										&lt;tr&gt;\r\n											&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n												&amp;nbsp;\r\n											&lt;/td&gt;\r\n										&lt;/tr&gt;\r\n									&lt;/tbody&gt;\r\n								&lt;/table&gt;\r\n							&lt;/td&gt;\r\n						&lt;/tr&gt;\r\n					&lt;/tbody&gt;\r\n				&lt;/table&gt;\r\n			&lt;/td&gt;\r\n		&lt;/tr&gt;\r\n	&lt;/tbody&gt;\r\n&lt;/table&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;line-height: 1.428571429;&quot;&gt;\r\n		Great news, you''ve received a !store_name! gift card in the amount of \r\n		&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n			!amount!\r\n		&lt;/span&gt;\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	This gift card was sent to you by: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		&lt;a href=&quot;mailto:!sender_email!&quot; target=&quot;_blank&quot;&gt;\r\n			!sender!\r\n		&lt;/a&gt;\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	!content!\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	To redeem this gift card, visit the !store_name! website here:\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;a href=&quot;!store_url!&quot; target=&quot;_blank&quot;&gt;\r\n		!store_url!\r\n	&lt;/a&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;Select the items you''d like to purchase, then apply the code below to your shopping cart.\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	Gift card code: \r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		!code!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;br&gt;\r\n&lt;/div&gt;\r\n&lt;div&gt;\r\n	&lt;span style=&quot;font-weight: bold;&quot;&gt;\r\n		Happy Shopping!\r\n	&lt;/span&gt;\r\n&lt;/div&gt;');
+INSERT INTO `ocx_email_content` (`email_id`, `language_id`, `subject`, `text`, `html`) VALUES
+(27, 1, 'N/A', '!store_name!\r\n========================================\r\n\r\n!content!\r\n\r\n!signature!\r\n\r\n==========================\r\n!store_name!\r\n!store_url!\r\n\r\n!store_address!\r\n!store_phone!\r\n-----------------------------------\r\nYou are receiving this because you''re either a customer\r\nor affiliate of !store_name!.\r\n\r\nChange your preferences below:\r\n!preference!\r\n\r\nUnsubscribe:\r\n!unsubscribe!\r\n-----------------------------------\r\n!twitter!\r\n!facebook!', '\r\n    &lt;title&gt;!subject!&lt;/title&gt;\r\n    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;\r\n    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;\r\n    &lt;style type=&quot;text/css&quot;&gt;\r\n    body {\r\n    margin: 0;\r\n    mso-line-height-rule: exactly;\r\n    padding: 0;\r\n    min-width: 100%;\r\n    }\r\n    table {\r\n    border-collapse: collapse;\r\n    border-spacing: 0;\r\n    }\r\n    td {\r\n    padding: 0;\r\n    vertical-align: top;\r\n    }\r\n    .spacer,\r\n    .border {\r\n    font-size: 1px;\r\n    line-height: 1px;\r\n    }\r\n    .spacer {\r\n    width: 100%;\r\n    }\r\n    img {\r\n    border: 0;\r\n    -ms-interpolation-mode: bicubic;\r\n    }\r\n    .image {\r\n    font-size: 12px;\r\n    margin-bottom: 24px;\r\n    mso-line-height-rule: at-least;\r\n    }\r\n    .image img {\r\n    display: block;\r\n    }\r\n    .logo {\r\n    mso-line-height-rule: at-least;\r\n    }\r\n    .logo img {\r\n    display: block;\r\n    }\r\n    strong {\r\n    font-weight: bold;\r\n    }\r\n    h1,\r\n    h2,\r\n    h3,\r\n    p,\r\n    ol,\r\n    ul,\r\n    li {\r\n    margin-top: 0;\r\n    }\r\n    ol,\r\n    ul,\r\n    li {\r\n    padding-left: 0;\r\n    }\r\n    blockquote {\r\n    margin-top: 0;\r\n    margin-right: 0;\r\n    margin-bottom: 0;\r\n    padding-right: 0;\r\n    }\r\n    .column-top {\r\n    font-size: 32px;\r\n    line-height: 32px;\r\n    }\r\n    .column-bottom {\r\n    font-size: 8px;\r\n    line-height: 8px;\r\n    }\r\n    .column {\r\n    text-align: left;\r\n    }\r\n    .contents {\r\n    width: 100%;\r\n    }\r\n    .padded {\r\n    padding-left: 32px;\r\n    padding-right: 32px;\r\n    }\r\n    .wrapper {\r\n    display: table;\r\n    table-layout: fixed;\r\n    width: 100%;\r\n    min-width: 620px;\r\n    -webkit-text-size-adjust: 100%;\r\n    -ms-text-size-adjust: 100%;\r\n    }\r\n    table.wrapper {\r\n    table-layout: fixed;\r\n    }\r\n    .one-col,\r\n    .two-col,\r\n    .three-col {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    width: 600px;\r\n    }\r\n    .centered {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    }\r\n    .two-col .image {\r\n    margin-bottom: 23px;\r\n    }\r\n    .two-col .column-bottom {\r\n    font-size: 9px;\r\n    line-height: 9px;\r\n    }\r\n    .two-col .column {\r\n    width: 300px;\r\n    }\r\n    .three-col .image {\r\n    margin-bottom: 21px;\r\n    }\r\n    .three-col .column-bottom {\r\n    font-size: 11px;\r\n    line-height: 11px;\r\n    }\r\n    .three-col .column {\r\n    width: 200px;\r\n    }\r\n    .three-col .first .padded {\r\n    padding-left: 32px;\r\n    padding-right: 16px;\r\n    }\r\n    .three-col .second .padded {\r\n    padding-left: 24px;\r\n    padding-right: 24px;\r\n    }\r\n    .three-col .third .padded {\r\n    padding-left: 16px;\r\n    padding-right: 32px;\r\n    }\r\n    @media only screen and (min-width: 0), only screen and (min-device-width: 0) {\r\n    .wrapper {\r\n        text-rendering: optimizeLegibility;\r\n    }\r\n    }\r\n    @media only screen and (max-width: 620px), only screen and (max-device-width: 620px) {\r\n    [class=wrapper] {\r\n        min-width: 318px !important;\r\n        width: 100% !important;\r\n    }\r\n    [class=wrapper] .one-col,\r\n    [class=wrapper] .two-col,\r\n    [class=wrapper] .three-col {\r\n        width: 318px !important;\r\n    }\r\n    [class=wrapper] .column,\r\n    [class=wrapper] .gutter {\r\n        display: block;\r\n        float: left;\r\n        width: 318px !important;\r\n    }\r\n    [class=wrapper] .padded {\r\n        padding-left: 32px !important;\r\n        padding-right: 32px !important;\r\n    }\r\n    [class=wrapper] .block {\r\n        display: block !important;\r\n    }\r\n    [class=wrapper] .hide {\r\n        display: none !important;\r\n    }\r\n    [class=wrapper] .image {\r\n        margin-bottom: 24px !important;\r\n    }\r\n    [class=wrapper] .image img {\r\n        height: auto !important;\r\n        width: 100% !important;\r\n    }\r\n    }\r\n    .wrapper h1 {\r\n    font-weight: 700;\r\n    }\r\n    .wrapper h2 {\r\n    font-style: italic;\r\n    font-weight: normal;\r\n    }\r\n    .wrapper h3 {\r\n    font-weight: normal;\r\n    }\r\n    .one-col blockquote,\r\n    .two-col blockquote,\r\n    .three-col blockquote {\r\n    font-style: italic;\r\n    }\r\n    .one-col-feature h1 {\r\n    font-weight: normal;\r\n    }\r\n    .one-col-feature h2 {\r\n    font-style: normal;\r\n    font-weight: bold;\r\n    }\r\n    .one-col-feature h3 {\r\n    font-style: italic;\r\n    }\r\n    td.border {\r\n    width: 1px;\r\n    }\r\n    tr.border {\r\n    background-color: #e9e9e9;\r\n    height: 1px;\r\n    }\r\n    tr.border td {\r\n    line-height: 1px;\r\n    }\r\n    .one-col,\r\n    .two-col,\r\n    .three-col,\r\n    .one-col-feature {\r\n    background-color: #ffffff;\r\n    font-size: 14px;\r\n    }\r\n    .one-col,\r\n    .two-col,\r\n    .three-col,\r\n    .one-col-feature,\r\n    .preheader,\r\n    .header,\r\n    .footer {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    }\r\n    .preheader table {\r\n    width: 602px;\r\n    }\r\n    .preheader .title,\r\n    .preheader .webversion {\r\n    padding-top: 10px;\r\n    padding-bottom: 12px;\r\n    font-size: 12px;\r\n    line-height: 21px;\r\n    }\r\n    .preheader .title {\r\n    text-align: left;\r\n    }\r\n    .preheader .webversion {\r\n    text-align: right;\r\n    width: 300px;\r\n    }\r\n    .header {\r\n    width: 602px;\r\n    }\r\n    .header .logo {\r\n    padding: 32px 0;\r\n    }\r\n    .header .logo div {\r\n    font-size: 26px;\r\n    font-weight: 700;\r\n    letter-spacing: -0.02em;\r\n    line-height: 32px;\r\n    }\r\n    .header .logo div a {\r\n    text-decoration: none;\r\n    }\r\n    .header .logo div.logo-center {\r\n    text-align: center;\r\n    }\r\n    .header .logo div.logo-center img {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    }\r\n    .gmail {\r\n    width: 650px;\r\n    min-width: 650px;\r\n    }\r\n    .gmail td {\r\n    font-size: 1px;\r\n    line-height: 1px;\r\n    }\r\n    .wrapper a {\r\n    text-decoration: underline;\r\n    transition: all .2s;\r\n    }\r\n    .wrapper h1 {\r\n    font-size: 36px;\r\n    margin-bottom: 18px;\r\n    }\r\n    .wrapper h2 {\r\n    font-size: 26px;\r\n    line-height: 32px;\r\n    margin-bottom: 20px;\r\n    }\r\n    .wrapper h3 {\r\n    font-size: 18px;\r\n    line-height: 22px;\r\n    margin-bottom: 16px;\r\n    }\r\n    .wrapper h1 a,\r\n    .wrapper h2 a,\r\n    .wrapper h3 a {\r\n    text-decoration: none;\r\n    }\r\n    .one-col blockquote,\r\n    .two-col blockquote,\r\n    .three-col blockquote {\r\n    font-size: 14px;\r\n    border-left: 2px solid #e9e9e9;\r\n    margin-left: 0;\r\n    padding-left: 16px;\r\n    }\r\n    table.divider {\r\n    width: 100%;\r\n    }\r\n    .divider .inner {\r\n    padding-bottom: 24px;\r\n    }\r\n    .divider table {\r\n    background-color: #e9e9e9;\r\n    font-size: 2px;\r\n    line-height: 2px;\r\n    width: 60px;\r\n    }\r\n    .wrapper .gray {\r\n    background-color: #f7f7f7;\r\n    }\r\n    .wrapper .gray blockquote {\r\n    border-left-color: #dddddd;\r\n    }\r\n    .wrapper .gray .divider table {\r\n    background-color: #dddddd;\r\n    }\r\n    .padded .image {\r\n    font-size: 0;\r\n    }\r\n    .image-frame {\r\n    padding: 8px;\r\n    }\r\n    .image-background {\r\n    display: inline-block;\r\n    font-size: 12px;\r\n    }\r\n    .btn {\r\n    margin-bottom: 24px;\r\n    padding: 2px;\r\n    }\r\n    .btn a {\r\n    border: 1px solid #ffffff;\r\n    display: inline-block;\r\n    font-size: 13px;\r\n    font-weight: bold;\r\n    line-height: 15px;\r\n    outline-style: solid;\r\n    outline-width: 2px;\r\n    padding: 10px 30px;\r\n    text-align: center;\r\n    text-decoration: none !important;\r\n    }\r\n    .one-col .column table:nth-last-child(2) td h1:last-child,\r\n    .one-col .column table:nth-last-child(2) td h2:last-child,\r\n    .one-col .column table:nth-last-child(2) td h3:last-child,\r\n    .one-col .column table:nth-last-child(2) td p:last-child,\r\n    .one-col .column table:nth-last-child(2) td ol:last-child,\r\n    .one-col .column table:nth-last-child(2) td ul:last-child {\r\n    margin-bottom: 24px;\r\n    }\r\n    .one-col p,\r\n    .one-col ol,\r\n    .one-col ul {\r\n    font-size: 16px;\r\n    line-height: 24px;\r\n    }\r\n    .one-col ol,\r\n    .one-col ul {\r\n    margin-left: 18px;\r\n    }\r\n    .two-col .column table:nth-last-child(2) td h1:last-child,\r\n    .two-col .column table:nth-last-child(2) td h2:last-child,\r\n    .two-col .column table:nth-last-child(2) td h3:last-child,\r\n    .two-col .column table:nth-last-child(2) td p:last-child,\r\n    .two-col .column table:nth-last-child(2) td ol:last-child,\r\n    .two-col .column table:nth-last-child(2) td ul:last-child {\r\n    margin-bottom: 23px;\r\n    }\r\n    .two-col .image-frame {\r\n    padding: 6px;\r\n    }\r\n    .two-col h1 {\r\n    font-size: 26px;\r\n    line-height: 32px;\r\n    margin-bottom: 16px;\r\n    }\r\n    .two-col h2 {\r\n    font-size: 20px;\r\n    line-height: 26px;\r\n    margin-bottom: 18px;\r\n    }\r\n    .two-col h3 {\r\n    font-size: 16px;\r\n    line-height: 20px;\r\n    margin-bottom: 14px;\r\n    }\r\n    .two-col p,\r\n    .two-col ol,\r\n    .two-col ul {\r\n    font-size: 14px;\r\n    line-height: 23px;\r\n    }\r\n    .two-col ol,\r\n    .two-col ul {\r\n    margin-left: 16px;\r\n    }\r\n    .two-col li {\r\n    padding-left: 5px;\r\n    }\r\n    .two-col .divider .inner {\r\n    padding-bottom: 23px;\r\n    }\r\n    .two-col .btn {\r\n    margin-bottom: 23px;\r\n    }\r\n    .two-col blockquote {\r\n    padding-left: 16px;\r\n    }\r\n    .three-col .column table:nth-last-child(2) td h1:last-child,\r\n    .three-col .column table:nth-last-child(2) td h2:last-child,\r\n    .three-col .column table:nth-last-child(2) td h3:last-child,\r\n    .three-col .column table:nth-last-child(2) td p:last-child,\r\n    .three-col .column table:nth-last-child(2) td ol:last-child,\r\n    .three-col .column table:nth-last-child(2) td ul:last-child {\r\n    margin-bottom: 21px;\r\n    }\r\n    .three-col .image-frame {\r\n    padding: 4px;\r\n    }\r\n    .three-col h1 {\r\n    font-size: 20px;\r\n    line-height: 26px;\r\n    margin-bottom: 12px;\r\n    }\r\n    .three-col h2 {\r\n    font-size: 16px;\r\n    line-height: 22px;\r\n    margin-bottom: 14px;\r\n    }\r\n    .three-col h3 {\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    margin-bottom: 10px;\r\n    }\r\n    .three-col p,\r\n    .three-col ol,\r\n    .three-col ul {\r\n    font-size: 12px;\r\n    line-height: 21px;\r\n    }\r\n    .three-col ol,\r\n    .three-col ul {\r\n    margin-left: 14px;\r\n    }\r\n    .three-col li {\r\n    padding-left: 6px;\r\n    }\r\n    .three-col .divider .inner {\r\n    padding-bottom: 21px;\r\n    }\r\n    .three-col .btn {\r\n    margin-bottom: 21px;\r\n    }\r\n    .three-col .btn a {\r\n    font-size: 12px;\r\n    line-height: 14px;\r\n    padding: 8px 19px;\r\n    }\r\n    .three-col blockquote {\r\n    padding-left: 16px;\r\n    }\r\n    .one-col-feature .column-top {\r\n    font-size: 36px;\r\n    line-height: 36px;\r\n    }\r\n    .one-col-feature .column-bottom {\r\n    font-size: 4px;\r\n    line-height: 4px;\r\n    }\r\n    .one-col-feature .column {\r\n    text-align: center;\r\n    width: 600px;\r\n    }\r\n    .one-col-feature .image {\r\n    margin-bottom: 32px;\r\n    }\r\n    .one-col-feature .column table:nth-last-child(2) td h1:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td h2:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td h3:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td p:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td ol:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td ul:last-child {\r\n    margin-bottom: 32px;\r\n    }\r\n    .one-col-feature h1,\r\n    .one-col-feature h2,\r\n    .one-col-feature h3 {\r\n    text-align: center;\r\n    }\r\n    .one-col-feature h1 {\r\n    font-size: 52px;\r\n    margin-bottom: 22px;\r\n    }\r\n    .one-col-feature h2 {\r\n    font-size: 42px;\r\n    margin-bottom: 20px;\r\n    }\r\n    .one-col-feature h3 {\r\n    font-size: 32px;\r\n    line-height: 42px;\r\n    margin-bottom: 20px;\r\n    }\r\n    .one-col-feature p,\r\n    .one-col-feature ol,\r\n    .one-col-feature ul {\r\n    font-size: 21px;\r\n    line-height: 32px;\r\n    margin-bottom: 32px;\r\n    }\r\n    .one-col-feature p a,\r\n    .one-col-feature ol a,\r\n    .one-col-feature ul a {\r\n    text-decoration: none;\r\n    }\r\n    .one-col-feature p {\r\n    text-align: center;\r\n    }\r\n    .one-col-feature ol,\r\n    .one-col-feature ul {\r\n    margin-left: 40px;\r\n    text-align: left;\r\n    }\r\n    .one-col-feature li {\r\n    padding-left: 3px;\r\n    }\r\n    .one-col-feature .btn {\r\n    margin-bottom: 32px;\r\n    text-align: center;\r\n    }\r\n    .one-col-feature .divider .inner {\r\n    padding-bottom: 32px;\r\n    }\r\n    .one-col-feature blockquote {\r\n    border-bottom: 2px solid #e9e9e9;\r\n    border-left-color: #ffffff;\r\n    border-left-width: 0;\r\n    border-left-style: none;\r\n    border-top: 2px solid #e9e9e9;\r\n    margin-bottom: 32px;\r\n    margin-left: 0;\r\n    padding-bottom: 42px;\r\n    padding-left: 0;\r\n    padding-top: 42px;\r\n    position: relative;\r\n    }\r\n    .one-col-feature blockquote:before,\r\n    .one-col-feature blockquote:after {\r\n    background: -moz-linear-gradient(left, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    background: -webkit-gradient(linear, left top, right top, color-stop(25%, #ffffff), color-stop(25%, #e9e9e9), color-stop(75%, #e9e9e9), color-stop(75%, #ffffff));\r\n    background: -webkit-linear-gradient(left, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    background: -o-linear-gradient(left, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    background: -ms-linear-gradient(left, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    background: linear-gradient(to right, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    content: '''';\r\n    display: block;\r\n    height: 2px;\r\n    left: 0;\r\n    outline: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    }\r\n    .one-col-feature blockquote:before {\r\n    top: -2px;\r\n    }\r\n    .one-col-feature blockquote:after {\r\n    bottom: -2px;\r\n    }\r\n    .one-col-feature blockquote p,\r\n    .one-col-feature blockquote ol,\r\n    .one-col-feature blockquote ul {\r\n    font-size: 42px;\r\n    line-height: 48px;\r\n    margin-bottom: 48px;\r\n    }\r\n    .one-col-feature blockquote p:last-child,\r\n    .one-col-feature blockquote ol:last-child,\r\n    .one-col-feature blockquote ul:last-child {\r\n    margin-bottom: 0 !important;\r\n    }\r\n    .footer {\r\n    width: 602px;\r\n    }\r\n    .footer .padded {\r\n    font-size: 12px;\r\n    line-height: 20px;\r\n    }\r\n    .social {\r\n    padding-top: 32px;\r\n    padding-bottom: 22px;\r\n    }\r\n    .social img {\r\n    display: block;\r\n    }\r\n    .social .divider {\r\n    font-family: sans-serif;\r\n    font-size: 10px;\r\n    line-height: 21px;\r\n    text-align: center;\r\n    padding-left: 14px;\r\n    padding-right: 14px;\r\n    }\r\n    .social .social-text {\r\n    height: 21px;\r\n    vertical-align: middle !important;\r\n    font-size: 10px;\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    text-transform: uppercase;\r\n    }\r\n    .social .social-text a {\r\n    text-decoration: none;\r\n    }\r\n    .address {\r\n    width: 250px;\r\n    }\r\n    .address .padded {\r\n    text-align: left;\r\n    padding-left: 0;\r\n    padding-right: 10px;\r\n    }\r\n    .subscription {\r\n    width: 350px;\r\n    }\r\n    .subscription .padded {\r\n    text-align: right;\r\n    padding-right: 0;\r\n    padding-left: 10px;\r\n    }\r\n    .address,\r\n    .subscription {\r\n    padding-top: 32px;\r\n    padding-bottom: 64px;\r\n    }\r\n    .address a,\r\n    .subscription a {\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    }\r\n    .address table,\r\n    .subscription table {\r\n    width: 100%;\r\n    }\r\n    @media only screen and (max-width: 651px), only screen and (max-device-width: 651px) {\r\n    .gmail {\r\n        display: none !important;\r\n    }\r\n    }\r\n    @media only screen and (max-width: 620px), only screen and (max-device-width: 620px) {\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td h1:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td h1:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td h1:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td h1:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td h2:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td h2:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td h2:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td h2:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td h3:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td h3:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td h3:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td h3:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td p:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td p:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td p:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td p:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td ol:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td ol:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td ol:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td ol:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td ul:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td ul:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td ul:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td ul:last-child {\r\n        margin-bottom: 24px !important;\r\n    }\r\n    [class=wrapper] .address,\r\n    [class=wrapper] .subscription {\r\n        display: block;\r\n        float: left;\r\n        width: 318px !important;\r\n        text-align: center !important;\r\n    }\r\n    [class=wrapper] .address {\r\n        padding-bottom: 0 !important;\r\n    }\r\n    [class=wrapper] .subscription {\r\n        padding-top: 0 !important;\r\n    }\r\n    [class=wrapper] h1 {\r\n        font-size: 36px !important;\r\n        line-height: 42px !important;\r\n        margin-bottom: 18px !important;\r\n    }\r\n    [class=wrapper] h2 {\r\n        font-size: 26px !important;\r\n        line-height: 32px !important;\r\n        margin-bottom: 20px !important;\r\n    }\r\n    [class=wrapper] h3 {\r\n        font-size: 18px !important;\r\n        line-height: 22px !important;\r\n        margin-bottom: 16px !important;\r\n    }\r\n    [class=wrapper] p,\r\n    [class=wrapper] ol,\r\n    [class=wrapper] ul {\r\n        font-size: 16px !important;\r\n        line-height: 24px !important;\r\n        margin-bottom: 24px !important;\r\n    }\r\n    [class=wrapper] ol,\r\n    [class=wrapper] ul {\r\n        margin-left: 18px !important;\r\n    }\r\n    [class=wrapper] li {\r\n        padding-left: 2px !important;\r\n    }\r\n    [class=wrapper] blockquote {\r\n        padding-left: 16px !important;\r\n    }\r\n    [class=wrapper] .two-col .column:nth-child(n + 3) {\r\n        border-top: 1px solid #e9e9e9;\r\n    }\r\n    [class=wrapper] .btn {\r\n        margin-bottom: 24px !important;\r\n    }\r\n    [class=wrapper] .btn a {\r\n        display: block !important;\r\n        font-size: 13px !important;\r\n        font-weight: bold !important;\r\n        line-height: 15px !important;\r\n        padding: 10px 30px !important;\r\n    }\r\n    [class=wrapper] .column-bottom {\r\n        font-size: 8px !important;\r\n        line-height: 8px !important;\r\n    }\r\n    [class=wrapper] .first .column-bottom,\r\n    [class=wrapper] .three-col .second .column-bottom {\r\n        display: none;\r\n    }\r\n    [class=wrapper] .second .column-top,\r\n    [class=wrapper] .third .column-top {\r\n        display: none;\r\n    }\r\n    [class=wrapper] .image-frame {\r\n        padding: 4px !important;\r\n    }\r\n    [class=wrapper] .header .logo {\r\n        padding-left: 10px !important;\r\n        padding-right: 10px !important;\r\n    }\r\n    [class=wrapper] .header .logo div {\r\n        font-size: 26px !important;\r\n        line-height: 32px !important;\r\n    }\r\n    [class=wrapper] .header .logo div img {\r\n        display: inline-block !important;\r\n        max-width: 280px !important;\r\n        height: auto !important;\r\n    }\r\n    [class=wrapper] table.border,\r\n    [class=wrapper] .header,\r\n    [class=wrapper] .webversion,\r\n    [class=wrapper] .footer {\r\n        width: 320px !important;\r\n    }\r\n    [class=wrapper] .preheader .webversion,\r\n    [class=wrapper] .header .logo a {\r\n        text-align: center !important;\r\n    }\r\n    [class=wrapper] .preheader table,\r\n    [class=wrapper] .border td {\r\n        width: 318px !important;\r\n    }\r\n    [class=wrapper] .border td.border {\r\n        width: 1px !important;\r\n    }\r\n    [class=wrapper] .image .border td {\r\n        width: auto !important;\r\n    }\r\n    [class=wrapper] .title {\r\n        display: none;\r\n    }\r\n    [class=wrapper] .footer .padded {\r\n        text-align: center !important;\r\n    }\r\n    [class=wrapper] .footer .subscription .padded {\r\n        padding-top: 20px !important;\r\n    }\r\n    [class=wrapper] .footer .social-link {\r\n        display: block !important;\r\n    }\r\n    [class=wrapper] .footer .social-link table {\r\n        margin: 0 auto 10px !important;\r\n    }\r\n    [class=wrapper] .footer .divider {\r\n        display: none !important;\r\n    }\r\n    [class=wrapper] .one-col-feature .btn {\r\n        margin-bottom: 28px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature .image {\r\n        margin-bottom: 28px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature .divider .inner {\r\n        padding-bottom: 28px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature h1 {\r\n        font-size: 42px !important;\r\n        line-height: 48px !important;\r\n        margin-bottom: 20px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature h2 {\r\n        font-size: 32px !important;\r\n        line-height: 36px !important;\r\n        margin-bottom: 18px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature h3 {\r\n        font-size: 26px !important;\r\n        line-height: 32px !important;\r\n        margin-bottom: 20px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature p,\r\n    [class=wrapper] .one-col-feature ol,\r\n    [class=wrapper] .one-col-feature ul {\r\n        font-size: 20px !important;\r\n        line-height: 28px !important;\r\n        margin-bottom: 28px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature blockquote {\r\n        font-size: 18px !important;\r\n        line-height: 26px !important;\r\n        margin-bottom: 28px !important;\r\n        padding-bottom: 26px !important;\r\n        padding-left: 0 !important;\r\n        padding-top: 26px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature blockquote p,\r\n    [class=wrapper] .one-col-feature blockquote ol,\r\n    [class=wrapper] .one-col-feature blockquote ul {\r\n        font-size: 26px !important;\r\n        line-height: 32px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature blockquote p:last-child,\r\n    [class=wrapper] .one-col-feature blockquote ol:last-child,\r\n    [class=wrapper] .one-col-feature blockquote ul:last-child {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    [class=wrapper] .one-col-feature .column table:last-of-type h1:last-child,\r\n    [class=wrapper] .one-col-feature .column table:last-of-type h2:last-child,\r\n    [class=wrapper] .one-col-feature .column table:last-of-type h3:last-child {\r\n        margin-bottom: 28px !important;\r\n    }\r\n    }\r\n    @media only screen and (max-width: 320px), only screen and (max-device-width: 320px) {\r\n    [class=wrapper] td.border {\r\n        display: none;\r\n    }\r\n    [class=wrapper] table.border,\r\n    [class=wrapper] .header,\r\n    [class=wrapper] .webversion,\r\n    [class=wrapper] .footer {\r\n        width: 318px !important;\r\n    }\r\n    }\r\n    &lt;/style&gt;\r\n    &lt;!--[if gte mso 9]&gt;\r\n    &lt;style&gt;\r\n        .column-top {\r\n            mso-line-height-rule: exactly !important;\r\n        }\r\n    &lt;/style&gt;\r\n    &lt;![endif]--&gt;\r\n    &lt;meta name=&quot;robots&quot; content=&quot;noindex,nofollow&quot;&gt;\r\n    &lt;meta property=&quot;og:title&quot; content=&quot;!subject!&quot;&gt;\r\n\r\n\r\n  &lt;style type=&quot;text/css&quot;&gt;\r\n    body,.wrapper,.emb-editor-canvas{background-color:#e9e8dd}.border{background-color:#d9d8ce}h1{color:#212425}.wrapper h1{}.wrapper h1{font-family:sans-serif}h1{}.one-col h1{line-height:44px}.two-col h1{line-height:32px}.three-col h1{line-height:26px}.wrapper .one-col-feature h1{line-height:58px}@media only screen and (max-width: 620px),only screen and (max-device-width: 620px){h1{line-height:44px !important}}h2{color:#212425}.wrapper h2{}.wrapper h2{font-family:sans-serif}h2{}.one-col h2{line-height:34px}.two-col h2{line-height:26px}.three-col h2{line-height:22px}.wrapper .one-col-feature h2{line-height:50px}@media only screen and (max-width: 620px), only screen and (max-device-width: 620px){h2{line-height:34px !important}}h3{color:#212425}.wrapper h3{}.wrapper h3{font-family:sans-serif}h3{}.one-col h3{line-height:26px}.two-col h3{line-height:22px}.three-col h3{line-height:20px}.wrapper .one-col-feature h3{line-height:40px}@media only screen and (max-width:620px), only screen and (max-device-width: 620px){h3{line-height:26px !important}}p,ol,ul{color:#212425}.wrapper p,.wrapper ol,.wrapper ul{}.wrapper p,.wrapper ol,.wrapper ul{font-family:sans-serif}p,ol,ul{}.one-col p,.one-col ol,.one-col ul{line-height:24px;margin-bottom:24px}.two-col p,.two-col ol,.two-col ul{line-height:22px;margin-bottom:22px}.three-col p,.three-col ol,.three-col ul{line-height:20px;margin-bottom:20px}.wrapper .one-col-feature p,.wrapper .one-col-feature ol,.wrapper .one-col-feature ul{line-height:29px}.one-col-feature blockquote p,.one-col-feature blockquote ol,.one-col-feature blockquote ul{line-height:48px}@media only screen and (max-width: 620px), only screen and (max-device-width: 620px){p,ol,ul{line-height:24px !important;margin-bottom:24px !important}}.image{color:#212425}.image{font-family:sans-serif}.wrapper a{color:#5ba4e5}.wrapper a:hover{color:#2f8cde !important}.wrapper .logo div{color:#41637e}.wrapper .logo div{font-family:sans-serif}@media only screen and (min-width: 0), only screen and (min-device-width: 0){.wrapper .logo div{font-family:sans-serif !important}}.wrapper .logo div a{color:#41637e}.wrapper .logo div a:hover{color:#41637e !important}.wrapper .one-col-feature p a,.wrapper .one-col-feature ol a,.wrapper .one-col-feature ul a{border-bottom:1px solid #5ba4e5}.wrapper .one-col-feature p a:hover,.wrapper .one-col-feature ol a:hover,.wrapper .one-col-feature ul a:hover{color:#2f8cde !important;border-bottom:1px solid #2f8cde !important}.btn a{}.wrapper .btn a{}.wrapper .btn a{font-family:sans-serif}.wrapper .btn a{background-color:#83969f;color:#fff !important;outline-color:#83969f;text-shadow:0 1px 0 #76878f}.wrapper .btn a:hover{background-color:#76878f !important;color:#fff !important;outline-color:#76878f !important}.preheader .title,.preheader .webversion,.footer .padded{color:#5e5e5e}.preheader .title,.preheader .webversion,.footer .padded{font-family:sans-serif}.preheader .title a,.preheader .webversion a,.footer .padded a{color:#5e5e5e}.preheader .title a:hover,.preheader .webversion a:hover,.footer .padded a:hover{color:#383838 !important}.footer .social .divider{color:#d9d8ce}.footer .social .social-text,.footer .social a{color:#5e5e5e}.wrapper .footer .social .social-text,.wrapper .footer .social a{}.wrapper .footer .social .social-text,.wrapper .footer .social a{font-family:sans-serif}.footer .social .social-text,.footer .social a{}.footer .social .social-text,.footer .social a{letter-spacing:0.05em}.footer .social .social-text:hover,.footer .social a:hover{color:#383838 !important}.image .border{background-color:#c8c8c8}.image-frame{background-color:#dadada}.image-background{background-color:#f7f7f7}@media only screen and (max-width: 620px), only screen and (max-device-width: 620px){[class=wrapper] h2.card-store{font-size:14px !important;top: 20px !important;right: 30px !important;}[class=wrapper] h3.card-text{font-size:12px !important;top: 40px !important;right: 30px !important;}[class=wrapper] h3.card-name{font-size:12px !important;bottom: 20px !important;right: 30px !important;}[class=wrapper] h3.card-code{font-size:12px !important;bottom: 6px !important;right: 30px !important;}}\r\n  &lt;/style&gt;\r\n    &lt;center class=&quot;wrapper&quot; style=&quot;display: table;table-layout: fixed;width: 100%;min-width: 620px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;background-color: #e9e8dd&quot;&gt;\r\n    &lt;table class=&quot;gmail&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 650px;min-width: 650px&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\r\n    &lt;table class=&quot;preheader centered&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;\r\n            &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                &lt;table style=&quot;border-collapse: collapse;border-spacing: 0;width: 602px&quot;&gt;\r\n                    &lt;tbody&gt;&lt;tr&gt;\r\n                        &lt;td class=&quot;title&quot; style=&quot;padding: 0;vertical-align: top;padding-top: 10px;padding-bottom: 12px;font-size: 12px;line-height: 21px;text-align: left;color: #5e5e5e;font-family: sans-serif&quot;&gt;!subject!&lt;/td&gt;\r\n                        &lt;td class=&quot;webversion&quot; style=&quot;padding: 0;vertical-align: top;padding-top: 10px;padding-bottom: 12px;font-size: 12px;line-height: 21px;text-align: right;width: 300px;color: #5e5e5e;font-family: sans-serif&quot;&gt;\r\n                            No Images? &lt;a href=&quot;!webversion!&quot; class=&quot;webversion&quot; style=&quot;font-weight:bold;text-decoration:none;&quot;&gt;Click here&lt;/a&gt;\r\n                        &lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                &lt;/tbody&gt;&lt;/table&gt;\r\n            &lt;/td&gt;\r\n        &lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n    &lt;table class=&quot;header centered&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto;width: 602px&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;border&quot; style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #d9d8ce;width: 1px&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;\r\n        &lt;tr&gt;&lt;td class=&quot;logo&quot; style=&quot;padding: 32px 0;vertical-align: top;mso-line-height-rule: at-least&quot;&gt;&lt;div class=&quot;logo-center&quot; style=&quot;font-size: 26px;font-weight: 700;letter-spacing: -0.02em;line-height: 32px;color: #41637e;font-family: sans-serif;text-align: center&quot; align=&quot;center&quot; id=&quot;emb-email-header&quot;&gt;&lt;a style=&quot;text-decoration: none;transition: all .2s;color: #41637e&quot; href=&quot;!store_url!&quot;&gt;&lt;img style=&quot;border: 0;-ms-interpolation-mode: bicubic;display: block;margin-left: auto;margin-right: auto;max-width: 607px&quot; src=&quot;!store_url!/image/data/email/logo.png&quot; alt=&quot;!store_url!&quot; width=&quot;405&quot; height=&quot;138&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n    &lt;table class=&quot;border&quot; style=&quot;border-collapse: collapse;border-spacing: 0;font-size: 1px;line-height: 1px;background-color: #d9d8ce;margin-left: auto;margin-right: auto&quot; width=&quot;602&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;​&lt;/td&gt;&lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n    &lt;table class=&quot;centered&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;\r\n            &lt;td class=&quot;border&quot; style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #d9d8ce;width: 1px&quot;&gt;​&lt;/td&gt;\r\n            &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                &lt;table class=&quot;one-col&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto;width: 600px;background-color: #ffffff;font-size: 14px&quot;&gt;\r\n                    &lt;tbody&gt;&lt;tr&gt;\r\n                        &lt;td class=&quot;column&quot; style=&quot;padding: 0;vertical-align: top;text-align: left&quot;&gt;\r\n                            &lt;div&gt;&lt;div class=&quot;column-top&quot; style=&quot;font-size: 32px;line-height: 32px&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;\r\n\r\n\r\n\r\n\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n\r\n                                        &lt;div style=&quot;margin-top: 0;color: #212425;font-family: sans-serif;font-size: 16px;line-height: 24px;margin-bottom: 24px&quot;&gt;\r\n                                            !content!\r\n                                        &lt;/div&gt;\r\n\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n\r\n                                        &lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n                                            &lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n                                                &lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;\r\n                                            &lt;/tbody&gt;&lt;/table&gt;\r\n                                        &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\r\n\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n                                        !signature!\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n                            &lt;div class=&quot;column-bottom&quot; style=&quot;font-size: 8px;line-height: 8px&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n                        &lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                &lt;/tbody&gt;&lt;/table&gt;\r\n            &lt;/td&gt;\r\n            &lt;td class=&quot;border&quot; style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #d9d8ce;width: 1px&quot;&gt;​&lt;/td&gt;\r\n        &lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n    &lt;table class=&quot;border&quot; style=&quot;border-collapse: collapse;border-spacing: 0;font-size: 1px;line-height: 1px;background-color: #d9d8ce;margin-left: auto;margin-right: auto&quot; width=&quot;602&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;​&lt;/td&gt;&lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n    &lt;div class=&quot;spacer&quot; style=&quot;font-size: 1px;line-height: 32px;width: 100%&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n    &lt;table class=&quot;footer centered&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto;width: 602px&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;\r\n            &lt;td class=&quot;social&quot; style=&quot;padding: 0;vertical-align: top;padding-top: 32px;padding-bottom: 22px&quot; align=&quot;center&quot;&gt;\r\n                &lt;table style=&quot;border-collapse: collapse;border-spacing: 0&quot;&gt;\r\n                    &lt;tbody&gt;&lt;tr&gt;\r\n                        &lt;td class=&quot;social-link&quot; style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                            &lt;table style=&quot;border-collapse: collapse;border-spacing: 0&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                                        &lt;fblike style=&quot;text-decoration:none;&quot;&gt;\r\n                                        &lt;img style=&quot;border: 0;-ms-interpolation-mode: bicubic;display: block&quot; src=&quot;!store_url!/image/data/email/facebook-dark.png&quot; width=&quot;26&quot; height=&quot;21&quot;&gt;\r\n                                        &lt;/fblike&gt;\r\n                                    &lt;/td&gt;\r\n                                    &lt;td class=&quot;social-text&quot; style=&quot;padding: 0;vertical-align: middle !important;height: 21px;font-size: 10px;font-weight: bold;text-decoration: none;text-transform: uppercase;color: #5e5e5e;letter-spacing: 0.05em;font-family: sans-serif&quot;&gt;\r\n                                        &lt;a href=&quot;!facebook!&quot; class=&quot;fblike&quot; style=&quot;text-decoration:none;&quot;&gt;\r\n                                        Like\r\n                                        &lt;/a&gt;\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n                        &lt;/td&gt;\r\n                        &lt;td class=&quot;divider&quot; style=&quot;padding: 0;vertical-align: top;font-family: sans-serif;font-size: 10px;line-height: 21px;text-align: center;padding-left: 14px;padding-right: 14px;color: #d9d8ce&quot;&gt;\r\n                            &lt;img style=&quot;border: 0;-ms-interpolation-mode: bicubic;display: block&quot; src=&quot;!store_url!/image/data/email/diamond.png&quot; width=&quot;5&quot; height=&quot;21&quot; alt=&quot;&quot;&gt;\r\n                        &lt;/td&gt;\r\n                        &lt;td class=&quot;social-link&quot; style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                            &lt;table style=&quot;border-collapse: collapse;border-spacing: 0&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                                        &lt;tweet style=&quot;text-decoration:none;&quot;&gt;\r\n                                        &lt;img style=&quot;border: 0;-ms-interpolation-mode: bicubic;display: block&quot; src=&quot;!store_url!/image/data/email/twitter-dark.png&quot; width=&quot;26&quot; height=&quot;21&quot;&gt;\r\n                                        &lt;/tweet&gt;\r\n                                    &lt;/td&gt;\r\n                                    &lt;td class=&quot;social-text&quot; style=&quot;padding: 0;vertical-align: middle !important;height: 21px;font-size: 10px;font-weight: bold;text-decoration: none;text-transform: uppercase;color: #5e5e5e;letter-spacing: 0.05em;font-family: sans-serif&quot;&gt;\r\n                                        &lt;a href=&quot;!twitter!&quot; class=&quot;tweet&quot; style=&quot;text-decoration:none;&quot;&gt;\r\n                                        Tweet\r\n                                        &lt;/a&gt;\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n                        &lt;/td&gt;\r\n\r\n                    &lt;/tr&gt;\r\n                &lt;/tbody&gt;&lt;/table&gt;\r\n            &lt;/td&gt;\r\n        &lt;/tr&gt;\r\n        &lt;tr&gt;&lt;td class=&quot;border&quot; style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #d9d8ce;width: 1px&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;\r\n        &lt;tr&gt;\r\n            &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                &lt;table style=&quot;border-collapse: collapse;border-spacing: 0&quot;&gt;\r\n                    &lt;tbody&gt;&lt;tr&gt;\r\n                        &lt;td class=&quot;address&quot; style=&quot;padding: 0;vertical-align: top;width: 250px;padding-top: 32px;padding-bottom: 64px&quot;&gt;\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 0;padding-right: 10px;text-align: left;font-size: 12px;line-height: 20px;color: #5e5e5e;font-family: sans-serif&quot;&gt;\r\n                                        &lt;div&gt;!store_name!&lt;br&gt;\r\n                                            !store_address!&lt;br&gt;\r\n                                        !store_phone!&lt;/div&gt;\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n                        &lt;/td&gt;\r\n                        &lt;td class=&quot;subscription&quot; style=&quot;padding: 0;vertical-align: top;width: 350px;padding-top: 32px;padding-bottom: 64px&quot;&gt;\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 10px;padding-right: 0;font-size: 12px;line-height: 20px;color: #5e5e5e;font-family: sans-serif;text-align: right&quot;&gt;\r\n                                        &lt;div&gt;You''re receiving this email because you''re either a customer or affiliate of !store_name!. Change your preferences below.&lt;/div&gt;\r\n                                        &lt;div&gt;\r\n                                            &lt;span class=&quot;block&quot;&gt;\r\n                                            &lt;span&gt;\r\n                                            &lt;a href=&quot;!preference!&quot; class=&quot;preferences&quot; style=&quot;font-weight:bold;text-decoration:none;&quot; lang=&quot;en&quot;&gt;\r\n                                            Preferences\r\n                                            &lt;/a&gt;\r\n                                            &lt;span class=&quot;hide&quot;&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&lt;/span&gt;\r\n                                            &lt;/span&gt;\r\n                                            &lt;/span&gt;\r\n                                            &lt;span class=&quot;block&quot;&gt;&lt;a href=&quot;!unsubscribe!&quot; class=&quot;unsubscribe&quot; style=&quot;font-weight:bold;text-decoration:none;&quot;&gt;Unsubscribe&lt;/a&gt;&lt;/span&gt;\r\n                                        &lt;/div&gt;\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n                        &lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                &lt;/tbody&gt;&lt;/table&gt;\r\n            &lt;/td&gt;\r\n        &lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n    &lt;/center&gt;\r\n\r\n');
+INSERT INTO `ocx_email_content` (`email_id`, `language_id`, `subject`, `text`, `html`) VALUES
+(28, 1, 'N/A', '!store_name!\r\n========================================\r\n\r\n!content!\r\n\r\n!signature!\r\n\r\n==========================\r\n!store_name!\r\n!store_url!\r\n\r\n!store_address!\r\n!store_phone!\r\n-----------------------------------\r\nYou are receiving this because you''re either a customer\r\nor affiliate of !store_name!.\r\n\r\nChange your preferences below:\r\n!preference!\r\n-----------------------------------\r\n!twitter!\r\n!facebook!', '\r\n    &lt;title&gt;!subject!&lt;/title&gt;\r\n    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;\r\n    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;\r\n    &lt;style type=&quot;text/css&quot;&gt;\r\n    body {\r\n    margin: 0;\r\n    mso-line-height-rule: exactly;\r\n    padding: 0;\r\n    min-width: 100%;\r\n    }\r\n    table {\r\n    border-collapse: collapse;\r\n    border-spacing: 0;\r\n    }\r\n    td {\r\n    padding: 0;\r\n    vertical-align: top;\r\n    }\r\n    .spacer,\r\n    .border {\r\n    font-size: 1px;\r\n    line-height: 1px;\r\n    }\r\n    .spacer {\r\n    width: 100%;\r\n    }\r\n    img {\r\n    border: 0;\r\n    -ms-interpolation-mode: bicubic;\r\n    }\r\n    .image {\r\n    font-size: 12px;\r\n    margin-bottom: 24px;\r\n    mso-line-height-rule: at-least;\r\n    }\r\n    .image img {\r\n    display: block;\r\n    }\r\n    .logo {\r\n    mso-line-height-rule: at-least;\r\n    }\r\n    .logo img {\r\n    display: block;\r\n    }\r\n    strong {\r\n    font-weight: bold;\r\n    }\r\n    h1,\r\n    h2,\r\n    h3,\r\n    p,\r\n    ol,\r\n    ul,\r\n    li {\r\n    margin-top: 0;\r\n    }\r\n    ol,\r\n    ul,\r\n    li {\r\n    padding-left: 0;\r\n    }\r\n    blockquote {\r\n    margin-top: 0;\r\n    margin-right: 0;\r\n    margin-bottom: 0;\r\n    padding-right: 0;\r\n    }\r\n    .column-top {\r\n    font-size: 32px;\r\n    line-height: 32px;\r\n    }\r\n    .column-bottom {\r\n    font-size: 8px;\r\n    line-height: 8px;\r\n    }\r\n    .column {\r\n    text-align: left;\r\n    }\r\n    .contents {\r\n    width: 100%;\r\n    }\r\n    .padded {\r\n    padding-left: 32px;\r\n    padding-right: 32px;\r\n    }\r\n    .wrapper {\r\n    display: table;\r\n    table-layout: fixed;\r\n    width: 100%;\r\n    min-width: 620px;\r\n    -webkit-text-size-adjust: 100%;\r\n    -ms-text-size-adjust: 100%;\r\n    }\r\n    table.wrapper {\r\n    table-layout: fixed;\r\n    }\r\n    .one-col,\r\n    .two-col,\r\n    .three-col {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    width: 600px;\r\n    }\r\n    .centered {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    }\r\n    .two-col .image {\r\n    margin-bottom: 23px;\r\n    }\r\n    .two-col .column-bottom {\r\n    font-size: 9px;\r\n    line-height: 9px;\r\n    }\r\n    .two-col .column {\r\n    width: 300px;\r\n    }\r\n    .three-col .image {\r\n    margin-bottom: 21px;\r\n    }\r\n    .three-col .column-bottom {\r\n    font-size: 11px;\r\n    line-height: 11px;\r\n    }\r\n    .three-col .column {\r\n    width: 200px;\r\n    }\r\n    .three-col .first .padded {\r\n    padding-left: 32px;\r\n    padding-right: 16px;\r\n    }\r\n    .three-col .second .padded {\r\n    padding-left: 24px;\r\n    padding-right: 24px;\r\n    }\r\n    .three-col .third .padded {\r\n    padding-left: 16px;\r\n    padding-right: 32px;\r\n    }\r\n    @media only screen and (min-width: 0), only screen and (min-device-width: 0) {\r\n    .wrapper {\r\n        text-rendering: optimizeLegibility;\r\n    }\r\n    }\r\n    @media only screen and (max-width: 620px), only screen and (max-device-width: 620px) {\r\n    [class=wrapper] {\r\n        min-width: 318px !important;\r\n        width: 100% !important;\r\n    }\r\n    [class=wrapper] .one-col,\r\n    [class=wrapper] .two-col,\r\n    [class=wrapper] .three-col {\r\n        width: 318px !important;\r\n    }\r\n    [class=wrapper] .column,\r\n    [class=wrapper] .gutter {\r\n        display: block;\r\n        float: left;\r\n        width: 318px !important;\r\n    }\r\n    [class=wrapper] .padded {\r\n        padding-left: 32px !important;\r\n        padding-right: 32px !important;\r\n    }\r\n    [class=wrapper] .block {\r\n        display: block !important;\r\n    }\r\n    [class=wrapper] .hide {\r\n        display: none !important;\r\n    }\r\n    [class=wrapper] .image {\r\n        margin-bottom: 24px !important;\r\n    }\r\n    [class=wrapper] .image img {\r\n        height: auto !important;\r\n        width: 100% !important;\r\n    }\r\n    }\r\n    .wrapper h1 {\r\n    font-weight: 700;\r\n    }\r\n    .wrapper h2 {\r\n    font-style: italic;\r\n    font-weight: normal;\r\n    }\r\n    .wrapper h3 {\r\n    font-weight: normal;\r\n    }\r\n    .one-col blockquote,\r\n    .two-col blockquote,\r\n    .three-col blockquote {\r\n    font-style: italic;\r\n    }\r\n    .one-col-feature h1 {\r\n    font-weight: normal;\r\n    }\r\n    .one-col-feature h2 {\r\n    font-style: normal;\r\n    font-weight: bold;\r\n    }\r\n    .one-col-feature h3 {\r\n    font-style: italic;\r\n    }\r\n    td.border {\r\n    width: 1px;\r\n    }\r\n    tr.border {\r\n    background-color: #e9e9e9;\r\n    height: 1px;\r\n    }\r\n    tr.border td {\r\n    line-height: 1px;\r\n    }\r\n    .one-col,\r\n    .two-col,\r\n    .three-col,\r\n    .one-col-feature {\r\n    background-color: #ffffff;\r\n    font-size: 14px;\r\n    }\r\n    .one-col,\r\n    .two-col,\r\n    .three-col,\r\n    .one-col-feature,\r\n    .preheader,\r\n    .header,\r\n    .footer {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    }\r\n    .preheader table {\r\n    width: 602px;\r\n    }\r\n    .preheader .title,\r\n    .preheader .webversion {\r\n    padding-top: 10px;\r\n    padding-bottom: 12px;\r\n    font-size: 12px;\r\n    line-height: 21px;\r\n    }\r\n    .preheader .title {\r\n    text-align: left;\r\n    }\r\n    .preheader .webversion {\r\n    text-align: right;\r\n    width: 300px;\r\n    }\r\n    .header {\r\n    width: 602px;\r\n    }\r\n    .header .logo {\r\n    padding: 32px 0;\r\n    }\r\n    .header .logo div {\r\n    font-size: 26px;\r\n    font-weight: 700;\r\n    letter-spacing: -0.02em;\r\n    line-height: 32px;\r\n    }\r\n    .header .logo div a {\r\n    text-decoration: none;\r\n    }\r\n    .header .logo div.logo-center {\r\n    text-align: center;\r\n    }\r\n    .header .logo div.logo-center img {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    }\r\n    .card-center {\r\n    text-align: center;\r\n    }\r\n    .card-center img {\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    }\r\n    .gmail {\r\n    width: 650px;\r\n    min-width: 650px;\r\n    }\r\n    .gmail td {\r\n    font-size: 1px;\r\n    line-height: 1px;\r\n    }\r\n    .wrapper a {\r\n    text-decoration: underline;\r\n    transition: all .2s;\r\n    }\r\n    .wrapper h1 {\r\n    font-size: 36px;\r\n    margin-bottom: 18px;\r\n    }\r\n    .wrapper h2 {\r\n    font-size: 26px;\r\n    line-height: 32px;\r\n    margin-bottom: 20px;\r\n    }\r\n    .wrapper h3 {\r\n    font-size: 18px;\r\n    line-height: 22px;\r\n    margin-bottom: 16px;\r\n    }\r\n    .wrapper h1 a,\r\n    .wrapper h2 a,\r\n    .wrapper h3 a {\r\n    text-decoration: none;\r\n    }\r\n    .one-col blockquote,\r\n    .two-col blockquote,\r\n    .three-col blockquote {\r\n    font-size: 14px;\r\n    border-left: 2px solid #e9e9e9;\r\n    margin-left: 0;\r\n    padding-left: 16px;\r\n    }\r\n    table.divider {\r\n    width: 100%;\r\n    }\r\n    .divider .inner {\r\n    padding-bottom: 24px;\r\n    }\r\n    .divider table {\r\n    background-color: #e9e9e9;\r\n    font-size: 2px;\r\n    line-height: 2px;\r\n    width: 60px;\r\n    }\r\n    .wrapper .gray {\r\n    background-color: #f7f7f7;\r\n    }\r\n    .wrapper .gray blockquote {\r\n    border-left-color: #dddddd;\r\n    }\r\n    .wrapper .gray .divider table {\r\n    background-color: #dddddd;\r\n    }\r\n    .padded .image {\r\n    font-size: 0;\r\n    }\r\n    .image-frame {\r\n    padding: 8px;\r\n    }\r\n    .image-background {\r\n    display: inline-block;\r\n    font-size: 12px;\r\n    }\r\n    .btn {\r\n    margin-bottom: 24px;\r\n    padding: 2px;\r\n    }\r\n    .btn a {\r\n    border: 1px solid #ffffff;\r\n    display: inline-block;\r\n    font-size: 13px;\r\n    font-weight: bold;\r\n    line-height: 15px;\r\n    outline-style: solid;\r\n    outline-width: 2px;\r\n    padding: 10px 30px;\r\n    text-align: center;\r\n    text-decoration: none !important;\r\n    }\r\n    .one-col .column table:nth-last-child(2) td h1:last-child,\r\n    .one-col .column table:nth-last-child(2) td h2:last-child,\r\n    .one-col .column table:nth-last-child(2) td h3:last-child,\r\n    .one-col .column table:nth-last-child(2) td p:last-child,\r\n    .one-col .column table:nth-last-child(2) td ol:last-child,\r\n    .one-col .column table:nth-last-child(2) td ul:last-child {\r\n    margin-bottom: 24px;\r\n    }\r\n    .one-col p,\r\n    .one-col ol,\r\n    .one-col ul {\r\n    font-size: 16px;\r\n    line-height: 24px;\r\n    }\r\n    .one-col ol,\r\n    .one-col ul {\r\n    margin-left: 18px;\r\n    }\r\n    .two-col .column table:nth-last-child(2) td h1:last-child,\r\n    .two-col .column table:nth-last-child(2) td h2:last-child,\r\n    .two-col .column table:nth-last-child(2) td h3:last-child,\r\n    .two-col .column table:nth-last-child(2) td p:last-child,\r\n    .two-col .column table:nth-last-child(2) td ol:last-child,\r\n    .two-col .column table:nth-last-child(2) td ul:last-child {\r\n    margin-bottom: 23px;\r\n    }\r\n    .two-col .image-frame {\r\n    padding: 6px;\r\n    }\r\n    .two-col h1 {\r\n    font-size: 26px;\r\n    line-height: 32px;\r\n    margin-bottom: 16px;\r\n    }\r\n    .two-col h2 {\r\n    font-size: 20px;\r\n    line-height: 26px;\r\n    margin-bottom: 18px;\r\n    }\r\n    .two-col h3 {\r\n    font-size: 16px;\r\n    line-height: 20px;\r\n    margin-bottom: 14px;\r\n    }\r\n    .two-col p,\r\n    .two-col ol,\r\n    .two-col ul {\r\n    font-size: 14px;\r\n    line-height: 23px;\r\n    }\r\n    .two-col ol,\r\n    .two-col ul {\r\n    margin-left: 16px;\r\n    }\r\n    .two-col li {\r\n    padding-left: 5px;\r\n    }\r\n    .two-col .divider .inner {\r\n    padding-bottom: 23px;\r\n    }\r\n    .two-col .btn {\r\n    margin-bottom: 23px;\r\n    }\r\n    .two-col blockquote {\r\n    padding-left: 16px;\r\n    }\r\n    .three-col .column table:nth-last-child(2) td h1:last-child,\r\n    .three-col .column table:nth-last-child(2) td h2:last-child,\r\n    .three-col .column table:nth-last-child(2) td h3:last-child,\r\n    .three-col .column table:nth-last-child(2) td p:last-child,\r\n    .three-col .column table:nth-last-child(2) td ol:last-child,\r\n    .three-col .column table:nth-last-child(2) td ul:last-child {\r\n    margin-bottom: 21px;\r\n    }\r\n    .three-col .image-frame {\r\n    padding: 4px;\r\n    }\r\n    .three-col h1 {\r\n    font-size: 20px;\r\n    line-height: 26px;\r\n    margin-bottom: 12px;\r\n    }\r\n    .three-col h2 {\r\n    font-size: 16px;\r\n    line-height: 22px;\r\n    margin-bottom: 14px;\r\n    }\r\n    .three-col h3 {\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    margin-bottom: 10px;\r\n    }\r\n    .three-col p,\r\n    .three-col ol,\r\n    .three-col ul {\r\n    font-size: 12px;\r\n    line-height: 21px;\r\n    }\r\n    .three-col ol,\r\n    .three-col ul {\r\n    margin-left: 14px;\r\n    }\r\n    .three-col li {\r\n    padding-left: 6px;\r\n    }\r\n    .three-col .divider .inner {\r\n    padding-bottom: 21px;\r\n    }\r\n    .three-col .btn {\r\n    margin-bottom: 21px;\r\n    }\r\n    .three-col .btn a {\r\n    font-size: 12px;\r\n    line-height: 14px;\r\n    padding: 8px 19px;\r\n    }\r\n    .three-col blockquote {\r\n    padding-left: 16px;\r\n    }\r\n    .one-col-feature .column-top {\r\n    font-size: 36px;\r\n    line-height: 36px;\r\n    }\r\n    .one-col-feature .column-bottom {\r\n    font-size: 4px;\r\n    line-height: 4px;\r\n    }\r\n    .one-col-feature .column {\r\n    text-align: center;\r\n    width: 600px;\r\n    }\r\n    .one-col-feature .image {\r\n    margin-bottom: 32px;\r\n    }\r\n    .one-col-feature .column table:nth-last-child(2) td h1:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td h2:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td h3:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td p:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td ol:last-child,\r\n    .one-col-feature .column table:nth-last-child(2) td ul:last-child {\r\n    margin-bottom: 32px;\r\n    }\r\n    .one-col-feature h1,\r\n    .one-col-feature h2,\r\n    .one-col-feature h3 {\r\n    text-align: center;\r\n    }\r\n    .one-col-feature h1 {\r\n    font-size: 52px;\r\n    margin-bottom: 22px;\r\n    }\r\n    .one-col-feature h2 {\r\n    font-size: 42px;\r\n    margin-bottom: 20px;\r\n    }\r\n    .one-col-feature h3 {\r\n    font-size: 32px;\r\n    line-height: 42px;\r\n    margin-bottom: 20px;\r\n    }\r\n    .one-col-feature p,\r\n    .one-col-feature ol,\r\n    .one-col-feature ul {\r\n    font-size: 21px;\r\n    line-height: 32px;\r\n    margin-bottom: 32px;\r\n    }\r\n    .one-col-feature p a,\r\n    .one-col-feature ol a,\r\n    .one-col-feature ul a {\r\n    text-decoration: none;\r\n    }\r\n    .one-col-feature p {\r\n    text-align: center;\r\n    }\r\n    .one-col-feature ol,\r\n    .one-col-feature ul {\r\n    margin-left: 40px;\r\n    text-align: left;\r\n    }\r\n    .one-col-feature li {\r\n    padding-left: 3px;\r\n    }\r\n    .one-col-feature .btn {\r\n    margin-bottom: 32px;\r\n    text-align: center;\r\n    }\r\n    .one-col-feature .divider .inner {\r\n    padding-bottom: 32px;\r\n    }\r\n    .one-col-feature blockquote {\r\n    border-bottom: 2px solid #e9e9e9;\r\n    border-left-color: #ffffff;\r\n    border-left-width: 0;\r\n    border-left-style: none;\r\n    border-top: 2px solid #e9e9e9;\r\n    margin-bottom: 32px;\r\n    margin-left: 0;\r\n    padding-bottom: 42px;\r\n    padding-left: 0;\r\n    padding-top: 42px;\r\n    position: relative;\r\n    }\r\n    .one-col-feature blockquote:before,\r\n    .one-col-feature blockquote:after {\r\n    background: -moz-linear-gradient(left, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    background: -webkit-gradient(linear, left top, right top, color-stop(25%, #ffffff), color-stop(25%, #e9e9e9), color-stop(75%, #e9e9e9), color-stop(75%, #ffffff));\r\n    background: -webkit-linear-gradient(left, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    background: -o-linear-gradient(left, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    background: -ms-linear-gradient(left, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    background: linear-gradient(to right, #ffffff 25%, #e9e9e9 25%, #e9e9e9 75%, #ffffff 75%);\r\n    content: '''';\r\n    display: block;\r\n    height: 2px;\r\n    left: 0;\r\n    outline: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    }\r\n    .one-col-feature blockquote:before {\r\n    top: -2px;\r\n    }\r\n    .one-col-feature blockquote:after {\r\n    bottom: -2px;\r\n    }\r\n    .one-col-feature blockquote p,\r\n    .one-col-feature blockquote ol,\r\n    .one-col-feature blockquote ul {\r\n    font-size: 42px;\r\n    line-height: 48px;\r\n    margin-bottom: 48px;\r\n    }\r\n    .one-col-feature blockquote p:last-child,\r\n    .one-col-feature blockquote ol:last-child,\r\n    .one-col-feature blockquote ul:last-child {\r\n    margin-bottom: 0 !important;\r\n    }\r\n    .footer {\r\n    width: 602px;\r\n    }\r\n    .footer .padded {\r\n    font-size: 12px;\r\n    line-height: 20px;\r\n    }\r\n    .social {\r\n    padding-top: 32px;\r\n    padding-bottom: 22px;\r\n    }\r\n    .social img {\r\n    display: block;\r\n    }\r\n    .social .divider {\r\n    font-family: sans-serif;\r\n    font-size: 10px;\r\n    line-height: 21px;\r\n    text-align: center;\r\n    padding-left: 14px;\r\n    padding-right: 14px;\r\n    }\r\n    .social .social-text {\r\n    height: 21px;\r\n    vertical-align: middle !important;\r\n    font-size: 10px;\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    text-transform: uppercase;\r\n    }\r\n    .social .social-text a {\r\n    text-decoration: none;\r\n    }\r\n    .address {\r\n    width: 250px;\r\n    }\r\n    .address .padded {\r\n    text-align: left;\r\n    padding-left: 0;\r\n    padding-right: 10px;\r\n    }\r\n    .subscription {\r\n    width: 350px;\r\n    }\r\n    .subscription .padded {\r\n    text-align: right;\r\n    padding-right: 0;\r\n    padding-left: 10px;\r\n    }\r\n    .address,\r\n    .subscription {\r\n    padding-top: 32px;\r\n    padding-bottom: 64px;\r\n    }\r\n    .address a,\r\n    .subscription a {\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    }\r\n    .address table,\r\n    .subscription table {\r\n    width: 100%;\r\n    }\r\n    @media only screen and (max-width: 651px), only screen and (max-device-width: 651px) {\r\n    .gmail {\r\n        display: none !important;\r\n    }\r\n    }\r\n    @media only screen and (max-width: 620px), only screen and (max-device-width: 620px) {\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td h1:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td h1:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td h1:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td h1:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td h2:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td h2:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td h2:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td h2:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td h3:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td h3:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td h3:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td h3:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td p:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td p:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td p:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td p:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td ol:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td ol:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td ol:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td ol:last-child,\r\n    [class=wrapper] .one-col .column:last-child table:nth-last-child(2) td ul:last-child,\r\n    [class=wrapper] .two-col .column:last-child table:nth-last-child(2) td ul:last-child,\r\n    [class=wrapper] .three-col .column:last-child table:nth-last-child(2) td ul:last-child,\r\n    [class=wrapper] .one-col-feature .column:last-child table:nth-last-child(2) td ul:last-child {\r\n        margin-bottom: 24px !important;\r\n    }\r\n    [class=wrapper] .address,\r\n    [class=wrapper] .subscription {\r\n        display: block;\r\n        float: left;\r\n        width: 318px !important;\r\n        text-align: center !important;\r\n    }\r\n    [class=wrapper] .address {\r\n        padding-bottom: 0 !important;\r\n    }\r\n    [class=wrapper] .subscription {\r\n        padding-top: 0 !important;\r\n    }\r\n    [class=wrapper] h1 {\r\n        font-size: 36px !important;\r\n        line-height: 42px !important;\r\n        margin-bottom: 18px !important;\r\n    }\r\n    [class=wrapper] h2 {\r\n        font-size: 26px !important;\r\n        line-height: 32px !important;\r\n        margin-bottom: 20px !important;\r\n    }\r\n    [class=wrapper] h3 {\r\n        font-size: 18px !important;\r\n        line-height: 22px !important;\r\n        margin-bottom: 16px !important;\r\n    }\r\n    [class=wrapper] p,\r\n    [class=wrapper] ol,\r\n    [class=wrapper] ul {\r\n        font-size: 16px !important;\r\n        line-height: 24px !important;\r\n        margin-bottom: 24px !important;\r\n    }\r\n    [class=wrapper] ol,\r\n    [class=wrapper] ul {\r\n        margin-left: 18px !important;\r\n    }\r\n    [class=wrapper] li {\r\n        padding-left: 2px !important;\r\n    }\r\n    [class=wrapper] blockquote {\r\n        padding-left: 16px !important;\r\n    }\r\n    [class=wrapper] .two-col .column:nth-child(n + 3) {\r\n        border-top: 1px solid #e9e9e9;\r\n    }\r\n    [class=wrapper] .btn {\r\n        margin-bottom: 24px !important;\r\n    }\r\n    [class=wrapper] .btn a {\r\n        display: block !important;\r\n        font-size: 13px !important;\r\n        font-weight: bold !important;\r\n        line-height: 15px !important;\r\n        padding: 10px 30px !important;\r\n    }\r\n    [class=wrapper] .column-bottom {\r\n        font-size: 8px !important;\r\n        line-height: 8px !important;\r\n    }\r\n    [class=wrapper] .first .column-bottom,\r\n    [class=wrapper] .three-col .second .column-bottom {\r\n        display: none;\r\n    }\r\n    [class=wrapper] .second .column-top,\r\n    [class=wrapper] .third .column-top {\r\n        display: none;\r\n    }\r\n    [class=wrapper] .image-frame {\r\n        padding: 4px !important;\r\n    }\r\n    [class=wrapper] .header .logo {\r\n        padding-left: 10px !important;\r\n        padding-right: 10px !important;\r\n    }\r\n    [class=wrapper] .header .logo div {\r\n        font-size: 26px !important;\r\n        line-height: 32px !important;\r\n    }\r\n    [class=wrapper] .header .logo div img {\r\n        display: inline-block !important;\r\n        max-width: 280px !important;\r\n        height: auto !important;\r\n    }\r\n    [class=wrapper] table.border,\r\n    [class=wrapper] .header,\r\n    [class=wrapper] .webversion,\r\n    [class=wrapper] .footer {\r\n        width: 320px !important;\r\n    }\r\n    [class=wrapper] .preheader .webversion,\r\n    [class=wrapper] .header .logo a {\r\n        text-align: center !important;\r\n    }\r\n    [class=wrapper] .preheader table,\r\n    [class=wrapper] .border td {\r\n        width: 318px !important;\r\n    }\r\n    [class=wrapper] .border td.border {\r\n        width: 1px !important;\r\n    }\r\n    [class=wrapper] .image .border td {\r\n        width: auto !important;\r\n    }\r\n    [class=wrapper] .title {\r\n        display: none;\r\n    }\r\n    [class=wrapper] .footer .padded {\r\n        text-align: center !important;\r\n    }\r\n    [class=wrapper] .footer .subscription .padded {\r\n        padding-top: 20px !important;\r\n    }\r\n    [class=wrapper] .footer .social-link {\r\n        display: block !important;\r\n    }\r\n    [class=wrapper] .footer .social-link table {\r\n        margin: 0 auto 10px !important;\r\n    }\r\n    [class=wrapper] .footer .divider {\r\n        display: none !important;\r\n    }\r\n    [class=wrapper] .one-col-feature .btn {\r\n        margin-bottom: 28px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature .image {\r\n        margin-bottom: 28px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature .divider .inner {\r\n        padding-bottom: 28px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature h1 {\r\n        font-size: 42px !important;\r\n        line-height: 48px !important;\r\n        margin-bottom: 20px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature h2 {\r\n        font-size: 32px !important;\r\n        line-height: 36px !important;\r\n        margin-bottom: 18px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature h3 {\r\n        font-size: 26px !important;\r\n        line-height: 32px !important;\r\n        margin-bottom: 20px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature p,\r\n    [class=wrapper] .one-col-feature ol,\r\n    [class=wrapper] .one-col-feature ul {\r\n        font-size: 20px !important;\r\n        line-height: 28px !important;\r\n        margin-bottom: 28px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature blockquote {\r\n        font-size: 18px !important;\r\n        line-height: 26px !important;\r\n        margin-bottom: 28px !important;\r\n        padding-bottom: 26px !important;\r\n        padding-left: 0 !important;\r\n        padding-top: 26px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature blockquote p,\r\n    [class=wrapper] .one-col-feature blockquote ol,\r\n    [class=wrapper] .one-col-feature blockquote ul {\r\n        font-size: 26px !important;\r\n        line-height: 32px !important;\r\n    }\r\n    [class=wrapper] .one-col-feature blockquote p:last-child,\r\n    [class=wrapper] .one-col-feature blockquote ol:last-child,\r\n    [class=wrapper] .one-col-feature blockquote ul:last-child {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    [class=wrapper] .one-col-feature .column table:last-of-type h1:last-child,\r\n    [class=wrapper] .one-col-feature .column table:last-of-type h2:last-child,\r\n    [class=wrapper] .one-col-feature .column table:last-of-type h3:last-child {\r\n        margin-bottom: 28px !important;\r\n    }\r\n    }\r\n    @media only screen and (max-width: 320px), only screen and (max-device-width: 320px) {\r\n    [class=wrapper] td.border {\r\n        display: none;\r\n    }\r\n    [class=wrapper] table.border,\r\n    [class=wrapper] .header,\r\n    [class=wrapper] .webversion,\r\n    [class=wrapper] .footer {\r\n        width: 318px !important;\r\n    }\r\n    }\r\n    &lt;/style&gt;\r\n    &lt;!--[if gte mso 9]&gt;\r\n    &lt;style&gt;\r\n        .column-top {\r\n            mso-line-height-rule: exactly !important;\r\n        }\r\n    &lt;/style&gt;\r\n    &lt;![endif]--&gt;\r\n    &lt;meta name=&quot;robots&quot; content=&quot;noindex,nofollow&quot;&gt;\r\n    &lt;meta property=&quot;og:title&quot; content=&quot;!subject!&quot;&gt;\r\n\r\n\r\n  &lt;style type=&quot;text/css&quot;&gt;\r\n    body,.wrapper,.emb-editor-canvas{background-color:#e9e8dd}.border{background-color:#d9d8ce}h1{color:#212425}.wrapper h1{}.wrapper h1{font-family:sans-serif}h1{}.one-col h1{line-height:44px}.two-col h1{line-height:32px}.three-col h1{line-height:26px}.wrapper .one-col-feature h1{line-height:58px}@media only screen and (max-width: 620px),only screen and (max-device-width: 620px){h1{line-height:44px !important}}h2{color:#212425}.wrapper h2{}.wrapper h2{font-family:sans-serif}h2{}.one-col h2{line-height:34px}.two-col h2{line-height:26px}.three-col h2{line-height:22px}.wrapper .one-col-feature h2{line-height:50px}@media only screen and (max-width: 620px), only screen and (max-device-width: 620px){h2{line-height:34px !important}}h3{color:#212425}.wrapper h3{}.wrapper h3{font-family:sans-serif}h3{}.one-col h3{line-height:26px}.two-col h3{line-height:22px}.three-col h3{line-height:20px}.wrapper .one-col-feature h3{line-height:40px}@media only screen and (max-width:620px), only screen and (max-device-width: 620px){h3{line-height:26px !important}}p,ol,ul{color:#212425}.wrapper p,.wrapper ol,.wrapper ul{}.wrapper p,.wrapper ol,.wrapper ul{font-family:sans-serif}p,ol,ul{}.one-col p,.one-col ol,.one-col ul{line-height:24px;margin-bottom:24px}.two-col p,.two-col ol,.two-col ul{line-height:22px;margin-bottom:22px}.three-col p,.three-col ol,.three-col ul{line-height:20px;margin-bottom:20px}.wrapper .one-col-feature p,.wrapper .one-col-feature ol,.wrapper .one-col-feature ul{line-height:29px}.one-col-feature blockquote p,.one-col-feature blockquote ol,.one-col-feature blockquote ul{line-height:48px}@media only screen and (max-width: 620px), only screen and (max-device-width: 620px){p,ol,ul{line-height:24px !important;margin-bottom:24px !important}}.image{color:#212425}.image{font-family:sans-serif}.wrapper a{color:#5ba4e5}.wrapper a:hover{color:#2f8cde !important}.wrapper .logo div{color:#41637e}.wrapper .logo div{font-family:sans-serif}@media only screen and (min-width: 0), only screen and (min-device-width: 0){.wrapper .logo div{font-family:sans-serif !important}}.wrapper .logo div a{color:#41637e}.wrapper .logo div a:hover{color:#41637e !important}.wrapper .one-col-feature p a,.wrapper .one-col-feature ol a,.wrapper .one-col-feature ul a{border-bottom:1px solid #5ba4e5}.wrapper .one-col-feature p a:hover,.wrapper .one-col-feature ol a:hover,.wrapper .one-col-feature ul a:hover{color:#2f8cde !important;border-bottom:1px solid #2f8cde !important}.btn a{}.wrapper .btn a{}.wrapper .btn a{font-family:sans-serif}.wrapper .btn a{background-color:#83969f;color:#fff !important;outline-color:#83969f;text-shadow:0 1px 0 #76878f}.wrapper .btn a:hover{background-color:#76878f !important;color:#fff !important;outline-color:#76878f !important}.preheader .title,.preheader .webversion,.footer .padded{color:#5e5e5e}.preheader .title,.preheader .webversion,.footer .padded{font-family:sans-serif}.preheader .title a,.preheader .webversion a,.footer .padded a{color:#5e5e5e}.preheader .title a:hover,.preheader .webversion a:hover,.footer .padded a:hover{color:#383838 !important}.footer .social .divider{color:#d9d8ce}.footer .social .social-text,.footer .social a{color:#5e5e5e}.wrapper .footer .social .social-text,.wrapper .footer .social a{}.wrapper .footer .social .social-text,.wrapper .footer .social a{font-family:sans-serif}.footer .social .social-text,.footer .social a{}.footer .social .social-text,.footer .social a{letter-spacing:0.05em}.footer .social .social-text:hover,.footer .social a:hover{color:#383838 !important}.image .border{background-color:#c8c8c8}.image-frame{background-color:#dadada}.image-background{background-color:#f7f7f7}@media only screen and (max-width: 620px), only screen and (max-device-width: 620px){[class=wrapper] h2.card-store{font-size:14px !important;top: 20px !important;right: 30px !important;}[class=wrapper] h3.card-text{font-size:12px !important;top: 40px !important;right: 30px !important;}[class=wrapper] h3.card-name{font-size:12px !important;bottom: 20px !important;right: 30px !important;}[class=wrapper] h3.card-code{font-size:12px !important;bottom: 6px !important;right: 30px !important;}}\r\n  &lt;/style&gt;\r\n    &lt;center class=&quot;wrapper&quot; style=&quot;display: table;table-layout: fixed;width: 100%;min-width: 620px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;background-color: #e9e8dd&quot;&gt;\r\n    &lt;table class=&quot;gmail&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 650px;min-width: 650px&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\r\n    &lt;table class=&quot;preheader centered&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;\r\n            &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                &lt;table style=&quot;border-collapse: collapse;border-spacing: 0;width: 602px&quot;&gt;\r\n                    &lt;tbody&gt;&lt;tr&gt;\r\n                        &lt;td class=&quot;title&quot; style=&quot;padding: 0;vertical-align: top;padding-top: 10px;padding-bottom: 12px;font-size: 12px;line-height: 21px;text-align: left;color: #5e5e5e;font-family: sans-serif&quot;&gt;!subject!&lt;/td&gt;\r\n                        &lt;td class=&quot;webversion&quot; style=&quot;padding: 0;vertical-align: top;padding-top: 10px;padding-bottom: 12px;font-size: 12px;line-height: 21px;text-align: right;width: 300px;color: #5e5e5e;font-family: sans-serif&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                &lt;/tbody&gt;&lt;/table&gt;\r\n            &lt;/td&gt;\r\n        &lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n    &lt;table class=&quot;header centered&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto;width: 602px&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;border&quot; style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #d9d8ce;width: 1px&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;\r\n        &lt;tr&gt;&lt;td class=&quot;logo&quot; style=&quot;padding: 32px 0;vertical-align: top;mso-line-height-rule: at-least&quot;&gt;&lt;div class=&quot;logo-center&quot; style=&quot;font-size: 26px;font-weight: 700;letter-spacing: -0.02em;line-height: 32px;color: #41637e;font-family: sans-serif;text-align: center&quot; align=&quot;center&quot; id=&quot;emb-email-header&quot;&gt;&lt;a style=&quot;text-decoration: none;transition: all .2s;color: #41637e&quot; href=&quot;!store_url!&quot;&gt;&lt;img style=&quot;border: 0;-ms-interpolation-mode: bicubic;display: block;margin-left: auto;margin-right: auto;max-width: 607px&quot; src=&quot;!store_url!/image/data/email/logo.png&quot; alt=&quot;!store_url!&quot; width=&quot;405&quot; height=&quot;138&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n    &lt;table class=&quot;border&quot; style=&quot;border-collapse: collapse;border-spacing: 0;font-size: 1px;line-height: 1px;background-color: #d9d8ce;margin-left: auto;margin-right: auto&quot; width=&quot;602&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;​&lt;/td&gt;&lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n    &lt;table class=&quot;centered&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;\r\n            &lt;td class=&quot;border&quot; style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #d9d8ce;width: 1px&quot;&gt;​&lt;/td&gt;\r\n            &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                &lt;table class=&quot;one-col&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto;width: 600px;background-color: #ffffff;font-size: 14px&quot;&gt;\r\n                    &lt;tbody&gt;&lt;tr&gt;\r\n                        &lt;td class=&quot;column&quot; style=&quot;padding: 0;vertical-align: top;text-align: left&quot;&gt;\r\n                            &lt;div&gt;&lt;div class=&quot;column-top&quot; style=&quot;font-size: 32px;line-height: 32px&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;\r\n\r\n\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n\r\n                                        &lt;div style=&quot;margin-top: 0;color: #212425;font-family: sans-serif;font-size: 16px;line-height: 24px;margin-bottom: 24px&quot;&gt;\r\n                                            !content!\r\n                                        &lt;/div&gt;\r\n\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n\r\n                                        &lt;table class=&quot;divider&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;inner&quot; style=&quot;padding: 0;vertical-align: top;padding-bottom: 24px&quot; align=&quot;center&quot;&gt;\r\n                                            &lt;table style=&quot;border-collapse: collapse;border-spacing: 0;background-color: #e9e9e9;font-size: 2px;line-height: 2px;width: 60px&quot;&gt;\r\n                                                &lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;\r\n                                            &lt;/tbody&gt;&lt;/table&gt;\r\n                                        &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\r\n\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px&quot;&gt;\r\n                                        !signature!\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n                            &lt;div class=&quot;column-bottom&quot; style=&quot;font-size: 8px;line-height: 8px&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n                        &lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                &lt;/tbody&gt;&lt;/table&gt;\r\n            &lt;/td&gt;\r\n            &lt;td class=&quot;border&quot; style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #d9d8ce;width: 1px&quot;&gt;​&lt;/td&gt;\r\n        &lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n    &lt;table class=&quot;border&quot; style=&quot;border-collapse: collapse;border-spacing: 0;font-size: 1px;line-height: 1px;background-color: #d9d8ce;margin-left: auto;margin-right: auto&quot; width=&quot;602&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;​&lt;/td&gt;&lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n\r\n    &lt;div class=&quot;spacer&quot; style=&quot;font-size: 1px;line-height: 32px;width: 100%&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n    &lt;table class=&quot;footer centered&quot; style=&quot;border-collapse: collapse;border-spacing: 0;margin-left: auto;margin-right: auto;width: 602px&quot;&gt;\r\n        &lt;tbody&gt;&lt;tr&gt;\r\n            &lt;td class=&quot;social&quot; style=&quot;padding: 0;vertical-align: top;padding-top: 32px;padding-bottom: 22px&quot; align=&quot;center&quot;&gt;\r\n                &lt;table style=&quot;border-collapse: collapse;border-spacing: 0&quot;&gt;\r\n                    &lt;tbody&gt;&lt;tr&gt;\r\n                        &lt;td class=&quot;social-link&quot; style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                            &lt;table style=&quot;border-collapse: collapse;border-spacing: 0&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                                        &lt;fblike style=&quot;text-decoration:none;&quot;&gt;\r\n                                        &lt;img style=&quot;border: 0;-ms-interpolation-mode: bicubic;display: block&quot; src=&quot;!store_url!/image/data/email/facebook-dark.png&quot; width=&quot;26&quot; height=&quot;21&quot;&gt;\r\n                                        &lt;/fblike&gt;\r\n                                    &lt;/td&gt;\r\n                                    &lt;td class=&quot;social-text&quot; style=&quot;padding: 0;vertical-align: middle !important;height: 21px;font-size: 10px;font-weight: bold;text-decoration: none;text-transform: uppercase;color: #5e5e5e;letter-spacing: 0.05em;font-family: sans-serif&quot;&gt;\r\n                                        &lt;a href=&quot;!facebook!&quot; class=&quot;fblike&quot; style=&quot;text-decoration:none;&quot;&gt;\r\n                                        Like\r\n                                        &lt;/a&gt;\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n                        &lt;/td&gt;\r\n                        &lt;td class=&quot;divider&quot; style=&quot;padding: 0;vertical-align: top;font-family: sans-serif;font-size: 10px;line-height: 21px;text-align: center;padding-left: 14px;padding-right: 14px;color: #d9d8ce&quot;&gt;\r\n                            &lt;img style=&quot;border: 0;-ms-interpolation-mode: bicubic;display: block&quot; src=&quot;!store_url!/image/data/email/diamond.png&quot; width=&quot;5&quot; height=&quot;21&quot; alt=&quot;&quot;&gt;\r\n                        &lt;/td&gt;\r\n                        &lt;td class=&quot;social-link&quot; style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                            &lt;table style=&quot;border-collapse: collapse;border-spacing: 0&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                                        &lt;tweet style=&quot;text-decoration:none;&quot;&gt;\r\n                                        &lt;img style=&quot;border: 0;-ms-interpolation-mode: bicubic;display: block&quot; src=&quot;!store_url!/image/data/email/twitter-dark.png&quot; width=&quot;26&quot; height=&quot;21&quot;&gt;\r\n                                        &lt;/tweet&gt;\r\n                                    &lt;/td&gt;\r\n                                    &lt;td class=&quot;social-text&quot; style=&quot;padding: 0;vertical-align: middle !important;height: 21px;font-size: 10px;font-weight: bold;text-decoration: none;text-transform: uppercase;color: #5e5e5e;letter-spacing: 0.05em;font-family: sans-serif&quot;&gt;\r\n                                        &lt;a href=&quot;!twitter!&quot; class=&quot;tweet&quot; style=&quot;text-decoration:none;&quot;&gt;\r\n                                        Tweet\r\n                                        &lt;/a&gt;\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n                        &lt;/td&gt;\r\n\r\n                    &lt;/tr&gt;\r\n                &lt;/tbody&gt;&lt;/table&gt;\r\n            &lt;/td&gt;\r\n        &lt;/tr&gt;\r\n        &lt;tr&gt;&lt;td class=&quot;border&quot; style=&quot;padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #d9d8ce;width: 1px&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;\r\n        &lt;tr&gt;\r\n            &lt;td style=&quot;padding: 0;vertical-align: top&quot;&gt;\r\n                &lt;table style=&quot;border-collapse: collapse;border-spacing: 0&quot;&gt;\r\n                    &lt;tbody&gt;&lt;tr&gt;\r\n                        &lt;td class=&quot;address&quot; style=&quot;padding: 0;vertical-align: top;width: 250px;padding-top: 32px;padding-bottom: 64px&quot;&gt;\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 0;padding-right: 10px;text-align: left;font-size: 12px;line-height: 20px;color: #5e5e5e;font-family: sans-serif&quot;&gt;\r\n                                        &lt;div&gt;!store_name!&lt;br&gt;\r\n                                            !store_address!&lt;br&gt;\r\n                                        !store_phone!&lt;/div&gt;\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n                        &lt;/td&gt;\r\n                        &lt;td class=&quot;subscription&quot; style=&quot;padding: 0;vertical-align: top;width: 350px;padding-top: 32px;padding-bottom: 64px&quot;&gt;\r\n                            &lt;table class=&quot;contents&quot; style=&quot;border-collapse: collapse;border-spacing: 0;width: 100%&quot;&gt;\r\n                                &lt;tbody&gt;&lt;tr&gt;\r\n                                    &lt;td class=&quot;padded&quot; style=&quot;padding: 0;vertical-align: top;padding-left: 10px;padding-right: 0;font-size: 12px;line-height: 20px;color: #5e5e5e;font-family: sans-serif;text-align: right&quot;&gt;\r\n                                        &lt;div&gt;You''re receiving this email because you''re either a customer or affiliate of !store_name!. Change your preferences below.&lt;/div&gt;\r\n                                        &lt;div&gt;\r\n                                            &lt;span class=&quot;block&quot;&gt;\r\n                                            &lt;span&gt;\r\n                                            &lt;a href=&quot;!preference!&quot; class=&quot;preferences&quot; style=&quot;font-weight:bold;text-decoration:none;&quot; lang=&quot;en&quot;&gt;\r\n                                            Preferences\r\n                                            &lt;/a&gt;\r\n                                            &lt;/span&gt;\r\n                                            &lt;/span&gt;\r\n                                        &lt;/div&gt;\r\n                                    &lt;/td&gt;\r\n                                &lt;/tr&gt;\r\n                            &lt;/tbody&gt;&lt;/table&gt;\r\n                        &lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                &lt;/tbody&gt;&lt;/table&gt;\r\n            &lt;/td&gt;\r\n        &lt;/tr&gt;\r\n    &lt;/tbody&gt;&lt;/table&gt;\r\n    &lt;/center&gt;\r\n\r\n');
 
 -- --------------------------------------------------------
 
@@ -1609,14 +1616,7 @@ CREATE TABLE IF NOT EXISTS `ocx_event` (
   `event` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `handlers` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`event_id`,`event`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
-
---
--- Dumping data for table `ocx_event`
---
-
-INSERT INTO `ocx_event` VALUES
-(34, 0, 'admin_edit_product', 'a:0:{}');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
 
 -- --------------------------------------------------------
 
@@ -1636,18 +1636,18 @@ CREATE TABLE IF NOT EXISTS `ocx_event_manager` (
   `date_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `location` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `telephone` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `cost` decimal(15,4) NOT NULL DEFAULT 0.0000,
-  `seats` int(11) NOT NULL DEFAULT 0,
-  `filled` int(11) NOT NULL DEFAULT 0,
+  `cost` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `seats` int(11) NOT NULL DEFAULT '0',
+  `filled` int(11) NOT NULL DEFAULT '0',
   `presenter_tab` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `roster` mediumtext COLLATE utf8_unicode_ci NOT NULL,
-  `presenter_id` int(11) NOT NULL DEFAULT 0,
+  `presenter_id` int(11) NOT NULL DEFAULT '0',
   `description` mediumtext COLLATE utf8_unicode_ci NOT NULL,
-  `refundable` tinyint(1) NOT NULL DEFAULT 0,
+  `refundable` tinyint(1) NOT NULL DEFAULT '0',
   `date_end` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `product_id` int(11) NOT NULL DEFAULT 0,
+  `product_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`event_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1661,7 +1661,7 @@ CREATE TABLE IF NOT EXISTS `ocx_event_wait_list` (
   `event_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   PRIMARY KEY (`event_wait_list_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1735,13 +1735,87 @@ CREATE TABLE IF NOT EXISTS `ocx_geo_zone` (
   PRIMARY KEY (`geo_zone_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `ocx_geo_zone`
+-- Table structure for table `ocx_giftcard`
 --
 
-INSERT INTO `ocx_geo_zone` VALUES
-(5, 'AZ Shipping', 'Arizona Shipping Zone', '0000-00-00 00:00:00', '2014-06-28 00:35:35'),
-(6, 'AZ Sales Tax', 'Arizona Sales Tax Zone', '0000-00-00 00:00:00', '2014-06-28 00:36:10');
+DROP TABLE IF EXISTS `ocx_giftcard`;
+CREATE TABLE IF NOT EXISTS `ocx_giftcard` (
+  `giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `from_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `from_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
+  `to_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `to_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
+  `giftcard_theme_id` int(11) NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `amount` decimal(15,4) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`giftcard_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_giftcard_history`
+--
+
+DROP TABLE IF EXISTS `ocx_giftcard_history`;
+CREATE TABLE IF NOT EXISTS `ocx_giftcard_history` (
+  `giftcard_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `giftcard_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `amount` decimal(15,4) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`giftcard_history_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_giftcard_theme`
+--
+
+DROP TABLE IF EXISTS `ocx_giftcard_theme`;
+CREATE TABLE IF NOT EXISTS `ocx_giftcard_theme` (
+  `giftcard_theme_id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`giftcard_theme_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `ocx_giftcard_theme`
+--
+
+INSERT INTO `ocx_giftcard_theme` (`giftcard_theme_id`, `image`) VALUES
+(7, 'data/giftcard/gift-card-birthday.jpg'),
+(8, 'data/giftcard/gift-card-general.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocx_giftcard_theme_description`
+--
+
+DROP TABLE IF EXISTS `ocx_giftcard_theme_description`;
+CREATE TABLE IF NOT EXISTS `ocx_giftcard_theme_description` (
+  `giftcard_theme_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`giftcard_theme_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `ocx_giftcard_theme_description`
+--
+
+INSERT INTO `ocx_giftcard_theme_description` (`giftcard_theme_id`, `language_id`, `name`) VALUES
+(7, 1, 'Happy Birthday'),
+(8, 1, 'Gift Card');
 
 -- --------------------------------------------------------
 
@@ -1757,13 +1831,6 @@ CREATE TABLE IF NOT EXISTS `ocx_hook` (
   `handlers` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`hook_id`,`hook`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
-
---
--- Dumping data for table `ocx_hook`
---
-
-INSERT INTO `ocx_hook` VALUES
-(31, 0, 'admin_controller', 'a:0:{}');
 
 -- --------------------------------------------------------
 
@@ -1790,7 +1857,7 @@ CREATE TABLE IF NOT EXISTS `ocx_language` (
 -- Dumping data for table `ocx_language`
 --
 
-INSERT INTO `ocx_language` VALUES
+INSERT INTO `ocx_language` (`language_id`, `name`, `code`, `locale`, `image`, `directory`, `filename`, `sort_order`, `status`) VALUES
 (1, 'English', 'en', 'en_US.UTF-8,en_US,en-gb,english', 'gb.png', 'english', 'english', 1, 1);
 
 -- --------------------------------------------------------
@@ -1804,13 +1871,13 @@ CREATE TABLE IF NOT EXISTS `ocx_layout` (
   `layout_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`layout_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `ocx_layout`
 --
 
-INSERT INTO `ocx_layout` VALUES
+INSERT INTO `ocx_layout` (`layout_id`, `name`) VALUES
 (1, 'Default'),
 (2, 'Shop Home'),
 (3, 'Shop Product'),
@@ -1820,7 +1887,6 @@ INSERT INTO `ocx_layout` VALUES
 (7, 'Checkout'),
 (8, 'Contact'),
 (9, 'Sitemap'),
-(10, 'Affiliate'),
 (11, 'Content Page'),
 (12, 'Shop Search'),
 (13, 'Error 404'),
@@ -1828,7 +1894,8 @@ INSERT INTO `ocx_layout` VALUES
 (15, 'Content Category'),
 (16, 'Content Post'),
 (17, 'Content Search'),
-(18, 'Register');
+(18, 'Register'),
+(19, 'Calendar');
 
 -- --------------------------------------------------------
 
@@ -1843,17 +1910,16 @@ CREATE TABLE IF NOT EXISTS `ocx_layout_route` (
   `store_id` int(11) NOT NULL,
   `route` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`layout_route_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `ocx_layout_route`
 --
 
-INSERT INTO `ocx_layout_route` VALUES
+INSERT INTO `ocx_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `route`) VALUES
 (1, 2, 0, 'shop/home'),
 (2, 13, 0, 'error/notfound'),
 (3, 6, 0, 'account/'),
-(4, 10, 0, 'affiliate/'),
 (5, 7, 0, 'checkout/'),
 (6, 8, 0, 'content/contact'),
 (7, 15, 0, 'content/category'),
@@ -1866,7 +1932,8 @@ INSERT INTO `ocx_layout_route` VALUES
 (14, 3, 0, 'catalog/product'),
 (15, 12, 0, 'catalog/search'),
 (16, 9, 0, 'content/sitemap'),
-(17, 18, 0, 'account/register');
+(17, 18, 0, 'account/register'),
+(18, 19, 0, 'content/calendar');
 
 -- --------------------------------------------------------
 
@@ -1885,7 +1952,7 @@ CREATE TABLE IF NOT EXISTS `ocx_length_class` (
 -- Dumping data for table `ocx_length_class`
 --
 
-INSERT INTO `ocx_length_class` VALUES
+INSERT INTO `ocx_length_class` (`length_class_id`, `value`) VALUES
 (1, '1.00000000'),
 (2, '10.00000000'),
 (3, '0.39370000');
@@ -1909,7 +1976,7 @@ CREATE TABLE IF NOT EXISTS `ocx_length_class_description` (
 -- Dumping data for table `ocx_length_class_description`
 --
 
-INSERT INTO `ocx_length_class_description` VALUES
+INSERT INTO `ocx_length_class_description` (`length_class_id`, `language_id`, `title`, `unit`) VALUES
 (1, 1, 'Centimeter', 'cm'),
 (2, 1, 'Millimeter', 'mm'),
 (3, 1, 'Inch', 'in');
@@ -1933,7 +2000,7 @@ CREATE TABLE IF NOT EXISTS `ocx_manufacturer` (
 -- Dumping data for table `ocx_manufacturer`
 --
 
-INSERT INTO `ocx_manufacturer` VALUES
+INSERT INTO `ocx_manufacturer` (`manufacturer_id`, `name`, `image`, `sort_order`) VALUES
 (5, 'HTC', 'data/demo/htc_logo.jpg', 0),
 (6, 'Palm', 'data/demo/palm_logo.jpg', 0),
 (7, 'Hewlett-Packard', 'data/demo/hp_logo.jpg', 0),
@@ -1958,7 +2025,7 @@ CREATE TABLE IF NOT EXISTS `ocx_manufacturer_to_store` (
 -- Dumping data for table `ocx_manufacturer_to_store`
 --
 
-INSERT INTO `ocx_manufacturer_to_store` VALUES
+INSERT INTO `ocx_manufacturer_to_store` (`manufacturer_id`, `store_id`) VALUES
 (5, 0),
 (6, 0),
 (7, 0),
@@ -1986,12 +2053,12 @@ CREATE TABLE IF NOT EXISTS `ocx_menu` (
 -- Dumping data for table `ocx_menu`
 --
 
-INSERT INTO `ocx_menu` VALUES
+INSERT INTO `ocx_menu` (`menu_id`, `name`, `type`, `items`, `status`) VALUES
 (3, 'Blog Header Menu', 'content_category', 'a:2:{i:0;s:1:"1";i:1;s:1:"2";}', 1),
 (4, 'Blog Header Pages', 'page', 'a:6:{i:0;s:1:"4";i:1;s:1:"8";i:2;s:1:"6";i:3;s:1:"3";i:4;s:1:"7";i:5;s:1:"5";}', 1),
 (5, 'Info', 'page', 'a:4:{i:0;s:1:"4";i:1;s:1:"6";i:2;s:1:"3";i:3;s:1:"5";}', 1),
 (7, 'Customer Service', 'custom', 'a:3:{i:0;a:2:{s:4:"href";s:15:"content/contact";s:4:"name";s:10:"Contact Us";}i:1;a:2:{s:4:"href";s:22:"account/returns/insert";s:4:"name";s:7:"Returns";}i:2;a:2:{s:4:"href";s:15:"content/sitemap";s:4:"name";s:7:"Sitemap";}}', 1),
-(8, 'Extras', 'custom', 'a:4:{i:0;a:2:{s:4:"href";s:20:"catalog/manufacturer";s:4:"name";s:6:"Brands";}i:1;a:2:{s:4:"href";s:15:"account/voucher";s:4:"name";s:17:"Gift Certificates";}i:2;a:2:{s:4:"href";s:17:"affiliate/account";s:4:"name";s:10:"Affiliates";}i:3;a:2:{s:4:"href";s:15:"catalog/special";s:4:"name";s:8:"Specials";}}', 1),
+(8, 'Extras', 'custom', 'a:3:{i:0;a:2:{s:4:"href";s:20:"catalog/manufacturer";s:4:"name";s:6:"Brands";}i:1;a:2:{s:4:"href";s:16:"account/giftcard";s:4:"name";s:10:"Gift Cards";}i:3;a:2:{s:4:"href";s:15:"catalog/special";s:4:"name";s:8:"Specials";}}', 1),
 (10, 'Posts', 'post', 'a:1:{i:0;s:1:"1";}', 1),
 (13, 'Account', 'custom', 'a:4:{i:0;a:2:{s:4:"href";s:17:"account/dashboard";s:4:"name";s:9:"Dashboard";}i:1;a:2:{s:4:"href";s:13:"account/order";s:4:"name";s:13:"Order History";}i:2;a:2:{s:4:"href";s:16:"account/wishlist";s:4:"name";s:8:"Wishlist";}i:3;a:2:{s:4:"href";s:18:"account/newsletter";s:4:"name";s:10:"Newsletter";}}', 1),
 (14, 'Blog Categories', 'content_category', 'a:2:{i:0;s:1:"1";i:1;s:1:"2";}', 1),
@@ -2011,15 +2078,14 @@ CREATE TABLE IF NOT EXISTS `ocx_module` (
   `type` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `code` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=531 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=535 ;
 
 --
 -- Dumping data for table `ocx_module`
 --
 
-INSERT INTO `ocx_module` VALUES
+INSERT INTO `ocx_module` (`module_id`, `type`, `code`) VALUES
 (22, 'total', 'shipping'),
-(23, 'payment', 'cod'),
 (58, 'total', 'tax'),
 (59, 'total', 'total'),
 (387, 'shipping', 'flat'),
@@ -2028,7 +2094,6 @@ INSERT INTO `ocx_module` VALUES
 (398, 'total', 'giftcard'),
 (408, 'widget', 'account'),
 (410, 'widget', 'banner'),
-(411, 'widget', 'affiliate'),
 (413, 'widget', 'category'),
 (419, 'widget', 'slideshow'),
 (426, 'widget', 'carousel'),
@@ -2045,7 +2110,11 @@ INSERT INTO `ocx_module` VALUES
 (527, 'widget', 'bloglatest'),
 (528, 'widget', 'sidebarmenu'),
 (529, 'widget', 'headermenu'),
-(530, 'widget', 'footerblocks');
+(530, 'widget', 'footerblocks'),
+(531, 'plugin', 'git'),
+(532, 'payment', 'paypalexpress'),
+(533, 'total', 'handling'),
+(534, 'total', 'loworderfee');
 
 -- --------------------------------------------------------
 
@@ -2065,7 +2134,7 @@ CREATE TABLE IF NOT EXISTS `ocx_notification_queue` (
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `date_sent` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`queue_id`,`email`,`sent`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 -- --------------------------------------------------------
 
@@ -2085,7 +2154,7 @@ CREATE TABLE IF NOT EXISTS `ocx_option` (
 -- Dumping data for table `ocx_option`
 --
 
-INSERT INTO `ocx_option` VALUES
+INSERT INTO `ocx_option` (`option_id`, `type`, `sort_order`) VALUES
 (1, 'radio', 2),
 (2, 'checkbox', 3),
 (4, 'text', 4),
@@ -2116,7 +2185,7 @@ CREATE TABLE IF NOT EXISTS `ocx_option_description` (
 -- Dumping data for table `ocx_option_description`
 --
 
-INSERT INTO `ocx_option_description` VALUES
+INSERT INTO `ocx_option_description` (`option_id`, `language_id`, `name`) VALUES
 (1, 1, 'Radio'),
 (2, 1, 'Checkbox'),
 (4, 1, 'Text'),
@@ -2148,7 +2217,7 @@ CREATE TABLE IF NOT EXISTS `ocx_option_value` (
 -- Dumping data for table `ocx_option_value`
 --
 
-INSERT INTO `ocx_option_value` VALUES
+INSERT INTO `ocx_option_value` (`option_value_id`, `option_id`, `image`, `sort_order`) VALUES
 (23, 2, '', 1),
 (24, 2, '', 2),
 (31, 1, '', 2),
@@ -2183,7 +2252,7 @@ CREATE TABLE IF NOT EXISTS `ocx_option_value_description` (
 -- Dumping data for table `ocx_option_value_description`
 --
 
-INSERT INTO `ocx_option_value_description` VALUES
+INSERT INTO `ocx_option_value_description` (`option_value_id`, `language_id`, `option_id`, `name`) VALUES
 (23, 1, 2, 'Checkbox 1'),
 (24, 1, 2, 'Checkbox 2'),
 (31, 1, 1, 'Medium'),
@@ -2265,7 +2334,7 @@ CREATE TABLE IF NOT EXISTS `ocx_order` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -2369,6 +2438,29 @@ CREATE TABLE IF NOT EXISTS `ocx_order_fraud` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ocx_order_giftcard`
+--
+
+DROP TABLE IF EXISTS `ocx_order_giftcard`;
+CREATE TABLE IF NOT EXISTS `ocx_order_giftcard` (
+  `order_giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `giftcard_id` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `from_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `from_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
+  `to_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `to_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
+  `giftcard_theme_id` int(11) NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `amount` decimal(15,4) NOT NULL,
+  PRIMARY KEY (`order_giftcard_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ocx_order_history`
 --
 
@@ -2381,7 +2473,7 @@ CREATE TABLE IF NOT EXISTS `ocx_order_history` (
   `comment` text COLLATE utf8_unicode_ci NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`order_history_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -2421,7 +2513,7 @@ CREATE TABLE IF NOT EXISTS `ocx_order_product` (
   `tax` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `reward` int(8) NOT NULL,
   PRIMARY KEY (`order_product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -2488,7 +2580,7 @@ CREATE TABLE IF NOT EXISTS `ocx_order_status` (
 -- Dumping data for table `ocx_order_status`
 --
 
-INSERT INTO `ocx_order_status` VALUES
+INSERT INTO `ocx_order_status` (`order_status_id`, `language_id`, `name`) VALUES
 (1, 1, 'Pending'),
 (2, 1, 'Processing'),
 (3, 1, 'Shipped'),
@@ -2521,30 +2613,7 @@ CREATE TABLE IF NOT EXISTS `ocx_order_total` (
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`order_total_id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_order_giftcard`
---
-
-DROP TABLE IF EXISTS `ocx_order_giftcard`;
-CREATE TABLE IF NOT EXISTS `ocx_order_giftcard` (
-  `order_giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `giftcard_id` int(11) NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `from_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `from_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
-  `to_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `to_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
-  `giftcard_theme_id` int(11) NOT NULL,
-  `message` text COLLATE utf8_unicode_ci NOT NULL,
-  `amount` decimal(15,4) NOT NULL,
-  PRIMARY KEY (`order_giftcard_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
 
@@ -2566,7 +2635,7 @@ CREATE TABLE IF NOT EXISTS `ocx_page` (
 -- Dumping data for table `ocx_page`
 --
 
-INSERT INTO `ocx_page` VALUES
+INSERT INTO `ocx_page` (`page_id`, `bottom`, `sort_order`, `status`, `visibility`) VALUES
 (3, 1, 3, 1, 1),
 (4, 1, 1, 1, 1),
 (5, 1, 4, 1, 1),
@@ -2595,7 +2664,7 @@ CREATE TABLE IF NOT EXISTS `ocx_page_description` (
 -- Dumping data for table `ocx_page_description`
 --
 
-INSERT INTO `ocx_page_description` VALUES
+INSERT INTO `ocx_page_description` (`page_id`, `language_id`, `title`, `description`, `meta_description`, `meta_keywords`) VALUES
 (3, 1, 'Privacy Policy', '&lt;p&gt;Privacy Policy&lt;/p&gt;\r\n', '', ''),
 (4, 1, 'About Us', '&lt;p&gt;\r\n  \r\n    About Us\r\n  \r\n&lt;/p&gt;', '', ''),
 (5, 1, 'Terms &amp; Conditions', '&lt;p&gt;Terms &amp;amp; Conditions&lt;/p&gt;\r\n', '', ''),
@@ -2634,7 +2703,7 @@ CREATE TABLE IF NOT EXISTS `ocx_page_to_store` (
 -- Dumping data for table `ocx_page_to_store`
 --
 
-INSERT INTO `ocx_page_to_store` VALUES
+INSERT INTO `ocx_page_to_store` (`page_id`, `store_id`) VALUES
 (3, 0),
 (4, 0),
 (5, 0),
@@ -2645,82 +2714,47 @@ INSERT INTO `ocx_page_to_store` VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_poll`
+-- Table structure for table `ocx_paypal_order`
 --
 
-DROP TABLE IF EXISTS `ocx_poll`;
-CREATE TABLE IF NOT EXISTS `ocx_poll` (
-  `poll_id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `type` tinyint(2) NOT NULL DEFAULT '1',
-  `total` int(13) NOT NULL DEFAULT '0',
-  `image` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`poll_id`),
-  KEY `total` (`total`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `ocx_paypal_order`;
+CREATE TABLE IF NOT EXISTS `ocx_paypal_order` (
+  `paypal_order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `date_added` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  `capture_status` enum('Complete','NotComplete') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `currency_code` char(3) COLLATE utf8_unicode_ci NOT NULL,
+  `authorization_id` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`paypal_order_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_poll_answer`
+-- Table structure for table `ocx_paypal_order_transaction`
 --
 
-DROP TABLE IF EXISTS `ocx_poll_answer`;
-CREATE TABLE IF NOT EXISTS `ocx_poll_answer` (
-  `answer_id` int(13) NOT NULL AUTO_INCREMENT,
-  `poll_id` int(13) NOT NULL DEFAULT '0',
-  `votes` int(13) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`answer_id`),
-  KEY `poll_id` (`poll_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_poll_answer_description`
---
-
-DROP TABLE IF EXISTS `ocx_poll_answer_description`;
-CREATE TABLE IF NOT EXISTS `ocx_poll_answer_description` (
-  `description_id` int(13) NOT NULL AUTO_INCREMENT,
-  `answer_id` int(13) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `poll_id` int(11) NOT NULL,
-  `description` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`description_id`),
-  KEY `answer_id` (`answer_id`,`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_poll_question`
---
-
-DROP TABLE IF EXISTS `ocx_poll_question`;
-CREATE TABLE IF NOT EXISTS `ocx_poll_question` (
-  `question_id` int(13) NOT NULL AUTO_INCREMENT,
-  `language_id` int(11) NOT NULL,
-  `poll_id` int(13) NOT NULL,
-  `question` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`question_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_poll_voted`
---
-
-DROP TABLE IF EXISTS `ocx_poll_voted`;
-CREATE TABLE IF NOT EXISTS `ocx_poll_voted` (
-  `voted_id` int(13) NOT NULL AUTO_INCREMENT,
-  `poll_id` int(13) NOT NULL,
-  `hash` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`voted_id`),
-  KEY `poll_id` (`poll_id`,`hash`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `ocx_paypal_order_transaction`;
+CREATE TABLE IF NOT EXISTS `ocx_paypal_order_transaction` (
+  `paypal_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `paypal_order_id` int(11) NOT NULL,
+  `transaction_id` char(20) COLLATE utf8_unicode_ci NOT NULL,
+  `parent_transaction_id` char(20) COLLATE utf8_unicode_ci NOT NULL,
+  `date_added` datetime NOT NULL,
+  `note` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `msgsubid` char(38) COLLATE utf8_unicode_ci NOT NULL,
+  `receipt_id` char(20) COLLATE utf8_unicode_ci NOT NULL,
+  `payment_type` enum('none','echeck','instant','refund','void') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payment_status` char(20) COLLATE utf8_unicode_ci NOT NULL,
+  `pending_reason` char(50) COLLATE utf8_unicode_ci NOT NULL,
+  `transaction_entity` char(50) COLLATE utf8_unicode_ci NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `debug_data` text COLLATE utf8_unicode_ci NOT NULL,
+  `call_data` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`paypal_order_transaction_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -2734,7 +2768,7 @@ CREATE TABLE IF NOT EXISTS `ocx_presenter` (
   `presenter_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `bio` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`presenter_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2786,23 +2820,23 @@ CREATE TABLE IF NOT EXISTS `ocx_product` (
 -- Dumping data for table `ocx_product`
 --
 
-INSERT INTO `ocx_product` VALUES
+INSERT INTO `ocx_product` (`product_id`, `event_id`, `model`, `sku`, `upc`, `ean`, `jan`, `isbn`, `mpn`, `location`, `visibility`, `quantity`, `stock_status_id`, `image`, `manufacturer_id`, `shipping`, `price`, `points`, `tax_class_id`, `date_available`, `end_date`, `weight`, `weight_class_id`, `length`, `width`, `height`, `length_class_id`, `subtract`, `minimum`, `sort_order`, `status`, `date_added`, `date_modified`, `viewed`, `customer_id`) VALUES
 (28, 0, 'Product 1', '', '', '', '', '', '', '', 1, 939, 7, 'data/demo/htc_touch_hd_1.jpg', 5, 1, '100.0000', 200, 9, '2009-02-03', '0000-00-00 00:00:00', '146.40000000', 2, '0.00000000', '0.00000000', '0.00000000', 1, 1, 1, 0, 1, '2009-02-03 16:06:50', '2014-08-17 00:05:03', 0, 0),
 (29, 0, 'Product 2', '', '', '', '', '', '', '', 1, 999, 6, 'data/demo/palm_treo_pro_1.jpg', 6, 1, '279.9900', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '133.00000000', 2, '0.00000000', '0.00000000', '0.00000000', 3, 1, 1, 0, 1, '2009-02-03 16:42:17', '2014-07-06 22:42:53', 0, 0),
 (30, 0, 'Product 3', '', '', '', '', '', '', '', 1, 7, 6, 'data/demo/canon_eos_5d_1.jpg', 9, 1, '100.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 1, 1, 0, 1, '2009-02-03 16:59:00', '2014-09-28 23:59:28', 0, 0),
 (31, 0, 'Product 4', '', '', '', '', '', '', '', 1, 1000, 6, 'data/demo/nikon_d300_1.jpg', 0, 1, '80.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 3, 1, 1, 0, 1, '2009-02-03 17:00:10', '2014-07-06 22:42:45', 0, 0),
 (32, 0, 'Product 5', '', '', '', '', '', '', '', 1, 999, 6, 'data/demo/ipod_touch_1.jpg', 8, 1, '100.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '5.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 1, 1, 0, 1, '2009-02-03 17:07:26', '2014-07-06 22:41:48', 0, 0),
-(33, 0, 'Product 6', '', '', '', '', '', '', '', 1, 1000, 6, 'data/demo/samsung_syncmaster_941bw.jpg', 0, 1, '200.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '5.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 17:08:31', '2014-07-06 22:43:42', 0, 0),
+(33, 0, 'Product 6', '', '', '', '', '', '', '', 1, 1000, 6, 'data/demo/samsung_syncmaster_941bw.jpg', 0, 1, '200.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '5.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 17:08:31', '2014-07-06 22:43:42', 1, 0),
 (34, 0, 'Product 7', '', '', '', '', '', '', '', 1, 1000, 6, 'data/demo/ipod_shuffle_1.jpg', 8, 1, '100.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '5.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 18:07:54', '2014-07-06 22:41:19', 0, 0),
 (36, 0, 'Product 9', '', '', '', '', '', '', '', 1, 994, 6, 'data/demo/ipod_nano_1.jpg', 8, 0, '100.0000', 100, 9, '2009-02-03', '0000-00-00 00:00:00', '5.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 18:09:19', '2014-07-06 22:41:02', 0, 0),
-(40, 0, 'product 11', '', '', '', '', '', '', '', 1, 970, 5, 'data/demo/iphone_1.jpg', 8, 1, '101.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '10.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 1, 1, 0, 1, '2009-02-03 21:07:12', '2014-07-06 22:39:10', 0, 0),
-(41, 0, 'Product 14', '', '', '', '', '', '', '', 1, 977, 5, 'data/demo/imac_1.jpg', 8, 1, '100.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '5.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 1, 1, 0, 1, '2009-02-03 21:07:26', '2014-07-06 22:33:49', 0, 0),
-(42, 0, 'Product 15', '', '', '', '', '', '', '', 1, 990, 5, 'data/demo/apple_cinema_30.jpg', 8, 1, '100.0000', 400, 9, '2009-02-04', '0000-00-00 00:00:00', '12.50000000', 1, '1.00000000', '2.00000000', '3.00000000', 1, 1, 2, 0, 1, '2009-02-03 21:07:37', '2014-09-29 00:02:18', 0, 0),
-(43, 0, 'Product 16', '', '', '', '', '', '', '', 1, 929, 5, 'data/demo/macbook_1.jpg', 8, 0, '500.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 21:07:49', '2014-07-06 22:42:11', 0, 0),
-(44, 0, 'Product 17', '', '', '', '', '', '', '', 1, 1000, 5, 'data/demo/macbook_air_1.jpg', 8, 1, '1000.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 21:08:00', '2014-07-06 21:38:48', 0, 0),
-(45, 0, 'Product 18', '', '', '', '', '', '', '', 1, 998, 5, 'data/demo/macbook_pro_1.jpg', 8, 1, '2000.0000', 0, 0, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 21:08:17', '2014-07-06 22:42:36', 0, 0),
+(40, 0, 'product 11', '', '', '', '', '', '', '', 1, 970, 5, 'data/demo/iphone_1.jpg', 8, 1, '101.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '10.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 1, 1, 0, 1, '2009-02-03 21:07:12', '2014-07-06 22:39:10', 15, 0),
+(41, 0, 'Product 14', '', '', '', '', '', '', '', 1, 977, 5, 'data/demo/imac_1.jpg', 8, 1, '100.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '5.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 1, 1, 0, 1, '2009-02-03 21:07:26', '2014-07-06 22:33:49', 3, 0),
+(42, 0, 'Product 15', '', '', '', '', '', '', '', 1, 990, 5, 'data/demo/apple_cinema_30.jpg', 8, 1, '100.0000', 400, 9, '2009-02-04', '0000-00-00 00:00:00', '12.50000000', 1, '1.00000000', '2.00000000', '3.00000000', 1, 1, 2, 0, 1, '2009-02-03 21:07:37', '2014-09-29 00:02:18', 7, 0),
+(43, 0, 'Product 16', '', '', '', '', '', '', '', 1, 929, 5, 'data/demo/macbook_1.jpg', 8, 0, '500.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 21:07:49', '2015-02-13 22:38:54', 0, 0),
+(44, 0, 'Product 17', '', '', '', '', '', '', '', 1, 1000, 5, 'data/demo/macbook_air_1.jpg', 8, 1, '1000.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 21:08:00', '2015-02-13 22:39:07', 2, 0),
+(45, 0, 'Product 18', '', '', '', '', '', '', '', 1, 998, 5, 'data/demo/macbook_pro_1.jpg', 8, 1, '2000.0000', 0, 0, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 21:08:17', '2015-02-13 22:38:17', 6, 0),
 (46, 0, 'Product 19', '', '', '', '', '', '', '', 1, 1000, 5, 'data/demo/sony_vaio_1.jpg', 10, 1, '1000.0000', 0, 9, '2009-02-03', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-03 21:08:29', '2014-07-06 22:43:58', 0, 0),
-(47, 0, 'Product 21', '', '', '', '', '', '', '', 1, 1000, 5, 'data/demo/hp_1.jpg', 7, 1, '100.0000', 400, 9, '2009-02-03', '0000-00-00 00:00:00', '1.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 0, 1, 0, 1, '2009-02-03 21:08:40', '2014-07-06 22:30:26', 0, 0),
+(47, 0, 'Product 21', '', '', '', '', '', '', '', 1, 1000, 5, 'data/demo/hp_1.jpg', 7, 1, '100.0000', 400, 9, '2009-02-03', '0000-00-00 00:00:00', '1.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 0, 1, 0, 1, '2009-02-03 21:08:40', '2014-07-06 22:30:26', 7, 0),
 (48, 0, 'product 20', 'test 1', '', '', '', '', '', 'test 2', 1, 995, 5, 'data/demo/ipod_classic_1.jpg', 8, 1, '100.0000', 0, 9, '2009-02-08', '0000-00-00 00:00:00', '1.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 2, 1, 1, 0, 1, '2009-02-08 17:21:51', '2014-07-06 22:40:44', 0, 0),
 (49, 0, 'SAM1', '', '', '', '', '', '', '', 1, 0, 8, 'data/demo/samsung_tab_1.jpg', 0, 1, '199.9900', 0, 9, '2011-04-25', '0000-00-00 00:00:00', '0.00000000', 1, '0.00000000', '0.00000000', '0.00000000', 1, 1, 1, 1, 1, '2011-04-26 08:57:34', '2014-07-06 22:43:27', 0, 0);
 
@@ -2825,7 +2859,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_attribute` (
 -- Dumping data for table `ocx_product_attribute`
 --
 
-INSERT INTO `ocx_product_attribute` VALUES
+INSERT INTO `ocx_product_attribute` (`product_id`, `attribute_id`, `language_id`, `text`) VALUES
 (42, 3, 1, '100mhz'),
 (43, 2, 1, '1'),
 (43, 4, 1, '8gb'),
@@ -2855,7 +2889,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_description` (
 -- Dumping data for table `ocx_product_description`
 --
 
-INSERT INTO `ocx_product_description` VALUES
+INSERT INTO `ocx_product_description` (`product_id`, `language_id`, `name`, `description`, `meta_description`, `meta_keyword`, `tag`) VALUES
 (28, 1, 'HTC Touch HD', '&lt;p&gt;HTC Touch - in High Definition. Watch music videos and streaming content in awe-inspiring high definition clarity for a mobile experience you never thought possible. Seductively sleek, the HTC Touch HD provides the next generation of mobile functionality, all at a simple touch. Fully integrated with Windows Mobile Professional 6.1, ultrafast 3.5G, GPS, 5MP camera, plus lots more - all delivered on a breathtakingly crisp 3.8&quot; WVGA touchscreen - you can take control of your mobile world with the HTC Touch HD.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Features&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Processor Qualcomm® MSM 7201A™ 528 MHz&lt;/li&gt;\r\n	&lt;li&gt;Windows Mobile® 6.1 Professional Operating System&lt;/li&gt;\r\n	&lt;li&gt;Memory: 512 MB ROM, 288 MB RAM&lt;/li&gt;\r\n	&lt;li&gt;Dimensions: 115 mm x 62.8 mm x 12 mm / 146.4 grams&lt;/li&gt;\r\n	&lt;li&gt;3.8-inch TFT-LCD flat touch-sensitive screen with 480 x 800 WVGA resolution&lt;/li&gt;\r\n	&lt;li&gt;HSDPA/WCDMA: Europe/Asia: 900/2100 MHz; Up to 2 Mbps up-link and 7.2 Mbps down-link speeds&lt;/li&gt;\r\n	&lt;li&gt;Quad-band GSM/GPRS/EDGE: Europe/Asia: 850/900/1800/1900 MHz (Band frequency, HSUPA availability, and data speed are operator dependent.)&lt;/li&gt;\r\n	&lt;li&gt;Device Control via HTC TouchFLO™ 3D &amp; Touch-sensitive front panel buttons&lt;/li&gt;\r\n	&lt;li&gt;GPS and A-GPS ready&lt;/li&gt;\r\n	&lt;li&gt;Bluetooth® 2.0 with Enhanced Data Rate and A2DP for wireless stereo headsets&lt;/li&gt;\r\n	&lt;li&gt;Wi-Fi®: IEEE 802.11 b/g&lt;/li&gt;\r\n	&lt;li&gt;HTC ExtUSB™ (11-pin mini-USB 2.0)&lt;/li&gt;\r\n	&lt;li&gt;5 megapixel color camera with auto focus&lt;/li&gt;\r\n	&lt;li&gt;VGA CMOS color camera&lt;/li&gt;\r\n	&lt;li&gt;Built-in 3.5 mm audio jack, microphone, speaker, and FM radio&lt;/li&gt;\r\n	&lt;li&gt;Ring tone formats: AAC, AAC+, eAAC+, AMR-NB, AMR-WB, QCP, MP3, WMA, WAV&lt;/li&gt;\r\n	&lt;li&gt;40 polyphonic and standard MIDI format 0 and 1 (SMF)/SP MIDI&lt;/li&gt;\r\n	&lt;li&gt;Rechargeable Lithium-ion or Lithium-ion polymer 1350 mAh battery&lt;/li&gt;\r\n	&lt;li&gt;Expansion Slot: microSD™ memory card (SD 2.0 compatible)&lt;/li&gt;\r\n	&lt;li&gt;AC Adapter Voltage range/frequency: 100 ~ 240V AC, 50/60 Hz DC output: 5V and 1A&lt;/li&gt;\r\n	&lt;li&gt;Special Features: FM Radio, G-Sensor&lt;/li&gt;\r\n&lt;/ul&gt;\r\n', '', '', ''),
 (29, 1, 'Palm Treo Pro', '&lt;p&gt;Redefine your workday with the Palm Treo Pro smartphone. Perfectly balanced, you can respond to business and personal email, stay on top of appointments and contacts, and use Wi-Fi or GPS when you’re out and about. Then watch a video on YouTube, catch up with news and sports on the web, or listen to a few songs. Balance your work and play the way you like it, with the Palm Treo Pro.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Features&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Windows Mobile® 6.1 Professional Edition&lt;/li&gt;\r\n	&lt;li&gt;Qualcomm® MSM7201 400MHz Processor&lt;/li&gt;\r\n	&lt;li&gt;320x320 transflective colour TFT touchscreen&lt;/li&gt;\r\n	&lt;li&gt;HSDPA/UMTS/EDGE/GPRS/GSM radio&lt;/li&gt;\r\n	&lt;li&gt;Tri-band UMTS — 850MHz, 1900MHz, 2100MHz&lt;/li&gt;\r\n	&lt;li&gt;Quad-band GSM — 850/900/1800/1900&lt;/li&gt;\r\n	&lt;li&gt;802.11b/g with WPA, WPA2, and 801.1x authentication&lt;/li&gt;\r\n	&lt;li&gt;Built-in GPS&lt;/li&gt;\r\n	&lt;li&gt;Bluetooth Version: 2.0 + Enhanced Data Rate&lt;/li&gt;\r\n	&lt;li&gt;256MB storage (100MB user available), 128MB RAM&lt;/li&gt;\r\n	&lt;li&gt;2.0 megapixel camera, up to 8x digital zoom and video capture&lt;/li&gt;\r\n	&lt;li&gt;Removable, rechargeable 1500mAh lithium-ion battery&lt;/li&gt;\r\n	&lt;li&gt;Up to 5.0 hours talk time and up to 250 hours standby&lt;/li&gt;\r\n	&lt;li&gt;MicroSDHC card expansion (up to 32GB supported)&lt;/li&gt;\r\n	&lt;li&gt;MicroUSB 2.0 for synchronization and charging&lt;/li&gt;\r\n	&lt;li&gt;3.5mm stereo headset jack&lt;/li&gt;\r\n	&lt;li&gt;60mm (W) x 114mm (L) x 13.5mm (D) / 133g&lt;/li&gt;\r\n&lt;/ul&gt;\r\n', '', '', ''),
 (30, 1, 'Canon EOS 5D', '&lt;p&gt;Canon''s press material for the EOS 5D states that it ''defines (a) new D-SLR category'', while we''re not typically too concerned with marketing talk this particular statement is clearly pretty accurate. The EOS 5D is unlike any previous digital SLR in that it combines a full-frame (35 mm sized) high resolution sensor (12.8 megapixels) with a relatively compact body (slightly larger than the EOS 20D, although in your hand it feels noticeably ''chunkier''). The EOS 5D is aimed to slot in between the EOS 20D and the EOS-1D professional digital SLR''s, an important difference when compared to the latter is that the EOS 5D doesn''t have any environmental seals. While Canon don''t specifically refer to the EOS 5D as a ''professional'' digital SLR it will have obvious appeal to professionals who want a high quality digital SLR in a body lighter than the EOS-1D. It will also no doubt appeal to current EOS 20D owners (although lets hope they''ve not bought too many EF-S lenses...) äë&lt;/p&gt;\r\n', '', '', ''),
@@ -2867,9 +2901,9 @@ INSERT INTO `ocx_product_description` VALUES
 (40, 1, 'iPhone', '&lt;p&gt;iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a name or number in your address book, a favorites list, or a call log. It also automatically syncs all your contacts from a PC, Mac, or Internet service. And it lets you select and listen to voicemail messages in whatever order you want just like email.&lt;/p&gt;\r\n', '', '', ''),
 (41, 1, 'iMac', '&lt;p&gt;Just when you thought iMac had everything, now there´s even more. More powerful Intel Core 2 Duo processors. And more memory standard. Combine this with Mac OS X Leopard and iLife ´08, and it´s more all-in-one than ever. iMac packs amazing performance into a stunningly slim space.&lt;/p&gt;\r\n', '', '', ''),
 (42, 1, 'Apple Cinema 30&quot;', '&lt;p&gt;The 30-inch Apple Cinema HD Display delivers an amazing 2560 x 1600 pixel resolution. Designed specifically for the creative professional, this display provides more space for easier access to all the tools and palettes needed to edit, format and composite your work. Combine this display with a Mac Pro, MacBook Pro, or PowerMac G5 and there''s no limit to what you can achieve.&lt;br&gt;\r\n&lt;br&gt;\r\nThe Cinema HD features an active-matrix liquid crystal display that produces flicker-free images that deliver twice the brightness, twice the sharpness and twice the contrast ratio of a typical CRT display. Unlike other flat panels, it''s designed with a pure digital interface to deliver distortion-free images that never need adjusting. With over 4 million digital pixels, the display is uniquely suited for scientific and technical applications such as visualizing molecular structures or analyzing geological data.&lt;br&gt;\r\n&lt;br&gt;\r\nOffering accurate, brilliant color performance, the Cinema HD delivers up to 16.7 million colors across a wide gamut allowing you to see subtle nuances between colors from soft pastels to rich jewel tones. A wide viewing angle ensures uniform color from edge to edge. Apple''s ColorSync technology allows you to create custom profiles to maintain consistent color onscreen and in print. The result: You can confidently use this display in all your color-critical applications.&lt;br&gt;\r\n&lt;br&gt;\r\nHoused in a new aluminum design, the display has a very thin bezel that enhances visual accuracy. Each display features two FireWire 400 ports and two USB 2.0 ports, making attachment of desktop peripherals, such as iSight, iPod, digital and still cameras, hard drives, printers and scanners, even more accessible and convenient. Taking advantage of the much thinner and lighter footprint of an LCD, the new displays support the VESA (Video Electronics Standards Association) mounting interface standard. Customers with the optional Cinema Display VESA Mount Adapter kit gain the flexibility to mount their display in locations most appropriate for their work environment.&lt;br&gt;\r\n&lt;br&gt;\r\nThe Cinema HD features a single cable design with elegant breakout for the USB 2.0, FireWire 400 and a pure digital connection using the industry standard Digital Video Interface (DVI) interface. The DVI connection allows for a direct pure-digital connection.&lt;/p&gt;\r\n\r\n&lt;h3&gt;Features:&lt;/h3&gt;\r\n\r\n&lt;p&gt;Unrivaled display performance&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;30-inch (viewable) active-matrix liquid crystal display provides breathtaking image quality and vivid, richly saturated color.&lt;/li&gt;\r\n	&lt;li&gt;Support for 2560-by-1600 pixel resolution for display of high definition still and video imagery.&lt;/li&gt;\r\n	&lt;li&gt;Wide-format design for simultaneous display of two full pages of text and graphics.&lt;/li&gt;\r\n	&lt;li&gt;Industry standard DVI connector for direct attachment to Mac- and Windows-based desktops and notebooks&lt;/li&gt;\r\n	&lt;li&gt;Incredibly wide (170 degree) horizontal and vertical viewing angle for maximum visibility and color performance.&lt;/li&gt;\r\n	&lt;li&gt;Lightning-fast pixel response for full-motion digital video playback.&lt;/li&gt;\r\n	&lt;li&gt;Support for 16.7 million saturated colors, for use in all graphics-intensive applications.&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Simple setup and operation&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Single cable with elegant breakout for connection to DVI, USB and FireWire ports&lt;/li&gt;\r\n	&lt;li&gt;Built-in two-port USB 2.0 hub for easy connection of desktop peripheral devices.&lt;/li&gt;\r\n	&lt;li&gt;Two FireWire 400 ports to support iSight and other desktop peripherals&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Sleek, elegant design&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Huge virtual workspace, very small footprint.&lt;/li&gt;\r\n	&lt;li&gt;Narrow Bezel design to minimize visual impact of using dual displays&lt;/li&gt;\r\n	&lt;li&gt;Unique hinge design for effortless adjustment&lt;/li&gt;\r\n	&lt;li&gt;Support for VESA mounting solutions (Apple Cinema Display VESA Mount Adapter sold separately)&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;h3&gt;Technical specifications&lt;/h3&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Screen size (diagonal viewable image size)&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Apple Cinema HD Display: 30 inches (29.7-inch viewable)&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Screen type&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Thin film transistor (TFT) active-matrix liquid crystal display (AMLCD)&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Resolutions&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;2560 x 1600 pixels (optimum resolution)&lt;/li&gt;\r\n	&lt;li&gt;2048 x 1280&lt;/li&gt;\r\n	&lt;li&gt;1920 x 1200&lt;/li&gt;\r\n	&lt;li&gt;1280 x 800&lt;/li&gt;\r\n	&lt;li&gt;1024 x 640&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Display colors (maximum)&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;16.7 million&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Viewing angle (typical)&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;170° horizontal; 170° vertical&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Brightness (typical)&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;30-inch Cinema HD Display: 400 cd/m2&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Contrast ratio (typical)&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;700:1&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Response time (typical)&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;16 ms&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Pixel pitch&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;30-inch Cinema HD Display: 0.250 mm&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Screen treatment&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Antiglare hardcoat&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;User controls (hardware and software)&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Display Power,&lt;/li&gt;\r\n	&lt;li&gt;System sleep, wake&lt;/li&gt;\r\n	&lt;li&gt;Brightness&lt;/li&gt;\r\n	&lt;li&gt;Monitor tilt&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Connectors and cables&lt;/strong&gt;&lt;br&gt;\r\nCable&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;DVI (Digital Visual Interface)&lt;/li&gt;\r\n	&lt;li&gt;FireWire 400&lt;/li&gt;\r\n	&lt;li&gt;USB 2.0&lt;/li&gt;\r\n	&lt;li&gt;DC power (24 V)&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Connectors&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Two-port, self-powered USB 2.0 hub&lt;/li&gt;\r\n	&lt;li&gt;Two FireWire 400 ports&lt;/li&gt;\r\n	&lt;li&gt;Kensington security port&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;VESA mount adapter&lt;/strong&gt;&lt;br&gt;\r\nRequires optional Cinema Display VESA Mount Adapter (M9649G/A)&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Compatible with VESA FDMI (MIS-D, 100, C) compliant mounting solutions&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Electrical requirements&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Input voltage: 100-240 VAC 50-60Hz&lt;/li&gt;\r\n	&lt;li&gt;Maximum power when operating: 150W&lt;/li&gt;\r\n	&lt;li&gt;Energy saver mode: 3W or less&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Environmental requirements&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Operating temperature: 50° to 95° F (10° to 35° C)&lt;/li&gt;\r\n	&lt;li&gt;Storage temperature: -40° to 116° F (-40° to 47° C)&lt;/li&gt;\r\n	&lt;li&gt;Operating humidity: 20% to 80% noncondensing&lt;/li&gt;\r\n	&lt;li&gt;Maximum operating altitude: 10,000 feet&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Agency approvals&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;FCC Part 15 Class B&lt;/li&gt;\r\n	&lt;li&gt;EN55022 Class B&lt;/li&gt;\r\n	&lt;li&gt;EN55024&lt;/li&gt;\r\n	&lt;li&gt;VCCI Class B&lt;/li&gt;\r\n	&lt;li&gt;AS/NZS 3548 Class B&lt;/li&gt;\r\n	&lt;li&gt;CNS 13438 Class B&lt;/li&gt;\r\n	&lt;li&gt;ICES-003 Class B&lt;/li&gt;\r\n	&lt;li&gt;ISO 13406 part 2&lt;/li&gt;\r\n	&lt;li&gt;MPR II&lt;/li&gt;\r\n	&lt;li&gt;IEC 60950&lt;/li&gt;\r\n	&lt;li&gt;UL 60950&lt;/li&gt;\r\n	&lt;li&gt;CSA 60950&lt;/li&gt;\r\n	&lt;li&gt;EN60950&lt;/li&gt;\r\n	&lt;li&gt;ENERGY STAR&lt;/li&gt;\r\n	&lt;li&gt;TCO ''03&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Size and weight&lt;/strong&gt;&lt;br&gt;\r\n30-inch Apple Cinema HD Display&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Height: 21.3 inches (54.3 cm)&lt;/li&gt;\r\n	&lt;li&gt;Width: 27.2 inches (68.8 cm)&lt;/li&gt;\r\n	&lt;li&gt;Depth: 8.46 inches (21.5 cm)&lt;/li&gt;\r\n	&lt;li&gt;Weight: 27.5 pounds (12.5 kg)&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;System Requirements&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Mac Pro, all graphic options&lt;/li&gt;\r\n	&lt;li&gt;MacBook Pro&lt;/li&gt;\r\n	&lt;li&gt;Power Mac G5 (PCI-X) with ATI Radeon 9650 or better or NVIDIA GeForce 6800 GT DDL or better&lt;/li&gt;\r\n	&lt;li&gt;Power Mac G5 (PCI Express), all graphics options&lt;/li&gt;\r\n	&lt;li&gt;PowerBook G4 with dual-link DVI support&lt;/li&gt;\r\n	&lt;li&gt;Windows PC and graphics card that supports DVI ports with dual-link digital bandwidth and VESA DDC standard for plug-and-play setup&lt;/li&gt;\r\n&lt;/ul&gt;\r\n', '', '', ''),
-(43, 1, 'MacBook', '&lt;p&gt;&lt;strong&gt;Intel Core 2 Duo processor&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Powered by an Intel Core 2 Duo processor at speeds up to 2.16GHz, the new MacBook is the fastest ever.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;1GB memory, larger hard drives&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;The new MacBook now comes with 1GB of memory standard and larger hard drives for the entire line perfect for running more of your favorite applications and storing growing media collections.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Sleek, 1.08-inch-thin design&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;MacBook makes it easy to hit the road thanks to its tough polycarbonate case, built-in wireless technologies, and innovative MagSafe Power Adapter that releases automatically if someone accidentally trips on the cord.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Built-in iSight camera&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Right out of the box, you can have a video chat with friends or family,2 record a video at your desk, or take fun pictures with Photo Booth&lt;/p&gt;\r\n', '', '', ''),
-(44, 1, 'MacBook Air', '&lt;p&gt;MacBook Air is ultrathin, ultraportable, and ultra unlike anything else. But you don’t lose inches and pounds overnight. It’s the result of rethinking conventions. Of multiple wireless innovations. And of breakthrough design. With MacBook Air, mobile computing suddenly has a new standard.&lt;/p&gt;\r\n', '', '', ''),
-(45, 1, 'MacBook Pro', '&lt;p&gt;&lt;strong&gt;Latest Intel mobile architecture&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Powered by the most advanced mobile processors from Intel, the new Core 2 Duo MacBook Pro is over 50% faster than the original Core Duo MacBook Pro and now supports up to 4GB of RAM.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Leading-edge graphics&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;The NVIDIA GeForce 8600M GT delivers exceptional graphics processing power. For the ultimate creative canvas, you can even configure the 17-inch model with a 1920-by-1200 resolution display.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Designed for life on the road&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Innovations such as a magnetic power connection and an illuminated keyboard with ambient light sensor put the MacBook Pro in a class by itself.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Connect. Create. Communicate.&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Quickly set up a video conference with the built-in iSight camera. Control presentations and media from up to 30 feet away with the included Apple Remote. Connect to high-bandwidth peripherals with FireWire 800 and DVI.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Next-generation wireless&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Featuring 802.11n wireless technology, the MacBook Pro delivers up to five times the performance and up to twice the range of previous-generation technologies.&lt;/p&gt;\r\n&lt;!-- cpt_container_end --&gt;', '', '', ''),
+(43, 1, 'MacBook', '&lt;p&gt;&lt;strong&gt;Intel Core 2 Duo processor&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Powered by an Intel Core 2 Duo processor at speeds up to 2.16GHz, the new MacBook is the fastest ever.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;1GB memory, larger hard drives&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;The new MacBook now comes with 1GB of memory standard and larger hard drives for the entire line perfect for running more of your favorite applications and storing growing media collections.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Sleek, 1.08-inch-thin design&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;MacBook makes it easy to hit the road thanks to its tough polycarbonate case, built-in wireless technologies, and innovative MagSafe Power Adapter that releases automatically if someone accidentally trips on the cord.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Built-in iSight camera&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Right out of the box, you can have a video chat with friends or family,2 record a video at your desk, or take fun pictures with Photo Booth&lt;/p&gt;\r\n', '', '', 'mac, macbook'),
+(44, 1, 'MacBook Air', '&lt;p&gt;MacBook Air is ultrathin, ultraportable, and ultra unlike anything else. But you don’t lose inches and pounds overnight. It’s the result of rethinking conventions. Of multiple wireless innovations. And of breakthrough design. With MacBook Air, mobile computing suddenly has a new standard.&lt;/p&gt;\r\n', '', '', 'mac, macbook, macbook air'),
+(45, 1, 'MacBook Pro', '&lt;p&gt;&lt;strong&gt;Latest Intel mobile architecture&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Powered by the most advanced mobile processors from Intel, the new Core 2 Duo MacBook Pro is over 50% faster than the original Core Duo MacBook Pro and now supports up to 4GB of RAM.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Leading-edge graphics&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;The NVIDIA GeForce 8600M GT delivers exceptional graphics processing power. For the ultimate creative canvas, you can even configure the 17-inch model with a 1920-by-1200 resolution display.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Designed for life on the road&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Innovations such as a magnetic power connection and an illuminated keyboard with ambient light sensor put the MacBook Pro in a class by itself.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Connect. Create. Communicate.&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Quickly set up a video conference with the built-in iSight camera. Control presentations and media from up to 30 feet away with the included Apple Remote. Connect to high-bandwidth peripherals with FireWire 800 and DVI.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Next-generation wireless&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Featuring 802.11n wireless technology, the MacBook Pro delivers up to five times the performance and up to twice the range of previous-generation technologies.&lt;/p&gt;\r\n&lt;!-- cpt_container_end --&gt;', '', '', 'mac, macbook, macbook pro'),
 (46, 1, 'Sony VAIO', '&lt;p&gt;Unprecedented power. The next generation of processing technology has arrived. Built into the newest VAIO notebooks lies Intel''s latest, most powerful innovation yet: Intel® Centrino® 2 processor technology. Boasting incredible speed, expanded wireless connectivity, enhanced multimedia support and greater energy efficiency, all the high-performance essentials are seamlessly combined into a single chip.&lt;/p&gt;\r\n', '', '', ''),
 (47, 1, 'HP LP3065', '&lt;p&gt;Stop your co-workers in their tracks with the stunning new 30-inch diagonal HP LP3065 Flat Panel Monitor. This flagship monitor features best-in-class performance and presentation features on a huge wide-aspect screen while letting you work as comfortably as possible - you might even forget you''re at the office&lt;/p&gt;\r\n', '', '', ''),
 (48, 1, 'iPod Classic', '&lt;p&gt;&lt;strong&gt;More room to move.&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;With 80GB or 160GB of storage and up to 40 hours of battery life, the new iPod classic lets you enjoy up to 40,000 songs or up to 200 hours of video or any combination wherever you go.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Cover Flow.&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Browse through your music collection by flipping through album art. Select an album to turn it over and see the track list.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Enhanced interface.&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Experience a whole new way to browse and view your music and video.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;Sleeker design.&lt;/strong&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Beautiful, durable, and sleeker than ever, iPod classic now features an anodized aluminum and polished stainless steel enclosure with rounded edges.&lt;/p&gt;\r\n&lt;!-- cpt_container_end --&gt;', '', '', ''),
@@ -2899,7 +2933,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_discount` (
 -- Dumping data for table `ocx_product_discount`
 --
 
-INSERT INTO `ocx_product_discount` VALUES
+INSERT INTO `ocx_product_discount` (`product_discount_id`, `product_id`, `customer_group_id`, `quantity`, `priority`, `price`, `date_start`, `date_end`) VALUES
 (558, 42, 1, 10, 1, '88.0000', '0000-00-00', '0000-00-00'),
 (559, 42, 1, 20, 1, '77.0000', '0000-00-00', '0000-00-00'),
 (560, 42, 1, 30, 1, '66.0000', '0000-00-00', '0000-00-00');
@@ -2930,16 +2964,13 @@ CREATE TABLE IF NOT EXISTS `ocx_product_image` (
   `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`product_image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2668 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2682 ;
 
 --
 -- Dumping data for table `ocx_product_image`
 --
 
-INSERT INTO `ocx_product_image` VALUES
-(2418, 44, 'data/demo/macbook_air_2.jpg', 0),
-(2419, 44, 'data/demo/macbook_air_3.jpg', 0),
-(2420, 44, 'data/demo/macbook_air_4.jpg', 0),
+INSERT INTO `ocx_product_image` (`product_image_id`, `product_id`, `image`, `sort_order`) VALUES
 (2428, 47, 'data/demo/hp_2.jpg', 0),
 (2429, 47, 'data/demo/hp_3.jpg', 0),
 (2432, 41, 'data/demo/imac_2.jpg', 0),
@@ -2966,13 +2997,6 @@ INSERT INTO `ocx_product_image` VALUES
 (2453, 32, 'data/demo/ipod_touch_5.jpg', 0),
 (2454, 32, 'data/demo/ipod_touch_6.jpg', 0),
 (2455, 32, 'data/demo/ipod_touch_7.jpg', 0),
-(2456, 43, 'data/demo/macbook_2.jpg', 0),
-(2457, 43, 'data/demo/macbook_3.jpg', 0),
-(2458, 43, 'data/demo/macbook_4.jpg', 0),
-(2459, 43, 'data/demo/macbook_5.jpg', 0),
-(2460, 45, 'data/demo/macbook_pro_2.jpg', 0),
-(2461, 45, 'data/demo/macbook_pro_3.jpg', 0),
-(2462, 45, 'data/demo/macbook_pro_4.jpg', 0),
 (2463, 31, 'data/demo/nikon_d300_2.jpg', 0),
 (2464, 31, 'data/demo/nikon_d300_3.jpg', 0),
 (2465, 31, 'data/demo/nikon_d300_4.jpg', 0),
@@ -2997,7 +3021,17 @@ INSERT INTO `ocx_product_image` VALUES
 (2664, 42, 'data/demo/canon_eos_5d_2.jpg', 0),
 (2665, 42, 'data/demo/canon_logo.jpg', 0),
 (2666, 42, 'data/demo/compaq_presario.jpg', 0),
-(2667, 42, 'data/demo/hp_1.jpg', 0);
+(2667, 42, 'data/demo/hp_1.jpg', 0),
+(2668, 45, 'data/demo/macbook_pro_2.jpg', 0),
+(2669, 45, 'data/demo/macbook_pro_3.jpg', 0),
+(2670, 45, 'data/demo/macbook_pro_4.jpg', 0),
+(2675, 43, 'data/demo/macbook_2.jpg', 0),
+(2676, 43, 'data/demo/macbook_3.jpg', 0),
+(2677, 43, 'data/demo/macbook_4.jpg', 0),
+(2678, 43, 'data/demo/macbook_5.jpg', 0),
+(2679, 44, 'data/demo/macbook_air_2.jpg', 0),
+(2680, 44, 'data/demo/macbook_air_3.jpg', 0),
+(2681, 44, 'data/demo/macbook_air_4.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -3019,7 +3053,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_option` (
 -- Dumping data for table `ocx_product_option`
 --
 
-INSERT INTO `ocx_product_option` VALUES
+INSERT INTO `ocx_product_option` (`product_option_id`, `product_id`, `option_id`, `option_value`, `required`) VALUES
 (208, 42, 4, 'test', 1),
 (209, 42, 6, '', 1),
 (217, 42, 5, '', 1),
@@ -3060,7 +3094,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_option_value` (
 -- Dumping data for table `ocx_product_option_value`
 --
 
-INSERT INTO `ocx_product_option_value` VALUES
+INSERT INTO `ocx_product_option_value` (`product_option_value_id`, `product_option_id`, `product_id`, `option_id`, `option_value_id`, `quantity`, `subtract`, `price`, `price_prefix`, `points`, `points_prefix`, `weight`, `weight_prefix`) VALUES
 (1, 217, 42, 5, 41, 100, 0, '1.0000', '+', 0, '+', '1.00000000', '+'),
 (2, 217, 42, 5, 42, 200, 1, '2.0000', '+', 0, '+', '2.00000000', '+'),
 (3, 217, 42, 5, 40, 300, 0, '3.0000', '+', 0, '+', '3.00000000', '+'),
@@ -3119,7 +3153,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_related` (
 -- Dumping data for table `ocx_product_related`
 --
 
-INSERT INTO `ocx_product_related` VALUES
+INSERT INTO `ocx_product_related` (`product_id`, `related_id`) VALUES
 (40, 42),
 (41, 42),
 (42, 40),
@@ -3138,14 +3172,13 @@ CREATE TABLE IF NOT EXISTS `ocx_product_reward` (
   `customer_group_id` int(11) NOT NULL,
   `points` int(8) NOT NULL,
   PRIMARY KEY (`product_reward_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=622 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=638 ;
 
 --
 -- Dumping data for table `ocx_product_reward`
 --
 
-INSERT INTO `ocx_product_reward` VALUES
-(565, 44, 1, 700),
+INSERT INTO `ocx_product_reward` (`product_reward_id`, `product_id`, `customer_group_id`, `points`) VALUES
 (568, 47, 1, 300),
 (570, 41, 1, 0),
 (571, 40, 1, 0),
@@ -3153,8 +3186,6 @@ INSERT INTO `ocx_product_reward` VALUES
 (573, 36, 1, 0),
 (574, 34, 1, 0),
 (575, 32, 1, 0),
-(576, 43, 1, 600),
-(577, 45, 1, 800),
 (578, 31, 1, 0),
 (579, 29, 1, 0),
 (580, 49, 1, 1000),
@@ -3162,7 +3193,19 @@ INSERT INTO `ocx_product_reward` VALUES
 (582, 46, 1, 0),
 (604, 28, 1, 400),
 (620, 30, 1, 200),
-(621, 42, 1, 100);
+(621, 42, 1, 100),
+(622, 45, 1, 800),
+(623, 45, 2, 0),
+(624, 45, 3, 0),
+(625, 45, 4, 0),
+(630, 43, 1, 600),
+(631, 43, 2, 0),
+(632, 43, 3, 0),
+(633, 43, 4, 0),
+(634, 44, 1, 700),
+(635, 44, 2, 0),
+(636, 44, 3, 0),
+(637, 44, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -3187,7 +3230,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_special` (
 -- Dumping data for table `ocx_product_special`
 --
 
-INSERT INTO `ocx_product_special` VALUES
+INSERT INTO `ocx_product_special` (`product_special_id`, `product_id`, `customer_group_id`, `priority`, `price`, `date_start`, `date_end`) VALUES
 (483, 30, 1, 1, '80.0000', '0000-00-00', '0000-00-00'),
 (484, 30, 1, 2, '90.0000', '0000-00-00', '0000-00-00'),
 (485, 42, 1, 1, '90.0000', '0000-00-00', '0000-00-00');
@@ -3209,7 +3252,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_to_category` (
 -- Dumping data for table `ocx_product_to_category`
 --
 
-INSERT INTO `ocx_product_to_category` VALUES
+INSERT INTO `ocx_product_to_category` (`product_id`, `category_id`) VALUES
 (28, 24),
 (29, 24),
 (30, 33),
@@ -3286,7 +3329,7 @@ CREATE TABLE IF NOT EXISTS `ocx_product_to_store` (
 -- Dumping data for table `ocx_product_to_store`
 --
 
-INSERT INTO `ocx_product_to_store` VALUES
+INSERT INTO `ocx_product_to_store` (`product_id`, `store_id`) VALUES
 (28, 0),
 (29, 0),
 (30, 0),
@@ -3353,18 +3396,18 @@ DROP TABLE IF EXISTS `ocx_recurring`;
 CREATE TABLE IF NOT EXISTS `ocx_recurring` (
   `recurring_id` int(11) NOT NULL AUTO_INCREMENT,
   `price` decimal(10,4) NOT NULL,
-  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `frequency` enum('day','week','semi_month','month','year') COLLATE utf8_unicode_ci NOT NULL,
   `duration` int(10) unsigned NOT NULL,
   `cycle` int(10) unsigned NOT NULL,
   `trial_status` tinyint(4) NOT NULL,
   `trial_price` decimal(10,4) NOT NULL,
-  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `trial_frequency` enum('day','week','semi_month','month','year') COLLATE utf8_unicode_ci NOT NULL,
   `trial_duration` int(10) unsigned NOT NULL,
   `trial_cycle` int(10) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL,
   `sort_order` int(11) NOT NULL,
   PRIMARY KEY (`recurring_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3376,7 +3419,7 @@ DROP TABLE IF EXISTS `ocx_recurring_description`;
 CREATE TABLE IF NOT EXISTS `ocx_recurring_description` (
   `recurring_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`recurring_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -3428,7 +3471,7 @@ CREATE TABLE IF NOT EXISTS `ocx_return_action` (
 -- Dumping data for table `ocx_return_action`
 --
 
-INSERT INTO `ocx_return_action` VALUES
+INSERT INTO `ocx_return_action` (`return_action_id`, `language_id`, `name`) VALUES
 (1, 1, 'Refunded'),
 (2, 1, 'Credit Issued'),
 (3, 1, 'Replacement Sent');
@@ -3468,7 +3511,7 @@ CREATE TABLE IF NOT EXISTS `ocx_return_reason` (
 -- Dumping data for table `ocx_return_reason`
 --
 
-INSERT INTO `ocx_return_reason` VALUES
+INSERT INTO `ocx_return_reason` (`return_reason_id`, `language_id`, `name`) VALUES
 (1, 1, 'Dead On Arrival'),
 (2, 1, 'Received Wrong Item'),
 (3, 1, 'Order Error'),
@@ -3493,7 +3536,7 @@ CREATE TABLE IF NOT EXISTS `ocx_return_status` (
 -- Dumping data for table `ocx_return_status`
 --
 
-INSERT INTO `ocx_return_status` VALUES
+INSERT INTO `ocx_return_status` (`return_status_id`, `language_id`, `name`) VALUES
 (1, 1, 'Pending'),
 (2, 1, 'Awaiting Products'),
 (3, 1, 'Complete');
@@ -3519,13 +3562,6 @@ CREATE TABLE IF NOT EXISTS `ocx_review` (
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
---
--- Dumping data for table `ocx_review`
---
-
-INSERT INTO `ocx_review` VALUES
-(1, 47, 0, 'jjones', 'Great product, couldn''t live without this laptop.', 4, 1, '2014-10-02 09:15:55', '0000-00-00 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -3538,14 +3574,14 @@ CREATE TABLE IF NOT EXISTS `ocx_route` (
   `route` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
   `query` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`route_id`,`route`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=966 ;
+  PRIMARY KEY (`route_id`,`route`,`slug`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=973 ;
 
 --
 -- Dumping data for table `ocx_route`
 --
 
-INSERT INTO `ocx_route` VALUES
+INSERT INTO `ocx_route` (`route_id`, `route`, `query`, `slug`) VALUES
 (775, 'content/page', 'page_id:6', 'delivery-information'),
 (778, 'content/page', 'page_id:5', 'terms-and-conditions'),
 (785, 'content/page', 'page_id:3', 'privacy-policy'),
@@ -3593,7 +3629,6 @@ INSERT INTO `ocx_route` VALUES
 (857, 'catalog/category', 'category_id:30', 'printers'),
 (863, 'content/page', 'page_id:7', 'return-policy'),
 (864, 'content/page', 'page_id:8', 'affiliate-terms'),
-(882, 'catalog/product', 'product_id:44', 'macbook-air'),
 (885, 'catalog/product', 'product_id:47', 'hp-lp3065'),
 (887, 'catalog/product', 'product_id:41', 'imac'),
 (888, 'catalog/product', 'product_id:40', 'iphone'),
@@ -3601,8 +3636,6 @@ INSERT INTO `ocx_route` VALUES
 (890, 'catalog/product', 'product_id:36', 'ipod-nano'),
 (891, 'catalog/product', 'product_id:34', 'ipod-shuffle'),
 (892, 'catalog/product', 'product_id:32', 'ipod-touch'),
-(893, 'catalog/product', 'product_id:43', 'macbook'),
-(894, 'catalog/product', 'product_id:45', 'macbook-pro'),
 (895, 'catalog/product', 'product_id:31', 'nikon-d300'),
 (896, 'catalog/product', 'product_id:29', 'palm-treo-pro'),
 (897, 'catalog/product', 'product_id:49', 'samsung-galaxy-tab-10-1'),
@@ -3611,12 +3644,15 @@ INSERT INTO `ocx_route` VALUES
 (902, 'content/page', 'page_id:4', 'about-us'),
 (924, 'catalog/product', 'product_id:28', 'htc-touch-hd'),
 (940, 'content/category', 'blog_category_id:1', 'general'),
-(947, 'catalog/category', 'category_id:33', 'cameras'),
 (949, 'catalog/category', 'category_id:20', 'desktops'),
-(952, 'content/category', 'blog_category_id:2', 'latest-product-news'),
 (963, 'catalog/product', 'product_id:30', 'canon-eos-5d'),
 (964, 'catalog/product', 'product_id:42', 'apple-cinema-30-inch'),
-(965, 'content/post', 'post_id:1', 'lorem-ipsum-test-post');
+(966, 'content/category', 'blog_category_id:2', 'latest-product-news'),
+(967, 'content/post', 'post_id:1', 'lorem-ipsum-test-post'),
+(968, 'catalog/category', 'category_id:33', 'cameras'),
+(969, 'catalog/product', 'product_id:45', 'macbook-pro'),
+(971, 'catalog/product', 'product_id:43', 'macbook'),
+(972, 'catalog/product', 'product_id:44', 'macbook-air');
 
 -- --------------------------------------------------------
 
@@ -3633,51 +3669,24 @@ CREATE TABLE IF NOT EXISTS `ocx_setting` (
   `value` text COLLATE utf8_unicode_ci NOT NULL,
   `serialized` tinyint(1) NOT NULL,
   PRIMARY KEY (`setting_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10161 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14414 ;
 
 --
 -- Dumping data for table `ocx_setting`
 --
 
-INSERT INTO `ocx_setting` VALUES
-(1, 0, 'shipping', 'shipping_sort_order', '3', 0),
-(4, 0, 'tax', 'tax_status', '1', 0),
-(7, 0, 'tax', 'tax_sort_order', '5', 0),
-(14, 0, 'shipping', 'shipping_status', '1', 0),
-(15, 0, 'shipping', 'shipping_estimator', '1', 0),
-(34, 0, 'flat', 'flat_sort_order', '1', 0),
-(35, 0, 'flat', 'flat_status', '1', 0),
-(36, 0, 'flat', 'flat_geo_zone_id', '0', 0),
-(37, 0, 'flat', 'flat_tax_class_id', '9', 0),
-(41, 0, 'flat', 'flat_cost', '5.00', 0),
-(53, 0, 'reward', 'reward_sort_order', '2', 0),
-(54, 0, 'reward', 'reward_status', '1', 0),
+INSERT INTO `ocx_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `serialized`) VALUES
 (3743, 0, 'free_checkout', 'free_checkout_order_status_id', '1', 0),
 (3744, 0, 'free_checkout', 'free_checkout_status', '0', 0),
 (3745, 0, 'free_checkout', 'free_checkout_sort_order', '1', 0),
-(3746, 0, 'cod', 'cod_total', '0.01', 0),
-(3747, 0, 'cod', 'cod_order_status_id', '2', 0),
-(3748, 0, 'cod', 'cod_geo_zone_id', '0', 0),
-(3749, 0, 'cod', 'cod_status', '1', 0),
-(3750, 0, 'cod', 'cod_sort_order', '5', 0),
 (3868, 0, 'sub_total', 'sub_total_status', '1', 0),
 (3869, 0, 'sub_total', 'sub_total_sort_order', '1', 0),
 (3872, 0, 'subtotal', 'subtotal_status', '1', 0),
 (3873, 0, 'subtotal', 'subtotal_sort_order', '1', 0),
-(3999, 0, 'coupon', 'coupon_status', '1', 0),
-(4000, 0, 'coupon', 'coupon_sort_order', '4', 0),
-(4001, 0, 'credit', 'credit_status', '1', 0),
-(4002, 0, 'credit', 'credit_sort_order', '6', 0),
-(4003, 0, 'giftcard', 'giftcard_status', '1', 0),
-(4004, 0, 'giftcard', 'giftcard_sort_order', '7', 0),
-(4005, 0, 'total', 'total_status', '1', 0),
-(4006, 0, 'total', 'total_sort_order', '8', 0),
 (4012, 0, 'blog_category', 'blog_category_widget', 'a:1:{i:0;a:4:{s:9:"layout_id";s:1:"6";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}}', 1),
 (4019, 0, 'blog_featured', 'post', '', 0),
 (4020, 0, 'blog_featured', 'blog_featured_post', '', 0),
 (4288, 0, 'postwall_widget', 'postwall_widget', 'a:1:{i:0;a:10:{s:5:"limit";s:2:"12";s:4:"span";s:1:"4";s:6:"height";s:0:"";s:9:"post_type";s:6:"latest";s:11:"description";s:1:"1";s:6:"button";s:1:"1";s:9:"layout_id";s:2:"14";s:8:"position";s:11:"content_top";s:6:"status";s:1:"0";s:10:"sort_order";s:1:"1";}}', 1),
-(9738, 0, 'account', 'account_widget', 'a:1:{i:0;a:4:{s:9:"layout_id";s:1:"6";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}}', 1),
-(9739, 0, 'affiliate', 'affiliate_widget', 'a:1:{i:0;a:4:{s:9:"layout_id";s:2:"10";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}}', 1),
 (9740, 0, 'banner', 'banner_widget', 'a:1:{i:0;a:7:{s:9:"banner_id";s:1:"6";s:5:"width";s:3:"267";s:6:"height";s:3:"267";s:9:"layout_id";s:1:"3";s:8:"position";s:11:"column_left";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"3";}}', 1),
 (9741, 0, 'blogcategory', 'blogcategory_widget', 'a:4:{i:0;a:4:{s:9:"layout_id";s:2:"15";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"2";}i:1;a:4:{s:9:"layout_id";s:2:"14";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"2";}i:2;a:4:{s:9:"layout_id";s:2:"16";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"2";}i:3;a:4:{s:9:"layout_id";s:2:"17";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"2";}}', 1),
 (9742, 0, 'blogfeatured', 'post', '', 0),
@@ -3697,141 +3706,169 @@ INSERT INTO `ocx_setting` VALUES
 (9785, 0, 'sidebarmenu', 'sidebarmenu_widget', 'a:3:{i:0;a:5:{s:7:"menu_id";s:2:"14";s:9:"layout_id";s:1:"3";s:8:"position";s:11:"column_left";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"2";}i:1;a:5:{s:7:"menu_id";s:2:"15";s:9:"layout_id";s:2:"14";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"4";}i:2;a:5:{s:7:"menu_id";s:2:"16";s:9:"layout_id";s:2:"14";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"2";}}', 1),
 (9786, 0, 'footerblocks', 'footerblocks_widget', 'a:8:{i:0;a:5:{s:7:"menu_id";s:1:"5";s:9:"layout_id";s:1:"1";s:8:"position";s:11:"shop_footer";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}i:1;a:5:{s:7:"menu_id";s:1:"7";s:9:"layout_id";s:1:"1";s:8:"position";s:11:"shop_footer";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"2";}i:2;a:5:{s:7:"menu_id";s:1:"8";s:9:"layout_id";s:1:"1";s:8:"position";s:11:"shop_footer";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"3";}i:3;a:5:{s:7:"menu_id";s:2:"13";s:9:"layout_id";s:1:"1";s:8:"position";s:11:"shop_footer";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"4";}i:4;a:5:{s:7:"menu_id";s:2:"10";s:9:"layout_id";s:1:"1";s:8:"position";s:14:"content_footer";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}i:5;a:5:{s:7:"menu_id";s:1:"8";s:9:"layout_id";s:1:"1";s:8:"position";s:14:"content_footer";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"2";}i:6;a:5:{s:7:"menu_id";s:1:"5";s:9:"layout_id";s:1:"1";s:8:"position";s:14:"content_footer";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"3";}i:7;a:5:{s:7:"menu_id";s:2:"16";s:9:"layout_id";s:1:"1";s:8:"position";s:14:"content_footer";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"4";}}', 1),
 (9790, 0, 'slideshow', 'slideshow_widget', 'a:2:{i:0;a:7:{s:9:"banner_id";s:1:"9";s:5:"width";s:4:"1170";s:6:"height";s:3:"340";s:9:"layout_id";s:1:"2";s:8:"position";s:11:"post_header";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}i:1;a:7:{s:9:"banner_id";s:1:"9";s:5:"width";s:4:"1170";s:6:"height";s:3:"340";s:9:"layout_id";s:2:"14";s:8:"position";s:11:"post_header";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}}', 1),
-(9813, 0, 'blog', 'blog_name', 'Oculus Blog', 0),
-(9814, 0, 'blog', 'blog_title', 'Oculus Blog', 0),
-(9815, 0, 'blog', 'blog_meta_description', '', 0),
-(9816, 0, 'blog', 'blog_email', 'blog@ocx.io', 0),
-(9817, 0, 'blog', 'blog_limit', '20', 0),
-(9818, 0, 'blog', 'blog_posted_by', 'username', 0),
-(9819, 0, 'blog', 'blog_comment_status', '1', 0),
-(9820, 0, 'blog', 'blog_comment_require_approve', '1', 0),
-(9821, 0, 'blog', 'blog_admin_group_id', '1', 0),
-(9822, 0, 'blog', 'blog_author_group_id', '1', 0),
-(9823, 0, 'blog', 'blog_logo', '', 0),
-(9824, 0, 'blog', 'blog_icon', '', 0),
-(9825, 0, 'blog', 'blog_image_thumb_width', '200', 0),
-(9826, 0, 'blog', 'blog_image_thumb_height', '200', 0),
-(9827, 0, 'blog', 'blog_image_popup_width', '600', 0),
-(9828, 0, 'blog', 'blog_image_popup_height', '600', 0),
-(9829, 0, 'blog', 'blog_image_post_width', '900', 0),
-(9830, 0, 'blog', 'blog_image_post_height', '300', 0),
-(9831, 0, 'blog', 'blog_image_additional_width', '130', 0),
-(9832, 0, 'blog', 'blog_image_additional_height', '130', 0),
-(9833, 0, 'blog', 'blog_image_related_width', '200', 0),
-(9834, 0, 'blog', 'blog_image_related_height', '200', 0),
-(10048, 0, 'config', 'config_name', 'Your Store', 0),
-(10049, 0, 'config', 'config_owner', 'Your Name', 0),
-(10050, 0, 'config', 'config_address', '77 Massachusetts Ave,\r\nCambridge, MA 02139', 0),
-(10051, 0, 'config', 'config_email', 'email@yoursite.com', 0),
-(10052, 0, 'config', 'config_telephone', '123456789', 0),
-(10053, 0, 'config', 'config_site_style', 'shop', 0),
-(10054, 0, 'config', 'config_title', 'Your Store', 0),
-(10055, 0, 'config', 'config_meta_description', 'My Store', 0),
-(10056, 0, 'config', 'config_theme', 'ghost', 0),
-(10057, 0, 'config', 'config_admin_theme', 'bs3', 0),
-(10058, 0, 'config', 'config_layout_id', '2', 0),
-(10059, 0, 'config', 'config_country_id', '223', 0),
-(10060, 0, 'config', 'config_zone_id', '', 0),
-(10061, 0, 'config', 'config_language', 'en', 0),
-(10062, 0, 'config', 'config_admin_language', 'en', 0),
-(10063, 0, 'config', 'config_currency', 'USD', 0),
-(10064, 0, 'config', 'config_currency_auto', '1', 0),
-(10065, 0, 'config', 'config_length_class_id', '3', 0),
-(10066, 0, 'config', 'config_weight_class_id', '5', 0),
-(10067, 0, 'config', 'config_catalog_limit', '16', 0),
-(10068, 0, 'config', 'config_admin_limit', '10', 0),
-(10069, 0, 'config', 'config_product_count', '0', 0),
-(10070, 0, 'config', 'config_review_status', '1', 0),
-(10071, 0, 'config', 'config_download', '0', 0),
-(10072, 0, 'config', 'config_giftcard_min', '1', 0),
-(10073, 0, 'config', 'config_giftcard_max', '1000', 0),
-(10074, 0, 'config', 'config_tax', '0', 0),
-(10075, 0, 'config', 'config_vat', '0', 0),
-(10076, 0, 'config', 'config_tax_default', '', 0),
-(10077, 0, 'config', 'config_tax_customer', 'shipping', 0),
-(10078, 0, 'config', 'config_customer_online', '0', 0),
-(10079, 0, 'config', 'config_customer_group_id', '1', 0),
-(10080, 0, 'config', 'config_customer_group_display', 'a:1:{i:0;s:1:"1";}', 1),
-(10081, 0, 'config', 'config_customer_price', '0', 0),
-(10082, 0, 'config', 'config_account_id', '3', 0),
-(10083, 0, 'config', 'config_cart_weight', '1', 0),
-(10084, 0, 'config', 'config_guest_checkout', '1', 0),
-(10085, 0, 'config', 'config_checkout_id', '5', 0),
-(10086, 0, 'config', 'config_order_edit', '100', 0),
-(10087, 0, 'config', 'config_invoice_prefix', 'INV-2013-00', 0),
-(10088, 0, 'config', 'config_order_status_id', '2', 0),
-(10089, 0, 'config', 'config_complete_status_id', '5', 0),
-(10090, 0, 'config', 'config_stock_display', '1', 0),
-(10091, 0, 'config', 'config_stock_warning', '0', 0),
-(10092, 0, 'config', 'config_stock_checkout', '0', 0),
-(10093, 0, 'config', 'config_stock_status_id', '5', 0),
-(10094, 0, 'config', 'config_affiliate_terms', '8', 0),
-(10095, 0, 'config', 'config_commission', '10', 0),
-(10096, 0, 'config', 'config_return_id', '7', 0),
-(10097, 0, 'config', 'config_return_status_id', '2', 0),
-(10098, 0, 'config', 'config_logo', 'data/logo.png', 0),
-(10099, 0, 'config', 'config_icon', 'data/favicon.png', 0),
-(10100, 0, 'config', 'config_image_category_width', '180', 0),
-(10101, 0, 'config', 'config_image_category_height', '180', 0),
-(10102, 0, 'config', 'config_image_thumb_width', '451', 0),
-(10103, 0, 'config', 'config_image_thumb_height', '451', 0),
-(10104, 0, 'config', 'config_image_popup_width', '600', 0),
-(10105, 0, 'config', 'config_image_popup_height', '600', 0),
-(10106, 0, 'config', 'config_image_product_width', '213', 0),
-(10107, 0, 'config', 'config_image_product_height', '213', 0),
-(10108, 0, 'config', 'config_image_additional_width', '88', 0),
-(10109, 0, 'config', 'config_image_additional_height', '88', 0),
-(10110, 0, 'config', 'config_image_related_width', '180', 0),
-(10111, 0, 'config', 'config_image_related_height', '180', 0),
-(10112, 0, 'config', 'config_image_compare_width', '140', 0),
-(10113, 0, 'config', 'config_image_compare_height', '140', 0),
-(10114, 0, 'config', 'config_image_wishlist_width', '70', 0),
-(10115, 0, 'config', 'config_image_wishlist_height', '70', 0),
-(10116, 0, 'config', 'config_image_cart_width', '60', 0),
-(10117, 0, 'config', 'config_image_cart_height', '60', 0),
-(10118, 0, 'config', 'config_ftp_host', '', 0),
-(10119, 0, 'config', 'config_ftp_port', '', 0),
-(10120, 0, 'config', 'config_ftp_username', '', 0),
-(10121, 0, 'config', 'config_ftp_password', '', 0),
-(10122, 0, 'config', 'config_ftp_root', '', 0),
-(10123, 0, 'config', 'config_ftp_status', '0', 0),
-(10124, 0, 'config', 'config_mail_protocol', 'mail', 0),
-(10125, 0, 'config', 'config_mail_parameter', '', 0),
-(10126, 0, 'config', 'config_smtp_host', '', 0),
-(10127, 0, 'config', 'config_smtp_username', '', 0),
-(10128, 0, 'config', 'config_smtp_password', '', 0),
-(10129, 0, 'config', 'config_smtp_port', '25', 0),
-(10130, 0, 'config', 'config_smtp_timeout', '5', 0),
-(10131, 0, 'config', 'config_alert_mail', '0', 0),
-(10132, 0, 'config', 'config_account_mail', '0', 0),
-(10133, 0, 'config', 'config_alert_emails', '', 0),
-(10134, 0, 'config', 'config_fraud_detection', '0', 0),
-(10135, 0, 'config', 'config_fraud_key', '', 0),
-(10136, 0, 'config', 'config_fraud_score', '', 0),
-(10137, 0, 'config', 'config_fraud_status_id', '7', 0),
-(10138, 0, 'config', 'config_secure', '0', 0),
-(10139, 0, 'config', 'config_shared', '0', 0),
-(10140, 0, 'config', 'config_top_level', '0', 0),
-(10141, 0, 'config', 'config_ucfirst', '0', 0),
-(10142, 0, 'config', 'config_robots', 'abot\r\ndbot\r\nebot\r\nhbot\r\nkbot\r\nlbot\r\nmbot\r\nnbot\r\nobot\r\npbot\r\nrbot\r\nsbot\r\ntbot\r\nvbot\r\nybot\r\nzbot\r\nbot.\r\nbot/\r\n_bot\r\n.bot\r\n/bot\r\n-bot\r\n:bot\r\n(bot\r\ncrawl\r\nslurp\r\nspider\r\nseek\r\naccoona\r\nacoon\r\nadressendeutschland\r\nah-ha.com\r\nahoy\r\naltavista\r\nananzi\r\nanthill\r\nappie\r\narachnophilia\r\narale\r\naraneo\r\naranha\r\narchitext\r\naretha\r\narks\r\nasterias\r\natlocal\r\natn\r\natomz\r\naugurfind\r\nbackrub\r\nbannana_bot\r\nbaypup\r\nbdfetch\r\nbig brother\r\nbiglotron\r\nbjaaland\r\nblackwidow\r\nblaiz\r\nblog\r\nblo.\r\nbloodhound\r\nboitho\r\nbooch\r\nbradley\r\nbutterfly\r\ncalif\r\ncassandra\r\nccubee\r\ncfetch\r\ncharlotte\r\nchurl\r\ncienciaficcion\r\ncmc\r\ncollective\r\ncomagent\r\ncombine\r\ncomputingsite\r\ncsci\r\ncurl\r\ncusco\r\ndaumoa\r\ndeepindex\r\ndelorie\r\ndepspid\r\ndeweb\r\ndie blinde kuh\r\ndigger\r\nditto\r\ndmoz\r\ndocomo\r\ndownload express\r\ndtaagent\r\ndwcp\r\nebiness\r\nebingbong\r\ne-collector\r\nejupiter\r\nemacs-w3 search engine\r\nesther\r\nevliya celebi\r\nezresult\r\nfalcon\r\nfelix ide\r\nferret\r\nfetchrover\r\nfido\r\nfindlinks\r\nfireball\r\nfish search\r\nfouineur\r\nfunnelweb\r\ngazz\r\ngcreep\r\ngenieknows\r\ngetterroboplus\r\ngeturl\r\nglx\r\ngoforit\r\ngolem\r\ngrabber\r\ngrapnel\r\ngralon\r\ngriffon\r\ngromit\r\ngrub\r\ngulliver\r\nhamahakki\r\nharvest\r\nhavindex\r\nhelix\r\nheritrix\r\nhku www octopus\r\nhomerweb\r\nhtdig\r\nhtml index\r\nhtml_analyzer\r\nhtmlgobble\r\nhubater\r\nhyper-decontextualizer\r\nia_archiver\r\nibm_planetwide\r\nichiro\r\niconsurf\r\niltrovatore\r\nimage.kapsi.net\r\nimagelock\r\nincywincy\r\nindexer\r\ninfobee\r\ninformant\r\ningrid\r\ninktomisearch.com\r\ninspector web\r\nintelliagent\r\ninternet shinchakubin\r\nip3000\r\niron33\r\nisraeli-search\r\nivia\r\njack\r\njakarta\r\njavabee\r\njetbot\r\njumpstation\r\nkatipo\r\nkdd-explorer\r\nkilroy\r\nknowledge\r\nkototoi\r\nkretrieve\r\nlabelgrabber\r\nlachesis\r\nlarbin\r\nlegs\r\nlibwww\r\nlinkalarm\r\nlink validator\r\nlinkscan\r\nlockon\r\nlwp\r\nlycos\r\nmagpie\r\nmantraagent\r\nmapoftheinternet\r\nmarvin/\r\nmattie\r\nmediafox\r\nmediapartners\r\nmercator\r\nmerzscope\r\nmicrosoft url control\r\nminirank\r\nmiva\r\nmj12\r\nmnogosearch\r\nmoget\r\nmonster\r\nmoose\r\nmotor\r\nmultitext\r\nmuncher\r\nmuscatferret\r\nmwd.search\r\nmyweb\r\nnajdi\r\nnameprotect\r\nnationaldirectory\r\nnazilla\r\nncsa beta\r\nnec-meshexplorer\r\nnederland.zoek\r\nnetcarta webmap engine\r\nnetmechanic\r\nnetresearchserver\r\nnetscoop\r\nnewscan-online\r\nnhse\r\nnokia6682/\r\nnomad\r\nnoyona\r\nnutch\r\nnzexplorer\r\nobjectssearch\r\noccam\r\nomni\r\nopen text\r\nopenfind\r\nopenintelligencedata\r\norb search\r\nosis-project\r\npack rat\r\npageboy\r\npagebull\r\npage_verifier\r\npanscient\r\nparasite\r\npartnersite\r\npatric\r\npear.\r\npegasus\r\nperegrinator\r\npgp key agent\r\nphantom\r\nphpdig\r\npicosearch\r\npiltdownman\r\npimptrain\r\npinpoint\r\npioneer\r\npiranha\r\nplumtreewebaccessor\r\npogodak\r\npoirot\r\npompos\r\npoppelsdorf\r\npoppi\r\npopular iconoclast\r\npsycheclone\r\npublisher\r\npython\r\nrambler\r\nraven search\r\nroach\r\nroad runner\r\nroadhouse\r\nrobbie\r\nrobofox\r\nrobozilla\r\nrules\r\nsalty\r\nsbider\r\nscooter\r\nscoutjet\r\nscrubby\r\nsearch.\r\nsearchprocess\r\nsemanticdiscovery\r\nsenrigan\r\nsg-scout\r\nshai''hulud\r\nshark\r\nshopwiki\r\nsidewinder\r\nsift\r\nsilk\r\nsimmany\r\nsite searcher\r\nsite valet\r\nsitetech-rover\r\nskymob.com\r\nsleek\r\nsmartwit\r\nsna-\r\nsnappy\r\nsnooper\r\nsohu\r\nspeedfind\r\nsphere\r\nsphider\r\nspinner\r\nspyder\r\nsteeler/\r\nsuke\r\nsuntek\r\nsupersnooper\r\nsurfnomore\r\nsven\r\nsygol\r\nszukacz\r\ntach black widow\r\ntarantula\r\ntempleton\r\n/teoma\r\nt-h-u-n-d-e-r-s-t-o-n-e\r\ntheophrastus\r\ntitan\r\ntitin\r\ntkwww\r\ntoutatis\r\nt-rex\r\ntutorgig\r\ntwiceler\r\ntwisted\r\nucsd\r\nudmsearch\r\nurl check\r\nupdated\r\nvagabondo\r\nvalkyrie\r\nverticrawl\r\nvictoria\r\nvision-search\r\nvolcano\r\nvoyager/\r\nvoyager-hc\r\nw3c_validator\r\nw3m2\r\nw3mir\r\nwalker\r\nwallpaper\r\nwanderer\r\nwauuu\r\nwavefire\r\nweb core\r\nweb hopper\r\nweb wombat\r\nwebbandit\r\nwebcatcher\r\nwebcopy\r\nwebfoot\r\nweblayers\r\nweblinker\r\nweblog monitor\r\nwebmirror\r\nwebmonkey\r\nwebquest\r\nwebreaper\r\nwebsitepulse\r\nwebsnarf\r\nwebstolperer\r\nwebvac\r\nwebwalk\r\nwebwatch\r\nwebwombat\r\nwebzinger\r\nwhizbang\r\nwhowhere\r\nwild ferret\r\nworldlight\r\nwwwc\r\nwwwster\r\nxenu\r\nxget\r\nxift\r\nxirq\r\nyandex\r\nyanga\r\nyeti\r\nyodao\r\nzao\r\nzippp\r\nzyborg', 0),
-(10143, 0, 'config', 'config_file_extension_allowed', 'txt\r\npng\r\njpe\r\njpeg\r\njpg\r\ngif\r\nbmp\r\nico\r\ntiff\r\ntif\r\nsvg\r\nsvgz\r\nzip\r\nrar\r\nmsi\r\ncab\r\nmp3\r\nqt\r\nmov\r\npdf\r\npsd\r\nai\r\neps\r\nps\r\ndoc\r\nrtf\r\nxls\r\nppt\r\nodt\r\nods', 0),
-(10144, 0, 'config', 'config_file_mime_allowed', 'text/plain\r\nimage/png\r\nimage/jpeg\r\nimage/jpeg\r\nimage/jpeg\r\nimage/gif\r\nimage/bmp\r\nimage/vnd.microsoft.icon\r\nimage/tiff\r\nimage/tiff\r\nimage/svg+xml\r\nimage/svg+xml\r\napplication/zip\r\napplication/x-rar-compressed\r\napplication/x-msdownload\r\napplication/vnd.ms-cab-compressed\r\naudio/mpeg\r\nvideo/quicktime\r\nvideo/quicktime\r\napplication/pdf\r\nimage/vnd.adobe.photoshop\r\napplication/postscript\r\napplication/postscript\r\napplication/postscript\r\napplication/msword\r\napplication/rtf\r\napplication/vnd.ms-excel\r\napplication/vnd.ms-powerpoint\r\napplication/vnd.oasis.opendocument.text\r\napplication/vnd.oasis.opendocument.spreadsheet', 0),
-(10145, 0, 'config', 'config_maintenance', '0', 0),
-(10146, 0, 'config', 'config_password', '1', 0),
-(10147, 0, 'config', 'config_encryption', 'da918f5c5bb2618540b6f15c0f26de0c', 0),
-(10148, 0, 'config', 'config_compression', '0', 0),
-(10149, 0, 'config', 'config_error_display', '1', 0),
-(10150, 0, 'config', 'config_error_log', '1', 0),
-(10151, 0, 'config', 'config_error_filename', 'error.txt', 0),
-(10152, 0, 'config', 'config_google_analytics', '', 0),
-(10153, 0, 'config', 'config_cache_type_id', 'file', 0),
-(10154, 0, 'config', 'config_default_visibility', '1', 0),
-(10155, 0, 'config', 'config_free_customer', '1', 0),
-(10156, 0, 'config', 'config_top_customer', '1', 0),
-(10157, 0, 'config', 'config_mail_twitter', 'TwitterHandle', 0),
-(10158, 0, 'config', 'config_mail_facebook', 'FacebookPage', 0),
-(10159, 0, 'config', 'config_cache_status', '0', 0),
-(10160, 0, 'config', 'config_affiliate_allowed', '0', 0);
+(11053, 0, 'account', 'account_widget', 'a:2:{i:0;a:4:{s:9:"layout_id";s:1:"6";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}i:1;a:4:{s:9:"layout_id";s:2:"18";s:8:"position";s:12:"column_right";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"1";}}', 1),
+(12547, 0, 'git', 'git_provider', '2', 0),
+(12548, 0, 'git', 'git_url', 'git@github.com:oculusxms/ocx.git', 0),
+(12549, 0, 'git', 'git_branch', 'master', 0),
+(12550, 0, 'git', 'git_status', '1', 0),
+(12698, 0, 'coupon', 'coupon_status', '1', 0),
+(12699, 0, 'coupon', 'coupon_sort_order', '2', 0),
+(12700, 0, 'credit', 'credit_status', '1', 0),
+(12701, 0, 'credit', 'credit_sort_order', '3', 0),
+(12702, 0, 'handling', 'handling_total', '', 0),
+(12703, 0, 'handling', 'handling_fee', '', 0),
+(12704, 0, 'handling', 'handling_tax_class_id', '0', 0),
+(12705, 0, 'handling', 'handling_status', '0', 0),
+(12706, 0, 'handling', 'handling_sort_order', '5', 0),
+(12707, 0, 'loworderfee', 'loworderfee_total', '', 0),
+(12708, 0, 'loworderfee', 'loworderfee_fee', '', 0),
+(12709, 0, 'loworderfee', 'loworderfee_tax_class_id', '0', 0),
+(12710, 0, 'loworderfee', 'loworderfee_status', '0', 0),
+(12711, 0, 'loworderfee', 'loworderfee_sort_order', '6', 0),
+(12712, 0, 'reward', 'reward_status', '1', 0),
+(12713, 0, 'reward', 'reward_sort_order', '9', 0),
+(12714, 0, 'shipping', 'shipping_estimator', '1', 0),
+(12715, 0, 'shipping', 'shipping_status', '1', 0),
+(12716, 0, 'shipping', 'shipping_sort_order', '7', 0),
+(12717, 0, 'tax', 'tax_status', '1', 0),
+(12718, 0, 'tax', 'tax_sort_order', '4', 0),
+(12719, 0, 'total', 'total_status', '1', 0),
+(12720, 0, 'total', 'total_sort_order', '10', 0),
+(14013, 0, 'giftcard', 'giftcard_status', '1', 0),
+(14014, 0, 'giftcard', 'giftcard_sort_order', '8', 0),
+(14281, 0, 'config', 'config_name', 'Your Site', 0),
+(14282, 0, 'config', 'config_owner', 'Your Name', 0),
+(14283, 0, 'config', 'config_address', '77 Massachusetts Ave,\r\nCambridge, MA 02139', 0),
+(14284, 0, 'config', 'config_email', 'info@dais.io', 0),
+(14285, 0, 'config', 'config_telephone', '(123) 456-7890', 0),
+(14286, 0, 'config', 'config_default_visibility', '1', 0),
+(14287, 0, 'config', 'config_free_customer', '2', 0),
+(14288, 0, 'config', 'config_top_customer', '4', 0),
+(14289, 0, 'config', 'config_site_style', 'content', 0),
+(14290, 0, 'config', 'config_home_page', '0', 0),
+(14291, 0, 'config', 'config_title', 'Your Store', 0),
+(14292, 0, 'config', 'config_meta_description', 'My Store', 0),
+(14293, 0, 'config', 'config_theme', 'ghost', 0),
+(14294, 0, 'config', 'config_admin_theme', 'bs3', 0),
+(14295, 0, 'config', 'config_layout_id', '2', 0),
+(14296, 0, 'config', 'config_country_id', '223', 0),
+(14297, 0, 'config', 'config_zone_id', '3616', 0),
+(14298, 0, 'config', 'config_language', 'en', 0),
+(14299, 0, 'config', 'config_admin_language', 'en', 0),
+(14300, 0, 'config', 'config_currency', 'USD', 0),
+(14301, 0, 'config', 'config_currency_auto', '1', 0),
+(14302, 0, 'config', 'config_length_class_id', '3', 0),
+(14303, 0, 'config', 'config_weight_class_id', '5', 0),
+(14304, 0, 'config', 'config_catalog_limit', '16', 0),
+(14305, 0, 'config', 'config_admin_limit', '10', 0),
+(14306, 0, 'config', 'config_product_count', '0', 0),
+(14307, 0, 'config', 'config_review_status', '1', 0),
+(14308, 0, 'config', 'config_review_logged', '0', 0),
+(14309, 0, 'config', 'config_download', '0', 0),
+(14310, 0, 'config', 'blog_posted_by', 'user_name', 0),
+(14311, 0, 'config', 'blog_comment_status', '1', 0),
+(14312, 0, 'config', 'blog_comment_logged', '0', 0),
+(14313, 0, 'config', 'blog_comment_require_approve', '1', 0),
+(14314, 0, 'config', 'blog_admin_group_id', '1', 0),
+(14315, 0, 'config', 'blog_image_thumb_width', '200', 0),
+(14316, 0, 'config', 'blog_image_thumb_height', '200', 0),
+(14317, 0, 'config', 'blog_image_popup_width', '600', 0),
+(14318, 0, 'config', 'blog_image_popup_height', '600', 0),
+(14319, 0, 'config', 'blog_image_post_width', '900', 0),
+(14320, 0, 'config', 'blog_image_post_height', '300', 0),
+(14321, 0, 'config', 'blog_image_additional_width', '130', 0),
+(14322, 0, 'config', 'blog_image_additional_height', '130', 0),
+(14323, 0, 'config', 'blog_image_related_width', '200', 0),
+(14324, 0, 'config', 'blog_image_related_height', '200', 0),
+(14325, 0, 'config', 'config_giftcard_min', '25.00', 0),
+(14326, 0, 'config', 'config_giftcard_max', '1000.00', 0),
+(14327, 0, 'config', 'config_tax', '0', 0),
+(14328, 0, 'config', 'config_vat', '0', 0),
+(14329, 0, 'config', 'config_tax_default', '', 0),
+(14330, 0, 'config', 'config_tax_customer', 'shipping', 0),
+(14331, 0, 'config', 'config_customer_online', '0', 0),
+(14332, 0, 'config', 'config_customer_group_id', '2', 0),
+(14333, 0, 'config', 'config_customer_group_display', 'a:1:{i:0;s:1:"2";}', 1),
+(14334, 0, 'config', 'config_customer_price', '0', 0),
+(14335, 0, 'config', 'config_account_id', '3', 0),
+(14336, 0, 'config', 'config_cart_weight', '1', 0),
+(14337, 0, 'config', 'config_guest_checkout', '1', 0),
+(14338, 0, 'config', 'config_checkout_id', '5', 0),
+(14339, 0, 'config', 'config_order_edit', '100', 0),
+(14340, 0, 'config', 'config_invoice_prefix', 'INV-2013-00', 0),
+(14341, 0, 'config', 'config_order_status_id', '2', 0),
+(14342, 0, 'config', 'config_complete_status_id', '5', 0),
+(14343, 0, 'config', 'config_stock_display', '1', 0),
+(14344, 0, 'config', 'config_stock_warning', '0', 0),
+(14345, 0, 'config', 'config_stock_checkout', '0', 0),
+(14346, 0, 'config', 'config_stock_status_id', '5', 0),
+(14347, 0, 'config', 'config_affiliate_allowed', '1', 0),
+(14348, 0, 'config', 'config_affiliate_terms', '8', 0),
+(14349, 0, 'config', 'config_commission', '10', 0),
+(14350, 0, 'config', 'config_return_id', '7', 0),
+(14351, 0, 'config', 'config_return_status_id', '2', 0),
+(14352, 0, 'config', 'config_logo', 'data/logo.png', 0),
+(14353, 0, 'config', 'config_icon', 'data/favicon.png', 0),
+(14354, 0, 'config', 'config_image_category_width', '180', 0),
+(14355, 0, 'config', 'config_image_category_height', '180', 0),
+(14356, 0, 'config', 'config_image_thumb_width', '451', 0),
+(14357, 0, 'config', 'config_image_thumb_height', '451', 0),
+(14358, 0, 'config', 'config_image_popup_width', '600', 0),
+(14359, 0, 'config', 'config_image_popup_height', '600', 0),
+(14360, 0, 'config', 'config_image_product_width', '213', 0),
+(14361, 0, 'config', 'config_image_product_height', '213', 0),
+(14362, 0, 'config', 'config_image_additional_width', '88', 0),
+(14363, 0, 'config', 'config_image_additional_height', '88', 0),
+(14364, 0, 'config', 'config_image_related_width', '180', 0),
+(14365, 0, 'config', 'config_image_related_height', '180', 0),
+(14366, 0, 'config', 'config_image_compare_width', '140', 0),
+(14367, 0, 'config', 'config_image_compare_height', '140', 0),
+(14368, 0, 'config', 'config_image_wishlist_width', '70', 0),
+(14369, 0, 'config', 'config_image_wishlist_height', '70', 0),
+(14370, 0, 'config', 'config_image_cart_width', '60', 0),
+(14371, 0, 'config', 'config_image_cart_height', '60', 0),
+(14372, 0, 'config', 'config_ftp_host', '', 0),
+(14373, 0, 'config', 'config_ftp_port', '', 0),
+(14374, 0, 'config', 'config_ftp_username', '', 0),
+(14375, 0, 'config', 'config_ftp_password', '', 0),
+(14376, 0, 'config', 'config_ftp_root', '', 0),
+(14377, 0, 'config', 'config_ftp_status', '0', 0),
+(14378, 0, 'config', 'config_mail_protocol', '', 0),
+(14379, 0, 'config', 'config_mail_parameter', '', 0),
+(14380, 0, 'config', 'config_smtp_host', '', 0),
+(14381, 0, 'config', 'config_smtp_username', '', 0),
+(14382, 0, 'config', 'config_smtp_password', '', 0),
+(14383, 0, 'config', 'config_smtp_port', '', 0),
+(14384, 0, 'config', 'config_smtp_timeout', '', 0),
+(14385, 0, 'config', 'config_admin_email_user', '1', 0),
+(14386, 0, 'config', 'config_html_signature', '&lt;p style=&quot;margin-top: 0;color: #212425;font-family: sans-serif;font-size: 16px;line-height: 24px;margin-bottom: 24px&quot;&gt;\r\n &lt;em&gt;\r\n    Thanks so much,\r\n &lt;/em&gt;\r\n&lt;/p&gt;\r\n&lt;p style=&quot;margin-top: 0;color: #212425;font-family: sans-serif;font-size: 16px;line-height: 24px;margin-bottom: 24px&quot;&gt;\r\n &lt;em&gt;\r\n    !store_name! Administration\r\n   &lt;br&gt;\r\n    &lt;a href=&quot;!store_url!&quot; target=&quot;_blank&quot;&gt;\r\n      !store_url!\r\n   &lt;/a&gt;\r\n  &lt;/em&gt;\r\n&lt;/p&gt;', 0),
+(14387, 0, 'config', 'config_text_signature', 'Thanks so much,\r\n\r\n!store_name! Administration\r\n!store_url!', 0),
+(14388, 0, 'config', 'config_mail_twitter', 'TwitterHandle', 0),
+(14389, 0, 'config', 'config_mail_facebook', 'FacebookPage', 0),
+(14390, 0, 'config', 'config_alert_mail', '0', 0),
+(14391, 0, 'config', 'config_account_mail', '0', 0),
+(14392, 0, 'config', 'config_alert_emails', '', 0),
+(14393, 0, 'config', 'config_fraud_detection', '0', 0),
+(14394, 0, 'config', 'config_fraud_key', '', 0),
+(14395, 0, 'config', 'config_fraud_score', '', 0),
+(14396, 0, 'config', 'config_fraud_status_id', '7', 0),
+(14397, 0, 'config', 'config_secure', '0', 0),
+(14398, 0, 'config', 'config_shared', '0', 0),
+(14399, 0, 'config', 'config_top_level', '0', 0),
+(14400, 0, 'config', 'config_ucfirst', '1', 0),
+(14401, 0, 'config', 'config_robots', 'abot\r\ndbot\r\nebot\r\nhbot\r\nkbot\r\nlbot\r\nmbot\r\nnbot\r\nobot\r\npbot\r\nrbot\r\nsbot\r\ntbot\r\nvbot\r\nybot\r\nzbot\r\nbot.\r\nbot/\r\n_bot\r\n.bot\r\n/bot\r\n-bot\r\n:bot\r\n(bot\r\ncrawl\r\nslurp\r\nspider\r\nseek\r\naccoona\r\nacoon\r\nadressendeutschland\r\nah-ha.com\r\nahoy\r\naltavista\r\nananzi\r\nanthill\r\nappie\r\narachnophilia\r\narale\r\naraneo\r\naranha\r\narchitext\r\naretha\r\narks\r\nasterias\r\natlocal\r\natn\r\natomz\r\naugurfind\r\nbackrub\r\nbannana_bot\r\nbaypup\r\nbdfetch\r\nbig brother\r\nbiglotron\r\nbjaaland\r\nblackwidow\r\nblaiz\r\nblog\r\nblo.\r\nbloodhound\r\nboitho\r\nbooch\r\nbradley\r\nbutterfly\r\ncalif\r\ncassandra\r\nccubee\r\ncfetch\r\ncharlotte\r\nchurl\r\ncienciaficcion\r\ncmc\r\ncollective\r\ncomagent\r\ncombine\r\ncomputingsite\r\ncsci\r\ncurl\r\ncusco\r\ndaumoa\r\ndeepindex\r\ndelorie\r\ndepspid\r\ndeweb\r\ndie blinde kuh\r\ndigger\r\nditto\r\ndmoz\r\ndocomo\r\ndownload express\r\ndtaagent\r\ndwcp\r\nebiness\r\nebingbong\r\ne-collector\r\nejupiter\r\nemacs-w3 search engine\r\nesther\r\nevliya celebi\r\nezresult\r\nfalcon\r\nfelix ide\r\nferret\r\nfetchrover\r\nfido\r\nfindlinks\r\nfireball\r\nfish search\r\nfouineur\r\nfunnelweb\r\ngazz\r\ngcreep\r\ngenieknows\r\ngetterroboplus\r\ngeturl\r\nglx\r\ngoforit\r\ngolem\r\ngrabber\r\ngrapnel\r\ngralon\r\ngriffon\r\ngromit\r\ngrub\r\ngulliver\r\nhamahakki\r\nharvest\r\nhavindex\r\nhelix\r\nheritrix\r\nhku www octopus\r\nhomerweb\r\nhtdig\r\nhtml index\r\nhtml_analyzer\r\nhtmlgobble\r\nhubater\r\nhyper-decontextualizer\r\nia_archiver\r\nibm_planetwide\r\nichiro\r\niconsurf\r\niltrovatore\r\nimage.kapsi.net\r\nimagelock\r\nincywincy\r\nindexer\r\ninfobee\r\ninformant\r\ningrid\r\ninktomisearch.com\r\ninspector web\r\nintelliagent\r\ninternet shinchakubin\r\nip3000\r\niron33\r\nisraeli-search\r\nivia\r\njack\r\njakarta\r\njavabee\r\njetbot\r\njumpstation\r\nkatipo\r\nkdd-explorer\r\nkilroy\r\nknowledge\r\nkototoi\r\nkretrieve\r\nlabelgrabber\r\nlachesis\r\nlarbin\r\nlegs\r\nlibwww\r\nlinkalarm\r\nlink validator\r\nlinkscan\r\nlockon\r\nlwp\r\nlycos\r\nmagpie\r\nmantraagent\r\nmapoftheinternet\r\nmarvin/\r\nmattie\r\nmediafox\r\nmediapartners\r\nmercator\r\nmerzscope\r\nmicrosoft url control\r\nminirank\r\nmiva\r\nmj12\r\nmnogosearch\r\nmoget\r\nmonster\r\nmoose\r\nmotor\r\nmultitext\r\nmuncher\r\nmuscatferret\r\nmwd.search\r\nmyweb\r\nnajdi\r\nnameprotect\r\nnationaldirectory\r\nnazilla\r\nncsa beta\r\nnec-meshexplorer\r\nnederland.zoek\r\nnetcarta webmap engine\r\nnetmechanic\r\nnetresearchserver\r\nnetscoop\r\nnewscan-online\r\nnhse\r\nnokia6682/\r\nnomad\r\nnoyona\r\nnutch\r\nnzexplorer\r\nobjectssearch\r\noccam\r\nomni\r\nopen text\r\nopenfind\r\nopenintelligencedata\r\norb search\r\nosis-project\r\npack rat\r\npageboy\r\npagebull\r\npage_verifier\r\npanscient\r\nparasite\r\npartnersite\r\npatric\r\npear.\r\npegasus\r\nperegrinator\r\npgp key agent\r\nphantom\r\nphpdig\r\npicosearch\r\npiltdownman\r\npimptrain\r\npinpoint\r\npioneer\r\npiranha\r\nplumtreewebaccessor\r\npogodak\r\npoirot\r\npompos\r\npoppelsdorf\r\npoppi\r\npopular iconoclast\r\npsycheclone\r\npublisher\r\npython\r\nrambler\r\nraven search\r\nroach\r\nroad runner\r\nroadhouse\r\nrobbie\r\nrobofox\r\nrobozilla\r\nrules\r\nsalty\r\nsbider\r\nscooter\r\nscoutjet\r\nscrubby\r\nsearch.\r\nsearchprocess\r\nsemanticdiscovery\r\nsenrigan\r\nsg-scout\r\nshai''hulud\r\nshark\r\nshopwiki\r\nsidewinder\r\nsift\r\nsilk\r\nsimmany\r\nsite searcher\r\nsite valet\r\nsitetech-rover\r\nskymob.com\r\nsleek\r\nsmartwit\r\nsna-\r\nsnappy\r\nsnooper\r\nsohu\r\nspeedfind\r\nsphere\r\nsphider\r\nspinner\r\nspyder\r\nsteeler/\r\nsuke\r\nsuntek\r\nsupersnooper\r\nsurfnomore\r\nsven\r\nsygol\r\nszukacz\r\ntach black widow\r\ntarantula\r\ntempleton\r\n/teoma\r\nt-h-u-n-d-e-r-s-t-o-n-e\r\ntheophrastus\r\ntitan\r\ntitin\r\ntkwww\r\ntoutatis\r\nt-rex\r\ntutorgig\r\ntwiceler\r\ntwisted\r\nucsd\r\nudmsearch\r\nurl check\r\nupdated\r\nvagabondo\r\nvalkyrie\r\nverticrawl\r\nvictoria\r\nvision-search\r\nvolcano\r\nvoyager/\r\nvoyager-hc\r\nw3c_validator\r\nw3m2\r\nw3mir\r\nwalker\r\nwallpaper\r\nwanderer\r\nwauuu\r\nwavefire\r\nweb core\r\nweb hopper\r\nweb wombat\r\nwebbandit\r\nwebcatcher\r\nwebcopy\r\nwebfoot\r\nweblayers\r\nweblinker\r\nweblog monitor\r\nwebmirror\r\nwebmonkey\r\nwebquest\r\nwebreaper\r\nwebsitepulse\r\nwebsnarf\r\nwebstolperer\r\nwebvac\r\nwebwalk\r\nwebwatch\r\nwebwombat\r\nwebzinger\r\nwhizbang\r\nwhowhere\r\nwild ferret\r\nworldlight\r\nwwwc\r\nwwwster\r\nxenu\r\nxget\r\nxift\r\nxirq\r\nyandex\r\nyanga\r\nyeti\r\nyodao\r\nzao\r\nzippp\r\nzyborg', 0),
+(14402, 0, 'config', 'config_file_extension_allowed', 'txt\r\npng\r\njpe\r\njpeg\r\njpg\r\ngif\r\nbmp\r\nico\r\ntiff\r\ntif\r\nsvg\r\nsvgz\r\nzip\r\nrar\r\nmsi\r\ncab\r\nmp3\r\nqt\r\nmov\r\npdf\r\npsd\r\nai\r\neps\r\nps\r\ndoc\r\nrtf\r\nxls\r\nppt\r\nodt\r\nods', 0),
+(14403, 0, 'config', 'config_file_mime_allowed', 'text/plain\r\nimage/png\r\nimage/jpeg\r\nimage/jpeg\r\nimage/jpeg\r\nimage/gif\r\nimage/bmp\r\nimage/vnd.microsoft.icon\r\nimage/tiff\r\nimage/tiff\r\nimage/svg+xml\r\nimage/svg+xml\r\napplication/zip\r\napplication/x-rar-compressed\r\napplication/x-msdownload\r\napplication/vnd.ms-cab-compressed\r\naudio/mpeg\r\nvideo/quicktime\r\nvideo/quicktime\r\napplication/pdf\r\nimage/vnd.adobe.photoshop\r\napplication/postscript\r\napplication/postscript\r\napplication/postscript\r\napplication/msword\r\napplication/rtf\r\napplication/vnd.ms-excel\r\napplication/vnd.ms-powerpoint\r\napplication/vnd.oasis.opendocument.text\r\napplication/vnd.oasis.opendocument.spreadsheet', 0),
+(14404, 0, 'config', 'config_maintenance', '0', 0),
+(14405, 0, 'config', 'config_password', '1', 0),
+(14406, 0, 'config', 'config_encryption', 'c3f29e0a7456c5f6509735bdf122561f', 0),
+(14407, 0, 'config', 'config_compression', '', 0),
+(14408, 0, 'config', 'config_error_display', '1', 0),
+(14409, 0, 'config', 'config_error_log', '1', 0),
+(14410, 0, 'config', 'config_error_filename', 'error.txt', 0),
+(14411, 0, 'config', 'config_google_analytics', '', 0),
+(14412, 0, 'config', 'config_cache_type_id', 'file', 0),
+(14413, 0, 'config', 'config_cache_status', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -3851,7 +3888,7 @@ CREATE TABLE IF NOT EXISTS `ocx_stock_status` (
 -- Dumping data for table `ocx_stock_status`
 --
 
-INSERT INTO `ocx_stock_status` VALUES
+INSERT INTO `ocx_stock_status` (`stock_status_id`, `language_id`, `name`) VALUES
 (5, 1, 'Out Of Stock'),
 (6, 1, '2 - 3 Days'),
 (7, 1, 'In Stock'),
@@ -3892,8 +3929,8 @@ CREATE TABLE IF NOT EXISTS `ocx_tax_class` (
 -- Dumping data for table `ocx_tax_class`
 --
 
-INSERT INTO `ocx_tax_class` VALUES
-(9, 'Taxable Goods', 'products requiring sales tax', '2009-01-06 23:21:53', '2014-06-28 00:37:14'),
+INSERT INTO `ocx_tax_class` (`tax_class_id`, `title`, `description`, `date_added`, `date_modified`) VALUES
+(9, 'Taxable Goods', 'products requiring sales tax', '2009-01-06 23:21:53', '2015-03-25 17:54:51'),
 (10, 'Downloadable Products', 'Downloadable', '2011-09-21 22:19:39', '2014-06-28 00:33:19');
 
 -- --------------------------------------------------------
@@ -3918,8 +3955,8 @@ CREATE TABLE IF NOT EXISTS `ocx_tax_rate` (
 -- Dumping data for table `ocx_tax_rate`
 --
 
-INSERT INTO `ocx_tax_rate` VALUES
-(88, 6, 'AZ Sales Tax', '8.1000', 'P', '2014-06-28 00:36:45', '2014-09-08 00:16:33');
+INSERT INTO `ocx_tax_rate` (`tax_rate_id`, `geo_zone_id`, `name`, `rate`, `type`, `date_added`, `date_modified`) VALUES
+(88, 6, 'AZ Sales Tax', '8.1000', 'P', '2014-06-28 00:36:45', '2015-03-25 17:47:59');
 
 -- --------------------------------------------------------
 
@@ -3938,8 +3975,11 @@ CREATE TABLE IF NOT EXISTS `ocx_tax_rate_to_customer_group` (
 -- Dumping data for table `ocx_tax_rate_to_customer_group`
 --
 
-INSERT INTO `ocx_tax_rate_to_customer_group` VALUES
-(88, 1);
+INSERT INTO `ocx_tax_rate_to_customer_group` (`tax_rate_id`, `customer_group_id`) VALUES
+(88, 1),
+(88, 2),
+(88, 3),
+(88, 4);
 
 -- --------------------------------------------------------
 
@@ -3955,14 +3995,14 @@ CREATE TABLE IF NOT EXISTS `ocx_tax_rule` (
   `based` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `priority` int(5) NOT NULL DEFAULT '1',
   PRIMARY KEY (`tax_rule_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=130 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=131 ;
 
 --
 -- Dumping data for table `ocx_tax_rule`
 --
 
-INSERT INTO `ocx_tax_rule` VALUES
-(129, 9, 88, 'shipping', 1);
+INSERT INTO `ocx_tax_rule` (`tax_rule_id`, `tax_class_id`, `tax_rate_id`, `based`, `priority`) VALUES
+(130, 9, 88, 'shipping', 1);
 
 -- --------------------------------------------------------
 
@@ -3988,13 +4028,6 @@ CREATE TABLE IF NOT EXISTS `ocx_user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
---
--- Dumping data for table `ocx_user`
---
-
-INSERT INTO `ocx_user` VALUES
-(1, 1, 'admin', '4362c63b295d63cb1dd413bd5cbb3db22b788783', 'b53d923ad', 'Admin', 'User', 'admin@yoursite.com', '', '127.0.0.1', 1, '2014-09-30 18:42:38', '2014-10-02 08:43:43');
-
 -- --------------------------------------------------------
 
 --
@@ -4013,92 +4046,23 @@ CREATE TABLE IF NOT EXISTS `ocx_user_group` (
 -- Dumping data for table `ocx_user_group`
 --
 
-INSERT INTO `ocx_user_group` VALUES
-(1, 'Top Administrator', 'a:2:{s:6:"access";a:133:{i:0;s:17:"catalog/attribute";i:1;s:22:"catalog/attributegroup";i:2;s:16:"catalog/category";i:3;s:16:"catalog/download";i:4;s:14:"catalog/filter";i:5;s:20:"catalog/manufacturer";i:6;s:14:"catalog/option";i:7;s:15:"catalog/product";i:8;s:15:"catalog/profile";i:9;s:14:"catalog/review";i:10;s:10:"common/css";i:11;s:18:"common/filemanager";i:12;s:17:"common/javascript";i:13;s:11:"common/menu";i:14;s:16:"content/category";i:15;s:15:"content/comment";i:16;s:12:"content/page";i:17;s:12:"content/post";i:18;s:15:"content/setting";i:19;s:13:"design/banner";i:20;s:18:"design/customfield";i:21;s:13:"design/layout";i:22;s:15:"feed/googlebase";i:23;s:18:"feed/googlesitemap";i:24;s:20:"localization/country";i:25;s:21:"localization/currency";i:26;s:20:"localization/geozone";i:27;s:21:"localization/language";i:28;s:24:"localization/lengthclass";i:29;s:24:"localization/orderstatus";i:30;s:25:"localization/returnaction";i:31;s:25:"localization/returnreason";i:32;s:25:"localization/returnstatus";i:33;s:24:"localization/stockstatus";i:34;s:21:"localization/taxclass";i:35;s:20:"localization/taxrate";i:36;s:24:"localization/weightclass";i:37;s:17:"localization/zone";i:38;s:11:"module/feed";i:39;s:11:"module/menu";i:40;s:14:"module/payment";i:41;s:13:"module/plugin";i:42;s:15:"module/shipping";i:43;s:12:"module/total";i:44;s:13:"module/widget";i:45;s:20:"payment/authorizenet";i:46;s:20:"payment/banktransfer";i:47;s:13:"payment/check";i:48;s:11:"payment/cod";i:49;s:20:"payment/freecheckout";i:50;s:20:"payment/moneybookers";i:51;s:21:"payment/payflowiframe";i:52;s:21:"payment/paypalexpress";i:53;s:17:"payment/paypalpro";i:54;s:22:"payment/paypalstandard";i:55;s:17:"payment/proiframe";i:56;s:13:"payment/propf";i:57;s:13:"payment/prouk";i:58;s:19:"payment/twocheckout";i:59;s:16:"people/affiliate";i:60;s:14:"people/contact";i:61;s:15:"people/customer";i:62;s:20:"people/customerbanip";i:63;s:20:"people/customergroup";i:64;s:11:"people/user";i:65;s:21:"people/userpermission";i:66;s:26:"report/affiliatecommission";i:67;s:21:"report/customercredit";i:68;s:21:"report/customeronline";i:69;s:20:"report/customerorder";i:70;s:21:"report/customerreward";i:71;s:23:"report/productpurchased";i:72;s:20:"report/productviewed";i:73;s:17:"report/salecoupon";i:74;s:16:"report/saleorder";i:75;s:17:"report/salereturn";i:76;s:19:"report/saleshipping";i:77;s:14:"report/saletax";i:78;s:11:"sale/coupon";i:79;s:10:"sale/order";i:80;s:14:"sale/recurring";i:81;s:12:"sale/returns";i:82;s:12:"sale/voucher";i:83;s:17:"sale/vouchertheme";i:84;s:15:"setting/setting";i:85;s:13:"setting/store";i:86;s:14:"shipping/fedex";i:87;s:13:"shipping/flat";i:88;s:13:"shipping/free";i:89;s:13:"shipping/item";i:90;s:15:"shipping/pickup";i:91;s:12:"shipping/ups";i:92;s:13:"shipping/usps";i:93;s:15:"shipping/weight";i:94;s:11:"tool/backup";i:95;s:13:"tool/errorlog";i:96;s:9:"tool/test";i:97;s:12:"total/coupon";i:98;s:12:"total/credit";i:99;s:14:"total/handling";i:100;s:17:"total/loworderfee";i:101;s:12:"total/reward";i:102;s:14:"total/shipping";i:103;s:14:"total/subtotal";i:104;s:9:"total/tax";i:105;s:11:"total/total";i:106;s:13:"total/voucher";i:107;s:14:"widget/account";i:108;s:16:"widget/affiliate";i:109;s:13:"widget/banner";i:110;s:17:"widget/bestseller";i:111;s:19:"widget/blogcategory";i:112;s:19:"widget/blogfeatured";i:113;s:20:"widget/bloghottopics";i:114;s:17:"widget/bloglatest";i:115;s:17:"widget/blogsearch";i:116;s:15:"widget/carousel";i:117;s:15:"widget/category";i:118;s:15:"widget/featured";i:119;s:19:"widget/footerblocks";i:120;s:17:"widget/headermenu";i:121;s:13:"widget/latest";i:122;s:14:"widget/masonry";i:123;s:11:"widget/page";i:124;s:15:"widget/postwall";i:125;s:18:"widget/sidebarmenu";i:126;s:16:"widget/slideshow";i:127;s:14:"widget/special";i:128;s:14:"widget/welcome";i:129;s:14:"plugin/example";i:130;s:10:"plugin/git";i:131;s:19:"widget/footerblocks";i:132;s:13:"shipping/free";}s:6:"modify";a:133:{i:0;s:17:"catalog/attribute";i:1;s:22:"catalog/attributegroup";i:2;s:16:"catalog/category";i:3;s:16:"catalog/download";i:4;s:14:"catalog/filter";i:5;s:20:"catalog/manufacturer";i:6;s:14:"catalog/option";i:7;s:15:"catalog/product";i:8;s:15:"catalog/profile";i:9;s:14:"catalog/review";i:10;s:10:"common/css";i:11;s:18:"common/filemanager";i:12;s:17:"common/javascript";i:13;s:11:"common/menu";i:14;s:16:"content/category";i:15;s:15:"content/comment";i:16;s:12:"content/page";i:17;s:12:"content/post";i:18;s:15:"content/setting";i:19;s:13:"design/banner";i:20;s:18:"design/customfield";i:21;s:13:"design/layout";i:22;s:15:"feed/googlebase";i:23;s:18:"feed/googlesitemap";i:24;s:20:"localization/country";i:25;s:21:"localization/currency";i:26;s:20:"localization/geozone";i:27;s:21:"localization/language";i:28;s:24:"localization/lengthclass";i:29;s:24:"localization/orderstatus";i:30;s:25:"localization/returnaction";i:31;s:25:"localization/returnreason";i:32;s:25:"localization/returnstatus";i:33;s:24:"localization/stockstatus";i:34;s:21:"localization/taxclass";i:35;s:20:"localization/taxrate";i:36;s:24:"localization/weightclass";i:37;s:17:"localization/zone";i:38;s:11:"module/feed";i:39;s:11:"module/menu";i:40;s:14:"module/payment";i:41;s:13:"module/plugin";i:42;s:15:"module/shipping";i:43;s:12:"module/total";i:44;s:13:"module/widget";i:45;s:20:"payment/authorizenet";i:46;s:20:"payment/banktransfer";i:47;s:13:"payment/check";i:48;s:11:"payment/cod";i:49;s:20:"payment/freecheckout";i:50;s:20:"payment/moneybookers";i:51;s:21:"payment/payflowiframe";i:52;s:21:"payment/paypalexpress";i:53;s:17:"payment/paypalpro";i:54;s:22:"payment/paypalstandard";i:55;s:17:"payment/proiframe";i:56;s:13:"payment/propf";i:57;s:13:"payment/prouk";i:58;s:19:"payment/twocheckout";i:59;s:16:"people/affiliate";i:60;s:14:"people/contact";i:61;s:15:"people/customer";i:62;s:20:"people/customerbanip";i:63;s:20:"people/customergroup";i:64;s:11:"people/user";i:65;s:21:"people/userpermission";i:66;s:26:"report/affiliatecommission";i:67;s:21:"report/customercredit";i:68;s:21:"report/customeronline";i:69;s:20:"report/customerorder";i:70;s:21:"report/customerreward";i:71;s:23:"report/productpurchased";i:72;s:20:"report/productviewed";i:73;s:17:"report/salecoupon";i:74;s:16:"report/saleorder";i:75;s:17:"report/salereturn";i:76;s:19:"report/saleshipping";i:77;s:14:"report/saletax";i:78;s:11:"sale/coupon";i:79;s:10:"sale/order";i:80;s:14:"sale/recurring";i:81;s:12:"sale/returns";i:82;s:12:"sale/voucher";i:83;s:17:"sale/vouchertheme";i:84;s:15:"setting/setting";i:85;s:13:"setting/store";i:86;s:14:"shipping/fedex";i:87;s:13:"shipping/flat";i:88;s:13:"shipping/free";i:89;s:13:"shipping/item";i:90;s:15:"shipping/pickup";i:91;s:12:"shipping/ups";i:92;s:13:"shipping/usps";i:93;s:15:"shipping/weight";i:94;s:11:"tool/backup";i:95;s:13:"tool/errorlog";i:96;s:9:"tool/test";i:97;s:12:"total/coupon";i:98;s:12:"total/credit";i:99;s:14:"total/handling";i:100;s:17:"total/loworderfee";i:101;s:12:"total/reward";i:102;s:14:"total/shipping";i:103;s:14:"total/subtotal";i:104;s:9:"total/tax";i:105;s:11:"total/total";i:106;s:13:"total/voucher";i:107;s:14:"widget/account";i:108;s:16:"widget/affiliate";i:109;s:13:"widget/banner";i:110;s:17:"widget/bestseller";i:111;s:19:"widget/blogcategory";i:112;s:19:"widget/blogfeatured";i:113;s:20:"widget/bloghottopics";i:114;s:17:"widget/bloglatest";i:115;s:17:"widget/blogsearch";i:116;s:15:"widget/carousel";i:117;s:15:"widget/category";i:118;s:15:"widget/featured";i:119;s:19:"widget/footerblocks";i:120;s:17:"widget/headermenu";i:121;s:13:"widget/latest";i:122;s:14:"widget/masonry";i:123;s:11:"widget/page";i:124;s:15:"widget/postwall";i:125;s:18:"widget/sidebarmenu";i:126;s:16:"widget/slideshow";i:127;s:14:"widget/special";i:128;s:14:"widget/welcome";i:129;s:14:"plugin/example";i:130;s:10:"plugin/git";i:131;s:19:"widget/footerblocks";i:132;s:13:"shipping/free";}}');
+INSERT INTO `ocx_user_group` (`user_group_id`, `name`, `permission`) VALUES
+(1, 'Top Administrator', 'a:2:{s:6:"access";a:133:{i:0;s:17:"catalog/attribute";i:1;s:22:"catalog/attributegroup";i:2;s:16:"catalog/category";i:3;s:16:"catalog/download";i:4;s:13:"catalog/event";i:5;s:14:"catalog/filter";i:6;s:20:"catalog/manufacturer";i:7;s:14:"catalog/option";i:8;s:15:"catalog/product";i:9;s:15:"catalog/profile";i:10;s:17:"catalog/recurring";i:11;s:14:"catalog/review";i:12;s:10:"common/css";i:13;s:18:"common/filemanager";i:14;s:17:"common/javascript";i:15;s:11:"common/menu";i:16;s:16:"content/category";i:17;s:15:"content/comment";i:18;s:12:"content/page";i:19;s:12:"content/post";i:20;s:13:"design/banner";i:21;s:18:"design/customfield";i:22;s:13:"design/layout";i:23;s:15:"feed/googlebase";i:24;s:18:"feed/googlesitemap";i:25;s:20:"localization/country";i:26;s:21:"localization/currency";i:27;s:20:"localization/geozone";i:28;s:21:"localization/language";i:29;s:24:"localization/lengthclass";i:30;s:24:"localization/orderstatus";i:31;s:25:"localization/returnaction";i:32;s:25:"localization/returnreason";i:33;s:25:"localization/returnstatus";i:34;s:24:"localization/stockstatus";i:35;s:21:"localization/taxclass";i:36;s:20:"localization/taxrate";i:37;s:24:"localization/weightclass";i:38;s:17:"localization/zone";i:39;s:11:"module/feed";i:40;s:11:"module/menu";i:41;s:19:"module/notification";i:42;s:14:"module/payment";i:43;s:13:"module/plugin";i:44;s:15:"module/shipping";i:45;s:12:"module/total";i:46;s:13:"module/widget";i:47;s:20:"payment/authorizenet";i:48;s:20:"payment/banktransfer";i:49;s:13:"payment/check";i:50;s:11:"payment/cod";i:51;s:20:"payment/freecheckout";i:52;s:20:"payment/moneybookers";i:53;s:21:"payment/payflowiframe";i:54;s:21:"payment/paypalexpress";i:55;s:17:"payment/paypalpro";i:56;s:22:"payment/paypalstandard";i:57;s:17:"payment/proiframe";i:58;s:13:"payment/propf";i:59;s:13:"payment/prouk";i:60;s:19:"payment/twocheckout";i:61;s:14:"people/contact";i:62;s:15:"people/customer";i:63;s:20:"people/customerbanip";i:64;s:20:"people/customergroup";i:65;s:11:"people/user";i:66;s:21:"people/userpermission";i:67;s:26:"report/affiliatecommission";i:68;s:21:"report/customercredit";i:69;s:21:"report/customeronline";i:70;s:20:"report/customerorder";i:71;s:21:"report/customerreward";i:72;s:23:"report/productpurchased";i:73;s:20:"report/productviewed";i:74;s:17:"report/salecoupon";i:75;s:16:"report/saleorder";i:76;s:17:"report/salereturn";i:77;s:19:"report/saleshipping";i:78;s:14:"report/saletax";i:79;s:11:"sale/coupon";i:80;s:13:"sale/giftcard";i:81;s:18:"sale/giftcardtheme";i:82;s:10:"sale/order";i:83;s:14:"sale/recurring";i:84;s:12:"sale/returns";i:85;s:12:"setting/help";i:86;s:15:"setting/setting";i:87;s:13:"setting/store";i:88;s:14:"shipping/fedex";i:89;s:13:"shipping/flat";i:90;s:13:"shipping/free";i:91;s:13:"shipping/item";i:92;s:15:"shipping/pickup";i:93;s:12:"shipping/ups";i:94;s:13:"shipping/usps";i:95;s:15:"shipping/weight";i:96;s:11:"tool/backup";i:97;s:13:"tool/errorlog";i:98;s:9:"tool/test";i:99;s:12:"total/coupon";i:100;s:12:"total/credit";i:101;s:14:"total/giftcard";i:102;s:14:"total/handling";i:103;s:17:"total/loworderfee";i:104;s:12:"total/reward";i:105;s:14:"total/shipping";i:106;s:14:"total/subtotal";i:107;s:9:"total/tax";i:108;s:11:"total/total";i:109;s:14:"widget/account";i:110;s:13:"widget/banner";i:111;s:17:"widget/bestseller";i:112;s:19:"widget/blogcategory";i:113;s:19:"widget/blogfeatured";i:114;s:20:"widget/bloghottopics";i:115;s:17:"widget/bloglatest";i:116;s:17:"widget/blogsearch";i:117;s:15:"widget/carousel";i:118;s:15:"widget/category";i:119;s:12:"widget/event";i:120;s:15:"widget/featured";i:121;s:19:"widget/footerblocks";i:122;s:17:"widget/headermenu";i:123;s:13:"widget/latest";i:124;s:14:"widget/masonry";i:125;s:11:"widget/page";i:126;s:15:"widget/postwall";i:127;s:18:"widget/sidebarmenu";i:128;s:16:"widget/slideshow";i:129;s:14:"widget/special";i:130;s:14:"widget/welcome";i:131;s:14:"plugin/example";i:132;s:10:"plugin/git";}s:6:"modify";a:133:{i:0;s:17:"catalog/attribute";i:1;s:22:"catalog/attributegroup";i:2;s:16:"catalog/category";i:3;s:16:"catalog/download";i:4;s:13:"catalog/event";i:5;s:14:"catalog/filter";i:6;s:20:"catalog/manufacturer";i:7;s:14:"catalog/option";i:8;s:15:"catalog/product";i:9;s:15:"catalog/profile";i:10;s:17:"catalog/recurring";i:11;s:14:"catalog/review";i:12;s:10:"common/css";i:13;s:18:"common/filemanager";i:14;s:17:"common/javascript";i:15;s:11:"common/menu";i:16;s:16:"content/category";i:17;s:15:"content/comment";i:18;s:12:"content/page";i:19;s:12:"content/post";i:20;s:13:"design/banner";i:21;s:18:"design/customfield";i:22;s:13:"design/layout";i:23;s:15:"feed/googlebase";i:24;s:18:"feed/googlesitemap";i:25;s:20:"localization/country";i:26;s:21:"localization/currency";i:27;s:20:"localization/geozone";i:28;s:21:"localization/language";i:29;s:24:"localization/lengthclass";i:30;s:24:"localization/orderstatus";i:31;s:25:"localization/returnaction";i:32;s:25:"localization/returnreason";i:33;s:25:"localization/returnstatus";i:34;s:24:"localization/stockstatus";i:35;s:21:"localization/taxclass";i:36;s:20:"localization/taxrate";i:37;s:24:"localization/weightclass";i:38;s:17:"localization/zone";i:39;s:11:"module/feed";i:40;s:11:"module/menu";i:41;s:19:"module/notification";i:42;s:14:"module/payment";i:43;s:13:"module/plugin";i:44;s:15:"module/shipping";i:45;s:12:"module/total";i:46;s:13:"module/widget";i:47;s:20:"payment/authorizenet";i:48;s:20:"payment/banktransfer";i:49;s:13:"payment/check";i:50;s:11:"payment/cod";i:51;s:20:"payment/freecheckout";i:52;s:20:"payment/moneybookers";i:53;s:21:"payment/payflowiframe";i:54;s:21:"payment/paypalexpress";i:55;s:17:"payment/paypalpro";i:56;s:22:"payment/paypalstandard";i:57;s:17:"payment/proiframe";i:58;s:13:"payment/propf";i:59;s:13:"payment/prouk";i:60;s:19:"payment/twocheckout";i:61;s:14:"people/contact";i:62;s:15:"people/customer";i:63;s:20:"people/customerbanip";i:64;s:20:"people/customergroup";i:65;s:11:"people/user";i:66;s:21:"people/userpermission";i:67;s:26:"report/affiliatecommission";i:68;s:21:"report/customercredit";i:69;s:21:"report/customeronline";i:70;s:20:"report/customerorder";i:71;s:21:"report/customerreward";i:72;s:23:"report/productpurchased";i:73;s:20:"report/productviewed";i:74;s:17:"report/salecoupon";i:75;s:16:"report/saleorder";i:76;s:17:"report/salereturn";i:77;s:19:"report/saleshipping";i:78;s:14:"report/saletax";i:79;s:11:"sale/coupon";i:80;s:13:"sale/giftcard";i:81;s:18:"sale/giftcardtheme";i:82;s:10:"sale/order";i:83;s:14:"sale/recurring";i:84;s:12:"sale/returns";i:85;s:12:"setting/help";i:86;s:15:"setting/setting";i:87;s:13:"setting/store";i:88;s:14:"shipping/fedex";i:89;s:13:"shipping/flat";i:90;s:13:"shipping/free";i:91;s:13:"shipping/item";i:92;s:15:"shipping/pickup";i:93;s:12:"shipping/ups";i:94;s:13:"shipping/usps";i:95;s:15:"shipping/weight";i:96;s:11:"tool/backup";i:97;s:13:"tool/errorlog";i:98;s:9:"tool/test";i:99;s:12:"total/coupon";i:100;s:12:"total/credit";i:101;s:14:"total/giftcard";i:102;s:14:"total/handling";i:103;s:17:"total/loworderfee";i:104;s:12:"total/reward";i:105;s:14:"total/shipping";i:106;s:14:"total/subtotal";i:107;s:9:"total/tax";i:108;s:11:"total/total";i:109;s:14:"widget/account";i:110;s:13:"widget/banner";i:111;s:17:"widget/bestseller";i:112;s:19:"widget/blogcategory";i:113;s:19:"widget/blogfeatured";i:114;s:20:"widget/bloghottopics";i:115;s:17:"widget/bloglatest";i:116;s:17:"widget/blogsearch";i:117;s:15:"widget/carousel";i:118;s:15:"widget/category";i:119;s:12:"widget/event";i:120;s:15:"widget/featured";i:121;s:19:"widget/footerblocks";i:122;s:17:"widget/headermenu";i:123;s:13:"widget/latest";i:124;s:14:"widget/masonry";i:125;s:11:"widget/page";i:126;s:15:"widget/postwall";i:127;s:18:"widget/sidebarmenu";i:128;s:16:"widget/slideshow";i:129;s:14:"widget/special";i:130;s:14:"widget/welcome";i:131;s:14:"plugin/example";i:132;s:10:"plugin/git";}}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocx_giftcard`
+-- Table structure for table `ocx_vanity_route`
 --
 
-DROP TABLE IF EXISTS `ocx_giftcard`;
-CREATE TABLE IF NOT EXISTS `ocx_giftcard` (
-  `giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `from_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `from_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
-  `to_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `to_email` varchar(96) COLLATE utf8_unicode_ci NOT NULL,
-  `giftcard_theme_id` int(11) NOT NULL,
-  `message` text COLLATE utf8_unicode_ci NOT NULL,
-  `amount` decimal(15,4) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`giftcard_id`)
+DROP TABLE IF EXISTS `ocx_vanity_route`;
+CREATE TABLE IF NOT EXISTS `ocx_vanity_route` (
+  `route_id` int(11) NOT NULL AUTO_INCREMENT,
+  `route` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `query` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`route_id`,`route`,`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_giftcard_history`
---
-
-DROP TABLE IF EXISTS `ocx_giftcard_history`;
-CREATE TABLE IF NOT EXISTS `ocx_giftcard_history` (
-  `giftcard_history_id` int(11) NOT NULL AUTO_INCREMENT,
-  `giftcard_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`giftcard_history_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_giftcard_theme`
---
-
-DROP TABLE IF EXISTS `ocx_giftcard_theme`;
-CREATE TABLE IF NOT EXISTS `ocx_giftcard_theme` (
-  `giftcard_theme_id` int(11) NOT NULL AUTO_INCREMENT,
-  `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`giftcard_theme_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
-
---
--- Dumping data for table `ocx_giftcard_theme`
---
-
-INSERT INTO `ocx_giftcard_theme` VALUES
-(6, 'data/demo/apple_logo.jpg'),
-(7, 'data/demo/gift-giftcard-birthday.jpg'),
-(8, 'data/demo/canon_eos_5d_2.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocx_giftcard_theme_description`
---
-
-DROP TABLE IF EXISTS `ocx_giftcard_theme_description`;
-CREATE TABLE IF NOT EXISTS `ocx_giftcard_theme_description` (
-  `giftcard_theme_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`giftcard_theme_id`,`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `ocx_giftcard_theme_description`
---
-
-INSERT INTO `ocx_giftcard_theme_description` VALUES
-(6, 1, 'Christmas'),
-(7, 1, 'Birthday'),
-(8, 1, 'General');
 
 -- --------------------------------------------------------
 
@@ -4117,7 +4081,7 @@ CREATE TABLE IF NOT EXISTS `ocx_weight_class` (
 -- Dumping data for table `ocx_weight_class`
 --
 
-INSERT INTO `ocx_weight_class` VALUES
+INSERT INTO `ocx_weight_class` (`weight_class_id`, `value`) VALUES
 (1, '1.00000000'),
 (2, '1000.00000000'),
 (5, '2.20460000'),
@@ -4131,18 +4095,18 @@ INSERT INTO `ocx_weight_class` VALUES
 
 DROP TABLE IF EXISTS `ocx_weight_class_description`;
 CREATE TABLE IF NOT EXISTS `ocx_weight_class_description` (
-  `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,
+  `weight_class_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `title` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `unit` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`weight_class_id`,`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `ocx_weight_class_description`
 --
 
-INSERT INTO `ocx_weight_class_description` VALUES
+INSERT INTO `ocx_weight_class_description` (`weight_class_id`, `language_id`, `title`, `unit`) VALUES
 (1, 1, 'Kilogram', 'kg'),
 (2, 1, 'Gram', 'g'),
 (5, 1, 'Pound ', 'lb'),
@@ -4168,7 +4132,7 @@ CREATE TABLE IF NOT EXISTS `ocx_zone` (
 -- Dumping data for table `ocx_zone`
 --
 
-INSERT INTO `ocx_zone` VALUES
+INSERT INTO `ocx_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (69, 3, 'Adrar', 'ADR', 0),
 (70, 3, 'Ain Defla', 'ADE', 0),
 (71, 3, 'Ain Temouchent', 'ATE', 0),
@@ -5685,10 +5649,10 @@ INSERT INTO `ocx_zone` VALUES
 (1853, 119, 'Butha-Buthe', 'BB', 0),
 (1854, 119, 'Leribe', 'LE', 0),
 (1855, 119, 'Mafeteng', 'MF', 0),
-(1856, 119, 'Maseru', 'MS', 0),
+(1856, 119, 'Maseru', 'MS', 0);
+INSERT INTO `ocx_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1857, 119, 'Mohale''s Hoek', 'MH', 0),
-(1858, 119, 'Mokhotlong', 'MK', 0);
-INSERT INTO `ocx_zone` VALUES
+(1858, 119, 'Mokhotlong', 'MK', 0),
 (1859, 119, 'Qacha''s Nek', 'QN', 0),
 (1860, 119, 'Quthing', 'QT', 0),
 (1861, 119, 'Thaba-Tseka', 'TT', 0),
@@ -7179,11 +7143,11 @@ INSERT INTO `ocx_zone` VALUES
 (3465, 219, 'Bundibugyo', 'BUN', 0),
 (3466, 219, 'Bushenyi', 'BSH', 0),
 (3467, 219, 'Hoima', 'HOI', 0),
-(3468, 219, 'Kabale', 'KBL', 0),
+(3468, 219, 'Kabale', 'KBL', 0);
+INSERT INTO `ocx_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3469, 219, 'Kabarole', 'KAR', 0),
 (3470, 219, 'Kamwenge', 'KAM', 0),
-(3471, 219, 'Kanungu', 'KAN', 0);
-INSERT INTO `ocx_zone` VALUES
+(3471, 219, 'Kanungu', 'KAN', 0),
 (3472, 219, 'Kasese', 'KAS', 0),
 (3473, 219, 'Kibaale', 'KBA', 0),
 (3474, 219, 'Kisoro', 'KIS', 0),
@@ -7694,6 +7658,6 @@ CREATE TABLE IF NOT EXISTS `ocx_zone_to_geo_zone` (
 -- Dumping data for table `ocx_zone_to_geo_zone`
 --
 
-INSERT INTO `ocx_zone_to_geo_zone` VALUES
+INSERT INTO `ocx_zone_to_geo_zone` (`zone_to_geo_zone_id`, `country_id`, `zone_id`, `geo_zone_id`, `date_added`, `date_modified`) VALUES
 (66, 223, 3616, 5, '2014-06-28 00:35:35', '0000-00-00 00:00:00'),
 (67, 223, 3616, 6, '2014-06-28 00:36:10', '0000-00-00 00:00:00');
